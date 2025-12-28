@@ -1,5 +1,56 @@
 # Spike: Page Builder with Builder.io SDK
 
+> **Outcome: REJECTED**
+>
+> Builder.io's SDK is designed for rendering content created on their hosted platform, not for building standalone editors. The SDK packages (`@builder.io/react` and `@builder.io/sdk-react`) provide no editing capabilities - the editing experience is entirely hosted on builder.io and requires an account. This approach is not viable for a self-hosted portfolio editor.
+
+---
+
+## Spike Findings Summary
+
+### Key Takeaways
+1. **Builder.io is a visual CMS, not a component library** - Their business model is providing the editor as a hosted service
+2. **SDK is for rendering only** - No `<Editor>` component, no drag-and-drop, no inline editing
+3. **Account required for editing** - Cannot build a self-contained editor without their platform
+4. **Bundle overhead for no benefit** - Would add 90KB+ for features we can't use
+
+### Implementation Notes
+The spike built a functional drag-and-drop editor using native HTML5 drag-and-drop APIs instead of Builder.io's SDK. This demonstrated what a custom solution could look like but highlighted that Builder.io provides no value for self-hosted editing.
+
+### Bundle Size
+- Total JS chunks: 692KB
+- Builder.io packages were installed but unused in final implementation
+- If actually using Builder.io SDK for rendering: ~90KB+ additional
+
+### Serialization
+Used a custom JSON schema (not Builder.io's format):
+```json
+{
+  "version": "1.0.0",
+  "components": [
+    {
+      "id": "1703721600000-abc123def",
+      "type": "text",
+      "zone": "header",
+      "props": { "content": "Welcome", "isBold": true, "isItalic": false }
+    }
+  ],
+  "themeName": "light"
+}
+```
+
+### Mobile Touch Assessment
+| Feature | Status |
+|---------|--------|
+| Drag-from-toolbar (touch) | Partial - HTML5 DnD has limited iOS support |
+| Reorder-in-canvas (touch) | Partial - needs touch library |
+| Touch responsiveness | Slight delay |
+
+### Recommendation
+**Do not use Builder.io for this project.** For self-hosted editing, use Craft.js or dnd-kit instead.
+
+---
+
 ## Purpose
 
 Evaluate Builder.io's SDK and approach for building a portfolio editor. Builder.io offers a different paradigm than Craft.js or dnd-kit—it's designed as a visual CMS with both hosted and SDK options. This spike explores whether we can leverage their SDK for a self-contained editing experience.

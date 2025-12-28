@@ -1,5 +1,90 @@
 # Spike: Page Builder with Craft.js
 
+> **Outcome: ACCEPTED (with caveats)**
+>
+> Craft.js provides a solid foundation for building a page editor with clean architecture and reliable serialization. Desktop functionality works well. However, mobile touch support requires significant workarounds due to HTML5 drag-and-drop limitations, and there's friction with React 19/Next.js App Router SSR. Best suited when desktop editing is primary and mobile editing is secondary or view-only.
+
+---
+
+## Spike Findings Summary
+
+### Key Takeaways
+1. **Purpose-built for page builders** - Clean `<Editor>`, `<Frame>`, `<Element>` architecture
+2. **Serialization is excellent** - Human-readable JSON, deterministic output, easy to migrate
+3. **Mobile touch requires workarounds** - HTML5 DnD has limited mobile support, needs `react-dnd-touch-backend` or custom handling
+4. **SSR issues with Next.js App Router** - Requires `dynamic()` import with `ssr: false`
+5. **Moderate bundle size** - Adds ~260-270KB (80-90KB gzipped)
+
+### Bundle Size
+```
+Total .next/static: 956KB
+Craft.js adds approximately:
+- 154KB (Craft.js core)
+- 110KB (Craft.js layers/additional)
+Total Craft.js overhead: ~260-270KB (~80-90KB gzipped)
+```
+
+### Serialization Format
+Clean, human-readable JSON with clear parent-child relationships:
+```json
+{
+  "ROOT": {
+    "type": { "resolvedName": "div" },
+    "isCanvas": true,
+    "nodes": ["header-section", "content-section"]
+  },
+  "header-section": {
+    "type": { "resolvedName": "DroppableContainer" },
+    "isCanvas": true,
+    "props": { "label": "Header Section" },
+    "parent": "ROOT",
+    "nodes": ["text-1"]
+  },
+  "text-1": {
+    "type": { "resolvedName": "TextBlock" },
+    "props": { "text": "Welcome to my portfolio", "bold": true, "italic": false },
+    "parent": "header-section"
+  }
+}
+```
+
+### Mobile Touch Assessment
+| Feature | Desktop | Mobile |
+|---------|---------|--------|
+| Drag from toolbar to canvas | Yes | Partial (needs touch backend) |
+| Reorder in canvas | Yes | Partial (needs touch backend) |
+| Tap to select | Yes | Yes |
+| Double-tap to edit | Yes | Yes |
+
+**Workarounds Required:**
+- `touch-action: none` on all draggable elements
+- 44x44px minimum touch targets
+- Consider `react-dnd-touch-backend` for production
+
+### Pain Points Encountered
+1. **Documentation gaps** - Limited Next.js App Router examples
+2. **React 19 compatibility** - Internal `React.Children.only` calls cause SSR issues
+3. **TypeScript** - Some hooks return `any`, requires manual casting
+4. **Frame children** - Strict about children structure
+
+### Theme Integration
+- **Rating: Good** - Used React Context, works well with inline styles
+- Theme toggle is instant, no flicker
+- Limitation: Theme values not serialized with state (by design)
+
+### Recommendation
+**Use Craft.js when:**
+- Desktop editing is the primary use case
+- You need reliable serialization/deserialization
+- You want a proven page builder architecture
+
+**Consider alternatives when:**
+- Full mobile editing parity is required
+- Bundle size is critical
+- You need maximum control over the DnD behavior
+
+---
+
 ## Purpose
 
 Evaluate Craft.js as the foundation for a portfolio builder's drag-and-drop page editor. This spike builds a minimal prototype to assess mobile touch support, serialization stability, and theme integration.

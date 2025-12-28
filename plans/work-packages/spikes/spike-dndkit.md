@@ -1,5 +1,117 @@
 # Spike: Page Builder with dnd-kit (Custom Solution)
 
+> **Outcome: ACCEPTED**
+>
+> dnd-kit provides excellent mobile touch support out of the box and gives full control over the architecture. All success criteria were met including iPhone touch interactions. The tradeoff is more code investment (~770 lines for the prototype) and handling edge cases manually, but the result is a smaller bundle, complete customization, and the best mobile experience of the three options evaluated.
+
+---
+
+## Spike Findings Summary
+
+### Key Takeaways
+1. **Best mobile touch support** - TouchSensor works well with proper configuration
+2. **Full architectural control** - You own the serialization format and component model
+3. **Smallest bundle** - dnd-kit adds ~120KB (vs ~260KB for Craft.js)
+4. **More code investment** - ~770 lines for basic prototype
+5. **All success criteria met** - Including iPhone touch interactions
+
+### Bundle Size
+```
+Total .next/static: 916KB
+dnd-kit packages:
+- @dnd-kit/core: ~100KB (uncompressed)
+- @dnd-kit/sortable: ~15KB
+- @dnd-kit/utilities: ~5KB
+Total dnd-kit overhead: ~120KB
+```
+
+### Serialization Format
+Custom normalized schema with version field:
+```json
+{
+  "version": "1.0",
+  "sections": {
+    "header": {
+      "id": "header",
+      "title": "Header Section",
+      "componentIds": ["1703721600000-abc123def"]
+    },
+    "content": {
+      "id": "content",
+      "title": "Content Section",
+      "componentIds": ["1703721600001-xyz789ghi"]
+    }
+  },
+  "components": {
+    "1703721600000-abc123def": {
+      "id": "1703721600000-abc123def",
+      "type": "text",
+      "props": { "content": "Welcome to My Page", "isBold": true, "isItalic": false }
+    },
+    "1703721600001-xyz789ghi": {
+      "id": "1703721600001-xyz789ghi",
+      "type": "image",
+      "props": { "alt": "Image placeholder" }
+    }
+  }
+}
+```
+
+### Mobile Touch Assessment
+| Feature | Desktop | Mobile |
+|---------|---------|--------|
+| Drag from toolbar to canvas | Yes | Yes |
+| Reorder in canvas | Yes | Yes |
+| Inline text editing | Yes | Yes |
+| Theme toggle | Yes | Yes |
+
+**TouchSensor Configuration That Worked:**
+```typescript
+useSensor(TouchSensor, {
+  activationConstraint: {
+    delay: 150,     // Long-press to start drag
+    tolerance: 8,   // Movement tolerance during delay
+  },
+})
+```
+
+**Critical CSS:** `touch-action: none` on all draggable elements
+
+### Pain Points Encountered
+1. **State management complexity** - Custom reducer with 7 action types (~150 lines)
+2. **Edge cases** - Drag-to-add vs drag-to-reorder requires careful logic
+3. **SSR hydration mismatch** - Fixed with `useEffect` + `isMounted` pattern
+4. **Code volume** - ~770 lines total for basic prototype
+
+### Code Investment Breakdown
+| Aspect | Lines |
+|--------|-------|
+| Types & interfaces | ~70 |
+| Theme system | ~50 |
+| State management | ~150 |
+| dnd-kit integration | ~100 |
+| UI components | ~400 |
+| **Total** | **~770** |
+
+### Theme Integration
+- **Rating: Easy** - React Context works seamlessly
+- Theme toggle is instant
+- Limitation: CSS-in-JS doesn't support pseudo-classes, need CSS custom properties for production
+
+### Recommendation
+**Use dnd-kit when:**
+- Mobile touch editing is a priority
+- You need full control over serialization format
+- Bundle size is a concern
+- You're comfortable investing in custom architecture
+
+**Consider alternatives when:**
+- Time-to-market is critical
+- You want pre-built component editing UI
+- Team is unfamiliar with state management patterns
+
+---
+
 ## Purpose
 
 Evaluate building a custom page builder using dnd-kit as the drag-and-drop foundation. This spike builds a minimal prototype to assess mobile touch support, serialization stability, and theme integration when rolling your own solution.
