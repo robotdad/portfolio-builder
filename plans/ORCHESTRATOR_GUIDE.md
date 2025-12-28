@@ -153,6 +153,9 @@ This is the first implementation. No previous work exists.
 
 Goal: User can create a page with text, publish it, and view it live.
 
+Working space: Use ai_working/ for any temporary documents, notes, or planning
+during implementation. This is your scratch space.
+
 Follow the demo script as your acceptance test. Meet all success criteria.
 ```
 
@@ -168,6 +171,9 @@ Read:
 Read the codebase to understand what exists. Build on it incrementally.
 
 Goal: [User value from spec]
+
+Working space: Use ai_working/ for any temporary documents, notes, or planning
+during implementation. This is your scratch space.
 
 Important:
 - Build on existing work, don't replace it
