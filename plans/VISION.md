@@ -169,92 +169,18 @@ Draft → Preview → Publish workflow with clear state management:
 
 ---
 
-## Scope Boundaries
+## What's Not In Scope
 
-### Phase 1: Functional Prototype (Slices 1-8)
+These are permanent exclusions that would fundamentally change the product:
 
-**Core editing experience validation:**
-- Text editing with professional formatting
-- Image upload with optimization
-- Gallery components
-- Mobile editing validated on real devices
-- Multi-page sites with navigation
-- Draft/publish workflow
+- ❌ **Team collaboration platform** - Single-user focused by design
+- ❌ **Design-from-scratch page builder** - Theme-constrained to ensure quality
+- ❌ **Complex customization options** - Intentionally limited to prevent decision paralysis
+- ❌ **Social networking features** - Not a community platform
+- ❌ **E-commerce capabilities** - Not a storefront builder
+- ❌ **Multi-tenant SaaS platform** - Single-user installations
 
-**User Value:** Can create and publish complete professional portfolio. Mobile editing proven to work.
-
-**Intentionally deferred to Phase 2:**
-- ⏸️ Authentication system (single-user focus, test with dev access first)
-- ⏸️ Theme selection/customization (validate UX patterns with one theme first)
-
-**Rationale:** Validate highest risk (mobile editing) and prove core value proposition before adding complexity. Get working prototype into users' hands for feedback.
-
-### Phase 2: Production-Ready (After Phase 1 Validation)
-
-**Will add:**
-- Authentication with secure session management
-- Theme selection and customization
-- Accessibility audit and fixes
-- Performance optimization and budgets
-- Production deployment configuration
-
-**Rationale:** After validating core experience works and users want it, add polish and security for production use.
-
-### Not In Scope (Never Building)
-
-These are **permanent exclusions**, not deferred features:
-
-- ❌ **Team collaboration platform:** Single-user focused by design, occasional collaborator access only
-- ❌ **Design-from-scratch page builder:** Theme-constrained by design to ensure quality
-- ❌ **Complex customization options:** Intentionally limited to prevent decision paralysis
-- ❌ **Social networking features:** Not a community platform
-- ❌ **E-commerce capabilities:** Not a storefront builder
-- ❌ **Multi-tenant SaaS platform:** Single-user installations
-
-**Why exclude:** These would fundamentally change the product's focus and complicate the UX beyond our success criteria.
-
----
-
-## Validation Framework
-
-After each implementation slice and at project milestones, validate against our three primary personas:
-
-### Marcus Williams - First Portfolio (New User)
-**Question:** Can Marcus create his first professional portfolio in under 30 minutes without feeling overwhelmed?
-
-**Success signals:**
-- Completes setup without confusion
-- Produces professional-looking result
-- Feels confident sharing with potential clients
-- No technical frustration
-
-### Sarah Chen - Backstage Updates (Mobile Power User)
-**Question:** Can Sarah add production photos and descriptions from her phone backstage in under 5 minutes?
-
-**Success signals:**
-- Camera-to-published workflow is smooth
-- Touch interactions feel native
-- No need to wait until she's at a computer
-- Updates feel quick and effortless
-
-### Emma Rodriguez - Extensive Work (Content Migration)
-**Question:** Can Emma organize and showcase her 20+ years of work efficiently?
-
-**Success signals:**
-- Multi-page organization feels natural
-- Bulk operations save time
-- Navigation creation is straightforward
-- Result feels comprehensive, not cluttered
-
-### Validation Method
-
-At each milestone:
-1. Walk through user scenario as that persona
-2. Note friction points and delights
-3. Measure against time criteria (<30 min, <5 min)
-4. Ask: "Would this person be delighted or frustrated?"
-
-**Success means the answer is "yes" with delight, not grudging acceptance.**
+**Why exclude:** These would complicate the UX beyond our success criteria of <30 minute creation and <5 minute mobile updates.
 
 ---
 
