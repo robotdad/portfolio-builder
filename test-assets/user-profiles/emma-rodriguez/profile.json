@@ -1,0 +1,140 @@
+{
+  "user": {
+    "name": "Emma Rodriguez",
+    "email": "emma.rodriguez@test.costume.design",
+    "title": "Film & Television Costume Supervisor",
+    "bio": "Award-winning costume designer and supervisor with over 20 years in film and television. Known for meticulous period accuracy and innovative contemporary designs. Based in Los Angeles, working with major studios on feature films and premium television series.",
+    "location": "Los Angeles, CA",
+    "phone": "+1 (323) 555-0284",
+    "website": "www.emmarodzdesign.com",
+    "socialMedia": {
+      "instagram": "@emmarodriguezcostumes",
+      "linkedin": "/in/emma-rodriguez-costume-supervisor",
+      "imdb": "nm1234567"
+    }
+  },
+  "portfolio": {
+    "title": "Emma Rodriguez - Costume Supervisor",
+    "tagline": "Two decades of storytelling through costume design",
+    "theme": "classic-elegant",
+    "pages": [
+      {
+        "title": "About",
+        "slug": "about",
+        "content": "With over two decades in the entertainment industry, I bring historical accuracy and creative innovation to every project. My work spans blockbuster films, acclaimed television series, and independent productions.\n\nAs a Costume Designers Guild Award recipient, I've supervised costume departments on productions ranging from intimate character studies to massive period epics. I believe every costume choice should serve the story while honoring the craft of filmmaking.\n\nBased in Los Angeles, I collaborate with directors, producers, and actors to create authentic worlds through meticulously researched and beautifully crafted costumes."
+      },
+      {
+        "title": "Film Work",
+        "slug": "film-work",
+        "content": "Feature film projects spanning multiple genres and historical periods.",
+        "projects": [
+          {
+            "title": "The Last Victory (Period Drama)",
+            "year": "2023",
+            "description": "WWII-era drama requiring extensive 1940s research and period accuracy. Supervised costume department of 15 for 2,000+ background actors across multiple European locations.",
+            "images": ["period-film-1940s-group.jpg", "historical-research-spread.jpg"],
+            "role": "Costume Supervisor",
+            "budget": "$2.8M costume budget",
+            "recognition": "Nominated - Costume Designers Guild Award"
+          },
+          {
+            "title": "Stellar Horizon (Sci-Fi)",
+            "year": "2022",
+            "description": "Futuristic space epic blending practical costume construction with digital enhancement. Designed innovative fabrics and silhouettes for alien civilizations.",
+            "images": ["sci-fi-futuristic-costumes.jpg", "detail-craftsmanship-macro.jpg"],
+            "role": "Costume Designer",
+            "budget": "$4.2M costume budget"
+          },
+          {
+            "title": "Desert Wind (Western)",
+            "year": "2021",
+            "description": "Authentic 1880s western requiring extensive aging and weathering techniques. Every costume told the story of harsh frontier life.",
+            "images": ["western-authentic-wear.jpg", "period-accessories-collection.jpg"],
+            "role": "Costume Designer",
+            "recognition": "Winner - Costume Designers Guild Award for Period Film"
+          },
+          {
+            "title": "The Gilded Age Mystery",
+            "year": "2020",
+            "description": "Victorian-era murder mystery requiring extensive historical research and elaborate period construction. Featured 50+ principal costume changes.",
+            "images": ["victorian-ballroom-scene.jpg", "costume-department-busy.jpg"],
+            "role": "Costume Supervisor"
+          }
+        ]
+      },
+      {
+        "title": "Television",
+        "slug": "television",
+        "content": "Long-form television work including series development and multi-season character evolution.",
+        "projects": [
+          {
+            "title": "City Lights (Drama Series)",
+            "year": "2023-Present",
+            "description": "Contemporary legal drama now in its third season. Responsible for establishing character archetypes through wardrobe that evolved over 60+ episodes.",
+            "images": ["tv-series-contemporary.jpg", "character-wardrobe-evolution.jpg"],
+            "role": "Costume Designer",
+            "seasons": "3 seasons, 66 episodes"
+          },
+          {
+            "title": "The Ashworth Estate (Period Series)",
+            "year": "2022-2023",
+            "description": "Edwardian family saga requiring extensive research into British class distinctions expressed through clothing. Managed continuity across two seasons.",
+            "images": ["period-tv-edwardian.jpg", "on-set-continuity-check.jpg"],
+            "role": "Costume Supervisor",
+            "seasons": "2 seasons, 20 episodes"
+          },
+          {
+            "title": "Family Matters (Comedy Series)",
+            "year": "2019-2022",
+            "description": "Multi-camera family sitcom emphasizing character personality through accessible, relatable wardrobe choices.",
+            "images": ["comedy-series-wardrobe.jpg", "series-wrap-costumes.jpg"],
+            "role": "Costume Designer",
+            "seasons": "4 seasons, 88 episodes"
+          }
+        ]
+      },
+      {
+        "title": "Awards & Recognition",
+        "slug": "awards",
+        "content": "Industry recognition and career highlights spanning two decades in entertainment.",
+        "achievements": [
+          {
+            "title": "Costume Designers Guild Award",
+            "year": "2021",
+            "category": "Excellence in Period Film",
+            "project": "Desert Wind"
+          },
+          {
+            "title": "CDG Award Nomination",
+            "year": "2023",
+            "category": "Excellence in Period Film",
+            "project": "The Last Victory"
+          },
+          {
+            "title": "Emmy Nomination",
+            "year": "2020",
+            "category": "Outstanding Period Costumes",
+            "project": "The Ashworth Estate"
+          }
+        ],
+        "images": ["awards-ceremony-podium.jpg", "costume-exhibition-display.jpg", "industry-panel-speaking.jpg"]
+      },
+      {
+        "title": "Process",
+        "slug": "process",
+        "content": "Behind-the-scenes look at professional costume department operations and design methodology.",
+        "images": ["actor-costume-fitting.jpg", "costume-department-busy.jpg", "tv-quick-change-setup.jpg"]
+      }
+    ]
+  },
+  "preferences": {
+    "autoSave": true,
+    "mobileNotifications": false,
+    "portfolioPrivacy": "public"
+  },
+  "stats": {
+    "portfolioViews": 12847,
+    "lastLogin": "2024-01-13T08:20:00Z",
+    "accountCreated": "2019-03-22T11:45:00Z"
+  }
+}

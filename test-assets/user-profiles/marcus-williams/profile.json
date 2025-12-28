@@ -1,0 +1,57 @@
+{
+  "user": {
+    "name": "Marcus Williams",
+    "email": "marcus.williams@test.costume.design",
+    "title": "Fashion Designer",
+    "bio": "Emerging fashion designer fresh from SCAD with a focus on sustainable streetwear and contemporary silhouettes. Passionate about ethical fashion and innovative textile treatments.",
+    "location": "Atlanta, GA",
+    "phone": "+1 (404) 555-0198",
+    "website": "",
+    "socialMedia": {
+      "instagram": "@marcuswilliamsdesign",
+      "tiktok": "@mwdesigns"
+    }
+  },
+  "portfolio": {
+    "title": "Marcus Williams Design",
+    "tagline": "Sustainable fashion for the modern world",
+    "theme": "modern-minimal",
+    "pages": [
+      {
+        "title": "About",
+        "slug": "about",
+        "content": "I'm a recent graduate from the Savannah College of Art and Design with a BFA in Fashion Design. My work focuses on creating sustainable, wearable pieces that don't compromise on style.\n\nInspired by urban environments and contemporary art, I specialize in clean lines, innovative fabric treatments, and ethical production methods. Currently building my brand and seeking opportunities to showcase my designs."
+      },
+      {
+        "title": "Collection",
+        "slug": "collection",
+        "content": "My debut collection 'Urban Sustainability' explores the intersection of streetwear aesthetics and eco-conscious design.",
+        "projects": [
+          {
+            "title": "Urban Sustainability Collection",
+            "year": "2024",
+            "description": "Debut collection featuring seven looks that blend streetwear silhouettes with sustainable materials. Each piece is designed for versatility and longevity, using organic cotton, recycled polyester, and innovative hemp blends.",
+            "images": ["editorial-structured-jacket.jpg", "flowing-evening-gown.jpg", "streetwear-collection-flat.jpg"],
+            "status": "Featured in SCAD Fashion Show 2024"
+          }
+        ]
+      },
+      {
+        "title": "Process",
+        "slug": "process",
+        "content": "From concept to creation - a look at my design methodology.",
+        "images": ["fashion-sketch-portfolio.jpg", "concept-sketches-board.jpg", "textile-detail-macro.jpg", "model-fitting-session.jpg"]
+      }
+    ]
+  },
+  "preferences": {
+    "autoSave": true,
+    "mobileNotifications": true,
+    "portfolioPrivacy": "public"
+  },
+  "stats": {
+    "portfolioViews": 156,
+    "lastLogin": "2024-01-14T16:45:00Z",
+    "accountCreated": "2024-01-10T09:15:00Z"
+  }
+}
