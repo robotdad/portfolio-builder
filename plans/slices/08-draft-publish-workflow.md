@@ -1,22 +1,8 @@
 # Draft/Publish Workflow
 
-**Slice:** 8 of 8  
-**Phase:** 1 (Functional Prototype)  
-**Estimated Duration:** 450 lines total  
-**Previous Slice:** Multiple Pages & Navigation  
-**Next Slice:** Complete
+**Goal:** User can work on changes without affecting live site, preview before publishing.
 
-**Prerequisites:**
-- Read: `plans/VISION.md` - Product vision and design principles
-- Read: `plans/USERS.md` - User personas and scenarios
-- Read: `plans/ARCHITECTURE.md` - Technical architecture
-- Read: `plans/IMPLEMENTATION_APPROACH.md` - Development methodology
-- Read: `plans/IMPLEMENTATION_GUIDE.md` - Implementation patterns
-- Previous slice deliverables: All previous slices (1-7)
-
----
-
-**User Value**: User can work on changes without affecting live site, preview before publishing.
+**Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
 ## Scope
 
@@ -34,15 +20,6 @@
 - Scheduled publishing
 - Publish confirmation dialog (just click publish)
 - Change summary
-
-## Size Estimate
-450 lines total:
-- Draft state management: 80 lines
-- Auto-save logic: 80 lines
-- Preview mode: 100 lines
-- Publish action: 60 lines
-- Draft/published indicators: 50 lines
-- API endpoints (save draft, publish): 80 lines
 
 ## Tech Stack
 - Prisma schema update (draftContent, publishedContent fields)
@@ -83,6 +60,8 @@ src/app/api/pages/[id]/publish/route.ts  # Publish endpoint
 - [ ] Can continue editing after publish
 
 ## Integration Points
-- **Draft/published pattern** → Foundation for future features (scheduled publish, approval)
-- **Auto-save** → Used across all editing interfaces
-- **Preview mode** → Will support preview links with expiration
+
+These elements are designed to be extended:
+- **Draft/published pattern** - Foundation for additional features (scheduled publish, approval workflows)
+- **Auto-save** - Designed to be reusable across all editing interfaces
+- **Preview mode** - Can be enhanced with shareable preview links with expiration

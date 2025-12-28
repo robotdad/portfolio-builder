@@ -1,22 +1,8 @@
 # Image Gallery Component
 
-**Slice:** 6 of 8  
-**Phase:** 1 (Functional Prototype)  
-**Estimated Duration:** 480 lines total  
-**Previous Slice:** Component System & Sections  
-**Next Slice:** Multiple Pages & Navigation
+**Goal:** User can showcase multiple costume photos in professional grid layouts.
 
-**Prerequisites:**
-- Read: `plans/VISION.md` - Product vision and design principles
-- Read: `plans/USERS.md` - User personas and scenarios
-- Read: `plans/ARCHITECTURE.md` - Technical architecture
-- Read: `plans/IMPLEMENTATION_APPROACH.md` - Development methodology
-- Read: `plans/IMPLEMENTATION_GUIDE.md` - Implementation patterns
-- Previous slice deliverables: Static Page Foundation, Rich Text Editing, Single Image Upload, Mobile Editing Basics, Component System & Sections
-
----
-
-**User Value**: User can showcase multiple costume photos in professional grid layouts.
+**Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
 ## Scope
 
@@ -34,15 +20,6 @@
 - Lightbox/modal view
 - Bulk alt text editing
 - Image captions (alt text only)
-
-## Size Estimate
-480 lines total:
-- Gallery section component: 120 lines
-- Multi-upload UI: 100 lines
-- Gallery image item: 80 lines
-- Gallery reordering (dnd): 80 lines
-- Published gallery display: 80 lines
-- Gallery validation: 20 lines
 
 ## Tech Stack
 - Existing dnd-kit setup (from Component System & Sections)
@@ -81,6 +58,8 @@ src/lib/gallery-validation.ts                 # Alt text checks
 - [ ] Images lazy load in published gallery
 
 ## Integration Points
-- **Gallery section type** → Will add carousel/masonry in future
-- **Image reordering pattern** → Used across all multi-image features
-- **Alt text validation** → Enforces accessibility
+
+These elements are designed to be extended:
+- **Gallery section type** - Can be extended with carousel/masonry layouts
+- **Image reordering pattern** - Designed to be reusable across all multi-image features
+- **Alt text validation** - Enforces accessibility standards

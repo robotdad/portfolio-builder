@@ -1,22 +1,8 @@
 # Mobile Editing Basics
 
-**Slice:** 4 of 8  
-**Phase:** 1 (Functional Prototype)  
-**Estimated Duration:** 400 lines total  
-**Previous Slice:** Single Image Upload  
-**Next Slice:** Component System & Sections
+**Goal:** Sarah can update her portfolio from iPhone backstage in <5 minutes.
 
-**Prerequisites:**
-- Read: `plans/VISION.md` - Product vision and design principles
-- Read: `plans/USERS.md` - User personas and scenarios
-- Read: `plans/ARCHITECTURE.md` - Technical architecture
-- Read: `plans/IMPLEMENTATION_APPROACH.md` - Development methodology
-- Read: `plans/IMPLEMENTATION_GUIDE.md` - Implementation patterns
-- Previous slice deliverables: Static Page Foundation, Rich Text Editing, Single Image Upload
-
----
-
-**User Value**: Sarah can update her portfolio from iPhone backstage in <5 minutes.
+**Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
 ## Scope
 
@@ -34,15 +20,6 @@
 - Offline editing
 - Progressive Web App features
 - Mobile-specific gestures (pinch, swipe)
-
-## Size Estimate
-400 lines total:
-- Responsive layout wrapper: 80 lines
-- Mobile toolbar component: 100 lines
-- Touch-optimized buttons: 60 lines
-- Mobile file input handling: 80 lines
-- Viewport meta tags and CSS: 40 lines
-- Mobile testing utilities: 40 lines
 
 ## Tech Stack
 - Tailwind responsive utilities (`md:`, `lg:`)
@@ -82,6 +59,8 @@ src/app/admin/layout.tsx                     # Responsive wrapper
 - [ ] Complete edit → publish flow under 5 minutes
 
 ## Integration Points
-- **Mobile layout patterns** → Will be used for all mobile features
-- **Touch targets** → Standard for all interactive elements
-- **Responsive patterns** → Foundation for galleries, pages, etc.
+
+These elements are designed to be extended:
+- **Mobile layout patterns** - Designed to be reusable for all mobile features
+- **Touch targets** - Standard for all interactive elements
+- **Responsive patterns** - Foundation for galleries, pages, and other features

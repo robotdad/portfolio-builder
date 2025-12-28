@@ -140,39 +140,43 @@ Run through this checklist:
 
 ## Session Templates
 
-### Starting Slice 1
+### Starting First Implementation (Static Page Foundation)
 ```
-You are implementing Slice 1: Static Page Foundation.
+You are building the foundation for a portfolio builder.
 
 Read:
 - plans/slices/01-static-page-foundation.md
 - plans/PRINCIPLES.md
 - plans/TECH_STACK.md
 
-This is the foundation slice. No previous work exists.
+This is the first implementation. No previous work exists.
 
 Goal: User can create a page with text, publish it, and view it live.
 
 Follow the demo script as your acceptance test. Meet all success criteria.
 ```
 
-### Starting Slice N (N > 1)
+### Starting Subsequent Implementations
 ```
-You are implementing Slice N: [Name].
+You are implementing [Feature Name] for the portfolio builder.
 
 Read:
-- plans/slices/0N-[name].md
+- plans/slices/[XX-feature-name].md
 - plans/PRINCIPLES.md
 - plans/TECH_STACK.md
 
-Previous work: Slices 1 through N-1 are complete.
-
 Read the codebase to understand what exists. Build on it incrementally.
 
-Goal: [User value from slice spec]
+Goal: [User value from spec]
 
-Follow the demo script as your acceptance test. Meet all success criteria.
-Do NOT break functionality from previous slices.
+Important:
+- Build on existing work, don't replace it
+- Follow the demo script as your acceptance test
+- Meet all success criteria before finishing
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
 ```
 
 ---

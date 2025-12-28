@@ -1,22 +1,8 @@
 # Multiple Pages & Navigation
 
-**Slice:** 7 of 8  
-**Phase:** 1 (Functional Prototype)  
-**Estimated Duration:** 420 lines total  
-**Previous Slice:** Image Gallery Component  
-**Next Slice:** Draft/Publish Workflow
+**Goal:** User can organize work into different pages (Theatre, Film, About).
 
-**Prerequisites:**
-- Read: `plans/VISION.md` - Product vision and design principles
-- Read: `plans/USERS.md` - User personas and scenarios
-- Read: `plans/ARCHITECTURE.md` - Technical architecture
-- Read: `plans/IMPLEMENTATION_APPROACH.md` - Development methodology
-- Read: `plans/IMPLEMENTATION_GUIDE.md` - Implementation patterns
-- Previous slice deliverables: Static Page Foundation, Rich Text Editing, Single Image Upload, Mobile Editing Basics, Component System & Sections, Image Gallery Component
-
----
-
-**User Value**: User can organize work into different pages (Theatre, Film, About).
+**Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
 ## Scope
 
@@ -34,15 +20,6 @@
 - Page templates
 - Page duplication
 - Navigation reordering (alphabetical only)
-
-## Size Estimate
-420 lines total:
-- Page list UI: 100 lines
-- Create page flow: 80 lines
-- Navigation component: 80 lines
-- Page switcher: 60 lines
-- Homepage logic: 40 lines
-- Page deletion: 60 lines
 
 ## Tech Stack
 - Existing Prisma Page model (extend with navigation fields)
@@ -80,6 +57,8 @@ src/app/api/pages/[id]/route.ts             # Delete endpoint
 - [ ] Navigation is responsive (hamburger on mobile)
 
 ## Integration Points
-- **Page model** → Future: add parentId for hierarchy
-- **Navigation** → Future: manual ordering, hide pages
-- **Page switcher** → Used throughout admin interface
+
+These elements are designed to be extended:
+- **Page model** - Can be extended with page hierarchy (parentId)
+- **Navigation** - Can be enhanced with manual ordering and page visibility controls
+- **Page switcher** - Designed to be reusable throughout admin interface

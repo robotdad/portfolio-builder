@@ -1,21 +1,8 @@
 # Static Page Foundation
 
-**Slice:** 1 of 8  
-**Phase:** 1 (Functional Prototype)  
-**Estimated Duration:** 400 lines total  
-**Previous Slice:** None  
-**Next Slice:** Rich Text Editing
+**Goal:** User can create a basic portfolio page with text and see it published live.
 
-**Prerequisites:**
-- Read: `plans/VISION.md` - Product vision and design principles
-- Read: `plans/USERS.md` - User personas and scenarios
-- Read: `plans/ARCHITECTURE.md` - Technical architecture
-- Read: `plans/IMPLEMENTATION_APPROACH.md` - Development methodology
-- Read: `plans/IMPLEMENTATION_GUIDE.md` - Implementation patterns
-
----
-
-**User Value**: User can create a basic portfolio page with text and see it published live.
+**Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
 ## Scope
 
@@ -34,14 +21,6 @@
 - Authentication
 - Mobile optimization
 - Themes
-
-## Size Estimate
-400 lines total:
-- Database schema (Prisma): 50 lines
-- Page editor form: 100 lines
-- Published page viewer: 50 lines
-- API routes (save, publish): 100 lines
-- Basic styling: 100 lines
 
 ## Tech Stack
 - Next.js App Router (page routes only)
@@ -74,6 +53,8 @@ src/lib/db.ts                 # Prisma client
 - [ ] Basic responsive layout (Tailwind defaults)
 
 ## Integration Points
-- **Page model** → Next slice will add rich text editing
-- **Published viewer** → Next slice will enhance with styled components
-- **Database** → Next slice will add Asset model for images
+
+These elements are designed to be extended:
+- **Page model** - Can be extended with additional fields for rich content
+- **Published viewer** - Can be enhanced with more sophisticated rendering
+- **Database schema** - Can be extended with additional models (e.g., Asset)

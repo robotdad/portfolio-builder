@@ -1,22 +1,8 @@
 # Single Image Upload
 
-**Slice:** 3 of 8  
-**Phase:** 1 (Functional Prototype)  
-**Estimated Duration:** 450 lines total  
-**Previous Slice:** Rich Text Editing  
-**Next Slice:** Mobile Editing Basics
+**Goal:** User can add professional photos to their portfolio with proper optimization.
 
-**Prerequisites:**
-- Read: `plans/VISION.md` - Product vision and design principles
-- Read: `plans/USERS.md` - User personas and scenarios
-- Read: `plans/ARCHITECTURE.md` - Technical architecture
-- Read: `plans/IMPLEMENTATION_APPROACH.md` - Development methodology
-- Read: `plans/IMPLEMENTATION_GUIDE.md` - Implementation patterns
-- Previous slice deliverables: Static Page Foundation, Rich Text Editing
-
----
-
-**User Value**: User can add professional photos to their portfolio with proper optimization.
+**Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
 ## Scope
 
@@ -34,15 +20,6 @@
 - Image cropping/editing
 - Mobile camera integration (desktop file upload only)
 - Image library/reuse
-
-## Size Estimate
-450 lines total:
-- Image upload component: 80 lines
-- Image processing pipeline (Sharp): 120 lines
-- API endpoint (upload): 100 lines
-- Asset database model: 40 lines
-- Image display component: 60 lines
-- File storage abstraction: 50 lines
 
 ## Tech Stack
 - Sharp.js for image processing
@@ -81,7 +58,9 @@ src/components/ImageDisplay.tsx          # Published page image
 - [ ] File size reduced by ~60% from original
 
 ## Integration Points
-- **Asset model** → Next slice will support multiple images
-- **Storage interface** → Can swap for S3 later without changes
-- **Image processing** → Will be reused for all uploads
-- **Alt text validation** → Foundation for accessibility gates
+
+These elements are designed to be extended:
+- **Asset model** - Can be extended to support multiple images
+- **Storage interface** - Can be swapped for S3 later without changes
+- **Image processing** - Designed to be reusable for all uploads
+- **Alt text validation** - Foundation for accessibility gates

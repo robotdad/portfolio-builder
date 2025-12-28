@@ -1,22 +1,8 @@
 # Rich Text Editing
 
-**Slice:** 2 of 8  
-**Phase:** 1 (Functional Prototype)  
-**Estimated Duration:** 350 lines total  
-**Previous Slice:** Static Page Foundation  
-**Next Slice:** Single Image Upload
+**Goal:** User can format text professionally with headings, bold, italic, and links.
 
-**Prerequisites:**
-- Read: `plans/VISION.md` - Product vision and design principles
-- Read: `plans/USERS.md` - User personas and scenarios
-- Read: `plans/ARCHITECTURE.md` - Technical architecture
-- Read: `plans/IMPLEMENTATION_APPROACH.md` - Development methodology
-- Read: `plans/IMPLEMENTATION_GUIDE.md` - Implementation patterns
-- Previous slice deliverables: Static Page Foundation
-
----
-
-**User Value**: User can format text professionally with headings, bold, italic, and links.
+**Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
 ## Scope
 
@@ -32,14 +18,6 @@
 - Advanced formatting (underline, strike, colors)
 - Multiple text blocks (single editor only)
 - Mobile-optimized toolbar (desktop first)
-
-## Size Estimate
-350 lines total:
-- Tiptap setup and configuration: 80 lines
-- Toolbar component: 120 lines
-- Link dialog/popover: 80 lines
-- HTML sanitization: 40 lines
-- Updated page editor: 30 lines
 
 ## Tech Stack
 - `@tiptap/react`, `@tiptap/starter-kit`, `@tiptap/extension-link`
@@ -72,6 +50,8 @@ src/lib/sanitize.ts                       # HTML sanitization
 - [ ] No XSS vulnerabilities (sanitization works)
 
 ## Integration Points
-- **RichTextEditor component** → Next slice will make it a draggable block
-- **Content format** → HTML with sanitization (stable contract)
-- **Toolbar pattern** → Will be reused for mobile editing
+
+These elements are designed to be extended:
+- **RichTextEditor component** - Can be extended to support draggable blocks
+- **Content format** - HTML with sanitization (stable contract)
+- **Toolbar pattern** - Designed to be reusable for mobile editing

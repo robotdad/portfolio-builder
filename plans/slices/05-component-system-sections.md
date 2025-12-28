@@ -1,22 +1,8 @@
 # Component System & Sections
 
-**Slice:** 5 of 8  
-**Phase:** 1 (Functional Prototype)  
-**Estimated Duration:** 500 lines total  
-**Previous Slice:** Mobile Editing Basics  
-**Next Slice:** Image Gallery Component
+**Goal:** User can structure pages with multiple sections of text and images.
 
-**Prerequisites:**
-- Read: `plans/VISION.md` - Product vision and design principles
-- Read: `plans/USERS.md` - User personas and scenarios
-- Read: `plans/ARCHITECTURE.md` - Technical architecture
-- Read: `plans/IMPLEMENTATION_APPROACH.md` - Development methodology
-- Read: `plans/IMPLEMENTATION_GUIDE.md` - Implementation patterns
-- Previous slice deliverables: Static Page Foundation, Rich Text Editing, Single Image Upload, Mobile Editing Basics
-
----
-
-**User Value**: User can structure pages with multiple sections of text and images.
+**Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
 ## Scope
 
@@ -33,15 +19,6 @@
 - Section templates
 - Copy/paste sections
 - Undo/redo
-
-## Size Estimate
-500 lines total:
-- Section data model: 40 lines
-- dnd-kit setup (touch config): 80 lines
-- SectionList component: 120 lines
-- Section type components: 150 lines
-- Add section UI: 60 lines
-- JSON serialization: 50 lines
 
 ## Tech Stack
 - `@dnd-kit/core`, `@dnd-kit/sortable`
@@ -81,6 +58,8 @@ src/lib/serialization.ts                     # Section JSON format
 - [ ] Page with 10+ sections remains performant
 
 ## Integration Points
-- **Section model** → Next slice will add gallery section type
-- **dnd-kit config** → Will be reused for gallery reordering
-- **Serialization** → Stable format for all content types
+
+These elements are designed to be extended:
+- **Section model** - Can be extended with additional section types (e.g., gallery)
+- **dnd-kit config** - Designed to be reusable for other reordering needs
+- **Serialization** - Stable format for all content types
