@@ -26,15 +26,14 @@ Each slice must be:
 ### 1. Read These Documents (In Order)
 
 **Required reading:**
-1. `plans/PROJECT_OVERVIEW.md` - Understand the vision
+1. `plans/VISION.md` - Understand the product vision
 2. Your slice specification (e.g., `plans/slices/01-static-page-foundation.md`)
 3. Previous slice deliverables (if not Slice 1)
 
 **Reference as needed:**
-- `orig-plans/portfolio-vision-ux.md` - UX requirements
-- `orig-plans/portfolio-tech-strategy.md` - Architecture details
-- `orig-plans/user-success-scenarios.md` - User stories
-- `test-assets/` - Realistic test data
+- `USERS.md` - User personas and scenarios
+- `ARCHITECTURE.md` - Technical architecture and decisions
+- `IMPLEMENTATION_APPROACH.md` - Development methodology
 
 ### 2. Understand the Tech Stack
 
@@ -48,7 +47,7 @@ Each slice must be:
 - Prisma + SQLite (dev) / PostgreSQL (prod)
 - Session-based auth (custom)
 
-**Tech decisions validated via spikes.** See `orig-plans/work-packages/foundation/tech-decisions.md` for rationale.
+**Tech decisions validated via spikes.** See `ARCHITECTURE.md` for rationale and evaluation outcomes.
 
 ### 3. Set Up Your Environment
 

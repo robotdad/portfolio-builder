@@ -7,8 +7,11 @@
 **Next Slice:** Complete
 
 **Prerequisites:**
-- Read: `plans/PROJECT_OVERVIEW.md`
-- Read: `plans/SLICE_SESSION_GUIDE.md`
+- Read: `plans/VISION.md` - Product vision and design principles
+- Read: `plans/USERS.md` - User personas and scenarios
+- Read: `plans/ARCHITECTURE.md` - Technical architecture
+- Read: `plans/IMPLEMENTATION_APPROACH.md` - Development methodology
+- Read: `plans/IMPLEMENTATION_GUIDE.md` - Implementation patterns
 - Previous slice deliverables: All previous slices (1-7)
 
 ---
