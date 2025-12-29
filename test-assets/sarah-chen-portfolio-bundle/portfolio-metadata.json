@@ -1,0 +1,76 @@
+{
+  "persona": {
+    "id": "sarah-chen",
+    "name": "Sarah Chen",
+    "role": "Theatre Costume Designer",
+    "description": "32-year-old Korean-American woman with shoulder-length black hair.",
+    "timestamp": "2025-12-28T20:57:24.984Z"
+  },
+  "portfolio": {
+    "headshot": "sarah-chen-headshot.jpg",
+    "productionWork": [
+      {
+        "file": "hamlet-court-production.jpg",
+        "description": "Production photo: Elaborate Elizabethan court costumes for Hamlet, rich burgundy and gold brocade, multiple actors in period dress on a professional theatre stage, dramatic theatrical lighting"
+      },
+      {
+        "file": "macbeth-witches-trio.jpg",
+        "description": "Production photo: Three actresses as Macbeth witches in flowing dark robes with tattered edges, wild unkempt hair, smoky atmospheric stage lighting, theatrical production photography"
+      },
+      {
+        "file": "romeo-juliet-ballgown.jpg",
+        "description": "Production shot: Actress on a Renaissance stage set wearing a stunning emerald silk ballgown with intricate gold embroidery, dramatic stage lighting"
+      },
+      {
+        "file": "king-lear-aging-king.jpg",
+        "description": "Production shot: Elderly actor in weathered royal robes and crown, showing wear and distress, dramatic stage lighting, powerful theatrical moment"
+      },
+      {
+        "file": "modern-hamlet-rehearsal.jpg",
+        "description": "Contemporary Hamlet production rehearsal, actors in modern business suits with period elements, rehearsal room lighting"
+      },
+      {
+        "file": "dress-rehearsal-action.jpg",
+        "description": "Dynamic dress rehearsal: actors in full period costume mid-performance on a professional stage, high-quality production photography"
+      }
+    ],
+    "technicalProcess": [
+      {
+        "file": "sarah-selfie-backstage.jpg",
+        "description": "Casual smartphone mirror selfie of Sarah Chen in a dark theatre backstage area, holding a smartphone, wearing a headset and casual black work clothes, grainier phone camera quality, natural dim lighting. Sarah is a 32-year-old Korean-American woman with shoulder-length black hair."
+      },
+      {
+        "file": "midsummer-fairy-costumes.jpg",
+        "description": "Whimsical fairy costumes with gossamer wings and flowing fabrics in greens and purples, multiple actors in magical forest set, enchanting theatrical lighting"
+      },
+      {
+        "file": "costume-fitting-backstage.jpg",
+        "description": "Behind-the-scenes photo of Sarah Chen fitting an elaborate period dress on an actress, Sarah is visible from the side, focused expression, warm backstage lighting. Sarah is a 32-year-old Korean-American woman with shoulder-length black hair."
+      },
+      {
+        "file": "phone-capture-swatches.jpg",
+        "description": "Casual smartphone photo of various fabric swatches and a color palette spread out on a cluttered workshop table, slightly messy, natural room lighting, low-fi aesthetic"
+      },
+      {
+        "file": "costume-rack-organized.jpg",
+        "description": "Well-organized costume rack with multiple period costumes hanging, labels and accessories visible, professional costume department, good lighting"
+      },
+      {
+        "file": "embroidery-detail-phone.jpg",
+        "description": "Casual phone camera photo of extreme close-up embroidery detail on a blue garment, showing some hand-written notes and a needle nearby, workshop environment"
+      },
+      {
+        "file": "sketch-to-costume.jpg",
+        "description": "Split composition showing costume design sketch alongside finished costume on dress form, professional studio documentation"
+      },
+      {
+        "file": "fabric-selection-table.jpg",
+        "description": "Design table with fabric swatches, color samples, sketch books, and design tools spread out, natural lighting"
+      }
+    ]
+  },
+  "generationMetadata": {
+    "model": "gemini-3-pro-image-preview",
+    "totalAssets": 15
+  }
+}
