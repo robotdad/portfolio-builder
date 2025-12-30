@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { RichTextEditor } from '@/components/editor/RichTextEditor'
 
 interface Portfolio {
   id: string
@@ -224,7 +225,7 @@ export default function AdminPage() {
                   onChange={handleChange}
                   className="form-input"
                   placeholder="jane-smith"
-                  pattern="[a-z0-9-]+"
+                  pattern="[a-z0-9\-]+"
                   title="Only lowercase letters, numbers, and hyphens"
                   required
                 />
@@ -253,15 +254,11 @@ export default function AdminPage() {
                 <label htmlFor="bio" className="form-label">
                   Bio *
                 </label>
-                <textarea
+                <RichTextEditor
                   id="bio"
-                  name="bio"
                   value={formData.bio}
-                  onChange={handleChange}
-                  className="form-textarea"
+                  onChange={(html) => setFormData(prev => ({ ...prev, bio: html }))}
                   placeholder="Tell visitors about yourself, your experience, and what you do..."
-                  rows={5}
-                  required
                 />
                 <p className="form-hint">
                   A brief introduction about yourself and your work.

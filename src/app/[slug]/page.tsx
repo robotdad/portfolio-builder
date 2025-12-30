@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
+import { sanitizeHtml, stripHtml } from '@/lib/sanitize'
 import type { Metadata } from 'next'
 
 interface PageProps {
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${portfolio.name} - ${portfolio.title}`,
-    description: portfolio.bio.substring(0, 160),
+    description: stripHtml(portfolio.bio).substring(0, 160),
   }
 }
 
@@ -42,7 +43,10 @@ export default async function PortfolioPage({ params }: PageProps) {
         <div className="container">
           <h1 className="portfolio-name">{portfolio.name}</h1>
           <p className="portfolio-title">{portfolio.title}</p>
-          <p className="portfolio-bio">{portfolio.bio}</p>
+          <div
+            className="portfolio-bio prose-content"
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(portfolio.bio) }}
+          />
         </div>
       </header>
 
