@@ -3,6 +3,15 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { RichTextEditor } from '@/components/editor/RichTextEditor'
+import { ImageUpload } from '@/components/editor/ImageUpload'
+
+interface Asset {
+  id: string
+  url: string
+  thumbnailUrl: string
+  altText: string
+  caption?: string | null
+}
 
 interface Portfolio {
   id: string
@@ -11,6 +20,7 @@ interface Portfolio {
   title: string
   bio: string
   theme: string
+  assets: Asset[]
 }
 
 const themes = [
@@ -107,6 +117,16 @@ export default function AdminPage() {
     e.preventDefault()
     setSaving(true)
     setMessage(null)
+
+    // Check alt text on all assets before publishing
+    if (portfolio?.assets?.some(asset => !asset.altText || asset.altText.trim() === '')) {
+      setMessage({
+        type: 'error',
+        text: 'All images must have alt text before publishing. Please add alt text to your images.',
+      })
+      setSaving(false)
+      return
+    }
 
     try {
       const res = await fetch('/api/portfolio', {
@@ -264,6 +284,45 @@ export default function AdminPage() {
                   A brief introduction about yourself and your work.
                 </p>
               </div>
+
+              {portfolio && (
+                <div className="form-group">
+                  <label className="form-label">Profile Image</label>
+                  <ImageUpload
+                    portfolioId={portfolio.id}
+                    currentImage={portfolio.assets?.[0] || null}
+                    onUploadComplete={(asset) => {
+                      setPortfolio((prev) =>
+                        prev ? { ...prev, assets: [asset, ...(prev.assets || []).slice(1)] } : prev
+                      )
+                      setMessage({ type: 'success', text: 'Image uploaded successfully!' })
+                    }}
+                    onRemove={async () => {
+                      const currentAsset = portfolio.assets?.[0]
+                      if (!currentAsset) return
+                      
+                      try {
+                        const res = await fetch(`/api/upload/${currentAsset.id}`, {
+                          method: 'DELETE',
+                        })
+                        if (res.ok) {
+                          setPortfolio((prev) =>
+                            prev ? { ...prev, assets: prev.assets.slice(1) } : prev
+                          )
+                          setMessage({ type: 'success', text: 'Image removed successfully!' })
+                        } else {
+                          throw new Error('Failed to delete')
+                        }
+                      } catch {
+                        setMessage({ type: 'error', text: 'Failed to remove image' })
+                      }
+                    }}
+                  />
+                  <p className="form-hint">
+                    Upload a profile photo or header image for your portfolio.
+                  </p>
+                </div>
+              )}
 
               <div className="form-group">
                 <label className="form-label">Theme</label>

@@ -6,6 +6,7 @@ export async function GET() {
   try {
     const portfolio = await prisma.portfolio.findFirst({
       orderBy: { createdAt: 'desc' },
+      include: { assets: true },
     })
     
     return NextResponse.json(portfolio)
@@ -61,6 +62,7 @@ export async function POST(request: NextRequest) {
         bio,
         theme: theme || 'modern-minimal',
       },
+      include: { assets: true },
     })
 
     return NextResponse.json(portfolio, { status: 201 })
@@ -120,6 +122,7 @@ export async function PUT(request: NextRequest) {
         bio,
         theme: theme || 'modern-minimal',
       },
+      include: { assets: true },
     })
 
     return NextResponse.json(portfolio)

@@ -18,4 +18,35 @@ model Portfolio {
   theme     String   @default("modern-minimal")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  assets    Asset[]
+}
+
+model Asset {
+  id          String   @id @default(cuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  
+  // Original file info
+  filename    String
+  mimeType    String
+  size        Int      // Original file size in bytes
+  
+  // Processed image paths (relative to /uploads)
+  url         String   // Display version path
+  thumbnailUrl String  // Thumbnail version path  
+  placeholderUrl String // Blur placeholder path
+  
+  // Responsive srcset paths (WebP format)
+  srcset400   String?  // 400w version
+  srcset800   String?  // 800w version
+  srcset1200  String?  // 1200w version
+  srcset1600  String?  // 1600w version
+  
+  // Image metadata
+  width       Int      // Original width
+  height      Int      // Original height
+  altText     String   @default("")
+  caption     String?
+  
+  createdAt   DateTime @default(now())
 }
