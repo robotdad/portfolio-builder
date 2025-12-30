@@ -4,6 +4,10 @@
 
 **Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
+**Design Context:**
+@plans/design/DESIGN-SYSTEM.md
+@plans/design/AESTHETIC-GUIDE.md
+
 ## Scope
 
 **Included**:
@@ -42,12 +46,21 @@ src/lib/sanitize.ts                       # HTML sanitization
 7. **Success**: Professional text formatting works end-to-end
 
 ## Success Criteria
+
+### Functional Requirements
 - [ ] Tiptap editor renders and accepts input
 - [ ] Toolbar buttons work (H1-H3, Bold, Italic)
 - [ ] Link insertion/editing works
 - [ ] HTML content saves to database
 - [ ] Published page renders formatted content safely
 - [ ] No XSS vulnerabilities (sanitization works)
+
+### Design Requirements
+- [ ] Editor supports all heading levels (H1-H4) with typography scale from design system
+- [ ] Content spacing uses 8px grid system (paragraphs, headings, lists)
+- [ ] Typography rendering in editor matches published page appearance (WYSIWYG)
+- [ ] Toolbar UI follows spacing and interaction patterns from aesthetic guide
+- [ ] Text formatting (bold, italic, links) applies correct font weights and styles
 
 ## Integration Points
 

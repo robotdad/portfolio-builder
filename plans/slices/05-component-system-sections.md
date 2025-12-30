@@ -4,6 +4,12 @@
 
 **Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
+**Design Context:**
+@plans/design/DESIGN-SYSTEM.md
+@plans/design/TEMPLATE-SYSTEM.md
+@plans/design/templates/featured-grid-landing.md
+@plans/design/components/image-card-hover-overlay.md
+
 ## Scope
 
 **Included**:
@@ -48,6 +54,8 @@ src/lib/serialization.ts                     # Section JSON format
 10. **Success**: Multi-section page building works
 
 ## Success Criteria
+
+### Functional Requirements
 - [ ] Can add multiple sections to page
 - [ ] Each section type (text, image) works independently
 - [ ] Drag-and-drop reordering works on desktop
@@ -56,6 +64,13 @@ src/lib/serialization.ts                     # Section JSON format
 - [ ] Published page renders sections in order
 - [ ] Can delete sections
 - [ ] Page with 10+ sections remains performant
+
+### Design Requirements
+- [ ] Section types (hero, featured-grid, text, image) match template specifications
+- [ ] Drag-and-drop reordering uses 200ms motion timing with visual feedback
+- [ ] Featured grid implements 3-column layout (desktop) → 1-column (mobile) per template spec
+- [ ] Image cards render with hover overlay effect (opacity 0.9, scale 1.05) from component spec
+- [ ] Section spacing follows 64px (desktop) / 48px (mobile) vertical rhythm
 
 ## Integration Points
 

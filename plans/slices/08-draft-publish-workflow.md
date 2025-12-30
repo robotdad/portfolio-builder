@@ -4,6 +4,10 @@
 
 **Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
+**Design Context:**
+@plans/design/AESTHETIC-GUIDE.md
+@plans/design/DESIGN-SYSTEM.md
+
 ## Scope
 
 **Included**:
@@ -50,6 +54,8 @@ src/app/api/pages/[id]/publish/route.ts  # Publish endpoint
 11. **Success**: Safe draft/publish workflow prevents accidental changes
 
 ## Success Criteria
+
+### Functional Requirements
 - [ ] Draft content auto-saves every 30 seconds
 - [ ] Manual save button works
 - [ ] Published site serves publishedContent field
@@ -58,6 +64,13 @@ src/app/api/pages/[id]/publish/route.ts  # Publish endpoint
 - [ ] Publish action copies draft → published atomically
 - [ ] Clear visual indicators of draft vs published state
 - [ ] Can continue editing after publish
+
+### Design Requirements
+- [ ] Draft status is clearly visually distinguished from published status
+- [ ] Auto-save feedback appears within 200ms with subtle animation per motion timing
+- [ ] Preview mode accurately renders page as it will appear when published
+- [ ] Publish action has confirmation step with clear state transition
+- [ ] Status indicators (draft/published/saving) follow motion timing for state changes (200ms ease-out)
 
 ## Integration Points
 

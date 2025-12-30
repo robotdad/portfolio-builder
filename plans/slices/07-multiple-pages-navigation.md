@@ -4,6 +4,14 @@
 
 **Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
+**Design Context:**
+@plans/design/CONTENT-MODEL.md
+@plans/design/components/navigation.md
+@plans/design/TEMPLATE-SYSTEM.md
+@plans/design/themes/modern-minimal.md
+@plans/design/themes/classic-elegant.md
+@plans/design/themes/bold-editorial.md
+
 ## Scope
 
 **Included**:
@@ -47,6 +55,8 @@ src/app/api/pages/[id]/route.ts             # Delete endpoint
 10. **Success**: Multi-page portfolio works
 
 ## Success Criteria
+
+### Functional Requirements
 - [ ] Can create multiple pages
 - [ ] Each page has independent content (sections)
 - [ ] Page list shows all pages with edit/delete actions
@@ -55,6 +65,13 @@ src/app/api/pages/[id]/route.ts             # Delete endpoint
 - [ ] Homepage (/) shows designated home page
 - [ ] Other pages accessible at /[slug]
 - [ ] Navigation is responsive (hamburger on mobile)
+
+### Design Requirements
+- [ ] Dynamic navigation renders from user-defined category structure per content model
+- [ ] Navigation component implements horizontal desktop / hamburger mobile pattern
+- [ ] Active page state is visually indicated with underline or highlight per theme
+- [ ] Navigation renders correctly in all 3 themes with appropriate styling
+- [ ] Site structure supports nested pages with proper slug-based routing
 
 ## Integration Points
 

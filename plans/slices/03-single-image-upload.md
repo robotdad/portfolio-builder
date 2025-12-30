@@ -4,6 +4,10 @@
 
 **Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
+**Design Context:**
+@plans/design/DESIGN-SYSTEM.md
+@plans/design/CONTENT-MODEL.md
+
 ## Scope
 
 **Included**:
@@ -49,6 +53,8 @@ src/components/ImageDisplay.tsx          # Published page image
 9. **Success**: Professional image handling works
 
 ## Success Criteria
+
+### Functional Requirements
 - [ ] File upload accepts JPEG/PNG/WebP
 - [ ] Sharp.js generates 3 versions (display, thumbnail, placeholder)
 - [ ] Images stored in ./uploads with organized paths
@@ -56,6 +62,13 @@ src/components/ImageDisplay.tsx          # Published page image
 - [ ] Alt text validation prevents publish without it
 - [ ] Published page uses Next.js Image optimization
 - [ ] File size reduced by ~60% from original
+
+### Design Requirements
+- [ ] Images generate 4 responsive sizes (400w, 800w, 1200w, 1600w) with WebP format
+- [ ] Image loading uses blur-up placeholder technique with 20px preview
+- [ ] Image metadata captures alt text, caption, and dimensions per content model
+- [ ] Upload progress indicator follows motion timing (200ms ease-out)
+- [ ] Image rendering applies responsive srcset for optimal loading across breakpoints
 
 ## Integration Points
 

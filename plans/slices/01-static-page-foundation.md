@@ -4,6 +4,13 @@
 
 **Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
+**Design Context:**
+@plans/design/DESIGN-SYSTEM.md
+@plans/design/TEMPLATE-SYSTEM.md
+@plans/design/themes/modern-minimal.md
+@plans/design/themes/classic-elegant.md
+@plans/design/themes/bold-editorial.md
+
 ## Scope
 
 **Included**:
@@ -46,11 +53,19 @@ src/lib/db.ts                 # Prisma client
 6. **Success**: Content is live and viewable
 
 ## Success Criteria
+
+### Functional Requirements
 - [ ] Can create a page with title and text
 - [ ] Publish action saves to database
 - [ ] Published page displays at `/[slug]`
 - [ ] Content persists across page reloads
-- [ ] Basic responsive layout (Tailwind defaults)
+
+### Design Requirements
+- [ ] CSS custom properties implement all design tokens from DESIGN-SYSTEM.md (colors, spacing, typography scales)
+- [ ] Theme switching applies correct color palette and typography for each of 3 themes
+- [ ] Base typography (headings, body text, links) renders with correct font families, sizes, and line heights per design system
+- [ ] Responsive breakpoints (sm: 640px, md: 768px, lg: 1024px, xl: 1280px) are configured and functional
+- [ ] Page max-width constraint (1280px) is applied with proper centering
 
 ## Integration Points
 

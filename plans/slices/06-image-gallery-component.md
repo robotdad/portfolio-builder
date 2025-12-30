@@ -4,6 +4,11 @@
 
 **Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
+**Design Context:**
+@plans/design/components/gallery-grid.md
+@plans/design/components/image-card-hover-overlay.md
+@plans/design/DESIGN-SYSTEM.md
+
 ## Scope
 
 **Included**:
@@ -49,6 +54,8 @@ src/lib/gallery-validation.ts                 # Alt text checks
 11. **Success**: Professional gallery showcases work
 
 ## Success Criteria
+
+### Functional Requirements
 - [ ] Can upload multiple images in one action
 - [ ] Gallery stores array of image IDs
 - [ ] Reordering images within gallery works (desktop + mobile)
@@ -56,6 +63,13 @@ src/lib/gallery-validation.ts                 # Alt text checks
 - [ ] Published gallery uses responsive grid (2 col mobile, 3-4 col desktop)
 - [ ] Gallery with 20+ images performs well
 - [ ] Images lazy load in published gallery
+
+### Design Requirements
+- [ ] Gallery grid implements masonry layout with 16px gaps per component spec
+- [ ] Grid columns: 3 (desktop lg+), 2 (tablet md), 1 (mobile sm) following responsive breakpoints
+- [ ] Image cards in gallery use same hover overlay effect as featured cards
+- [ ] Gallery handles mixed aspect ratios without distortion (object-fit: cover)
+- [ ] Lightbox modal (if implemented) follows motion timing for open/close transitions
 
 ## Integration Points
 

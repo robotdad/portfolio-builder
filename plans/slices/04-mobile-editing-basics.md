@@ -4,6 +4,11 @@
 
 **Context:** Read `plans/PRINCIPLES.md` and `plans/TECH_STACK.md` before starting.
 
+**Design Context:**
+@plans/design/DESIGN-SYSTEM.md
+@plans/design/AESTHETIC-GUIDE.md
+@plans/design/themes/modern-minimal.md
+
 ## Scope
 
 **Included**:
@@ -49,6 +54,8 @@ src/app/admin/layout.tsx                     # Responsive wrapper
 9. **Success**: Complete edit flow works on mobile
 
 ## Success Criteria
+
+### Functional Requirements
 - [ ] Editor layout works on iPhone (tested on real device)
 - [ ] All buttons are 44px minimum (touch target size)
 - [ ] Text editing works with mobile keyboard
@@ -57,6 +64,13 @@ src/app/admin/layout.tsx                     # Responsive wrapper
 - [ ] No horizontal scrolling on mobile
 - [ ] Load time < 3 seconds on 3G
 - [ ] Complete edit → publish flow under 5 minutes
+
+### Design Requirements (CRITICAL MILESTONE)
+- [ ] All interactive elements meet 44px minimum touch target size on mobile
+- [ ] Editor toolbar is thumb-reachable on iPhone (bottom-positioned or collapsible)
+- [ ] Text input has proper font-size (16px minimum) to prevent iOS zoom on focus
+- [ ] Page editing UI is fully functional on iPhone screen (375px width minimum)
+- [ ] Touch gestures feel responsive with appropriate motion timing (<200ms feedback)
 
 ## Integration Points
 
