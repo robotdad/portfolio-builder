@@ -8,35 +8,9 @@
 
 ### 1. Session Setup
 
-**Start new LLM session with this context:**
+**Use the ready-to-use prompts from the [Appendix](#appendix-session-prompts) at the end of this document.**
 
-```
-You are implementing Slice N: [Name] for a portfolio builder.
-
-Read these files to understand your goal:
-- plans/slices/0N-[name].md (your slice specification)
-- plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints)
-
-Note: Design specifications auto-load via @mentions in the slice spec.
-No need to manually load design files - they're referenced and loaded automatically.
-
-Your goal: Implement the slice specification completely.
-
-Important:
-- Read the existing codebase to understand what's there
-- Build incrementally on previous work
-- Follow the demo script as your acceptance test
-- Meet all success criteria before finishing
-- Stay within the "Included" scope - do NOT implement "NOT Included" items
-- Ask clarifying questions if the spec is unclear
-
-When done, confirm:
-1. Demo script works end-to-end
-2. All success criteria met
-3. Tested on desktop and mobile (if slice 4+)
-4. Ready for next slice (integration points clear)
-```
+Copy the complete prompt for your slice and paste into a new LLM session - no modifications needed.
 
 ### 2. During Session
 
@@ -51,6 +25,31 @@ When done, confirm:
 - ⚠️ Skipping success criteria
 - ⚠️ Breaking previous slice functionality
 
+**Dev Server Management:**
+
+If the LLM needs to start the Next.js dev server for testing:
+
+```bash
+# Start in background with logging
+npm run dev > /tmp/nextjs.log 2>&1 & echo $!
+# Returns PID immediately, e.g., "95969"
+
+# Verify it's running
+ps -p 95969
+
+# View logs
+tail -20 /tmp/nextjs.log
+
+# Stop when done
+kill 95969
+```
+
+**Critical:** 
+- Never use `npm run dev` directly (it hangs indefinitely)
+- Never use `run_in_background` parameter (unreliable - times out after 30s)
+- Always use Unix job control: `command > /tmp/log 2>&1 & echo $!`
+- This pattern works for all long-running processes (dev servers, build watchers, etc.)
+
 ### 3. Session Validation
 
 **Before accepting the slice as complete:**
@@ -58,11 +57,10 @@ When done, confirm:
 Run through this checklist:
 
 **Functional:**
-- [ ] Demo script works exactly as described
 - [ ] All success criteria checked off
 - [ ] No console errors or warnings
 - [ ] Works on desktop (Chrome, Safari)
-- [ ] Works on mobile (if slice 4+)
+- [ ] Works on mobile (for mobile-focused slices)
 
 **Design:**
 - [ ] Matches design system specifications
@@ -116,12 +114,14 @@ Run through this checklist:
 
 ### After Slice 4 (CRITICAL)
 **Mobile Validation Checkpoint - GO/NO-GO**
-- Test on REAL iPhone (not just DevTools)
-- Can Sarah update from her phone in <5 minutes?
+
+You must test on real devices at this checkpoint:
+- Test on iPhone Safari (not just browser DevTools)
+- Can you complete edit → publish flow in <5 minutes on phone?
 - Do touch interactions feel native?
 
-**If NO:** Stop and fix mobile experience
-**If YES:** Proceed with confidence to slices 5-8
+**If NO:** Stop and fix mobile experience before proceeding
+**If YES:** Proceed with confidence to remaining slices
 
 ### After Slice 8
 **Phase 1 Complete:**
@@ -139,8 +139,8 @@ Run through this checklist:
 ### Issue: Code is over-engineered
 **Fix:** Ask "Is this the simplest solution?" Apply ruthless simplicity principle.
 
-### Issue: Breaking previous slice
-**Fix:** Test previous demo scripts. Fix regressions before proceeding.
+### Issue: Breaking previous functionality
+**Fix:** Test previous features still work. Fix regressions before proceeding.
 
 ### Issue: Success criteria ambiguous
 **Fix:** Clarify the criteria before accepting. Update slice spec if needed.
@@ -200,14 +200,12 @@ Ready-to-use prompts for starting each slice implementation session.
 ### Slice 1: Static Page Foundation
 
 ```
-You are implementing Slice 1: Static Page Foundation for a portfolio builder.
+You are implementing the foundation for a portfolio builder.
 
 Read these files to understand your goal:
 - plans/slices/01-static-page-foundation.md (your slice specification)
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
-
-Design specifications auto-load via @mentions in the slice spec - they'll be available as context automatically.
 
 This is the first implementation. No previous work exists.
 
@@ -223,30 +221,24 @@ Your deliverables:
 
 Working space: Use ai_working/ for any temporary documents, notes, or planning during implementation.
 
-Follow the demo script in the slice spec as your acceptance test. Meet ALL success criteria (functional AND design) before finishing.
+Meet ALL success criteria (functional AND design) before finishing.
 
 Stay within the "Included" scope - do NOT implement "NOT Included" items.
 
-When done, confirm:
-1. Demo script works end-to-end
-2. All functional criteria met
-3. All design criteria met
-4. Ready for Slice 2 (integration points clear)
+When done, confirm all success criteria are met.
 ```
 
 ### Slice 2: Rich Text Editing
 
 ```
-You are implementing Slice 2: Rich Text Editing for the portfolio builder.
+You are implementing rich text editing for the portfolio builder.
 
 Read these files to understand your goal:
 - plans/slices/02-rich-text-editing.md (your slice specification)
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
-Design specifications auto-load via @mentions in the slice spec.
-
-Read the existing codebase from Slice 1 to understand the foundation. Build on it incrementally.
+Study the existing codebase and build on it incrementally.
 
 Goal: User can format text professionally with headings, bold, italic, and links.
 
@@ -260,8 +252,7 @@ Your deliverables:
 Working space: Use ai_working/ for planning and notes.
 
 Important:
-- Build on existing work from Slice 1, don't replace it
-- Follow the demo script as your acceptance test
+- Build on existing work, don't replace it
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
@@ -272,16 +263,14 @@ When done, confirm all success criteria are met.
 ### Slice 3: Single Image Upload
 
 ```
-You are implementing Slice 3: Single Image Upload for the portfolio builder.
+You are implementing image upload for the portfolio builder.
 
 Read these files to understand your goal:
 - plans/slices/03-single-image-upload.md (your slice specification)
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
-Design specifications auto-load via @mentions in the slice spec.
-
-Read the existing codebase from Slices 1-2. Build on it incrementally.
+Study the existing codebase and build on it incrementally.
 
 Goal: User can add professional photos to their portfolio with proper optimization.
 
@@ -295,8 +284,7 @@ Your deliverables:
 Working space: Use ai_working/ for planning and notes.
 
 Important:
-- Build on existing work from Slices 1-2, don't replace it
-- Follow the demo script as your acceptance test
+- Build on existing work, don't replace it
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
@@ -307,20 +295,18 @@ When done, confirm all success criteria are met.
 ### Slice 4: Mobile Editing Basics
 
 ```
-You are implementing Slice 4: Mobile Editing Basics for the portfolio builder.
+You are implementing mobile editing for the portfolio builder.
 
 Read these files to understand your goal:
 - plans/slices/04-mobile-editing-basics.md (your slice specification)
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
-Design specifications auto-load via @mentions in the slice spec.
+Study the existing codebase and build on it incrementally.
 
-Read the existing codebase from Slices 1-3. Build on it incrementally.
+Goal: User can update portfolio from iPhone backstage in <5 minutes.
 
-Goal: Sarah can update her portfolio from iPhone backstage in <5 minutes.
-
-⚡ CRITICAL MILESTONE: This is a GO/NO-GO checkpoint for mobile editing excellence.
+⚡ CRITICAL MILESTONE: Mobile editing must be excellent, not just functional.
 
 Your deliverables:
 - Responsive editor layout (stacked for mobile)
@@ -332,34 +318,26 @@ Your deliverables:
 Working space: Use ai_working/ for planning and notes.
 
 Important:
-- Build on existing work from Slices 1-3, don't replace it
-- Test on REAL iPhone, not just browser DevTools
-- Follow the demo script as your acceptance test on iPhone
+- Build on existing work, don't replace it
+- Mobile experience is the core value proposition
 - Meet ALL success criteria (functional AND design) - design criteria marked CRITICAL
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
 
-Validation before finishing:
-- Can complete edit → publish flow on iPhone in <5 minutes?
-- Do touch interactions feel native (not clumsy)?
-- Is mobile editing excellent (not just "okay")?
-
-When done, confirm all success criteria are met and mobile experience is excellent.
+When done, confirm all success criteria are met.
 ```
 
 ### Slice 5: Component System & Sections
 
 ```
-You are implementing Slice 5: Component System & Sections for the portfolio builder.
+You are implementing a component system for the portfolio builder.
 
 Read these files to understand your goal:
 - plans/slices/05-component-system-sections.md (your slice specification)
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
-Design specifications auto-load via @mentions in the slice spec.
-
-Read the existing codebase from Slices 1-4. Build on it incrementally.
+Study the existing codebase and build on it incrementally.
 
 Goal: User can structure pages with multiple sections of text and images.
 
@@ -371,12 +349,12 @@ Your deliverables:
 - Image Card with Hover Overlay component
 - Hero section (name + resume + featured work)
 
+This implements the first complete template (Featured Grid).
+
 Working space: Use ai_working/ for planning and notes.
 
 Important:
-- Build on existing work from Slices 1-4, don't replace it
-- This slice implements the first complete template (Featured Grid)
-- Follow the demo script as your acceptance test
+- Build on existing work, don't replace it
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
@@ -387,16 +365,14 @@ When done, confirm all success criteria are met.
 ### Slice 6: Image Gallery Component
 
 ```
-You are implementing Slice 6: Image Gallery Component for the portfolio builder.
+You are implementing image galleries for the portfolio builder.
 
 Read these files to understand your goal:
 - plans/slices/06-image-gallery-component.md (your slice specification)
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
-Design specifications auto-load via @mentions in the slice spec.
-
-Read the existing codebase from Slices 1-5. Build on it incrementally.
+Study the existing codebase and build on it incrementally.
 
 Goal: User can showcase multiple costume photos in professional grid layouts.
 
@@ -411,9 +387,8 @@ Your deliverables:
 Working space: Use ai_working/ for planning and notes.
 
 Important:
-- Build on existing work from Slices 1-5, don't replace it
+- Build on existing work, don't replace it
 - Gallery grid must match component specification exactly
-- Follow the demo script as your acceptance test
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
@@ -424,16 +399,14 @@ When done, confirm all success criteria are met.
 ### Slice 7: Multiple Pages & Navigation
 
 ```
-You are implementing Slice 7: Multiple Pages & Navigation for the portfolio builder.
+You are implementing multi-page navigation for the portfolio builder.
 
 Read these files to understand your goal:
 - plans/slices/07-multiple-pages-navigation.md (your slice specification)
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
-Design specifications auto-load via @mentions in the slice spec.
-
-Read the existing codebase from Slices 1-6. Build on it incrementally.
+Study the existing codebase and build on it incrementally.
 
 Goal: User can organize work into different pages with dynamic navigation.
 
@@ -449,10 +422,9 @@ Your deliverables:
 Working space: Use ai_working/ for planning and notes.
 
 Important:
-- Build on existing work from Slices 1-6, don't replace it
+- Build on existing work, don't replace it
 - Categories are user-defined (NOT hardcoded as Theatre/Film/Opera)
 - Navigation adapts dynamically to user's category structure
-- Follow the demo script as your acceptance test
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
@@ -463,16 +435,14 @@ When done, confirm all success criteria are met.
 ### Slice 8: Draft/Publish Workflow
 
 ```
-You are implementing Slice 8: Draft/Publish Workflow for the portfolio builder.
+You are implementing the draft/publish workflow for the portfolio builder.
 
 Read these files to understand your goal:
 - plans/slices/08-draft-publish-workflow.md (your slice specification)
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
-Design specifications auto-load via @mentions in the slice spec.
-
-Read the existing codebase from Slices 1-7. Build on it incrementally.
+Study the existing codebase and build on it incrementally.
 
 Goal: User can work on changes without affecting live site, preview before publishing.
 
@@ -488,10 +458,9 @@ Your deliverables:
 Working space: Use ai_working/ for planning and notes.
 
 Important:
-- Build on existing work from Slices 1-7, don't replace it
+- Build on existing work, don't replace it
 - Changes must NOT be live until explicit publish action
 - Preview must show exact published appearance (DOM parity)
-- Follow the demo script as your acceptance test
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
