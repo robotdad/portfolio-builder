@@ -8,32 +8,21 @@ includes:
   - bundle: git+https://github.com/microsoft/amplifier-foundation@main
 
 ---
-## Dev Server Management
+## Dev Server Policy
 
-**Running Next.js dev server for testing:**
+**DO NOT run the Next.js dev server (`npm run dev`).**
+
+It consistently hangs in this environment and causes session issues. No workarounds have proven reliable.
+
+**Instead, verify your work with:**
 
 ```bash
-# Start in background with logging
-npm run dev > /tmp/nextjs.log 2>&1 & echo $!
-# Returns PID immediately, e.g., "95969"
-
-# Verify it's running
-ps -p 95969
-
-# View logs
-tail -20 /tmp/nextjs.log
-
-# Stop when done
-kill 95969
+# Build the project (catches all TypeScript and build errors)
+npm run build
 ```
 
-**CRITICAL - Never do this:**
-- ❌ `npm run dev` (hangs indefinitely - cannot be killed)
-- ❌ `run_in_background` parameter (unreliable - times out after 30s)
+**For manual testing:**
+- The USER will run `npm run dev` in their own terminal if needed
+- Ask the user to test in browser and report back
 
-**Always do this:**
-- ✅ Use Unix job control: `command > /tmp/log 2>&1 & echo $!`
-- ✅ Capture PID for later cleanup
-- ✅ Redirect output to log file
-
-**This pattern works for all long-running processes** (dev servers, build watchers, etc.)
+**This applies to all long-running processes** - avoid starting dev servers, watch modes, or any process that doesn't terminate on its own.
