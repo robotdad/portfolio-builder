@@ -203,9 +203,9 @@ Ready-to-use prompts for starting each slice implementation session.
 You are implementing the foundation for a portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/01-static-page-foundation.md (your slice specification)
+- plans/slices/01-static-page-foundation.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints)
+- plans/TECH_STACK.md (technology constraints - includes dev server management)
 
 This is the first implementation. No previous work exists.
 
@@ -234,9 +234,9 @@ When done, confirm all success criteria are met.
 You are implementing rich text editing for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/02-rich-text-editing.md (your slice specification)
+- plans/slices/02-rich-text-editing.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints)
+- plans/TECH_STACK.md (technology constraints - includes dev server management)
 
 Study the existing codebase and build on it incrementally.
 
@@ -266,9 +266,9 @@ When done, confirm all success criteria are met.
 You are implementing image upload for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/03-single-image-upload.md (your slice specification)
+- plans/slices/03-single-image-upload.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints)
+- plans/TECH_STACK.md (technology constraints - includes dev server management)
 
 Study the existing codebase and build on it incrementally.
 
@@ -298,9 +298,9 @@ When done, confirm all success criteria are met.
 You are implementing mobile editing for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/04-mobile-editing-basics.md (your slice specification)
+- plans/slices/04-mobile-editing-basics.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints)
+- plans/TECH_STACK.md (technology constraints - includes dev server management)
 
 Study the existing codebase and build on it incrementally.
 
@@ -333,9 +333,9 @@ When done, confirm all success criteria are met.
 You are implementing a component system for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/05-component-system-sections.md (your slice specification)
+- plans/slices/05-component-system-sections.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints)
+- plans/TECH_STACK.md (technology constraints - includes dev server management)
 
 Study the existing codebase and build on it incrementally.
 
@@ -368,9 +368,9 @@ When done, confirm all success criteria are met.
 You are implementing image galleries for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/06-image-gallery-component.md (your slice specification)
+- plans/slices/06-image-gallery-component.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints)
+- plans/TECH_STACK.md (technology constraints - includes dev server management)
 
 Study the existing codebase and build on it incrementally.
 
@@ -402,9 +402,9 @@ When done, confirm all success criteria are met.
 You are implementing multi-page navigation for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/07-multiple-pages-navigation.md (your slice specification)
+- plans/slices/07-multiple-pages-navigation.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints)
+- plans/TECH_STACK.md (technology constraints - includes dev server management)
 
 Study the existing codebase and build on it incrementally.
 
@@ -438,9 +438,9 @@ When done, confirm all success criteria are met.
 You are implementing the draft/publish workflow for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/08-draft-publish-workflow.md (your slice specification)
+- plans/slices/08-draft-publish-workflow.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints)
+- plans/TECH_STACK.md (technology constraints - includes dev server management)
 
 Study the existing codebase and build on it incrementally.
 
