@@ -18,6 +18,9 @@ Read these files to understand your goal:
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
+Note: Design specifications auto-load via @mentions in the slice spec.
+No need to manually load design files - they're referenced and loaded automatically.
+
 Your goal: Implement the slice specification completely.
 
 Important:
@@ -60,6 +63,12 @@ Run through this checklist:
 - [ ] No console errors or warnings
 - [ ] Works on desktop (Chrome, Safari)
 - [ ] Works on mobile (if slice 4+)
+
+**Design:**
+- [ ] Matches design system specifications
+- [ ] Follows visual design principles
+- [ ] Responsive behavior per design specs (if slice 4+)
+- [ ] No visual elements contradict design system
 
 **Code Quality:**
 - [ ] Code is simple and clear
@@ -116,7 +125,7 @@ Run through this checklist:
 
 ### After Slice 8
 **Phase 1 Complete:**
-- Functional prototype ready for design spike
+- Functional prototype with integrated design system
 - All success scenarios work
 - Ready for user feedback
 
@@ -136,6 +145,9 @@ Run through this checklist:
 ### Issue: Success criteria ambiguous
 **Fix:** Clarify the criteria before accepting. Update slice spec if needed.
 
+### Issue: Design specifications ignored
+**Fix:** Review the design specs loaded via @mentions in slice spec. Verify implementation matches visual requirements, not just functional.
+
 ---
 
 ## Session Templates
@@ -148,6 +160,8 @@ Read:
 - plans/slices/01-static-page-foundation.md
 - plans/PRINCIPLES.md
 - plans/TECH_STACK.md
+
+(Design specs auto-load via @mentions - no need to load separately)
 
 This is the first implementation. No previous work exists.
 
@@ -167,6 +181,8 @@ Read:
 - plans/slices/[XX-feature-name].md
 - plans/PRINCIPLES.md
 - plans/TECH_STACK.md
+
+(Design specs auto-load via @mentions - no need to load separately)
 
 Read the codebase to understand what exists. Build on it incrementally.
 
@@ -193,6 +209,11 @@ See plans/USERS.md for:
 - User personas (Marcus, Sarah, Emma)
 - Success scenarios to validate against
 - Validation questions
+
+See plans/design/ for:
+- Design system specifications (auto-loaded via slice specs)
+- Visual design principles
+- Component guidelines
 
 See plans/VISION.md for:
 - Overall success criteria
