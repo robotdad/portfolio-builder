@@ -17,7 +17,8 @@ interface ImageUploadProps {
   onRemove?: () => void
 }
 
-const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+// Include HEIC/HEIF for iOS photo library support
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif']
 const MAX_SIZE = 10 * 1024 * 1024 // 10MB
 
 export function ImageUpload({
@@ -32,7 +33,18 @@ export function ImageUpload({
   const [preview, setPreview] = useState<string | null>(null)
   const [altText, setAltText] = useState(currentImage?.altText || '')
   const [savingAltText, setSavingAltText] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Detect mobile device for optimized UX
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Update altText when currentImage changes
   useEffect(() => {
@@ -174,10 +186,16 @@ export function ImageUpload({
 
   return (
     <div className="image-upload">
+      {/* 
+        Mobile-optimized file input:
+        - capture="environment" allows camera on mobile
+        - accept includes HEIC for iOS photos
+        - Multiple accept formats for broad compatibility
+      */}
       <input
         ref={fileInputRef}
         type="file"
-        accept="image/jpeg,image/png,image/webp"
+        accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.heic,.heif"
         onChange={handleFileSelect}
         className="sr-only"
         aria-label="Select image file"
@@ -190,7 +208,7 @@ export function ImageUpload({
             <button
               type="button"
               onClick={handleRemove}
-              className="image-upload-remove"
+              className="image-upload-remove touch-btn"
               aria-label="Remove image"
             >
               Remove
@@ -201,16 +219,29 @@ export function ImageUpload({
         <button
           type="button"
           onClick={handleDropzoneClick}
-          className="image-upload-dropzone"
+          className={isMobile ? 'mobile-image-upload-btn' : 'image-upload-dropzone'}
           disabled={uploading}
         >
-          <span className="image-upload-dropzone-icon">+</span>
-          <span className="image-upload-dropzone-text">
-            Click to select an image
-          </span>
-          <span className="image-upload-dropzone-hint">
-            JPEG, PNG, or WebP up to 10MB
-          </span>
+          {isMobile ? (
+            <>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="M21 15l-5-5L5 21" />
+              </svg>
+              <span>Tap to add photo</span>
+            </>
+          ) : (
+            <>
+              <span className="image-upload-dropzone-icon">+</span>
+              <span className="image-upload-dropzone-text">
+                Click to select an image
+              </span>
+              <span className="image-upload-dropzone-hint">
+                JPEG, PNG, or WebP up to 10MB
+              </span>
+            </>
+          )}
         </button>
       )}
 

@@ -1,9 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { RichTextEditor } from '@/components/editor/RichTextEditor'
 import { ImageUpload } from '@/components/editor/ImageUpload'
+import { SaveIndicator, SaveStatus } from '@/components/editor/SaveIndicator'
+import { MobileSaveFooter } from '@/components/editor/MobileSaveFooter'
 
 interface Asset {
   id: string
@@ -45,10 +47,21 @@ export default function AdminPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle')
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null)
+  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   
   const [formData, setFormData] = useState({
+    name: '',
+    slug: '',
+    title: '',
+    bio: '',
+    theme: 'modern-minimal',
+  })
+  
+  // Track initial form data to detect dirty state
+  const [initialFormData, setInitialFormData] = useState({
     name: '',
     slug: '',
     title: '',
@@ -66,13 +79,15 @@ export default function AdminPage() {
           const data = await res.json()
           if (data) {
             setPortfolio(data)
-            setFormData({
+            const loadedData = {
               name: data.name || '',
               slug: data.slug || '',
               title: data.title || '',
               bio: data.bio || '',
               theme: data.theme || 'modern-minimal',
-            })
+            }
+            setFormData(loadedData)
+            setInitialFormData(loadedData)
           }
         }
       } catch (error) {
@@ -83,6 +98,17 @@ export default function AdminPage() {
     }
     loadPortfolio()
   }, [])
+
+  // Compute dirty state - form has unsaved changes
+  const isDirty = useMemo(() => {
+    return (
+      formData.name !== initialFormData.name ||
+      formData.slug !== initialFormData.slug ||
+      formData.title !== initialFormData.title ||
+      formData.bio !== initialFormData.bio ||
+      formData.theme !== initialFormData.theme
+    )
+  }, [formData, initialFormData])
 
   // Auto-generate slug from name
   const generateSlug = (name: string) => {
@@ -113,10 +139,24 @@ export default function AdminPage() {
     setFormData(prev => ({ ...prev, theme: themeId }))
   }
 
+  // Handler for mobile save footer (submits the form programmatically)
+  const handleMobileSave = useCallback(() => {
+    const form = document.querySelector('form')
+    if (form) {
+      form.requestSubmit()
+    }
+  }, [])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
+    setSaveStatus('saving')
     setMessage(null)
+
+    // Clear any pending save timeout
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current)
+    }
 
     // Check alt text on all assets before publishing
     if (portfolio?.assets?.some(asset => !asset.altText || asset.altText.trim() === '')) {
@@ -125,6 +165,7 @@ export default function AdminPage() {
         text: 'All images must have alt text before publishing. Please add alt text to your images.',
       })
       setSaving(false)
+      setSaveStatus('error')
       return
     }
 
@@ -145,11 +186,21 @@ export default function AdminPage() {
 
       const saved = await res.json()
       setPortfolio(saved)
+      setSaveStatus('saved')
       setMessage({ type: 'success', text: 'Portfolio saved successfully!' })
+      
+      // Update initial form data to mark as clean
+      setInitialFormData({ ...formData })
+      
+      // Reset save status after delay
+      saveTimeoutRef.current = setTimeout(() => {
+        setSaveStatus('idle')
+      }, 3000)
       
       // Refresh to show updated data
       router.refresh()
     } catch (error) {
+      setSaveStatus('error')
       setMessage({
         type: 'error',
         text: error instanceof Error ? error.message : 'Failed to save portfolio',
@@ -158,6 +209,15 @@ export default function AdminPage() {
       setSaving(false)
     }
   }
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current)
+      }
+    }
+  }, [])
 
   if (loading) {
     return (
@@ -187,16 +247,19 @@ export default function AdminPage() {
         <div className="container">
           <div className="admin-header-content">
             <span className="admin-logo">Portfolio Builder</span>
-            {portfolio && (
-              <a 
-                href={`/${portfolio.slug}`} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="btn btn-secondary"
-              >
-                View Portfolio →
-              </a>
-            )}
+            <div className="admin-header-actions">
+              <SaveIndicator status={saveStatus} />
+              {portfolio && (
+                <a 
+                  href={`/${portfolio.slug}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                >
+                  View →
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -354,7 +417,8 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              <div style={{ paddingTop: 'var(--space-4)' }}>
+              {/* Desktop-only save button (hidden on mobile via CSS) */}
+              <div style={{ paddingTop: 'var(--space-4)' }} className="mobile-hide-save-btn">
                 <button
                   type="submit"
                   className="btn btn-primary"
@@ -377,6 +441,17 @@ export default function AdminPage() {
           </div>
         </div>
       </main>
+
+      {/* Mobile sticky save footer */}
+      <MobileSaveFooter
+        isDirty={isDirty}
+        saveStatus={saveStatus}
+        isSaving={saving}
+        onSave={handleMobileSave}
+        isExisting={!!portfolio}
+        createLabel="Create Portfolio"
+        updateLabel="Save Changes"
+      />
     </div>
   )
 }

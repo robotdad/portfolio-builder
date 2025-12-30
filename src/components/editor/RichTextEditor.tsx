@@ -3,8 +3,9 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useEffect } from 'react'
 import { Toolbar } from './Toolbar'
+import { MobileToolbar } from './MobileToolbar'
 import { LinkDialog } from './LinkDialog'
 
 interface RichTextEditorProps {
@@ -16,6 +17,18 @@ interface RichTextEditorProps {
 
 export function RichTextEditor({ value, onChange, placeholder, id }: RichTextEditorProps) {
   const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detect mobile on mount
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Memoize extensions to prevent recreation on each render
   const extensions = useMemo(() => [
@@ -67,7 +80,11 @@ export function RichTextEditor({ value, onChange, placeholder, id }: RichTextEdi
 
   return (
     <div className="rich-text-editor">
-      <Toolbar editor={editor} onLinkClick={handleLinkClick} />
+      {isMobile ? (
+        <MobileToolbar editor={editor} onLinkClick={handleLinkClick} />
+      ) : (
+        <Toolbar editor={editor} onLinkClick={handleLinkClick} />
+      )}
       <EditorContent editor={editor} />
       {editor && (
         <LinkDialog
