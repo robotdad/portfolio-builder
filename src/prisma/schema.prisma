@@ -10,63 +10,67 @@ datasource db {
 }
 
 model Portfolio {
-  id        String   @id @default(cuid())
-  slug      String   @unique
-  name      String
-  title     String
-  bio       String
-  theme     String   @default("modern-minimal")
-  // Content lives in Page.content ONLY - no dual storage
+  id String @id @default(cuid())
+  slug String @unique
+  name String
+  title String
+  bio String
+  theme String @default("modern-minimal")
+  // Content lives in Page.draftContent/publishedContent ONLY - no dual storage
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  assets    Asset[]
-  pages     Page[]
+  assets Asset[]
+  pages Page[]
 }
 
 model Page {
-  id          String   @id @default(cuid())
+  id String @id @default(cuid())
   portfolioId String
-  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
   
-  title       String   // Display name in navigation
-  slug        String   // URL path segment (empty string for homepage)
-  navOrder    Int      @default(0)
-  isHomepage  Boolean  @default(false)
-  showInNav   Boolean  @default(true)
-  content     String?  // JSON string containing sections array
+  title String // Display name in navigation
+  slug String // URL path segment (empty string for homepage)
+  navOrder Int @default(0)
+  isHomepage Boolean @default(false)
+  showInNav Boolean @default(true)
   
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  // Draft/Publish content separation
+  draftContent String? // JSON string containing draft sections array (auto-saved)
+  publishedContent String? // JSON string containing published sections array
+  lastPublishedAt DateTime? // When content was last published
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   
   @@unique([portfolioId, slug])
 }
 
 model Asset {
-  id          String   @id @default(cuid())
+  id String @id @default(cuid())
   portfolioId String
-  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
   
   // Original file info
-  filename    String
-  mimeType    String
-  size        Int      // Original file size in bytes
+  filename String
+  mimeType String
+  size Int // Original file size in bytes
   
   // Processed image paths (relative to /uploads)
-  url         String   // Display version path
-  thumbnailUrl String  // Thumbnail version path  
+  url String // Display version path
+  thumbnailUrl String // Thumbnail version path
   placeholderUrl String // Blur placeholder path
   
   // Responsive srcset paths (WebP format)
-  srcset400   String?  // 400w version
-  srcset800   String?  // 800w version
-  srcset1200  String?  // 1200w version
-  srcset1600  String?  // 1600w version
+  srcset400 String? // 400w version
+  srcset800 String? // 800w version
+  srcset1200 String? // 1200w version
+  srcset1600 String? // 1600w version
   
   // Image metadata
-  width       Int      // Original width
-  height      Int      // Original height
-  altText     String   @default("")
-  caption     String?
+  width Int // Original width
+  height Int // Original height
+  altText String @default("")
+  caption String?
   
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 }

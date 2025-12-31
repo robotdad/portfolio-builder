@@ -3632,3 +3632,203 @@ textarea:focus-visible {
 .portfolio-nav--bold-editorial .portfolio-nav-menu-link--active {
   color: var(--bold-accent);
 }
+
+/* ============================================
+   Draft/Publish Workflow Styles
+   ============================================ */
+
+/* Draft Indicator Badge */
+.draft-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  transition: all 200ms ease-out;
+}
+
+.draft-indicator--animating {
+  transform: scale(1.05);
+}
+
+.draft-indicator-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.draft-indicator-spinner {
+  animation: spin 1s linear infinite;
+}
+
+.draft-indicator--draft {
+  background-color: var(--color-warning-bg, #fef3c7);
+  color: var(--color-warning-text, #92400e);
+  border: 1px solid var(--color-warning-border, #fcd34d);
+}
+
+.draft-indicator--published {
+  background-color: var(--color-success-bg, #d1fae5);
+  color: var(--color-success-text, #065f46);
+  border: 1px solid var(--color-success-border, #6ee7b7);
+}
+
+.draft-indicator--saving {
+  background-color: var(--color-info-bg, #dbeafe);
+  color: var(--color-info-text, #1e40af);
+  border: 1px solid var(--color-info-border, #93c5fd);
+}
+
+.draft-indicator--saved {
+  background-color: var(--color-success-bg, #d1fae5);
+  color: var(--color-success-text, #065f46);
+  border: 1px solid var(--color-success-border, #6ee7b7);
+}
+
+.draft-indicator--error {
+  background-color: var(--color-error-bg, #fee2e2);
+  color: var(--color-error-text, #991b1b);
+  border: 1px solid var(--color-error-border, #fca5a5);
+}
+
+/* Publish Button */
+.publish-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 200ms ease-out;
+}
+
+.publish-btn:hover:not(:disabled) {
+  background-color: var(--color-accent-hover, #4338ca);
+  transform: translateY(-1px);
+}
+
+.publish-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.publish-btn--publishing {
+  background-color: var(--color-info-text, #1e40af);
+}
+
+.publish-btn--success {
+  background-color: var(--color-success-text, #065f46);
+}
+
+.publish-btn--error {
+  background-color: var(--color-error-text, #991b1b);
+}
+
+.publish-btn-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Preview Banner */
+.preview-banner {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: var(--font-size-sm);
+  box-shadow: var(--shadow-md);
+}
+
+.preview-banner-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.preview-banner-content svg {
+  flex-shrink: 0;
+}
+
+.preview-banner-hint {
+  opacity: 0.8;
+  font-size: var(--font-size-xs);
+}
+
+.preview-banner-exit {
+  color: white;
+  text-decoration: none;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 200ms ease-out;
+}
+
+.preview-banner-exit:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Preview mode body adjustment */
+.preview-mode .portfolio-main {
+  padding-top: var(--space-4);
+}
+
+/* Card subtitle for last published date */
+.card-subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+/* Responsive adjustments for header actions */
+@media (max-width: 640px) {
+  .admin-header-actions {
+    gap: var(--space-1);
+  }
+  
+  .draft-indicator-label {
+    display: none;
+  }
+  
+  .draft-indicator {
+    padding: var(--space-1);
+  }
+  
+  .publish-btn span:not(.publish-btn-spinner) {
+    display: none;
+  }
+  
+  .publish-btn {
+    padding: var(--space-2);
+  }
+  
+  .preview-banner {
+    flex-direction: column;
+    gap: var(--space-2);
+    text-align: center;
+  }
+  
+  .preview-banner-hint {
+    display: none;
+  }
+}
+
+/* Spin animation for loading spinners */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

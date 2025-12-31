@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const portfolio = await prisma.portfolio.findFirst({
       orderBy: { createdAt: 'desc' },
-      include: { 
+      include: {
         assets: true,
         pages: { orderBy: { navOrder: 'asc' } },
       },
@@ -56,6 +56,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Create initial hero section content
+    const initialContent = JSON.stringify({
+      sections: [{
+        id: crypto.randomUUID(),
+        type: 'hero',
+        name: name || 'Your Name',
+        title: title || 'Your Professional Title',
+        bio: '<p>Welcome to my portfolio. Edit this section to tell your story.</p>',
+        profileImageUrl: null,
+        resumeUrl: null,
+        showResumeLink: false,
+      }]
+    })
+
     // ATOMIC: Create portfolio WITH homepage in single transaction
     // This ensures no portfolio ever exists without a homepage
     const portfolio = await prisma.portfolio.create({
@@ -72,23 +86,15 @@ export async function POST(request: NextRequest) {
             navOrder: 0,
             isHomepage: true,
             showInNav: true,
-            // Pre-populate with Hero section using user's name
-            content: JSON.stringify({
-              sections: [{
-                id: crypto.randomUUID(),
-                type: 'hero',
-                name: name || 'Your Name',
-                title: title || 'Your Professional Title',
-                bio: '<p>Welcome to my portfolio. Edit this section to tell your story.</p>',
-                profileImageUrl: null,
-                resumeUrl: null,
-                showResumeLink: false,
-              }]
-            }),
+            // Draft/Publish: New portfolios start with draft content only
+            // Content is not published until explicit publish action
+            draftContent: initialContent,
+            publishedContent: initialContent, // Also publish initially so site works immediately
+            lastPublishedAt: new Date(),
           }
         }
       },
-      include: { 
+      include: {
         assets: true,
         pages: { orderBy: { navOrder: 'asc' } },
       },
@@ -141,7 +147,7 @@ export async function PUT(request: NextRequest) {
       )
     }
 
-    // Update portfolio settings only - content lives in Page.content
+    // Update portfolio settings only - content lives in Page.draftContent/publishedContent
     const portfolio = await prisma.portfolio.update({
       where: { id },
       data: {

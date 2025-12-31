@@ -25,9 +25,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   }
 
-  // Get sections from homepage (homepage always exists)
+  // Get sections from homepage publishedContent (fallback to draftContent for unpublished)
   const homePage = portfolio.pages[0]
-  const sections = deserializeSections(homePage?.content)
+  const sections = deserializeSections(homePage?.publishedContent || homePage?.draftContent)
   const heroSection = sections.find(isHeroSection)
   
   const name = heroSection?.name || portfolio.name
@@ -45,7 +45,7 @@ export default async function PortfolioPage({ params }: PageProps) {
   
   const portfolio = await prisma.portfolio.findUnique({
     where: { slug },
-    include: { 
+    include: {
       assets: true,
       pages: {
         orderBy: { navOrder: 'asc' },
@@ -60,21 +60,24 @@ export default async function PortfolioPage({ params }: PageProps) {
   // Get the homepage (homepage always exists - created atomically with portfolio)
   const homePage = portfolio.pages.find(p => p.isHomepage) || portfolio.pages[0]
   
-  // Parse sections from homepage content
-  const sections = deserializeSections(homePage?.content)
+  // Parse sections from PUBLISHED content (fallback to draft for unpublished pages)
+  // This ensures the live site only shows explicitly published content
+  const sections = deserializeSections(homePage?.publishedContent || homePage?.draftContent)
   
   // Get hero section for name extraction
   const heroSection = sections.find(isHeroSection)
   const name = heroSection?.name || portfolio.name
 
-  // Prepare navigation pages
-  const navPages: NavPage[] = portfolio.pages.map(p => ({
-    id: p.id,
-    title: p.title,
-    slug: p.slug,
-    isHomepage: p.isHomepage,
-    showInNav: p.showInNav,
-  }))
+  // Prepare navigation pages (only show pages that have published content)
+  const navPages: NavPage[] = portfolio.pages
+    .filter(p => p.showInNav && (p.publishedContent || p.draftContent))
+    .map(p => ({
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      isHomepage: p.isHomepage,
+      showInNav: p.showInNav,
+    }))
 
   const theme = portfolio.theme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 

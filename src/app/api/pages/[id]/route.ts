@@ -30,7 +30,7 @@ export async function GET(
   }
 }
 
-// PUT - Update a page
+// PUT - Update a page (saves to draftContent)
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -38,7 +38,7 @@ export async function PUT(
   try {
     const { id } = await params
     const body = await request.json()
-    const { title, slug, isHomepage, showInNav, content } = body
+    const { title, slug, isHomepage, showInNav, content, draftContent } = body
 
     // Get existing page first (needed for partial update logic)
     const existingPage = await prisma.page.findUnique({
@@ -93,13 +93,23 @@ export async function PUT(
     // If setting this as homepage, unset any existing homepage
     if (isHomepage && !existingPage.isHomepage) {
       await prisma.page.updateMany({
-        where: { 
-          portfolioId: existingPage.portfolioId, 
+        where: {
+          portfolioId: existingPage.portfolioId,
           isHomepage: true,
           NOT: { id },
         },
         data: { isHomepage: false },
       })
+    }
+
+    // Determine final draft content
+    // Support both 'content' (legacy) and 'draftContent' (new) field names
+    let finalDraftContent = existingPage.draftContent
+    if (draftContent !== undefined) {
+      finalDraftContent = draftContent
+    } else if (content !== undefined) {
+      // Legacy support: 'content' maps to 'draftContent'
+      finalDraftContent = content
     }
 
     // Update page
@@ -110,7 +120,7 @@ export async function PUT(
         slug: pageSlug,
         isHomepage: isHomepage !== undefined ? isHomepage : existingPage.isHomepage,
         showInNav: showInNav !== undefined ? showInNav : existingPage.showInNav,
-        content: content !== undefined ? content : existingPage.content,
+        draftContent: finalDraftContent,
       },
     })
 

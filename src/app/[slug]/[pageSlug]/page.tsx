@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   
   const portfolio = await prisma.portfolio.findUnique({
     where: { slug },
-    include: { 
-      pages: { 
+    include: {
+      pages: {
         where: { slug: pageSlug },
         take: 1,
       },
@@ -32,7 +32,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const page = portfolio.pages[0]
-  const sections = deserializeSections(page.content)
+  // Use publishedContent for live site, fallback to draftContent for unpublished pages
+  const sections = deserializeSections(page.publishedContent || page.draftContent)
   const heroSection = sections.find(isHeroSection)
   
   const name = heroSection?.name || portfolio.name
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${title} - ${name}`,
-    description: heroSection?.bio 
+    description: heroSection?.bio
       ? stripHtml(heroSection.bio).substring(0, 160)
       : `${title} page of ${name}'s portfolio`,
   }
@@ -51,7 +52,7 @@ export default async function PortfolioSubPage({ params }: PageProps) {
   
   const portfolio = await prisma.portfolio.findUnique({
     where: { slug },
-    include: { 
+    include: {
       assets: true,
       pages: {
         orderBy: { navOrder: 'asc' },
@@ -76,23 +77,25 @@ export default async function PortfolioSubPage({ params }: PageProps) {
     redirect(`/${slug}`)
   }
 
-  // Parse sections from page content
-  const sections = deserializeSections(currentPage.content)
+  // Parse sections from PUBLISHED content (fallback to draft for unpublished)
+  const sections = deserializeSections(currentPage.publishedContent || currentPage.draftContent)
   
   // Get hero section from homepage for the name (for footer)
   const homePage = portfolio.pages.find(p => p.isHomepage) || portfolio.pages[0]
-  const homePageSections = deserializeSections(homePage?.content)
+  const homePageSections = deserializeSections(homePage?.publishedContent || homePage?.draftContent)
   const heroSection = homePageSections.find(isHeroSection)
   const name = heroSection?.name || portfolio.name
 
-  // Prepare navigation pages
-  const navPages: NavPage[] = portfolio.pages.map(p => ({
-    id: p.id,
-    title: p.title,
-    slug: p.slug,
-    isHomepage: p.isHomepage,
-    showInNav: p.showInNav,
-  }))
+  // Prepare navigation pages (only show pages with published/draft content)
+  const navPages: NavPage[] = portfolio.pages
+    .filter(p => p.showInNav && (p.publishedContent || p.draftContent))
+    .map(p => ({
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      isHomepage: p.isHomepage,
+      showInNav: p.showInNav,
+    }))
 
   const theme = portfolio.theme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 

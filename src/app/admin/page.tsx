@@ -7,8 +7,11 @@ import { AddSectionButton } from '@/components/editor/AddSectionButton'
 import { SaveIndicator, SaveStatus } from '@/components/editor/SaveIndicator'
 import { MobileSaveFooter } from '@/components/editor/MobileSaveFooter'
 import { PageList, PageSettingsModal, DeletePageModal, type PageData } from '@/components/editor/PageList'
-import { 
-  type Section, 
+import { DraftIndicator, type DraftStatus } from '@/components/admin/DraftIndicator'
+import { PublishButton } from '@/components/admin/PublishButton'
+import { useAutoSave } from '@/hooks/useAutoSave'
+import {
+  type Section,
   isHeroSection,
 } from '@/lib/content-schema'
 import { serializeSections, deserializeSections } from '@/lib/serialization'
@@ -29,6 +32,13 @@ interface Portfolio {
   bio: string
   theme: string
   assets: Asset[]
+}
+
+// Extended PageData with draft/publish fields
+interface ExtendedPageData extends PageData {
+  draftContent?: string | null
+  publishedContent?: string | null
+  lastPublishedAt?: string | null
 }
 
 const themes = [
@@ -59,16 +69,20 @@ export default function AdminPage() {
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   
   // Multi-page state
-  const [pages, setPages] = useState<PageData[]>([])
+  const [pages, setPages] = useState<ExtendedPageData[]>([])
   const [currentPageId, setCurrentPageId] = useState<string | null>(null)
   const [showPageModal, setShowPageModal] = useState(false)
-  const [editingPage, setEditingPage] = useState<PageData | null>(null)
+  const [editingPage, setEditingPage] = useState<ExtendedPageData | null>(null)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [deletingPage, setDeletingPage] = useState<PageData | null>(null)
+  const [deletingPage, setDeletingPage] = useState<ExtendedPageData | null>(null)
   
   // Section-based content for current page
   const [sections, setSections] = useState<Section[]>([])
   const [initialSections, setInitialSections] = useState<Section[]>([])
+  
+  // Draft/Publish state
+  const [publishedSections, setPublishedSections] = useState<Section[]>([])
+  const [lastPublishedAt, setLastPublishedAt] = useState<Date | null>(null)
   
   const [formData, setFormData] = useState({
     name: '',
@@ -88,6 +102,21 @@ export default function AdminPage() {
     return pages.find(p => p.id === currentPageId) || null
   }, [pages, currentPageId])
 
+  // Check if there are unpublished changes
+  const hasUnpublishedChanges = useMemo(() => {
+    const currentDraft = JSON.stringify(sections)
+    const currentPublished = JSON.stringify(publishedSections)
+    return currentDraft !== currentPublished
+  }, [sections, publishedSections])
+
+  // Compute draft status for indicator
+  const draftStatus = useMemo((): DraftStatus => {
+    if (saveStatus === 'saving') return 'saving'
+    if (saveStatus === 'saved') return 'saved'
+    if (saveStatus === 'error') return 'error'
+    return hasUnpublishedChanges ? 'draft' : 'published'
+  }, [saveStatus, hasUnpublishedChanges])
+
   // Load pages for portfolio
   const loadPages = useCallback(async (portfolioId: string) => {
     try {
@@ -98,13 +127,22 @@ export default function AdminPage() {
         
         // Select homepage or first page by default
         if (loadedPages.length > 0) {
-          const homepage = loadedPages.find((p: PageData) => p.isHomepage) || loadedPages[0]
+          const homepage = loadedPages.find((p: ExtendedPageData) => p.isHomepage) || loadedPages[0]
           setCurrentPageId(homepage.id)
           
-          // Load sections for this page
-          const pageSections = deserializeSections(homepage.content)
+          // Load sections from draftContent (for editing)
+          const pageSections = deserializeSections(homepage.draftContent)
           setSections(pageSections)
           setInitialSections(pageSections)
+          
+          // Load published sections (for comparison)
+          const pubSections = deserializeSections(homepage.publishedContent)
+          setPublishedSections(pubSections)
+          
+          // Set last published timestamp
+          if (homepage.lastPublishedAt) {
+            setLastPublishedAt(new Date(homepage.lastPublishedAt))
+          }
         }
       }
     } catch (error) {
@@ -177,7 +215,7 @@ export default function AdminPage() {
       case 'saving': return 'Saving...'
       case 'saved': return 'Saved!'
       case 'error': return 'Retry Save'
-      case 'dirty': return isExisting ? 'Save Changes' : 'Create Portfolio'
+      case 'dirty': return isExisting ? 'Save Draft' : 'Create Portfolio'
       case 'clean': return 'Saved'
       default: return isExisting ? 'Save' : 'Create'
     }
@@ -220,40 +258,87 @@ export default function AdminPage() {
     setSections(prev => [...prev, section])
   }, [])
 
+  // Save draft content function (used by auto-save and manual save)
+  const saveDraft = useCallback(async (): Promise<boolean> => {
+    if (!portfolio || !currentPageId) return false
+    
+    try {
+      const contentJson = serializeSections(sections)
+      
+      const res = await fetch(`/api/pages/${currentPageId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ draftContent: contentJson }),
+      })
+      
+      if (!res.ok) {
+        console.error('Failed to save draft')
+        return false
+      }
+      
+      // Update local pages array
+      setPages(prev => prev.map(p =>
+        p.id === currentPageId
+          ? { ...p, draftContent: contentJson }
+          : p
+      ))
+      
+      setInitialSections(sections)
+      return true
+    } catch (error) {
+      console.error('Failed to save draft:', error)
+      return false
+    }
+  }, [portfolio, currentPageId, sections])
+
+  // Auto-save hook - saves draft every 30 seconds
+  const autoSave = useAutoSave({
+    data: sections,
+    onSave: saveDraft,
+    interval: 30000, // 30 seconds
+    enabled: !!portfolio && !!currentPageId && isDirty,
+  })
+
+  // Map auto-save status to SaveStatus
+  useEffect(() => {
+    if (autoSave.status === 'saving') {
+      setSaveStatus('saving')
+    } else if (autoSave.status === 'saved') {
+      setSaveStatus('saved')
+    } else if (autoSave.status === 'error') {
+      setSaveStatus('error')
+    }
+  }, [autoSave.status])
+
   // Handle page selection
   const handleSelectPage = useCallback(async (pageId: string) => {
     // Don't switch to the same page
     if (pageId === currentPageId) return
     
-    // Save current page content first if we have content
-    if (currentPageId && sections.length > 0) {
-      const currentContent = serializeSections(sections)
-      try {
-        await fetch(`/api/pages/${currentPageId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content: currentContent }),
-        })
-        // Update local pages array with saved content
-        setPages(prev => prev.map(p =>
-          p.id === currentPageId
-            ? { ...p, content: currentContent }
-            : p
-        ))
-      } catch (error) {
-        console.error('Failed to save current page before switching:', error)
-      }
+    // Save current page draft content first if we have changes
+    if (currentPageId && isDirty) {
+      await saveDraft()
     }
     
     // Load the new page's sections
-    const page = pages.find(p => p.id === pageId)
+    const page = pages.find(p => p.id === pageId) as ExtendedPageData | undefined
     if (page) {
-      const pageSections = deserializeSections(page.content)
+      const pageSections = deserializeSections(page.draftContent)
       setSections(pageSections)
       setInitialSections(pageSections)
+      
+      const pubSections = deserializeSections(page.publishedContent)
+      setPublishedSections(pubSections)
+      
+      if (page.lastPublishedAt) {
+        setLastPublishedAt(new Date(page.lastPublishedAt))
+      } else {
+        setLastPublishedAt(null)
+      }
+      
       setCurrentPageId(pageId)
     }
-  }, [currentPageId, pages, sections])
+  }, [currentPageId, pages, isDirty, saveDraft])
 
   // Handle page creation
   const handleCreatePage = () => {
@@ -262,11 +347,11 @@ export default function AdminPage() {
   }
 
   // Handle page settings save
-  const handleSavePageSettings = async (data: { 
-    title: string; 
-    slug: string; 
-    isHomepage: boolean; 
-    showInNav: boolean 
+  const handleSavePageSettings = async (data: {
+    title: string;
+    slug: string;
+    isHomepage: boolean;
+    showInNav: boolean
   }) => {
     if (!portfolio) return
 
@@ -287,23 +372,10 @@ export default function AdminPage() {
         const updatedPage = await res.json()
         setPages(prev => prev.map(p => p.id === updatedPage.id ? updatedPage : p))
       } else {
-        // Create new page (homepage always exists, so this is always an additional page)
-        
-        // CRITICAL: Save current page's content BEFORE creating new page
-        // This prevents content loss when switching pages
-        if (currentPageId && sections.length > 0) {
-          const currentContent = serializeSections(sections)
-          await fetch(`/api/pages/${currentPageId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: currentContent }),
-          })
-          // Update local pages array with saved content
-          setPages(prev => prev.map(p =>
-            p.id === currentPageId
-              ? { ...p, content: currentContent }
-              : p
-          ))
+        // Create new page
+        // Save current page's content BEFORE creating new page
+        if (currentPageId && isDirty) {
+          await saveDraft()
         }
         
         const res = await fetch('/api/pages', {
@@ -327,6 +399,8 @@ export default function AdminPage() {
         // Clear sections for new pages - they start empty
         setSections([])
         setInitialSections([])
+        setPublishedSections([])
+        setLastPublishedAt(null)
       }
 
       setShowPageModal(false)
@@ -364,6 +438,7 @@ export default function AdminPage() {
           setCurrentPageId(null)
           setSections([])
           setInitialSections([])
+          setPublishedSections([])
         }
       }
 
@@ -393,6 +468,55 @@ export default function AdminPage() {
       form.requestSubmit()
     }
   }, [])
+
+  // Publish current page
+  const handlePublish = useCallback(async (): Promise<boolean> => {
+    if (!currentPageId) return false
+    
+    try {
+      // Save draft first to ensure we publish latest changes
+      await saveDraft()
+      
+      const res = await fetch(`/api/pages/${currentPageId}/publish`, {
+        method: 'POST',
+      })
+      
+      if (!res.ok) {
+        const error = await res.json()
+        throw new Error(error.message || 'Failed to publish')
+      }
+      
+      const result = await res.json()
+      
+      // Update local state
+      setPublishedSections(sections)
+      setLastPublishedAt(new Date())
+      
+      // Update pages array
+      setPages(prev => prev.map(p =>
+        p.id === currentPageId
+          ? { ...p, publishedContent: result.page.publishedContent, lastPublishedAt: result.page.lastPublishedAt }
+          : p
+      ))
+      
+      setMessage({ type: 'success', text: 'Page published successfully!' })
+      return true
+    } catch (error) {
+      console.error('Failed to publish:', error)
+      setMessage({
+        type: 'error',
+        text: error instanceof Error ? error.message : 'Failed to publish',
+      })
+      return false
+    }
+  }, [currentPageId, saveDraft, sections])
+
+  // Open preview in new tab
+  const handlePreview = useCallback(() => {
+    if (!portfolio) return
+    const previewUrl = `/preview/${portfolio.slug}${currentPage?.slug ? `/${currentPage.slug}` : ''}`
+    window.open(previewUrl, '_blank')
+  }, [portfolio, currentPage])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -438,29 +562,34 @@ export default function AdminPage() {
       setPortfolio(saved)
       
       // For new portfolios: set pages and currentPageId from response
-      // This is CRITICAL - without this, content will never save!
       let pageIdToSave = currentPageId
       if (!portfolio && saved.pages?.length > 0) {
         setPages(saved.pages)
-        const homepage = saved.pages.find((p: PageData) => p.isHomepage) || saved.pages[0]
+        const homepage = saved.pages.find((p: ExtendedPageData) => p.isHomepage) || saved.pages[0]
         setCurrentPageId(homepage.id)
         pageIdToSave = homepage.id
         
-        // Load default sections from the homepage
-        if (homepage.content) {
-          const defaultSections = deserializeSections(homepage.content)
+        // Load sections from the homepage
+        if (homepage.draftContent) {
+          const defaultSections = deserializeSections(homepage.draftContent)
           setSections(defaultSections)
           setInitialSections(defaultSections)
         }
+        if (homepage.publishedContent) {
+          const pubSections = deserializeSections(homepage.publishedContent)
+          setPublishedSections(pubSections)
+        }
+        if (homepage.lastPublishedAt) {
+          setLastPublishedAt(new Date(homepage.lastPublishedAt))
+        }
       }
       
-      // If we have a current page, save its content
+      // If we have a current page, save its draft content
       if (pageIdToSave) {
-        // For new portfolios, get the page from the saved response
         const pageToSave = !portfolio && saved.pages?.length > 0
-          ? saved.pages.find((p: PageData) => p.id === pageIdToSave)
+          ? saved.pages.find((p: ExtendedPageData) => p.id === pageIdToSave)
           : currentPage
-        
+
         const pageRes = await fetch(`/api/pages/${pageIdToSave}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -469,7 +598,7 @@ export default function AdminPage() {
             slug: pageToSave?.slug,
             isHomepage: pageToSave?.isHomepage,
             showInNav: pageToSave?.showInNav,
-            content: contentJson,
+            draftContent: contentJson,
           }),
         })
 
@@ -483,17 +612,15 @@ export default function AdminPage() {
       }
       
       setSaveStatus('saved')
-      setMessage({ type: 'success', text: 'Portfolio saved successfully!' })
+      setMessage({ type: 'success', text: 'Draft saved successfully!' })
       
-      // Sync formData with saved values to ensure View button uses correct slug
+      // Sync formData with saved values
       const syncedFormData = {
         name: saved.name || '',
         slug: saved.slug || '',
         theme: saved.theme || 'modern-minimal',
       }
       setFormData(syncedFormData)
-      
-      // Update initial state to mark as clean
       setInitialFormData(syncedFormData)
       setInitialSections(sections)
       
@@ -502,7 +629,6 @@ export default function AdminPage() {
         setSaveStatus('idle')
       }, 3000)
       
-      // Refresh to show updated data
       router.refresh()
     } catch (error) {
       setSaveStatus('error')
@@ -560,9 +686,9 @@ export default function AdminPage() {
   return (
     <div className="admin-layout">
       {/* Screen reader announcements for save status */}
-      <div 
-        role="status" 
-        aria-live="polite" 
+      <div
+        role="status"
+        aria-live="polite"
         aria-atomic="true"
         className="sr-only"
       >
@@ -574,25 +700,61 @@ export default function AdminPage() {
           <div className="admin-header-content">
             <span className="admin-logo">Portfolio Builder</span>
             <div className="admin-header-actions">
+              {/* Draft/Publish Status Indicator */}
+              {portfolio && (
+                <DraftIndicator 
+                  status={draftStatus}
+                  hasUnpublishedChanges={hasUnpublishedChanges}
+                />
+              )}
+              
               <SaveIndicator status={saveStatus} />
+              
+              {/* Preview Button */}
+              {portfolio && (
+                <button
+                  type="button"
+                  onClick={handlePreview}
+                  className="btn btn-ghost"
+                  title="Preview draft in new tab"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  Preview
+                </button>
+              )}
+              
               {/* Desktop-only header save button */}
               <button
                 type="submit"
                 form="portfolio-form"
-                className={`btn btn-primary desktop-header-save-btn save-btn save-btn--${saveButtonState}`}
+                className={`btn btn-secondary desktop-header-save-btn save-btn save-btn--${saveButtonState}`}
                 disabled={saving || saveButtonState === 'clean'}
                 aria-disabled={saveButtonState === 'clean'}
               >
                 {getSaveButtonLabel(!!portfolio)}
               </button>
+              
+              {/* Publish Button */}
+              {portfolio && (
+                <PublishButton
+                  hasChangesToPublish={hasUnpublishedChanges}
+                  onPublish={handlePublish}
+                  className="desktop-header-save-btn"
+                />
+              )}
+              
               {portfolio && formData.slug && (
-                <a 
-                  href={`/${formData.slug}`} 
-                  target="_blank" 
+                <a
+                  href={`/${formData.slug}`}
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-secondary"
+                  className="btn btn-ghost"
+                  title="View published site"
                 >
-                  View →
+                  View Live →
                 </a>
               )}
             </div>
@@ -701,7 +863,7 @@ export default function AdminPage() {
                         type="button"
                         className="btn btn-ghost btn-sm"
                         onClick={() => {
-                          setEditingPage(currentPage)
+                          setEditingPage(currentPage as ExtendedPageData)
                           setShowPageModal(true)
                         }}
                         aria-label="Page settings"
@@ -717,7 +879,7 @@ export default function AdminPage() {
                           type="button"
                           className="btn btn-ghost btn-sm btn-danger-text"
                           onClick={() => {
-                            setDeletingPage(currentPage)
+                            setDeletingPage(currentPage as ExtendedPageData)
                             setShowDeleteModal(true)
                           }}
                           aria-label="Delete page"
@@ -752,6 +914,11 @@ export default function AdminPage() {
                 <h2 className="card-title">
                   {currentPage ? `${currentPage.title} Content` : 'Page Content'}
                 </h2>
+                {lastPublishedAt && (
+                  <p className="card-subtitle">
+                    Last published: {lastPublishedAt.toLocaleString()}
+                  </p>
+                )}
               </div>
 
               <div className="card-body">
@@ -771,7 +938,7 @@ export default function AdminPage() {
                   />
                 )}
 
-                <AddSectionButton 
+                <AddSectionButton
                   onAdd={handleAddSection}
                   hasHeroSection={hasHeroSection}
                 />
@@ -780,15 +947,23 @@ export default function AdminPage() {
 
             {/* Desktop-only save button (hidden on mobile via CSS) */}
             <div style={{ paddingTop: 'var(--space-6)' }} className="mobile-hide-save-btn">
-              <button
-                type="submit"
-                className={`btn btn-primary save-btn save-btn--${saveButtonState}`}
-                disabled={saving || saveButtonState === 'clean'}
-                aria-disabled={saveButtonState === 'clean'}
-                style={{ width: '100%' }}
-              >
-                {getSaveButtonLabel(!!portfolio)}
-              </button>
+              <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+                <button
+                  type="submit"
+                  className={`btn btn-secondary save-btn save-btn--${saveButtonState}`}
+                  disabled={saving || saveButtonState === 'clean'}
+                  aria-disabled={saveButtonState === 'clean'}
+                  style={{ flex: 1 }}
+                >
+                  {getSaveButtonLabel(!!portfolio)}
+                </button>
+                {portfolio && (
+                  <PublishButton
+                    hasChangesToPublish={hasUnpublishedChanges}
+                    onPublish={handlePublish}
+                  />
+                )}
+              </div>
             </div>
           </form>
         </div>
@@ -802,7 +977,7 @@ export default function AdminPage() {
         onSave={handleMobileSave}
         isExisting={!!portfolio}
         createLabel="Create Portfolio"
-        updateLabel="Save Changes"
+        updateLabel="Save Draft"
       />
 
       {/* Page Settings Modal */}
