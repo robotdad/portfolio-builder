@@ -21,6 +21,93 @@ This directory contains 8 self-contained slice specifications for Phase 1 (Funct
 
 **Total Estimate:** 7-11 weeks for functional prototype
 
+## Phase 1b: Polish & UX Fixes
+
+| # | Slice | Duration | Status |
+|---|-------|----------|--------|
+| 9 | [Theme Selection UI](09-theme-selector.md) | 4-6 hours | Not Started |
+| 10 | [Image Upload Standardization](10-image-upload-standardization.md) | 2-4 hours | Not Started |
+| 11 | [Smart Add Section Button](11-smart-add-section.md) | 4-6 hours | Not Started |
+| 12 | [Settings to Header](12-settings-to-header.md) | 3-4 hours | Not Started |
+| 13 | [Home Page Routing](13-home-page-routing.md) | 2-3 hours | Not Started |
+
+**Total Estimate:** 15-23 hours for polish phase
+
+## Phase 2: Content Model Evolution
+
+| # | Slice | Duration | Status | Dependencies |
+|---|-------|----------|--------|--------------|
+| 14 | [Content Model Schema Design](14-content-model-schema.md) | 4-6 hours | Not Started | None |
+| 15 | [Category & Project Models](15-category-project-models.md) | 8-12 hours | Not Started | Slice 14 |
+| 16 | [Image Picker Component](16-image-picker.md) | 8-12 hours | Not Started | None (parallel) |
+| 17 | [Category Management UI](17-category-management.md) | 8-12 hours | Not Started | Slice 15, 16 |
+
+**Total Estimate:** 28-42 hours (~2-3 weeks)
+
+## Phase 3: Admin Layout Evolution
+
+| # | Slice | Duration | Status | Dependencies |
+|---|-------|----------|--------|--------------|
+| 18 | [Admin Sidebar Navigation](18-admin-sidebar.md) | 8-12 hours | Not Started | Phase 2 complete |
+| 19 | [Mobile Drawer Navigation](19-mobile-drawer.md) | 4-6 hours | Not Started | Slice 18 |
+
+**Total Estimate:** 12-18 hours (~1 week)
+
+### Phase 3 Goal
+
+Transform admin from single-column to sidebar + main content pattern for desktop:
+- **Current:** Full-width admin pages with inline navigation
+- **Target:** Desktop sidebar + mobile drawer navigation
+
+### Phase 3 Dependencies
+
+```
+Phase 2 (Categories/Projects routes)
+         |
+         v
+Slice 18 (Admin Sidebar)
+         |
+         v
+Slice 19 (Mobile Drawer)
+```
+
+- **Slice 18** requires Phase 2 complete (Categories and Projects routes should exist)
+- **Slice 19** requires Slice 18 (needs AdminLayout structure and context)
+
+### Phase 3 Success Criteria
+
+- [ ] Desktop admin (>=1024px) has persistent sidebar navigation
+- [ ] Mobile/tablet admin (<1024px) has hamburger menu with slide-out drawer
+- [ ] Sidebar shows: Dashboard, Portfolio, Categories, Projects, Settings
+- [ ] Active navigation item shows visual distinction
+- [ ] Focus management and keyboard navigation work correctly
+- [ ] Smooth transitions between breakpoints
+
+### Phase 2 Goal
+
+Implement the Category -> Project hierarchy for organized portfolio content:
+- **Current:** Portfolio -> Pages -> Sections (flat)
+- **Target:** Portfolio -> Categories -> Projects -> Sections (hierarchical)
+
+### Phase 2 Dependencies
+
+```
+Slice 14 (Schema Design)     Slice 16 (Image Picker)
+         |                          |
+         v                          |
+Slice 15 (Models & API)             |
+         |                          |
+         +----------+---------------+
+                    |
+                    v
+         Slice 17 (Category UI)
+```
+
+- **Slice 14** can start immediately (planning only)
+- **Slice 16** can be built in parallel with 14-15 (independent component)
+- **Slice 15** requires Slice 14 schema design
+- **Slice 17** requires both Slice 15 (Category model) and Slice 16 (Image Picker)
+
 ### Critical Milestone: Slice 4 🎯
 
 **Slice 4 (Mobile Editing Basics) is a GO/NO-GO checkpoint.**

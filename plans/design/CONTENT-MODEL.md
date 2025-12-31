@@ -1,20 +1,103 @@
 # Content Model for Portfolio Builder
 
 **Purpose:** Define how content is structured and organized  
-**Status:** Design specification (pre-implementation)  
-**Last Updated:** 2025-12-28
+**Status:** Evolving - documents current implementation AND target architecture  
+**Last Updated:** 2025-12-31
 
 ---
 
 ## Overview
 
-The content model defines how users organize their work. Templates and themes adapt to whatever structure users create.
+The content model defines how users organize their work. This document captures both the current implementation and the target architecture to support migration planning.
 
 **Key principle:** User-defined organization, system-provided patterns.
 
 ---
 
-## Content Hierarchy
+## Content Model Evolution
+
+### Current State (Slices 1-8)
+
+The current implementation uses a **flat, page-centric model** where content is stored as JSON within pages:
+
+```
+Portfolio (one per user)
+├── Settings
+│   ├── name: "Sarah Chen"
+│   ├── title: "Theatre Costume Designer"
+│   ├── bio: Text
+│   └── theme: "modern-minimal"
+│
+├── Assets[] (uploaded images)
+│   ├── Processed image files (display, thumbnail, placeholder)
+│   ├── Responsive srcset variants
+│   └── Metadata (alt text, caption, dimensions)
+│
+└── Pages[] (user-created)
+    ├── title: "Home"
+    ├── slug: "" (empty for homepage)
+    ├── navOrder: 0
+    ├── isHomepage: true
+    ├── showInNav: true
+    │
+    ├── draftContent: JSON string containing sections[]
+    │   └── Sections are stored as JSON array:
+    │       ├── { type: "hero", content: {...} }
+    │       ├── { type: "featured-grid", items: [...] }
+    │       ├── { type: "text-block", content: {...} }
+    │       └── { type: "gallery", images: [...] }
+    │
+    └── publishedContent: JSON string (copy of draft when published)
+```
+
+**Current Database Schema:**
+```prisma
+model Portfolio {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  title     String
+  bio       String
+  theme     String   @default("modern-minimal")
+  assets    Asset[]
+  pages     Page[]
+}
+
+model Page {
+  id               String    @id @default(cuid())
+  portfolioId      String
+  title            String
+  slug             String
+  navOrder         Int       @default(0)
+  isHomepage       Boolean   @default(false)
+  showInNav        Boolean   @default(true)
+  draftContent     String?   // JSON: sections array
+  publishedContent String?   // JSON: sections array
+  lastPublishedAt  DateTime?
+}
+
+model Asset {
+  id           String @id @default(cuid())
+  portfolioId  String
+  filename     String
+  url          String
+  thumbnailUrl String
+  // ... image metadata
+}
+```
+
+**Limitations of Current Model:**
+- Projects (like "Hamlet 2024") exist only as items within FeaturedGrid sections
+- No way to categorize work (Theatre, Film, Opera)
+- No reusable project metadata (year, venue, role)
+- Images not linked to semantic project entities
+- Navigation based on pages, not content organization
+
+---
+
+### Target State (Slices 14-17)
+
+The target implementation uses a **hierarchical, project-centric model** where work is organized into categories and projects:
 
 ```
 Portfolio (one per user)
@@ -46,6 +129,104 @@ Portfolio (one per user)
     │   └── Display order (user controls)
     └── Display order within category (user controls)
 ```
+
+**Target Database Schema:**
+```prisma
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String
+  description String?
+  order       Int       @default(0)
+  
+  featuredImageId String?
+  featuredImage   Asset?    @relation(fields: [featuredImageId], references: [id])
+  
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  portfolioId String
+  projects    Project[]
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@unique([portfolioId, slug])
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String
+  year        String?
+  venue       String?
+  role        String?
+  description String?  @db.Text
+  isFeatured  Boolean  @default(false)
+  order       Int      @default(0)
+  
+  featuredImageId String?
+  featuredImage   Asset?   @relation("ProjectFeaturedImage", fields: [featuredImageId], references: [id])
+  
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId  String
+  images      Asset[]  @relation("ProjectImages")
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@unique([categoryId, slug])
+}
+```
+
+---
+
+## Migration Strategy
+
+### Coexistence Approach
+
+Both models will coexist during the transition:
+
+1. **Pages remain** for static content (About, Contact, custom pages)
+2. **Categories/Projects added** for portfolio work organization
+3. **FeaturedGrid items migrate** to become Projects
+4. **Navigation updates** to show both pages and categories
+
+### Migration Path for Existing Content
+
+**FeaturedGrid Items → Projects:**
+```
+Current FeaturedGrid item:
+{
+  title: "Hamlet 2024",
+  category: "Theatre",  // This becomes the Category
+  imageAssetId: "abc123",
+  overlayPosition: "bottom-left"
+}
+
+Becomes:
+Category: { name: "Theatre", slug: "theatre" }
+Project: { 
+  title: "Hamlet 2024", 
+  categoryId: [theatre-id],
+  featuredImageId: "abc123",
+  isFeatured: true  // Was in FeaturedGrid, so is featured
+}
+```
+
+**Default Category:**
+- Items without a category → "Uncategorized" category
+- User can reorganize after migration
+
+**Asset Reassignment:**
+- Images in FeaturedGrid items link to new Project
+- Gallery images within projects get projectId
+- Standalone page images remain page-scoped
+
+### Rollback Strategy
+
+If migration fails:
+1. Category/Project tables can be dropped
+2. Original Page.draftContent/publishedContent unchanged
+3. FeaturedGrid sections still function as before
 
 ---
 
@@ -240,58 +421,6 @@ Navigation:
 
 ---
 
-## Database Schema Implications
-
-**For tech session to consider:**
-
-```typescript
-// User creates these (NOT preset)
-Category {
-  id: string
-  user_id: string
-  name: string              // User-defined: "Theatre", "Film", etc.
-  description?: string      // Optional
-  display_order: number     // User controls
-}
-
-Project {
-  id: string
-  category_id: string
-  title: string             // User-defined: "Hamlet 2024"
-  year?: string             // Optional
-  venue?: string            // Optional
-  description?: string      // Optional
-  featured: boolean         // Show on landing page?
-  featured_image_id: string // Which image represents project
-  display_order: number     // Within category, user controls
-}
-
-Image {
-  id: string
-  project_id: string
-  file_url: string          // Optimized images (display, thumb, placeholder)
-  alt_text: string          // Required for accessibility
-  caption?: string          // Optional, for hover/lightbox
-  display_order: number     // Within project, user controls
-}
-
-PortfolioSettings {
-  user_id: string
-  template: string          // "featured-grid-landing" | "hero-carousel" | "clean-minimal"
-  theme: string             // "modern-minimal" | "classic-elegant" | "bold-editorial"
-  resume_pdf_url?: string   // Optional
-  name: string              // "Sarah Chen"
-  title?: string            // Optional: "Theatre Costume Designer"
-}
-```
-
-**Important for templates:**
-- Featured projects query: `SELECT * FROM projects WHERE featured = true ORDER BY display_order`
-- Category projects query: `SELECT * FROM projects WHERE category_id = ? ORDER BY display_order`
-- Landing page needs: PortfolioSettings + featured projects + their featured images
-
----
-
 ## Template Requirements from Content Model
 
 **All templates must:**
@@ -325,12 +454,16 @@ When implementing templates, validate:
 
 ---
 
-## Next: Template Specifications
+## Implementation Phases
 
-With this content model defined, templates can specify:
-- Which content slots they use
-- How they organize the content
-- What happens with minimal vs maximal content
-- How swapping templates preserves content
+| Phase | Content Model State | Slices |
+|-------|---------------------|--------|
+| Current | Pages → Sections (JSON) | 1-8 (complete) |
+| Phase 1 | Polish current model | 9-13 |
+| Phase 2 | Add Categories/Projects | 14-17 |
+| Future | Templates use new model | TBD |
 
-**Proceeding to template specs now...**
+**See also:**
+- `plans/slices/14-content-model-schema.md` - Schema design details
+- `plans/slices/15-category-project-models.md` - Implementation plan
+- `ai_working/REVISED-PATH-FORWARD.md` - Overall roadmap

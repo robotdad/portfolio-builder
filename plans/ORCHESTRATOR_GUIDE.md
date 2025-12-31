@@ -467,3 +467,408 @@ Important:
 
 When done, confirm all success criteria are met and Phase 1 is complete.
 ```
+
+---
+
+## Phase 1b: Polish & UX Fixes (Slices 9-13)
+
+### Slice 9: Theme Selection UI
+
+```
+You are implementing theme selection for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/09-theme-selector.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Users can select and apply themes to their portfolio via a simple dropdown.
+
+Your deliverables:
+- Theme selector dropdown in admin settings area
+- Save theme choice via existing portfolio API
+- Verify all published pages apply data-theme attribute correctly
+- Simple dropdown UI (no preview needed per user decision)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Theme infrastructure already exists - this is UI only
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 10: Image Upload Standardization
+
+```
+You are standardizing image upload behavior for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/10-image-upload-standardization.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Make profile photo upload behavior consistent with other image uploads.
+
+Your deliverables:
+- Optimistic upload pattern for hero profile photo
+- Photo applies immediately on upload (no separate "Save" step)
+- Toast notification with undo option (5 second window)
+- Match existing gallery upload behavior
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- This fixes UX inconsistency, not adding new features
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 11: Smart Add Section Button
+
+```
+You are fixing the add section dropdown for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/11-smart-add-section.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Design reference (auto-loaded via slice spec):
+- plans/design/components/smart-popover.md
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Fix the add section dropdown that renders off-screen.
+
+Your deliverables:
+- Position-aware popover (opens above if no room below)
+- Bottom sheet on mobile instead of popover
+- Keyboard navigation (↑↓, Enter, Escape)
+- Inline add buttons between sections (not just at bottom)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- This fixes a UX bug, not adding new features
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 12: Settings to Header
+
+```
+You are moving portfolio settings to the header for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/12-settings-to-header.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Move portfolio settings out of main content area into header dropdown.
+
+Your deliverables:
+- SettingsDropdown component for header
+- Move portfolio name, tagline, theme selector to dropdown
+- Settings accessible from anywhere in admin
+- Mobile-friendly (full-width dropdown on mobile)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Settings rarely change - free up editing space for content
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 13: Home Page Routing
+
+```
+You are implementing home page routing for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/13-home-page-routing.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Allow home page to publish to site root (/).
+
+Your deliverables:
+- "Set as home page" toggle in page settings
+- Home page publishes to / instead of /[slug]
+- Confirmation dialog when changing home page
+- Navigation handles root path correctly
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Single-user model: one portfolio = entire site
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met and Phase 1b is complete.
+```
+
+---
+
+## Phase 2: Content Model Evolution (Slices 14-17)
+
+### Slice 14: Content Model Schema Design
+
+```
+You are designing the content model schema for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/14-content-model-schema.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+- plans/design/CONTENT-MODEL.md (current vs target architecture)
+
+Study the existing codebase and understand current data model.
+
+Goal: Design the Category → Project schema without breaking existing content.
+
+Your deliverables:
+- Detailed Category and Project Prisma model definitions
+- Migration strategy document for existing FeaturedGrid items
+- Backward compatibility plan (pages coexist with categories)
+- Data transformation rules documented
+- API route specifications
+
+This is a DESIGN slice - produce documentation, not implementation code.
+
+Working space: Use ai_working/ for planning and schema drafts.
+
+Important:
+- This is planning/design only, no database changes yet
+- Existing content must not be affected
+- Design for coexistence (pages + categories)
+- Meet ALL success criteria
+- Stay within the "Included" scope
+
+When done, confirm schema design is complete and ready for implementation.
+```
+
+### Slice 15: Category & Project Models
+
+```
+You are implementing Category and Project models for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/15-category-project-models.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+- plans/design/CONTENT-MODEL.md (target schema)
+
+Prerequisite: Slice 14 schema design must be complete.
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Implement the new Category → Project hierarchy in the database.
+
+Your deliverables:
+- Category and Project models in Prisma schema
+- Database migration (preserving existing data)
+- Update Asset model for optional Project linkage
+- API routes for Category/Project CRUD
+- Migration script for existing FeaturedGrid items (if any)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Existing pages and sections must continue working
+- Migration must be reversible
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 16: Image Picker Component
+
+```
+You are implementing an image picker for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/16-image-picker.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Design reference (auto-loaded via slice spec):
+- plans/design/components/image-picker.md
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Allow featured images to be selected from existing site images.
+
+Your deliverables:
+- ImagePicker modal component
+- API endpoint to list all site images with source metadata
+- Grid view with page/section source labels
+- Search and filter by page
+- Single image selection with visual feedback
+- Keyboard navigation and accessibility
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- This is for selecting existing images, NOT uploading new ones
+- Can be built in parallel with Slices 14-15
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 17: Category Management UI
+
+```
+You are implementing category management for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/17-category-management.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Prerequisites: Slice 15 (Category model) and Slice 16 (Image Picker) must be complete.
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Users can create and manage categories for their portfolio projects.
+
+Your deliverables:
+- Category list view in admin area
+- Create/edit/delete categories
+- Category reordering (drag-and-drop or up/down buttons)
+- Featured image selection using Image Picker
+- Project count display per category
+- Empty state for no categories
+- Navigation to category's projects
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Uses Image Picker from Slice 16
+- Uses Category API from Slice 15
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met and Phase 2 is complete.
+```
+
+---
+
+## Phase 3: Admin Layout Evolution (Slices 18-19)
+
+### Slice 18: Admin Sidebar Navigation
+
+```
+You are implementing admin sidebar navigation for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/18-admin-sidebar.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Design reference (auto-loaded via slice spec):
+- plans/design/ADMIN-LAYOUT.md
+
+Prerequisites: Phase 2 complete (Categories and Projects routes should exist).
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Desktop admin has persistent sidebar navigation.
+
+Your deliverables:
+- AdminLayout wrapper component with CSS Grid
+- AdminSidebar component with navigation items
+- AdminHeader component (simplified, no hamburger on desktop)
+- Responsive: sidebar visible >=1024px, hidden below
+- Navigation items: Dashboard, Portfolio, Categories, Projects, Settings
+- Active state indication for current page
+- Skip link for accessibility
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Mobile drawer is separate slice (19) - don't implement here
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 19: Mobile Drawer Navigation
+
+```
+You are implementing mobile drawer navigation for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/19-mobile-drawer.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Design reference (auto-loaded via slice spec):
+- plans/design/ADMIN-LAYOUT.md
+
+Prerequisite: Slice 18 (AdminLayout structure) must be complete.
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Tablet and mobile admin has hamburger menu with slide-out drawer.
+
+Your deliverables:
+- MobileDrawer component with slide animation
+- Hamburger toggle in header (< 1024px)
+- Backdrop overlay when drawer open
+- Focus trap within drawer
+- Close on: backdrop click, Escape key, navigation
+- Same navigation items as desktop sidebar
+- Touch-friendly sizing (44px minimum targets)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Builds on AdminLayout from Slice 18
+- Swipe-to-close is optional enhancement (not required)
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met and Phase 3 is complete.
+```
