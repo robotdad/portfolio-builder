@@ -9,6 +9,7 @@ import { MobileSaveFooter } from '@/components/editor/MobileSaveFooter'
 import { PageList, PageSettingsModal, DeletePageModal, type PageData } from '@/components/editor/PageList'
 import { DraftIndicator, type DraftStatus } from '@/components/admin/DraftIndicator'
 import { PublishButton } from '@/components/admin/PublishButton'
+import { ThemeSelector } from '@/components/admin/ThemeSelector'
 import { useAutoSave } from '@/hooks/useAutoSave'
 import {
   type Section,
@@ -30,7 +31,8 @@ interface Portfolio {
   name: string
   title: string
   bio: string
-  theme: string
+  draftTheme: string
+  publishedTheme: string
   assets: Asset[]
 }
 
@@ -40,24 +42,6 @@ interface ExtendedPageData extends PageData {
   publishedContent?: string | null
   lastPublishedAt?: string | null
 }
-
-const themes = [
-  {
-    id: 'modern-minimal',
-    name: 'Modern Minimal',
-    description: 'Clean, professional, neutral - lets work shine',
-  },
-  {
-    id: 'classic-elegant',
-    name: 'Classic Elegant',
-    description: 'Sophisticated, established - signals experience',
-  },
-  {
-    id: 'bold-editorial',
-    name: 'Bold Editorial',
-    description: 'Dramatic, contemporary - makes a statement',
-  },
-]
 
 export default function AdminPage() {
   const router = useRouter()
@@ -87,14 +71,14 @@ export default function AdminPage() {
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
-    theme: 'modern-minimal',
+    draftTheme: 'modern-minimal',
   })
   
   // Track initial form data to detect dirty state
   const [initialFormData, setInitialFormData] = useState({
     name: '',
     slug: '',
-    theme: 'modern-minimal',
+    draftTheme: 'modern-minimal',
   })
 
   // Get current page
@@ -104,10 +88,10 @@ export default function AdminPage() {
 
   // Check if there are unpublished changes
   const hasUnpublishedChanges = useMemo(() => {
-    const currentDraft = JSON.stringify(sections)
-    const currentPublished = JSON.stringify(publishedSections)
-    return currentDraft !== currentPublished
-  }, [sections, publishedSections])
+    const contentChanged = JSON.stringify(sections) !== JSON.stringify(publishedSections)
+    const themeChanged = portfolio ? formData.draftTheme !== portfolio.publishedTheme : false
+    return contentChanged || themeChanged
+  }, [sections, publishedSections, formData.draftTheme, portfolio])
 
   // Compute draft status for indicator
   const draftStatus = useMemo((): DraftStatus => {
@@ -163,7 +147,7 @@ export default function AdminPage() {
             const loadedData = {
               name: data.name || '',
               slug: data.slug || '',
-              theme: data.theme || 'modern-minimal',
+              draftTheme: data.theme || 'modern-minimal',
             }
             setFormData(loadedData)
             setInitialFormData(loadedData)
@@ -186,7 +170,7 @@ export default function AdminPage() {
     const formDirty = (
       formData.name !== initialFormData.name ||
       formData.slug !== initialFormData.slug ||
-      formData.theme !== initialFormData.theme
+      formData.draftTheme !== initialFormData.draftTheme
     )
     
     // Check if sections changed (simple deep comparison)
@@ -247,7 +231,7 @@ export default function AdminPage() {
   }
 
   const handleThemeChange = (themeId: string) => {
-    setFormData(prev => ({ ...prev, theme: themeId }))
+    setFormData(prev => ({ ...prev, draftTheme: themeId }))
   }
 
   const handleSectionsChange = useCallback((newSections: Section[]) => {
@@ -474,8 +458,37 @@ export default function AdminPage() {
     if (!currentPageId) return false
     
     try {
+      // Save portfolio settings first (includes theme)
+      if (portfolio && isDirty) {
+        const portfolioRes = await fetch('/api/portfolio', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: portfolio.id,
+            name: formData.name,
+            slug: formData.slug,
+            title: portfolio.title,
+            bio: portfolio.bio,
+            theme: formData.draftTheme,
+          }),
+        })
+        
+        if (!portfolioRes.ok) {
+          throw new Error('Failed to save portfolio settings')
+        }
+        
+        // Sync initial state to clear dirty flag
+        setInitialFormData({...formData})
+        
+        // Update portfolio state with new publishedTheme (it will be published next)
+        setPortfolio(prev => prev ? {...prev, draftTheme: formData.draftTheme} : null)
+      }
+
       // Save draft first to ensure we publish latest changes
       await saveDraft()
+      
+      // Sync initial sections to clear dirty flag
+      setInitialSections([...sections])
       
       const res = await fetch(`/api/pages/${currentPageId}/publish`, {
         method: 'POST',
@@ -491,6 +504,9 @@ export default function AdminPage() {
       // Update local state
       setPublishedSections(sections)
       setLastPublishedAt(new Date())
+      
+      // Update portfolio's publishedTheme in local state
+      setPortfolio(prev => prev ? {...prev, publishedTheme: formData.draftTheme} : null)
       
       // Update pages array
       setPages(prev => prev.map(p =>
@@ -509,7 +525,7 @@ export default function AdminPage() {
       })
       return false
     }
-  }, [currentPageId, saveDraft, sections])
+  }, [currentPageId, saveDraft, sections, portfolio, isDirty, formData])
 
   // Open preview in new tab
   const handlePreview = useCallback(() => {
@@ -549,7 +565,7 @@ export default function AdminPage() {
           slug: formData.slug,
           title,
           bio,
-          theme: formData.theme,
+          theme: formData.draftTheme,
         }),
       })
 
@@ -618,7 +634,7 @@ export default function AdminPage() {
       const syncedFormData = {
         name: saved.name || '',
         slug: saved.slug || '',
-        theme: saved.theme || 'modern-minimal',
+        draftTheme: saved.draftTheme || 'modern-minimal',
       }
       setFormData(syncedFormData)
       setInitialFormData(syncedFormData)
@@ -707,8 +723,6 @@ export default function AdminPage() {
                   hasUnpublishedChanges={hasUnpublishedChanges}
                 />
               )}
-              
-              <SaveIndicator status={saveStatus} />
               
               {/* Preview Button */}
               {portfolio && (
@@ -821,33 +835,11 @@ export default function AdminPage() {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Theme</label>
-                  <div className="theme-selector">
-                    {themes.map(theme => (
-                      <label
-                        key={theme.id}
-                        className={`theme-option ${formData.theme === theme.id ? 'selected' : ''}`}
-                      >
-                        <input
-                          type="radio"
-                          name="theme"
-                          value={theme.id}
-                          checked={formData.theme === theme.id}
-                          onChange={() => handleThemeChange(theme.id)}
-                        />
-                        <div className={`theme-preview theme-preview-${theme.id.split('-')[0]}`}>
-                          <div className="theme-preview-text">
-                            <div className="theme-preview-line"></div>
-                            <div className="theme-preview-line"></div>
-                          </div>
-                        </div>
-                        <div className="theme-info">
-                          <div className="theme-name">{theme.name}</div>
-                          <div className="theme-description">{theme.description}</div>
-                        </div>
-                      </label>
-                    ))}
-                  </div>
+                  <ThemeSelector
+                    value={formData.draftTheme}
+                    onChange={handleThemeChange}
+                    disabled={saving}
+                  />
                 </div>
               </div>
             </div>
@@ -908,42 +900,44 @@ export default function AdminPage() {
               </div>
             )}
 
-            {/* Content Sections */}
-            <div className="card">
-              <div className="card-header">
-                <h2 className="card-title">
-                  {currentPage ? `${currentPage.title} Content` : 'Page Content'}
-                </h2>
-                {lastPublishedAt && (
-                  <p className="card-subtitle">
-                    Last published: {lastPublishedAt.toLocaleString()}
-                  </p>
-                )}
-              </div>
-
-              <div className="card-body">
-                {sections.length === 0 ? (
-                  <div className="sections-empty">
-                    <p>No sections yet. Add your first section to get started.</p>
-                    <p className="form-hint">
-                      Start with a Hero section to introduce yourself, or add text and images.
+            {/* Content Sections - Only show if portfolio and page exist */}
+            {portfolio && currentPage && (
+              <div className="card">
+                <div className="card-header">
+                  <h2 className="card-title">
+                    {currentPage ? `${currentPage.title} Content` : 'Page Content'}
+                  </h2>
+                  {lastPublishedAt && (
+                    <p className="card-subtitle">
+                      Last published: {lastPublishedAt.toLocaleString()}
                     </p>
-                  </div>
-                ) : (
-                  <SectionList
-                    sections={sections}
-                    portfolioId={portfolio?.id || ''}
-                    onChange={handleSectionsChange}
-                    onSaveRequest={handleSaveRequest}
-                  />
-                )}
+                  )}
+                </div>
 
-                <AddSectionButton
-                  onAdd={handleAddSection}
-                  hasHeroSection={hasHeroSection}
-                />
+                <div className="card-body">
+                  {sections.length === 0 ? (
+                    <div className="sections-empty">
+                      <p>No sections yet. Add your first section to get started.</p>
+                      <p className="form-hint">
+                        Start with a Hero section to introduce yourself, or add text and images.
+                      </p>
+                    </div>
+                  ) : (
+                    <SectionList
+                      sections={sections}
+                      portfolioId={portfolio?.id || ''}
+                      onChange={handleSectionsChange}
+                      onSaveRequest={handleSaveRequest}
+                    />
+                  )}
+
+                  <AddSectionButton
+                    onAdd={handleAddSection}
+                    hasHeroSection={hasHeroSection}
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Desktop-only save button (hidden on mobile via CSS) */}
             <div style={{ paddingTop: 'var(--space-6)' }} className="mobile-hide-save-btn">

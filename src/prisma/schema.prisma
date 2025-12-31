@@ -15,7 +15,8 @@ model Portfolio {
   name String
   title String
   bio String
-  theme String @default("modern-minimal")
+  draftTheme String @default("modern-minimal")
+  publishedTheme String @default("modern-minimal")
   // Content lives in Page.draftContent/publishedContent ONLY - no dual storage
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

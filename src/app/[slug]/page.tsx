@@ -79,11 +79,11 @@ export default async function PortfolioPage({ params }: PageProps) {
       showInNav: p.showInNav,
     }))
 
-  const theme = portfolio.theme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
+  const theme = portfolio.publishedTheme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 
   // Section-based rendering with navigation
   return (
-    <div className="portfolio-page" data-theme={portfolio.theme}>
+    <div className="portfolio-page" data-theme={portfolio.publishedTheme}>
       {navPages.length > 1 && (
         <Navigation
           portfolioSlug={portfolio.slug}

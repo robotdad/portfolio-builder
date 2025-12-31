@@ -86,10 +86,10 @@ export default async function PreviewPage({ params }: PageProps) {
     showInNav: p.showInNav,
   }))
 
-  const theme = portfolio.theme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
+  const theme = portfolio.draftTheme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 
   return (
-    <div className="portfolio-page preview-mode" data-theme={portfolio.theme}>
+    <div className="portfolio-page preview-mode" data-theme={portfolio.draftTheme}>
       {/* Preview Banner */}
       <div className="preview-banner">
         <div className="preview-banner-content">

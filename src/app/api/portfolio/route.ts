@@ -78,7 +78,8 @@ export async function POST(request: NextRequest) {
         slug,
         title: title || '',
         bio: bio || '',
-        theme: theme || 'modern-minimal',
+        draftTheme: theme || 'modern-minimal',
+        publishedTheme: theme || 'modern-minimal',
         pages: {
           create: {
             title: 'Home',
@@ -155,7 +156,7 @@ export async function PUT(request: NextRequest) {
         slug,
         title: title || '',
         bio: bio || '',
-        theme: theme || 'modern-minimal',
+        draftTheme: theme || 'modern-minimal',
       },
       include: { assets: true },
     })

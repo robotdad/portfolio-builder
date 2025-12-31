@@ -3,9 +3,10 @@ import { prisma } from '@/lib/prisma'
 
 /**
  * POST /api/pages/[id]/publish
- * 
- * Atomically copies draftContent to publishedContent
- * This makes the draft version live on the public site
+ *
+ * Publishes the page content and portfolio theme:
+ * - Copies draftContent to publishedContent (if changed)
+ * - Copies draftTheme to publishedTheme (always)
  */
 export async function POST(
   request: NextRequest,
@@ -21,55 +22,71 @@ export async function POST(
         id: true,
         draftContent: true,
         publishedContent: true,
+        portfolioId: true,
       },
     })
 
     if (!page) {
-      return NextResponse.json(
-        { message: 'Page not found' },
-        { status: 404 }
-      )
+      return NextResponse.json({ message: 'Page not found' }, { status: 404 })
     }
 
-    // Check if there's content to publish
     if (!page.draftContent) {
-      return NextResponse.json(
-        { message: 'No draft content to publish' },
-        { status: 400 }
-      )
+      return NextResponse.json({ message: 'No draft content to publish' }, { status: 400 })
     }
 
-    // Check if draft differs from published (optimization)
-    if (page.draftContent === page.publishedContent) {
-      return NextResponse.json({
-        message: 'Content is already published',
-        alreadyPublished: true,
-        page: {
-          id: page.id,
-          publishedContent: page.publishedContent,
+    // Always publish the portfolio's theme (copy draftTheme to publishedTheme)
+    const portfolio = await prisma.portfolio.findUnique({
+      where: { id: page.portfolioId },
+      select: { draftTheme: true, publishedTheme: true },
+    })
+
+    const themeChanged = portfolio?.draftTheme !== portfolio?.publishedTheme
+    
+    if (themeChanged) {
+      await prisma.portfolio.update({
+        where: { id: page.portfolioId },
+        data: {
+          publishedTheme: portfolio?.draftTheme || 'modern-minimal',
         },
       })
     }
 
-    // Atomically update: copy draft to published
-    const updatedPage = await prisma.page.update({
-      where: { id },
-      data: {
-        publishedContent: page.draftContent,
-        lastPublishedAt: new Date(),
-      },
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        draftContent: true,
-        publishedContent: true,
-        lastPublishedAt: true,
-      },
-    })
+    // Check if content needs publishing
+    const contentChanged = page.draftContent !== page.publishedContent
+
+    if (!contentChanged && !themeChanged) {
+      return NextResponse.json({
+        message: 'Everything is already published',
+        alreadyPublished: true,
+        page: { id: page.id, publishedContent: page.publishedContent },
+      })
+    }
+
+    // Publish content if changed
+    let updatedPage = page
+    if (contentChanged) {
+      updatedPage = await prisma.page.update({
+        where: { id },
+        data: {
+          publishedContent: page.draftContent,
+          lastPublishedAt: new Date(),
+        },
+        select: {
+          id: true,
+          portfolioId: true,
+          title: true,
+          slug: true,
+          draftContent: true,
+          publishedContent: true,
+          lastPublishedAt: true,
+        },
+      })
+    }
 
     return NextResponse.json({
-      message: 'Page published successfully',
+      message: 'Published successfully',
+      contentPublished: contentChanged,
+      themePublished: themeChanged,
       page: updatedPage,
     })
   } catch (error) {

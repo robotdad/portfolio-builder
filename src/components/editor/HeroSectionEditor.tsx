@@ -57,29 +57,6 @@ export function HeroSectionEditor({
   }
 
   // Profile image upload handlers
-  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    setError(null)
-
-    if (!ALLOWED_TYPES.includes(file.type)) {
-      setError('Invalid file type. Please use JPEG, PNG, or WebP.')
-      return
-    }
-
-    if (file.size > MAX_SIZE) {
-      setError('File too large. Maximum size is 10MB.')
-      return
-    }
-
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      setPreview(e.target?.result as string)
-    }
-    reader.readAsDataURL(file)
-  }, [])
-
   const handleUpload = useCallback(async () => {
     const file = fileInputRef.current?.files?.[0]
     if (!file) {
@@ -140,6 +117,32 @@ export function HeroSectionEditor({
       setUploading(false)
     }
   }, [portfolioId, section, onChange])
+
+  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setError(null)
+
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      setError('Invalid file type. Please use JPEG, PNG, or WebP.')
+      return
+    }
+
+    if (file.size > MAX_SIZE) {
+      setError('File too large. Maximum size is 10MB.')
+      return
+    }
+
+    // Show preview and immediately start upload
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      setPreview(e.target?.result as string)
+      // Auto-upload after preview is set
+      handleUpload()
+    }
+    reader.readAsDataURL(file)
+  }, [handleUpload])
 
   const handleDropzoneClick = () => {
     fileInputRef.current?.click()
@@ -230,17 +233,6 @@ export function HeroSectionEditor({
                 style={{ width: `${progress}%` }}
               />
             </div>
-          )}
-
-          {preview && !uploading && (
-            <button
-              type="button"
-              onClick={handleUpload}
-              className="btn btn-primary"
-              style={{ marginTop: 'var(--space-2)', width: '100%' }}
-            >
-              Upload Photo
-            </button>
           )}
 
           {error && (
