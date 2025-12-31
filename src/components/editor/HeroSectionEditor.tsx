@@ -2,6 +2,8 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { RichTextEditor } from './RichTextEditor'
+import { useImageUpload } from '@/hooks/useImageUpload'
+import { ProgressRing } from '@/components/shared/ProgressRing'
 import type { HeroSection } from '@/lib/content-schema'
 
 interface HeroSectionEditorProps {
@@ -9,33 +11,63 @@ interface HeroSectionEditorProps {
   portfolioId: string
   onChange: (section: HeroSection) => void
   onDelete: () => void
+  onSaveRequest?: () => void
 }
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif']
 const MAX_SIZE = 10 * 1024 * 1024 // 10MB
 
-export function HeroSectionEditor({ 
-  section, 
-  portfolioId, 
-  onChange, 
-  onDelete 
+export function HeroSectionEditor({
+  section,
+  portfolioId,
+  onChange,
+  onDelete,
+  onSaveRequest,
 }: HeroSectionEditorProps) {
-  const [uploading, setUploading] = useState(false)
-  const [progress, setProgress] = useState(0)
-  const [error, setError] = useState<string | null>(null)
-  const [preview, setPreview] = useState<string | null>(null)
-  const [isMobile, setIsMobile] = useState(false)
+  const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(null)
+  const [isDragOver, setIsDragOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+  // Track the previous image URL for undo
+  const previousImageRef = useRef<string | undefined>(section.profileImageUrl ?? undefined)
 
+  // Use the optimistic upload hook
+  const { uploadFile, isUploading, progress, error, retry, clearError } = useImageUpload({
+    portfolioId,
+    context: 'profile',
+    currentImageUrl: section.profileImageUrl ?? undefined,
+    onOptimisticUpdate: (previewUrl) => {
+      // Store current image as previous before showing preview
+      previousImageRef.current = section.profileImageUrl ?? undefined
+      setOptimisticImageUrl(previewUrl)
+    },
+    onSuccess: (asset) => {
+      // Update section with server asset
+      onChange({
+        ...section,
+        profileImageId: asset.id,
+        profileImageUrl: asset.url,
+      })
+      setOptimisticImageUrl(null)
+      // Trigger auto-save
+      onSaveRequest?.()
+    },
+    onUndo: (previousUrl) => {
+      // Revert to previous image
+      setOptimisticImageUrl(null)
+      onChange({
+        ...section,
+        profileImageId: previousUrl ? section.profileImageId : null,
+        profileImageUrl: previousUrl ?? null,
+      })
+    },
+    onError: (errorMsg) => {
+      // Revert optimistic update on error
+      setOptimisticImageUrl(null)
+    },
+  })
+
+  // Text field handlers (keep existing)
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ ...section, name: e.target.value })
   }
@@ -56,93 +88,43 @@ export function HeroSectionEditor({
     onChange({ ...section, resumeUrl: e.target.value })
   }
 
-  // Profile image upload handlers
-  const handleUpload = useCallback(async () => {
-    const file = fileInputRef.current?.files?.[0]
-    if (!file) {
-      setError('Please select a file first.')
-      return
-    }
-
-    setUploading(true)
-    setError(null)
-    setProgress(0)
-
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 90) {
-          clearInterval(progressInterval)
-          return prev
-        }
-        return prev + 10
-      })
-    }, 200)
-
-    try {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('portfolioId', portfolioId)
-      formData.append('altText', `Profile photo of ${section.name || 'portfolio owner'}`)
-
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      })
-
-      clearInterval(progressInterval)
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.message || 'Upload failed')
-      }
-
-      setProgress(100)
-      const asset = await response.json()
-      
-      onChange({
-        ...section,
-        profileImageId: asset.id,
-        profileImageUrl: asset.url,
-      })
-
-      setPreview(null)
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ''
-      }
-    } catch (err) {
-      clearInterval(progressInterval)
-      setError(err instanceof Error ? err.message : 'Upload failed')
-      setProgress(0)
-    } finally {
-      setUploading(false)
-    }
-  }, [portfolioId, section, onChange])
-
+  // File selection handler
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
-
-    setError(null)
-
-    if (!ALLOWED_TYPES.includes(file.type)) {
-      setError('Invalid file type. Please use JPEG, PNG, or WebP.')
-      return
+    
+    // Clear input so same file can be selected again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
     }
+    
+    uploadFile(file)
+  }, [uploadFile])
 
-    if (file.size > MAX_SIZE) {
-      setError('File too large. Maximum size is 10MB.')
-      return
-    }
+  // Drag and drop handlers
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+  }, [])
 
-    // Show preview and immediately start upload
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      setPreview(e.target?.result as string)
-      // Auto-upload after preview is set
-      handleUpload()
+  const handleDragEnter = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragOver(true)
+  }, [])
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragOver(false)
+  }, [])
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragOver(false)
+    
+    const file = e.dataTransfer.files[0]
+    if (file && file.type.startsWith('image/')) {
+      uploadFile(file)
     }
-    reader.readAsDataURL(file)
-  }, [handleUpload])
+  }, [uploadFile])
 
   const handleDropzoneClick = () => {
     fileInputRef.current?.click()
@@ -157,18 +139,16 @@ export function HeroSectionEditor({
       }
     }
     
+    setOptimisticImageUrl(null)
     onChange({
       ...section,
       profileImageId: null,
       profileImageUrl: null,
     })
-    setPreview(null)
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
   }
 
-  const displayImage = preview || section.profileImageUrl
+  // Display the optimistic preview if available, otherwise the saved image
+  const displayImage = optimisticImageUrl || section.profileImageUrl
 
   return (
     <div className="section-editor section-editor-hero">
@@ -194,51 +174,87 @@ export function HeroSectionEditor({
             ref={fileInputRef}
             type="file"
             accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.heic,.heif"
+            capture="user"
             onChange={handleFileSelect}
             className="sr-only"
             aria-label="Select profile image"
           />
 
           {displayImage ? (
-            <div className="hero-profile-preview">
+            <div 
+              className={`hero-profile-preview ${isDragOver ? 'drag-over' : ''}`}
+              onDragOver={handleDragOver}
+              onDragEnter={handleDragEnter}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+            >
               <img src={displayImage} alt="Profile preview" />
-              <button
-                type="button"
-                onClick={handleRemoveImage}
-                className="hero-profile-remove touch-btn"
-                aria-label="Remove profile image"
-              >
-                Remove
-              </button>
+              
+              {/* Upload progress overlay */}
+              {isUploading && (
+                <div className="hero-profile-upload-overlay">
+                  <ProgressRing progress={progress} size={64} />
+                </div>
+              )}
+              
+              {!isUploading && (
+                <div className="hero-profile-actions">
+                  <button
+                    type="button"
+                    onClick={handleDropzoneClick}
+                    className="hero-profile-change touch-btn"
+                    aria-label="Change profile image"
+                  >
+                    Change
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className="hero-profile-remove touch-btn"
+                    aria-label="Remove profile image"
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <button
               type="button"
               onClick={handleDropzoneClick}
-              className="hero-profile-upload"
-              disabled={uploading}
+              onDragOver={handleDragOver}
+              onDragEnter={handleDragEnter}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className={`hero-profile-upload ${isDragOver ? 'drag-over' : ''}`}
+              disabled={isUploading}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
-              </svg>
-              <span>Add photo</span>
+              {isUploading ? (
+                <ProgressRing progress={progress} size={48} />
+              ) : (
+                <>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+                  </svg>
+                  <span>Add photo</span>
+                  <span className="hero-profile-upload-hint">Click or drag to upload</span>
+                </>
+              )}
             </button>
           )}
 
-          {uploading && (
-            <div className="image-upload-progress">
-              <div
-                className="image-upload-progress-bar"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          )}
-
           {error && (
-            <p className="form-error" style={{ marginTop: 'var(--space-2)' }}>
-              {error}
-            </p>
+            <div className="form-error-with-action" style={{ marginTop: 'var(--space-2)' }}>
+              <p className="form-error">{error}</p>
+              <button
+                type="button"
+                onClick={retry}
+                className="form-error-action"
+              >
+                Retry
+              </button>
+            </div>
           )}
         </div>
 

@@ -2115,6 +2115,111 @@ textarea:focus-visible {
   font-size: var(--font-size-xs);
 }
 
+/* ============================================================================
+   Hero Profile Upload - Additional Styles
+   ============================================================================ */
+
+/* Upload overlay with progress ring */
+.hero-profile-upload-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: var(--radius-full);
+}
+
+/* Actions container for Change/Remove buttons */
+.hero-profile-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 0;
+}
+
+.hero-profile-change,
+.hero-profile-remove {
+  flex: 1;
+  padding: var(--space-2);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: var(--font-size-xs);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.hero-profile-change {
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-profile-change:hover,
+.hero-profile-remove:hover {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Drag-over states */
+.hero-profile-upload.drag-over,
+.hero-profile-preview.drag-over {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb, 59, 130, 246), 0.2);
+}
+
+.hero-profile-upload.drag-over {
+  background: rgba(var(--color-accent-rgb, 59, 130, 246), 0.05);
+}
+
+/* Upload hint text */
+.hero-profile-upload-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+/* ============================================================================
+   Form Error with Action
+   ============================================================================ */
+
+.form-error-with-action {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.form-error-with-action .form-error {
+  margin: 0;
+}
+
+.form-error-action {
+  padding: var(--space-1) var(--space-3);
+  background: none;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  color: var(--color-accent);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.form-error-action:hover {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* ============================================================================
+   Touch-friendly button base (ensure 44px minimum touch target)
+   ============================================================================ */
+
+.touch-btn {
+  min-height: 44px;
+  min-width: 44px;
+}
+
 /* --------------------------------------------------------------------------
    FEATURED GRID EDITOR
    -------------------------------------------------------------------------- */
@@ -3916,4 +4021,110 @@ textarea:focus-visible {
     min-height: 48px; /* Larger touch target on mobile */
     font-size: 16px; /* Prevent iOS zoom */
   }
+}
+
+/* ============================================================================
+   Featured Item Upload - Additional Styles
+   ============================================================================ */
+
+/* Upload overlay with progress ring */
+.featured-item-upload-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: var(--radius-md);
+}
+
+/* Image preview container */
+.featured-item-image-preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.featured-item-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Actions container for Change/Remove buttons */
+.featured-item-image-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 0;
+}
+
+.featured-item-image-change,
+.featured-item-image-remove {
+  flex: 1;
+  padding: var(--space-2);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: var(--font-size-xs);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.featured-item-image-change {
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.featured-item-image-change:hover,
+.featured-item-image-remove:hover {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Drag-over states */
+.featured-item-upload-btn.drag-over,
+.featured-item-image-preview.drag-over {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb, 59, 130, 246), 0.2);
+}
+
+.featured-item-upload-btn.drag-over {
+  background: rgba(var(--color-accent-rgb, 59, 130, 246), 0.05);
+}
+
+/* Upload button styling */
+.featured-item-upload-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--color-surface);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.featured-item-upload-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.featured-item-upload-btn span {
+  font-size: var(--font-size-sm);
+}
+
+/* Upload hint text */
+.featured-item-upload-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  opacity: 0.7;
 }

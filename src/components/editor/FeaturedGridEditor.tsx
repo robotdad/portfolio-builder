@@ -1,24 +1,28 @@
 'use client'
 
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import type { FeaturedGridSection, FeaturedWorkItem } from '@/lib/content-schema'
 import { createFeaturedWorkItem } from '@/lib/content-schema'
+import { useImageUpload } from '@/hooks/useImageUpload'
+import { ProgressRing } from '@/components/shared/ProgressRing'
 
 interface FeaturedGridEditorProps {
   section: FeaturedGridSection
   portfolioId: string
   onChange: (section: FeaturedGridSection) => void
   onDelete: () => void
+  onSaveRequest?: () => void
 }
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif']
 const MAX_SIZE = 10 * 1024 * 1024 // 10MB
 
-export function FeaturedGridEditor({ 
-  section, 
-  portfolioId, 
-  onChange, 
-  onDelete 
+export function FeaturedGridEditor({
+  section,
+  portfolioId,
+  onChange,
+  onDelete,
+  onSaveRequest,
 }: FeaturedGridEditorProps) {
   const handleHeadingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ ...section, heading: e.target.value })
@@ -92,6 +96,7 @@ export function FeaturedGridEditor({
                   portfolioId={portfolioId}
                   onChange={(updated) => handleItemChange(index, updated)}
                   onDelete={() => handleItemDelete(index)}
+                  onSaveRequest={onSaveRequest}
                 />
               ))}
             </div>
@@ -120,20 +125,54 @@ interface FeaturedItemEditorProps {
   portfolioId: string
   onChange: (item: FeaturedWorkItem) => void
   onDelete: () => void
+  onSaveRequest?: () => void
 }
 
-function FeaturedItemEditor({ 
-  item, 
-  portfolioId, 
-  onChange, 
-  onDelete 
+function FeaturedItemEditor({
+  item,
+  portfolioId,
+  onChange,
+  onDelete,
+  onSaveRequest,
 }: FeaturedItemEditorProps) {
-  const [uploading, setUploading] = useState(false)
-  const [progress, setProgress] = useState(0)
-  const [error, setError] = useState<string | null>(null)
-  const [preview, setPreview] = useState<string | null>(null)
+  const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(null)
+  const [isDragOver, setIsDragOver] = useState(false)
   const [isExpanded, setIsExpanded] = useState(!item.imageUrl) // Start expanded if no image
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Track previous image for undo
+  const previousImageRef = useRef<string | undefined>(item.imageUrl ?? undefined)
+
+  // Use the optimistic upload hook
+  const { uploadFile, isUploading, progress, error, retry, clearError } = useImageUpload({
+    portfolioId,
+    context: 'featured',
+    currentImageUrl: item.imageUrl ?? undefined,
+    onOptimisticUpdate: (previewUrl) => {
+      previousImageRef.current = item.imageUrl ?? undefined
+      setOptimisticImageUrl(previewUrl)
+    },
+    onSuccess: (asset) => {
+      onChange({
+        ...item,
+        imageId: asset.id,
+        imageUrl: asset.url,
+      })
+      setOptimisticImageUrl(null)
+      onSaveRequest?.()
+    },
+    onUndo: (previousUrl) => {
+      setOptimisticImageUrl(null)
+      onChange({
+        ...item,
+        imageId: previousUrl ? item.imageId : null,
+        imageUrl: previousUrl ?? null,
+      })
+    },
+    onError: () => {
+      setOptimisticImageUrl(null)
+    },
+  })
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ ...item, title: e.target.value })
@@ -147,89 +186,42 @@ function FeaturedItemEditor({
     onChange({ ...item, link: e.target.value })
   }
 
+  // File selection handler - auto-uploads
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
-
-    setError(null)
-
-    if (!ALLOWED_TYPES.includes(file.type)) {
-      setError('Invalid file type. Please use JPEG, PNG, or WebP.')
-      return
+    
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
     }
+    
+    uploadFile(file)
+  }, [uploadFile])
 
-    if (file.size > MAX_SIZE) {
-      setError('File too large. Maximum size is 10MB.')
-      return
-    }
-
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      setPreview(e.target?.result as string)
-    }
-    reader.readAsDataURL(file)
+  // Drag and drop handlers
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
   }, [])
 
-  const handleUpload = useCallback(async () => {
-    const file = fileInputRef.current?.files?.[0]
-    if (!file) {
-      setError('Please select a file first.')
-      return
+  const handleDragEnter = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragOver(true)
+  }, [])
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragOver(false)
+  }, [])
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragOver(false)
+    
+    const file = e.dataTransfer.files[0]
+    if (file && file.type.startsWith('image/')) {
+      uploadFile(file)
     }
-
-    setUploading(true)
-    setError(null)
-    setProgress(0)
-
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 90) {
-          clearInterval(progressInterval)
-          return prev
-        }
-        return prev + 10
-      })
-    }, 200)
-
-    try {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('portfolioId', portfolioId)
-      formData.append('altText', item.title || 'Featured work')
-
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      })
-
-      clearInterval(progressInterval)
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.message || 'Upload failed')
-      }
-
-      setProgress(100)
-      const asset = await response.json()
-      
-      onChange({
-        ...item,
-        imageId: asset.id,
-        imageUrl: asset.url,
-      })
-
-      setPreview(null)
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ''
-      }
-    } catch (err) {
-      clearInterval(progressInterval)
-      setError(err instanceof Error ? err.message : 'Upload failed')
-      setProgress(0)
-    } finally {
-      setUploading(false)
-    }
-  }, [portfolioId, item, onChange])
+  }, [uploadFile])
 
   const handleDropzoneClick = () => {
     fileInputRef.current?.click()
@@ -244,18 +236,15 @@ function FeaturedItemEditor({
       }
     }
     
+    setOptimisticImageUrl(null)
     onChange({
       ...item,
       imageId: null,
       imageUrl: null,
     })
-    setPreview(null)
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
   }
 
-  const displayImage = preview || item.imageUrl
+  const displayImage = optimisticImageUrl || item.imageUrl
 
   return (
     <div className="featured-item-editor">
@@ -266,12 +255,12 @@ function FeaturedItemEditor({
           className="featured-item-toggle"
           aria-expanded={isExpanded}
         >
-          <svg 
-            width="16" 
-            height="16" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
             strokeWidth="2"
             style={{ transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 200ms ease' }}
             aria-hidden="true"
@@ -282,9 +271,9 @@ function FeaturedItemEditor({
             {item.title || 'Untitled work'}
           </span>
           {displayImage && (
-            <img 
-              src={displayImage} 
-              alt="" 
+            <img
+              src={displayImage}
+              alt=""
               className="featured-item-preview-thumb"
             />
           )}
@@ -317,57 +306,81 @@ function FeaturedItemEditor({
             />
 
             {displayImage ? (
-              <div className="featured-item-image-preview">
+              <div 
+                className={`featured-item-image-preview ${isDragOver ? 'drag-over' : ''}`}
+                onDragOver={handleDragOver}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
                 <img src={displayImage} alt={item.title || 'Preview'} />
-                <button
-                  type="button"
-                  onClick={handleRemoveImage}
-                  className="featured-item-image-remove touch-btn"
-                  aria-label="Remove image"
-                >
-                  Remove
-                </button>
+                
+                {/* Upload progress overlay */}
+                {isUploading && (
+                  <div className="featured-item-upload-overlay">
+                    <ProgressRing progress={progress} size={48} />
+                  </div>
+                )}
+                
+                {!isUploading && (
+                  <div className="featured-item-image-actions">
+                    <button
+                      type="button"
+                      onClick={handleDropzoneClick}
+                      className="featured-item-image-change touch-btn"
+                      aria-label="Change image"
+                    >
+                      Change
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleRemoveImage}
+                      className="featured-item-image-remove touch-btn"
+                      aria-label="Remove image"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <button
                 type="button"
                 onClick={handleDropzoneClick}
-                className="featured-item-upload-btn"
-                disabled={uploading}
+                onDragOver={handleDragOver}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                className={`featured-item-upload-btn ${isDragOver ? 'drag-over' : ''}`}
+                disabled={isUploading}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <path d="M21 15l-5-5L5 21" />
-                </svg>
-                <span>Add image</span>
-              </button>
-            )}
-
-            {uploading && (
-              <div className="image-upload-progress">
-                <div
-                  className="image-upload-progress-bar"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-            )}
-
-            {preview && !uploading && (
-              <button
-                type="button"
-                onClick={handleUpload}
-                className="btn btn-primary"
-                style={{ marginTop: 'var(--space-2)', width: '100%' }}
-              >
-                Upload Image
+                {isUploading ? (
+                  <ProgressRing progress={progress} size={40} />
+                ) : (
+                  <>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <path d="M21 15l-5-5L5 21" />
+                    </svg>
+                    <span>Add image</span>
+                    <span className="featured-item-upload-hint">Click or drag to upload</span>
+                  </>
+                )}
               </button>
             )}
 
             {error && (
-              <p className="form-error" style={{ marginTop: 'var(--space-2)' }}>
-                {error}
-              </p>
+              <div className="form-error-with-action" style={{ marginTop: 'var(--space-2)' }}>
+                <p className="form-error">{error}</p>
+                <button
+                  type="button"
+                  onClick={retry}
+                  className="form-error-action"
+                >
+                  Retry
+                </button>
+              </div>
             )}
           </div>
 
