@@ -7,6 +7,7 @@ import {
   createImageSection,
   createHeroSection,
   createFeaturedGridSection,
+  createGallerySection,
   type Section,
   type SectionType,
 } from '@/lib/content-schema'
@@ -70,6 +71,9 @@ export function AddSectionButton({ onAdd, hasHeroSection = false }: AddSectionBu
         break
       case 'featured-grid':
         section = createFeaturedGridSection()
+        break
+      case 'gallery':
+        section = createGallerySection()
         break
       default:
         return

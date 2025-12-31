@@ -55,8 +55,24 @@ export interface FeaturedGridSection extends BaseSection {
   items: FeaturedWorkItem[]
 }
 
+// Gallery Image - Individual image in a gallery
+export interface GalleryImage {
+  id: string
+  imageId: string | null
+  imageUrl: string | null
+  altText: string
+  caption: string
+}
+
+// Gallery Section - Multiple images in a responsive grid
+export interface GallerySection extends BaseSection {
+  type: 'gallery'
+  heading: string
+  images: GalleryImage[]
+}
+
 // Union type of all sections
-export type Section = TextSection | ImageSection | HeroSection | FeaturedGridSection
+export type Section = TextSection | ImageSection | HeroSection | FeaturedGridSection | GallerySection
 
 // Page content structure
 export interface PageContent {
@@ -78,6 +94,10 @@ export function isHeroSection(section: Section): section is HeroSection {
 
 export function isFeaturedGridSection(section: Section): section is FeaturedGridSection {
   return section.type === 'featured-grid'
+}
+
+export function isGallerySection(section: Section): section is GallerySection {
+  return section.type === 'gallery'
 }
 
 // Factory functions to create new sections
@@ -138,6 +158,25 @@ export function createFeaturedWorkItem(): FeaturedWorkItem {
   }
 }
 
+export function createGallerySection(): GallerySection {
+  return {
+    id: generateId(),
+    type: 'gallery',
+    heading: '',
+    images: [],
+  }
+}
+
+export function createGalleryImage(): GalleryImage {
+  return {
+    id: generateId(),
+    imageId: null,
+    imageUrl: null,
+    altText: '',
+    caption: '',
+  }
+}
+
 // Simple ID generator
 function generateId(): string {
   return `section_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
@@ -168,6 +207,12 @@ export const sectionTypes = [
     label: 'Featured Grid',
     description: 'Grid of featured work',
     icon: '⚡',
+  },
+  {
+    type: 'gallery' as const,
+    label: 'Gallery',
+    description: 'Multiple images in a grid',
+    icon: '🖼️',
   },
 ] as const
 

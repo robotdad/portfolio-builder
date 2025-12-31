@@ -24,12 +24,14 @@ import { TextSection } from './TextSection'
 import { ImageSectionEditor } from './ImageSectionEditor'
 import { HeroSectionEditor } from './HeroSectionEditor'
 import { FeaturedGridEditor } from './FeaturedGridEditor'
+import { GallerySectionEditor } from './GallerySectionEditor'
 import type { 
   Section, 
   TextSection as TextSectionType,
   ImageSection as ImageSectionType,
   HeroSection as HeroSectionType,
   FeaturedGridSection as FeaturedGridSectionType,
+  GallerySection as GallerySectionType,
 } from '@/lib/content-schema'
 
 interface SectionListProps {
@@ -187,6 +189,16 @@ function SectionEditor({ section, portfolioId, onChange, onDelete, onSaveRequest
           portfolioId={portfolioId}
           onChange={onChange as (s: FeaturedGridSectionType) => void}
           onDelete={onDelete}
+        />
+      )
+    case 'gallery':
+      return (
+        <GallerySectionEditor
+          section={section as GallerySectionType}
+          portfolioId={portfolioId}
+          onChange={onChange as (s: GallerySectionType) => void}
+          onDelete={onDelete}
+          onSaveRequest={onSaveRequest}
         />
       )
     default:

@@ -1,11 +1,17 @@
+'use client'
+
+import { useState } from 'react'
 import { sanitizeHtml } from '@/lib/sanitize'
 import { ImageCard } from './ImageCard'
+import { Lightbox } from './Lightbox'
 import type { 
   Section, 
   TextSection, 
   ImageSection, 
   HeroSection, 
-  FeaturedGridSection 
+  FeaturedGridSection,
+  GallerySection,
+  GalleryImage,
 } from '@/lib/content-schema'
 
 interface SectionRendererProps {
@@ -39,6 +45,8 @@ function SectionComponent({ section }: SectionComponentProps) {
       return <HeroSectionView section={section} />
     case 'featured-grid':
       return <FeaturedGridView section={section} />
+    case 'gallery':
+      return <GallerySectionView section={section} />
     default:
       return null
   }
@@ -149,6 +157,94 @@ function FeaturedGridView({ section }: { section: FeaturedGridSection }) {
           />
         ))}
       </div>
+    </section>
+  )
+}
+
+// Gallery Section View with pagination
+const IMAGES_PER_PAGE = 20
+
+function GallerySectionView({ section }: { section: GallerySection }) {
+  const [displayCount, setDisplayCount] = useState(IMAGES_PER_PAGE)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  
+  // Filter and map to ensure imageUrl is definitely a string for Lightbox
+  const validImages = section.images
+    .filter((img): img is GalleryImage & { imageUrl: string } => Boolean(img.imageUrl))
+  
+  if (validImages.length === 0) return null
+  
+  const visibleImages = validImages.slice(0, displayCount)
+  const hasMore = displayCount < validImages.length
+  const remainingCount = validImages.length - displayCount
+  
+  const handleLoadMore = () => {
+    setDisplayCount((prev) => prev + IMAGES_PER_PAGE)
+  }
+
+  const handleImageClick = (index: number) => {
+    setLightboxIndex(index)
+  }
+
+  const handleCloseLightbox = () => {
+    setLightboxIndex(null)
+  }
+
+  const handleNavigate = (index: number) => {
+    setLightboxIndex(index)
+  }
+  
+  return (
+    <section className="section section-gallery">
+      {section.heading && (
+        <h2 className="gallery-heading">{section.heading}</h2>
+      )}
+      
+      <div className="gallery-grid">
+        {visibleImages.map((image, index) => (
+          <figure key={image.id} className="gallery-item">
+            <button
+              type="button"
+              onClick={() => handleImageClick(index)}
+              className="gallery-item-btn"
+              aria-label={`View ${image.altText || 'image'} in lightbox`}
+            >
+              <img
+                src={image.imageUrl || ''}
+                alt={image.altText || 'Gallery image'}
+                loading="lazy"
+                className="gallery-item-img"
+              />
+            </button>
+            {image.caption && (
+              <figcaption className="gallery-item-caption">
+                {image.caption}
+              </figcaption>
+            )}
+          </figure>
+        ))}
+      </div>
+      
+      {hasMore && (
+        <div className="gallery-load-more">
+          <button
+            type="button"
+            onClick={handleLoadMore}
+            className="btn btn-secondary"
+          >
+            Load More ({remainingCount} remaining)
+          </button>
+        </div>
+      )}
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={validImages}
+          currentIndex={lightboxIndex}
+          onClose={handleCloseLightbox}
+          onNavigate={handleNavigate}
+        />
+      )}
     </section>
   )
 }
