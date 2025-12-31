@@ -40,15 +40,7 @@ export async function PUT(
     const body = await request.json()
     const { title, slug, isHomepage, showInNav, content } = body
 
-    // Validate required fields
-    if (!title) {
-      return NextResponse.json(
-        { message: 'Title is required' },
-        { status: 400 }
-      )
-    }
-
-    // Get existing page
+    // Get existing page first (needed for partial update logic)
     const existingPage = await prisma.page.findUnique({
       where: { id },
     })
@@ -59,6 +51,17 @@ export async function PUT(
         { status: 404 }
       )
     }
+
+    // Title cannot be explicitly cleared (empty string)
+    if (title === '') {
+      return NextResponse.json(
+        { message: 'Title is required' },
+        { status: 400 }
+      )
+    }
+
+    // Use existing values for fields not provided
+    const finalTitle = title !== undefined ? title : existingPage.title
 
     // Validate slug format if provided
     const pageSlug = slug !== undefined ? slug : existingPage.slug
@@ -103,7 +106,7 @@ export async function PUT(
     const page = await prisma.page.update({
       where: { id },
       data: {
-        title,
+        title: finalTitle,
         slug: pageSlug,
         isHomepage: isHomepage !== undefined ? isHomepage : existingPage.isHomepage,
         showInNav: showInNav !== undefined ? showInNav : existingPage.showInNav,

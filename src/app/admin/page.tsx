@@ -437,16 +437,38 @@ export default function AdminPage() {
       const saved = await portfolioRes.json()
       setPortfolio(saved)
       
+      // For new portfolios: set pages and currentPageId from response
+      // This is CRITICAL - without this, content will never save!
+      let pageIdToSave = currentPageId
+      if (!portfolio && saved.pages?.length > 0) {
+        setPages(saved.pages)
+        const homepage = saved.pages.find((p: PageData) => p.isHomepage) || saved.pages[0]
+        setCurrentPageId(homepage.id)
+        pageIdToSave = homepage.id
+        
+        // Load default sections from the homepage
+        if (homepage.content) {
+          const defaultSections = deserializeSections(homepage.content)
+          setSections(defaultSections)
+          setInitialSections(defaultSections)
+        }
+      }
+      
       // If we have a current page, save its content
-      if (currentPageId) {
-        const pageRes = await fetch(`/api/pages/${currentPageId}`, {
+      if (pageIdToSave) {
+        // For new portfolios, get the page from the saved response
+        const pageToSave = !portfolio && saved.pages?.length > 0
+          ? saved.pages.find((p: PageData) => p.id === pageIdToSave)
+          : currentPage
+        
+        const pageRes = await fetch(`/api/pages/${pageIdToSave}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            title: currentPage?.title,
-            slug: currentPage?.slug,
-            isHomepage: currentPage?.isHomepage,
-            showInNav: currentPage?.showInNav,
+            title: pageToSave?.title,
+            slug: pageToSave?.slug,
+            isHomepage: pageToSave?.isHomepage,
+            showInNav: pageToSave?.showInNav,
             content: contentJson,
           }),
         })

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   DndContext,
   closestCenter,
@@ -206,14 +206,16 @@ export function PageSettingsModal({
   const [showInNav, setShowInNav] = useState(page?.showInNav !== false)
   const [error, setError] = useState<string | null>(null)
 
-  // Reset form when modal opens with new page data
-  const resetForm = () => {
-    setTitle(page?.title || '')
-    setSlug(page?.slug || '')
-    setIsHomepage(page?.isHomepage || false)
-    setShowInNav(page?.showInNav !== false)
-    setError(null)
-  }
+  // Reset form when modal opens or page changes
+  useEffect(() => {
+    if (isOpen) {
+      setTitle(page?.title || '')
+      setSlug(page?.slug || '')
+      setIsHomepage(page?.isHomepage || false)
+      setShowInNav(page?.showInNav !== false)
+      setError(null)
+    }
+  }, [isOpen, page])
 
   // Auto-generate slug from title (only for new pages)
   const handleTitleChange = (newTitle: string) => {

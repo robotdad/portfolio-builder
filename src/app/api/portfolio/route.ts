@@ -72,7 +72,19 @@ export async function POST(request: NextRequest) {
             navOrder: 0,
             isHomepage: true,
             showInNav: true,
-            content: null, // Starts empty, user adds content
+            // Pre-populate with Hero section using user's name
+            content: JSON.stringify({
+              sections: [{
+                id: crypto.randomUUID(),
+                type: 'hero',
+                name: name || 'Your Name',
+                title: title || 'Your Professional Title',
+                bio: '<p>Welcome to my portfolio. Edit this section to tell your story.</p>',
+                profileImageUrl: null,
+                resumeUrl: null,
+                showResumeLink: false,
+              }]
+            }),
           }
         }
       },

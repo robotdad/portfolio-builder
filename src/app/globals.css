@@ -3353,6 +3353,7 @@ textarea:focus-visible {
   text-decoration: none;
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
+  touch-action: manipulation;
 }
 
 .portfolio-nav-link:hover {
@@ -3460,6 +3461,7 @@ textarea:focus-visible {
   text-decoration: none;
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
+  touch-action: manipulation;
 }
 
 .portfolio-nav-menu-link:hover {
