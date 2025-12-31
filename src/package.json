@@ -9,8 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@prisma/adapter-better-sqlite3": "^7.2.0",
-    "sharp": "^0.34.5",
     "@prisma/client": "^7.2.0",
     "@tiptap/extension-link": "^3.14.0",
     "@tiptap/pm": "^3.14.0",
@@ -20,7 +22,8 @@
     "isomorphic-dompurify": "^2.35.0",
     "next": "16.1.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

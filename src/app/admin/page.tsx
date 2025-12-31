@@ -2,10 +2,16 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
-import { RichTextEditor } from '@/components/editor/RichTextEditor'
-import { ImageUpload } from '@/components/editor/ImageUpload'
+import { SectionList } from '@/components/editor/SectionList'
+import { AddSectionButton } from '@/components/editor/AddSectionButton'
 import { SaveIndicator, SaveStatus } from '@/components/editor/SaveIndicator'
 import { MobileSaveFooter } from '@/components/editor/MobileSaveFooter'
+import { 
+  type Section, 
+  createHeroSection,
+  isHeroSection,
+} from '@/lib/content-schema'
+import { serializeSections, deserializeSections } from '@/lib/serialization'
 
 interface Asset {
   id: string
@@ -22,6 +28,7 @@ interface Portfolio {
   title: string
   bio: string
   theme: string
+  content?: string | null
   assets: Asset[]
 }
 
@@ -45,18 +52,20 @@ const themes = [
 
 export default function AdminPage() {
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle')
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null)
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   
+  // Section-based content
+  const [sections, setSections] = useState<Section[]>([])
+  const [initialSections, setInitialSections] = useState<Section[]>([])
+  
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
-    title: '',
-    bio: '',
     theme: 'modern-minimal',
   })
   
@@ -64,8 +73,6 @@ export default function AdminPage() {
   const [initialFormData, setInitialFormData] = useState({
     name: '',
     slug: '',
-    title: '',
-    bio: '',
     theme: 'modern-minimal',
   })
 
@@ -82,12 +89,31 @@ export default function AdminPage() {
             const loadedData = {
               name: data.name || '',
               slug: data.slug || '',
-              title: data.title || '',
-              bio: data.bio || '',
               theme: data.theme || 'modern-minimal',
             }
             setFormData(loadedData)
             setInitialFormData(loadedData)
+            
+            // Load sections from content field, or migrate from legacy fields
+            let loadedSections = deserializeSections(data.content)
+            
+            // If no sections but has legacy data, create a hero section from it
+            if (loadedSections.length === 0 && (data.name || data.title || data.bio)) {
+              const heroSection = createHeroSection(
+                data.name || '',
+                data.title || '',
+                data.bio || ''
+              )
+              // If there's an asset, use it as profile image
+              if (data.assets?.[0]) {
+                heroSection.profileImageId = data.assets[0].id
+                heroSection.profileImageUrl = data.assets[0].url
+              }
+              loadedSections = [heroSection]
+            }
+            
+            setSections(loadedSections)
+            setInitialSections(loadedSections)
           }
         }
       } catch (error) {
@@ -101,14 +127,22 @@ export default function AdminPage() {
 
   // Compute dirty state - form has unsaved changes
   const isDirty = useMemo(() => {
-    return (
+    const formDirty = (
       formData.name !== initialFormData.name ||
       formData.slug !== initialFormData.slug ||
-      formData.title !== initialFormData.title ||
-      formData.bio !== initialFormData.bio ||
       formData.theme !== initialFormData.theme
     )
-  }, [formData, initialFormData])
+    
+    // Check if sections changed (simple deep comparison)
+    const sectionsDirty = JSON.stringify(sections) !== JSON.stringify(initialSections)
+    
+    return formDirty || sectionsDirty
+  }, [formData, initialFormData, sections, initialSections])
+
+  // Check if there's a hero section
+  const hasHeroSection = useMemo(() => {
+    return sections.some(isHeroSection)
+  }, [sections])
 
   // Auto-generate slug from name
   const generateSlug = (name: string) => {
@@ -139,9 +173,25 @@ export default function AdminPage() {
     setFormData(prev => ({ ...prev, theme: themeId }))
   }
 
+  const handleSectionsChange = useCallback((newSections: Section[]) => {
+    setSections(newSections)
+  }, [])
+
+  const handleAddSection = useCallback((section: Section) => {
+    setSections(prev => [...prev, section])
+  }, [])
+
   // Handler for mobile save footer (submits the form programmatically)
   const handleMobileSave = useCallback(() => {
-    const form = document.querySelector('form')
+    const form = document.getElementById('portfolio-form') as HTMLFormElement
+    if (form) {
+      form.requestSubmit()
+    }
+  }, [])
+
+  // Handler for auto-save after image upload
+  const handleSaveRequest = useCallback(() => {
+    const form = document.getElementById('portfolio-form') as HTMLFormElement
     if (form) {
       form.requestSubmit()
     }
@@ -158,24 +208,27 @@ export default function AdminPage() {
       clearTimeout(saveTimeoutRef.current)
     }
 
-    // Check alt text on all assets before publishing
-    if (portfolio?.assets?.some(asset => !asset.altText || asset.altText.trim() === '')) {
-      setMessage({
-        type: 'error',
-        text: 'All images must have alt text before publishing. Please add alt text to your images.',
-      })
-      setSaving(false)
-      setSaveStatus('error')
-      return
-    }
-
     try {
+      // Serialize sections for storage
+      const contentJson = serializeSections(sections)
+      
+      // Extract name and title from hero section if present
+      const heroSection = sections.find(isHeroSection)
+      const name = heroSection?.name || formData.name
+      const title = heroSection?.title || ''
+      const bio = heroSection?.bio || ''
+      
       const res = await fetch('/api/portfolio', {
         method: portfolio ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...formData,
           id: portfolio?.id,
+          name,
+          slug: formData.slug,
+          title,
+          bio,
+          theme: formData.theme,
+          content: contentJson,
         }),
       })
 
@@ -189,8 +242,17 @@ export default function AdminPage() {
       setSaveStatus('saved')
       setMessage({ type: 'success', text: 'Portfolio saved successfully!' })
       
-      // Update initial form data to mark as clean
-      setInitialFormData({ ...formData })
+      // Sync formData with saved values to ensure View button uses correct slug
+      const syncedFormData = {
+        name: saved.name || '',
+        slug: saved.slug || '',
+        theme: saved.theme || 'modern-minimal',
+      }
+      setFormData(syncedFormData)
+      
+      // Update initial state to mark as clean
+      setInitialFormData(syncedFormData)
+      setInitialSections(sections)
       
       // Reset save status after delay
       saveTimeoutRef.current = setTimeout(() => {
@@ -249,9 +311,18 @@ export default function AdminPage() {
             <span className="admin-logo">Portfolio Builder</span>
             <div className="admin-header-actions">
               <SaveIndicator status={saveStatus} />
-              {portfolio && (
+              {/* Desktop-only header save button */}
+              <button
+                type="submit"
+                form="portfolio-form"
+                className="btn btn-primary desktop-header-save-btn"
+                disabled={saving}
+              >
+                {saving ? 'Saving...' : portfolio ? 'Save' : 'Create'}
+              </button>
+              {portfolio && formData.slug && (
                 <a 
-                  href={`/${portfolio.slug}`} 
+                  href={`/${formData.slug}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="btn btn-secondary"
@@ -265,180 +336,146 @@ export default function AdminPage() {
       </header>
 
       <main className="admin-main">
-        <div className="container" style={{ maxWidth: '640px' }}>
+        <div className="container" style={{ maxWidth: '720px' }}>
           {message && (
             <div className={`alert alert-${message.type}`}>
               {message.text}
             </div>
           )}
 
-          <div className="card">
-            <div className="card-header">
-              <h1 className="card-title">
-                {portfolio ? 'Edit Your Portfolio' : 'Create Your Portfolio'}
-              </h1>
-            </div>
-
-            <form onSubmit={handleSubmit} className="card-body">
-              <div className="form-group">
-                <label htmlFor="name" className="form-label">
-                  Your Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleNameChange}
-                  className="form-input"
-                  placeholder="Jane Smith"
-                  required
-                />
+          <form id="portfolio-form" onSubmit={handleSubmit}>
+            {/* Portfolio Settings Card */}
+            <div className="card" style={{ marginBottom: 'var(--space-6)' }}>
+              <div className="card-header">
+                <h1 className="card-title">
+                  {portfolio ? 'Portfolio Settings' : 'Create Your Portfolio'}
+                </h1>
               </div>
 
-              <div className="form-group">
-                <label htmlFor="slug" className="form-label">
-                  Portfolio URL *
-                </label>
-                <input
-                  type="text"
-                  id="slug"
-                  name="slug"
-                  value={formData.slug}
-                  onChange={handleChange}
-                  className="form-input"
-                  placeholder="jane-smith"
-                  pattern="[a-z0-9\-]+"
-                  title="Only lowercase letters, numbers, and hyphens"
-                  required
-                />
-                <p className="form-hint">
-                  Your portfolio will be available at: /{formData.slug || 'your-name'}
-                </p>
-              </div>
+              <div className="card-body">
+                {/* Only show name input if no hero section */}
+                {!hasHeroSection && (
+                  <div className="form-group">
+                    <label htmlFor="name" className="form-label">
+                      Your Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleNameChange}
+                      className="form-input"
+                      placeholder="Jane Smith"
+                      required={!hasHeroSection}
+                    />
+                  </div>
+                )}
 
-              <div className="form-group">
-                <label htmlFor="title" className="form-label">
-                  Professional Title *
-                </label>
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
-                  className="form-input"
-                  placeholder="Product Designer"
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="bio" className="form-label">
-                  Bio *
-                </label>
-                <RichTextEditor
-                  id="bio"
-                  value={formData.bio}
-                  onChange={(html) => setFormData(prev => ({ ...prev, bio: html }))}
-                  placeholder="Tell visitors about yourself, your experience, and what you do..."
-                />
-                <p className="form-hint">
-                  A brief introduction about yourself and your work.
-                </p>
-              </div>
-
-              {portfolio && (
                 <div className="form-group">
-                  <label className="form-label">Profile Image</label>
-                  <ImageUpload
-                    portfolioId={portfolio.id}
-                    currentImage={portfolio.assets?.[0] || null}
-                    onUploadComplete={(asset) => {
-                      setPortfolio((prev) =>
-                        prev ? { ...prev, assets: [asset, ...(prev.assets || []).slice(1)] } : prev
-                      )
-                      setMessage({ type: 'success', text: 'Image uploaded successfully!' })
-                    }}
-                    onRemove={async () => {
-                      const currentAsset = portfolio.assets?.[0]
-                      if (!currentAsset) return
-                      
-                      try {
-                        const res = await fetch(`/api/upload/${currentAsset.id}`, {
-                          method: 'DELETE',
-                        })
-                        if (res.ok) {
-                          setPortfolio((prev) =>
-                            prev ? { ...prev, assets: prev.assets.slice(1) } : prev
-                          )
-                          setMessage({ type: 'success', text: 'Image removed successfully!' })
-                        } else {
-                          throw new Error('Failed to delete')
-                        }
-                      } catch {
-                        setMessage({ type: 'error', text: 'Failed to remove image' })
-                      }
-                    }}
+                  <label htmlFor="slug" className="form-label">
+                    Portfolio URL *
+                  </label>
+                  <input
+                    type="text"
+                    id="slug"
+                    name="slug"
+                    value={formData.slug}
+                    onChange={handleChange}
+                    className="form-input"
+                    placeholder="jane-smith"
+                    pattern="[a-z0-9\-]+"
+                    title="Only lowercase letters, numbers, and hyphens"
+                    required
                   />
                   <p className="form-hint">
-                    Upload a profile photo or header image for your portfolio.
+                    Your portfolio will be available at: /{formData.slug || 'your-name'}
                   </p>
                 </div>
-              )}
 
-              <div className="form-group">
-                <label className="form-label">Theme</label>
-                <div className="theme-selector">
-                  {themes.map(theme => (
-                    <label
-                      key={theme.id}
-                      className={`theme-option ${formData.theme === theme.id ? 'selected' : ''}`}
-                    >
-                      <input
-                        type="radio"
-                        name="theme"
-                        value={theme.id}
-                        checked={formData.theme === theme.id}
-                        onChange={() => handleThemeChange(theme.id)}
-                      />
-                      <div className={`theme-preview theme-preview-${theme.id.split('-')[0]}`}>
-                        <div className="theme-preview-text">
-                          <div className="theme-preview-line"></div>
-                          <div className="theme-preview-line"></div>
+                <div className="form-group">
+                  <label className="form-label">Theme</label>
+                  <div className="theme-selector">
+                    {themes.map(theme => (
+                      <label
+                        key={theme.id}
+                        className={`theme-option ${formData.theme === theme.id ? 'selected' : ''}`}
+                      >
+                        <input
+                          type="radio"
+                          name="theme"
+                          value={theme.id}
+                          checked={formData.theme === theme.id}
+                          onChange={() => handleThemeChange(theme.id)}
+                        />
+                        <div className={`theme-preview theme-preview-${theme.id.split('-')[0]}`}>
+                          <div className="theme-preview-text">
+                            <div className="theme-preview-line"></div>
+                            <div className="theme-preview-line"></div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="theme-info">
-                        <div className="theme-name">{theme.name}</div>
-                        <div className="theme-description">{theme.description}</div>
-                      </div>
-                    </label>
-                  ))}
+                        <div className="theme-info">
+                          <div className="theme-name">{theme.name}</div>
+                          <div className="theme-description">{theme.description}</div>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
                 </div>
               </div>
+            </div>
 
-              {/* Desktop-only save button (hidden on mobile via CSS) */}
-              <div style={{ paddingTop: 'var(--space-4)' }} className="mobile-hide-save-btn">
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={saving}
-                  style={{ width: '100%' }}
-                >
-                  {saving ? (
-                    <span className="loading">
-                      <span className="loading-spinner"></span>
-                      Saving...
-                    </span>
-                  ) : portfolio ? (
-                    'Save Changes'
-                  ) : (
-                    'Create Portfolio'
-                  )}
-                </button>
+            {/* Content Sections */}
+            <div className="card">
+              <div className="card-header">
+                <h2 className="card-title">Page Content</h2>
               </div>
-            </form>
-          </div>
+
+              <div className="card-body">
+                {sections.length === 0 ? (
+                  <div className="sections-empty">
+                    <p>No sections yet. Add your first section to get started.</p>
+                    <p className="form-hint">
+                      Start with a Hero section to introduce yourself, or add text and images.
+                    </p>
+                  </div>
+                ) : (
+                  <SectionList
+                    sections={sections}
+                    portfolioId={portfolio?.id || ''}
+                    onChange={handleSectionsChange}
+                    onSaveRequest={handleSaveRequest}
+                  />
+                )}
+
+                <AddSectionButton 
+                  onAdd={handleAddSection}
+                  hasHeroSection={hasHeroSection}
+                />
+              </div>
+            </div>
+
+            {/* Desktop-only save button (hidden on mobile via CSS) */}
+            <div style={{ paddingTop: 'var(--space-6)' }} className="mobile-hide-save-btn">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={saving}
+                style={{ width: '100%' }}
+              >
+                {saving ? (
+                  <span className="loading">
+                    <span className="loading-spinner"></span>
+                    Saving...
+                  </span>
+                ) : portfolio ? (
+                  'Save Changes'
+                ) : (
+                  'Create Portfolio'
+                )}
+              </button>
+            </div>
+          </form>
         </div>
       </main>
 

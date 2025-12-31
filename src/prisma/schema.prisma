@@ -16,6 +16,7 @@ model Portfolio {
   title     String
   bio       String
   theme     String   @default("modern-minimal")
+  content   String?  // JSON string containing sections array
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   assets    Asset[]

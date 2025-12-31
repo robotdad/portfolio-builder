@@ -23,12 +23,12 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, slug, title, bio, theme } = body
+    const { name, slug, title, bio, theme, content } = body
 
-    // Validate required fields
-    if (!name || !slug || !title || !bio) {
+    // Validate required fields (name can come from hero section now)
+    if (!slug) {
       return NextResponse.json(
-        { message: 'All fields are required' },
+        { message: 'Slug is required' },
         { status: 400 }
       )
     }
@@ -56,11 +56,12 @@ export async function POST(request: NextRequest) {
     // Create portfolio
     const portfolio = await prisma.portfolio.create({
       data: {
-        name,
+        name: name || '',
         slug,
-        title,
-        bio,
+        title: title || '',
+        bio: bio || '',
         theme: theme || 'modern-minimal',
+        content: content || null,
       },
       include: { assets: true },
     })
@@ -79,12 +80,12 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json()
-    const { id, name, slug, title, bio, theme } = body
+    const { id, name, slug, title, bio, theme, content } = body
 
     // Validate required fields
-    if (!id || !name || !slug || !title || !bio) {
+    if (!id || !slug) {
       return NextResponse.json(
-        { message: 'All fields are required' },
+        { message: 'ID and slug are required' },
         { status: 400 }
       )
     }
@@ -116,11 +117,12 @@ export async function PUT(request: NextRequest) {
     const portfolio = await prisma.portfolio.update({
       where: { id },
       data: {
-        name,
+        name: name || '',
         slug,
-        title,
-        bio,
+        title: title || '',
+        bio: bio || '',
         theme: theme || 'modern-minimal',
+        content: content || null,
       },
       include: { assets: true },
     })
