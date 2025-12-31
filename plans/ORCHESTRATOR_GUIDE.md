@@ -205,7 +205,7 @@ You are implementing the foundation for a portfolio builder.
 Read these files to understand your goal:
 - plans/slices/01-static-page-foundation.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints - includes dev server management)
+- plans/TECH_STACK.md (technology constraints)
 
 This is the first implementation. No previous work exists.
 
@@ -236,7 +236,7 @@ You are implementing rich text editing for the portfolio builder.
 Read these files to understand your goal:
 - plans/slices/02-rich-text-editing.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints - includes dev server management)
+- plans/TECH_STACK.md (technology constraints)
 
 Study the existing codebase and build on it incrementally.
 
@@ -268,7 +268,7 @@ You are implementing image upload for the portfolio builder.
 Read these files to understand your goal:
 - plans/slices/03-single-image-upload.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints - includes dev server management)
+- plans/TECH_STACK.md (technology constraints)
 
 Study the existing codebase and build on it incrementally.
 
@@ -300,7 +300,7 @@ You are implementing mobile editing for the portfolio builder.
 Read these files to understand your goal:
 - plans/slices/04-mobile-editing-basics.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints - includes dev server management)
+- plans/TECH_STACK.md (technology constraints)
 
 Study the existing codebase and build on it incrementally.
 
@@ -335,7 +335,7 @@ You are implementing a component system for the portfolio builder.
 Read these files to understand your goal:
 - plans/slices/05-component-system-sections.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints - includes dev server management)
+- plans/TECH_STACK.md (technology constraints)
 
 Study the existing codebase and build on it incrementally.
 
@@ -370,7 +370,7 @@ You are implementing image galleries for the portfolio builder.
 Read these files to understand your goal:
 - plans/slices/06-image-gallery-component.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints - includes dev server management)
+- plans/TECH_STACK.md (technology constraints)
 
 Study the existing codebase and build on it incrementally.
 
@@ -404,7 +404,7 @@ You are implementing multi-page navigation for the portfolio builder.
 Read these files to understand your goal:
 - plans/slices/07-multiple-pages-navigation.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints - includes dev server management)
+- plans/TECH_STACK.md (technology constraints)
 
 Study the existing codebase and build on it incrementally.
 
@@ -440,7 +440,7 @@ You are implementing the draft/publish workflow for the portfolio builder.
 Read these files to understand your goal:
 - plans/slices/08-draft-publish-workflow.md
 - plans/PRINCIPLES.md (design principles)
-- plans/TECH_STACK.md (technology constraints - includes dev server management)
+- plans/TECH_STACK.md (technology constraints)
 
 Study the existing codebase and build on it incrementally.
 
