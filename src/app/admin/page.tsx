@@ -6,9 +6,9 @@ import { SectionList } from '@/components/editor/SectionList'
 import { AddSectionButton } from '@/components/editor/AddSectionButton'
 import { SaveIndicator, SaveStatus } from '@/components/editor/SaveIndicator'
 import { MobileSaveFooter } from '@/components/editor/MobileSaveFooter'
+import { PageList, PageSettingsModal, DeletePageModal, type PageData } from '@/components/editor/PageList'
 import { 
   type Section, 
-  createHeroSection,
   isHeroSection,
 } from '@/lib/content-schema'
 import { serializeSections, deserializeSections } from '@/lib/serialization'
@@ -28,7 +28,6 @@ interface Portfolio {
   title: string
   bio: string
   theme: string
-  content?: string | null
   assets: Asset[]
 }
 
@@ -59,7 +58,15 @@ export default function AdminPage() {
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null)
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   
-  // Section-based content
+  // Multi-page state
+  const [pages, setPages] = useState<PageData[]>([])
+  const [currentPageId, setCurrentPageId] = useState<string | null>(null)
+  const [showPageModal, setShowPageModal] = useState(false)
+  const [editingPage, setEditingPage] = useState<PageData | null>(null)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [deletingPage, setDeletingPage] = useState<PageData | null>(null)
+  
+  // Section-based content for current page
   const [sections, setSections] = useState<Section[]>([])
   const [initialSections, setInitialSections] = useState<Section[]>([])
   
@@ -75,6 +82,35 @@ export default function AdminPage() {
     slug: '',
     theme: 'modern-minimal',
   })
+
+  // Get current page
+  const currentPage = useMemo(() => {
+    return pages.find(p => p.id === currentPageId) || null
+  }, [pages, currentPageId])
+
+  // Load pages for portfolio
+  const loadPages = useCallback(async (portfolioId: string) => {
+    try {
+      const res = await fetch(`/api/pages?portfolioId=${portfolioId}`)
+      if (res.ok) {
+        const loadedPages = await res.json()
+        setPages(loadedPages)
+        
+        // Select homepage or first page by default
+        if (loadedPages.length > 0) {
+          const homepage = loadedPages.find((p: PageData) => p.isHomepage) || loadedPages[0]
+          setCurrentPageId(homepage.id)
+          
+          // Load sections for this page
+          const pageSections = deserializeSections(homepage.content)
+          setSections(pageSections)
+          setInitialSections(pageSections)
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load pages:', error)
+    }
+  }, [])
 
   // Load existing portfolio on mount
   useEffect(() => {
@@ -94,26 +130,8 @@ export default function AdminPage() {
             setFormData(loadedData)
             setInitialFormData(loadedData)
             
-            // Load sections from content field, or migrate from legacy fields
-            let loadedSections = deserializeSections(data.content)
-            
-            // If no sections but has legacy data, create a hero section from it
-            if (loadedSections.length === 0 && (data.name || data.title || data.bio)) {
-              const heroSection = createHeroSection(
-                data.name || '',
-                data.title || '',
-                data.bio || ''
-              )
-              // If there's an asset, use it as profile image
-              if (data.assets?.[0]) {
-                heroSection.profileImageId = data.assets[0].id
-                heroSection.profileImageUrl = data.assets[0].url
-              }
-              loadedSections = [heroSection]
-            }
-            
-            setSections(loadedSections)
-            setInitialSections(loadedSections)
+            // Load pages for this portfolio (homepage always exists)
+            await loadPages(data.id)
           }
         }
       } catch (error) {
@@ -123,7 +141,7 @@ export default function AdminPage() {
       }
     }
     loadPortfolio()
-  }, [])
+  }, [loadPages])
 
   // Compute dirty state - form has unsaved changes
   const isDirty = useMemo(() => {
@@ -202,6 +220,164 @@ export default function AdminPage() {
     setSections(prev => [...prev, section])
   }, [])
 
+  // Handle page selection
+  const handleSelectPage = useCallback(async (pageId: string) => {
+    // Don't switch to the same page
+    if (pageId === currentPageId) return
+    
+    // Save current page content first if we have content
+    if (currentPageId && sections.length > 0) {
+      const currentContent = serializeSections(sections)
+      try {
+        await fetch(`/api/pages/${currentPageId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: currentContent }),
+        })
+        // Update local pages array with saved content
+        setPages(prev => prev.map(p =>
+          p.id === currentPageId
+            ? { ...p, content: currentContent }
+            : p
+        ))
+      } catch (error) {
+        console.error('Failed to save current page before switching:', error)
+      }
+    }
+    
+    // Load the new page's sections
+    const page = pages.find(p => p.id === pageId)
+    if (page) {
+      const pageSections = deserializeSections(page.content)
+      setSections(pageSections)
+      setInitialSections(pageSections)
+      setCurrentPageId(pageId)
+    }
+  }, [currentPageId, pages, sections])
+
+  // Handle page creation
+  const handleCreatePage = () => {
+    setEditingPage(null)
+    setShowPageModal(true)
+  }
+
+  // Handle page settings save
+  const handleSavePageSettings = async (data: { 
+    title: string; 
+    slug: string; 
+    isHomepage: boolean; 
+    showInNav: boolean 
+  }) => {
+    if (!portfolio) return
+
+    try {
+      if (editingPage) {
+        // Update existing page
+        const res = await fetch(`/api/pages/${editingPage.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+
+        if (!res.ok) {
+          const error = await res.json()
+          throw new Error(error.message)
+        }
+
+        const updatedPage = await res.json()
+        setPages(prev => prev.map(p => p.id === updatedPage.id ? updatedPage : p))
+      } else {
+        // Create new page (homepage always exists, so this is always an additional page)
+        
+        // CRITICAL: Save current page's content BEFORE creating new page
+        // This prevents content loss when switching pages
+        if (currentPageId && sections.length > 0) {
+          const currentContent = serializeSections(sections)
+          await fetch(`/api/pages/${currentPageId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content: currentContent }),
+          })
+          // Update local pages array with saved content
+          setPages(prev => prev.map(p =>
+            p.id === currentPageId
+              ? { ...p, content: currentContent }
+              : p
+          ))
+        }
+        
+        const res = await fetch('/api/pages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            portfolioId: portfolio.id,
+            ...data,
+          }),
+        })
+
+        if (!res.ok) {
+          const error = await res.json()
+          throw new Error(error.message)
+        }
+
+        const newPage = await res.json()
+        setPages(prev => [...prev, newPage])
+        setCurrentPageId(newPage.id)
+        
+        // Clear sections for new pages - they start empty
+        setSections([])
+        setInitialSections([])
+      }
+
+      setShowPageModal(false)
+      setEditingPage(null)
+    } catch (error) {
+      console.error('Failed to save page:', error)
+      setMessage({
+        type: 'error',
+        text: error instanceof Error ? error.message : 'Failed to save page',
+      })
+    }
+  }
+
+  // Handle page deletion
+  const handleDeletePage = async () => {
+    if (!deletingPage) return
+
+    try {
+      const res = await fetch(`/api/pages/${deletingPage.id}`, {
+        method: 'DELETE',
+      })
+
+      if (!res.ok) {
+        throw new Error('Failed to delete page')
+      }
+
+      setPages(prev => prev.filter(p => p.id !== deletingPage.id))
+      
+      // If deleting current page, switch to first available page
+      if (currentPageId === deletingPage.id) {
+        const remainingPages = pages.filter(p => p.id !== deletingPage.id)
+        if (remainingPages.length > 0) {
+          handleSelectPage(remainingPages[0].id)
+        } else {
+          setCurrentPageId(null)
+          setSections([])
+          setInitialSections([])
+        }
+      }
+
+      setShowDeleteModal(false)
+      setDeletingPage(null)
+    } catch (error) {
+      console.error('Failed to delete page:', error)
+      setMessage({
+        type: 'error',
+        text: 'Failed to delete page',
+      })
+    }
+  }
+
   // Handler for mobile save footer (submits the form programmatically)
   const handleMobileSave = useCallback(() => {
     const form = document.getElementById('portfolio-form') as HTMLFormElement
@@ -239,7 +415,8 @@ export default function AdminPage() {
       const title = heroSection?.title || ''
       const bio = heroSection?.bio || ''
       
-      const res = await fetch('/api/portfolio', {
+      // Save portfolio settings only - content is saved via pages
+      const portfolioRes = await fetch('/api/portfolio', {
         method: portfolio ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -249,17 +426,40 @@ export default function AdminPage() {
           title,
           bio,
           theme: formData.theme,
-          content: contentJson,
         }),
       })
 
-      if (!res.ok) {
-        const error = await res.json()
+      if (!portfolioRes.ok) {
+        const error = await portfolioRes.json()
         throw new Error(error.message || 'Failed to save portfolio')
       }
 
-      const saved = await res.json()
+      const saved = await portfolioRes.json()
       setPortfolio(saved)
+      
+      // If we have a current page, save its content
+      if (currentPageId) {
+        const pageRes = await fetch(`/api/pages/${currentPageId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: currentPage?.title,
+            slug: currentPage?.slug,
+            isHomepage: currentPage?.isHomepage,
+            showInNav: currentPage?.showInNav,
+            content: contentJson,
+          }),
+        })
+
+        if (!pageRes.ok) {
+          const error = await pageRes.json()
+          throw new Error(error.message || 'Failed to save page content')
+        }
+
+        const updatedPage = await pageRes.json()
+        setPages(prev => prev.map(p => p.id === updatedPage.id ? updatedPage : p))
+      }
+      
       setSaveStatus('saved')
       setMessage({ type: 'success', text: 'Portfolio saved successfully!' })
       
@@ -468,10 +668,68 @@ export default function AdminPage() {
               </div>
             </div>
 
+            {/* Pages Section - Only show if portfolio exists */}
+            {portfolio && (
+              <div className="card" style={{ marginBottom: 'var(--space-6)' }}>
+                <div className="card-header card-header-with-actions">
+                  <h2 className="card-title">Pages</h2>
+                  {currentPage && (
+                    <div className="card-header-actions">
+                      <button
+                        type="button"
+                        className="btn btn-ghost btn-sm"
+                        onClick={() => {
+                          setEditingPage(currentPage)
+                          setShowPageModal(true)
+                        }}
+                        aria-label="Page settings"
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <circle cx="12" cy="12" r="3" />
+                          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                        </svg>
+                        Settings
+                      </button>
+                      {pages.length > 1 && (
+                        <button
+                          type="button"
+                          className="btn btn-ghost btn-sm btn-danger-text"
+                          onClick={() => {
+                            setDeletingPage(currentPage)
+                            setShowDeleteModal(true)
+                          }}
+                          aria-label="Delete page"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                          </svg>
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                <div className="card-body" style={{ paddingTop: 0, paddingBottom: 'var(--space-3)' }}>
+                  <PageList
+                    pages={pages}
+                    currentPageId={currentPageId}
+                    portfolioId={portfolio.id}
+                    onSelectPage={handleSelectPage}
+                    onPagesChange={setPages}
+                    onCreatePage={handleCreatePage}
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Content Sections */}
             <div className="card">
               <div className="card-header">
-                <h2 className="card-title">Page Content</h2>
+                <h2 className="card-title">
+                  {currentPage ? `${currentPage.title} Content` : 'Page Content'}
+                </h2>
               </div>
 
               <div className="card-body">
@@ -523,6 +781,29 @@ export default function AdminPage() {
         isExisting={!!portfolio}
         createLabel="Create Portfolio"
         updateLabel="Save Changes"
+      />
+
+      {/* Page Settings Modal */}
+      <PageSettingsModal
+        page={editingPage}
+        isOpen={showPageModal}
+        onClose={() => {
+          setShowPageModal(false)
+          setEditingPage(null)
+        }}
+        onSave={handleSavePageSettings}
+        existingSlugs={pages.map(p => p.slug)}
+      />
+
+      {/* Delete Page Modal */}
+      <DeletePageModal
+        page={deletingPage}
+        isOpen={showDeleteModal}
+        onClose={() => {
+          setShowDeleteModal(false)
+          setDeletingPage(null)
+        }}
+        onConfirm={handleDeletePage}
       />
     </div>
   )

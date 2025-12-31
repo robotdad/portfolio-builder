@@ -16,10 +16,29 @@ model Portfolio {
   title     String
   bio       String
   theme     String   @default("modern-minimal")
-  content   String?  // JSON string containing sections array
+  // Content lives in Page.content ONLY - no dual storage
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   assets    Asset[]
+  pages     Page[]
+}
+
+model Page {
+  id          String   @id @default(cuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  
+  title       String   // Display name in navigation
+  slug        String   // URL path segment (empty string for homepage)
+  navOrder    Int      @default(0)
+  isHomepage  Boolean  @default(false)
+  showInNav   Boolean  @default(true)
+  content     String?  // JSON string containing sections array
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@unique([portfolioId, slug])
 }
 
 model Asset {

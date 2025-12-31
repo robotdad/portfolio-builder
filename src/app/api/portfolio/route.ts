@@ -6,7 +6,10 @@ export async function GET() {
   try {
     const portfolio = await prisma.portfolio.findFirst({
       orderBy: { createdAt: 'desc' },
-      include: { assets: true },
+      include: { 
+        assets: true,
+        pages: { orderBy: { navOrder: 'asc' } },
+      },
     })
     
     return NextResponse.json(portfolio)
@@ -19,13 +22,13 @@ export async function GET() {
   }
 }
 
-// POST - Create a new portfolio
+// POST - Create a new portfolio with homepage (atomic)
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, slug, title, bio, theme, content } = body
+    const { name, slug, title, bio, theme } = body
 
-    // Validate required fields (name can come from hero section now)
+    // Validate required fields
     if (!slug) {
       return NextResponse.json(
         { message: 'Slug is required' },
@@ -53,7 +56,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Create portfolio
+    // ATOMIC: Create portfolio WITH homepage in single transaction
+    // This ensures no portfolio ever exists without a homepage
     const portfolio = await prisma.portfolio.create({
       data: {
         name: name || '',
@@ -61,9 +65,21 @@ export async function POST(request: NextRequest) {
         title: title || '',
         bio: bio || '',
         theme: theme || 'modern-minimal',
-        content: content || null,
+        pages: {
+          create: {
+            title: 'Home',
+            slug: '', // Empty slug = homepage
+            navOrder: 0,
+            isHomepage: true,
+            showInNav: true,
+            content: null, // Starts empty, user adds content
+          }
+        }
       },
-      include: { assets: true },
+      include: { 
+        assets: true,
+        pages: { orderBy: { navOrder: 'asc' } },
+      },
     })
 
     return NextResponse.json(portfolio, { status: 201 })
@@ -76,11 +92,11 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// PUT - Update existing portfolio
+// PUT - Update existing portfolio settings only (content is stored in pages)
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json()
-    const { id, name, slug, title, bio, theme, content } = body
+    const { id, name, slug, title, bio, theme } = body
 
     // Validate required fields
     if (!id || !slug) {
@@ -113,7 +129,7 @@ export async function PUT(request: NextRequest) {
       )
     }
 
-    // Update portfolio
+    // Update portfolio settings only - content lives in Page.content
     const portfolio = await prisma.portfolio.update({
       where: { id },
       data: {
@@ -122,7 +138,6 @@ export async function PUT(request: NextRequest) {
         title: title || '',
         bio: bio || '',
         theme: theme || 'modern-minimal',
-        content: content || null,
       },
       include: { assets: true },
     })

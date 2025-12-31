@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
 import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
@@ -8,40 +8,46 @@ import { isHeroSection } from '@/lib/content-schema'
 import type { Metadata } from 'next'
 
 interface PageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string; pageSlug: string }>
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params
+  const { slug, pageSlug } = await params
+  
   const portfolio = await prisma.portfolio.findUnique({
     where: { slug },
-    include: { pages: { where: { isHomepage: true }, take: 1 } },
+    include: { 
+      pages: { 
+        where: { slug: pageSlug },
+        take: 1,
+      },
+    },
   })
 
-  if (!portfolio) {
+  if (!portfolio || !portfolio.pages[0]) {
     return {
-      title: 'Portfolio Not Found',
+      title: 'Page Not Found',
     }
   }
 
-  // Get sections from homepage (homepage always exists)
-  const homePage = portfolio.pages[0]
-  const sections = deserializeSections(homePage?.content)
+  const page = portfolio.pages[0]
+  const sections = deserializeSections(page.content)
   const heroSection = sections.find(isHeroSection)
   
   const name = heroSection?.name || portfolio.name
-  const title = heroSection?.title || portfolio.title
-  const bio = heroSection?.bio || portfolio.bio
+  const title = page.title
 
   return {
-    title: `${name} - ${title}`,
-    description: stripHtml(bio).substring(0, 160),
+    title: `${title} - ${name}`,
+    description: heroSection?.bio 
+      ? stripHtml(heroSection.bio).substring(0, 160)
+      : `${title} page of ${name}'s portfolio`,
   }
 }
 
-export default async function PortfolioPage({ params }: PageProps) {
-  const { slug } = await params
+export default async function PortfolioSubPage({ params }: PageProps) {
+  const { slug, pageSlug } = await params
   
   const portfolio = await prisma.portfolio.findUnique({
     where: { slug },
@@ -57,14 +63,26 @@ export default async function PortfolioPage({ params }: PageProps) {
     notFound()
   }
 
-  // Get the homepage (homepage always exists - created atomically with portfolio)
+  // Find the specific page by slug
+  const currentPage = portfolio.pages.find(p => p.slug === pageSlug)
+  
+  if (!currentPage) {
+    notFound()
+  }
+
+  // If this page is the homepage, redirect to the base portfolio URL
+  // This prevents the homepage from being accessible at two URLs
+  if (currentPage.isHomepage) {
+    redirect(`/${slug}`)
+  }
+
+  // Parse sections from page content
+  const sections = deserializeSections(currentPage.content)
+  
+  // Get hero section from homepage for the name (for footer)
   const homePage = portfolio.pages.find(p => p.isHomepage) || portfolio.pages[0]
-  
-  // Parse sections from homepage content
-  const sections = deserializeSections(homePage?.content)
-  
-  // Get hero section for name extraction
-  const heroSection = sections.find(isHeroSection)
+  const homePageSections = deserializeSections(homePage?.content)
+  const heroSection = homePageSections.find(isHeroSection)
   const name = heroSection?.name || portfolio.name
 
   // Prepare navigation pages
@@ -91,7 +109,14 @@ export default async function PortfolioPage({ params }: PageProps) {
       )}
       <main className="portfolio-main">
         <div className="container">
-          <SectionRenderer sections={sections} />
+          {sections.length > 0 ? (
+            <SectionRenderer sections={sections} />
+          ) : (
+            <div className="portfolio-empty-page">
+              <h1>{currentPage.title}</h1>
+              <p>This page is under construction.</p>
+            </div>
+          )}
         </div>
       </main>
 
