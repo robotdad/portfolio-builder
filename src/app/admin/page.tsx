@@ -144,6 +144,27 @@ export default function AdminPage() {
     return sections.some(isHeroSection)
   }, [sections])
 
+  // Compute save button state for visual feedback
+  const saveButtonState = useMemo(() => {
+    if (saving) return 'saving'
+    if (saveStatus === 'error') return 'error'
+    if (saveStatus === 'saved') return 'saved'
+    if (isDirty) return 'dirty'
+    return 'clean'
+  }, [saving, saveStatus, isDirty])
+
+  // Get save button label based on state
+  const getSaveButtonLabel = (isExisting: boolean) => {
+    switch (saveButtonState) {
+      case 'saving': return 'Saving...'
+      case 'saved': return 'Saved!'
+      case 'error': return 'Retry Save'
+      case 'dirty': return isExisting ? 'Save Changes' : 'Create Portfolio'
+      case 'clean': return 'Saved'
+      default: return isExisting ? 'Save' : 'Create'
+    }
+  }
+
   // Auto-generate slug from name
   const generateSlug = (name: string) => {
     return name
@@ -303,8 +324,29 @@ export default function AdminPage() {
     )
   }
 
+  // Get ARIA live announcement for screen readers
+  const getAriaAnnouncement = () => {
+    switch (saveButtonState) {
+      case 'saving': return 'Saving changes...'
+      case 'saved': return 'Changes saved successfully'
+      case 'error': return 'Save failed. Please try again.'
+      case 'dirty': return 'You have unsaved changes'
+      default: return ''
+    }
+  }
+
   return (
     <div className="admin-layout">
+      {/* Screen reader announcements for save status */}
+      <div 
+        role="status" 
+        aria-live="polite" 
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {getAriaAnnouncement()}
+      </div>
+
       <header className="admin-header">
         <div className="container">
           <div className="admin-header-content">
@@ -315,10 +357,11 @@ export default function AdminPage() {
               <button
                 type="submit"
                 form="portfolio-form"
-                className="btn btn-primary desktop-header-save-btn"
-                disabled={saving}
+                className={`btn btn-primary desktop-header-save-btn save-btn save-btn--${saveButtonState}`}
+                disabled={saving || saveButtonState === 'clean'}
+                aria-disabled={saveButtonState === 'clean'}
               >
-                {saving ? 'Saving...' : portfolio ? 'Save' : 'Create'}
+                {getSaveButtonLabel(!!portfolio)}
               </button>
               {portfolio && formData.slug && (
                 <a 
@@ -459,20 +502,12 @@ export default function AdminPage() {
             <div style={{ paddingTop: 'var(--space-6)' }} className="mobile-hide-save-btn">
               <button
                 type="submit"
-                className="btn btn-primary"
-                disabled={saving}
+                className={`btn btn-primary save-btn save-btn--${saveButtonState}`}
+                disabled={saving || saveButtonState === 'clean'}
+                aria-disabled={saveButtonState === 'clean'}
                 style={{ width: '100%' }}
               >
-                {saving ? (
-                  <span className="loading">
-                    <span className="loading-spinner"></span>
-                    Saving...
-                  </span>
-                ) : portfolio ? (
-                  'Save Changes'
-                ) : (
-                  'Create Portfolio'
-                )}
+                {getSaveButtonLabel(!!portfolio)}
               </button>
             </div>
           </form>

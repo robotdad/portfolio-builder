@@ -566,6 +566,71 @@ textarea:focus-visible {
   display: inline-flex;
 }
 
+/* Save button state system */
+.save-btn {
+  transition: all 200ms ease;
+  position: relative;
+}
+
+/* Clean state - no changes to save */
+.save-btn.save-btn--clean {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: default;
+}
+
+.save-btn.save-btn--clean:hover {
+  background: var(--color-surface);
+  transform: none;
+}
+
+/* Dirty state - unsaved changes exist */
+.save-btn.save-btn--dirty {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+  animation: save-btn-pulse 2s ease-in-out infinite;
+}
+
+@keyframes save-btn-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(var(--color-accent-rgb, 59, 130, 246), 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb, 59, 130, 246), 0.1);
+  }
+}
+
+.save-btn.save-btn--dirty:hover {
+  filter: brightness(1.1);
+}
+
+/* Saving state - in progress */
+.save-btn.save-btn--saving {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+  cursor: wait;
+  animation: none;
+}
+
+/* Saved state - just completed successfully */
+.save-btn.save-btn--saved {
+  background: var(--color-success, #22c55e);
+  border-color: var(--color-success, #22c55e);
+  color: white;
+  animation: none;
+}
+
+/* Error state - save failed */
+.save-btn.save-btn--error {
+  background: var(--color-error, #ef4444);
+  border-color: var(--color-error, #ef4444);
+  color: white;
+  animation: none;
+}
+
 .admin-header-content {
   display: flex;
   align-items: center;
@@ -1187,9 +1252,13 @@ textarea:focus-visible {
    -------------------------------------------------------------------------- */
 
 /* Prevent iOS bounce/overscroll during editing */
+/* Note: overflow-x moved to .admin-main to preserve sticky header behavior */
 .admin-layout {
-  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+}
+
+.admin-main {
+  overflow-x: hidden;
 }
 
 /* Mobile-first container */
