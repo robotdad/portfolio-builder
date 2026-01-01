@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -22,8 +23,14 @@ interface NavigationProps {
 export function Navigation({ portfolioSlug, portfolioName, pages, theme }: NavigationProps) {
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
+
+  // Track when component is mounted for portal rendering
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Filter to only pages shown in nav
   const navPages = pages.filter(p => p.showInNav)
@@ -139,39 +146,45 @@ export function Navigation({ portfolioSlug, portfolioName, pages, theme }: Navig
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <div 
-          className="portfolio-nav-overlay" 
-          onClick={() => setIsMenuOpen(false)}
-          aria-hidden="true"
-        />
-      )}
+      {/* Mobile Menu - Rendered via Portal for proper z-index and full-height */}
+      {mounted && createPortal(
+        <>
+          {/* Overlay */}
+          {isMenuOpen && (
+            <div
+              className="portfolio-nav-overlay"
+              onClick={() => setIsMenuOpen(false)}
+              aria-hidden="true"
+            />
+          )}
 
-      {/* Mobile Menu Panel */}
-      <div
-        ref={menuRef}
-        id="mobile-nav-menu"
-        className={`portfolio-nav-menu ${isMenuOpen ? 'portfolio-nav-menu--open' : ''}`}
-        role="menu"
-        aria-hidden={!isMenuOpen}
-      >
-        <ul className="portfolio-nav-menu-list">
-          {navPages.map(page => (
-            <li key={page.id} role="none">
-              <Link
-                href={getPageHref(page)}
-                className={`portfolio-nav-menu-link ${isPageActive(page) ? 'portfolio-nav-menu-link--active' : ''}`}
-                role="menuitem"
-                aria-current={isPageActive(page) ? 'page' : undefined}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {page.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+          {/* Menu Panel */}
+          <div
+            ref={menuRef}
+            id="mobile-nav-menu"
+            className={`portfolio-nav-menu portfolio-nav-menu--${theme} ${isMenuOpen ? 'portfolio-nav-menu--open' : ''}`}
+            role="menu"
+            aria-hidden={!isMenuOpen}
+          >
+            <ul className="portfolio-nav-menu-list">
+              {navPages.map(page => (
+                <li key={page.id} role="none">
+                  <Link
+                    href={getPageHref(page)}
+                    className={`portfolio-nav-menu-link ${isPageActive(page) ? 'portfolio-nav-menu-link--active' : ''}`}
+                    role="menuitem"
+                    aria-current={isPageActive(page) ? 'page' : undefined}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {page.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>,
+        document.body
+      )}
     </nav>
   )
 }

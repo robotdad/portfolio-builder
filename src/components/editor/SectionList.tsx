@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import {
   DndContext,
   closestCenter,
@@ -20,6 +20,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { SortableSection } from './SortableSection'
+import { InlineAddButton } from './InlineAddButton'
 import { TextSection } from './TextSection'
 import { ImageSectionEditor } from './ImageSectionEditor'
 import { HeroSectionEditor } from './HeroSectionEditor'
@@ -43,6 +44,9 @@ interface SectionListProps {
 
 export function SectionList({ sections, portfolioId, onChange, onSaveRequest }: SectionListProps) {
   const [activeId, setActiveId] = useState<string | null>(null)
+  
+  // Detect if a hero section already exists (only one allowed)
+  const hasHeroSection = sections.some(s => s.type === 'hero')
 
   // Configure sensors for desktop and mobile
   // Touch sensor: 150ms delay prevents accidental drags while scrolling
@@ -97,6 +101,12 @@ export function SectionList({ sections, portfolioId, onChange, onSaveRequest }: 
     onChange(newSections)
   }
 
+  const handleInsertSection = (index: number, section: Section) => {
+    const newSections = [...sections]
+    newSections.splice(index, 0, section)
+    onChange(newSections)
+  }
+
   const activeSection = activeId 
     ? sections.find((s) => s.id === activeId) 
     : null
@@ -114,16 +124,37 @@ export function SectionList({ sections, portfolioId, onChange, onSaveRequest }: 
         strategy={verticalListSortingStrategy}
       >
         <div className="section-list">
+          {sections.length === 0 && (
+            <InlineAddButton
+              onAdd={(section) => handleInsertSection(0, section)}
+              hasHeroSection={false}
+              insertIndex={0}
+            />
+          )}
           {sections.map((section, index) => (
-            <SortableSection key={section.id} id={section.id}>
-              <SectionEditor
-                section={section}
-                portfolioId={portfolioId}
-                onChange={(s) => handleSectionChange(index, s)}
-                onDelete={() => handleSectionDelete(index)}
-                onSaveRequest={onSaveRequest}
+            <React.Fragment key={section.id}>
+              {index === 0 && (
+                <InlineAddButton
+                  onAdd={(s) => handleInsertSection(0, s)}
+                  hasHeroSection={hasHeroSection}
+                  insertIndex={0}
+                />
+              )}
+              <SortableSection id={section.id}>
+                <SectionEditor
+                  section={section}
+                  portfolioId={portfolioId}
+                  onChange={(s) => handleSectionChange(index, s)}
+                  onDelete={() => handleSectionDelete(index)}
+                  onSaveRequest={onSaveRequest}
+                />
+              </SortableSection>
+              <InlineAddButton
+                onAdd={(s) => handleInsertSection(index + 1, s)}
+                hasHeroSection={hasHeroSection}
+                insertIndex={index + 1}
               />
-            </SortableSection>
+            </React.Fragment>
           ))}
         </div>
       </SortableContext>

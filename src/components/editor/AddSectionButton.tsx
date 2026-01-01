@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { Popover, PopoverItem } from '@/components/shared/Popover'
+import { BottomSheet, BottomSheetItem } from '@/components/shared/BottomSheet'
 import { 
   sectionTypes, 
   createTextSection, 
@@ -19,42 +21,18 @@ interface AddSectionButtonProps {
 
 export function AddSectionButton({ onAdd, hasHeroSection = false }: AddSectionButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  // Close menu when clicking outside
+  // Detect mobile viewport
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current && 
-        buttonRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false)
-      }
-    }
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    setIsMobile(mediaQuery.matches)
 
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-      return () => document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isOpen])
-
-  // Close on escape key
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false)
-        buttonRef.current?.focus()
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape)
-      return () => document.removeEventListener('keydown', handleEscape)
-    }
-  }, [isOpen])
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mediaQuery.addEventListener('change', handler)
+    return () => mediaQuery.removeEventListener('change', handler)
+  }, [])
 
   const handleAddSection = (type: SectionType) => {
     let section: Section
@@ -117,34 +95,38 @@ export function AddSectionButton({ onAdd, hasHeroSection = false }: AddSectionBu
         </svg>
       </button>
 
-      {isOpen && (
-        <div 
-          ref={menuRef}
-          className="add-section-menu"
-          role="menu"
-          aria-label="Section types"
+      {isMobile ? (
+        <BottomSheet
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          title="Add Section"
         >
-          <div className="add-section-menu-header">
-            Add Section
-          </div>
           {availableTypes.map((sectionType) => (
-            <button
+            <BottomSheetItem
               key={sectionType.type}
-              type="button"
-              className="add-section-menu-item"
-              onClick={() => handleAddSection(sectionType.type)}
-              role="menuitem"
-            >
-              <span className="add-section-menu-icon" aria-hidden="true">
-                {sectionType.icon}
-              </span>
-              <div className="add-section-menu-text">
-                <span className="add-section-menu-label">{sectionType.label}</span>
-                <span className="add-section-menu-description">{sectionType.description}</span>
-              </div>
-            </button>
+              icon={<span>{sectionType.icon}</span>}
+              label={sectionType.label}
+              description={sectionType.description}
+              onSelect={() => handleAddSection(sectionType.type)}
+            />
           ))}
-        </div>
+        </BottomSheet>
+      ) : (
+        <Popover
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          triggerRef={buttonRef}
+        >
+          {availableTypes.map((sectionType) => (
+            <PopoverItem
+              key={sectionType.type}
+              icon={<span aria-hidden="true">{sectionType.icon}</span>}
+              label={sectionType.label}
+              description={sectionType.description}
+              onSelect={() => handleAddSection(sectionType.type)}
+            />
+          ))}
+        </Popover>
       )}
     </div>
   )
