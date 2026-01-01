@@ -25,9 +25,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   }
 
-  // Get sections from homepage publishedContent (fallback to draftContent for unpublished)
+  // Get sections from homepage publishedContent only (never show draft on published site)
   const homePage = portfolio.pages[0]
-  const sections = deserializeSections(homePage?.publishedContent || homePage?.draftContent)
+  const sections = deserializeSections(homePage?.publishedContent)
   const heroSection = sections.find(isHeroSection)
   
   const name = heroSection?.name || portfolio.name
@@ -60,9 +60,9 @@ export default async function PortfolioPage({ params }: PageProps) {
   // Get the homepage (homepage always exists - created atomically with portfolio)
   const homePage = portfolio.pages.find(p => p.isHomepage) || portfolio.pages[0]
   
-  // Parse sections from PUBLISHED content (fallback to draft for unpublished pages)
+  // Parse sections from PUBLISHED content only (never show draft on published site)
   // This ensures the live site only shows explicitly published content
-  const sections = deserializeSections(homePage?.publishedContent || homePage?.draftContent)
+  const sections = deserializeSections(homePage?.publishedContent)
   
   // Get hero section for name extraction
   const heroSection = sections.find(isHeroSection)
@@ -70,7 +70,7 @@ export default async function PortfolioPage({ params }: PageProps) {
 
   // Prepare navigation pages (only show pages that have published content)
   const navPages: NavPage[] = portfolio.pages
-    .filter(p => p.showInNav && (p.publishedContent || p.draftContent))
+    .filter(p => p.showInNav && p.publishedContent)
     .map(p => ({
       id: p.id,
       title: p.title,

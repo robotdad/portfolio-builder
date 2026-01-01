@@ -14,10 +14,10 @@ interface ImageSectionEditorProps {
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif']
 const MAX_SIZE = 10 * 1024 * 1024 // 10MB
 
-export function ImageSectionEditor({ 
-  section, 
-  portfolioId, 
-  onChange, 
+export function ImageSectionEditor({
+  section,
+  portfolioId,
+  onChange,
   onDelete,
   onSaveRequest
 }: ImageSectionEditorProps) {
@@ -26,6 +26,7 @@ export function ImageSectionEditor({
   const [error, setError] = useState<string | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -37,11 +38,8 @@ export function ImageSectionEditor({
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Auto-upload: select file and immediately start uploading
-  const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
+  // Process and upload a file - extracted for reuse by both click and drag-drop
+  const processFile = useCallback(async (file: File) => {
     setError(null)
 
     if (!ALLOWED_TYPES.includes(file.type)) {
@@ -122,7 +120,42 @@ export function ImageSectionEditor({
     }
   }, [portfolioId, section, onChange, onSaveRequest])
 
+  // Handle file selection from input
+  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      processFile(file)
+    }
+  }, [processFile])
 
+  // Drag-and-drop event handlers
+  const handleDragOver = useCallback((e: React.DragEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+  }, [])
+
+  const handleDragEnter = useCallback((e: React.DragEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(true)
+  }, [])
+
+  const handleDragLeave = useCallback((e: React.DragEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+  }, [])
+
+  const handleDrop = useCallback((e: React.DragEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+
+    const file = e.dataTransfer.files[0]
+    if (file && file.type.startsWith('image/')) {
+      processFile(file)
+    }
+  }, [processFile])
 
   const handleDropzoneClick = () => {
     fileInputRef.current?.click()
@@ -221,7 +254,11 @@ export function ImageSectionEditor({
           <button
             type="button"
             onClick={handleDropzoneClick}
-            className={isMobile ? 'mobile-image-upload-btn' : 'image-upload-dropzone'}
+            onDragOver={handleDragOver}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            className={`${isMobile ? 'mobile-image-upload-btn' : 'image-upload-dropzone'} ${isDragging ? 'dragging' : ''}`}
             disabled={uploading}
           >
             {isMobile ? (
@@ -235,8 +272,10 @@ export function ImageSectionEditor({
               </>
             ) : (
               <>
-                <span className="image-upload-dropzone-icon">+</span>
-                <span className="image-upload-dropzone-text">Click to select an image</span>
+                <span className="image-upload-dropzone-icon">{isDragging ? '↓' : '+'}</span>
+                <span className="image-upload-dropzone-text">
+                  {isDragging ? 'Drop image here' : 'Drag & drop or click to select'}
+                </span>
                 <span className="image-upload-dropzone-hint">JPEG, PNG, or WebP up to 10MB</span>
               </>
             )}
@@ -290,9 +329,19 @@ export function ImageSectionEditor({
             {error}
           </p>
         )}
-
-
       </div>
+
+      <style jsx>{`
+        .image-upload-dropzone.dragging {
+          border-color: var(--color-accent, #3b82f6);
+          background-color: var(--color-accent-light, rgba(59, 130, 246, 0.1));
+          transform: scale(1.02);
+        }
+        
+        .image-upload-dropzone.dragging .image-upload-dropzone-icon {
+          color: var(--color-accent, #3b82f6);
+        }
+      `}</style>
     </div>
   )
 }
