@@ -4177,3 +4177,43 @@ textarea:focus-visible {
   color: var(--color-text-muted);
   opacity: 0.7;
 }
+
+/* Settings Dropdown Trigger */
+.settings-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-md, 6px);
+  color: var(--admin-text, #374151);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.settings-trigger:hover {
+  background-color: var(--color-surface-hover, hsla(0, 0%, 0%, 0.05));
+  color: var(--admin-primary, #3b82f6);
+}
+
+.settings-trigger:focus-visible {
+  outline: 2px solid var(--admin-primary, #3b82f6);
+  outline-offset: 2px;
+}
+
+.settings-trigger[aria-expanded="true"] {
+  background-color: var(--color-surface-active, hsla(0, 0%, 0%, 0.08));
+  color: var(--admin-primary, #3b82f6);
+}
+
+.settings-trigger svg {
+  flex-shrink: 0;
+}
+
+/* Mobile adjustments for settings trigger */
+@media (max-width: 767px) {
+  .settings-trigger {
+    width: 44px;
+    height: 44px;
+  }
+}

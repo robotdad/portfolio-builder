@@ -10,6 +10,7 @@ import { PageList, PageSettingsModal, DeletePageModal, type PageData } from '@/c
 import { DraftIndicator, type DraftStatus } from '@/components/admin/DraftIndicator'
 import { PublishButton } from '@/components/admin/PublishButton'
 import { ThemeSelector } from '@/components/admin/ThemeSelector'
+import { SettingsDropdown } from '@/components/admin/SettingsDropdown'
 import { useAutoSave } from '@/hooks/useAutoSave'
 import {
   type Section,
@@ -51,6 +52,10 @@ export default function AdminPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null)
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  
+  // Settings dropdown state
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const settingsButtonRef = useRef<HTMLButtonElement>(null)
   
   // Multi-page state
   const [pages, setPages] = useState<ExtendedPageData[]>([])
@@ -233,6 +238,40 @@ export default function AdminPage() {
   const handleThemeChange = (themeId: string) => {
     setFormData(prev => ({ ...prev, draftTheme: themeId }))
   }
+
+  // Auto-save settings when field loses focus
+  const handleSettingsBlur = useCallback(async () => {
+    if (!portfolio) return
+    
+    try {
+      setSaveStatus('saving')
+      const res = await fetch('/api/portfolio', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: portfolio.id,
+          name: formData.name,
+          slug: formData.slug,
+          title: portfolio.title,
+          bio: portfolio.bio,
+          theme: formData.draftTheme,
+        }),
+      })
+      
+      if (res.ok) {
+        const saved = await res.json()
+        setPortfolio(saved)
+        setInitialFormData({...formData})
+        setSaveStatus('saved')
+        setTimeout(() => setSaveStatus('idle'), 2000)
+      } else {
+        setSaveStatus('error')
+      }
+    } catch (error) {
+      console.error('Failed to auto-save settings:', error)
+      setSaveStatus('error')
+    }
+  }, [portfolio, formData])
 
   const handleSectionsChange = useCallback((newSections: Section[]) => {
     setSections(newSections)
@@ -716,6 +755,40 @@ export default function AdminPage() {
           <div className="admin-header-content">
             <span className="admin-logo">Portfolio Builder</span>
             <div className="admin-header-actions">
+              {/* Settings Dropdown Trigger */}
+              {portfolio && (
+                <button
+                  ref={settingsButtonRef}
+                  type="button"
+                  onClick={() => setSettingsOpen(true)}
+                  className="btn btn-ghost settings-trigger"
+                  aria-label="Portfolio settings"
+                  aria-expanded={settingsOpen}
+                  aria-haspopup="dialog"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                </button>
+              )}
+
+              {/* Settings Dropdown */}
+              <SettingsDropdown
+                isOpen={settingsOpen}
+                onClose={() => setSettingsOpen(false)}
+                triggerRef={settingsButtonRef}
+                name={formData.name}
+                slug={formData.slug}
+                theme={formData.draftTheme}
+                onNameChange={(name) => setFormData(prev => ({ ...prev, name }))}
+                onSlugChange={(slug) => setFormData(prev => ({ ...prev, slug }))}
+                onThemeChange={handleThemeChange}
+                onFieldBlur={handleSettingsBlur}
+                isSaving={saveStatus === 'saving'}
+                hasHeroSection={hasHeroSection}
+              />
+
               {/* Draft/Publish Status Indicator */}
               {portfolio && (
                 <DraftIndicator 
@@ -785,17 +858,14 @@ export default function AdminPage() {
           )}
 
           <form id="portfolio-form" onSubmit={handleSubmit}>
-            {/* Portfolio Settings Card */}
-            <div className="card" style={{ marginBottom: 'var(--space-6)' }}>
-              <div className="card-header">
-                <h1 className="card-title">
-                  {portfolio ? 'Portfolio Settings' : 'Create Your Portfolio'}
-                </h1>
-              </div>
+            {/* Show creation form if no portfolio exists */}
+            {!portfolio && (
+              <div className="card" style={{ marginBottom: 'var(--space-6)' }}>
+                <div className="card-header">
+                  <h1 className="card-title">Create Your Portfolio</h1>
+                </div>
 
-              <div className="card-body">
-                {/* Only show name input if no hero section */}
-                {!hasHeroSection && (
+                <div className="card-body">
                   <div className="form-group">
                     <label htmlFor="name" className="form-label">
                       Your Name *
@@ -808,41 +878,41 @@ export default function AdminPage() {
                       onChange={handleNameChange}
                       className="form-input"
                       placeholder="Jane Smith"
-                      required={!hasHeroSection}
+                      required
                     />
                   </div>
-                )}
 
-                <div className="form-group">
-                  <label htmlFor="slug" className="form-label">
-                    Portfolio URL *
-                  </label>
-                  <input
-                    type="text"
-                    id="slug"
-                    name="slug"
-                    value={formData.slug}
-                    onChange={handleChange}
-                    className="form-input"
-                    placeholder="jane-smith"
-                    pattern="[a-z0-9\-]+"
-                    title="Only lowercase letters, numbers, and hyphens"
-                    required
-                  />
-                  <p className="form-hint">
-                    Your portfolio will be available at: /{formData.slug || 'your-name'}
-                  </p>
-                </div>
+                  <div className="form-group">
+                    <label htmlFor="slug" className="form-label">
+                      Portfolio URL *
+                    </label>
+                    <input
+                      type="text"
+                      id="slug"
+                      name="slug"
+                      value={formData.slug}
+                      onChange={handleChange}
+                      className="form-input"
+                      placeholder="jane-smith"
+                      pattern="[a-z0-9\-]+"
+                      title="Only lowercase letters, numbers, and hyphens"
+                      required
+                    />
+                    <p className="form-hint">
+                      Your portfolio will be available at: /{formData.slug || 'your-name'}
+                    </p>
+                  </div>
 
-                <div className="form-group">
-                  <ThemeSelector
-                    value={formData.draftTheme}
-                    onChange={handleThemeChange}
-                    disabled={saving}
-                  />
+                  <div className="form-group">
+                    <ThemeSelector
+                      value={formData.draftTheme}
+                      onChange={handleThemeChange}
+                      disabled={saving}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Pages Section - Only show if portfolio exists */}
             {portfolio && (
