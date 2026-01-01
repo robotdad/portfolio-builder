@@ -722,9 +722,6 @@ Read these files to understand your goal:
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
-Design reference (auto-loaded via slice spec):
-- plans/design/components/image-picker.md
-
 Study the existing codebase and build on it incrementally.
 
 Goal: Allow featured images to be selected from existing site images.
@@ -742,7 +739,6 @@ Working space: Use ai_working/ for planning and notes.
 Important:
 - Build on existing work, don't replace it
 - This is for selecting existing images, NOT uploading new ones
-- Can be built in parallel with Slices 14-15
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
@@ -759,8 +755,6 @@ Read these files to understand your goal:
 - plans/slices/17-category-management.md
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
-
-Prerequisites: Slice 15 (Category model) and Slice 16 (Image Picker) must be complete.
 
 Study the existing codebase and build on it incrementally.
 
@@ -779,8 +773,8 @@ Working space: Use ai_working/ for planning and notes.
 
 Important:
 - Build on existing work, don't replace it
-- Uses Image Picker from Slice 16
-- Uses Category API from Slice 15
+- Uses Image Picker
+- Uses Category API
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
@@ -802,11 +796,6 @@ Read these files to understand your goal:
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
-Design reference (auto-loaded via slice spec):
-- plans/design/ADMIN-LAYOUT.md
-
-Prerequisites: Phase 2 complete (Categories and Projects routes should exist).
-
 Study the existing codebase and build on it incrementally.
 
 Goal: Desktop admin has persistent sidebar navigation.
@@ -824,7 +813,7 @@ Working space: Use ai_working/ for planning and notes.
 
 Important:
 - Build on existing work, don't replace it
-- Mobile drawer is separate slice (19) - don't implement here
+- Mobile drawer is separate - don't implement here
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
@@ -845,8 +834,6 @@ Read these files to understand your goal:
 Design reference (auto-loaded via slice spec):
 - plans/design/ADMIN-LAYOUT.md
 
-Prerequisite: Slice 18 (AdminLayout structure) must be complete.
-
 Study the existing codebase and build on it incrementally.
 
 Goal: Tablet and mobile admin has hamburger menu with slide-out drawer.
@@ -864,7 +851,7 @@ Working space: Use ai_working/ for planning and notes.
 
 Important:
 - Build on existing work, don't replace it
-- Builds on AdminLayout from Slice 18
+- Builds on AdminLayout
 - Swipe-to-close is optional enhancement (not required)
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
