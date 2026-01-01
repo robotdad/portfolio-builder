@@ -465,7 +465,7 @@ Important:
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
 
-When done, confirm all success criteria are met and Phase 1 is complete.
+When done, confirm all success criteria are met.
 ```
 
 ---
@@ -777,7 +777,7 @@ Important:
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
 
-When done, confirm all success criteria are met and Phase 2 is complete.
+When done, confirm all success criteria are met.
 ```
 
 ---
@@ -855,5 +855,5 @@ Important:
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
 
-When done, confirm all success criteria are met and Phase 3 is complete.
+When done, confirm all success criteria are met.
 ```
