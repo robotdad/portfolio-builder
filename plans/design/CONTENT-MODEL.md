@@ -463,6 +463,165 @@ When implementing templates, validate:
 | Phase 2 | Add Categories/Projects | 14-17 |
 | Future | Templates use new model | TBD |
 
+---
+
+## Finalized Schema Design (Slice 14)
+
+### Finalized Category Model
+
+```prisma
+model Category {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String
+  description String?
+  order       Int      @default(0)
+  
+  // Featured image (references existing Asset)
+  featuredImageId String?
+  featuredImage   Asset?    @relation("CategoryFeaturedImage", fields: [featuredImageId], references: [id], onDelete: SetNull)
+  
+  // Relationships
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  portfolioId String
+  projects    Project[]
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([portfolioId, slug])
+  @@index([portfolioId, order])
+}
+```
+
+### Finalized Project Model
+
+```prisma
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String
+  year        String?
+  venue       String?
+  role        String?
+  description String?  @db.Text
+  isFeatured  Boolean  @default(false)
+  order       Int      @default(0)
+  
+  // Featured image
+  featuredImageId String?
+  featuredImage   Asset?   @relation("ProjectFeaturedImage", fields: [featuredImageId], references: [id], onDelete: SetNull)
+  
+  // Relationships
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+  
+  // Gallery images (many-to-many via junction table)
+  galleryImages ProjectGalleryImage[]
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([categoryId, slug])
+  @@index([categoryId, order])
+  @@index([isFeatured])
+}
+```
+
+### Gallery Junction Table
+
+```prisma
+model ProjectGalleryImage {
+  id        String   @id @default(cuid())
+  projectId String
+  assetId   String
+  order     Int      @default(0)
+  
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  asset   Asset   @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  
+  @@unique([projectId, assetId])
+  @@index([projectId, order])
+}
+```
+
+### Asset Model Updates
+
+Add these relations to existing Asset model:
+```prisma
+model Asset {
+  // ... existing fields remain unchanged ...
+  
+  // New reverse relations for featured images
+  categoriesFeatured Category[] @relation("CategoryFeaturedImage")
+  projectsFeatured   Project[]  @relation("ProjectFeaturedImage")
+  
+  // Gallery image relation
+  projectGalleries ProjectGalleryImage[]
+}
+```
+
+### Portfolio Model Updates
+
+Add Category relation to existing Portfolio model:
+```prisma
+model Portfolio {
+  // ... existing fields remain unchanged ...
+  
+  categories Category[]
+}
+```
+
+### Key Design Decisions
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Featured image reference | Use Asset ID (not copy) | Saves storage, single source of truth |
+| Project-Category relation | One-to-one (project in exactly one category) | Simpler UX, clear organization |
+| Slug uniqueness | Scoped to parent | `/theatre/hamlet` and `/film/hamlet` both valid |
+| Delete behavior | Cascade from parent | Deleting category removes its projects |
+| Featured image on delete | SetNull | Don't delete project if image is removed |
+| Sub-categories | Not supported in v1 | Keep it simple, can add later |
+| Project movement | Allowed | Projects can move between categories |
+
+### Relationship Diagram
+
+```
+Portfolio (1)
+    │
+    ├──── (N) Page (unchanged, for static content)
+    │           └── draftContent/publishedContent (JSON sections)
+    │
+    ├──── (N) Category
+    │           │
+    │           ├── featuredImageId ──────┐
+    │           │                         │
+    │           └──── (N) Project         │
+    │                       │             │
+    │                       ├── featuredImageId ──────┤
+    │                       │                         │
+    │                       └── galleryImages ───┐    │
+    │                              (junction)    │    │
+    │                                            ▼    ▼
+    └──── (N) Asset ◄────────────────────────────────┘
+```
+
+### Migration Compatibility
+
+This schema is designed for coexistence:
+- Page model unchanged - existing content works
+- Asset model only adds optional relations - backward compatible
+- Category/Project tables are additive - no existing data affected
+- FeaturedGrid sections continue to function during transition
+
+See `plans/design/MIGRATION-STRATEGY.md` for detailed migration plan.
+
+---
+
 **See also:**
 - `plans/slices/14-content-model-schema.md` - Schema design details
 - `plans/slices/15-category-project-models.md` - Implementation plan
