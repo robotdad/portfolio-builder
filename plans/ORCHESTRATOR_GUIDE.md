@@ -686,8 +686,6 @@ Read these files to understand your goal:
 - plans/TECH_STACK.md (technology constraints)
 - plans/design/CONTENT-MODEL.md (target schema)
 
-Prerequisite: Slice 14 schema design must be complete.
-
 Study the existing codebase and build on it incrementally.
 
 Goal: Implement the new Category → Project hierarchy in the database.
