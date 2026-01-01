@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { SectionList } from '@/components/editor/SectionList'
 import { AddSectionButton } from '@/components/editor/AddSectionButton'
 import { SaveIndicator, SaveStatus } from '@/components/editor/SaveIndicator'
@@ -754,6 +755,16 @@ export default function AdminPage() {
         <div className="container">
           <div className="admin-header-content">
             <span className="admin-logo">Portfolio Builder</span>
+
+            <nav className="admin-nav">
+              <Link href="/admin/categories" className="admin-nav-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+                <span>Categories</span>
+              </Link>
+            </nav>
+
             <div className="admin-header-actions">
               {/* Settings Dropdown Trigger */}
               {portfolio && (
@@ -1066,6 +1077,45 @@ export default function AdminPage() {
         }}
         onConfirm={handleDeletePage}
       />
+
+      <style jsx>{`
+        .admin-nav {
+          display: flex;
+          gap: 8px;
+        }
+
+        .admin-nav-link {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 12px;
+          border-radius: 6px;
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--color-text-muted, #6b7280);
+          text-decoration: none;
+          transition: background-color 0.15s, color 0.15s;
+        }
+
+        .admin-nav-link:hover {
+          background: var(--color-bg-hover, #f3f4f6);
+          color: var(--color-text, #111827);
+        }
+
+        .admin-nav-link svg {
+          flex-shrink: 0;
+        }
+
+        @media (max-width: 767px) {
+          .admin-nav-link span {
+            display: none;
+          }
+          
+          .admin-nav-link {
+            padding: 8px;
+          }
+        }
+      `}</style>
     </div>
   )
 }
