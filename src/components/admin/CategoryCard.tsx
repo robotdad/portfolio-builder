@@ -465,7 +465,7 @@ export function CategoryCard({
           background: var(--color-bg, #ffffff);
           border: 1px solid var(--color-border, #e5e7eb);
           border-radius: 12px;
-          overflow: hidden;
+          overflow: visible;
           transition: box-shadow 200ms ease, transform 200ms ease, opacity 200ms ease;
         }
 
