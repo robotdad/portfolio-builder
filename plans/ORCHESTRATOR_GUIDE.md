@@ -637,7 +637,7 @@ When done, confirm all success criteria are met and Phase 1b is complete.
 
 ---
 
-## Phase 2: Content Model Evolution (Slices 14-17)
+## Hierarchical Content Model (Slices 14-17)
 
 ### Slice 14: Content Model Schema Design
 
@@ -782,28 +782,105 @@ When done, confirm all success criteria are met.
 
 ---
 
-## Phase 3: Admin Layout Evolution (Slices 18-19)
+## Category/Project Hierarchy (Slices 18-22)
 
-### Slice 18: Admin Sidebar Navigation
+### Slice 18: Project Management UI
 
 ```
-You are implementing admin sidebar navigation for the portfolio builder.
+You are implementing project management for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/18-admin-sidebar.md
+- plans/slices/18-project-management-ui.md
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
 Study the existing codebase and build on it incrementally.
 
-Goal: Desktop admin has persistent sidebar navigation.
+Goal: Users can create and manage projects within their portfolio categories.
+
+Your deliverables:
+- Project list view within category context
+- Create project with quick-add flow (title + featured image in 30 seconds)
+- Full project form with expand for details (year, venue, role, description)
+- Featured image picker supporting BOTH upload new OR choose from gallery
+- Gallery image management (add, reorder, remove)
+- Project reordering within category (drag-drop)
+- Delete confirmation dialog
+- Route: /admin/categories/[id]/projects
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Follow CategoryList patterns (drag-drop, card layout)
+- Integrate ImagePicker component for gallery selection
+- Featured image supports BOTH upload and gallery pick (unified interface)
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 19: Simple Onboarding Flow
+
+```
+You are implementing onboarding for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/19-simple-onboarding-flow.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Guide new users through portfolio creation with first category and project in <5 minutes.
+
+Your deliverables:
+- 3-step wizard flow: Portfolio → Theme → Category + Project
+- Step 1: Portfolio name + slug (auto-generated)
+- Step 2: Theme selection with visual color swatches
+- Step 3: Combined category + project form with placeholder examples
+- Progress indicators (step 1/3, 2/3, 3/3)
+- Atomic creation (all entities created or none)
+- Routes: /welcome/portfolio, /welcome/theme, /welcome/first-project
+- Direct /admin access still works (skip onboarding)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- NO authentication system (keep single-portfolio model)
+- Placeholder text: "e.g., Theatre, Film, Commercial" (NOT pre-filled)
+- Placeholder text: "e.g., Hamlet 2024, Period Drama, Spring Collection"
+- Validation on blur with clear error messages
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 20: Admin Sidebar Navigation
+
+```
+You are implementing admin sidebar navigation for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/20-admin-sidebar.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Desktop admin has persistent sidebar navigation for quick access.
 
 Your deliverables:
 - AdminLayout wrapper component with CSS Grid
 - AdminSidebar component with navigation items
 - AdminHeader component (simplified, no hamburger on desktop)
 - Responsive: sidebar visible >=1024px, hidden below
-- Navigation items: Dashboard, Portfolio, Categories, Projects, Settings
+- Navigation items: Dashboard, Categories (simplified from original spec)
 - Active state indication for current page
 - Skip link for accessibility
 
@@ -811,6 +888,7 @@ Working space: Use ai_working/ for planning and notes.
 
 Important:
 - Build on existing work, don't replace it
+- Navigation simplified: Dashboard + Categories (projects accessed via category context)
 - Mobile drawer is separate - don't implement here
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
@@ -819,18 +897,15 @@ Important:
 When done, confirm all success criteria are met.
 ```
 
-### Slice 19: Mobile Drawer Navigation
+### Slice 21: Mobile Drawer Navigation
 
 ```
 You are implementing mobile drawer navigation for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/19-mobile-drawer.md
+- plans/slices/21-mobile-drawer.md
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
-
-Design reference (auto-loaded via slice spec):
-- plans/design/ADMIN-LAYOUT.md
 
 Study the existing codebase and build on it incrementally.
 
@@ -849,8 +924,46 @@ Working space: Use ai_working/ for planning and notes.
 
 Important:
 - Build on existing work, don't replace it
-- Builds on AdminLayout
+- Uses AdminLayout and AdminLayoutContext from previous slice
 - Swipe-to-close is optional enhancement (not required)
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 22: Public Category/Project Pages
+
+```
+You are implementing public category and project pages for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/22-public-category-project-pages.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Visitors can browse portfolio work organized by categories and view project details.
+
+Your deliverables:
+- Category landing page template (grid of project cards)
+- Project detail page template (gallery-primary layout)
+- Featured work integration on homepage (isFeatured flag)
+- Category navigation in site header (dynamic dropdown for >5 categories)
+- Breadcrumb navigation (Category > Project)
+- Image card hover overlay pattern (desktop) / text below (mobile)
+- Gallery lightbox with keyboard navigation
+- Routes: /[portfolio]/[category], /[portfolio]/[category]/[project]
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Reuse existing template patterns (Featured Grid Landing)
+- Image hover overlay: desktop only, mobile shows text below
+- Gallery: 2-column desktop, 1-column mobile
 - Meet ALL success criteria (functional AND design)
 - Stay within the "Included" scope - do NOT implement "NOT Included" items
 - Do NOT break existing functionality
