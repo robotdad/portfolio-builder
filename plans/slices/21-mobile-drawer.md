@@ -22,7 +22,7 @@
 - Reduced motion support
 
 **NOT Included**:
-- Desktop layout changes (completed in Slice 18)
+- Desktop sidebar layout (separate slice)
 - Swipe-to-close gesture (optional enhancement, not MVP)
 - Nested navigation items
 - User profile in drawer
@@ -33,7 +33,7 @@
 - CSS transforms for slide animation
 - useFocusTrap hook for accessibility
 - CSS custom properties for dimensions
-- React Context (AdminLayoutContext from Slice 18)
+- React Context for layout state management
 
 ## Key Files
 ```
@@ -71,10 +71,7 @@ src/app/globals.css                            # Drawer animation CSS
 |   280px       |                                                   |
 |               |                                                   |
 | [Dashboard]   |                                                   |
-| [Portfolio]   |                                                   |
 | [Categories]  |                                                   |
-| [Projects]    |                                                   |
-| [Settings]    |                                                   |
 |               |                                                   |
 +---------------+--------------------------------------------------+
 ```
@@ -102,6 +99,19 @@ interface HamburgerButtonProps {
   ariaControls: string;
 }
 ```
+
+## Navigation Items
+
+Uses same navigation items as desktop sidebar:
+
+```typescript
+const navItems = [
+  { label: 'Dashboard', href: '/admin', icon: 'LayoutDashboard' },
+  { label: 'Categories', href: '/admin/categories', icon: 'Folder' },
+];
+```
+
+**Pattern:** MobileDrawer renders the same AdminNavItem components as AdminSidebar, ensuring consistency.
 
 ## CSS Custom Properties
 
@@ -182,6 +192,8 @@ function useFocusTrap(options: UseFocusTrapOptions): void {
 }
 ```
 
+**Pattern reference:** The ImagePicker component already uses a focus trap with similar implementation.
+
 ## Accessibility Requirements
 
 ### ARIA Attributes
@@ -220,21 +232,21 @@ function useFocusTrap(options: UseFocusTrapOptions): void {
 ## Demo Script (30 seconds)
 1. Open `/admin` at mobile width (< 1024px)
 2. Sidebar not visible, hamburger icon in header
-3. Click hamburger - drawer slides in from left
-4. Backdrop dims the main content
+3. Click hamburger - drawer slides in from left (250ms animation)
+4. Backdrop dims the main content (50% black overlay)
 5. Focus moves to first nav item ("Dashboard")
-6. Tab through nav items - focus stays in drawer
-7. Click "Categories" - drawer closes, navigates
+6. Tab through nav items - focus stays in drawer (trapped)
+7. Click "Categories" - drawer closes, navigates to `/admin/categories`
 8. Re-open drawer, click backdrop - drawer closes
 9. Re-open drawer, press Escape - drawer closes
 10. Focus returns to hamburger button
-11. **Success**: Mobile admin has drawer navigation
+11. **Success**: Mobile admin has smooth drawer navigation
 
 ## Success Criteria
 
 ### Functional Requirements
-- [ ] Hamburger visible at viewport < 1024px
-- [ ] Hamburger hidden at viewport >= 1024px
+- [ ] Hamburger button visible at viewport < 1024px
+- [ ] Hamburger button hidden at viewport >= 1024px
 - [ ] Click hamburger opens drawer
 - [ ] Drawer slides in from left edge
 - [ ] Backdrop overlay appears behind drawer
@@ -243,58 +255,120 @@ function useFocusTrap(options: UseFocusTrapOptions): void {
 - [ ] Click nav item closes drawer and navigates
 - [ ] Drawer shows same nav items as desktop sidebar
 - [ ] Active nav item shows correct state
+- [ ] State managed via AdminLayoutContext
+- [ ] Body scroll locked when drawer open
 
 ### Design Requirements
 - [ ] Drawer width: min(280px, 85vw)
 - [ ] Hamburger icon: 24px with 44px touch target
-- [ ] Backdrop: 50% black opacity
-- [ ] Slide animation: 250ms ease-out
+- [ ] Backdrop: rgba(0, 0, 0, 0.5) opacity
+- [ ] Slide animation: 250ms cubic-bezier(0.4, 0, 0.2, 1)
 - [ ] Nav items: 44px minimum height
 - [ ] Proper spacing using design system tokens
 - [ ] Smooth animation on open/close
+- [ ] Icon properly centered in touch target
 
 ### Accessibility Requirements
-- [ ] Hamburger has aria-expanded state
-- [ ] Hamburger has aria-controls pointing to drawer
-- [ ] Drawer has role="dialog", aria-modal="true"
+- [ ] Hamburger has aria-expanded state (updates on open/close)
+- [ ] Hamburger has aria-controls="admin-drawer"
+- [ ] Hamburger has descriptive aria-label
+- [ ] Drawer has role="dialog"
+- [ ] Drawer has aria-modal="true"
 - [ ] Drawer has aria-hidden when closed
+- [ ] Drawer has aria-label="Navigation menu"
 - [ ] Focus trapped in drawer when open
-- [ ] Focus moves to drawer on open
-- [ ] Focus returns to hamburger on close
+- [ ] Focus moves to first nav item on open
+- [ ] Focus returns to hamburger button on close
 - [ ] Escape key closes drawer
-- [ ] Reduced motion respected
+- [ ] All nav items keyboard accessible
+- [ ] Reduced motion preference respected
 
 ### Mobile Requirements
-- [ ] Works on real iOS Safari
-- [ ] Works on real Android Chrome
-- [ ] Touch targets >= 44px
+- [ ] Works on real iOS Safari (test on iPhone)
+- [ ] Works on real Android Chrome (test on Android device)
+- [ ] Touch targets >= 44px for all interactive elements
 - [ ] No horizontal scroll when drawer open
 - [ ] Safe area padding for notched devices
 - [ ] Drawer doesn't interfere with browser gestures
+- [ ] Drawer doesn't interfere with pull-to-refresh
+- [ ] Animation smooth at 60fps
+
+## Pattern Reference
+
+### Portal Rendering Pattern
+
+```typescript
+// From existing modal patterns in codebase
+import { createPortal } from 'react-dom'
+
+function MobileDrawer({ isOpen, onClose, children }: MobileDrawerProps) {
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  
+  if (!mounted) return null
+  
+  return createPortal(
+    <div className="mobile-drawer-container">
+      {/* Drawer content */}
+    </div>,
+    document.body
+  )
+}
+```
+
+### Body Scroll Lock Pattern
+
+```typescript
+// Prevent body scroll when drawer is open
+useEffect(() => {
+  if (isOpen) {
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }
+}, [isOpen])
+```
+
+### Focus Trap Pattern
+
+```typescript
+// Similar to ImagePicker modal focus trap
+const drawerRef = useRef<HTMLElement>(null)
+const hamburgerRef = useRef<HTMLButtonElement>(null)
+
+useFocusTrap({
+  isActive: isOpen,
+  containerRef: drawerRef,
+  returnFocusRef: hamburgerRef,
+})
+```
 
 ## Integration Points
 
 These elements are designed to be extended:
 - **MobileDrawer** - Can add swipe-to-close gesture later
-- **useFocusTrap** - Reusable for modals, dialogs
+- **useFocusTrap** - Reusable for modals, dialogs (already used in ImagePicker)
 - **DrawerBackdrop** - Reusable for other overlays
-- **HamburgerButton** - Can animate to X icon
+- **HamburgerButton** - Can animate to X icon (morphing animation)
 
-## Effort Estimate
+## AdminLayoutContext Updates
 
-**Total: 4-6 hours**
-- MobileDrawer component: 1-2 hours
-- DrawerBackdrop component: 30 minutes
-- HamburgerButton component: 30 minutes
-- useFocusTrap hook: 1-1.5 hours
-- AdminHeader/Layout updates: 30 minutes
-- Animation CSS: 30 minutes
-- Testing on real devices: 1 hour
+```typescript
+// Existing context from AdminLayout (Slice 20)
+interface AdminLayoutContextValue {
+  isSidebarOpen: boolean;      // Already exists for future use
+  toggleSidebar: () => void;
+  closeSidebar: () => void;
+  breakpoint: 'mobile' | 'tablet' | 'desktop';
+}
 
-## Dependencies
-
-- **Slice 18 required** - AdminLayout, AdminSidebar, AdminLayoutContext must exist
-- **Nav items** - Shared between AdminSidebar and MobileDrawer
+// This slice uses the existing context
+// isSidebarOpen controls drawer on mobile, ignored on desktop
+```
 
 ## Optional Enhancements (Post-MVP)
 
@@ -306,9 +380,20 @@ These are NOT required for slice completion but can be added later:
    - Close if swipe velocity/distance threshold met
 
 2. **Animated hamburger icon**
-   - Morph from hamburger to X when open
+   - Morph from hamburger (≡) to X when open
    - CSS transforms on the three bars
 
 3. **Drawer header with close button**
    - Explicit close button for discoverability
    - Logo/branding in drawer header
+
+## Effort Estimate
+
+**Total: 4-6 hours**
+- MobileDrawer component: 1-2 hours
+- DrawerBackdrop component: 30 minutes
+- HamburgerButton component: 30 minutes
+- useFocusTrap hook: 1-1.5 hours (may already exist from ImagePicker)
+- AdminHeader/Layout updates: 30 minutes
+- Animation CSS: 30 minutes
+- Testing on real devices: 1 hour
