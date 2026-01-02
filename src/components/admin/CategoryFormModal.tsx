@@ -8,6 +8,7 @@ import type { CategoryFormData } from './CategoryForm'
 
 interface CategoryFormModalProps {
   isOpen: boolean
+  portfolioId: string
   category?: {
     id: string
     name: string
@@ -53,6 +54,7 @@ interface CategoryFormModalProps {
  */
 export function CategoryFormModal({
   isOpen,
+  portfolioId,
   category,
   onSubmit,
   onClose,
@@ -196,6 +198,7 @@ export function CategoryFormModal({
         {/* Content */}
         <div className="category-modal-content">
           <CategoryForm
+            portfolioId={portfolioId}
             category={category}
             onSubmit={onSubmit}
             onCancel={handleClose}

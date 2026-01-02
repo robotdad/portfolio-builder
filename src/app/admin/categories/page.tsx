@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { CategoryList } from '@/components/admin/CategoryList'
 import { CategoryFormModal } from '@/components/admin/CategoryFormModal'
 import { DeleteCategoryModal } from '@/components/admin/DeleteCategoryModal'
@@ -179,11 +180,13 @@ export default function CategoriesPage() {
     }
   }, [reorderCategories, showError])
 
-  // Handle view projects (placeholder for future navigation)
+  // Router for navigation
+  const router = useRouter()
+
+  // Handle view projects navigation
   const handleViewProjects = useCallback((category: Category) => {
-    // Future: navigate to /admin/categories/[id]/projects
-    alert(`View projects for "${category.name}" - Coming soon!`)
-  }, [])
+    router.push(`/admin/categories/${category.id}/projects`)
+  }, [router])
 
   return (
     <div className="admin-categories-page">
@@ -237,6 +240,7 @@ export default function CategoriesPage() {
           onCreateClick={handleCreateClick}
           onEditClick={handleEditClick}
           onDeleteClick={handleDeleteClick}
+          onViewProjects={handleViewProjects}
           onReorder={handleReorder}
           isReordering={isReordering}
           isLoading={isLoading}
@@ -246,6 +250,7 @@ export default function CategoriesPage() {
       {/* Form Modal (Create/Edit) */}
       <CategoryFormModal
         isOpen={isFormModalOpen}
+        portfolioId={portfolioId || ''}
         category={editingCategory ? {
           id: editingCategory.id,
           name: editingCategory.name,

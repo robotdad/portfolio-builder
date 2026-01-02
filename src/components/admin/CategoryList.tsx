@@ -33,6 +33,7 @@ interface CategoryListProps {
   onCreateClick: () => void
   onEditClick: (category: Category) => void
   onDeleteClick: (category: Category) => void
+  onViewProjects: (category: Category) => void
   onReorder: (orderedIds: string[]) => void
   isReordering?: boolean
   isLoading?: boolean
@@ -88,10 +89,11 @@ interface SortableItemProps {
   category: Category
   onEdit: () => void
   onDelete: () => void
+  onViewProjects: () => void
   disabled: boolean
 }
 
-function SortableItem({ id, category, onEdit, onDelete, disabled }: SortableItemProps) {
+function SortableItem({ id, category, onEdit, onDelete, onViewProjects, disabled }: SortableItemProps) {
   const {
     attributes,
     listeners,
@@ -120,7 +122,7 @@ function SortableItem({ id, category, onEdit, onDelete, disabled }: SortableItem
         category={category}
         onEdit={onEdit}
         onDelete={onDelete}
-        onViewProjects={() => {}}
+        onViewProjects={onViewProjects}
         isDragging={isDragging}
       />
 
@@ -453,6 +455,7 @@ export function CategoryList({
   onCreateClick,
   onEditClick,
   onDeleteClick,
+  onViewProjects,
   onReorder,
   isReordering = false,
   isLoading = false,
@@ -683,6 +686,7 @@ export function CategoryList({
                   category={category}
                   onEdit={() => onEditClick(category)}
                   onDelete={() => onDeleteClick(category)}
+                  onViewProjects={() => onViewProjects(category)}
                   disabled={isReordering}
                 />
               </div>

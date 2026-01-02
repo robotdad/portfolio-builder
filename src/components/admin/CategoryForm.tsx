@@ -17,6 +17,8 @@ export interface CategoryFormData {
  * Props for the CategoryForm component
  */
 export interface CategoryFormProps {
+  /** Portfolio ID for image picker */
+  portfolioId: string
   /** Existing category data for edit mode (omit for create mode) */
   category?: {
     id: string
@@ -64,6 +66,7 @@ const MAX_DESCRIPTION_LENGTH = 500
  * ```
  */
 export function CategoryForm({
+  portfolioId,
   category,
   onSubmit,
   onCancel,
@@ -347,6 +350,7 @@ export function CategoryForm({
       {/* Image Picker Modal */}
       <ImagePicker
         isOpen={showImagePicker}
+        portfolioId={portfolioId}
         selectedId={selectedImage?.id}
         onSelect={handleImageSelect}
         onCancel={() => setShowImagePicker(false)}

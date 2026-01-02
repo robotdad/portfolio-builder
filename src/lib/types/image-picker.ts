@@ -61,6 +61,9 @@ export interface ImagePickerProps {
   /** Controls modal open/closed state */
   isOpen: boolean;
   
+  /** Portfolio ID to fetch images for */
+  portfolioId: string;
+  
   /** Currently selected image ID (for pre-selection) */
   selectedId?: string;
   

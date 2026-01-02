@@ -34,6 +34,7 @@ import { ImagePickerGrid } from './ImagePickerGrid'
  */
 export function ImagePicker({
   isOpen,
+  portfolioId,
   selectedId: initialSelectedId,
   onSelect,
   onCancel,
@@ -44,10 +45,6 @@ export function ImagePicker({
   const [isVisible, setIsVisible] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
-
-  // For now, use a hardcoded portfolioId - in production this would come from context
-  // TODO: Get portfolioId from app context or props
-  const portfolioId = 'demo-portfolio'
 
   const {
     state,
