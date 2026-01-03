@@ -970,3 +970,122 @@ Important:
 
 When done, confirm all success criteria are met.
 ```
+
+---
+
+## Admin Coherence Remediation (Slices 23-25)
+
+### Slice 23: Admin Navigation Structure
+
+```
+You are implementing comprehensive navigation for the portfolio builder admin interface.
+
+Read these files to understand your goal:
+- plans/slices/23-admin-navigation-structure.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Users can navigate to any content (pages, categories, projects) through coherent navigation system.
+
+Your deliverables:
+- Populated drawer/sidebar with hierarchical navigation structure
+- Pages section showing all pages with homepage indicator (★)
+- Categories section with expandable tree showing project counts
+- Breadcrumb navigation component
+- Click category → Navigate to projects (direct, no menu)
+- Click page → Navigate to page editor
+- Active state indication for current location
+- Unified navigation in both sidebar (desktop) and drawer (mobile)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- The drawer is currently empty - this populates it with actual navigation
+- Categories should show expandable tree (click chevron to show projects)
+- Remove references to non-existent routes (/admin/portfolio, /admin/settings)
+- Navigation should feel coherent and obvious
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 24: Admin Pattern Unification
+
+```
+You are unifying admin interaction patterns for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/24-admin-pattern-unification.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Establish consistent interaction patterns across all admin interfaces.
+
+Your deliverables:
+- Convert CategoryCard to CategoryListItem (list pattern for hierarchical management)
+- Make category rows fully clickable for direct navigation
+- Update ProjectCard to be fully clickable (entire card navigates to editor)
+- Remove redundant Edit buttons and hidden dropdown menus
+- Improve homepage indication (badge with "Home" text, not just icon)
+- Add helper text for homepage routing behavior
+- Consistent action button patterns (Edit, Delete always visible)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Cards are for visual browsing, lists are for hierarchical management
+- Primary action should be obvious (click row/card directly)
+- No hidden menus for navigation (actions can be in menus, navigation cannot)
+- Entire category row clickable → navigate to projects
+- Entire project card clickable → navigate to editor
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 25: Admin Code Quality
+
+```
+You are improving admin code organization and maintainability for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/25-admin-code-quality.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Improve maintainability by organizing CSS and documenting patterns.
+
+Your deliverables:
+- Extract large CSS-in-JS blocks to CSS modules
+- Reduce component file sizes (target: <300 lines)
+- Convert inline animation styles to CSS classes
+- Add missing design tokens for hardcoded values
+- Document admin design patterns in ADMIN-PATTERN-LIBRARY.md
+- Create component usage guidelines (cards vs lists vs tables)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- This is REFACTORING - functionality and visual appearance stay the same
+- Extract CSS without changing behavior
+- Document patterns for future consistency
+- Component files should be readable and maintainable
+- Meet ALL success criteria (functional AND code quality)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```

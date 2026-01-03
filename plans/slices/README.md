@@ -4,7 +4,7 @@
 
 This directory contains self-contained slice specifications for the portfolio builder. Each slice delivers complete end-to-end user value.
 
-**Current Status:** Slices 1-17 complete. Slices 18-22 ready for implementation.
+**Current Status:** Slices 1-22 implemented with UX issues. Slices 23-25 ready for admin coherence remediation.
 
 ## Build Order
 
@@ -27,34 +27,46 @@ This directory contains self-contained slice specifications for the portfolio bu
 | 15 | [Category & Project Models](15-category-project-models.md) | 8-12 hours | ✅ Complete |
 | 16 | [Image Picker Component](16-image-picker.md) | 8-12 hours | ✅ Complete |
 | 17 | [Category Management UI](17-category-management.md) | 8-12 hours | ✅ Complete |
-| 18 | [Project Management UI](18-project-management-ui.md) | 12-16 hours | 📝 Ready |
-| 19 | [Simple Onboarding Flow](19-simple-onboarding-flow.md) | 8-10 hours | 📝 Ready |
-| 20 | [Admin Sidebar Navigation](20-admin-sidebar.md) | 8-12 hours | 📝 Ready |
-| 21 | [Mobile Drawer Navigation](21-mobile-drawer.md) | 4-6 hours | 📝 Ready |
-| 22 | [Public Category/Project Pages](22-public-category-project-pages.md) | 10-12 hours | 📝 Ready |
+| 18 | [Project Management UI](18-project-management-ui.md) | 12-16 hours | ✅ Complete |
+| 19 | [Simple Onboarding Flow](19-simple-onboarding-flow.md) | 8-10 hours | ✅ Complete |
+| 20 | [Admin Sidebar Navigation](20-admin-sidebar.md) | 8-12 hours | ✅ Complete |
+| 21 | [Mobile Drawer Navigation](21-mobile-drawer.md) | 4-6 hours | ✅ Complete |
+| 22 | [Public Category/Project Pages](22-public-category-project-pages.md) | 10-12 hours | ✅ Complete |
+| 23 | [Admin Navigation Structure](23-admin-navigation-structure.md) | 14-22 hours | 📝 Ready |
+| 24 | [Admin Pattern Unification](24-admin-pattern-unification.md) | 10-14 hours | 📝 Ready |
+| 25 | [Admin Code Quality](25-admin-code-quality.md) | 8-13 hours | 📝 Ready |
 
 ## Completed Work
 
-**Slices 1-17 deliver:**
+**Slices 1-22 deliver:**
 - ✅ Single-page portfolio creation with sections
 - ✅ Mobile-first editing experience
 - ✅ Draft/publish workflow
 - ✅ Image upload and management
 - ✅ Multi-page navigation
-- ✅ Theme system foundation
+- ✅ Theme system foundation (3 preset themes)
 - ✅ Category and Project data models
-- ✅ Category management UI
+- ✅ Category and Project management UI
 - ✅ Image picker for site-wide image browsing
+- ✅ Simple onboarding flow (portfolio + theme + first project)
+- ✅ Public category and project pages (visitor-facing)
+- ✅ Admin sidebar (desktop) and drawer (mobile) structure
+
+## Current Status: UX Coherence Issues
+
+**After Slices 18-22, admin interface has fragmentation issues:**
+- Navigation structure incomplete (drawer empty, pages not in nav)
+- Card pattern misused for hierarchical management
+- Indirect interactions (hidden menus instead of direct clicks)
+- Inconsistent patterns across admin
 
 ## Next Implementation Priority
 
-**Hierarchical Category/Project System (Slices 18-22):**
+**Admin Interface Remediation (Slices 23-25):**
 
-1. **Slice 18: Project Management UI** - Create and manage projects within categories
-2. **Slice 19: Simple Onboarding Flow** - Guide new users through portfolio + category + project creation
-3. **Slice 22: Public Category/Project Pages** - Visitor-facing category and project display
-4. **Slice 20: Admin Sidebar Navigation** - Desktop sidebar with persistent navigation
-5. **Slice 21: Mobile Drawer Navigation** - Mobile hamburger menu with slide-out drawer
+1. **Slice 23: Admin Navigation Structure** - Populate drawer/sidebar with pages, categories tree, breadcrumbs
+2. **Slice 24: Admin Pattern Unification** - Replace cards with lists, direct navigation, consistent interactions
+3. **Slice 25: Admin Code Quality** - Extract CSS, document patterns, improve maintainability
 
 ## Implementation Guidance
 
