@@ -3,12 +3,7 @@
 import React from 'react'
 import { usePathname } from 'next/navigation'
 import { AdminNavItem } from './AdminNavItem'
-
-// Navigation items configuration
-const navItems = [
-  { label: 'Dashboard', href: '/admin', icon: 'dashboard' as const },
-  { label: 'Categories', href: '/admin/categories', icon: 'folder' as const },
-]
+import { adminNavItems } from '@/constants/adminNav'
 
 export interface AdminSidebarProps {
   className?: string
@@ -45,7 +40,7 @@ export function AdminSidebar({ className = '' }: AdminSidebarProps) {
       <aside className={`admin-sidebar ${className}`}>
         <nav aria-label="Admin navigation" className="admin-sidebar-nav">
           <ul className="admin-sidebar-list">
-            {navItems.map(item => (
+            {adminNavItems.map(item => (
               <AdminNavItem
                 key={item.href}
                 label={item.label}

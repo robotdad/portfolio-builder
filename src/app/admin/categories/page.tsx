@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation'
 import { CategoryList } from '@/components/admin/CategoryList'
 import { CategoryFormModal } from '@/components/admin/CategoryFormModal'
 import { DeleteCategoryModal } from '@/components/admin/DeleteCategoryModal'
+import { HamburgerButton } from '@/components/admin/HamburgerButton'
+import { useAdminLayout } from '@/components/admin/AdminLayout'
 import { useCategories, type Category } from '@/hooks/useCategories'
 import type { CategoryFormData } from '@/components/admin/CategoryForm'
 
@@ -20,6 +22,10 @@ export default function CategoriesPage() {
   const [portfolioId, setPortfolioId] = useState<string | null>(null)
   const [portfolioLoading, setPortfolioLoading] = useState(true)
   const [portfolioError, setPortfolioError] = useState<string | null>(null)
+  
+  // Mobile drawer state
+  const { isSidebarOpen, toggleSidebar, breakpoint, isTouchDevice } = useAdminLayout()
+  const showMenuButton = isTouchDevice || breakpoint !== 'desktop'
 
   // Fetch portfolio on mount
   useEffect(() => {
@@ -192,6 +198,12 @@ export default function CategoriesPage() {
     <div className="admin-categories-page">
       {/* Admin Header */}
       <header className="admin-header">
+        {showMenuButton && (
+          <HamburgerButton
+            isOpen={isSidebarOpen}
+            onClick={toggleSidebar}
+          />
+        )}
         <Link href="/admin" className="back-link">
           <svg
             width="20"

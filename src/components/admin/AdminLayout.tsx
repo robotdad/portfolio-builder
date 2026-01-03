@@ -3,6 +3,9 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 import { SkipLink } from './SkipLink'
 import { AdminSidebar } from './AdminSidebar'
+import { MobileDrawer } from './MobileDrawer'
+import { DrawerBackdrop } from './DrawerBackdrop'
+import { MobileNav } from './MobileNav'
 
 type Breakpoint = 'mobile' | 'tablet' | 'desktop'
 
@@ -11,6 +14,7 @@ export interface AdminLayoutContextValue {
   toggleSidebar: () => void
   closeSidebar: () => void
   breakpoint: Breakpoint
+  isTouchDevice: boolean
 }
 
 const AdminLayoutContext = createContext<AdminLayoutContextValue | undefined>(undefined)
@@ -61,10 +65,23 @@ export interface AdminLayoutProps {
  */
 export function AdminLayout({ children }: AdminLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [breakpoint, setBreakpoint] = useState<Breakpoint>('desktop')
+  const [breakpoint, setBreakpoint] = useState<Breakpoint>('mobile')
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
+  const [mounted, setMounted] = useState(false)
   
-  // Detect breakpoint changes
+  // Detect device capabilities and breakpoint
   useEffect(() => {
+    setMounted(true)
+    
+    // Detect touch-primary device (phones, tablets)
+    const touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)')
+    setIsTouchDevice(touchQuery.matches)
+    
+    // Listen for changes (e.g., connecting mouse to tablet)
+    const handleTouchChange = (e: MediaQueryListEvent) => setIsTouchDevice(e.matches)
+    touchQuery.addEventListener('change', handleTouchChange)
+    
+    // Detect viewport width for layout decisions
     const updateBreakpoint = () => {
       const width = window.innerWidth
       if (width < 768) {
@@ -76,12 +93,13 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       }
     }
     
-    // Initial check
     updateBreakpoint()
-    
-    // Listen for resize
     window.addEventListener('resize', updateBreakpoint)
-    return () => window.removeEventListener('resize', updateBreakpoint)
+    
+    return () => {
+      touchQuery.removeEventListener('change', handleTouchChange)
+      window.removeEventListener('resize', updateBreakpoint)
+    }
   }, [])
   
   // Close sidebar when switching to desktop
@@ -104,7 +122,11 @@ export function AdminLayout({ children }: AdminLayoutProps) {
     toggleSidebar,
     closeSidebar,
     breakpoint,
+    isTouchDevice,
   }
+  
+  // Show mobile drawer on touch devices OR when viewport is tablet/mobile size
+  const showMobileDrawer = mounted && (isTouchDevice || breakpoint !== 'desktop')
   
   return (
     <AdminLayoutContext.Provider value={contextValue}>
@@ -115,6 +137,16 @@ export function AdminLayout({ children }: AdminLayoutProps) {
           {children}
         </main>
       </div>
+      
+      {/* Mobile drawer - only render at mobile/tablet breakpoints */}
+      {showMobileDrawer && (
+        <>
+          <DrawerBackdrop isOpen={isSidebarOpen} onClick={closeSidebar} />
+          <MobileDrawer isOpen={isSidebarOpen} onClose={closeSidebar}>
+            <MobileNav onClose={closeSidebar} />
+          </MobileDrawer>
+        </>
+      )}
       <style jsx>{`
         .admin-layout-wrapper {
           display: grid;

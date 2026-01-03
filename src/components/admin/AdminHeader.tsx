@@ -2,11 +2,11 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { useAdminLayout } from './AdminLayout'
+import { HamburgerButton } from './HamburgerButton'
 
 export interface AdminHeaderProps {
   title?: string
-  onMenuToggle?: () => void
-  showMenuButton?: boolean
 }
 
 // Settings gear icon
@@ -27,53 +27,33 @@ const SettingsIcon = () => (
   </svg>
 )
 
-// Hamburger menu icon (for mobile - future slice)
-const MenuIcon = () => (
-  <svg 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <line x1="3" y1="12" x2="21" y2="12" />
-    <line x1="3" y1="6" x2="21" y2="6" />
-    <line x1="3" y1="18" x2="21" y2="18" />
-  </svg>
-)
-
 /**
  * AdminHeader - Header bar for admin interface
  * 
  * Features:
  * - Logo/title on left
  * - Settings dropdown on right
- * - Optional hamburger menu button (for mobile drawer - future slice)
+ * - Hamburger menu button for mobile drawer (hidden on desktop)
  * - Sticky positioning
  * - Height: 64px desktop, 56px mobile
  */
 export function AdminHeader({ 
-  title = 'Portfolio Builder', 
-  onMenuToggle,
-  showMenuButton = false 
+  title = 'Portfolio Builder'
 }: AdminHeaderProps) {
+  const { isSidebarOpen, toggleSidebar, breakpoint } = useAdminLayout()
+  
+  // Show hamburger when not on desktop
+  const showMenuButton = breakpoint !== 'desktop'
   return (
     <>
       <header className="admin-header">
         <div className="admin-header-left">
           {showMenuButton && (
-            <button 
-              type="button"
+            <HamburgerButton
+              isOpen={isSidebarOpen}
+              onClick={toggleSidebar}
               className="admin-menu-btn"
-              onClick={onMenuToggle}
-              aria-label="Toggle navigation menu"
-            >
-              <MenuIcon />
-            </button>
+            />
           )}
           <Link href="/admin" className="admin-logo">
             {title}

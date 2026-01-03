@@ -12,6 +12,8 @@ import { DraftIndicator, type DraftStatus } from '@/components/admin/DraftIndica
 import { PublishButton } from '@/components/admin/PublishButton'
 import { ThemeSelector } from '@/components/admin/ThemeSelector'
 import { SettingsDropdown } from '@/components/admin/SettingsDropdown'
+import { HamburgerButton } from '@/components/admin/HamburgerButton'
+import { useAdminLayout } from '@/components/admin/AdminLayout'
 import { useAutoSave } from '@/hooks/useAutoSave'
 import {
   type Section,
@@ -57,6 +59,10 @@ export default function AdminPage() {
   // Settings dropdown state
   const [settingsOpen, setSettingsOpen] = useState(false)
   const settingsButtonRef = useRef<HTMLButtonElement>(null)
+  
+  // Mobile drawer state
+  const { isSidebarOpen, toggleSidebar, breakpoint, isTouchDevice } = useAdminLayout()
+  const showMenuButton = isTouchDevice || breakpoint !== 'desktop'
   
   // Multi-page state
   const [pages, setPages] = useState<ExtendedPageData[]>([])
@@ -153,7 +159,7 @@ export default function AdminPage() {
             const loadedData = {
               name: data.name || '',
               slug: data.slug || '',
-              draftTheme: data.theme || 'modern-minimal',
+              draftTheme: data.draftTheme || 'modern-minimal',
             }
             setFormData(loadedData)
             setInitialFormData(loadedData)
@@ -754,6 +760,12 @@ export default function AdminPage() {
       <header className="admin-header">
         <div className="container">
           <div className="admin-header-content">
+            {showMenuButton && (
+              <HamburgerButton
+                isOpen={isSidebarOpen}
+                onClick={toggleSidebar}
+              />
+            )}
             <span className="admin-logo">Portfolio Builder</span>
 
             <nav className="admin-nav">
@@ -849,7 +861,7 @@ export default function AdminPage() {
                   href={`/${formData.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-ghost"
+                  className="btn btn-ghost desktop-header-save-btn"
                   title="View published site"
                 >
                   View Live →
