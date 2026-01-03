@@ -412,9 +412,8 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
           padding-left: calc(var(--space-4) + 32px);
           color: var(--admin-text);
           text-decoration: none;
-          font-family: inherit;
-          font-size: var(--font-size-xs);
-          font-weight: var(--font-weight-normal);
+          font-size: 14px;
+          font-weight: 500;
           border-left: 4px solid transparent;
           transition: background-color var(--transition-fast),
                       border-color var(--transition-fast),
