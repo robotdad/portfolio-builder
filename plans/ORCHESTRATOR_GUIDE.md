@@ -1053,6 +1053,92 @@ Important:
 When done, confirm all success criteria are met.
 ```
 
+### Slice 25: Project Editor Design Compliance
+
+```
+You are fixing design system compliance in the project editor for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/25-project-editor-design-compliance.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Design reference (auto-loaded via slice spec):
+- plans/design/DESIGN-SYSTEM.md
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Project editor uses design system tokens consistently for professional appearance.
+
+Your deliverables:
+- Fix button spacing (gap-3 → gap-4 for 16px between buttons)
+- Replace hardcoded Tailwind classes with design system tokens
+- Use .btn, .btn-primary, .btn-secondary classes (already exist in globals.css)
+- Replace hardcoded gray-* colors with --admin-* semantic tokens
+- Replace hardcoded text-* sizes with --font-size-* tokens
+- Fix all spacing to use --space-* tokens consistently
+- Use ProjectMetadataSidebar.tsx as reference (already correct!)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- DO NOT change functionality or layout structure
+- Visual appearance improves but structure stays same
+- This is about token usage, not refactoring
+- Fix: src/app/admin/projects/[id]/page.tsx (main fixes needed here)
+- Fix: src/components/admin/FeaturedImagePicker.tsx (button spacing)
+- Reference: ProjectMetadataSidebar.tsx (shows correct token usage)
+- Meet ALL success criteria (design token compliance)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+
+### Slice 25: Project Editor Design Compliance
+
+```
+You are fixing design system compliance in the project editor for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/25-project-editor-design-compliance.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Design reference (auto-loaded via slice spec):
+- plans/design/DESIGN-SYSTEM.md
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Project editor uses design system tokens consistently for professional appearance.
+
+Your deliverables:
+- Fix button spacing (gap-3 → gap-4 for 16px between buttons)
+- Replace hardcoded Tailwind classes with design system tokens
+- Use .btn, .btn-primary, .btn-secondary classes (already exist in globals.css)
+- Replace hardcoded gray-* colors with --admin-* semantic tokens
+- Replace hardcoded text-* sizes with --font-size-* tokens
+- Fix all spacing to use --space-* tokens consistently
+- Use ProjectMetadataSidebar.tsx as reference (already correct!)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- DO NOT change functionality or layout structure
+- Visual appearance improves but structure stays same
+- This is about token usage, not refactoring
+- Fix: src/app/admin/projects/[id]/page.tsx (main fixes needed here)
+- Fix: src/components/admin/FeaturedImagePicker.tsx (button spacing)
+- Reference: ProjectMetadataSidebar.tsx (shows correct token usage)
+- Meet ALL success criteria (design token compliance)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
 ### Slice 26: Admin Code Quality
 
 ```
