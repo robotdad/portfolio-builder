@@ -30,7 +30,6 @@ import { ProjectCard, type Project } from './ProjectCard'
 interface ProjectListProps {
   projects: Project[]
   onCreateClick: () => void
-  onEditClick: (project: Project) => void
   onDeleteClick: (project: Project) => void
   onReorder: (orderedIds: string[]) => void
   isLoading?: boolean
@@ -85,12 +84,11 @@ function FolderIcon() {
 interface SortableItemProps {
   id: string
   project: Project
-  onEdit: () => void
   onDelete: () => void
   disabled: boolean
 }
 
-function SortableItem({ id, project, onEdit, onDelete, disabled }: SortableItemProps) {
+function SortableItem({ id, project, onDelete, disabled }: SortableItemProps) {
   const {
     attributes,
     listeners,
@@ -117,7 +115,6 @@ function SortableItem({ id, project, onEdit, onDelete, disabled }: SortableItemP
     >
       <ProjectCard
         project={project}
-        onEdit={onEdit}
         onDelete={onDelete}
         isDragging={isDragging}
       />
@@ -371,7 +368,6 @@ function EmptyState({ categoryName, onCreateClick }: EmptyStateProps) {
 export function ProjectList({
   projects,
   onCreateClick,
-  onEditClick,
   onDeleteClick,
   onReorder,
   isLoading = false,
@@ -572,7 +568,6 @@ export function ProjectList({
                 <SortableItem
                   id={project.id}
                   project={project}
-                  onEdit={() => onEditClick(project)}
                   onDelete={() => onDeleteClick(project)}
                   disabled={false}
                 />
@@ -587,7 +582,6 @@ export function ProjectList({
             <div className="drag-overlay">
               <ProjectCard
                 project={activeProject}
-                onEdit={() => {}}
                 onDelete={() => {}}
                 isDragging={true}
               />

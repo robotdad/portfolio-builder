@@ -67,7 +67,6 @@ async function main() {
   const projectsByCategory: Record<string, Array<{
     title: string
     slug: string
-    description: string
     year: string
     venue?: string
     isFeatured: boolean
@@ -76,7 +75,6 @@ async function main() {
       {
         title: 'Hamlet',
         slug: 'hamlet',
-        description: 'Shakespeare\'s classic tragedy',
         year: '2023',
         venue: 'Royal Theatre Company',
         isFeatured: true,
@@ -84,7 +82,6 @@ async function main() {
       {
         title: 'Les Misérables',
         slug: 'les-miserables',
-        description: 'Epic musical production',
         year: '2022',
         venue: 'Broadway Productions',
         isFeatured: false,
@@ -94,7 +91,6 @@ async function main() {
       {
         title: 'The Last Dawn',
         slug: 'the-last-dawn',
-        description: 'Period drama set in 1920s',
         year: '2023',
         venue: 'Paramount Pictures',
         isFeatured: true,
@@ -102,7 +98,6 @@ async function main() {
       {
         title: 'Midnight Express',
         slug: 'midnight-express',
-        description: 'Contemporary thriller',
         year: '2022',
         isFeatured: false,
       },
@@ -111,7 +106,6 @@ async function main() {
       {
         title: 'Crown & Country',
         slug: 'crown-and-country',
-        description: 'Historical drama series',
         year: '2023',
         venue: 'HBO',
         isFeatured: true,
@@ -121,7 +115,6 @@ async function main() {
       {
         title: 'Nike Campaign',
         slug: 'nike-campaign',
-        description: 'Athletic wear showcase',
         year: '2023',
         venue: 'Nike Inc.',
         isFeatured: false,
@@ -165,7 +158,6 @@ async function main() {
         },
         update: {
           title: proj.title,
-          description: proj.description,
           year: proj.year,
           venue: proj.venue,
           isFeatured: proj.isFeatured,
@@ -174,7 +166,6 @@ async function main() {
           categoryId: category.id,
           title: proj.title,
           slug: proj.slug,
-          description: proj.description,
           year: proj.year,
           venue: proj.venue,
           isFeatured: proj.isFeatured,

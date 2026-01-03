@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import Link from 'next/link'
 import { type Project, type FeaturedImage } from '@/hooks/useProjects'
 
 // ============================================================================
@@ -9,7 +10,6 @@ import { type Project, type FeaturedImage } from '@/hooks/useProjects'
 
 interface ProjectCardProps {
   project: Project
-  onEdit: () => void
   onDelete: () => void
   isDragging?: boolean
 }
@@ -286,7 +286,6 @@ function DropdownMenu({
 
 export function ProjectCard({
   project,
-  onEdit,
   onDelete,
   isDragging = false,
 }: ProjectCardProps) {
@@ -303,11 +302,6 @@ export function ProjectCard({
 
   // Get image URL (prefer thumbnail for card display)
   const imageUrl = project.featuredImage?.thumbnailUrl || project.featuredImage?.url
-
-  // Format image count text
-  const imageCountText = project._count.images === 1
-    ? '1 image'
-    : `${project._count.images} images`
 
   return (
     <article
@@ -346,14 +340,13 @@ export function ProjectCard({
 
         {/* Actions - visible on mobile, hover on desktop */}
         <div className="project-card-actions">
-          <button
-            type="button"
+          <Link
+            href={`/admin/projects/${project.id}`}
             className="project-card-btn"
-            onClick={onEdit}
             aria-label={`Edit ${project.title}`}
           >
             <EditIcon />
-          </button>
+          </Link>
           <div className="project-card-menu-wrapper">
             <button
               ref={moreButtonRef}

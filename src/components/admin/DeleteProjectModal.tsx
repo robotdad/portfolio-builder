@@ -7,7 +7,6 @@ import { useFocusTrap } from '@/hooks/useFocusTrap'
 interface DeleteProjectModalProps {
   isOpen: boolean
   projectTitle: string
-  imageCount: number
   onConfirm: () => Promise<void>
   onCancel: () => void
   isDeleting: boolean
@@ -17,7 +16,7 @@ interface DeleteProjectModalProps {
  * DeleteProjectModal
  *
  * A confirmation dialog for deleting a project from the portfolio.
- * Shows warning about permanent deletion and lists affected gallery images.
+ * Shows warning about permanent deletion.
  *
  * Features:
  * - Portal renders to document.body
@@ -35,7 +34,6 @@ interface DeleteProjectModalProps {
  * <DeleteProjectModal
  *   isOpen={showDeleteModal}
  *   projectTitle="My Project"
- *   imageCount={5}
  *   onConfirm={handleDelete}
  *   onCancel={() => setShowDeleteModal(false)}
  *   isDeleting={isDeleting}
@@ -45,7 +43,6 @@ interface DeleteProjectModalProps {
 export function DeleteProjectModal({
   isOpen,
   projectTitle,
-  imageCount,
   onConfirm,
   onCancel,
   isDeleting,
@@ -162,12 +159,6 @@ export function DeleteProjectModal({
           <p>
             This will permanently delete the project and remove it from your portfolio.
           </p>
-          {imageCount > 0 && (
-            <p className="image-warning">
-              {imageCount} gallery image{imageCount !== 1 ? 's' : ''} will be unlinked from this project.
-              <span className="image-note">(Images will remain in your library)</span>
-            </p>
-          )}
         </div>
 
         {/* Actions */}
@@ -267,19 +258,6 @@ export function DeleteProjectModal({
 
         .description p:last-child {
           margin-bottom: 0;
-        }
-
-        .image-warning {
-          color: #d97706 !important;
-          font-weight: 500;
-        }
-
-        .image-note {
-          display: block;
-          margin-top: 4px;
-          font-size: 13px;
-          font-weight: 400;
-          color: #6b7280;
         }
 
         .actions {

@@ -1,0 +1,87 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
+
+/**
+ * POST /api/projects/[id]/publish
+ *
+ * Publishes the project content:
+ * - Copies draftContent to publishedContent (if changed)
+ * - Updates lastPublishedAt timestamp
+ */
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params
+
+    // Get the project with current draft content
+    const project = await prisma.project.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        title: true,
+        draftContent: true,
+        publishedContent: true,
+      },
+    })
+
+    if (!project) {
+      return NextResponse.json(
+        { error: 'Project not found', code: 'NOT_FOUND', success: false },
+        { status: 404 }
+      )
+    }
+
+    if (!project.draftContent) {
+      return NextResponse.json(
+        { error: 'No draft content to publish', code: 'NO_CONTENT', success: false },
+        { status: 400 }
+      )
+    }
+
+    // Check if content needs publishing
+    const contentChanged = project.draftContent !== project.publishedContent
+
+    if (!contentChanged) {
+      return NextResponse.json({
+        message: 'Content is already published',
+        alreadyPublished: true,
+        success: true,
+        data: {
+          id: project.id,
+          publishedContent: project.publishedContent,
+        },
+      })
+    }
+
+    // Publish content
+    const updatedProject = await prisma.project.update({
+      where: { id },
+      data: {
+        publishedContent: project.draftContent,
+        lastPublishedAt: new Date(),
+      },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        draftContent: true,
+        publishedContent: true,
+        lastPublishedAt: true,
+      },
+    })
+
+    return NextResponse.json({
+      message: 'Published successfully',
+      success: true,
+      data: updatedProject,
+    })
+  } catch (error) {
+    console.error('Failed to publish project:', error)
+    return NextResponse.json(
+      { error: 'Failed to publish project', code: 'INTERNAL_ERROR', success: false },
+      { status: 500 }
+    )
+  }
+}

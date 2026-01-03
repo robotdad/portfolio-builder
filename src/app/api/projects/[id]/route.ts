@@ -22,28 +22,6 @@ export async function GET(
             portfolioId: true,
           },
         },
-        featuredImage: {
-          select: {
-            id: true,
-            url: true,
-            thumbnailUrl: true,
-            altText: true,
-          },
-        },
-        galleryImages: {
-          orderBy: { order: 'asc' },
-          include: {
-            asset: {
-              select: {
-                id: true,
-                url: true,
-                thumbnailUrl: true,
-                altText: true,
-                caption: true,
-              },
-            },
-          },
-        },
       },
     })
 
@@ -54,16 +32,7 @@ export async function GET(
       )
     }
 
-    // Flatten gallery images for easier consumption
-    const response = {
-      ...project,
-      images: project.galleryImages.map(gi => ({
-        ...gi.asset,
-        order: gi.order,
-      })),
-    }
-
-    return NextResponse.json({ data: response, success: true })
+    return NextResponse.json({ data: project, success: true })
   } catch (error) {
     console.error('Error fetching project:', error)
     return NextResponse.json(
@@ -102,7 +71,7 @@ export async function PUT(
       )
     }
 
-    const { categoryId, title, year, venue, role, description, isFeatured, order, featuredImageId } = validation.data
+    const { categoryId, title, year, venue, role, draftContent, isFeatured, order } = validation.data
     const updateData: Record<string, unknown> = {}
 
     // Handle category change (moving project)
@@ -155,10 +124,9 @@ export async function PUT(
     if (year !== undefined) updateData.year = year
     if (venue !== undefined) updateData.venue = venue
     if (role !== undefined) updateData.role = role
-    if (description !== undefined) updateData.description = description
+    if (draftContent !== undefined) updateData.draftContent = draftContent
     if (isFeatured !== undefined) updateData.isFeatured = isFeatured
     if (order !== undefined) updateData.order = order
-    if (featuredImageId !== undefined) updateData.featuredImageId = featuredImageId
 
     const project = await prisma.project.update({
       where: { id },
@@ -169,14 +137,6 @@ export async function PUT(
             id: true,
             name: true,
             slug: true,
-          },
-        },
-        featuredImage: {
-          select: {
-            id: true,
-            url: true,
-            thumbnailUrl: true,
-            altText: true,
           },
         },
       },

@@ -32,9 +32,6 @@ export interface Project {
   categoryId: string
   featuredImageId: string | null
   featuredImage: FeaturedImage | null
-  _count: {
-    images: number
-  }
   createdAt: string
   updatedAt: string
 }
@@ -179,17 +176,11 @@ export function useProjects(categoryId: string): UseProjectsReturn {
         throw new Error(errorMessage)
       }
 
-      // Add new project with _count (API may not return it for creates)
-      const newProject: Project = {
-        ...result.data,
-        _count: result.data._count || { images: 0 },
-      }
-
       if (isMountedRef.current) {
-        setProjects((prev) => [...prev, newProject].sort((a, b) => a.order - b.order))
+        setProjects((prev) => [...prev, result.data].sort((a, b) => a.order - b.order))
       }
 
-      return newProject
+      return result.data
     },
     []
   )
@@ -221,20 +212,15 @@ export function useProjects(categoryId: string): UseProjectsReturn {
         }
 
         // Update with server response (includes generated slug, etc.)
-        const updatedProject: Project = {
-          ...result.data,
-          _count: result.data._count || previousProjects.find((p) => p.id === id)?._count || { images: 0 },
-        }
-
         if (isMountedRef.current) {
           setProjects((prev) =>
             prev
-              .map((proj) => (proj.id === id ? updatedProject : proj))
+              .map((proj) => (proj.id === id ? result.data : proj))
               .sort((a, b) => a.order - b.order)
           )
         }
 
-        return updatedProject
+        return result.data
       } catch (err) {
         // Rollback on error
         if (isMountedRef.current) {

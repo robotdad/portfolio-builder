@@ -19,6 +19,10 @@ model Portfolio {
   publishedTheme String @default("modern-minimal")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  profilePhotoId String? @unique
+  profilePhoto   Asset?  @relation("ProfilePhoto", fields: [profilePhotoId], references: [id])
+  
   assets Asset[]
   pages Page[]
   categories Category[]
@@ -72,10 +76,7 @@ model Asset {
   
   // Reverse relations for featured images
   categoriesFeatured Category[] @relation("CategoryFeaturedImage")
-  projectsFeatured Project[] @relation("ProjectFeaturedImage")
-  
-  // Gallery appearances
-  projectGalleries ProjectGalleryImage[]
+  profilePortfolio Portfolio? @relation("ProfilePhoto")
 }
 
 model Category {
@@ -104,42 +105,28 @@ model Project {
   id String @id @default(cuid())
   categoryId String
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  
+
   title String
   slug String
-  description String?
-  
+
+  // Section-based content (like Pages)
+  draftContent String?
+  publishedContent String?
+  lastPublishedAt DateTime?
+
+  // Metadata (in sidebar, not sections)
   year String?
   venue String?
   role String?
-  
-  isFeatured Boolean @default(false)
   order Int @default(0)
-  
-  featuredImageId String?
-  featuredImage Asset? @relation("ProjectFeaturedImage", fields: [featuredImageId], references: [id], onDelete: SetNull)
-  
-  galleryImages ProjectGalleryImage[]
-  
+  isFeatured Boolean @default(false)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   @@unique([categoryId, slug])
   @@index([categoryId, order])
   @@index([isFeatured])
 }
 
-model ProjectGalleryImage {
-  id String @id @default(cuid())
-  projectId String
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  assetId String
-  asset Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
-  
-  order Int @default(0)
-  
-  createdAt DateTime @default(now())
-  
-  @@unique([projectId, assetId])
-  @@index([projectId, order])
-}
+

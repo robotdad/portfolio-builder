@@ -187,7 +187,6 @@ export default function ProjectsPage() {
     isLoading: projectsLoading,
     error: projectsError,
     createProject,
-    updateProject,
     deleteProject,
     reorderProjects,
     refreshProjects,
@@ -195,7 +194,6 @@ export default function ProjectsPage() {
 
   // Modal states
   const [showCreateModal, setShowCreateModal] = useState(false)
-  const [editingProject, setEditingProject] = useState<Project | null>(null)
   const [deletingProject, setDeletingProject] = useState<Project | null>(null)
 
   // Operation states
@@ -265,30 +263,6 @@ export default function ProjectsPage() {
     }
   }
 
-  // Handle edit project
-  const handleEdit = async (data: ProjectFormData) => {
-    if (!editingProject) return
-
-    setIsSubmitting(true)
-    try {
-      await updateProject(editingProject.id, {
-        title: data.title,
-        year: data.year ?? null,
-        venue: data.venue ?? null,
-        role: data.role ?? null,
-        description: data.description ?? null,
-        isFeatured: data.isFeatured,
-        featuredImageId: data.featuredImageId,
-      })
-      setEditingProject(null)
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'Failed to update project'
-      showError(message)
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
   // Handle delete project
   const handleDelete = async () => {
     if (!deletingProject) return
@@ -317,12 +291,6 @@ export default function ProjectsPage() {
   const handleCloseCreateModal = () => {
     if (!isSubmitting) {
       setShowCreateModal(false)
-    }
-  }
-
-  const handleCloseEditModal = () => {
-    if (!isSubmitting) {
-      setEditingProject(null)
     }
   }
 
@@ -495,7 +463,6 @@ export default function ProjectsPage() {
         <ProjectList
           projects={projects}
           onCreateClick={() => setShowCreateModal(true)}
-          onEditClick={(project) => setEditingProject(project)}
           onDeleteClick={(project) => setDeletingProject(project)}
           onReorder={handleReorder}
           isLoading={isLoading}
@@ -513,35 +480,10 @@ export default function ProjectsPage() {
         isSubmitting={isSubmitting}
       />
 
-      {/* Edit Modal */}
-      <ProjectFormModal
-        isOpen={editingProject !== null}
-        portfolioId={portfolioId || ''}
-        project={
-          editingProject
-            ? {
-                id: editingProject.id,
-                title: editingProject.title,
-                year: editingProject.year,
-                venue: editingProject.venue,
-                role: editingProject.role,
-                description: editingProject.description,
-                isFeatured: editingProject.isFeatured,
-                featuredImage: editingProject.featuredImage,
-              }
-            : undefined
-        }
-        categoryId={categoryId}
-        onSubmit={handleEdit}
-        onClose={handleCloseEditModal}
-        isSubmitting={isSubmitting}
-      />
-
       {/* Delete Modal */}
       <DeleteProjectModal
         isOpen={deletingProject !== null}
         projectTitle={deletingProject?.title || ''}
-        imageCount={deletingProject?._count?.images || 0}
         onConfirm={handleDelete}
         onCancel={handleCloseDeleteModal}
         isDeleting={isDeleting}

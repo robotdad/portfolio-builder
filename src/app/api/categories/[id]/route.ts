@@ -24,16 +24,6 @@ export async function GET(
         },
         projects: {
           orderBy: { order: 'asc' },
-          include: {
-            featuredImage: {
-              select: {
-                id: true,
-                url: true,
-                thumbnailUrl: true,
-                altText: true,
-              },
-            },
-          },
         },
       },
     })

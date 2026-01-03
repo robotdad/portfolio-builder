@@ -52,34 +52,6 @@ export async function GET(request: NextRequest) {
             name: true,
           },
         },
-        projectsFeatured: {
-          select: {
-            id: true,
-            title: true,
-            category: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        },
-        projectGalleries: {
-          include: {
-            project: {
-              select: {
-                id: true,
-                title: true,
-                category: {
-                  select: {
-                    id: true,
-                    name: true,
-                  },
-                },
-              },
-            },
-          },
-        },
       },
       orderBy: { createdAt: 'desc' },
     })
@@ -100,24 +72,6 @@ export async function GET(request: NextRequest) {
           pageId: cat.id,
           pageTitle: cat.name,
           sectionType: 'featured' as const,
-        }
-      }
-      // Check if used as project featured image
-      else if (asset.projectsFeatured.length > 0) {
-        const proj = asset.projectsFeatured[0]
-        source = {
-          pageId: proj.category?.id || proj.id,
-          pageTitle: proj.title,
-          sectionType: 'featured' as const,
-        }
-      }
-      // Check if used in project gallery
-      else if (asset.projectGalleries.length > 0) {
-        const gallery = asset.projectGalleries[0]
-        source = {
-          pageId: gallery.project.category?.id || gallery.project.id,
-          pageTitle: gallery.project.title,
-          sectionType: 'gallery' as const,
         }
       }
 

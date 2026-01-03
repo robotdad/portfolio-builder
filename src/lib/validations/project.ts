@@ -18,6 +18,7 @@ export const updateProjectSchema = z.object({
   venue: z.string().max(200, 'Venue must be 200 characters or less').nullable().optional(),
   role: z.string().max(200, 'Role must be 200 characters or less').nullable().optional(),
   description: z.string().max(5000, 'Description must be 5000 characters or less').nullable().optional(),
+  draftContent: z.string().nullable().optional(),
   isFeatured: z.boolean().optional(),
   order: z.number().int().min(0).optional(),
   featuredImageId: z.string().nullable().optional(),

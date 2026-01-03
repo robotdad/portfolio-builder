@@ -38,17 +38,6 @@ export async function GET(request: NextRequest) {
             slug: true,
           },
         },
-        featuredImage: {
-          select: {
-            id: true,
-            url: true,
-            thumbnailUrl: true,
-            altText: true,
-          },
-        },
-        _count: {
-          select: { galleryImages: true },
-        },
       },
       orderBy: { order: 'asc' },
     })
@@ -76,7 +65,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { categoryId, title, year, venue, role, description, isFeatured, featuredImageId } = validation.data
+    const { categoryId, title, year, venue, role, isFeatured } = validation.data
 
     // Verify category exists
     const category = await prisma.category.findUnique({
@@ -119,10 +108,8 @@ export async function POST(request: NextRequest) {
         year,
         venue,
         role,
-        description,
         isFeatured: isFeatured ?? false,
         order,
-        featuredImageId,
       },
       include: {
         category: {
@@ -130,14 +117,6 @@ export async function POST(request: NextRequest) {
             id: true,
             name: true,
             slug: true,
-          },
-        },
-        featuredImage: {
-          select: {
-            id: true,
-            url: true,
-            thumbnailUrl: true,
-            altText: true,
           },
         },
       },
