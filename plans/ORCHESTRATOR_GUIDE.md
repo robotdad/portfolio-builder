@@ -1135,3 +1135,127 @@ Important:
 
 When done, confirm all success criteria are met.
 ```
+
+### Slice 27: Public Site Polish
+
+```
+You are implementing professional polish for the published portfolio site.
+
+Read these files to understand your goal:
+- plans/slices/27-public-site-polish.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Portfolio has professional empty states, loading states, and error handling for launch readiness.
+
+Your deliverables:
+- Empty states for homepage (no featured projects), categories (no projects), galleries (no images)
+- Loading states with skeleton screens for all grids
+- Error handling for broken images (fallback placeholders)
+- 404 pages for invalid portfolio/category/project URLs
+- Helpful messaging and CTAs in empty states
+- Mobile-optimized responsive layouts
+- Shimmer loading animation
+- Blur-up image loading technique
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Empty states should be encouraging, not negative
+- Skeleton screens prevent layout shift
+- All edge cases handled gracefully
+- Maintain visual hierarchy in empty/loading states
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 28: Template Selection System
+
+```
+You are implementing template selection for the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/28-template-selection.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Design references (auto-loaded via slice spec):
+- plans/design/TEMPLATE-SYSTEM.md
+- plans/design/templates/featured-grid-landing.md
+- plans/design/templates/clean-minimal.md
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Users can choose between different page templates and preview how content looks in each.
+
+Your deliverables:
+- Template selector UI in portfolio settings
+- Portfolio.template field in database (draftTemplate, publishedTemplate)
+- Clean Minimal template implementation (full-width stacked images)
+- Template preview modal showing user's actual content
+- Template switching preserves all content
+- Both templates work with all 3 themes (6 combinations total)
+- Responsive templates (mobile/tablet/desktop)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Extract current layout as "FeaturedGridTemplate"
+- Implement Clean Minimal per design spec (maddievare.com reference)
+- Templates share components (Navigation, Footer, ProjectCard)
+- Only homepage uses templates (category/project pages stay same)
+- Template + Theme = independent choices (2 templates × 3 themes = 6 combos)
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```
+
+### Slice 29: About Section
+
+```
+You are implementing optional About section for portfolio homepages.
+
+Read these files to understand your goal:
+- plans/slices/29-about-section.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Design reference (auto-loaded via slice spec):
+- plans/design/templates/featured-grid-landing.md (About section spec)
+
+Study the existing codebase and build on it incrementally.
+
+Goal: Portfolio owners can add optional About section with photo and bio to homepage.
+
+Your deliverables:
+- AboutSection component for homepage (photo + bio, responsive)
+- Portfolio fields: title, bio (exists), profilePhotoId, showAboutSection toggle
+- Extend onboarding Step 1 with optional bio fields (collapsible)
+- Settings UI to edit bio, upload/change photo, toggle visibility
+- Side-by-side layout (desktop), stacked layout (mobile)
+- Works with all templates and themes
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Bio field already exists in Portfolio schema - just add UI
+- Make onboarding fields truly optional (collapsible sections)
+- Default: showAboutSection = true if bio provided
+- About section appears BETWEEN hero and featured work
+- Keep onboarding under <5 min (bio is optional)
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+When done, confirm all success criteria are met.
+```

@@ -36,6 +36,9 @@ This directory contains self-contained slice specifications for the portfolio bu
 | 24 | [Admin Pattern Unification](24-admin-pattern-unification.md) | 10-14 hours | 📝 Ready |
 | 25 | [Admin Code Quality](25-admin-code-quality.md) | 8-13 hours | 📝 Ready |
 | 26 | [Featured Carousel](26-featured-carousel.md) | 6-10 hours | 🚨 Critical |
+| 27 | [Public Site Polish](27-public-site-polish.md) | 8-12 hours | 📝 Ready |
+| 28 | [Template Selection System](28-template-selection.md) | 16-24 hours | 📝 Ready |
+| 29 | [About Section](29-about-section.md) | 6-8 hours | 📝 Ready |
 
 ## Completed Work
 
@@ -61,17 +64,20 @@ This directory contains self-contained slice specifications for the portfolio bu
 - Indirect interactions (hidden menus instead of direct clicks)
 - Inconsistent patterns across admin
 
-## Next Implementation Priority
+## Implementation Priority
 
-**URGENT - Customer Requirement:**
+### URGENT - Customer Payment Blocker:
+1. **Slice 26: Featured Carousel** 🚨 - Customer won't pay without it (6-10 hours)
 
-1. **Slice 26: Featured Carousel** 🚨 **BUSINESS CRITICAL** - Customer won't pay without carousel (6-10 hours)
+### Public Site Completion:
+2. **Slice 27: Public Site Polish** - Empty/loading/error states for launch (8-12 hours)
+3. **Slice 28: Template Selection** - Choose Featured Grid vs Clean Minimal layouts (16-24 hours)
+4. **Slice 29: About Section** - Optional bio on homepage (6-8 hours)
 
-**Then - Admin Interface Remediation:**
-
-2. **Slice 23: Admin Navigation Structure** - Populate drawer/sidebar with pages, categories tree, breadcrumbs (14-22 hours)
-3. **Slice 24: Admin Pattern Unification** - Replace cards with lists, direct navigation, consistent interactions (10-14 hours)
-4. **Slice 25: Admin Code Quality** - Extract CSS, document patterns, improve maintainability (8-13 hours)
+### Admin Interface Remediation:
+5. **Slice 23: Admin Navigation Structure** - Populate drawer/sidebar, breadcrumbs (14-22 hours)
+6. **Slice 24: Admin Pattern Unification** - Cards→lists, direct navigation (10-14 hours)
+7. **Slice 25: Admin Code Quality** - Extract CSS, document patterns (8-13 hours)
 
 ## Implementation Guidance
 
