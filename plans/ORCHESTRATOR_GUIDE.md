@@ -1053,7 +1053,7 @@ Important:
 When done, confirm all success criteria are met.
 ```
 
-### Slice 25: Admin Code Quality
+### Slice 26: Admin Code Quality
 
 ```
 You are improving admin code organization and maintainability for the portfolio builder.
@@ -1090,7 +1090,7 @@ Important:
 When done, confirm all success criteria are met.
 ```
 
-### Slice 26: Featured Carousel
+### Slice 27: Featured Carousel
 
 ```
 You are implementing a carousel for featured work on the portfolio builder.
@@ -1136,7 +1136,7 @@ Important:
 When done, confirm all success criteria are met.
 ```
 
-### Slice 27: Public Site Polish
+### Slice 28: Public Site Polish
 
 ```
 You are implementing professional polish for the published portfolio site.
@@ -1175,7 +1175,7 @@ Important:
 When done, confirm all success criteria are met.
 ```
 
-### Slice 28: Template Selection System
+### Slice 29: Template Selection System
 
 ```
 You are implementing template selection for the portfolio builder.
@@ -1219,7 +1219,7 @@ Important:
 When done, confirm all success criteria are met.
 ```
 
-### Slice 29: About Section
+### Slice 30: About Section
 
 ```
 You are implementing optional About section for portfolio homepages.

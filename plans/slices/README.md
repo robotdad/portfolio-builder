@@ -33,12 +33,13 @@ This directory contains self-contained slice specifications for the portfolio bu
 | 21 | [Mobile Drawer Navigation](21-mobile-drawer.md) | 4-6 hours | ✅ Complete |
 | 22 | [Public Category/Project Pages](22-public-category-project-pages.md) | 10-12 hours | ✅ Complete |
 | 23 | [Admin Navigation Structure](23-admin-navigation-structure.md) | 14-22 hours | 📝 Ready |
-| 24 | [Admin Pattern Unification](24-admin-pattern-unification.md) | 10-14 hours | 📝 Ready |
-| 25 | [Admin Code Quality](25-admin-code-quality.md) | 8-13 hours | 📝 Ready |
-| 26 | [Featured Carousel](26-featured-carousel.md) | 6-10 hours | 🚨 Critical |
-| 27 | [Public Site Polish](27-public-site-polish.md) | 8-12 hours | 📝 Ready |
-| 28 | [Template Selection System](28-template-selection.md) | 16-24 hours | 📝 Ready |
-| 29 | [About Section](29-about-section.md) | 6-8 hours | 📝 Ready |
+| 24 | [Admin Pattern Unification](24-admin-pattern-unification.md) | 10-14 hours | ✅ Complete |
+| 25 | [Project Editor Design Compliance](25-project-editor-design-compliance.md) | 2-3 hours | 📝 Ready |
+| 26 | [Admin Code Quality](26-admin-code-quality.md) | 8-13 hours | 📝 Ready |
+| 27 | [Featured Carousel](27-featured-carousel.md) | 6-10 hours | 🚨 Critical |
+| 28 | [Public Site Polish](28-public-site-polish.md) | 8-12 hours | 📝 Ready |
+| 29 | [Template Selection System](29-template-selection.md) | 16-24 hours | 📝 Ready |
+| 30 | [About Section](30-about-section.md) | 6-8 hours | 📝 Ready |
 
 ## Completed Work
 
@@ -66,18 +67,17 @@ This directory contains self-contained slice specifications for the portfolio bu
 
 ## Implementation Priority
 
-### URGENT - Customer Payment Blocker:
-1. **Slice 26: Featured Carousel** 🚨 - Customer won't pay without it (6-10 hours)
+### Immediate:
+1. **Slice 25: Project Editor Design Compliance** - Fix button spacing, use design tokens (2-3 hours)
+2. **Slice 27: Featured Carousel** 🚨 - Customer won't pay without it (6-10 hours)
 
 ### Public Site Completion:
-2. **Slice 27: Public Site Polish** - Empty/loading/error states for launch (8-12 hours)
-3. **Slice 28: Template Selection** - Choose Featured Grid vs Clean Minimal layouts (16-24 hours)
-4. **Slice 29: About Section** - Optional bio on homepage (6-8 hours)
+3. **Slice 28: Public Site Polish** - Empty/loading/error states for launch (8-12 hours)
+4. **Slice 29: Template Selection** - Choose Featured Grid vs Clean Minimal layouts (16-24 hours)
+5. **Slice 30: About Section** - Optional bio on homepage (6-8 hours)
 
-### Admin Interface Remediation:
-5. **Slice 23: Admin Navigation Structure** - Populate drawer/sidebar, breadcrumbs (14-22 hours)
-6. **Slice 24: Admin Pattern Unification** - Cards→lists, direct navigation (10-14 hours)
-7. **Slice 25: Admin Code Quality** - Extract CSS, document patterns (8-13 hours)
+### Admin Quality:
+6. **Slice 26: Admin Code Quality** - Extract CSS, document patterns (8-13 hours)
 
 ## Implementation Guidance
 
