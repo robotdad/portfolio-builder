@@ -207,7 +207,7 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
                               onClick={handleLinkClick}
                             >
                               <span className="project-bullet" aria-hidden="true">•</span>
-                              <span className="project-title">{project.title}</span>
+                              <span className="project-title" style={{ fontSize: "var(--font-size-sm)", fontWeight: "var(--font-weight-medium)" }}>{project.title}</span>
                             </Link>
                           </div>
                         )
@@ -412,8 +412,8 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
           padding-left: calc(var(--space-4) + 32px);
           color: var(--admin-text);
           text-decoration: none;
-          font-size: 14px;
-          font-weight: 500;
+          font-size: var(--font-size-sm);
+          font-weight: var(--font-weight-medium);
           border-left: 4px solid transparent;
           transition: background-color var(--transition-fast),
                       border-color var(--transition-fast),
@@ -445,6 +445,8 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          font-size: var(--font-size-sm);
+          font-weight: var(--font-weight-medium);
         }
         
         /* Reduced motion support */
