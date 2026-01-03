@@ -1089,3 +1089,49 @@ Important:
 
 When done, confirm all success criteria are met.
 ```
+
+### Slice 26: Featured Carousel
+
+```
+You are implementing a carousel for featured work on the portfolio builder.
+
+Read these files to understand your goal:
+- plans/slices/26-featured-carousel.md
+- plans/PRINCIPLES.md (design principles)
+- plans/TECH_STACK.md (technology constraints)
+
+Study the existing codebase and build on it incrementally.
+
+**BUSINESS CONTEXT: Customer requires carousel - won't pay without it. This is urgent.**
+
+Goal: Homepage displays featured work in auto-rotating carousel with maximum visual impact.
+
+Your deliverables:
+- FeaturedCarousel component with auto-rotation (5s per slide)
+- Manual navigation (prev/next buttons, keyboard arrows)
+- Touch swipe support (mobile left/right gestures)
+- Indicator dots (click/tap to jump to slide)
+- Pause/play button (WCAG accessibility requirement)
+- Image overlay with project title/venue/year
+- Responsive (16:9 desktop, 4:3 mobile)
+- Click slide → Navigate to project page
+- Full accessibility (keyboard, screen readers, reduced motion)
+
+Working space: Use ai_working/ for planning and notes.
+
+Important:
+- Build on existing work, don't replace it
+- Reuse Lightbox touch swipe pattern (already works)
+- Reuse ProjectCard overlay pattern (already works)
+- 5 seconds per slide (let viewers appreciate costume work)
+- Crossfade transitions (professional, not corporate)
+- Pause on ANY user interaction
+- Auto-rotation disabled for prefers-reduced-motion
+- Meet ALL success criteria (functional AND design)
+- Stay within the "Included" scope - do NOT implement "NOT Included" items
+- Do NOT break existing functionality
+
+**Quick ship option**: Build manual navigation first (4-6 hours), add auto-rotate second (2-3 hours).
+
+When done, confirm all success criteria are met.
+```

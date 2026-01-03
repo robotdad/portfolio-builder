@@ -35,6 +35,7 @@ This directory contains self-contained slice specifications for the portfolio bu
 | 23 | [Admin Navigation Structure](23-admin-navigation-structure.md) | 14-22 hours | 📝 Ready |
 | 24 | [Admin Pattern Unification](24-admin-pattern-unification.md) | 10-14 hours | 📝 Ready |
 | 25 | [Admin Code Quality](25-admin-code-quality.md) | 8-13 hours | 📝 Ready |
+| 26 | [Featured Carousel](26-featured-carousel.md) | 6-10 hours | 🚨 Critical |
 
 ## Completed Work
 
@@ -62,11 +63,15 @@ This directory contains self-contained slice specifications for the portfolio bu
 
 ## Next Implementation Priority
 
-**Admin Interface Remediation (Slices 23-25):**
+**URGENT - Customer Requirement:**
 
-1. **Slice 23: Admin Navigation Structure** - Populate drawer/sidebar with pages, categories tree, breadcrumbs
-2. **Slice 24: Admin Pattern Unification** - Replace cards with lists, direct navigation, consistent interactions
-3. **Slice 25: Admin Code Quality** - Extract CSS, document patterns, improve maintainability
+1. **Slice 26: Featured Carousel** 🚨 **BUSINESS CRITICAL** - Customer won't pay without carousel (6-10 hours)
+
+**Then - Admin Interface Remediation:**
+
+2. **Slice 23: Admin Navigation Structure** - Populate drawer/sidebar with pages, categories tree, breadcrumbs (14-22 hours)
+3. **Slice 24: Admin Pattern Unification** - Replace cards with lists, direct navigation, consistent interactions (10-14 hours)
+4. **Slice 25: Admin Code Quality** - Extract CSS, document patterns, improve maintainability (8-13 hours)
 
 ## Implementation Guidance
 
