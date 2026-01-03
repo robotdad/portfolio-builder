@@ -15,7 +15,7 @@ export async function POST(
   try {
     const { id } = await params
 
-    // Get the project with current draft content
+    // Get the project with current draft and published content
     const project = await prisma.project.findUnique({
       where: { id },
       select: {
@@ -33,19 +33,24 @@ export async function POST(
       )
     }
 
-    if (!project.draftContent) {
+    // Determine the content to publish
+    // Priority: draftContent > publishedContent (use existing if draft is empty)
+    const contentToPublish = project.draftContent || project.publishedContent
+
+    if (!contentToPublish) {
       return NextResponse.json(
-        { error: 'No draft content to publish', code: 'NO_CONTENT', success: false },
+        { error: 'No content to publish', code: 'NO_CONTENT', success: false },
         { status: 400 }
       )
     }
 
-    // Check if content needs publishing
-    const contentChanged = project.draftContent !== project.publishedContent
+    // Check if anything needs to change
+    const draftNeedsSync = project.draftContent !== contentToPublish
+    const publishedNeedsSync = project.publishedContent !== contentToPublish
 
-    if (!contentChanged) {
+    if (!draftNeedsSync && !publishedNeedsSync) {
       return NextResponse.json({
-        message: 'Content is already published',
+        message: 'Content is already in sync',
         alreadyPublished: true,
         success: true,
         data: {
@@ -55,11 +60,13 @@ export async function POST(
       })
     }
 
-    // Publish content
+    // Publish content AND ensure draft is synced
+    // This guarantees draft is never behind published
     const updatedProject = await prisma.project.update({
       where: { id },
       data: {
-        publishedContent: project.draftContent,
+        draftContent: contentToPublish,
+        publishedContent: contentToPublish,
         lastPublishedAt: new Date(),
       },
       select: {

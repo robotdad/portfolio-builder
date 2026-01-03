@@ -9,6 +9,7 @@ import { AddSectionButton } from '@/components/editor/AddSectionButton'
 import { DraftIndicator, type DraftStatus } from '@/components/admin/DraftIndicator'
 import { PublishButton } from '@/components/admin/PublishButton'
 import { ProjectMetadataSidebar } from '@/components/admin/ProjectMetadataSidebar'
+import { FeaturedImagePicker } from '@/components/admin/FeaturedImagePicker'
 import { useAutoSave } from '@/hooks/useAutoSave'
 import { type Section, isHeroSection } from '@/lib/content-schema'
 import { serializeSections, deserializeSections } from '@/lib/serialization'
@@ -18,7 +19,8 @@ interface Project {
   title: string
   slug: string
   categoryId: string
-  category: { id: string; name: string; slug: string }
+  category: { id: string; name: string; slug: string; portfolioId: string }
+  featuredImage: { id: string; url: string; thumbnailUrl: string; altText: string | null } | null
   draftContent: string | null
   publishedContent: string | null
   lastPublishedAt: string | null
@@ -33,6 +35,7 @@ interface ProjectMetadata {
   venue: string
   role: string
   isFeatured: boolean
+  featuredImageId: string | null
 }
 
 export default function ProjectEditorPage() {
@@ -55,12 +58,21 @@ export default function ProjectEditorPage() {
     venue: '',
     role: '',
     isFeatured: false,
+    featuredImageId: null,
   })
   const [initialMetadata, setInitialMetadata] = useState<ProjectMetadata>({
     year: '',
     venue: '',
     role: '',
     isFeatured: false,
+    featuredImageId: null,
+  })
+  const [publishedMetadata, setPublishedMetadata] = useState<ProjectMetadata>({
+    year: '',
+    venue: '',
+    role: '',
+    isFeatured: false,
+    featuredImageId: null,
   })
 
   // Fetch project on mount
@@ -84,6 +96,13 @@ export default function ProjectEditorPage() {
         setSections(draftSections)
         setInitialSections(draftSections)
         setPublishedSections(pubSections)
+        setPublishedMetadata({
+          year: project.year || '',
+          venue: project.venue || '',
+          role: project.role || '',
+          isFeatured: project.isFeatured,
+          featuredImageId: project.featuredImage?.id || null,
+        })
 
         // Set metadata
         const meta: ProjectMetadata = {
@@ -91,6 +110,7 @@ export default function ProjectEditorPage() {
           venue: project.venue || '',
           role: project.role || '',
           isFeatured: project.isFeatured || false,
+          featuredImageId: project.featuredImage?.id || null,
         }
         setMetadata(meta)
         setInitialMetadata(meta)
@@ -117,8 +137,10 @@ export default function ProjectEditorPage() {
 
   // Unpublished changes detection
   const hasUnpublishedChanges = useMemo(() => {
-    return JSON.stringify(sections) !== JSON.stringify(publishedSections)
-  }, [sections, publishedSections])
+    const sectionsDiff = JSON.stringify(sections) !== JSON.stringify(publishedSections)
+    const metadataDiff = JSON.stringify(metadata) !== JSON.stringify(publishedMetadata)
+    return sectionsDiff || metadataDiff
+  }, [sections, publishedSections, metadata, publishedMetadata])
 
   // Save draft function
   const saveDraft = useCallback(async (): Promise<boolean> => {
@@ -134,6 +156,7 @@ export default function ProjectEditorPage() {
           venue: metadata.venue || null,
           role: metadata.role || null,
           isFeatured: metadata.isFeatured,
+          featuredImageId: metadata.featuredImageId,
         }),
       })
 
@@ -187,6 +210,7 @@ export default function ProjectEditorPage() {
 
       // Update local state
       setPublishedSections(sections)
+      setPublishedMetadata(metadata)
       setProject(prev =>
         prev ? { ...prev, lastPublishedAt: new Date().toISOString() } : null
       )
@@ -315,6 +339,41 @@ export default function ProjectEditorPage() {
                 categoryId={project.categoryId}
                 categoryName={project.category.name}
               />
+
+              {/* Featured Image */}
+              <div className="mt-4 bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                <h3 className="text-sm font-medium text-gray-700 mb-3">Featured Image</h3>
+                <FeaturedImagePicker
+                  portfolioId={project.category.portfolioId}
+                  currentImage={project.featuredImage}
+                  onImageSelect={(image) => {
+                    const newFeaturedImageId = image?.id || null
+                    handleMetadataChange({ featuredImageId: newFeaturedImageId })
+                    setProject(prev => prev ? { ...prev, featuredImage: image } : null)
+                    // Trigger save after state update
+                    setTimeout(() => {
+                      saveDraft()
+                    }, 0)
+                  }}
+                  onUpload={async (file) => {
+                    // Upload the file to the portfolio's assets
+                    const formData = new FormData()
+                    formData.append('file', file)
+                    const response = await fetch(`/api/portfolios/${project.category.portfolioId}/assets`, {
+                      method: 'POST',
+                      body: formData,
+                    })
+                    if (!response.ok) throw new Error('Upload failed')
+                    const result = await response.json()
+                    return {
+                      id: result.data.id,
+                      url: result.data.url,
+                      thumbnailUrl: result.data.thumbnailUrl,
+                      altText: result.data.altText || '',
+                    }
+                  }}
+                />
+              </div>
               
               {/* Last Published */}
               {project.lastPublishedAt && (
@@ -347,7 +406,7 @@ export default function ProjectEditorPage() {
               ) : (
                 <SectionList
                   sections={sections}
-                  portfolioId={project.categoryId}
+                  portfolioId={project.category.portfolioId}
                   onChange={handleSectionsChange}
                   onSaveRequest={handleSaveRequest}
                 />

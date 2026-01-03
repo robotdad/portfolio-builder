@@ -13,19 +13,37 @@ export interface NavPage {
   showInNav: boolean
 }
 
+export interface NavCategory {
+  id: string
+  name: string
+  slug: string
+}
+
 interface NavigationProps {
   portfolioSlug: string
   portfolioName: string
   pages: NavPage[]
+  categories?: NavCategory[]
   theme: 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 }
 
-export function Navigation({ portfolioSlug, portfolioName, pages, theme }: NavigationProps) {
+const CATEGORY_DROPDOWN_THRESHOLD = 5
+
+export function Navigation({ 
+  portfolioSlug, 
+  portfolioName, 
+  pages, 
+  categories = [],
+  theme 
+}: NavigationProps) {
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownButtonRef = useRef<HTMLButtonElement>(null)
 
   // Track when component is mounted for portal rendering
   useEffect(() => {
@@ -35,8 +53,12 @@ export function Navigation({ portfolioSlug, portfolioName, pages, theme }: Navig
   // Filter to only pages shown in nav
   const navPages = pages.filter(p => p.showInNav)
 
-  // Get current page slug from pathname
-  const currentSlug = pathname.split('/').slice(2).join('/') || ''
+  // Get current path segments for active detection
+  const pathSegments = pathname.split('/').filter(Boolean)
+  const currentCategorySlug = pathSegments.length >= 2 ? pathSegments[1] : ''
+
+  // Determine if we should show dropdown (>5 categories) or direct links
+  const showCategoryDropdown = categories.length > CATEGORY_DROPDOWN_THRESHOLD
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -49,28 +71,39 @@ export function Navigation({ portfolioSlug, portfolioName, pages, theme }: Navig
       ) {
         setIsMenuOpen(false)
       }
-    }
-
-    if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-      return () => document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isMenuOpen])
-
-  // Close menu on escape key
-  useEffect(() => {
-    function handleEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        setIsMenuOpen(false)
-        buttonRef.current?.focus()
+      
+      // Close category dropdown when clicking outside
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        dropdownButtonRef.current &&
+        !dropdownButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsCategoryDropdownOpen(false)
       }
     }
 
-    if (isMenuOpen) {
-      document.addEventListener('keydown', handleEscape)
-      return () => document.removeEventListener('keydown', handleEscape)
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Close menus on escape key
+  useEffect(() => {
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        if (isCategoryDropdownOpen) {
+          setIsCategoryDropdownOpen(false)
+          dropdownButtonRef.current?.focus()
+        } else if (isMenuOpen) {
+          setIsMenuOpen(false)
+          buttonRef.current?.focus()
+        }
+      }
     }
-  }, [isMenuOpen])
+
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [isMenuOpen, isCategoryDropdownOpen])
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -90,18 +123,26 @@ export function Navigation({ portfolioSlug, portfolioName, pages, theme }: Navig
     return `/${portfolioSlug}/${page.slug}`
   }
 
+  // Get href for a category
+  const getCategoryHref = (category: NavCategory) => {
+    return `/${portfolioSlug}/${category.slug}`
+  }
+
   // Check if page is active
   const isPageActive = (page: NavPage) => {
     if (page.isHomepage || page.slug === '') {
-      return currentSlug === ''
+      return pathSegments.length === 1 && pathSegments[0] === portfolioSlug
     }
-    return currentSlug === page.slug
+    return pathSegments[1] === page.slug
   }
 
-  // If only one page, don't show navigation
-  if (navPages.length <= 1) {
-    return null
+  // Check if category is active
+  const isCategoryActive = (category: NavCategory) => {
+    return currentCategorySlug === category.slug
   }
+
+  // Check if any category is active (for dropdown trigger highlighting)
+  const isAnyCategoryActive = categories.some(c => isCategoryActive(c))
 
   return (
     <nav className={`portfolio-nav portfolio-nav--${theme}`} role="navigation" aria-label="Portfolio navigation">
@@ -111,7 +152,74 @@ export function Navigation({ portfolioSlug, portfolioName, pages, theme }: Navig
           {portfolioName}
         </Link>
         <ul className="portfolio-nav-list" role="menubar">
-          {navPages.map(page => (
+          {/* Categories - either as dropdown or direct links */}
+          {categories.length > 0 && (
+            showCategoryDropdown ? (
+              // Dropdown for >5 categories
+              <li role="none" className="portfolio-nav-dropdown-container">
+                <button
+                  ref={dropdownButtonRef}
+                  type="button"
+                  className={`portfolio-nav-link portfolio-nav-dropdown-trigger ${isAnyCategoryActive ? 'portfolio-nav-link--active' : ''}`}
+                  onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
+                  aria-expanded={isCategoryDropdownOpen}
+                  aria-haspopup="true"
+                  role="menuitem"
+                >
+                  Work
+                  <svg 
+                    className={`portfolio-nav-dropdown-icon ${isCategoryDropdownOpen ? 'portfolio-nav-dropdown-icon--open' : ''}`}
+                    width="12" 
+                    height="12" 
+                    viewBox="0 0 12 12" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
+                    <path d="M3 5l3 3 3-3" />
+                  </svg>
+                </button>
+                {isCategoryDropdownOpen && (
+                  <div 
+                    ref={dropdownRef}
+                    className="portfolio-nav-dropdown"
+                    role="menu"
+                  >
+                    {categories.map(category => (
+                      <Link
+                        key={category.id}
+                        href={getCategoryHref(category)}
+                        className={`portfolio-nav-dropdown-item ${isCategoryActive(category) ? 'portfolio-nav-dropdown-item--active' : ''}`}
+                        role="menuitem"
+                        aria-current={isCategoryActive(category) ? 'page' : undefined}
+                        onClick={() => setIsCategoryDropdownOpen(false)}
+                      >
+                        {category.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </li>
+            ) : (
+              // Direct links for ≤5 categories
+              categories.map(category => (
+                <li key={category.id} role="none">
+                  <Link
+                    href={getCategoryHref(category)}
+                    className={`portfolio-nav-link ${isCategoryActive(category) ? 'portfolio-nav-link--active' : ''}`}
+                    role="menuitem"
+                    aria-current={isCategoryActive(category) ? 'page' : undefined}
+                  >
+                    {category.name}
+                  </Link>
+                </li>
+              ))
+            )
+          )}
+          
+          {/* Other nav pages (About, Resume, etc.) */}
+          {navPages.filter(p => !p.isHomepage).map(page => (
             <li key={page.id} role="none">
               <Link
                 href={getPageHref(page)}
@@ -167,19 +275,59 @@ export function Navigation({ portfolioSlug, portfolioName, pages, theme }: Navig
             aria-hidden={!isMenuOpen}
           >
             <ul className="portfolio-nav-menu-list">
-              {navPages.map(page => (
-                <li key={page.id} role="none">
-                  <Link
-                    href={getPageHref(page)}
-                    className={`portfolio-nav-menu-link ${isPageActive(page) ? 'portfolio-nav-menu-link--active' : ''}`}
-                    role="menuitem"
-                    aria-current={isPageActive(page) ? 'page' : undefined}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {page.title}
-                  </Link>
-                </li>
-              ))}
+              {/* Home link */}
+              <li role="none">
+                <Link
+                  href={`/${portfolioSlug}`}
+                  className={`portfolio-nav-menu-link ${pathSegments.length === 1 ? 'portfolio-nav-menu-link--active' : ''}`}
+                  role="menuitem"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Home
+                </Link>
+              </li>
+              
+              {/* Categories */}
+              {categories.length > 0 && (
+                <>
+                  <li className="portfolio-nav-menu-divider" role="separator">
+                    <span>Work</span>
+                  </li>
+                  {categories.map(category => (
+                    <li key={category.id} role="none">
+                      <Link
+                        href={getCategoryHref(category)}
+                        className={`portfolio-nav-menu-link portfolio-nav-menu-link--indent ${isCategoryActive(category) ? 'portfolio-nav-menu-link--active' : ''}`}
+                        role="menuitem"
+                        aria-current={isCategoryActive(category) ? 'page' : undefined}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
+                </>
+              )}
+              
+              {/* Other pages */}
+              {navPages.filter(p => !p.isHomepage).length > 0 && (
+                <>
+                  <li className="portfolio-nav-menu-divider" role="separator" />
+                  {navPages.filter(p => !p.isHomepage).map(page => (
+                    <li key={page.id} role="none">
+                      <Link
+                        href={getPageHref(page)}
+                        className={`portfolio-nav-menu-link ${isPageActive(page) ? 'portfolio-nav-menu-link--active' : ''}`}
+                        role="menuitem"
+                        aria-current={isPageActive(page) ? 'page' : undefined}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {page.title}
+                      </Link>
+                    </li>
+                  ))}
+                </>
+              )}
             </ul>
           </div>
         </>,

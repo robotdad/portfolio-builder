@@ -22,6 +22,14 @@ export async function GET(
             portfolioId: true,
           },
         },
+        featuredImage: {
+          select: {
+            id: true,
+            url: true,
+            thumbnailUrl: true,
+            altText: true,
+          },
+        },
       },
     })
 
@@ -71,7 +79,7 @@ export async function PUT(
       )
     }
 
-    const { categoryId, title, year, venue, role, draftContent, isFeatured, order } = validation.data
+    const { categoryId, title, year, venue, role, draftContent, isFeatured, order, featuredImageId } = validation.data
     const updateData: Record<string, unknown> = {}
 
     // Handle category change (moving project)
@@ -127,6 +135,7 @@ export async function PUT(
     if (draftContent !== undefined) updateData.draftContent = draftContent
     if (isFeatured !== undefined) updateData.isFeatured = isFeatured
     if (order !== undefined) updateData.order = order
+    if (featuredImageId !== undefined) updateData.featuredImageId = featuredImageId
 
     const project = await prisma.project.update({
       where: { id },
@@ -137,6 +146,15 @@ export async function PUT(
             id: true,
             name: true,
             slug: true,
+            portfolioId: true,
+          },
+        },
+        featuredImage: {
+          select: {
+            id: true,
+            url: true,
+            thumbnailUrl: true,
+            altText: true,
           },
         },
       },

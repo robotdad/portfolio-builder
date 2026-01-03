@@ -3,8 +3,9 @@ import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
 import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
 import { Navigation, type NavPage } from '@/components/portfolio/Navigation'
+import { FeaturedWork } from '@/components/portfolio/FeaturedWork'
 import { deserializeSections } from '@/lib/serialization'
-import { isHeroSection } from '@/lib/content-schema'
+import { isHeroSection, isGallerySection } from '@/lib/content-schema'
 import type { Metadata } from 'next'
 
 interface PageProps {
@@ -50,6 +51,28 @@ export default async function PortfolioPage({ params }: PageProps) {
       pages: {
         orderBy: { navOrder: 'asc' },
       },
+      categories: {
+        orderBy: { order: 'asc' },
+        include: {
+          projects: {
+            where: {
+              isFeatured: true,
+              publishedContent: { not: null },
+            },
+            orderBy: { order: 'asc' },
+            include: {
+              featuredImage: {
+                select: {
+                  id: true,
+                  url: true,
+                  thumbnailUrl: true,
+                  altText: true,
+                },
+              },
+            },
+          },
+        },
+      },
     },
   })
 
@@ -79,22 +102,74 @@ export default async function PortfolioPage({ params }: PageProps) {
       showInNav: p.showInNav,
     }))
 
+  // Prepare categories for navigation
+  const navCategories = portfolio.categories.map(c => ({
+    id: c.id,
+    name: c.name,
+    slug: c.slug,
+  }))
+
+  // Collect featured projects from all categories
+  const featuredProjects = portfolio.categories.flatMap(category => 
+    category.projects.map(project => {
+      // Prefer explicit featuredImage, fallback to first gallery image
+      let featuredImageUrl: string | null = null
+      let featuredImageAlt: string = project.title
+      
+      if (project.featuredImage) {
+        featuredImageUrl = project.featuredImage.url
+        featuredImageAlt = project.featuredImage.altText || project.title
+      } else {
+        // Fallback: extract from gallery section in publishedContent
+        const projectSections = deserializeSections(project.publishedContent)
+        const gallerySection = projectSections.find(isGallerySection)
+        const firstImage = gallerySection?.images?.[0]
+        if (firstImage) {
+          featuredImageUrl = firstImage.imageUrl
+          featuredImageAlt = firstImage.altText || project.title
+        }
+      }
+      
+      return {
+        id: project.id,
+        slug: project.slug,
+        title: project.title,
+        venue: project.venue,
+        year: project.year,
+        order: project.order,
+        featuredImageUrl,
+        featuredImageAlt,
+        categorySlug: category.slug,
+        categoryName: category.name,
+      }
+    })
+  ).sort((a, b) => a.order - b.order).slice(0, 6)
+
   const theme = portfolio.publishedTheme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 
   // Section-based rendering with navigation
   return (
     <div className="portfolio-page" data-theme={portfolio.publishedTheme}>
-      {navPages.length > 1 && (
+      {(navPages.length > 1 || navCategories.length > 0) && (
         <Navigation
           portfolioSlug={portfolio.slug}
           portfolioName={name}
           pages={navPages}
+          categories={navCategories}
           theme={theme}
         />
       )}
       <main className="portfolio-main">
         <div className="container">
           <SectionRenderer sections={sections} />
+          
+          {/* Featured Work Section */}
+          {featuredProjects.length > 0 && (
+            <FeaturedWork
+              portfolioSlug={portfolio.slug}
+              projects={featuredProjects}
+            />
+          )}
         </div>
       </main>
 

@@ -305,53 +305,53 @@ export function ProjectCard({
 
   return (
     <article
-      className={`project-card ${isDragging ? 'project-card--dragging' : ''}`}
+      className={`admin-project-card ${isDragging ? 'admin-project-card--dragging' : ''}`}
       aria-label={`Project: ${project.title}`}
     >
       {/* Featured Image */}
-      <div className="project-card-image">
+      <div className="admin-project-card-image">
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={project.featuredImage?.altText || `Featured image for ${project.title}`}
-            className="project-card-img"
+            className="admin-project-card-img"
             loading="lazy"
           />
         ) : (
-          <div className="project-card-placeholder">
+          <div className="admin-project-card-placeholder">
             <CameraIcon />
           </div>
         )}
 
         {/* Year Badge */}
         {project.year && (
-          <span className="project-card-year">{project.year}</span>
+          <span className="admin-project-card-year">{project.year}</span>
         )}
       </div>
 
       {/* Content */}
-      <div className="project-card-content">
-        <div className="project-card-info">
-          <h3 className="project-card-title">{project.title}</h3>
+      <div className="admin-project-card-content">
+        <div className="admin-project-card-info">
+          <h3 className="admin-project-card-title">{project.title}</h3>
           {project.venue && (
-            <p className="project-card-venue">{project.venue}</p>
+            <p className="admin-project-card-venue">{project.venue}</p>
           )}
         </div>
 
         {/* Actions - visible on mobile, hover on desktop */}
-        <div className="project-card-actions">
+        <div className="admin-project-card-actions">
           <Link
             href={`/admin/projects/${project.id}`}
-            className="project-card-btn"
+            className="admin-project-card-btn"
             aria-label={`Edit ${project.title}`}
           >
             <EditIcon />
           </Link>
-          <div className="project-card-menu-wrapper">
+          <div className="admin-project-card-menu-wrapper">
             <button
               ref={moreButtonRef}
               type="button"
-              className="project-card-btn"
+              className="admin-project-card-btn"
               onClick={handleToggleMenu}
               aria-label={`More actions for ${project.title}`}
               aria-expanded={isMenuOpen}
@@ -370,34 +370,34 @@ export function ProjectCard({
       </div>
 
       <style jsx>{`
-        .project-card {
+        .admin-project-card {
           position: relative;
           display: flex;
           flex-direction: column;
-          background: var(--color-bg, #ffffff);
+          background: #ffffff;
           border: 1px solid var(--color-border, #e5e7eb);
           border-radius: 12px;
-          overflow: hidden;
+          overflow: visible;
           transition: box-shadow 200ms ease, transform 200ms ease, opacity 200ms ease;
         }
 
-        .project-card:hover {
+        .admin-project-card:hover {
           box-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.08),
             0 2px 4px hsla(0, 0%, 0%, 0.04);
         }
 
-        .project-card:focus-within {
+        .admin-project-card:focus-within {
           box-shadow: 0 0 0 2px var(--color-accent, #3b82f6);
         }
 
-        .project-card--dragging {
+        .admin-project-card--dragging {
           opacity: 0.5;
           transform: scale(1.02);
           box-shadow: 0 8px 24px hsla(0, 0%, 0%, 0.15);
         }
 
         /* Image container with 16:9 aspect ratio */
-        .project-card-image {
+        .admin-project-card-image {
           position: relative;
           width: 100%;
           padding-top: 56.25%; /* 16:9 aspect ratio */
@@ -405,7 +405,7 @@ export function ProjectCard({
           overflow: hidden;
         }
 
-        .project-card-img {
+        .admin-project-card-img {
           position: absolute;
           top: 0;
           left: 0;
@@ -415,11 +415,11 @@ export function ProjectCard({
           transition: transform 200ms ease;
         }
 
-        .project-card:hover .project-card-img {
+        .admin-project-card:hover .admin-project-card-img {
           transform: scale(1.03);
         }
 
-        .project-card-placeholder {
+        .admin-project-card-placeholder {
           position: absolute;
           top: 0;
           left: 0;
@@ -432,7 +432,7 @@ export function ProjectCard({
         }
 
         /* Year badge */
-        .project-card-year {
+        .admin-project-card-year {
           position: absolute;
           top: 10px;
           right: 10px;
@@ -446,7 +446,7 @@ export function ProjectCard({
         }
 
         /* Content area */
-        .project-card-content {
+        .admin-project-card-content {
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
@@ -454,26 +454,26 @@ export function ProjectCard({
           padding: 14px;
         }
 
-        .project-card-info {
+        .admin-project-card-info {
           flex: 1;
           min-width: 0; /* Allow text truncation */
         }
 
-        .project-card-title {
+        .admin-project-card-title {
           margin: 0;
           font-size: 15px;
           font-weight: 600;
-          color: var(--color-text, #1f2937);
+          color: #1f2937;
           line-height: 1.3;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
 
-        .project-card-venue {
+        .admin-project-card-venue {
           margin: 4px 0 0 0;
           font-size: 13px;
-          color: var(--color-text-muted, #6b7280);
+          color: #6b7280;
           line-height: 1.3;
           white-space: nowrap;
           overflow: hidden;
@@ -481,7 +481,7 @@ export function ProjectCard({
         }
 
         /* Action buttons */
-        .project-card-actions {
+        .admin-project-card-actions {
           display: flex;
           align-items: center;
           gap: 4px;
@@ -493,21 +493,21 @@ export function ProjectCard({
 
         /* Hide on desktop until hover */
         @media (min-width: 640px) {
-          .project-card-actions {
+          .admin-project-card-actions {
             opacity: 0;
           }
 
-          .project-card:hover .project-card-actions,
-          .project-card:focus-within .project-card-actions {
+          .admin-project-card:hover .admin-project-card-actions,
+          .admin-project-card:focus-within .admin-project-card-actions {
             opacity: 1;
           }
         }
 
-        .project-card-menu-wrapper {
+        .admin-project-card-menu-wrapper {
           position: relative;
         }
 
-        .project-card-btn {
+        .admin-project-card-btn {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -522,39 +522,39 @@ export function ProjectCard({
           transition: background-color 150ms ease, color 150ms ease;
         }
 
-        .project-card-btn:hover {
+        .admin-project-card-btn:hover {
           background: var(--color-surface-hover, hsla(0, 0%, 0%, 0.04));
           color: var(--color-text, #1f2937);
         }
 
-        .project-card-btn:focus {
+        .admin-project-card-btn:focus {
           outline: none;
         }
 
-        .project-card-btn:focus-visible {
+        .admin-project-card-btn:focus-visible {
           outline: 2px solid var(--color-accent, #3b82f6);
           outline-offset: -2px;
           background: var(--color-surface-hover, hsla(0, 0%, 0%, 0.04));
         }
 
-        .project-card-btn:active {
+        .admin-project-card-btn:active {
           background: var(--color-surface-active, hsla(0, 0%, 0%, 0.08));
         }
 
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
-          .project-card,
-          .project-card-img,
-          .project-card-btn,
-          .project-card-actions {
+          .admin-project-card,
+          .admin-project-card-img,
+          .admin-project-card-btn,
+          .admin-project-card-actions {
             transition: none;
           }
 
-          .project-card:hover .project-card-img {
+          .admin-project-card:hover .admin-project-card-img {
             transform: none;
           }
 
-          .project-card--dragging {
+          .admin-project-card--dragging {
             transform: none;
           }
         }

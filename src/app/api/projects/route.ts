@@ -38,6 +38,14 @@ export async function GET(request: NextRequest) {
             slug: true,
           },
         },
+        featuredImage: {
+          select: {
+            id: true,
+            url: true,
+            thumbnailUrl: true,
+            altText: true,
+          },
+        },
       },
       orderBy: { order: 'asc' },
     })

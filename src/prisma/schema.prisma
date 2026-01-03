@@ -77,6 +77,7 @@ model Asset {
   // Reverse relations for featured images
   categoriesFeatured Category[] @relation("CategoryFeaturedImage")
   profilePortfolio Portfolio? @relation("ProfilePhoto")
+  projectsFeatured  Project[] @relation("ProjectFeaturedImage")
 }
 
 model Category {
@@ -120,6 +121,9 @@ model Project {
   role String?
   order Int @default(0)
   isFeatured Boolean @default(false)
+
+  featuredImageId String?
+  featuredImage   Asset?   @relation("ProjectFeaturedImage", fields: [featuredImageId], references: [id], onDelete: SetNull)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
