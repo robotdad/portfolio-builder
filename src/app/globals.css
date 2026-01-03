@@ -136,6 +136,29 @@
   --admin-primary-hover: hsl(220, 90%, 48%);
   --admin-error: hsl(0, 72%, 51%);
   --admin-success: hsl(142, 71%, 45%);
+
+  /* Admin Layout - Sidebar Navigation
+     -------------------------------------------------------------------------- */
+  --admin-sidebar-width: 240px;
+  --admin-header-height: 64px;
+  --admin-header-height-mobile: 56px;
+  --admin-content-max-width: 1200px;
+  --admin-content-padding: var(--space-6);
+  --admin-content-padding-mobile: var(--space-4);
+  
+  /* Admin Layout Z-index */
+  --z-admin-sidebar: 100;
+  --z-admin-header: 110;
+  --z-admin-skip-link: 120;
+  
+  /* Admin Sidebar Colors */
+  --admin-sidebar-bg: var(--admin-bg-secondary);
+  --admin-sidebar-border: var(--admin-border);
+  --admin-header-bg: var(--admin-bg);
+  --admin-header-border: var(--admin-border);
+  --admin-nav-item-hover: var(--admin-bg-tertiary);
+  --admin-nav-item-active-bg: hsl(220, 90%, 96%);
+  --admin-nav-item-active-border: var(--admin-primary);
 }
 
 /* ==========================================================================
