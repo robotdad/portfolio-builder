@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import { HomeBadge } from './HomeBadge'
 
 export interface PageNavSectionProps {
   pages: Array<{
@@ -97,7 +98,7 @@ export function PageNavSection({ pages, currentPath, onNavigate }: PageNavSectio
                 >
                   <span className="page-title">{page.title}</span>
                   {page.isHomepage && (
-                    <span className="homepage-badge" aria-label="Homepage">★</span>
+                    <HomeBadge compact />
                   )}
                 </Link>
               </div>
@@ -217,12 +218,6 @@ export function PageNavSection({ pages, currentPath, onNavigate }: PageNavSectio
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-        }
-        
-        .homepage-badge {
-          flex-shrink: 0;
-          color: var(--admin-primary);
-          font-size: var(--font-size-sm);
         }
         
         /* Reduced motion support */

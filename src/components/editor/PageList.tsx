@@ -314,6 +314,9 @@ export function PageSettingsModal({
               />
               <span>Set as homepage</span>
             </label>
+            <p className="form-hint">
+              The homepage is displayed when visitors access your portfolio root URL.
+            </p>
           </div>
 
           <div className="form-group">
@@ -326,6 +329,21 @@ export function PageSettingsModal({
               />
               <span>Show in navigation</span>
             </label>
+          </div>
+
+          <div className="routing-info">
+            <svg className="info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            <p>
+              {isHomepage ? (
+                <>This page will be your homepage, accessible at <code>/your-portfolio/</code></>
+              ) : (
+                <>This page will publish to <code>/your-portfolio/{slug || 'page-slug'}</code></>
+              )}
+            </p>
           </div>
 
           {error && (
@@ -343,6 +361,40 @@ export function PageSettingsModal({
             </button>
           </div>
         </form>
+
+        <style jsx>{`
+          .routing-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 12px;
+            background: hsl(210, 100%, 97%);
+            border: 1px solid hsl(210, 100%, 85%);
+            border-radius: 6px;
+            margin-top: 16px;
+          }
+
+          .routing-info :global(.info-icon) {
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: hsl(210, 100%, 45%);
+          }
+
+          .routing-info p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--admin-text, #374151);
+            line-height: 1.5;
+          }
+
+          .routing-info code {
+            padding: 2px 6px;
+            background: hsl(210, 20%, 95%);
+            border-radius: 3px;
+            font-family: ui-monospace, monospace;
+            font-size: 13px;
+          }
+        `}</style>
       </div>
     </div>
   )

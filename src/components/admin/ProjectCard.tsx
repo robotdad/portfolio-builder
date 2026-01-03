@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { type Project, type FeaturedImage } from '@/hooks/useProjects'
 
@@ -17,45 +16,6 @@ interface ProjectCardProps {
 // ============================================================================
 // Icons
 // ============================================================================
-
-function EditIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-      <path d="m15 5 4 4" />
-    </svg>
-  )
-}
-
-function MoreIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="1" />
-      <circle cx="19" cy="12" r="1" />
-      <circle cx="5" cy="12" r="1" />
-    </svg>
-  )
-}
 
 function CameraIcon() {
   return (
@@ -79,8 +39,8 @@ function CameraIcon() {
 function TrashIcon() {
   return (
     <svg
-      width="16"
-      height="16"
+      width="14"
+      height="14"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -99,188 +59,6 @@ function TrashIcon() {
 }
 
 // ============================================================================
-// DropdownMenu Component
-// ============================================================================
-
-interface DropdownMenuProps {
-  isOpen: boolean
-  onClose: () => void
-  onDelete: () => void
-  triggerRef: React.RefObject<HTMLButtonElement | null>
-}
-
-function DropdownMenu({
-  isOpen,
-  onClose,
-  onDelete,
-  triggerRef,
-}: DropdownMenuProps) {
-  const menuRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState<{ top: number; right: number }>({ top: 0, right: 0 })
-
-  // Calculate position relative to trigger
-  useEffect(() => {
-    if (isOpen && triggerRef.current) {
-      const rect = triggerRef.current.getBoundingClientRect()
-      
-      // Position below the button, aligned to the right
-      setPosition({
-        top: rect.height + 4,
-        right: 0,
-      })
-    }
-  }, [isOpen, triggerRef])
-
-  // Handle click outside
-  useEffect(() => {
-    if (!isOpen) return
-
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(target) &&
-        triggerRef.current &&
-        !triggerRef.current.contains(target)
-      ) {
-        onClose()
-      }
-    }
-
-    // Use mousedown for immediate response
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [isOpen, onClose, triggerRef])
-
-  // Handle escape key
-  useEffect(() => {
-    if (!isOpen) return
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault()
-        onClose()
-        triggerRef.current?.focus()
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, onClose, triggerRef])
-
-  // Handle menu item selection
-  const handleDelete = () => {
-    onDelete()
-    onClose()
-  }
-
-  if (!isOpen) return null
-
-  return (
-    <div
-      ref={menuRef}
-      role="menu"
-      aria-label="Project actions"
-      className="dropdown-menu"
-      style={{ top: position.top, right: position.right }}
-    >
-      <button
-        type="button"
-        role="menuitem"
-        className="dropdown-item dropdown-item--destructive"
-        onClick={handleDelete}
-        tabIndex={0}
-      >
-        <span className="dropdown-item-icon">
-          <TrashIcon />
-        </span>
-        Delete
-      </button>
-
-      <style jsx>{`
-        .dropdown-menu {
-          position: absolute;
-          z-index: 50;
-          min-width: 140px;
-          background: var(--color-bg, #ffffff);
-          border: 1px solid var(--color-border, #e5e7eb);
-          border-radius: 8px;
-          box-shadow: 0 4px 16px hsla(0, 0%, 0%, 0.12),
-            0 2px 4px hsla(0, 0%, 0%, 0.08);
-          padding: 4px 0;
-          animation: dropdown-enter 150ms ease-out;
-        }
-
-        @keyframes dropdown-enter {
-          from {
-            opacity: 0;
-            transform: scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        .dropdown-item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          width: 100%;
-          min-height: 44px;
-          padding: 10px 14px;
-          background: none;
-          border: none;
-          text-align: left;
-          font-size: 14px;
-          font-weight: 500;
-          color: var(--color-text, #1f2937);
-          cursor: pointer;
-          transition: background-color 150ms ease;
-        }
-
-        .dropdown-item:hover {
-          background-color: var(--color-surface-hover, hsla(0, 0%, 0%, 0.04));
-        }
-
-        .dropdown-item:focus {
-          outline: none;
-          background-color: var(--color-surface-hover, hsla(0, 0%, 0%, 0.04));
-        }
-
-        .dropdown-item:focus-visible {
-          outline: 2px solid var(--color-accent, #3b82f6);
-          outline-offset: -2px;
-        }
-
-        .dropdown-item--destructive {
-          color: var(--color-error, #ef4444);
-        }
-
-        .dropdown-item--destructive:hover {
-          background-color: hsla(0, 84%, 60%, 0.08);
-        }
-
-        .dropdown-item-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 16px;
-          height: 16px;
-          flex-shrink: 0;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .dropdown-menu {
-            animation: none;
-          }
-        }
-      `}</style>
-    </div>
-  )
-}
-
-// ============================================================================
 // ProjectCard Component
 // ============================================================================
 
@@ -289,24 +67,20 @@ export function ProjectCard({
   onDelete,
   isDragging = false,
 }: ProjectCardProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const moreButtonRef = useRef<HTMLButtonElement>(null)
-
-  const handleToggleMenu = useCallback(() => {
-    setIsMenuOpen(prev => !prev)
-  }, [])
-
-  const handleCloseMenu = useCallback(() => {
-    setIsMenuOpen(false)
-  }, [])
-
   // Get image URL (prefer thumbnail for card display)
   const imageUrl = project.featuredImage?.thumbnailUrl || project.featuredImage?.url
 
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    onDelete()
+  }
+
   return (
-    <article
+    <Link
+      href={`/admin/projects/${project.id}`}
       className={`admin-project-card ${isDragging ? 'admin-project-card--dragging' : ''}`}
-      aria-label={`Project: ${project.title}`}
+      aria-label={`Edit project: ${project.title}`}
     >
       {/* Featured Image */}
       <div className="admin-project-card-image">
@@ -327,6 +101,16 @@ export function ProjectCard({
         {project.year && (
           <span className="admin-project-card-year">{project.year}</span>
         )}
+
+        {/* Delete Button */}
+        <button
+          type="button"
+          className="admin-project-card-delete"
+          onClick={handleDelete}
+          aria-label={`Delete ${project.title}`}
+        >
+          <TrashIcon />
+        </button>
       </div>
 
       {/* Content */}
@@ -336,36 +120,6 @@ export function ProjectCard({
           {project.venue && (
             <p className="admin-project-card-venue">{project.venue}</p>
           )}
-        </div>
-
-        {/* Actions - visible on mobile, hover on desktop */}
-        <div className="admin-project-card-actions">
-          <Link
-            href={`/admin/projects/${project.id}`}
-            className="admin-project-card-btn"
-            aria-label={`Edit ${project.title}`}
-          >
-            <EditIcon />
-          </Link>
-          <div className="admin-project-card-menu-wrapper">
-            <button
-              ref={moreButtonRef}
-              type="button"
-              className="admin-project-card-btn"
-              onClick={handleToggleMenu}
-              aria-label={`More actions for ${project.title}`}
-              aria-expanded={isMenuOpen}
-              aria-haspopup="menu"
-            >
-              <MoreIcon />
-            </button>
-            <DropdownMenu
-              isOpen={isMenuOpen}
-              onClose={handleCloseMenu}
-              onDelete={onDelete}
-              triggerRef={moreButtonRef}
-            />
-          </div>
         </div>
       </div>
 
@@ -377,8 +131,10 @@ export function ProjectCard({
           background: #ffffff;
           border: 1px solid var(--color-border, #e5e7eb);
           border-radius: 12px;
-          overflow: visible;
+          overflow: hidden;
           transition: box-shadow 200ms ease, transform 200ms ease, opacity 200ms ease;
+          text-decoration: none;
+          color: inherit;
         }
 
         .admin-project-card:hover {
@@ -386,7 +142,11 @@ export function ProjectCard({
             0 2px 4px hsla(0, 0%, 0%, 0.04);
         }
 
-        .admin-project-card:focus-within {
+        .admin-project-card:focus {
+          outline: none;
+        }
+
+        .admin-project-card:focus-visible {
           box-shadow: 0 0 0 2px var(--color-accent, #3b82f6);
         }
 
@@ -435,7 +195,7 @@ export function ProjectCard({
         .admin-project-card-year {
           position: absolute;
           top: 10px;
-          right: 10px;
+          left: 10px;
           padding: 4px 10px;
           background: hsla(0, 0%, 0%, 0.6);
           color: #ffffff;
@@ -443,6 +203,58 @@ export function ProjectCard({
           font-weight: 600;
           border-radius: 4px;
           backdrop-filter: blur(4px);
+        }
+
+        /* Delete button */
+        .admin-project-card-delete {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          padding: 0;
+          background: hsla(0, 84%, 60%, 0.9);
+          border: none;
+          border-radius: 50%;
+          color: #ffffff;
+          cursor: pointer;
+          transition: background-color 150ms ease, opacity 150ms ease, transform 150ms ease;
+          /* Always visible on mobile */
+          opacity: 1;
+        }
+
+        .admin-project-card-delete:hover {
+          background: hsla(0, 84%, 50%, 1);
+          transform: scale(1.1);
+        }
+
+        .admin-project-card-delete:focus {
+          outline: none;
+        }
+
+        .admin-project-card-delete:focus-visible {
+          outline: 2px solid #ffffff;
+          outline-offset: 2px;
+          box-shadow: 0 0 0 4px hsla(0, 84%, 60%, 0.5);
+        }
+
+        .admin-project-card-delete:active {
+          transform: scale(0.95);
+        }
+
+        /* Hide on desktop until hover */
+        @media (min-width: 640px) {
+          .admin-project-card-delete {
+            opacity: 0;
+          }
+
+          .admin-project-card:hover .admin-project-card-delete,
+          .admin-project-card:focus-within .admin-project-card-delete {
+            opacity: 1;
+          }
         }
 
         /* Content area */
@@ -480,77 +292,20 @@ export function ProjectCard({
           text-overflow: ellipsis;
         }
 
-        /* Action buttons */
-        .admin-project-card-actions {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          flex-shrink: 0;
-          /* Always visible on mobile */
-          opacity: 1;
-          transition: opacity 150ms ease;
-        }
-
-        /* Hide on desktop until hover */
-        @media (min-width: 640px) {
-          .admin-project-card-actions {
-            opacity: 0;
-          }
-
-          .admin-project-card:hover .admin-project-card-actions,
-          .admin-project-card:focus-within .admin-project-card-actions {
-            opacity: 1;
-          }
-        }
-
-        .admin-project-card-menu-wrapper {
-          position: relative;
-        }
-
-        .admin-project-card-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 36px;
-          height: 36px;
-          padding: 0;
-          background: transparent;
-          border: none;
-          border-radius: 8px;
-          color: var(--color-text-muted, #6b7280);
-          cursor: pointer;
-          transition: background-color 150ms ease, color 150ms ease;
-        }
-
-        .admin-project-card-btn:hover {
-          background: var(--color-surface-hover, hsla(0, 0%, 0%, 0.04));
-          color: var(--color-text, #1f2937);
-        }
-
-        .admin-project-card-btn:focus {
-          outline: none;
-        }
-
-        .admin-project-card-btn:focus-visible {
-          outline: 2px solid var(--color-accent, #3b82f6);
-          outline-offset: -2px;
-          background: var(--color-surface-hover, hsla(0, 0%, 0%, 0.04));
-        }
-
-        .admin-project-card-btn:active {
-          background: var(--color-surface-active, hsla(0, 0%, 0%, 0.08));
-        }
-
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
           .admin-project-card,
           .admin-project-card-img,
-          .admin-project-card-btn,
-          .admin-project-card-actions {
+          .admin-project-card-delete {
             transition: none;
           }
 
           .admin-project-card:hover .admin-project-card-img {
+            transform: none;
+          }
+
+          .admin-project-card-delete:hover,
+          .admin-project-card-delete:active {
             transform: none;
           }
 
@@ -559,7 +314,7 @@ export function ProjectCard({
           }
         }
       `}</style>
-    </article>
+    </Link>
   )
 }
 

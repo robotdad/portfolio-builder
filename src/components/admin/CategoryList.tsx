@@ -17,11 +17,9 @@ import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
-  rectSortingStrategy,
-  useSortable,
+  verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { CSS } from '@dnd-kit/utilities'
-import { CategoryCard } from './CategoryCard'
+import { CategoryListItem } from './CategoryListItem'
 import { type Category } from '@/hooks/useCategories'
 
 // ============================================================================
@@ -80,102 +78,47 @@ function FolderIcon() {
   )
 }
 
-// ============================================================================
-// SortableItem Component
-// ============================================================================
-
-interface SortableItemProps {
-  id: string
-  category: Category
-  onEdit: () => void
-  onDelete: () => void
-  onViewProjects: () => void
-  disabled: boolean
-}
-
-function SortableItem({ id, category, onEdit, onDelete, onViewProjects, disabled }: SortableItemProps) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id, disabled })
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-    zIndex: isDragging ? 10 : 'auto',
-  } as React.CSSProperties
-
+function DragHandleIcon() {
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className={`sortable-item ${isDragging ? 'sortable-item--dragging' : ''}`}
-      {...attributes}
-      {...listeners}
-    >
-      <CategoryCard
-        category={category}
-        onEdit={onEdit}
-        onDelete={onDelete}
-        onViewProjects={onViewProjects}
-        isDragging={isDragging}
-      />
-
-      <style jsx>{`
-        .sortable-item {
-          touch-action: none;
-          cursor: grab;
-        }
-
-        .sortable-item:active {
-          cursor: grabbing;
-        }
-
-        .sortable-item--dragging {
-          z-index: 10;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .sortable-item {
-            transition: none !important;
-          }
-        }
-      `}</style>
-    </div>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <circle cx="6" cy="4" r="1" fill="currentColor" />
+      <circle cx="10" cy="4" r="1" fill="currentColor" />
+      <circle cx="6" cy="8" r="1" fill="currentColor" />
+      <circle cx="10" cy="8" r="1" fill="currentColor" />
+      <circle cx="6" cy="12" r="1" fill="currentColor" />
+      <circle cx="10" cy="12" r="1" fill="currentColor" />
+    </svg>
   )
 }
 
 // ============================================================================
-// SkeletonCard Component
+// SkeletonListItem Component
 // ============================================================================
 
-function SkeletonCard() {
+function SkeletonListItem() {
   return (
-    <div className="skeleton-card" aria-hidden="true">
-      <div className="skeleton-image" />
+    <div className="skeleton-list-item" aria-hidden="true">
+      <div className="skeleton-drag-handle" />
+      <div className="skeleton-thumbnail" />
       <div className="skeleton-content">
         <div className="skeleton-title" />
         <div className="skeleton-count" />
       </div>
 
       <style jsx>{`
-        .skeleton-card {
+        .skeleton-list-item {
           display: flex;
-          flex-direction: column;
+          align-items: center;
+          gap: var(--space-3, 12px);
+          padding: var(--space-3, 12px) var(--space-4, 16px);
           background: var(--color-bg, #ffffff);
           border: 1px solid var(--color-border, #e5e7eb);
-          border-radius: 12px;
-          overflow: hidden;
+          border-radius: var(--radius-lg, 8px);
         }
 
-        .skeleton-image {
-          width: 100%;
-          padding-top: 56.25%; /* 16:9 aspect ratio */
+        .skeleton-drag-handle {
+          width: 24px;
+          height: 44px;
           background: linear-gradient(
             90deg,
             var(--color-surface-secondary, #f3f4f6) 25%,
@@ -183,16 +126,35 @@ function SkeletonCard() {
             var(--color-surface-secondary, #f3f4f6) 75%
           );
           background-size: 200% 100%;
+          border-radius: 4px;
           animation: shimmer 1.5s infinite;
         }
 
+        .skeleton-thumbnail {
+          width: 64px;
+          height: 64px;
+          background: linear-gradient(
+            90deg,
+            var(--color-surface-secondary, #f3f4f6) 25%,
+            var(--color-surface-tertiary, #e5e7eb) 50%,
+            var(--color-surface-secondary, #f3f4f6) 75%
+          );
+          background-size: 200% 100%;
+          border-radius: var(--radius-md, 6px);
+          animation: shimmer 1.5s infinite;
+          flex-shrink: 0;
+        }
+
         .skeleton-content {
-          padding: 12px 14px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-1, 4px);
         }
 
         .skeleton-title {
           height: 18px;
-          width: 70%;
+          width: 40%;
           background: linear-gradient(
             90deg,
             var(--color-surface-secondary, #f3f4f6) 25%,
@@ -206,8 +168,7 @@ function SkeletonCard() {
 
         .skeleton-count {
           height: 14px;
-          width: 40%;
-          margin-top: 6px;
+          width: 20%;
           background: linear-gradient(
             90deg,
             var(--color-surface-secondary, #f3f4f6) 25%,
@@ -229,7 +190,8 @@ function SkeletonCard() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .skeleton-image,
+          .skeleton-drag-handle,
+          .skeleton-thumbnail,
           .skeleton-title,
           .skeleton-count {
             animation: none;
@@ -242,98 +204,111 @@ function SkeletonCard() {
 }
 
 // ============================================================================
-// AddCategoryCard Component
+// DragOverlayItem Component (static version for drag overlay)
 // ============================================================================
 
-interface AddCategoryCardProps {
-  onClick: () => void
+interface DragOverlayItemProps {
+  category: Category
 }
 
-function AddCategoryCard({ onClick }: AddCategoryCardProps) {
+function DragOverlayItem({ category }: DragOverlayItemProps) {
+  const projectCountText = category._count.projects === 1
+    ? '1 project'
+    : `${category._count.projects} projects`
+
+  const imageUrl = category.featuredImage?.thumbnailUrl || category.featuredImage?.url
+
   return (
-    <button
-      type="button"
-      className="add-category-card"
-      onClick={onClick}
-      aria-label="Add new category"
-    >
-      <div className="add-category-icon">
-        <PlusIcon />
+    <div className="drag-overlay-item">
+      <div className="drag-overlay-item-handle">
+        <DragHandleIcon />
       </div>
-      <span className="add-category-text">Add Category</span>
+      <div className="drag-overlay-item-thumbnail">
+        {imageUrl ? (
+          <img src={imageUrl} alt="" />
+        ) : (
+          <div className="drag-overlay-item-placeholder">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+            </svg>
+          </div>
+        )}
+      </div>
+      <div className="drag-overlay-item-info">
+        <h3 className="drag-overlay-item-name">{category.name}</h3>
+        <span className="drag-overlay-item-count">{projectCountText}</span>
+      </div>
 
       <style jsx>{`
-        .add-category-card {
+        .drag-overlay-item {
+          display: flex;
+          align-items: center;
+          gap: var(--space-3, 12px);
+          padding: var(--space-3, 12px) var(--space-4, 16px);
+          background: var(--admin-bg, white);
+          border: 1px solid var(--admin-border, #e5e7eb);
+          border-radius: var(--radius-lg, 8px);
+          box-shadow: 0 12px 32px hsla(0, 0%, 0%, 0.2), 0 4px 12px hsla(0, 0%, 0%, 0.1);
+          opacity: 0.95;
+          cursor: grabbing;
+        }
+
+        .drag-overlay-item-handle {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 44px;
+          color: var(--admin-text-muted, #6b7280);
+        }
+
+        .drag-overlay-item-thumbnail {
+          width: 64px;
+          height: 64px;
+          border-radius: var(--radius-md, 6px);
+          overflow: hidden;
+          background: var(--admin-bg-secondary, #f3f4f6);
+          flex-shrink: 0;
+        }
+
+        .drag-overlay-item-thumbnail img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .drag-overlay-item-placeholder {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--admin-text-muted, #9ca3af);
+        }
+
+        .drag-overlay-item-info {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          min-height: 180px;
-          background: transparent;
-          border: 2px dashed var(--color-border, #e5e7eb);
-          border-radius: 12px;
-          padding: 24px;
-          cursor: pointer;
-          transition: border-color 200ms ease, background-color 200ms ease;
+          gap: var(--space-1, 4px);
+          min-width: 0;
         }
 
-        .add-category-card:hover {
-          border-color: var(--color-accent, #3b82f6);
-          background-color: var(--color-surface-hover, hsla(217, 91%, 60%, 0.04));
+        .drag-overlay-item-name {
+          margin: 0;
+          font-size: var(--font-size-base, 1rem);
+          font-weight: 600;
+          color: var(--admin-text, #111827);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
-        .add-category-card:focus {
-          outline: none;
-        }
-
-        .add-category-card:focus-visible {
-          outline: 2px solid var(--color-accent, #3b82f6);
-          outline-offset: 2px;
-          border-color: var(--color-accent, #3b82f6);
-        }
-
-        .add-category-card:active {
-          background-color: var(--color-surface-active, hsla(217, 91%, 60%, 0.08));
-        }
-
-        .add-category-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
-          background: var(--color-surface-secondary, #f3f4f6);
-          color: var(--color-text-muted, #6b7280);
-          transition: background-color 200ms ease, color 200ms ease;
-        }
-
-        .add-category-card:hover .add-category-icon {
-          background: var(--color-accent, #3b82f6);
-          color: white;
-        }
-
-        .add-category-text {
-          font-size: 14px;
-          font-weight: 500;
-          color: var(--color-text-muted, #6b7280);
-          transition: color 200ms ease;
-        }
-
-        .add-category-card:hover .add-category-text {
-          color: var(--color-accent, #3b82f6);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .add-category-card,
-          .add-category-icon,
-          .add-category-text {
-            transition: none;
-          }
+        .drag-overlay-item-count {
+          font-size: var(--font-size-sm, 0.875rem);
+          color: var(--admin-text-muted, #6b7280);
         }
       `}</style>
-    </button>
+    </div>
   )
 }
 
@@ -541,10 +516,10 @@ export function CategoryList({
           </button>
         </header>
 
-        <div className="category-grid" aria-busy="true" aria-label="Loading categories">
-          <SkeletonCard />
-          <SkeletonCard />
-          <SkeletonCard />
+        <div className="category-list-grid" aria-busy="true" aria-label="Loading categories">
+          <SkeletonListItem />
+          <SkeletonListItem />
+          <SkeletonListItem />
         </div>
 
         <style jsx>{`
@@ -582,22 +557,10 @@ export function CategoryList({
             opacity: 0.6;
           }
 
-          .category-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-          }
-
-          @media (min-width: 640px) {
-            .category-grid {
-              grid-template-columns: repeat(2, 1fr);
-            }
-          }
-
-          @media (min-width: 1024px) {
-            .category-grid {
-              grid-template-columns: repeat(3, 1fr);
-            }
+          .category-list-grid {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3, 12px);
           }
         `}</style>
       </div>
@@ -672,45 +635,30 @@ export function CategoryList({
       >
         <SortableContext
           items={categories.map((c) => c.id)}
-          strategy={rectSortingStrategy}
+          strategy={verticalListSortingStrategy}
         >
           <div
-            className="category-grid"
+            className="category-list-grid"
             role="list"
             aria-label="Draggable category list"
           >
             {categories.map((category) => (
               <div key={category.id} role="listitem">
-                <SortableItem
-                  id={category.id}
+                <CategoryListItem
                   category={category}
+                  onNavigate={() => onViewProjects(category)}
                   onEdit={() => onEditClick(category)}
                   onDelete={() => onDeleteClick(category)}
-                  onViewProjects={() => onViewProjects(category)}
-                  disabled={isReordering}
                 />
               </div>
             ))}
-
-            {/* Add Category card at the end */}
-            <div role="listitem">
-              <AddCategoryCard onClick={onCreateClick} />
-            </div>
           </div>
         </SortableContext>
 
         {/* Drag overlay for visual feedback */}
         <DragOverlay dropAnimation={null}>
           {activeCategory ? (
-            <div className="drag-overlay">
-              <CategoryCard
-                category={activeCategory}
-                onEdit={() => {}}
-                onDelete={() => {}}
-                onViewProjects={() => {}}
-                isDragging={true}
-              />
-            </div>
+            <DragOverlayItem category={activeCategory} />
           ) : null}
         </DragOverlay>
       </DndContext>
@@ -785,33 +733,10 @@ export function CategoryList({
           cursor: not-allowed;
         }
 
-        .category-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 16px;
-        }
-
-        /* Tablet: 2 columns */
-        @media (min-width: 640px) {
-          .category-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        /* Desktop: 3 columns */
-        @media (min-width: 1024px) {
-          .category-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-
-        .drag-overlay {
-          opacity: 0.9;
-          box-shadow: 0 12px 32px hsla(0, 0%, 0%, 0.2),
-            0 4px 12px hsla(0, 0%, 0%, 0.1);
-          border-radius: 12px;
-          transform: scale(1.02);
-          cursor: grabbing;
+        .category-list-grid {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-3, 12px);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -820,10 +745,6 @@ export function CategoryList({
           }
 
           .category-list-create-btn:active:not(:disabled) {
-            transform: none;
-          }
-
-          .drag-overlay {
             transform: none;
           }
         }
