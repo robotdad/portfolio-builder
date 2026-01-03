@@ -446,6 +446,9 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          font-size: 12px;
+          font-weight: 400;
         }
         
         /* Reduced motion support */
