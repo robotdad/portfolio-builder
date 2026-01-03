@@ -1059,7 +1059,7 @@ When done, confirm all success criteria are met.
 You are improving admin code organization and maintainability for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/25-admin-code-quality.md
+- plans/slices/26-admin-code-quality.md
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
@@ -1096,7 +1096,7 @@ When done, confirm all success criteria are met.
 You are implementing a carousel for featured work on the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/26-featured-carousel.md
+- plans/slices/27-featured-carousel.md
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
@@ -1142,7 +1142,7 @@ When done, confirm all success criteria are met.
 You are implementing professional polish for the published portfolio site.
 
 Read these files to understand your goal:
-- plans/slices/27-public-site-polish.md
+- plans/slices/28-public-site-polish.md
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
@@ -1181,7 +1181,7 @@ When done, confirm all success criteria are met.
 You are implementing template selection for the portfolio builder.
 
 Read these files to understand your goal:
-- plans/slices/28-template-selection.md
+- plans/slices/29-template-selection.md
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
@@ -1225,7 +1225,7 @@ When done, confirm all success criteria are met.
 You are implementing optional About section for portfolio homepages.
 
 Read these files to understand your goal:
-- plans/slices/29-about-section.md
+- plans/slices/30-about-section.md
 - plans/PRINCIPLES.md (design principles)
 - plans/TECH_STACK.md (technology constraints)
 
