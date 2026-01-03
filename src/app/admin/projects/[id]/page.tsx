@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { SectionList } from '@/components/editor/SectionList'
 import { AddSectionButton } from '@/components/editor/AddSectionButton'
+import { Breadcrumb } from '@/components/admin/Breadcrumb'
 import { DraftIndicator, type DraftStatus } from '@/components/admin/DraftIndicator'
 import { PublishButton } from '@/components/admin/PublishButton'
 import { ProjectMetadataSidebar } from '@/components/admin/ProjectMetadataSidebar'
@@ -288,18 +289,11 @@ export default function ProjectEditorPage() {
                 <ArrowLeft className="w-5 h-5 text-gray-600" />
               </Link>
               <div>
-                <nav className="text-sm text-gray-500 mb-0.5">
-                  <Link href="/admin/categories" className="hover:text-gray-700 hover:underline">
-                    Categories
-                  </Link>
-                  {' / '}
-                  <Link
-                    href={`/admin/categories/${project.categoryId}/projects`}
-                    className="hover:text-gray-700 hover:underline"
-                  >
-                    {project.category.name}
-                  </Link>
-                </nav>
+                <Breadcrumb items={[
+                  { label: 'Categories', href: '/admin/categories' },
+                  { label: project.category.name, href: `/admin/categories/${project.categoryId}/projects` },
+                  { label: project.title }
+                ]} />
                 <h1 className="text-lg font-semibold text-gray-900">{project.title}</h1>
               </div>
             </div>

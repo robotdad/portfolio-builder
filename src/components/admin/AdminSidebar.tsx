@@ -1,9 +1,7 @@
 'use client'
 
 import React from 'react'
-import { usePathname } from 'next/navigation'
-import { AdminNavItem } from './AdminNavItem'
-import { adminNavItems } from '@/constants/adminNav'
+import { NavigationTree } from './NavigationTree'
 
 export interface AdminSidebarProps {
   className?: string
@@ -13,44 +11,16 @@ export interface AdminSidebarProps {
  * AdminSidebar - Navigation sidebar for admin interface
  * 
  * Features:
- * - Active state detection from current URL path
- * - Dashboard: exact match only (/admin)
- * - Categories: prefix match (/admin/categories/*)
+ * - Uses NavigationTree for unified navigation content
  * - Semantic nav element with aria-label
  * - Responsive: hidden below 1024px via CSS
  * - Sticky positioning for scroll independence
  */
 export function AdminSidebar({ className = '' }: AdminSidebarProps) {
-  const pathname = usePathname()
-  
-  /**
-   * Determine if a nav item is active based on current path
-   * - Dashboard: exact match only
-   * - Other sections: prefix match (includes child routes)
-   */
-  const isActive = (href: string): boolean => {
-    if (href === '/admin') {
-      return pathname === '/admin'
-    }
-    return pathname.startsWith(href)
-  }
-  
   return (
     <>
       <aside className={`admin-sidebar ${className}`}>
-        <nav aria-label="Admin navigation" className="admin-sidebar-nav">
-          <ul className="admin-sidebar-list">
-            {adminNavItems.map(item => (
-              <AdminNavItem
-                key={item.href}
-                label={item.label}
-                href={item.href}
-                icon={item.icon}
-                isActive={isActive(item.href)}
-              />
-            ))}
-          </ul>
-        </nav>
+        <NavigationTree />
       </aside>
       <style jsx>{`
         .admin-sidebar {
@@ -70,16 +40,6 @@ export function AdminSidebar({ className = '' }: AdminSidebarProps) {
           .admin-sidebar {
             display: block;
           }
-        }
-        
-        .admin-sidebar-nav {
-          padding: var(--space-4) 0;
-        }
-        
-        .admin-sidebar-list {
-          margin: 0;
-          padding: 0;
-          list-style: none;
         }
       `}</style>
     </>

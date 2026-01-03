@@ -1,9 +1,7 @@
 'use client'
 
 import React from 'react'
-import { usePathname } from 'next/navigation'
-import { AdminNavItem } from './AdminNavItem'
-import { adminNavItems } from '@/constants/adminNav'
+import { NavigationTree } from './NavigationTree'
 
 // Close icon for the header
 const CloseIcon = () => (
@@ -31,36 +29,12 @@ export interface MobileNavProps {
  * MobileNav - Navigation content for mobile drawer
  * 
  * Features:
- * - Reuses AdminNavItem component
- * - Same navItems as AdminSidebar
- * - Closes drawer on navigation
  * - Header with "Menu" title and close button
- * - 44px minimum height for nav items
+ * - Uses NavigationTree for unified navigation content
+ * - Closes drawer on navigation via onNavigate prop
+ * - 44px minimum height for touch targets
  */
 export function MobileNav({ onClose }: MobileNavProps) {
-  const pathname = usePathname()
-  
-  /**
-   * Determine if a nav item is active based on current path
-   * - Dashboard: exact match only
-   * - Other sections: prefix match (includes child routes)
-   */
-  const isActive = (href: string): boolean => {
-    if (href === '/admin') {
-      return pathname === '/admin'
-    }
-    return pathname.startsWith(href)
-  }
-  
-  /**
-   * Handle navigation item click
-   * Close the drawer after navigation
-   */
-  const handleNavClick = () => {
-    // Small delay to allow navigation to start before closing
-    setTimeout(onClose, 100)
-  }
-  
   return (
     <>
       <div className="mobile-nav">
@@ -76,19 +50,9 @@ export function MobileNav({ onClose }: MobileNavProps) {
           </button>
         </div>
         
-        <nav aria-label="Admin navigation" className="mobile-nav-content">
-          <ul className="mobile-nav-list" onClick={handleNavClick}>
-            {adminNavItems.map(item => (
-              <AdminNavItem
-                key={item.href}
-                label={item.label}
-                href={item.href}
-                icon={item.icon}
-                isActive={isActive(item.href)}
-              />
-            ))}
-          </ul>
-        </nav>
+        <div className="mobile-nav-content">
+          <NavigationTree onNavigate={onClose} />
+        </div>
       </div>
       <style jsx>{`
         .mobile-nav {
@@ -141,13 +105,6 @@ export function MobileNav({ onClose }: MobileNavProps) {
         .mobile-nav-content {
           flex: 1;
           overflow-y: auto;
-          padding: var(--space-4) 0;
-        }
-        
-        .mobile-nav-list {
-          margin: 0;
-          padding: 0;
-          list-style: none;
         }
       `}</style>
     </>

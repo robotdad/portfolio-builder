@@ -8,6 +8,7 @@ import { ProjectList } from '@/components/admin/ProjectList'
 import { ProjectFormModal } from '@/components/admin/ProjectFormModal'
 import { DeleteProjectModal } from '@/components/admin/DeleteProjectModal'
 import type { ProjectFormData } from '@/components/admin/ProjectForm'
+import { Breadcrumb } from '@/components/admin/Breadcrumb'
 
 // ============================================================================
 // Types
@@ -21,24 +22,6 @@ interface Category {
 // ============================================================================
 // Icons
 // ============================================================================
-
-function ChevronRightIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
-  )
-}
 
 function AlertCircleIcon() {
   return (
@@ -87,44 +70,37 @@ function RefreshIcon() {
 
 function BreadcrumbSkeleton() {
   return (
-    <nav className="breadcrumb" aria-label="Breadcrumb">
-      <ol>
-        <li>
-          <span className="skeleton-text" style={{ width: '80px' }} />
-        </li>
-        <li aria-hidden="true">
-          <ChevronRightIcon />
-        </li>
-        <li>
-          <span className="skeleton-text" style={{ width: '120px' }} />
-        </li>
-        <li aria-hidden="true">
-          <ChevronRightIcon />
-        </li>
-        <li>
-          <span className="skeleton-text" style={{ width: '60px' }} />
-        </li>
-      </ol>
+    <div className="breadcrumb-skeleton" aria-label="Loading breadcrumb">
+      <span className="skeleton-text" style={{ width: '80px' }} />
+      <span className="skeleton-separator" />
+      <span className="skeleton-text" style={{ width: '120px' }} />
+      <span className="skeleton-separator" />
+      <span className="skeleton-text" style={{ width: '60px' }} />
 
       <style jsx>{`
-        .breadcrumb ol {
+        .breadcrumb-skeleton {
           display: flex;
           align-items: center;
           gap: 8px;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          font-size: 14px;
-        }
-
-        .breadcrumb li {
-          display: flex;
-          align-items: center;
-          color: var(--admin-text-muted, #6b7280);
+          margin-bottom: 16px;
         }
 
         .skeleton-text {
           display: inline-block;
+          height: 14px;
+          background: linear-gradient(
+            90deg,
+            var(--color-surface-secondary, #f3f4f6) 25%,
+            var(--color-surface-tertiary, #e5e7eb) 50%,
+            var(--color-surface-secondary, #f3f4f6) 75%
+          );
+          background-size: 200% 100%;
+          border-radius: 4px;
+          animation: shimmer 1.5s infinite;
+        }
+
+        .skeleton-separator {
+          width: 8px;
           height: 14px;
           background: linear-gradient(
             90deg,
@@ -147,13 +123,14 @@ function BreadcrumbSkeleton() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .skeleton-text {
+          .skeleton-text,
+          .skeleton-separator {
             animation: none;
             background: var(--color-surface-secondary, #f3f4f6);
           }
         }
       `}</style>
-    </nav>
+    </div>
   )
 }
 
@@ -391,25 +368,11 @@ export default function ProjectsPage() {
         {categoryLoading ? (
           <BreadcrumbSkeleton />
         ) : (
-          <nav className="breadcrumb" aria-label="Breadcrumb">
-            <ol>
-              <li>
-                <Link href="/admin/categories">Categories</Link>
-              </li>
-              <li aria-hidden="true">
-                <ChevronRightIcon />
-              </li>
-              <li>
-                <span className="category-name">{category?.name || 'Category'}</span>
-              </li>
-              <li aria-hidden="true">
-                <ChevronRightIcon />
-              </li>
-              <li aria-current="page">
-                <span>Projects</span>
-              </li>
-            </ol>
-          </nav>
+          <Breadcrumb items={[
+            { label: 'Categories', href: '/admin/categories' },
+            { label: category?.name || 'Category', href: `/admin/categories/${categoryId}/projects` },
+            { label: 'Projects' }
+          ]} />
         )}
 
         <div className="header-row">
@@ -502,42 +465,6 @@ export default function ProjectsPage() {
           position: sticky;
           top: 0;
           z-index: 100;
-        }
-
-        /* Breadcrumb */
-        .breadcrumb ol {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          list-style: none;
-          margin: 0 0 16px;
-          padding: 0;
-          font-size: 14px;
-        }
-
-        .breadcrumb li {
-          display: flex;
-          align-items: center;
-          color: var(--admin-text-muted, #6b7280);
-        }
-
-        .breadcrumb a {
-          color: var(--color-accent, #3b82f6);
-          text-decoration: none;
-          transition: color 0.15s;
-        }
-
-        .breadcrumb a:hover {
-          text-decoration: underline;
-        }
-
-        .breadcrumb .category-name {
-          color: var(--admin-text, #111827);
-          font-weight: 500;
-        }
-
-        .breadcrumb li[aria-current='page'] span {
-          color: var(--admin-text-muted, #6b7280);
         }
 
         /* Header Row */
@@ -654,12 +581,6 @@ export default function ProjectsPage() {
         @media (max-width: 767px) {
           .page-header {
             padding: 12px 16px 0;
-          }
-
-          .breadcrumb ol {
-            font-size: 13px;
-            gap: 6px;
-            margin-bottom: 12px;
           }
 
           .header-row {
