@@ -7,13 +7,25 @@ import { CategoryLanding } from '@/components/portfolio/CategoryLanding'
 import { ProjectDetail } from '@/components/portfolio/ProjectDetail'
 import { deserializeSections } from '@/lib/serialization'
 import { isHeroSection, isGallerySection } from '@/lib/content-schema'
+import { 
+  FeaturedGridTemplate, 
+  CleanMinimalTemplate, 
+  type TemplateId 
+} from '@/components/portfolio/templates'
 import type { Metadata } from 'next'
+
+// Template component lookup
+const TemplateComponents = {
+  'featured-grid': FeaturedGridTemplate,
+  'clean-minimal': CleanMinimalTemplate,
+} as const
 
 interface PageProps {
   params: Promise<{ 
     portfolioSlug: string
     pageSlug?: string[] 
   }>
+  searchParams: Promise<{ template?: string }>
 }
 
 // Generate metadata for SEO (preview pages shouldn't be indexed)
@@ -35,8 +47,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
  * - /preview/portfolio-slug/category-slug - Preview category landing
  * - /preview/portfolio-slug/category-slug/project-slug - Preview project detail
  */
-export default async function PreviewPage({ params }: PageProps) {
+export default async function PreviewPage({ params, searchParams }: PageProps) {
   const { portfolioSlug, pageSlug } = await params
+  const { template: templateOverride } = await searchParams
   
   // Parse URL segments
   const firstSlug = pageSlug?.[0] || ''
@@ -278,6 +291,7 @@ export default async function PreviewPage({ params }: PageProps) {
           title: p.title,
           venue: p.venue,
           year: p.year,
+          order: p.order,
           featuredImageUrl,
           featuredImageAlt,
           categorySlug: c.slug,
@@ -286,6 +300,28 @@ export default async function PreviewPage({ params }: PageProps) {
       })
   )
 
+  // Allow query param override for preview modal, otherwise use draft
+  const templateId = (templateOverride || portfolio.draftTemplate || 'featured-grid') as TemplateId
+  const Template = TemplateComponents[templateId] || TemplateComponents['featured-grid']
+
+  // Homepage uses template component
+  if (targetPage.isHomepage) {
+    return (
+      <>
+        <PreviewBanner />
+        <Template
+          portfolio={{ slug: `preview/${portfolio.slug}`, name }}
+          sections={sections}
+          featuredProjects={featuredProjects}
+          navPages={navPages}
+          navCategories={navCategories}
+          theme={theme}
+        />
+      </>
+    )
+  }
+
+  // Non-homepage pages use SectionRenderer
   return (
     <div className="portfolio-page preview-mode" data-theme={portfolio.draftTheme}>
       <PreviewBanner />
@@ -304,14 +340,6 @@ export default async function PreviewPage({ params }: PageProps) {
         <div className="container">
           <SectionRenderer sections={sections} portfolioSlug={`preview/${portfolio.slug}`} />
         </div>
-        
-        {/* Featured Work - only on homepage */}
-        {targetPage.isHomepage && featuredProjects.length > 0 && (
-          <FeaturedWork
-            portfolioSlug={`preview/${portfolio.slug}`}
-            projects={featuredProjects}
-          />
-        )}
       </main>
 
       <footer className="portfolio-footer">

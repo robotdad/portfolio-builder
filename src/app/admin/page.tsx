@@ -37,6 +37,8 @@ interface Portfolio {
   bio: string
   draftTheme: string
   publishedTheme: string
+  draftTemplate: string
+  publishedTemplate: string
   assets: Asset[]
 }
 
@@ -84,6 +86,7 @@ export default function AdminPage() {
     name: '',
     slug: '',
     draftTheme: 'modern-minimal',
+    draftTemplate: 'featured-grid',
   })
   
   // Track initial form data to detect dirty state
@@ -91,6 +94,7 @@ export default function AdminPage() {
     name: '',
     slug: '',
     draftTheme: 'modern-minimal',
+    draftTemplate: 'featured-grid',
   })
 
   // Get current page
@@ -102,8 +106,9 @@ export default function AdminPage() {
   const hasUnpublishedChanges = useMemo(() => {
     const contentChanged = JSON.stringify(sections) !== JSON.stringify(publishedSections)
     const themeChanged = portfolio ? formData.draftTheme !== portfolio.publishedTheme : false
-    return contentChanged || themeChanged
-  }, [sections, publishedSections, formData.draftTheme, portfolio])
+    const templateChanged = portfolio ? formData.draftTemplate !== portfolio.publishedTemplate : false
+    return contentChanged || themeChanged || templateChanged
+  }, [sections, publishedSections, formData.draftTheme, formData.draftTemplate, portfolio])
 
   // Compute draft status for indicator
   const draftStatus = useMemo((): DraftStatus => {
@@ -160,6 +165,7 @@ export default function AdminPage() {
               name: data.name || '',
               slug: data.slug || '',
               draftTheme: data.draftTheme || 'modern-minimal',
+              draftTemplate: data.draftTemplate || 'featured-grid',
             }
             setFormData(loadedData)
             setInitialFormData(loadedData)
@@ -244,6 +250,27 @@ export default function AdminPage() {
 
   const handleThemeChange = (themeId: string) => {
     setFormData(prev => ({ ...prev, draftTheme: themeId }))
+  }
+
+  const handleTemplateChange = async (templateId: string) => {
+    setFormData(prev => ({ ...prev, draftTemplate: templateId }))
+    setSaveStatus('saving')
+    try {
+      const response = await fetch('/api/portfolio', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: portfolio?.id,
+          template: templateId,
+        }),
+      })
+      if (!response.ok) throw new Error('Failed to save')
+      setSaveStatus('saved')
+      setTimeout(() => setSaveStatus('idle'), 2000)
+    } catch (error) {
+      setSaveStatus('error')
+      console.error('Failed to save template:', error)
+    }
   }
 
   // Auto-save settings when field loses focus
@@ -551,8 +578,12 @@ export default function AdminPage() {
       setPublishedSections(sections)
       setLastPublishedAt(new Date())
       
-      // Update portfolio's publishedTheme in local state
-      setPortfolio(prev => prev ? {...prev, publishedTheme: formData.draftTheme} : null)
+      // Update portfolio's publishedTheme and publishedTemplate in local state
+      setPortfolio(prev => prev ? {
+        ...prev, 
+        publishedTheme: formData.draftTheme,
+        publishedTemplate: formData.draftTemplate
+      } : null)
       
       // Update pages array
       setPages(prev => prev.map(p =>
@@ -681,6 +712,7 @@ export default function AdminPage() {
         name: saved.name || '',
         slug: saved.slug || '',
         draftTheme: saved.draftTheme || 'modern-minimal',
+        draftTemplate: saved.draftTemplate || 'featured-grid',
       }
       setFormData(syncedFormData)
       setInitialFormData(syncedFormData)
@@ -804,12 +836,15 @@ export default function AdminPage() {
                 name={formData.name}
                 slug={formData.slug}
                 theme={formData.draftTheme}
+                template={formData.draftTemplate}
                 onNameChange={(name) => setFormData(prev => ({ ...prev, name }))}
                 onSlugChange={(slug) => setFormData(prev => ({ ...prev, slug }))}
                 onThemeChange={handleThemeChange}
+                onTemplateChange={handleTemplateChange}
                 onFieldBlur={handleSettingsBlur}
                 isSaving={saveStatus === 'saving'}
                 hasHeroSection={hasHeroSection}
+                portfolioSlug={formData.slug}
               />
 
               {/* Draft/Publish Status Indicator */}

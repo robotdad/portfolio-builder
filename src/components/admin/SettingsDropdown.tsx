@@ -11,6 +11,8 @@ import { createPortal } from 'react-dom'
 import { usePopoverPosition } from '@/hooks/usePopoverPosition'
 import { BottomSheet } from '@/components/shared/BottomSheet'
 import { ThemeSelector } from '@/components/admin/ThemeSelector'
+import { TemplateSelector } from '@/components/admin/TemplateSelector'
+import { TemplatePreviewModal } from '@/components/admin/TemplatePreviewModal'
 
 // ============================================================================
 // Types
@@ -24,14 +26,17 @@ interface SettingsDropdownProps {
   name: string
   slug: string
   theme: string
+  template: string
   // Handlers
   onNameChange: (name: string) => void
   onSlugChange: (slug: string) => void
   onThemeChange: (theme: string) => void
+  onTemplateChange: (template: string) => void
   onFieldBlur: () => void // Called when any field loses focus - triggers auto-save
   // State
   isSaving?: boolean
   hasHeroSection?: boolean // If true, hide name field (name comes from hero)
+  portfolioSlug: string // Needed for template preview URL
 }
 
 // ============================================================================
@@ -53,12 +58,15 @@ interface SettingsFormProps {
   name: string
   slug: string
   theme: string
+  template: string
   onNameChange: (name: string) => void
   onSlugChange: (slug: string) => void
   onThemeChange: (theme: string) => void
+  onTemplateChange: (template: string) => void
   onFieldBlur: () => void
   isSaving?: boolean
   hasHeroSection?: boolean
+  portfolioSlug: string
   nameInputRef?: React.RefObject<HTMLInputElement | null>
   slugInputRef?: React.RefObject<HTMLInputElement | null>
 }
@@ -67,16 +75,20 @@ function SettingsForm({
   name,
   slug,
   theme,
+  template,
   onNameChange,
   onSlugChange,
   onThemeChange,
+  onTemplateChange,
   onFieldBlur,
   isSaving = false,
   hasHeroSection = false,
+  portfolioSlug,
   nameInputRef,
   slugInputRef,
 }: SettingsFormProps) {
   const [slugError, setSlugError] = useState<string | null>(null)
+  const [previewTemplate, setPreviewTemplate] = useState<string | null>(null)
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     onNameChange(e.target.value)
@@ -103,6 +115,11 @@ function SettingsForm({
   const handleThemeChange = (themeId: string) => {
     onThemeChange(themeId)
     // Theme changes trigger immediate save via parent
+  }
+
+  const handleTemplateChange = (templateId: string) => {
+    onTemplateChange(templateId)
+    // Template changes trigger immediate save via parent
   }
 
   return (
@@ -174,6 +191,28 @@ function SettingsForm({
         />
       </div>
 
+      {/* Template selector */}
+      <div className="settings-field settings-field--template">
+        <TemplateSelector
+          value={template}
+          onChange={handleTemplateChange}
+          onPreview={setPreviewTemplate}
+        />
+      </div>
+
+      {/* Template preview modal */}
+      {previewTemplate && (
+        <TemplatePreviewModal
+          templateId={previewTemplate}
+          portfolioSlug={portfolioSlug}
+          onClose={() => setPreviewTemplate(null)}
+          onSelect={() => {
+            handleTemplateChange(previewTemplate)
+            setPreviewTemplate(null)
+          }}
+        />
+      )}
+
       <style jsx>{`
         .settings-form {
           display: flex;
@@ -212,6 +251,12 @@ function SettingsForm({
         }
 
         .settings-field--theme {
+          padding-top: 4px;
+          border-top: 1px solid var(--color-border, #e5e7eb);
+          margin-top: 4px;
+        }
+
+        .settings-field--template {
           padding-top: 4px;
           border-top: 1px solid var(--color-border, #e5e7eb);
           margin-top: 4px;
@@ -575,12 +620,15 @@ export function SettingsDropdown({
   name,
   slug,
   theme,
+  template,
   onNameChange,
   onSlugChange,
   onThemeChange,
+  onTemplateChange,
   onFieldBlur,
   isSaving = false,
   hasHeroSection = false,
+  portfolioSlug,
 }: SettingsDropdownProps) {
   const [isMobile, setIsMobile] = useState(false)
 
@@ -598,12 +646,15 @@ export function SettingsDropdown({
     name,
     slug,
     theme,
+    template,
     onNameChange,
     onSlugChange,
     onThemeChange,
+    onTemplateChange,
     onFieldBlur,
     isSaving,
     hasHeroSection,
+    portfolioSlug,
   }
 
   if (isMobile) {

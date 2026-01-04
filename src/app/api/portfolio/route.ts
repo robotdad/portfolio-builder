@@ -115,49 +115,56 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json()
-    const { id, name, slug, title, bio, theme } = body
+    const { id, name, slug, title, bio, theme, template } = body
 
-    // Validate required fields
-    if (!id || !slug) {
+    // Validate required fields - only id is always required
+    if (!id) {
       return NextResponse.json(
-        { message: 'ID and slug are required' },
+        { message: 'ID is required' },
         { status: 400 }
       )
     }
 
-    // Validate slug format
-    if (!/^[a-z0-9-]+$/.test(slug)) {
-      return NextResponse.json(
-        { message: 'Slug can only contain lowercase letters, numbers, and hyphens' },
-        { status: 400 }
-      )
+    // If slug is being updated, validate it
+    if (slug !== undefined) {
+      // Validate slug format
+      if (!/^[a-z0-9-]+$/.test(slug)) {
+        return NextResponse.json(
+          { message: 'Slug can only contain lowercase letters, numbers, and hyphens' },
+          { status: 400 }
+        )
+      }
+
+      // Check if slug is taken by another portfolio
+      const existing = await prisma.portfolio.findFirst({
+        where: {
+          slug,
+          NOT: { id },
+        },
+      })
+
+      if (existing) {
+        return NextResponse.json(
+          { message: 'This URL is already taken. Please choose a different one.' },
+          { status: 409 }
+        )
+      }
     }
 
-    // Check if slug is taken by another portfolio
-    const existing = await prisma.portfolio.findFirst({
-      where: {
-        slug,
-        NOT: { id },
-      },
-    })
+    // Build update data - only include fields that were provided
+    const updateData: Record<string, unknown> = {}
 
-    if (existing) {
-      return NextResponse.json(
-        { message: 'This URL is already taken. Please choose a different one.' },
-        { status: 409 }
-      )
-    }
+    if (name !== undefined) updateData.name = name
+    if (slug !== undefined) updateData.slug = slug
+    if (title !== undefined) updateData.title = title
+    if (bio !== undefined) updateData.bio = bio
+    if (theme !== undefined) updateData.draftTheme = theme
+    if (template !== undefined) updateData.draftTemplate = template
 
     // Update portfolio settings only - content lives in Page.draftContent/publishedContent
     const portfolio = await prisma.portfolio.update({
       where: { id },
-      data: {
-        name: name || '',
-        slug,
-        title: title || '',
-        bio: bio || '',
-        draftTheme: theme || 'modern-minimal',
-      },
+      data: updateData,
       include: { assets: true },
     })
 

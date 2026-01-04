@@ -1,12 +1,21 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
-import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
-import { Navigation, type NavPage } from '@/components/portfolio/Navigation'
-import { FeaturedCarousel } from '@/components/portfolio/FeaturedCarousel'
 import { deserializeSections } from '@/lib/serialization'
 import { isHeroSection, isGallerySection } from '@/lib/content-schema'
+import { 
+  FeaturedGridTemplate, 
+  CleanMinimalTemplate, 
+  type TemplateId,
+  type NavPage 
+} from '@/components/portfolio/templates'
 import type { Metadata } from 'next'
+
+// Template component lookup
+const TemplateComponents = {
+  'featured-grid': FeaturedGridTemplate,
+  'clean-minimal': CleanMinimalTemplate,
+} as const
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -147,37 +156,18 @@ export default async function PortfolioPage({ params }: PageProps) {
 
   const theme = portfolio.publishedTheme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 
-  // Section-based rendering with navigation
-  return (
-    <div className="portfolio-page" data-theme={portfolio.publishedTheme}>
-      {(navPages.length > 1 || navCategories.length > 0) && (
-        <Navigation
-          portfolioSlug={portfolio.slug}
-          portfolioName={name}
-          pages={navPages}
-          categories={navCategories}
-          theme={theme}
-        />
-      )}
-      <main className="portfolio-main">
-        <div className="container">
-          <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
-          
-          {/* Featured Work Section */}
-          {featuredProjects.length > 0 && (
-            <FeaturedCarousel
-              portfolioSlug={portfolio.slug}
-              projects={featuredProjects}
-            />
-          )}
-        </div>
-      </main>
+  // Select template based on portfolio's published template setting
+  const templateId = (portfolio.publishedTemplate || 'featured-grid') as TemplateId
+  const Template = TemplateComponents[templateId] || TemplateComponents['featured-grid']
 
-      <footer className="portfolio-footer">
-        <div className="container">
-          <p>© {new Date().getFullYear()} {name}</p>
-        </div>
-      </footer>
-    </div>
+  return (
+    <Template
+      portfolio={{ slug: portfolio.slug, name }}
+      sections={sections}
+      featuredProjects={featuredProjects}
+      navPages={navPages}
+      navCategories={navCategories}
+      theme={theme}
+    />
   )
 }

@@ -34,19 +34,21 @@ export async function POST(
       return NextResponse.json({ message: 'No draft content to publish' }, { status: 400 })
     }
 
-    // Always publish the portfolio's theme (copy draftTheme to publishedTheme)
+    // Always publish the portfolio's theme and template (copy draft to published)
     const portfolio = await prisma.portfolio.findUnique({
       where: { id: page.portfolioId },
-      select: { draftTheme: true, publishedTheme: true },
+      select: { draftTheme: true, publishedTheme: true, draftTemplate: true, publishedTemplate: true },
     })
 
     const themeChanged = portfolio?.draftTheme !== portfolio?.publishedTheme
+    const templateChanged = portfolio?.draftTemplate !== portfolio?.publishedTemplate
     
-    if (themeChanged) {
+    if (themeChanged || templateChanged) {
       await prisma.portfolio.update({
         where: { id: page.portfolioId },
         data: {
-          publishedTheme: portfolio?.draftTheme || 'modern-minimal',
+          ...(themeChanged && { publishedTheme: portfolio?.draftTheme || 'modern-minimal' }),
+          ...(templateChanged && { publishedTemplate: portfolio?.draftTemplate || 'featured-grid' }),
         },
       })
     }
@@ -54,7 +56,7 @@ export async function POST(
     // Check if content needs publishing
     const contentChanged = page.draftContent !== page.publishedContent
 
-    if (!contentChanged && !themeChanged) {
+    if (!contentChanged && !themeChanged && !templateChanged) {
       return NextResponse.json({
         message: 'Everything is already published',
         alreadyPublished: true,
@@ -87,6 +89,7 @@ export async function POST(
       message: 'Published successfully',
       contentPublished: contentChanged,
       themePublished: themeChanged,
+      templatePublished: templateChanged,
       page: updatedPage,
     })
   } catch (error) {

@@ -17,6 +17,8 @@ model Portfolio {
   bio String
   draftTheme String @default("modern-minimal")
   publishedTheme String @default("modern-minimal")
+  draftTemplate String @default("featured-grid")
+  publishedTemplate String @default("featured-grid")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
