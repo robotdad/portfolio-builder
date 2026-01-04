@@ -530,7 +530,7 @@ export function FeaturedImagePicker({
 
         .action-buttons {
           display: flex;
-          gap: var(--space-3);
+          gap: var(--space-4);
         }
 
         .action-btn {

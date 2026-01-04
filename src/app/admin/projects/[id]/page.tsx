@@ -245,8 +245,8 @@ export default function ProjectEditorPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="flex items-center gap-3 text-gray-500">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--admin-bg-secondary)' }}>
+        <div className="flex items-center gap-3" style={{ color: 'var(--admin-text-muted)' }}>
           <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M21 12a9 9 0 1 1-6.219-8.56" />
           </svg>
@@ -259,12 +259,13 @@ export default function ProjectEditorPage() {
   // Error state
   if (error || !project) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--admin-bg-secondary)' }}>
         <div className="text-center">
-          <p className="text-red-500 mb-4">{error || 'Project not found'}</p>
+          <p className="mb-4" style={{ color: 'var(--admin-error)' }}>{error || 'Project not found'}</p>
           <Link
             href="/admin/categories"
-            className="text-blue-600 hover:underline"
+            className="hover:underline"
+            style={{ color: 'var(--admin-primary)' }}
           >
             Back to Categories
           </Link>
@@ -274,19 +275,19 @@ export default function ProjectEditorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: 'var(--admin-bg-secondary)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-white border-b border-gray-200">
+      <header className="sticky top-0 z-10 border-b" style={{ background: 'var(--admin-bg)', borderColor: 'var(--admin-border)' }}>
         <div className="max-w-5xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Left side: Back button and breadcrumb */}
             <div className="flex items-center gap-4">
               <Link
                 href={`/admin/categories/${project.categoryId}/projects`}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 rounded-lg transition-colors hover:opacity-80" style={{ background: 'transparent' }}
                 title="Back to projects"
               >
-                <ArrowLeft className="w-5 h-5 text-gray-600" />
+                <ArrowLeft className="w-5 h-5" style={{ color: 'var(--admin-text-secondary)' }} />
               </Link>
               <div>
                 <Breadcrumb items={[
@@ -294,12 +295,12 @@ export default function ProjectEditorPage() {
                   { label: project.category.name, href: `/admin/categories/${project.categoryId}/projects` },
                   { label: project.title }
                 ]} />
-                <h1 className="text-lg font-semibold text-gray-900">{project.title}</h1>
+                <h1 style={{ fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--admin-text)' }}>{project.title}</h1>
               </div>
             </div>
 
             {/* Right side: Status and actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <DraftIndicator
                 status={draftStatus}
                 hasUnpublishedChanges={hasUnpublishedChanges}
@@ -308,7 +309,7 @@ export default function ProjectEditorPage() {
                 type="button"
                 onClick={saveDraft}
                 disabled={!isDirty}
-                className="px-4 py-2 text-sm font-medium border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="btn btn-secondary"
               >
                 Save Draft
               </button>
@@ -335,8 +336,8 @@ export default function ProjectEditorPage() {
               />
 
               {/* Featured Image */}
-              <div className="mt-4 bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <h3 className="text-sm font-medium text-gray-700 mb-3">Featured Image</h3>
+              <div className="mt-4 rounded-lg shadow-sm p-4" style={{ background: 'var(--admin-bg)', border: '1px solid var(--admin-border)' }}>
+                <h3 className="mb-3" style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', color: 'var(--admin-text-secondary)' }}>Featured Image</h3>
                 <FeaturedImagePicker
                   portfolioId={project.category.portfolioId}
                   currentImage={project.featuredImage}
@@ -371,8 +372,8 @@ export default function ProjectEditorPage() {
               
               {/* Last Published */}
               {project.lastPublishedAt && (
-                <div className="mt-4 bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                  <p className="text-xs text-gray-500">
+                <div className="mt-4 rounded-lg shadow-sm p-4" style={{ background: 'var(--admin-bg)', border: '1px solid var(--admin-border)' }}>
+                  <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--admin-text-muted)' }}>
                     Last published:{' '}
                     {new Date(project.lastPublishedAt).toLocaleDateString(undefined, {
                       month: 'short',
@@ -389,13 +390,13 @@ export default function ProjectEditorPage() {
 
           {/* Editor - Main content area */}
           <div className="flex-1 min-w-0">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-sm font-semibold text-gray-900 mb-4">Content</h2>
+            <div className="rounded-lg shadow-sm p-6" style={{ background: 'var(--admin-bg)', border: '1px solid var(--admin-border)' }}>
+              <h2 className="mb-4" style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--admin-text)' }}>Content</h2>
               
               {sections.length === 0 ? (
-                <div className="text-center py-12 text-gray-500">
+                <div className="text-center py-12" style={{ color: 'var(--admin-text-muted)' }}>
                   <p className="mb-2">No content yet.</p>
-                  <p className="text-sm">Add your first section to get started.</p>
+                  <p style={{ fontSize: 'var(--font-size-sm)' }}>Add your first section to get started.</p>
                 </div>
               ) : (
                 <SectionList
