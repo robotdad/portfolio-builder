@@ -1,0 +1,159 @@
+/* ProjectMetadataSidebar.module.css
+ * Extracted from styled-jsx for improved maintainability
+ * Component: ProjectMetadataSidebar - Collapsible sidebar for project metadata editing
+ */
+
+.metadataSidebar {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-4);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color var(--transition-fast);
+}
+
+.sidebarHeader:hover {
+  background: var(--color-surface-hover);
+}
+
+.sidebarHeader:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+.sidebarTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.sidebarChevron {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-muted);
+}
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: 0 var(--space-4) var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.fieldGroupFirst {
+  composes: fieldGroup;
+  padding-top: var(--space-4);
+}
+
+.fieldGroupFeatured {
+  composes: fieldGroup;
+  padding-top: var(--space-2);
+}
+
+.fieldLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.fieldInput {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--input-font-size, 16px); /* Prevents iOS zoom */
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.fieldInput::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.fieldInput:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-alpha-10, rgba(59, 130, 246, 0.1));
+}
+
+.categoryLink {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: text-decoration var(--transition-fast);
+}
+
+.categoryLink:hover {
+  text-decoration: underline;
+}
+
+.categoryLink:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.checkboxInput {
+  width: var(--checkbox-size, 18px);
+  height: var(--checkbox-size, 18px);
+  margin: 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.checkboxContent {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.fieldHint {
+  margin: 0;
+  margin-left: var(--checkbox-hint-indent, 30px);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sidebarHeader,
+  .fieldInput,
+  .categoryLink {
+    transition: none;
+  }
+}

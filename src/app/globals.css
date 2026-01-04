@@ -122,6 +122,20 @@
   --touch-target-min: 44px;
 
   /* --------------------------------------------------------------------------
+     Input & Form Tokens
+     -------------------------------------------------------------------------- */
+  --input-font-size: 16px;        /* Minimum to prevent iOS zoom-in on focus */
+  --checkbox-size: 18px;          /* Standard checkbox dimensions */
+  --checkbox-hint-indent: 30px;   /* Indent for hint text below checkbox */
+
+  /* --------------------------------------------------------------------------
+     Color Alpha Variants
+     -------------------------------------------------------------------------- */
+  --color-accent-alpha-5: rgba(59, 130, 246, 0.05);   /* Accent at 5% opacity - drag-over states */
+  --color-accent-alpha-10: rgba(59, 130, 246, 0.1);   /* Accent at 10% opacity - focus rings */
+  --color-overlay-dark: rgba(0, 0, 0, 0.6);           /* Dark overlay for modals/upload states */
+
+  /* --------------------------------------------------------------------------
      ADMIN INTERFACE COLORS
      -------------------------------------------------------------------------- */
   --admin-bg: hsl(0, 0%, 100%);

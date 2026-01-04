@@ -13,6 +13,7 @@ import {
   type Section,
   type SectionType,
 } from '@/lib/content-schema'
+import styles from './AddSectionButton.module.css'
 
 interface AddSectionButtonProps {
   onAdd: (section: Section) => void
@@ -66,6 +67,11 @@ export function AddSectionButton({ onAdd, hasHeroSection = false }: AddSectionBu
     (type) => !(type.type === 'hero' && hasHeroSection)
   )
 
+  // Compute icon class based on open state
+  const iconClass = isOpen 
+    ? `${styles.addIcon} ${styles.addIconOpen}` 
+    : styles.addIcon
+
   return (
     <div className="add-section-container">
       <button
@@ -85,10 +91,7 @@ export function AddSectionButton({ onAdd, hasHeroSection = false }: AddSectionBu
           stroke="currentColor" 
           strokeWidth="2"
           aria-hidden="true"
-          style={{
-            transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
-            transition: 'transform 200ms ease',
-          }}
+          className={iconClass}
         >
           <line x1="12" y1="5" x2="12" y2="19" />
           <line x1="5" y1="12" x2="19" y2="12" />

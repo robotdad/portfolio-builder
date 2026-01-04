@@ -1,0 +1,27 @@
+/* AddSectionButton.module.css
+ * Styles for the add section button with rotation animation
+ */
+
+.addSectionContainer {
+  /* Container for positioning context if needed */
+}
+
+.addSectionBtn {
+  /* Inherits most styles from global button styles */
+}
+
+/* Icon with rotation animation */
+.addIcon {
+  transition: transform var(--transition-base, 200ms ease);
+}
+
+.addIconOpen {
+  transform: rotate(45deg);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .addIcon {
+    transition: none;
+  }
+}
