@@ -266,7 +266,7 @@ function renderPortfolioPage(
       <main className="portfolio-main">
         <div className="container">
           {sections.length > 0 ? (
-            <SectionRenderer sections={sections} />
+            <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
           ) : (
             <div className="portfolio-empty-page">
               <h1>{currentPage.title}</h1>

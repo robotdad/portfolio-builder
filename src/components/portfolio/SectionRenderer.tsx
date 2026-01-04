@@ -10,22 +10,25 @@ import type {
   ImageSection, 
   HeroSection, 
   FeaturedGridSection,
+  FeaturedCarouselSection,
   GallerySection,
   GalleryImage,
 } from '@/lib/content-schema'
+import { FeaturedCarouselDisplay } from './FeaturedCarouselDisplay'
 
 interface SectionRendererProps {
   sections: Section[]
+  portfolioSlug: string
 }
 
 /**
  * Renders an array of sections on the public portfolio page
  */
-export function SectionRenderer({ sections }: SectionRendererProps) {
+export function SectionRenderer({ sections, portfolioSlug }: SectionRendererProps) {
   return (
     <>
       {sections.map((section) => (
-        <SectionComponent key={section.id} section={section} />
+        <SectionComponent key={section.id} section={section} portfolioSlug={portfolioSlug} />
       ))}
     </>
   )
@@ -33,9 +36,10 @@ export function SectionRenderer({ sections }: SectionRendererProps) {
 
 interface SectionComponentProps {
   section: Section
+  portfolioSlug: string
 }
 
-function SectionComponent({ section }: SectionComponentProps) {
+function SectionComponent({ section, portfolioSlug }: SectionComponentProps) {
   switch (section.type) {
     case 'text':
       return <TextSectionView section={section} />
@@ -45,6 +49,8 @@ function SectionComponent({ section }: SectionComponentProps) {
       return <HeroSectionView section={section} />
     case 'featured-grid':
       return <FeaturedGridView section={section} />
+    case 'featured-carousel':
+      return <FeaturedCarouselDisplay section={section} portfolioSlug={portfolioSlug} />
     case 'gallery':
       return <GallerySectionView section={section} />
     default:

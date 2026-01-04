@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
 import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
 import { Navigation, type NavPage } from '@/components/portfolio/Navigation'
-import { FeaturedWork } from '@/components/portfolio/FeaturedWork'
+import { FeaturedCarousel } from '@/components/portfolio/FeaturedCarousel'
 import { deserializeSections } from '@/lib/serialization'
 import { isHeroSection, isGallerySection } from '@/lib/content-schema'
 import type { Metadata } from 'next'
@@ -161,11 +161,11 @@ export default async function PortfolioPage({ params }: PageProps) {
       )}
       <main className="portfolio-main">
         <div className="container">
-          <SectionRenderer sections={sections} />
+          <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
           
           {/* Featured Work Section */}
           {featuredProjects.length > 0 && (
-            <FeaturedWork
+            <FeaturedCarousel
               portfolioSlug={portfolio.slug}
               projects={featuredProjects}
             />

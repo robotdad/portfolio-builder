@@ -108,7 +108,7 @@ export function ProjectDetail({
           {/* Content sections (description, etc.) */}
           {sections.length > 0 && (
             <div className="project-content">
-              <SectionRenderer sections={sections} />
+              <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
             </div>
           )}
           

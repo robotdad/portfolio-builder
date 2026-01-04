@@ -55,6 +55,15 @@ export interface FeaturedGridSection extends BaseSection {
   items: FeaturedWorkItem[]
 }
 
+// Featured Carousel Section - Auto-rotating carousel of featured work
+export interface FeaturedCarouselSection extends BaseSection {
+  type: 'featured-carousel'
+  heading: string
+  items: FeaturedWorkItem[]  // Reuse existing FeaturedWorkItem type
+  autoRotate: boolean
+  autoRotateInterval: number  // milliseconds
+}
+
 // Gallery Image - Individual image in a gallery
 export interface GalleryImage {
   id: string
@@ -72,7 +81,7 @@ export interface GallerySection extends BaseSection {
 }
 
 // Union type of all sections
-export type Section = TextSection | ImageSection | HeroSection | FeaturedGridSection | GallerySection
+export type Section = TextSection | ImageSection | HeroSection | FeaturedGridSection | FeaturedCarouselSection | GallerySection
 
 // Page content structure
 export interface PageContent {
@@ -94,6 +103,10 @@ export function isHeroSection(section: Section): section is HeroSection {
 
 export function isFeaturedGridSection(section: Section): section is FeaturedGridSection {
   return section.type === 'featured-grid'
+}
+
+export function isFeaturedCarouselSection(section: Section): section is FeaturedCarouselSection {
+  return section.type === 'featured-carousel'
 }
 
 export function isGallerySection(section: Section): section is GallerySection {
@@ -144,6 +157,17 @@ export function createFeaturedGridSection(): FeaturedGridSection {
     type: 'featured-grid',
     heading: 'Featured Work',
     items: [],
+  }
+}
+
+export function createFeaturedCarouselSection(): FeaturedCarouselSection {
+  return {
+    id: generateId(),
+    type: 'featured-carousel',
+    heading: 'Featured Work',
+    items: [],
+    autoRotate: true,
+    autoRotateInterval: 5000,
   }
 }
 
@@ -207,6 +231,12 @@ export const sectionTypes = [
     label: 'Featured Grid',
     description: 'Grid of featured work',
     icon: '⚡',
+  },
+  {
+    type: 'featured-carousel' as const,
+    label: 'Featured Carousel',
+    description: 'Auto-rotating carousel of featured work',
+    icon: '🎠',
   },
   {
     type: 'gallery' as const,

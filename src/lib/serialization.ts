@@ -64,6 +64,8 @@ function validateSections(sections: unknown[]): Section[] {
                typeof s.bio === 'string'
       case 'featured-grid':
         return typeof s.heading === 'string' && Array.isArray(s.items)
+      case 'featured-carousel':
+        return typeof s.heading === 'string' && Array.isArray(s.items)
       case 'gallery':
         return typeof s.heading === 'string' && Array.isArray(s.images)
       default:

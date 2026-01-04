@@ -9,6 +9,7 @@ import {
   createImageSection,
   createHeroSection,
   createFeaturedGridSection,
+  createFeaturedCarouselSection,
   createGallerySection,
   type Section,
   type SectionType,
@@ -56,6 +57,9 @@ export function InlineAddButton({
         break
       case 'featured-grid':
         section = createFeaturedGridSection()
+        break
+      case 'featured-carousel':
+        section = createFeaturedCarouselSection()
         break
       case 'gallery':
         section = createGallerySection()

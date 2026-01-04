@@ -25,6 +25,7 @@ import { TextSection } from './TextSection'
 import { ImageSectionEditor } from './ImageSectionEditor'
 import { HeroSectionEditor } from './HeroSectionEditor'
 import { FeaturedGridEditor } from './FeaturedGridEditor'
+import { FeaturedCarouselEditor } from './FeaturedCarouselEditor'
 import { GallerySectionEditor } from './GallerySectionEditor'
 import type { 
   Section, 
@@ -32,6 +33,7 @@ import type {
   ImageSection as ImageSectionType,
   HeroSection as HeroSectionType,
   FeaturedGridSection as FeaturedGridSectionType,
+  FeaturedCarouselSection as FeaturedCarouselSectionType,
   GallerySection as GallerySectionType,
 } from '@/lib/content-schema'
 
@@ -219,6 +221,15 @@ function SectionEditor({ section, portfolioId, onChange, onDelete, onSaveRequest
           section={section as FeaturedGridSectionType}
           portfolioId={portfolioId}
           onChange={onChange as (s: FeaturedGridSectionType) => void}
+          onDelete={onDelete}
+        />
+      )
+    case 'featured-carousel':
+      return (
+        <FeaturedCarouselEditor
+          section={section as FeaturedCarouselSectionType}
+          portfolioId={portfolioId}
+          onChange={onChange as (s: FeaturedCarouselSectionType) => void}
           onDelete={onDelete}
         />
       )

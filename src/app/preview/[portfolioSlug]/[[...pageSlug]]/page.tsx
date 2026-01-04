@@ -302,7 +302,7 @@ export default async function PreviewPage({ params }: PageProps) {
       
       <main className="portfolio-main">
         <div className="container">
-          <SectionRenderer sections={sections} />
+          <SectionRenderer sections={sections} portfolioSlug={`preview/${portfolio.slug}`} />
         </div>
         
         {/* Featured Work - only on homepage */}
