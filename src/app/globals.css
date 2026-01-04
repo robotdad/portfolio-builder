@@ -5023,3 +5023,394 @@ textarea:focus-visible {
 .portfolio-nav-menu-link--indent {
   padding-left: var(--space-6);
 }
+
+/* ==========================================================================
+   PUBLIC SITE POLISH - Empty States, Skeletons, Fallbacks, 404
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Shimmer Animation
+   -------------------------------------------------------------------------- */
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Reduced motion: disable shimmer animation */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-image::after,
+  .skeleton-text::after {
+    animation: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Skeleton Components
+   -------------------------------------------------------------------------- */
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.skeleton-image {
+  position: relative;
+  width: 100%;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.skeleton-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.skeleton-text {
+  position: relative;
+  height: 1em;
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.skeleton-text::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-text--title {
+  width: 70%;
+  height: 1.25em;
+}
+
+.skeleton-text--subtitle {
+  width: 50%;
+  height: 1em;
+}
+
+.skeleton-text--heading {
+  width: 40%;
+  height: 2em;
+  margin-bottom: var(--space-6);
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+
+/* Mobile skeleton adjustments */
+@media (max-width: 639px) {
+  .skeleton-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Empty State Component
+   -------------------------------------------------------------------------- */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--space-4);
+  min-height: 300px;
+  text-align: center;
+}
+
+.empty-state-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--space-4);
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+.empty-state-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.empty-state-message {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  max-width: 400px;
+  margin: 0;
+  line-height: var(--leading-relaxed);
+}
+
+.empty-state-action {
+  margin-top: var(--space-6);
+}
+
+/* Mobile empty state adjustments */
+@media (max-width: 639px) {
+  .empty-state {
+    padding: var(--space-12) var(--space-4);
+    min-height: 250px;
+  }
+
+  .empty-state-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .empty-state-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .empty-state-message {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Image Fallback Component
+   -------------------------------------------------------------------------- */
+
+.image-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+}
+
+.image-fallback-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--color-text-muted);
+  opacity: 0.4;
+  margin-bottom: var(--space-2);
+}
+
+.image-fallback-message {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Image with fallback loading state */
+.image-with-fallback {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image-with-fallback--loading .skeleton-image {
+  position: absolute;
+  inset: 0;
+}
+
+.image-loading-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Blur-up image transition */
+.blur-up-image {
+  transition: filter 0.3s ease-out;
+}
+
+/* --------------------------------------------------------------------------
+   404 Not Found Pages
+   -------------------------------------------------------------------------- */
+
+.not-found-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-8);
+  background: var(--color-background);
+  text-align: center;
+}
+
+.not-found-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 480px;
+}
+
+.not-found-code {
+  font-size: clamp(4rem, 15vw, 8rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-muted);
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: var(--space-4);
+}
+
+.not-found-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.not-found-message {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-8) 0;
+  line-height: var(--leading-relaxed);
+}
+
+.not-found-action {
+  min-width: 200px;
+}
+
+/* Mobile 404 adjustments */
+@media (max-width: 639px) {
+  .not-found-page {
+    padding: var(--space-6);
+  }
+
+  .not-found-code {
+    margin-bottom: var(--space-2);
+  }
+
+  .not-found-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .not-found-message {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-6);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Enhanced Category Empty State (update existing)
+   -------------------------------------------------------------------------- */
+
+.category-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--space-4);
+  min-height: 300px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Loading States for Page Sections
+   -------------------------------------------------------------------------- */
+
+.section-loading {
+  padding: var(--space-8) 0;
+}
+
+.hero-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-16) var(--space-4);
+}
+
+.hero-skeleton .skeleton-image {
+  width: 150px;
+  height: 150px;
+  border-radius: var(--radius-full);
+}
+
+.hero-skeleton .skeleton-text--name {
+  width: 200px;
+  height: 2.5em;
+}
+
+.hero-skeleton .skeleton-text--title {
+  width: 280px;
+  height: 1.5em;
+}
+
+/* Gallery loading skeleton */
+.gallery-skeleton {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.gallery-skeleton .skeleton-image {
+  aspect-ratio: 3/2;
+}
+
+@media (max-width: 639px) {
+  .gallery-skeleton {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Portfolio Loading Page Styles
+   -------------------------------------------------------------------------- */
+
+.portfolio-loading,
+.category-loading,
+.project-loading {
+  min-height: 100vh;
+}
+
+.portfolio-nav-skeleton {
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.project-header-skeleton {
+  margin-bottom: var(--space-6);
+}
+
+.project-gallery-section {
+  margin-top: var(--space-8);
+}
+
+/* Ensure loading states inherit theme styles */
+.portfolio-loading,
+.category-loading,
+.project-loading {
+  background: var(--color-background);
+}

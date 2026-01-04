@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { Lightbox } from './Lightbox'
+import { EmptyState } from './EmptyState'
 
 interface GalleryImage {
   id: string
@@ -15,6 +16,7 @@ interface GalleryImage {
 interface ProjectGalleryProps {
   images: GalleryImage[]
   className?: string
+  showEmptyState?: boolean
 }
 
 /**
@@ -25,14 +27,31 @@ interface ProjectGalleryProps {
  * - Mobile: Single column for scrolling
  * - Click image opens lightbox with keyboard navigation
  * - 3:2 aspect ratio for gallery images
+ * - Professional empty state when no images
  */
-export function ProjectGallery({ images, className = '' }: ProjectGalleryProps) {
+export function ProjectGallery({ 
+  images, 
+  className = '',
+  showEmptyState = true 
+}: ProjectGalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   
   // Filter to valid images only
   const validImages = images.filter(img => img.url)
   
-  if (validImages.length === 0) return null
+  // Show empty state if enabled and no valid images
+  if (validImages.length === 0) {
+    if (showEmptyState) {
+      return (
+        <EmptyState
+          icon="image"
+          title="No gallery images yet"
+          message="Images will appear here once they're added to this project."
+        />
+      )
+    }
+    return null
+  }
   
   const handleImageClick = (index: number) => {
     setLightboxIndex(index)

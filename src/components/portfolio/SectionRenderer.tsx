@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { sanitizeHtml } from '@/lib/sanitize'
 import { ImageCard } from './ImageCard'
 import { Lightbox } from './Lightbox'
+import { EmptyState } from './EmptyState'
 import type { 
   Section, 
   TextSection, 
@@ -141,9 +142,23 @@ function HeroSectionView({ section }: { section: HeroSection }) {
   )
 }
 
-// Featured Grid Section View
+// Featured Grid Section View with Empty State
 function FeaturedGridView({ section }: { section: FeaturedGridSection }) {
-  if (section.items.length === 0) return null
+  // Show empty state if no items (instead of returning null)
+  if (section.items.length === 0) {
+    return (
+      <section className="section section-featured-grid">
+        {section.heading && (
+          <h2 className="featured-grid-heading">{section.heading}</h2>
+        )}
+        <EmptyState
+          icon="grid"
+          title="No featured projects yet"
+          message="Mark projects as featured in the admin panel to showcase them here."
+        />
+      </section>
+    )
+  }
   
   return (
     <section className="section section-featured-grid">
@@ -178,7 +193,21 @@ function GallerySectionView({ section }: { section: GallerySection }) {
   const validImages = section.images
     .filter((img): img is GalleryImage & { imageUrl: string } => Boolean(img.imageUrl))
   
-  if (validImages.length === 0) return null
+  // Show empty state for gallery sections with no images
+  if (validImages.length === 0) {
+    return (
+      <section className="section section-gallery">
+        {section.heading && (
+          <h2 className="gallery-heading">{section.heading}</h2>
+        )}
+        <EmptyState
+          icon="image"
+          title="No gallery images yet"
+          message="Add images to this gallery to showcase your work."
+        />
+      </section>
+    )
+  }
   
   const visibleImages = validImages.slice(0, displayCount)
   const hasMore = displayCount < validImages.length

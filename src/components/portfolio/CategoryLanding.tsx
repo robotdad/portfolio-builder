@@ -3,6 +3,7 @@
 import { Navigation, type NavPage } from './Navigation'
 import { Breadcrumb } from './Breadcrumb'
 import { ProjectCard } from './ProjectCard'
+import { EmptyState } from './EmptyState'
 
 interface CategoryProject {
   id: string
@@ -46,6 +47,7 @@ interface CategoryLandingProps {
  * - Breadcrumb navigation (just category name on category page)
  * - Navigation with dynamic categories
  * - Project cards with hover overlay
+ * - Professional empty state when no projects
  */
 export function CategoryLanding({ 
   portfolio, 
@@ -78,7 +80,7 @@ export function CategoryLanding({
             <h1 className="category-title">{category.name}</h1>
           </header>
           
-          {/* Projects grid */}
+          {/* Projects grid or empty state */}
           {projects.length > 0 ? (
             <div className="category-grid">
               {projects.map(project => (
@@ -98,9 +100,11 @@ export function CategoryLanding({
               ))}
             </div>
           ) : (
-            <div className="category-empty">
-              <p>No projects in this category yet.</p>
-            </div>
+            <EmptyState
+              icon="folder"
+              title={`No projects in ${category.name} yet`}
+              message="Projects added to this category will appear here. Add projects in the admin panel to showcase your work."
+            />
           )}
         </div>
       </main>

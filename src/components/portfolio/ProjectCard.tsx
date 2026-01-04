@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+import { ImageWithFallback } from './ImageFallback'
 
 interface ProjectCardProps {
   project: {
@@ -25,6 +25,7 @@ interface ProjectCardProps {
  * - Mobile: Title and metadata shown below image (no hover)
  * - 16:9 aspect ratio for featured images
  * - Transition: 300ms ease for smooth overlay animation
+ * - Graceful fallback for broken/missing images
  */
 export function ProjectCard({ 
   project, 
@@ -42,13 +43,14 @@ export function ProjectCard({
       {/* Image container with 16:9 aspect ratio */}
       <div className="project-card-image-wrapper">
         {project.featuredImageUrl ? (
-          <Image
+          <ImageWithFallback
             src={project.featuredImageUrl}
             alt={project.featuredImageAlt || project.title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="project-card-image"
-            loading="lazy"
+            aspectRatio="16/9"
+            fallbackMessage="Image unavailable"
           />
         ) : (
           <div className="project-card-placeholder">

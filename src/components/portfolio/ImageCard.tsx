@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { ImageWithFallback, ImageFallback } from './ImageFallback'
 
 interface ImageCardProps {
   imageUrl: string | null
@@ -46,20 +47,19 @@ export function ImageCard({
     >
       <div className="image-card-image-wrapper">
         {imageUrl ? (
-          <img 
+          <ImageWithFallback 
             src={imageUrl} 
             alt={altText || title || 'Portfolio work'} 
             className="image-card-image"
-            loading="lazy"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            fallbackMessage="Image unavailable"
           />
         ) : (
-          <div className="image-card-placeholder">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <path d="M21 15l-5-5L5 21" />
-            </svg>
-          </div>
+          <ImageFallback 
+            message="No image"
+            className="image-card-placeholder"
+          />
         )}
       </div>
       
