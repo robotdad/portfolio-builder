@@ -13,8 +13,8 @@ model Portfolio {
   id String @id @default(cuid())
   slug String @unique
   name String
-  title String
-  bio String
+  title String?
+  bio String?
   draftTheme String @default("modern-minimal")
   publishedTheme String @default("modern-minimal")
   draftTemplate String @default("featured-grid")
@@ -24,6 +24,8 @@ model Portfolio {
   
   profilePhotoId String? @unique
   profilePhoto   Asset?  @relation("ProfilePhoto", fields: [profilePhotoId], references: [id])
+  
+  showAboutSection Boolean @default(true)
   
   assets Asset[]
   pages Page[]

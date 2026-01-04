@@ -39,6 +39,14 @@ interface Portfolio {
   publishedTheme: string
   draftTemplate: string
   publishedTemplate: string
+  showAboutSection: boolean
+  profilePhotoId: string | null
+  profilePhoto: {
+    id: string
+    url: string
+    thumbnailUrl: string
+    altText: string
+  } | null
   assets: Asset[]
 }
 
@@ -87,6 +95,10 @@ export default function AdminPage() {
     slug: '',
     draftTheme: 'modern-minimal',
     draftTemplate: 'featured-grid',
+    bio: '',
+    showAboutSection: true,
+    profilePhotoId: null as string | null,
+    profilePhotoUrl: null as string | null,
   })
   
   // Track initial form data to detect dirty state
@@ -95,6 +107,10 @@ export default function AdminPage() {
     slug: '',
     draftTheme: 'modern-minimal',
     draftTemplate: 'featured-grid',
+    bio: '',
+    showAboutSection: true,
+    profilePhotoId: null as string | null,
+    profilePhotoUrl: null as string | null,
   })
 
   // Get current page
@@ -166,6 +182,10 @@ export default function AdminPage() {
               slug: data.slug || '',
               draftTheme: data.draftTheme || 'modern-minimal',
               draftTemplate: data.draftTemplate || 'featured-grid',
+              bio: data.bio || '',
+              showAboutSection: data.showAboutSection ?? true,
+              profilePhotoId: data.profilePhotoId || null,
+              profilePhotoUrl: data.profilePhoto?.url || null,
             }
             setFormData(loadedData)
             setInitialFormData(loadedData)
@@ -287,14 +307,21 @@ export default function AdminPage() {
           name: formData.name,
           slug: formData.slug,
           title: portfolio.title,
-          bio: portfolio.bio,
+          bio: formData.bio,
           theme: formData.draftTheme,
+          showAboutSection: formData.showAboutSection,
+          profilePhotoId: formData.profilePhotoId,
         }),
       })
       
       if (res.ok) {
         const saved = await res.json()
         setPortfolio(saved)
+        // Update profilePhotoUrl from response
+        setFormData(prev => ({
+          ...prev,
+          profilePhotoUrl: saved.profilePhoto?.url || null,
+        }))
         setInitialFormData({...formData})
         setSaveStatus('saved')
         setTimeout(() => setSaveStatus('idle'), 2000)
@@ -713,6 +740,10 @@ export default function AdminPage() {
         slug: saved.slug || '',
         draftTheme: saved.draftTheme || 'modern-minimal',
         draftTemplate: saved.draftTemplate || 'featured-grid',
+        bio: saved.bio || '',
+        showAboutSection: saved.showAboutSection ?? true,
+        profilePhotoId: saved.profilePhoto?.id || null,
+        profilePhotoUrl: saved.profilePhoto?.url || null,
       }
       setFormData(syncedFormData)
       setInitialFormData(syncedFormData)
@@ -837,10 +868,18 @@ export default function AdminPage() {
                 slug={formData.slug}
                 theme={formData.draftTheme}
                 template={formData.draftTemplate}
+                portfolioId={portfolio?.id || ''}
+                bio={formData.bio}
+                profilePhotoUrl={formData.profilePhotoUrl}
+                profilePhotoId={formData.profilePhotoId}
+                showAboutSection={formData.showAboutSection}
                 onNameChange={(name) => setFormData(prev => ({ ...prev, name }))}
                 onSlugChange={(slug) => setFormData(prev => ({ ...prev, slug }))}
                 onThemeChange={handleThemeChange}
                 onTemplateChange={handleTemplateChange}
+                onBioChange={(bio) => setFormData(prev => ({ ...prev, bio }))}
+                onProfilePhotoChange={(photoId, photoUrl) => setFormData(prev => ({ ...prev, profilePhotoId: photoId, profilePhotoUrl: photoUrl }))}
+                onShowAboutChange={(show) => setFormData(prev => ({ ...prev, showAboutSection: show }))}
                 onFieldBlur={handleSettingsBlur}
                 isSaving={saveStatus === 'saving'}
                 hasHeroSection={hasHeroSection}

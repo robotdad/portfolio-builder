@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${name} - ${title}`,
-    description: stripHtml(bio).substring(0, 160),
+    description: stripHtml(bio || '').substring(0, 160),
   }
 }
 
@@ -59,6 +59,14 @@ export default async function PortfolioPage({ params }: PageProps) {
       assets: true,
       pages: {
         orderBy: { navOrder: 'asc' },
+      },
+      // Include profile photo for About section
+      profilePhoto: {
+        select: {
+          url: true,
+          thumbnailUrl: true,
+          altText: true,
+        },
       },
       categories: {
         orderBy: { order: 'asc' },
@@ -160,9 +168,22 @@ export default async function PortfolioPage({ params }: PageProps) {
   const templateId = (portfolio.publishedTemplate || 'featured-grid') as TemplateId
   const Template = TemplateComponents[templateId] || TemplateComponents['featured-grid']
 
+  // Prepare profile photo for template (if exists)
+  const profilePhoto = portfolio.profilePhoto ? {
+    url: portfolio.profilePhoto.url,
+    thumbnailUrl: portfolio.profilePhoto.thumbnailUrl,
+    altText: portfolio.profilePhoto.altText || undefined,
+  } : null
+
   return (
     <Template
-      portfolio={{ slug: portfolio.slug, name }}
+      portfolio={{
+        slug: portfolio.slug,
+        name,
+        bio: portfolio.bio || null,
+        profilePhoto,
+        showAboutSection: portfolio.showAboutSection ?? true,
+      }}
       sections={sections}
       featuredProjects={featuredProjects}
       navPages={navPages}

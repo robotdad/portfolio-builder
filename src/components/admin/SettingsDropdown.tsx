@@ -13,6 +13,7 @@ import { BottomSheet } from '@/components/shared/BottomSheet'
 import { ThemeSelector } from '@/components/admin/ThemeSelector'
 import { TemplateSelector } from '@/components/admin/TemplateSelector'
 import { TemplatePreviewModal } from '@/components/admin/TemplatePreviewModal'
+import { AboutSettings } from '@/components/admin/AboutSettings'
 
 // ============================================================================
 // Types
@@ -27,11 +28,20 @@ interface SettingsDropdownProps {
   slug: string
   theme: string
   template: string
+  // About section values
+  portfolioId: string
+  bio: string
+  profilePhotoUrl: string | null
+  profilePhotoId: string | null
+  showAboutSection: boolean
   // Handlers
   onNameChange: (name: string) => void
   onSlugChange: (slug: string) => void
   onThemeChange: (theme: string) => void
   onTemplateChange: (template: string) => void
+  onBioChange: (bio: string) => void
+  onProfilePhotoChange: (photoId: string | null, photoUrl: string | null) => void
+  onShowAboutChange: (show: boolean) => void
   onFieldBlur: () => void // Called when any field loses focus - triggers auto-save
   // State
   isSaving?: boolean
@@ -59,10 +69,18 @@ interface SettingsFormProps {
   slug: string
   theme: string
   template: string
+  portfolioId: string
+  bio: string
+  profilePhotoUrl: string | null
+  profilePhotoId: string | null
+  showAboutSection: boolean
   onNameChange: (name: string) => void
   onSlugChange: (slug: string) => void
   onThemeChange: (theme: string) => void
   onTemplateChange: (template: string) => void
+  onBioChange: (bio: string) => void
+  onProfilePhotoChange: (photoId: string | null, photoUrl: string | null) => void
+  onShowAboutChange: (show: boolean) => void
   onFieldBlur: () => void
   isSaving?: boolean
   hasHeroSection?: boolean
@@ -76,10 +94,18 @@ function SettingsForm({
   slug,
   theme,
   template,
+  portfolioId,
+  bio,
+  profilePhotoUrl,
+  profilePhotoId,
+  showAboutSection,
   onNameChange,
   onSlugChange,
   onThemeChange,
   onTemplateChange,
+  onBioChange,
+  onProfilePhotoChange,
+  onShowAboutChange,
   onFieldBlur,
   isSaving = false,
   hasHeroSection = false,
@@ -89,6 +115,7 @@ function SettingsForm({
 }: SettingsFormProps) {
   const [slugError, setSlugError] = useState<string | null>(null)
   const [previewTemplate, setPreviewTemplate] = useState<string | null>(null)
+  const [aboutExpanded, setAboutExpanded] = useState(false)
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     onNameChange(e.target.value)
@@ -200,6 +227,49 @@ function SettingsForm({
         />
       </div>
 
+      {/* About Section Settings (collapsible) */}
+      <div className="settings-field settings-field--about">
+        <button
+          type="button"
+          className="settings-collapsible-trigger"
+          onClick={() => setAboutExpanded(!aboutExpanded)}
+          aria-expanded={aboutExpanded}
+        >
+          <span>About Section</span>
+          <svg
+            className={`settings-collapsible-chevron ${aboutExpanded ? 'settings-collapsible-chevron--open' : ''}`}
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M4 6L8 10L12 6"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        {aboutExpanded && (
+          <div className="settings-collapsible-content">
+            <AboutSettings
+              portfolioId={portfolioId}
+              bio={bio}
+              profilePhotoUrl={profilePhotoUrl}
+              profilePhotoId={profilePhotoId}
+              showAboutSection={showAboutSection}
+              onBioChange={onBioChange}
+              onProfilePhotoChange={onProfilePhotoChange}
+              onShowAboutChange={onShowAboutChange}
+              onFieldBlur={onFieldBlur}
+              isSaving={isSaving}
+            />
+          </div>
+        )}
+      </div>
+
       {/* Template preview modal */}
       {previewTemplate && (
         <TemplatePreviewModal
@@ -258,6 +328,12 @@ function SettingsForm({
 
         .settings-field--template {
           padding-top: 4px;
+          border-top: 1px solid var(--color-border, #e5e7eb);
+          margin-top: 4px;
+        }
+
+        .settings-field--about {
+          padding-top: 8px;
           border-top: 1px solid var(--color-border, #e5e7eb);
           margin-top: 4px;
         }
@@ -324,6 +400,39 @@ function SettingsForm({
         .settings-field__error {
           font-size: 12px;
           color: var(--color-error, #ef4444);
+        }
+
+        /* Collapsible About Section */
+        .settings-collapsible-trigger {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          padding: 8px 0;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--color-text, #111827);
+          text-align: left;
+        }
+
+        .settings-collapsible-trigger:hover {
+          color: var(--color-accent, #3b82f6);
+        }
+
+        .settings-collapsible-chevron {
+          color: var(--color-text-muted, #6b7280);
+          transition: transform 150ms ease;
+        }
+
+        .settings-collapsible-chevron--open {
+          transform: rotate(180deg);
+        }
+
+        .settings-collapsible-content {
+          padding-top: 8px;
         }
       `}</style>
     </div>
@@ -449,7 +558,7 @@ function DesktopDropdown({
       if (e.key !== 'Tab') return
 
       const focusableElements = popover.querySelectorAll<HTMLElement>(
-        'input:not([disabled]), select:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        'input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])'
       )
       const firstFocusable = focusableElements[0]
       const lastFocusable = focusableElements[focusableElements.length - 1]
@@ -483,7 +592,9 @@ function DesktopDropdown({
       className={`settings-dropdown ${isVisible ? 'settings-dropdown--visible' : ''}`}
       style={{
         ...style,
-        width: 300,
+        width: 320,
+        maxHeight: '80vh',
+        overflowY: 'auto',
       }}
     >
       {/* Arrow indicator */}
@@ -602,6 +713,8 @@ function MobileSheet({
         <style jsx>{`
           .mobile-settings-form {
             padding: 8px 8px 0;
+            max-height: 70vh;
+            overflow-y: auto;
           }
         `}</style>
       </div>
@@ -621,10 +734,18 @@ export function SettingsDropdown({
   slug,
   theme,
   template,
+  portfolioId,
+  bio,
+  profilePhotoUrl,
+  profilePhotoId,
+  showAboutSection,
   onNameChange,
   onSlugChange,
   onThemeChange,
   onTemplateChange,
+  onBioChange,
+  onProfilePhotoChange,
+  onShowAboutChange,
   onFieldBlur,
   isSaving = false,
   hasHeroSection = false,
@@ -647,10 +768,18 @@ export function SettingsDropdown({
     slug,
     theme,
     template,
+    portfolioId,
+    bio,
+    profilePhotoUrl,
+    profilePhotoId,
+    showAboutSection,
     onNameChange,
     onSlugChange,
     onThemeChange,
     onTemplateChange,
+    onBioChange,
+    onProfilePhotoChange,
+    onShowAboutChange,
     onFieldBlur,
     isSaving,
     hasHeroSection,

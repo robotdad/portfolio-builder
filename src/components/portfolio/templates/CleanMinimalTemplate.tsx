@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Navigation } from '../Navigation'
 import { SectionRenderer } from '../SectionRenderer'
 import { ImageWithFallback } from '../ImageFallback'
+import { AboutSection } from '../AboutSection'
 import type { TemplateProps } from './index'
 
 export function CleanMinimalTemplate({
@@ -19,6 +20,11 @@ export function CleanMinimalTemplate({
   
   // Clean minimal shows 3-6 projects in a stacked layout
   const displayProjects = featuredProjects.slice(0, 6)
+
+  // Determine if About section should show
+  const shouldShowAbout = 
+    portfolio.showAboutSection === true && 
+    portfolio.bio?.trim()
 
   return (
     <div className="portfolio-page template-clean-minimal" data-theme={theme}>
@@ -37,6 +43,17 @@ export function CleanMinimalTemplate({
         <div className="clean-minimal-hero-wrapper">
           <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
         </div>
+
+        {/* About Section - between hero and featured work */}
+        {shouldShowAbout && (
+          <div className="container">
+            <AboutSection
+              bio={portfolio.bio!}
+              profilePhoto={portfolio.profilePhoto}
+              name={portfolio.name}
+            />
+          </div>
+        )}
 
         {/* Stacked featured projects */}
         {displayProjects.length > 0 && (

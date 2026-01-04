@@ -9,6 +9,14 @@ export async function GET() {
       include: {
         assets: true,
         pages: { orderBy: { navOrder: 'asc' } },
+        profilePhoto: {
+          select: {
+            id: true,
+            url: true,
+            thumbnailUrl: true,
+            altText: true,
+          },
+        },
       },
     })
     
@@ -80,6 +88,7 @@ export async function POST(request: NextRequest) {
         bio: bio || '',
         draftTheme: theme || 'modern-minimal',
         publishedTheme: theme || 'modern-minimal',
+        // showAboutSection defaults to true via schema
         pages: {
           create: {
             title: 'Home',
@@ -98,6 +107,14 @@ export async function POST(request: NextRequest) {
       include: {
         assets: true,
         pages: { orderBy: { navOrder: 'asc' } },
+        profilePhoto: {
+          select: {
+            id: true,
+            url: true,
+            thumbnailUrl: true,
+            altText: true,
+          },
+        },
       },
     })
 
@@ -115,7 +132,7 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json()
-    const { id, name, slug, title, bio, theme, template } = body
+    const { id, name, slug, title, bio, theme, template, showAboutSection, profilePhotoId } = body
 
     // Validate required fields - only id is always required
     if (!id) {
@@ -160,12 +177,28 @@ export async function PUT(request: NextRequest) {
     if (bio !== undefined) updateData.bio = bio
     if (theme !== undefined) updateData.draftTheme = theme
     if (template !== undefined) updateData.draftTemplate = template
+    if (showAboutSection !== undefined) updateData.showAboutSection = showAboutSection
+    
+    // Handle profilePhotoId - can be set to null to remove, or to a valid asset ID
+    if (profilePhotoId !== undefined) {
+      updateData.profilePhotoId = profilePhotoId
+    }
 
     // Update portfolio settings only - content lives in Page.draftContent/publishedContent
     const portfolio = await prisma.portfolio.update({
       where: { id },
       data: updateData,
-      include: { assets: true },
+      include: {
+        assets: true,
+        profilePhoto: {
+          select: {
+            id: true,
+            url: true,
+            thumbnailUrl: true,
+            altText: true,
+          },
+        },
+      },
     })
 
     return NextResponse.json(portfolio)

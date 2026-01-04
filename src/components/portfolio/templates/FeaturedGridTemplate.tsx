@@ -3,6 +3,7 @@
 import { Navigation } from '../Navigation'
 import { SectionRenderer } from '../SectionRenderer'
 import { FeaturedWork } from '../FeaturedWork'
+import { AboutSection } from '../AboutSection'
 import type { TemplateProps } from './index'
 
 export function FeaturedGridTemplate({
@@ -15,6 +16,11 @@ export function FeaturedGridTemplate({
 }: TemplateProps) {
   const currentYear = new Date().getFullYear()
   const showNav = navPages.length > 1 || navCategories.length > 0
+
+  // Determine if About section should show
+  const shouldShowAbout = 
+    portfolio.showAboutSection === true && 
+    portfolio.bio?.trim()
 
   return (
     <div className="portfolio-page" data-theme={theme}>
@@ -31,6 +37,15 @@ export function FeaturedGridTemplate({
       <main className="portfolio-main">
         <div className="container">
           <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
+
+          {/* About Section - between hero and featured work */}
+          {shouldShowAbout && (
+            <AboutSection
+              bio={portfolio.bio!}
+              profilePhoto={portfolio.profilePhoto}
+              name={portfolio.name}
+            />
+          )}
 
           {featuredProjects.length > 0 && (
             <FeaturedWork

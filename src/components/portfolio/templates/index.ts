@@ -28,10 +28,19 @@ export interface NavCategory {
   slug: string
 }
 
+export interface ProfilePhoto {
+  url: string
+  thumbnailUrl?: string
+  altText?: string
+}
+
 export interface TemplateProps {
   portfolio: {
     slug: string
     name: string
+    bio?: string | null
+    profilePhoto?: ProfilePhoto | null
+    showAboutSection?: boolean | null
   }
   sections: any[] // Section[] from content-schema
   featuredProjects: FeaturedProject[]
