@@ -1,0 +1,371 @@
+{
+  "persona": {
+    "id": "julian-vane",
+    "name": "Julian Vane",
+    "role": "Professional First Hand"
+  },
+  "profile": {
+    "images": [
+      {
+        "file": "julian-q6lt0tuu9.jpg",
+        "description": "Headshot: Official professional headshot of Julian Vane, Professional First Hand.",
+        "prompt": "Professional high-end headshot of a 35-year-old British-Nigerian man with a short buzz cut, clean-shaven face, focused gaze, wearing a crisp white collared shirt"
+      },
+      {
+        "file": "julian-1qh8hwhbb.jpg",
+        "description": "Workshop Selfie: A candid capture of Julian Vane in the tailoring workshop during a build period.",
+        "prompt": "Casual smartphone mirror selfie taken by Julian Vane in a tailoring workshop, wearing a work apron over a t-shirt, messy background"
+      }
+    ]
+  },
+  "categories": [
+    {
+      "name": "Menswear Tailoring",
+      "featuredPhoto": "julian-kl5ou58eo.jpg",
+      "projects": [
+        {
+          "title": "Bespoke Morning Coat",
+          "description": "Technical construction and tailoring for 'Bespoke Morning Coat', utilizing Heavy wool, horsehair canvas, hand stitching, crisp pressing.",
+          "isFeatured": true,
+          "photos": [
+            {
+              "file": "julian-kl5ou58eo.jpg",
+              "description": "Construction Detail: Hand-executed pad stitching for 'Bespoke Morning Coat'. This internal stitching is critical for ensuring the proper lapel roll in the Heavy wool, horsehair canvas, hand stitching, crisp pressing style.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-cnbixhkws.jpg",
+              "description": "Pressing: The final press of the Heavy wool, horsehair canvas, hand stitching, crisp pressing jacket for 'Bespoke Morning Coat', demonstrating the crisp, professional tailoring standards required.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-xo9yus6g1.jpg",
+              "description": "Internal Architecture: A view of the hidden interfacing layers for 'Bespoke Morning Coat', which form the structural foundation of the Heavy wool, horsehair canvas, hand stitching, crisp pressing silhouette.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-7mkfx6i5j.jpg",
+              "description": "Cutting Layout: Precision-cut fabric components for 'Bespoke Morning Coat', laid out and prepared for the complex Heavy wool, horsehair canvas, hand stitching, crisp pressing assembly process.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-lxkdd51wp.jpg",
+              "description": "Pattern Draft: The master pattern set for 'Bespoke Morning Coat', engineered specifically to achieve the Heavy wool, horsehair canvas, hand stitching, crisp pressing design requirements.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-qingxsw3x.jpg",
+              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Heavy wool, horsehair canvas, hand stitching, crisp pressing materials for 'Bespoke Morning Coat', highlighting tension and consistency.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-kpcjxjkjf.jpg",
+              "description": "Completed Garment: The finished build for 'Bespoke Morning Coat', a complex Heavy wool, horsehair canvas, hand stitching, crisp pressing piece presented on a professional dress form.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-d5yhweyvk.jpg",
+              "description": "Hardware Details: Custom closures and fastenings sourced for 'Bespoke Morning Coat', completing the Heavy wool, horsehair canvas, hand stitching, crisp pressing aesthetic.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "The Diplomat's Suit",
+          "description": "Technical construction and tailoring for 'The Diplomat's Suit', utilizing Heavy wool, horsehair canvas, hand stitching, crisp pressing.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "julian-wolhiz9tk.jpg",
+              "description": "Construction Detail: Hand-executed pad stitching for 'The Diplomat's Suit'. This internal stitching is critical for ensuring the proper lapel roll in the Heavy wool, horsehair canvas, hand stitching, crisp pressing style.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-ly3kcwlxy.jpg",
+              "description": "Pressing: The final press of the Heavy wool, horsehair canvas, hand stitching, crisp pressing jacket for 'The Diplomat's Suit', demonstrating the crisp, professional tailoring standards required.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-gza2snmel.jpg",
+              "description": "Internal Architecture: A view of the hidden interfacing layers for 'The Diplomat's Suit', which form the structural foundation of the Heavy wool, horsehair canvas, hand stitching, crisp pressing silhouette.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-nm0ivleaf.jpg",
+              "description": "Cutting Layout: Precision-cut fabric components for 'The Diplomat's Suit', laid out and prepared for the complex Heavy wool, horsehair canvas, hand stitching, crisp pressing assembly process.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-lpoihfgqf.jpg",
+              "description": "Pattern Draft: The master pattern set for 'The Diplomat's Suit', engineered specifically to achieve the Heavy wool, horsehair canvas, hand stitching, crisp pressing design requirements.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-tnert8ani.jpg",
+              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Heavy wool, horsehair canvas, hand stitching, crisp pressing materials for 'The Diplomat's Suit', highlighting tension and consistency.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-sxd9d7vbp.jpg",
+              "description": "Completed Garment: The finished build for 'The Diplomat's Suit', a complex Heavy wool, horsehair canvas, hand stitching, crisp pressing piece presented on a professional dress form.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-z846wgpfc.jpg",
+              "description": "Hardware Details: Custom closures and fastenings sourced for 'The Diplomat's Suit', completing the Heavy wool, horsehair canvas, hand stitching, crisp pressing aesthetic.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Leather Work",
+      "featuredPhoto": "julian-bnltk1dph.jpg",
+      "projects": [
+        {
+          "title": "Wasteland Armor Build",
+          "description": "Technical construction and tailoring for 'Wasteland Armor Build', utilizing Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "julian-bnltk1dph.jpg",
+              "description": "Construction Detail: Hand-executed pad stitching for 'Wasteland Armor Build'. This internal stitching is critical for ensuring the proper lapel roll in the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles style.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-jg8yumvb4.jpg",
+              "description": "Pressing: The final press of the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles jacket for 'Wasteland Armor Build', demonstrating the crisp, professional tailoring standards required.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-mxcdotrr5.jpg",
+              "description": "Internal Architecture: A view of the hidden interfacing layers for 'Wasteland Armor Build', which form the structural foundation of the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles silhouette.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-wqqhfx5lh.jpg",
+              "description": "Cutting Layout: Precision-cut fabric components for 'Wasteland Armor Build', laid out and prepared for the complex Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles assembly process.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-z3qoavzge.jpg",
+              "description": "Pattern Draft: The master pattern set for 'Wasteland Armor Build', engineered specifically to achieve the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles design requirements.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-26kxixt8j.jpg",
+              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles materials for 'Wasteland Armor Build', highlighting tension and consistency.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-eyft23jq4.jpg",
+              "description": "Completed Garment: The finished build for 'Wasteland Armor Build', a complex Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles piece presented on a professional dress form.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-srfjy31pw.jpg",
+              "description": "Hardware Details: Custom closures and fastenings sourced for 'Wasteland Armor Build', completing the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles aesthetic.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "The Aviator Jacket",
+          "description": "Technical construction and tailoring for 'The Aviator Jacket', utilizing Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "julian-n02rc7g3l.jpg",
+              "description": "Construction Detail: Hand-executed pad stitching for 'The Aviator Jacket'. This internal stitching is critical for ensuring the proper lapel roll in the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles style.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-mjh96lx88.jpg",
+              "description": "Pressing: The final press of the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles jacket for 'The Aviator Jacket', demonstrating the crisp, professional tailoring standards required.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-3n2qm9q80.jpg",
+              "description": "Internal Architecture: A view of the hidden interfacing layers for 'The Aviator Jacket', which form the structural foundation of the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles silhouette.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-1phy7s3m6.jpg",
+              "description": "Cutting Layout: Precision-cut fabric components for 'The Aviator Jacket', laid out and prepared for the complex Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles assembly process.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-s4cp4ha7o.jpg",
+              "description": "Pattern Draft: The master pattern set for 'The Aviator Jacket', engineered specifically to achieve the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles design requirements.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-rfn5cc95c.jpg",
+              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles materials for 'The Aviator Jacket', highlighting tension and consistency.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-6s9qxyhh8.jpg",
+              "description": "Completed Garment: The finished build for 'The Aviator Jacket', a complex Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles piece presented on a professional dress form.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-nu1vz5lar.jpg",
+              "description": "Hardware Details: Custom closures and fastenings sourced for 'The Aviator Jacket', completing the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles aesthetic.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Corsetry",
+      "featuredPhoto": "julian-dylyp2uri.jpg",
+      "projects": [
+        {
+          "title": "Victorian Silk Bodice",
+          "description": "Technical construction and tailoring for 'Victorian Silk Bodice', utilizing Silk satin, spiral steel boning, grommet setting, coutil lining.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "julian-dylyp2uri.jpg",
+              "description": "Construction Detail: Hand-executed pad stitching for 'Victorian Silk Bodice'. This internal stitching is critical for ensuring the proper lapel roll in the Silk satin, spiral steel boning, grommet setting, coutil lining style.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-wwhzvgx15.jpg",
+              "description": "Pressing: The final press of the Silk satin, spiral steel boning, grommet setting, coutil lining jacket for 'Victorian Silk Bodice', demonstrating the crisp, professional tailoring standards required.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-5m8blii42.jpg",
+              "description": "Internal Architecture: A view of the hidden interfacing layers for 'Victorian Silk Bodice', which form the structural foundation of the Silk satin, spiral steel boning, grommet setting, coutil lining silhouette.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-cl8wfz5zy.jpg",
+              "description": "Cutting Layout: Precision-cut fabric components for 'Victorian Silk Bodice', laid out and prepared for the complex Silk satin, spiral steel boning, grommet setting, coutil lining assembly process.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-20wonb0yv.jpg",
+              "description": "Pattern Draft: The master pattern set for 'Victorian Silk Bodice', engineered specifically to achieve the Silk satin, spiral steel boning, grommet setting, coutil lining design requirements.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-wg7dv9r5a.jpg",
+              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Silk satin, spiral steel boning, grommet setting, coutil lining materials for 'Victorian Silk Bodice', highlighting tension and consistency.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-kux8a2n1e.jpg",
+              "description": "Completed Garment: The finished build for 'Victorian Silk Bodice', a complex Silk satin, spiral steel boning, grommet setting, coutil lining piece presented on a professional dress form.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-ajgx4r4w7.jpg",
+              "description": "Hardware Details: Custom closures and fastenings sourced for 'Victorian Silk Bodice', completing the Silk satin, spiral steel boning, grommet setting, coutil lining aesthetic.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Bridal Structure",
+          "description": "Technical construction and tailoring for 'Bridal Structure', utilizing Silk satin, spiral steel boning, grommet setting, coutil lining.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "julian-s3nd5uzza.jpg",
+              "description": "Construction Detail: Hand-executed pad stitching for 'Bridal Structure'. This internal stitching is critical for ensuring the proper lapel roll in the Silk satin, spiral steel boning, grommet setting, coutil lining style.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-q49uqhg7n.jpg",
+              "description": "Pressing: The final press of the Silk satin, spiral steel boning, grommet setting, coutil lining jacket for 'Bridal Structure', demonstrating the crisp, professional tailoring standards required.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-v5qauz4xw.jpg",
+              "description": "Internal Architecture: A view of the hidden interfacing layers for 'Bridal Structure', which form the structural foundation of the Silk satin, spiral steel boning, grommet setting, coutil lining silhouette.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-35rhu7uxn.jpg",
+              "description": "Cutting Layout: Precision-cut fabric components for 'Bridal Structure', laid out and prepared for the complex Silk satin, spiral steel boning, grommet setting, coutil lining assembly process.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-d8viekf0r.jpg",
+              "description": "Pattern Draft: The master pattern set for 'Bridal Structure', engineered specifically to achieve the Silk satin, spiral steel boning, grommet setting, coutil lining design requirements.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-a5knpaf10.jpg",
+              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Silk satin, spiral steel boning, grommet setting, coutil lining materials for 'Bridal Structure', highlighting tension and consistency.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-m8zhfmfgr.jpg",
+              "description": "Completed Garment: The finished build for 'Bridal Structure', a complex Silk satin, spiral steel boning, grommet setting, coutil lining piece presented on a professional dress form.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "julian-5wwex7jc6.jpg",
+              "description": "Hardware Details: Custom closures and fastenings sourced for 'Bridal Structure', completing the Silk satin, spiral steel boning, grommet setting, coutil lining aesthetic.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,443 @@
+{
+  "persona": {
+    "id": "sarah-chen",
+    "name": "Sarah Chen",
+    "role": "Theatre Costume Designer"
+  },
+  "profile": {
+    "images": [
+      {
+        "file": "sarah-40opfzbgb.jpg",
+        "description": "Headshot",
+        "prompt": "Professional headshot of a 32-year-old Korean-American woman with shoulder-length black hair, wearing a black crew neck sweater, warm confident smile, soft studio lighting, neutral gray background"
+      },
+      {
+        "file": "sarah-8xzq9d5w4.jpg",
+        "description": "Backstage Selfie",
+        "prompt": "Casual smartphone mirror selfie of Sarah Chen in a dark theatre backstage area, holding a smartphone, wearing a headset and casual black work clothes"
+      }
+    ]
+  },
+  "categories": [
+    {
+      "name": "Shakespearean Tragedy",
+      "featuredPhoto": "sarah-zn1224dvq.jpg",
+      "projects": [
+        {
+          "title": "The Obsidian Crown",
+          "description": "Costume design and direction for the production 'The Obsidian Crown', focusing on Dark, moody, velvet, blood red, royalty, gold embroidery.",
+          "isFeatured": true,
+          "photos": [
+            {
+              "file": "sarah-zn1224dvq.jpg",
+              "description": "Character Design Rendering",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-ckyxh86xf.jpg",
+              "description": "Fabrication Palette",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-fcza6izb5.jpg",
+              "description": "Technical Draft",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-0nxmufmtj.jpg",
+              "description": "Muslin Prototype Presentation",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-4ssfd7v73.jpg",
+              "description": "Embroidery Detail",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-k0ei64w36.jpg",
+              "description": "Production Still: The Lead",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-3pfxk4eis.jpg",
+              "description": "Ensemble Tableau",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-mspvayik9.jpg",
+              "description": "Texture under lighting",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-wrno9vuhb.jpg",
+              "description": "Movement Test",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-1s7ibnitx.jpg",
+              "description": "Ready for Curtain",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Macbeth: Blood & Fog",
+          "description": "Costume design and direction for the production 'Macbeth: Blood & Fog', focusing on Dark, moody, velvet, blood red, royalty, gold embroidery.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "sarah-vn4bbkshe.jpg",
+              "description": "Character Design Rendering",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-xwvt4d911.jpg",
+              "description": "Fabrication Palette",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-3h37mkbjf.jpg",
+              "description": "Technical Draft",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-954sws6bh.jpg",
+              "description": "Muslin Prototype Presentation",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-w808u4itv.jpg",
+              "description": "Embroidery Detail",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-fvk4h7ff8.jpg",
+              "description": "Production Still: The Lead",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-jbpt8646g.jpg",
+              "description": "Ensemble Tableau",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-nucq8wq5x.jpg",
+              "description": "Texture under lighting",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-hhgbyxknz.jpg",
+              "description": "Movement Test",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-rzi7j3ucd.jpg",
+              "description": "Ready for Curtain",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "High Concept Sci-Fi",
+      "featuredPhoto": "sarah-9f7soqfm7.jpg",
+      "projects": [
+        {
+          "title": "Nebula Rising",
+          "description": "Costume design and direction for the production 'Nebula Rising', focusing on Holographic fabrics, structural LEDs, translucent plastic, angular silhouettes.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "sarah-9f7soqfm7.jpg",
+              "description": "Character Design Rendering",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-pq5h9ygtb.jpg",
+              "description": "Fabrication Palette",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-dzhd895ne.jpg",
+              "description": "Technical Draft",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-ho41hwqm0.jpg",
+              "description": "Muslin Prototype Presentation",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-d8uxi9qz2.jpg",
+              "description": "Embroidery Detail",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-6cpudc60n.jpg",
+              "description": "Production Still: The Lead",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-arnbexouf.jpg",
+              "description": "Ensemble Tableau",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-19ee6f4hl.jpg",
+              "description": "Texture under lighting",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-zey2schor.jpg",
+              "description": "Movement Test",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-52r5g1rmq.jpg",
+              "description": "Ready for Curtain",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "The Chromium Protocol",
+          "description": "Costume design and direction for the production 'The Chromium Protocol', focusing on Holographic fabrics, structural LEDs, translucent plastic, angular silhouettes.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "sarah-a8phho7s3.jpg",
+              "description": "Character Design Rendering",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-hr6g0wp9v.jpg",
+              "description": "Fabrication Palette",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-4iury72b8.jpg",
+              "description": "Technical Draft",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-77fpapuhj.jpg",
+              "description": "Muslin Prototype Presentation",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-kul4175z7.jpg",
+              "description": "Embroidery Detail",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-mbhujzeup.jpg",
+              "description": "Production Still: The Lead",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-sbsk1bv7f.jpg",
+              "description": "Ensemble Tableau",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-oft7ngnm8.jpg",
+              "description": "Texture under lighting",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-kz1n5hgbo.jpg",
+              "description": "Movement Test",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-s7zt3k5bi.jpg",
+              "description": "Ready for Curtain",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Period Restoration",
+      "featuredPhoto": "sarah-7gqri77jx.jpg",
+      "projects": [
+        {
+          "title": "The Gilded Court",
+          "description": "Costume design and direction for the production 'The Gilded Court', focusing on Authentic 18th century silk, delicate lace, pastel floral embroidery, powdered wigs.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "sarah-7gqri77jx.jpg",
+              "description": "Character Design Rendering",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-h2vvkj6ac.jpg",
+              "description": "Fabrication Palette",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-fby2igmab.jpg",
+              "description": "Technical Draft",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-wyw8iwiwf.jpg",
+              "description": "Muslin Prototype Presentation",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-mn6lc0va7.jpg",
+              "description": "Embroidery Detail",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-h1lomzvfr.jpg",
+              "description": "Production Still: The Lead",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-zgbsz45s7.jpg",
+              "description": "Ensemble Tableau",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-ws2zimk39.jpg",
+              "description": "Texture under lighting",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-06xcfgcrw.jpg",
+              "description": "Movement Test",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-jzm9w9lov.jpg",
+              "description": "Ready for Curtain",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Letter from Vienna",
+          "description": "Costume design and direction for the production 'Letter from Vienna', focusing on Authentic 18th century silk, delicate lace, pastel floral embroidery, powdered wigs.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "sarah-4q2z6o49c.jpg",
+              "description": "Character Design Rendering",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-1n2jrzee0.jpg",
+              "description": "Fabrication Palette",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-19llj5d3c.jpg",
+              "description": "Technical Draft",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-wa6q8mckc.jpg",
+              "description": "Muslin Prototype Presentation",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-tcntfb7ov.jpg",
+              "description": "Embroidery Detail",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-af044mvve.jpg",
+              "description": "Production Still: The Lead",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-efmpfutst.jpg",
+              "description": "Ensemble Tableau",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-5htss0wx0.jpg",
+              "description": "Texture under lighting",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-8lip6jaz4.jpg",
+              "description": "Movement Test",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "sarah-w5jj9sv60.jpg",
+              "description": "Ready for Curtain",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

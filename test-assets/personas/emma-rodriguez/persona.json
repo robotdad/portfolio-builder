@@ -1,0 +1,335 @@
+{
+  "persona": {
+    "id": "emma-rodriguez",
+    "name": "Emma Rodriguez",
+    "role": "Film Supervisor"
+  },
+  "profile": {
+    "images": [
+      {
+        "file": "emma-vzeucwp2w.jpg",
+        "description": "Headshot: Official professional headshot of Emma Rodriguez, Film Costume Supervisor.",
+        "prompt": "Professional headshot of a 48-year-old Latina woman with silver-streaked brown hair in a chic bob, wearing a navy blazer, confident expression"
+      },
+      {
+        "file": "emma-9ri7wdee2.jpg",
+        "description": "Trailer Selfie: A candid on-location capture of Emma Rodriguez managing the wardrobe trailer.",
+        "prompt": "Casual smartphone selfie of Emma Rodriguez in a film production trailer, wearing a headset, background filled with costume racks"
+      }
+    ]
+  },
+  "categories": [
+    {
+      "name": "War Drama",
+      "featuredPhoto": "emma-vcdxsn576.jpg",
+      "projects": [
+        {
+          "title": "Operation: Broken Arrow",
+          "description": "On-set supervision and continuity management for 'Operation: Broken Arrow'.",
+          "isFeatured": true,
+          "photos": [
+            {
+              "file": "emma-vcdxsn576.jpg",
+              "description": "Continuity Log: The master continuity binder for 'Operation: Broken Arrow', documenting every detail of the Muddy textures, blood stains, distressed military wool, 1940s gear looks to ensure frame-to-frame consistency.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-y1rji3bwt.jpg",
+              "description": "Wardrobe Trailer: Systematic organization of 'Operation: Broken Arrow' costumes, categorized by character and scene for rapid on-set changes.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-crkzgnurd.jpg",
+              "description": "Distress Work: Specialized aging and weathering techniques applied to 'Operation: Broken Arrow' costumes to create a realistic Muddy textures, blood stains, distressed military wool, 1940s gear patina.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-wpey59qjo.jpg",
+              "description": "On-Set Monitor: A view from video village for 'Operation: Broken Arrow', verifying that the costumes read correctly on camera in the specific Muddy textures, blood stains, distressed military wool, 1940s gear lighting conditions.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-jki8owxwn.jpg",
+              "description": "Set Atmosphere: Cast chairs and warm-up coats for 'Operation: Broken Arrow', capturing the on-set environment during the production of this Muddy textures, blood stains, distressed military wool, 1940s gear feature.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-13xv7oqm9.jpg",
+              "description": "Scripted Damage: A continuity asset for 'Operation: Broken Arrow' documenting specific costume damage required by the script for the Muddy textures, blood stains, distressed military wool, 1940s gear sequences.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-s2gicftdn.jpg",
+              "description": "Night Logistics: Set preparation for 'Operation: Broken Arrow' night shoots, highlighting the texture of Muddy textures, blood stains, distressed military wool, 1940s gear textiles under artificial set lighting.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "The Trenches of 1917",
+          "description": "On-set supervision and continuity management for 'The Trenches of 1917'.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "emma-6w058tv0c.jpg",
+              "description": "Continuity Log: The master continuity binder for 'The Trenches of 1917', documenting every detail of the Muddy textures, blood stains, distressed military wool, 1940s gear looks to ensure frame-to-frame consistency.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-e576xjya0.jpg",
+              "description": "Wardrobe Trailer: Systematic organization of 'The Trenches of 1917' costumes, categorized by character and scene for rapid on-set changes.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-lmi5noq2d.jpg",
+              "description": "Distress Work: Specialized aging and weathering techniques applied to 'The Trenches of 1917' costumes to create a realistic Muddy textures, blood stains, distressed military wool, 1940s gear patina.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-4v8cpp9px.jpg",
+              "description": "On-Set Monitor: A view from video village for 'The Trenches of 1917', verifying that the costumes read correctly on camera in the specific Muddy textures, blood stains, distressed military wool, 1940s gear lighting conditions.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-8j4ixfv2x.jpg",
+              "description": "Set Atmosphere: Cast chairs and warm-up coats for 'The Trenches of 1917', capturing the on-set environment during the production of this Muddy textures, blood stains, distressed military wool, 1940s gear feature.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-8o89sd7q3.jpg",
+              "description": "Scripted Damage: A continuity asset for 'The Trenches of 1917' documenting specific costume damage required by the script for the Muddy textures, blood stains, distressed military wool, 1940s gear sequences.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-d6cgsiypx.jpg",
+              "description": "Night Logistics: Set preparation for 'The Trenches of 1917' night shoots, highlighting the texture of Muddy textures, blood stains, distressed military wool, 1940s gear textiles under artificial set lighting.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Western",
+      "featuredPhoto": "emma-p9aw6ubhq.jpg",
+      "projects": [
+        {
+          "title": "Red Dust Saloon",
+          "description": "On-set supervision and continuity management for 'Red Dust Saloon'.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "emma-p9aw6ubhq.jpg",
+              "description": "Continuity Log: The master continuity binder for 'Red Dust Saloon', documenting every detail of the Dusty denim, sun-bleached leather, sweat stains, cowboy hats looks to ensure frame-to-frame consistency.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-fcyf1lma1.jpg",
+              "description": "Wardrobe Trailer: Systematic organization of 'Red Dust Saloon' costumes, categorized by character and scene for rapid on-set changes.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-76kit9h9j.jpg",
+              "description": "Distress Work: Specialized aging and weathering techniques applied to 'Red Dust Saloon' costumes to create a realistic Dusty denim, sun-bleached leather, sweat stains, cowboy hats patina.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-eutcv985j.jpg",
+              "description": "On-Set Monitor: A view from video village for 'Red Dust Saloon', verifying that the costumes read correctly on camera in the specific Dusty denim, sun-bleached leather, sweat stains, cowboy hats lighting conditions.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-4lhmnbln0.jpg",
+              "description": "Set Atmosphere: Cast chairs and warm-up coats for 'Red Dust Saloon', capturing the on-set environment during the production of this Dusty denim, sun-bleached leather, sweat stains, cowboy hats feature.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-1fy65hjag.jpg",
+              "description": "Scripted Damage: A continuity asset for 'Red Dust Saloon' documenting specific costume damage required by the script for the Dusty denim, sun-bleached leather, sweat stains, cowboy hats sequences.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-dco0qdtb6.jpg",
+              "description": "Night Logistics: Set preparation for 'Red Dust Saloon' night shoots, highlighting the texture of Dusty denim, sun-bleached leather, sweat stains, cowboy hats textiles under artificial set lighting.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Sheriff's Last Stand",
+          "description": "On-set supervision and continuity management for 'Sheriff's Last Stand'.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "emma-txz9acoc7.jpg",
+              "description": "Continuity Log: The master continuity binder for 'Sheriff's Last Stand', documenting every detail of the Dusty denim, sun-bleached leather, sweat stains, cowboy hats looks to ensure frame-to-frame consistency.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-c1iqr9dgl.jpg",
+              "description": "Wardrobe Trailer: Systematic organization of 'Sheriff's Last Stand' costumes, categorized by character and scene for rapid on-set changes.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-jh1n2ezoo.jpg",
+              "description": "Distress Work: Specialized aging and weathering techniques applied to 'Sheriff's Last Stand' costumes to create a realistic Dusty denim, sun-bleached leather, sweat stains, cowboy hats patina.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-lztyn47kq.jpg",
+              "description": "On-Set Monitor: A view from video village for 'Sheriff's Last Stand', verifying that the costumes read correctly on camera in the specific Dusty denim, sun-bleached leather, sweat stains, cowboy hats lighting conditions.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-3gipcobk2.jpg",
+              "description": "Set Atmosphere: Cast chairs and warm-up coats for 'Sheriff's Last Stand', capturing the on-set environment during the production of this Dusty denim, sun-bleached leather, sweat stains, cowboy hats feature.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-rqfson061.jpg",
+              "description": "Scripted Damage: A continuity asset for 'Sheriff's Last Stand' documenting specific costume damage required by the script for the Dusty denim, sun-bleached leather, sweat stains, cowboy hats sequences.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-v9alv0nc7.jpg",
+              "description": "Night Logistics: Set preparation for 'Sheriff's Last Stand' night shoots, highlighting the texture of Dusty denim, sun-bleached leather, sweat stains, cowboy hats textiles under artificial set lighting.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Modern Thriller",
+      "featuredPhoto": "emma-u02cvu2sq.jpg",
+      "projects": [
+        {
+          "title": "Protocol 7",
+          "description": "On-set supervision and continuity management for 'Protocol 7'.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "emma-u02cvu2sq.jpg",
+              "description": "Continuity Log: The master continuity binder for 'Protocol 7', documenting every detail of the Tactical gear, sleek suits, fake blood continuity, urban grit looks to ensure frame-to-frame consistency.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-chu5qli05.jpg",
+              "description": "Wardrobe Trailer: Systematic organization of 'Protocol 7' costumes, categorized by character and scene for rapid on-set changes.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-qikkfb85l.jpg",
+              "description": "Distress Work: Specialized aging and weathering techniques applied to 'Protocol 7' costumes to create a realistic Tactical gear, sleek suits, fake blood continuity, urban grit patina.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-836b6lamp.jpg",
+              "description": "On-Set Monitor: A view from video village for 'Protocol 7', verifying that the costumes read correctly on camera in the specific Tactical gear, sleek suits, fake blood continuity, urban grit lighting conditions.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-q9gb7ua9g.jpg",
+              "description": "Set Atmosphere: Cast chairs and warm-up coats for 'Protocol 7', capturing the on-set environment during the production of this Tactical gear, sleek suits, fake blood continuity, urban grit feature.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-js19o2als.jpg",
+              "description": "Scripted Damage: A continuity asset for 'Protocol 7' documenting specific costume damage required by the script for the Tactical gear, sleek suits, fake blood continuity, urban grit sequences.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-x25ws5fz5.jpg",
+              "description": "Night Logistics: Set preparation for 'Protocol 7' night shoots, highlighting the texture of Tactical gear, sleek suits, fake blood continuity, urban grit textiles under artificial set lighting.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Nightshade",
+          "description": "On-set supervision and continuity management for 'Nightshade'.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "emma-xwlb099al.jpg",
+              "description": "Continuity Log: The master continuity binder for 'Nightshade', documenting every detail of the Tactical gear, sleek suits, fake blood continuity, urban grit looks to ensure frame-to-frame consistency.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-ni27cxjf3.jpg",
+              "description": "Wardrobe Trailer: Systematic organization of 'Nightshade' costumes, categorized by character and scene for rapid on-set changes.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-gd5l7lmb3.jpg",
+              "description": "Distress Work: Specialized aging and weathering techniques applied to 'Nightshade' costumes to create a realistic Tactical gear, sleek suits, fake blood continuity, urban grit patina.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-pjoys00e6.jpg",
+              "description": "On-Set Monitor: A view from video village for 'Nightshade', verifying that the costumes read correctly on camera in the specific Tactical gear, sleek suits, fake blood continuity, urban grit lighting conditions.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-du8s5klvs.jpg",
+              "description": "Set Atmosphere: Cast chairs and warm-up coats for 'Nightshade', capturing the on-set environment during the production of this Tactical gear, sleek suits, fake blood continuity, urban grit feature.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-7ttt7aenw.jpg",
+              "description": "Scripted Damage: A continuity asset for 'Nightshade' documenting specific costume damage required by the script for the Tactical gear, sleek suits, fake blood continuity, urban grit sequences.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "emma-y5ab92o35.jpg",
+              "description": "Night Logistics: Set preparation for 'Nightshade' night shoots, highlighting the texture of Tactical gear, sleek suits, fake blood continuity, urban grit textiles under artificial set lighting.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
