@@ -182,7 +182,7 @@ export function CategoryListItem({
       {/* Actions */}
       <div className={styles.actions}>
         <button
-          className={styles.action}
+          className={`${styles.action} icon-btn`}
           onClick={handleEdit}
           aria-label={`Edit ${category.name}`}
           type="button"
@@ -192,7 +192,7 @@ export function CategoryListItem({
         </button>
 
         <button
-          className={styles.actionDanger}
+          className={`${styles.actionDanger} icon-btn destructive`}
           onClick={handleDelete}
           aria-label={`Delete ${category.name}`}
           type="button"

@@ -105,7 +105,7 @@ export function ProjectCard({
         {/* Delete Button */}
         <button
           type="button"
-          className="admin-project-card-delete"
+          className="admin-project-card-delete icon-btn destructive"
           onClick={handleDelete}
           aria-label={`Delete ${project.title}`}
         >
@@ -205,34 +205,32 @@ export function ProjectCard({
           backdrop-filter: blur(4px);
         }
 
-        /* Delete button */
+        /* Delete button - uses global .icon-btn pattern with overlay styling */
         .admin-project-card-delete {
           position: absolute;
           top: 8px;
           right: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 32px;
-          height: 32px;
-          padding: 0;
+          /* Touch target sizing comes from .icon-btn class */
+          /* Using CSS variables for responsive sizing */
+          min-width: var(--touch-target); /* 44px mobile, 36px desktop */
+          min-height: var(--touch-target);
+          padding: var(--button-icon-padding); /* 12px mobile, 8px desktop */
           background: hsla(0, 84%, 60%, 0.9);
-          border: none;
           border-radius: 50%;
           color: #ffffff;
-          cursor: pointer;
           transition: background-color 150ms ease, opacity 150ms ease, transform 150ms ease;
           /* Always visible on mobile */
           opacity: 1;
         }
 
+        .admin-project-card-delete svg {
+          width: 14px; /* Smaller icon for card overlay */
+          height: 14px;
+        }
+
         .admin-project-card-delete:hover {
           background: hsla(0, 84%, 50%, 1);
           transform: scale(1.1);
-        }
-
-        .admin-project-card-delete:focus {
-          outline: none;
         }
 
         .admin-project-card-delete:focus-visible {

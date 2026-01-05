@@ -122,6 +122,26 @@
   --touch-target-min: 44px;
 
   /* --------------------------------------------------------------------------
+     RESPONSIVE TOUCH TARGET TOKENS
+     Mobile-first: Default to generous 44px, scale down for desktop precision
+     -------------------------------------------------------------------------- */
+  
+  /* Mobile-first defaults (44px minimum) */
+  --touch-target: var(--touch-target-min); /* 44px */
+  --touch-target-spacing: var(--space-2); /* 8px between targets */
+  
+  /* Button padding (icon-only buttons) */
+  --button-icon-padding: var(--space-3); /* 12px = (44 - 20) / 2 */
+  
+  /* Toolbar specific */
+  --toolbar-button-size: var(--touch-target-min); /* 44px */
+  --toolbar-button-gap: var(--space-2); /* 8px */
+  
+  /* Checkbox touch area */
+  --checkbox-touch-height: var(--touch-target-min); /* 44px */
+  --checkbox-touch-padding: var(--space-3); /* 12px vertical */
+
+  /* --------------------------------------------------------------------------
      Input & Form Tokens
      -------------------------------------------------------------------------- */
   --input-font-size: 16px;        /* Minimum to prevent iOS zoom-in on focus */
@@ -180,6 +200,25 @@
   --admin-nav-item-hover: var(--admin-bg-tertiary);
   --admin-nav-item-active-bg: hsl(220, 90%, 96%);
   --admin-nav-item-active-border: var(--admin-primary);
+}
+
+/* Tablet: Slightly smaller targets (768px+) */
+@media (min-width: 768px) {
+  :root {
+    --touch-target: 40px; /* Between mobile and desktop */
+    --toolbar-button-size: 40px;
+    --button-icon-padding: 10px; /* (40 - 20) / 2 */
+  }
+}
+
+/* Desktop: Compact targets for mouse precision (1024px+) */
+@media (min-width: 1024px) {
+  :root {
+    --touch-target: 36px; /* Mouse allows smaller */
+    --toolbar-button-size: 36px;
+    --toolbar-button-gap: var(--space-1); /* 4px tighter */
+    --button-icon-padding: var(--space-2); /* 8px */
+  }
 }
 
 /* ==========================================================================
@@ -1011,8 +1050,8 @@ textarea:focus-visible {
 
 /* Toolbar buttons */
 .toolbar-btn {
-  min-width: 44px;
-  min-height: 44px;
+  min-width: var(--toolbar-button-size);
+  min-height: var(--toolbar-button-size);
   padding: var(--space-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -1405,13 +1444,88 @@ textarea:focus-visible {
 }
 
 /* --------------------------------------------------------------------------
+   ICON BUTTON PATTERN (Reusable)
+   Visual icon stays small (16-24px), but touch area is 44px via padding
+   -------------------------------------------------------------------------- */
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-target); /* 44px mobile, 36px desktop */
+  min-height: var(--touch-target);
+  padding: var(--button-icon-padding); /* 12px mobile, 8px desktop */
+  
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  touch-action: manipulation; /* Prevent double-tap zoom */
+}
+
+/* Icon inside button stays visually small */
+.icon-btn svg,
+.icon-btn .icon {
+  width: 20px; /* Visual size */
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.icon-btn:hover {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.icon-btn:active {
+  background: var(--color-surface);
+  transform: scale(0.97);
+}
+
+/* Variants */
+.icon-btn.destructive {
+  color: var(--admin-error);
+}
+
+.icon-btn.destructive:hover {
+  background: hsla(0, 72%, 51%, 0.1);
+  border-color: var(--admin-error);
+}
+
+.icon-btn.primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+}
+
+.icon-btn.primary:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .icon-btn:active {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
    MOBILE TOOLBAR (Inline with Editor)
    -------------------------------------------------------------------------- */
 
 .mobile-toolbar {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1);
+  flex-wrap: wrap; /* Allow wrapping on mobile */
+  gap: var(--toolbar-button-gap); /* 8px mobile, 4px desktop */
   padding: var(--space-2);
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
@@ -1419,18 +1533,35 @@ textarea:focus-visible {
   position: sticky;
   top: 0;
   z-index: 10;
+  align-items: center; /* Keep buttons vertically aligned */
 }
 
 .mobile-toolbar-group {
   display: flex;
   gap: var(--space-1);
+  flex-wrap: wrap; /* Allow group to wrap if needed */
 }
 
 .mobile-toolbar-divider {
   width: 1px;
   background: var(--color-border);
-  margin: 0 var(--space-2);
-  align-self: stretch;
+  margin: 0 var(--space-1);
+  align-self: stretch; /* Full height of container */
+}
+
+/* Mobile: Allow natural two-row wrapping */
+@media (max-width: 767px) {
+  .mobile-toolbar {
+    /* Allow natural wrapping at ~4 buttons per row */
+    max-width: 100%;
+  }
+}
+
+/* Desktop: Single row, tighter spacing */
+@media (min-width: 768px) {
+  .mobile-toolbar {
+    flex-wrap: nowrap; /* Single row */
+  }
 }
 
 /* Toolbar scroll on very small screens */
@@ -1602,11 +1733,6 @@ textarea:focus-visible {
   .editor-toolbar {
     padding: var(--space-2);
     gap: var(--space-1);
-  }
-  
-  .toolbar-btn {
-    min-width: var(--touch-target-min);
-    min-height: var(--touch-target-min);
   }
   
   .rich-text-editor .ProseMirror {
@@ -1955,14 +2081,21 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  min-width: var(--touch-target); /* 44px mobile, 36px desktop */
+  min-height: var(--touch-target);
+  padding: var(--button-icon-padding); /* 12px mobile, 8px desktop */
   background: transparent;
   border: none;
   border-radius: var(--radius-md);
   color: var(--color-text-muted);
   cursor: pointer;
   transition: all var(--transition-fast);
+}
+
+.section-delete-btn svg {
+  width: 20px; /* Visual size */
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .section-delete-btn:hover {
@@ -2255,14 +2388,7 @@ textarea:focus-visible {
   color: white;
 }
 
-/* ============================================================================
-   Touch-friendly button base (ensure 44px minimum touch target)
-   ============================================================================ */
-
-.touch-btn {
-  min-height: 44px;
-  min-width: 44px;
-}
+/* Touch-friendly button base removed - using responsive --toolbar-button-size tokens instead */
 
 /* --------------------------------------------------------------------------
    FEATURED GRID EDITOR
@@ -2938,6 +3064,59 @@ textarea:focus-visible {
   height: 18px;
   cursor: pointer;
   accent-color: var(--color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   CHECKBOX WITH FULL TOUCH AREA
+   Makes entire label tappable (44px height minimum)
+   -------------------------------------------------------------------------- */
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3); /* 12px between checkbox and text */
+  min-height: var(--checkbox-touch-height); /* 44px */
+  padding: var(--checkbox-touch-padding) 0; /* 12px vertical */
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--transition-fast);
+  border-radius: var(--radius-md);
+}
+
+.checkbox-label:hover {
+  background: var(--color-surface);
+}
+
+/* Checkbox input */
+.checkbox-label input[type="checkbox"] {
+  width: var(--checkbox-size); /* 18px visual size */
+  height: var(--checkbox-size);
+  margin: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  accent-color: var(--color-accent);
+}
+
+.checkbox-label input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Label text */
+.checkbox-label-text {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  line-height: var(--leading-normal);
+}
+
+/* Helper text (optional) */
+.checkbox-helper-text {
+  display: block;
+  margin-top: var(--space-1);
+  margin-left: calc(var(--checkbox-size) + var(--space-3)); /* Align with label */
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-snug);
 }
 
 /* --------------------------------------------------------------------------

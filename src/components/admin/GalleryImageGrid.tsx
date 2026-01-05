@@ -133,7 +133,7 @@ function SortableThumbnail({
       <div className="thumbnail-overlay">
         <button
           type="button"
-          className="remove-button"
+          className="remove-button icon-btn destructive"
           onClick={(e) => {
             e.stopPropagation()
             onRemove()

@@ -1,2 +1,12 @@
 bundle:
-  active: exp-delegation
+  active: portfolio
+config:
+  providers:
+  - config:
+      api_key: ${ANTHROPIC_API_KEY}
+      base_url: ${ANTHROPIC_BASE_URL}
+      default_model: claude-sonnet-4-5-20250929
+      enable_1m_context: 'true'
+      priority: 1
+    module: provider-anthropic
+    source: git+https://github.com/microsoft/amplifier-module-provider-anthropic@main

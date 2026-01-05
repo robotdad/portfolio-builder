@@ -99,15 +99,14 @@ export function AboutSettings({
 
       {/* Toggle control */}
       <div className="about-settings__field about-settings__field--toggle">
-        <label className="about-settings__toggle-label">
+        <label className="checkbox-label">
           <input
             type="checkbox"
             checked={showAboutSection}
             onChange={handleToggleChange}
             onBlur={onFieldBlur}
-            className="about-settings__checkbox"
           />
-          <span className="about-settings__toggle-text">
+          <span className="checkbox-label-text">
             Show About section on homepage
           </span>
         </label>
