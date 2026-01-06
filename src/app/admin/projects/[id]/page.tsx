@@ -327,30 +327,32 @@ export default function ProjectEditorPage() {
                 <FeaturedImagePicker
                   portfolioId={project.category.portfolioId}
                   currentImage={project.featuredImage}
-                  onImageSelect={(image) => {
+                  onImageSelect={async (image) => {
                     const newFeaturedImageId = image?.id || null
                     handleMetadataChange({ featuredImageId: newFeaturedImageId })
                     setProject(prev => prev ? { ...prev, featuredImage: image } : null)
-                    // Trigger save after state update
-                    setTimeout(() => {
-                      saveDraft()
-                    }, 0)
+                    // Wait for save to complete before returning
+                    await saveDraft()
                   }}
                   onUpload={async (file) => {
                     // Upload the file to the portfolio's assets
                     const formData = new FormData()
                     formData.append('file', file)
-                    const response = await fetch(`/api/portfolios/${project.category.portfolioId}/assets`, {
+                    formData.append('portfolioId', project.category.portfolioId)
+                    const response = await fetch('/api/upload', {
                       method: 'POST',
                       body: formData,
                     })
-                    if (!response.ok) throw new Error('Upload failed')
+                    if (!response.ok) {
+                      const error = await response.json().catch(() => ({ message: 'Upload failed' }))
+                      throw new Error(error.message || 'Upload failed')
+                    }
                     const result = await response.json()
                     return {
-                      id: result.data.id,
-                      url: result.data.url,
-                      thumbnailUrl: result.data.thumbnailUrl,
-                      altText: result.data.altText || '',
+                      id: result.id,
+                      url: result.url,
+                      thumbnailUrl: result.thumbnailUrl || result.url,
+                      altText: result.altText || file.name,
                     }
                   }}
                 />

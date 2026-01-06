@@ -103,6 +103,28 @@ export default function PageEditorPage() {
 
       // Update initial state to clear dirty flag
       setInitialSections(sections)
+
+      // Sync Hero section profile photo to Portfolio record
+      const heroSection = sections.find(isHeroSection)
+      if (heroSection && page) {
+        const heroPhotoId = heroSection.profileImageId || null
+        
+        // Update Portfolio.profilePhotoId to match Hero section
+        try {
+          await fetch('/api/portfolio', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              id: page.portfolioId,
+              profilePhotoId: heroPhotoId
+            })
+          })
+        } catch (err) {
+          console.error('Failed to sync profile photo to portfolio:', err)
+          // Non-critical - don't fail the save
+        }
+      }
+
       return true
     } catch (err) {
       console.error('Failed to save draft:', err)
