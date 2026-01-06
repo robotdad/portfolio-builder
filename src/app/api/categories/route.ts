@@ -8,6 +8,7 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const portfolioId = searchParams.get('portfolioId')
+    const includeProjects = searchParams.get('includeProjects') === 'true'
 
     if (!portfolioId) {
       return NextResponse.json(
@@ -30,6 +31,17 @@ export async function GET(request: NextRequest) {
         _count: {
           select: { projects: true },
         },
+        ...(includeProjects && {
+          projects: {
+            select: {
+              id: true,
+              title: true,
+              draftContent: true,
+              publishedContent: true,
+            },
+            orderBy: { order: 'asc' },
+          },
+        }),
       },
       orderBy: { order: 'asc' },
     })
