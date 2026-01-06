@@ -31,21 +31,13 @@ export function PageNavSection({ pages, currentPath, onNavigate }: PageNavSectio
   
   /**
    * Determine if a page is currently active
-   * Homepage: matches /admin or /admin?pageId={homepageId}
-   * Other pages: matches /admin?pageId={pageId}
+   * All pages: matches /admin/pages/{pageId}
    */
   const isPageActive = (page: { id: string; isHomepage: boolean }): boolean => {
-    // Parse the current path to check for pageId query param
     const url = new URL(currentPath, 'http://localhost')
-    const pageIdParam = url.searchParams.get('pageId')
     
-    if (page.isHomepage) {
-      // Homepage is active if no pageId param or pageId matches homepage
-      return url.pathname === '/admin' && (!pageIdParam || pageIdParam === page.id)
-    }
-    
-    // Other pages active when pageId matches
-    return pageIdParam === page.id
+    // Pages active when pathname matches /admin/pages/{pageId}
+    return url.pathname === `/admin/pages/${page.id}`
   }
   
   const handleToggle = () => {
@@ -58,12 +50,9 @@ export function PageNavSection({ pages, currentPath, onNavigate }: PageNavSectio
     }
   }
   
-  // Build href for page - homepage goes to /admin, others to /admin?pageId={id}
+  // Build href for page - all pages edit at /admin/pages/{id}
   const getPageHref = (page: { id: string; isHomepage: boolean }): string => {
-    if (page.isHomepage) {
-      return '/admin'
-    }
-    return `/admin?pageId=${page.id}`
+    return `/admin/pages/${page.id}`
   }
   
   return (

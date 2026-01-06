@@ -21,3 +21,10 @@ export type { AdminHeaderProps } from './AdminHeader'
 
 // Accessibility components
 export { SkipLink } from './SkipLink'
+
+// Dashboard components
+export { DashboardStatsCard } from './DashboardStatsCard'
+export type { DashboardStatsCardProps } from './DashboardStatsCard'
+
+export { DashboardOverview } from './DashboardOverview'
+export type { DashboardOverviewProps } from './DashboardOverview'

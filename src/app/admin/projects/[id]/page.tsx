@@ -3,10 +3,9 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
 import { SectionList } from '@/components/editor/SectionList'
 import { AddSectionButton } from '@/components/editor/AddSectionButton'
-import { Breadcrumb } from '@/components/admin/Breadcrumb'
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { DraftIndicator, type DraftStatus } from '@/components/admin/DraftIndicator'
 import { PublishButton } from '@/components/admin/PublishButton'
 import { ProjectMetadataSidebar } from '@/components/admin/ProjectMetadataSidebar'
@@ -277,50 +276,37 @@ export default function ProjectEditorPage() {
   return (
     <div className="min-h-screen" style={{ background: 'var(--admin-bg-secondary)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-10 border-b" style={{ background: 'var(--admin-bg)', borderColor: 'var(--admin-border)' }}>
-        <div className="max-w-5xl mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            {/* Left side: Back button and breadcrumb */}
-            <div className="flex items-center gap-4">
-              <Link
-                href={`/admin/categories/${project.categoryId}/projects`}
-                className="p-2 rounded-lg transition-colors hover:opacity-80" style={{ background: 'transparent' }}
-                title="Back to projects"
-              >
-                <ArrowLeft className="w-5 h-5" style={{ color: 'var(--admin-text-secondary)' }} />
-              </Link>
-              <div>
-                <Breadcrumb items={[
-                  { label: 'Categories', href: '/admin/categories' },
-                  { label: project.category.name, href: `/admin/categories/${project.categoryId}/projects` },
-                  { label: project.title }
-                ]} />
-                <h1 style={{ fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--admin-text)' }}>{project.title}</h1>
-              </div>
-            </div>
-
-            {/* Right side: Status and actions */}
-            <div className="flex items-center gap-4">
-              <DraftIndicator
-                status={draftStatus}
-                hasUnpublishedChanges={hasUnpublishedChanges}
-              />
-              <button
-                type="button"
-                onClick={saveDraft}
-                disabled={!isDirty}
-                className="btn btn-secondary"
-              >
-                Save Draft
-              </button>
-              <PublishButton
-                hasChangesToPublish={hasUnpublishedChanges}
-                onPublish={handlePublish}
-              />
-            </div>
-          </div>
-        </div>
-      </header>
+      <AdminPageHeader
+        navigation={{ 
+          type: 'breadcrumb', 
+          items: [
+            { label: 'Dashboard', href: '/admin' },
+            { label: 'Categories', href: '/admin/categories' },
+            { label: project.category.name, href: `/admin/categories/${project.categoryId}/projects` },
+            { label: project.title }
+          ]
+        }}
+        actions={
+          <>
+            <DraftIndicator
+              status={draftStatus}
+              hasUnpublishedChanges={hasUnpublishedChanges}
+            />
+            <button
+              type="button"
+              onClick={saveDraft}
+              disabled={!isDirty}
+              className="btn btn-secondary"
+            >
+              Save Draft
+            </button>
+            <PublishButton
+              hasChangesToPublish={hasUnpublishedChanges}
+              onPublish={handlePublish}
+            />
+          </>
+        }
+      />
 
       {/* Main Content */}
       <main className="max-w-5xl mx-auto py-6 px-4">

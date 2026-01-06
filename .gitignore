@@ -23,6 +23,10 @@ coverage/
 .nyc_output/
 *.lcov
 
+# Test scripts (manual testing and data population)
+# Note: tests/ directory contains development/testing scripts, not production tests
+# Add to git if these scripts should be version controlled
+
 # Environment variables
 .env
 .env*.local
@@ -84,3 +88,10 @@ logs/
 # Misc
 .vercel
 .turbo
+
+# Test artifacts (screenshots, JSON summaries)
+/*.png
+/*.json
+!package.json
+!package-lock.json
+!tsconfig.json

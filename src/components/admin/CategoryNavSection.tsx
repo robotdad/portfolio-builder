@@ -137,19 +137,7 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
       <div className="category-nav-section">
         {/* Section Header - Static, not collapsible */}
         <div className="section-header">
-          <span className="section-title">Portfolio Work</span>
-        </div>
-        
-        {/* Categories management link */}
-        <div className="nav-item">
-          <Link
-            href="/admin/categories"
-            className={`nav-link ${isCategoriesActive() ? 'nav-link--active' : ''}`}
-            aria-current={isCategoriesActive() ? 'page' : undefined}
-            onClick={handleLinkClick}
-          >
-            <span className="nav-link-text">Categories</span>
-          </Link>
+          <span className="section-title">Categories</span>
         </div>
         
         {/* Category list with expandable projects */}
@@ -409,7 +397,7 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
           gap: var(--space-2);
           min-height: 36px;
           padding: var(--space-2) var(--space-4);
-          padding-left: calc(var(--space-4) + 32px);
+          padding-left: calc(var(--space-4) + 48px);
           color: var(--admin-text);
           text-decoration: none;
           font-size: var(--font-size-sm);
@@ -438,6 +426,10 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
         .category-nav-section :global(.project-bullet) {
           flex-shrink: 0;
           color: var(--admin-text-muted);
+          display: flex;
+          align-items: center;
+          line-height: 1;
+          transform: translateY(-1px);
         }
         
         .category-nav-section :global(.project-title) {

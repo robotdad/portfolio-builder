@@ -39,13 +39,15 @@ export function HomeBadge({ compact = false, className = '' }: HomeBadgeProps) {
           border-radius: var(--radius-md, 6px);
           text-transform: uppercase;
           letter-spacing: 0.025em;
-          line-height: 1.4;
+          line-height: 1;
           white-space: nowrap;
+          vertical-align: middle;
         }
         
         .home-badge--compact {
           padding: 2px 6px;
           font-size: var(--font-size-sm, 0.875rem);
+          line-height: 1;
         }
       `}</style>
     </>

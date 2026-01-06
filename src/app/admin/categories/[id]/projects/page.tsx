@@ -7,8 +7,8 @@ import { useProjects, type Project } from '@/hooks/useProjects'
 import { ProjectList } from '@/components/admin/ProjectList'
 import { ProjectFormModal } from '@/components/admin/ProjectFormModal'
 import { DeleteProjectModal } from '@/components/admin/DeleteProjectModal'
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import type { ProjectFormData } from '@/components/admin/ProjectForm'
-import { Breadcrumb } from '@/components/admin/Breadcrumb'
 
 // ============================================================================
 // Types
@@ -364,43 +364,47 @@ export default function ProjectsPage() {
   return (
     <div className="projects-page">
       {/* Header with Breadcrumb */}
-      <header className="page-header">
-        {categoryLoading ? (
+      {categoryLoading ? (
+        <div className="loading-header">
           <BreadcrumbSkeleton />
-        ) : (
-          <Breadcrumb items={[
-            { label: 'Categories', href: '/admin/categories' },
-            { label: category?.name || 'Category', href: `/admin/categories/${categoryId}/projects` },
-            { label: 'Projects' }
-          ]} />
-        )}
-
-        <div className="header-row">
-          <h1>{category?.name ? `${category.name} Projects` : 'Projects'}</h1>
-          <button
-            type="button"
-            className="create-button"
-            onClick={() => setShowCreateModal(true)}
-            disabled={isLoading}
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-            <span>New Project</span>
-          </button>
         </div>
-      </header>
+      ) : (
+        <AdminPageHeader
+          navigation={{ 
+            type: 'breadcrumb', 
+            items: [
+              { label: 'Dashboard', href: '/admin' },
+              { label: 'Categories', href: '/admin/categories' },
+              { label: category?.name || 'Category' }
+            ]
+          }}
+          title="Projects"
+          actions={
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => setShowCreateModal(true)}
+              disabled={isLoading}
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              <span>New Project</span>
+            </button>
+          }
+        />
+      )}
 
       {/* Error Toast */}
       {(errorMessage || projectsError) && (
@@ -458,66 +462,10 @@ export default function ProjectsPage() {
           background: var(--admin-bg, #ffffff);
         }
 
-        .page-header {
-          padding: 16px 24px 0;
+        .loading-header {
+          padding: 16px 24px;
           background: var(--admin-bg, #ffffff);
           border-bottom: 1px solid var(--admin-border, #e5e7eb);
-          position: sticky;
-          top: 0;
-          z-index: 100;
-        }
-
-        /* Header Row */
-        .header-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 16px;
-          padding-bottom: 16px;
-        }
-
-        .header-row h1 {
-          margin: 0;
-          font-size: 24px;
-          font-weight: 600;
-          color: var(--admin-text, #111827);
-        }
-
-        .create-button {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 10px 16px;
-          background: var(--color-accent, #3b82f6);
-          color: white;
-          font-size: 14px;
-          font-weight: 500;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: background-color 0.15s, transform 0.1s;
-        }
-
-        .create-button:hover:not(:disabled) {
-          background: var(--color-accent-hover, #2563eb);
-        }
-
-        .create-button:active:not(:disabled) {
-          transform: scale(0.98);
-        }
-
-        .create-button:disabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-        }
-
-        .create-button:focus {
-          outline: none;
-        }
-
-        .create-button:focus-visible {
-          outline: 2px solid var(--color-accent, #3b82f6);
-          outline-offset: 2px;
         }
 
         /* Error Toast */
@@ -579,27 +527,6 @@ export default function ProjectsPage() {
 
         /* Mobile Styles */
         @media (max-width: 767px) {
-          .page-header {
-            padding: 12px 16px 0;
-          }
-
-          .header-row {
-            padding-bottom: 12px;
-          }
-
-          .header-row h1 {
-            font-size: 20px;
-          }
-
-          .create-button {
-            padding: 8px 12px;
-            font-size: 13px;
-          }
-
-          .create-button span {
-            display: none;
-          }
-
           .page-content {
             padding: 16px;
           }
@@ -618,14 +545,6 @@ export default function ProjectsPage() {
 
         /* Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
-          .create-button {
-            transition: none;
-          }
-
-          .create-button:active:not(:disabled) {
-            transform: none;
-          }
-
           .error-toast {
             animation: none;
           }

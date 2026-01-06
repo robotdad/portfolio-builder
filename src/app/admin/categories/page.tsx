@@ -6,8 +6,7 @@ import { useRouter } from 'next/navigation'
 import { CategoryList } from '@/components/admin/CategoryList'
 import { CategoryFormModal } from '@/components/admin/CategoryFormModal'
 import { DeleteCategoryModal } from '@/components/admin/DeleteCategoryModal'
-import { HamburgerButton } from '@/components/admin/HamburgerButton'
-import { useAdminLayout } from '@/components/admin/AdminLayout'
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { useCategories, type Category } from '@/hooks/useCategories'
 import type { CategoryFormData } from '@/components/admin/CategoryForm'
 
@@ -22,10 +21,6 @@ export default function CategoriesPage() {
   const [portfolioId, setPortfolioId] = useState<string | null>(null)
   const [portfolioLoading, setPortfolioLoading] = useState(true)
   const [portfolioError, setPortfolioError] = useState<string | null>(null)
-  
-  // Mobile drawer state
-  const { isSidebarOpen, toggleSidebar, breakpoint, isTouchDevice } = useAdminLayout()
-  const showMenuButton = isTouchDevice || breakpoint !== 'desktop'
 
   // Fetch portfolio on mount
   useEffect(() => {
@@ -197,31 +192,25 @@ export default function CategoriesPage() {
   return (
     <div className="admin-categories-page">
       {/* Admin Header */}
-      <header className="admin-header">
-        {showMenuButton && (
-          <HamburgerButton
-            isOpen={isSidebarOpen}
-            onClick={toggleSidebar}
-          />
-        )}
-        <Link href="/admin" className="back-link">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
+      <AdminPageHeader
+        navigation={{ 
+          type: 'breadcrumb', 
+          items: [
+            { label: 'Dashboard', href: '/admin' },
+            { label: 'Categories' }
+          ]
+        }}
+        title="Categories"
+        actions={
+          <button
+            type="button"
+            onClick={handleCreateClick}
+            className="btn btn-primary"
           >
-            <path d="m15 18-6-6 6-6" />
-          </svg>
-          <span>Back</span>
-        </Link>
-        <h1>Categories</h1>
-      </header>
+            + New Category
+          </button>
+        }
+      />
 
       {/* Error Toast */}
       {(errorMessage || error) && (
@@ -289,55 +278,6 @@ export default function CategoriesPage() {
           background: var(--admin-bg, #ffffff);
         }
 
-        .admin-header {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          padding: 16px 24px;
-          background: var(--admin-bg, #ffffff);
-          border-bottom: 1px solid var(--admin-border, #e5e7eb);
-          position: sticky;
-          top: 0;
-          z-index: 100;
-        }
-
-        .admin-header h1 {
-          margin: 0;
-          font-size: 20px;
-          font-weight: 600;
-          color: var(--admin-text, #111827);
-        }
-
-        .back-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 8px 12px;
-          font-size: 14px;
-          font-weight: 500;
-          color: var(--admin-text-muted, #6b7280);
-          text-decoration: none;
-          background: transparent;
-          border: 1px solid var(--admin-border, #e5e7eb);
-          border-radius: 8px;
-          transition: background-color 0.15s, color 0.15s, border-color 0.15s;
-        }
-
-        .back-link:hover {
-          background: var(--admin-bg-secondary, #f9fafb);
-          color: var(--admin-text, #111827);
-          border-color: var(--admin-border-hover, #d1d5db);
-        }
-
-        .back-link:focus {
-          outline: none;
-        }
-
-        .back-link:focus-visible {
-          outline: 2px solid var(--color-accent, #3b82f6);
-          outline-offset: 2px;
-        }
-
         .error-toast {
           display: flex;
           align-items: center;
@@ -372,23 +312,6 @@ export default function CategoriesPage() {
 
         /* Mobile styles */
         @media (max-width: 767px) {
-          .admin-header {
-            padding: 12px 16px;
-          }
-
-          .admin-header h1 {
-            font-size: 18px;
-          }
-
-          .back-link {
-            padding: 6px 10px;
-            font-size: 13px;
-          }
-
-          .back-link span {
-            display: none;
-          }
-
           .admin-content {
             padding: 16px;
           }
@@ -400,10 +323,6 @@ export default function CategoriesPage() {
 
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
-          .back-link {
-            transition: none;
-          }
-
           .error-toast {
             animation: none;
           }
