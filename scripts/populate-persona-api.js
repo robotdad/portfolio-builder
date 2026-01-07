@@ -77,7 +77,22 @@ async function main() {
     
     if (getResponse.ok()) {
       portfolio = await getResponse.json();
-      console.log(`✓ Using existing portfolio: ${portfolio.id}`);
+      if (portfolio && portfolio.id) {
+        console.log(`✓ Using existing portfolio: ${portfolio.id}`);
+      } else {
+        // No portfolio exists (API returned null), create one
+        portfolio = await apiCall(context, 'POST', '/portfolio', {
+          name: `${personaData.persona.name} Portfolio`,
+          slug: personaId,
+          title: `${personaData.persona.name} Portfolio`,
+          draftTheme: 'modern-minimal',
+          publishedTheme: 'modern-minimal',
+          draftTemplate: 'featured-grid',
+          publishedTemplate: 'featured-grid',
+          showAboutSection: true
+        });
+        console.log(`✓ Portfolio created: ${portfolio.id}`);
+      }
     } else {
       // Create new portfolio
       portfolio = await apiCall(context, 'POST', '/portfolio', {
@@ -236,11 +251,6 @@ async function main() {
         console.log(`  ✓ Category featured image set`);
       }
     }
-    
-    // Step 5: Publish
-    console.log('\n📢 Publishing portfolio...');
-    await apiCall(context, 'POST', '/publish', {});
-    console.log('✓ Published');
     
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     
