@@ -52,21 +52,42 @@ export async function GET(request: NextRequest) {
             name: true,
           },
         },
+        projectsFeatured: {
+          select: {
+            id: true,
+            title: true,
+            category: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
       },
       orderBy: { createdAt: 'desc' },
     })
 
     // Transform assets to SiteImage format
     let images: SiteImage[] = assets.map((asset) => {
-      // Determine source based on relationships
+      // Determine source based on relationships (Priority: Project > Category > Uncategorized)
       let source: SiteImage['source'] = {
         pageId: 'uncategorized',
         pageTitle: 'Uncategorized',
         sectionType: 'content' as const,
       }
 
+      // Check if used as project featured image (HIGHEST PRIORITY)
+      if (asset.projectsFeatured.length > 0) {
+        const proj = asset.projectsFeatured[0]
+        source = {
+          pageId: proj.id,
+          pageTitle: `${proj.category.name} / ${proj.title}`,
+          sectionType: 'featured' as const,
+        }
+      }
       // Check if used as category featured image
-      if (asset.categoriesFeatured.length > 0) {
+      else if (asset.categoriesFeatured.length > 0) {
         const cat = asset.categoriesFeatured[0]
         source = {
           pageId: cat.id,
