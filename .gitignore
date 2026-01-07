@@ -95,3 +95,4 @@ logs/
 !package.json
 !package-lock.json
 !tsconfig.json
+skills/
