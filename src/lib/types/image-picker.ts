@@ -64,11 +64,14 @@ export interface ImagePickerProps {
   /** Portfolio ID to fetch images for */
   portfolioId: string;
   
-  /** Currently selected image ID (for pre-selection) */
+  /** Currently selected image ID (for pre-selection in single-select mode) */
   selectedId?: string;
   
-  /** Called when user confirms selection */
-  onSelect: (image: SiteImage) => void;
+  /** Called when user confirms selection (single-select mode) */
+  onSelect?: (image: SiteImage) => void;
+  
+  /** Called when user confirms multiple selections (multi-select mode) */
+  onMultiSelect?: (images: SiteImage[]) => void;
   
   /** Called when user cancels or closes */
   onCancel: () => void;
@@ -82,6 +85,9 @@ export interface ImagePickerProps {
     minWidth?: number;
     minHeight?: number;
   };
+  
+  /** Enable multi-select mode with numbered badges */
+  multiSelect?: boolean;
 }
 
 /**
@@ -107,6 +113,15 @@ export interface ImagePickerGridProps {
   onSelect: (image: SiteImage) => void;
   onConfirm: (image: SiteImage) => void;
   onFocusChange: (index: number) => void;
+  
+  /** Multi-select mode */
+  multiSelect?: boolean;
+  
+  /** Array of selected image IDs in order (for multi-select) */
+  selectedIds?: string[];
+  
+  /** Called when selection changes in multi-select mode */
+  onMultiSelectChange?: (imageIds: string[]) => void;
 }
 
 /**

@@ -23,6 +23,8 @@ export function FeaturedCarouselEditor({
   onDelete,
   onSaveRequest,
 }: FeaturedCarouselEditorProps) {
+  const [showMultiPicker, setShowMultiPicker] = useState(false)
+
   const handleHeadingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ ...section, heading: e.target.value })
   }
@@ -56,6 +58,25 @@ export function FeaturedCarouselEditor({
     const newItems = section.items.filter((_, i) => i !== index)
     onChange({ ...section, items: newItems })
   }
+
+  const handleMultiSelect = useCallback((images: SiteImage[]) => {
+    const newItems = images.map(image => {
+      const item = createFeaturedWorkItem()
+      return {
+        ...item,
+        imageId: image.id,
+        imageUrl: image.url,
+        title: image.meta.alt || image.filename.replace(/\.[^/.]+$/, ''),
+      }
+    })
+    
+    onChange({
+      ...section,
+      items: [...section.items, ...newItems],
+    })
+    
+    setShowMultiPicker(false)
+  }, [section, onChange])
 
   return (
     <div className="section-editor section-editor-featured-carousel">
@@ -149,19 +170,43 @@ export function FeaturedCarouselEditor({
             </div>
           )}
 
-          <button
-            type="button"
-            onClick={handleAddItem}
-            className="btn btn-secondary featured-grid-add-btn"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-            Add Carousel Item
-          </button>
+          <div className="featured-grid-button-group">
+            <button
+              type="button"
+              onClick={handleAddItem}
+              className="btn btn-secondary featured-grid-add-btn"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              Add Carousel Item
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowMultiPicker(true)}
+              className="btn btn-secondary featured-grid-add-btn"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+              Add Multiple from Gallery
+            </button>
+          </div>
         </div>
       </div>
+
+      <ImagePicker
+        isOpen={showMultiPicker}
+        portfolioId={portfolioId}
+        onMultiSelect={handleMultiSelect}
+        onCancel={() => setShowMultiPicker(false)}
+        title="Select Multiple Images"
+        multiSelect={true}
+      />
     </div>
   )
 }

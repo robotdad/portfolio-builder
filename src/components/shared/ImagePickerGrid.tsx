@@ -21,6 +21,9 @@ export function ImagePickerGrid({
   onSelect,
   onConfirm,
   onFocusChange,
+  multiSelect = false,
+  selectedIds = [],
+  onMultiSelectChange,
 }: ImagePickerGridProps) {
   const gridRef = useRef<HTMLDivElement>(null)
   const itemRefs = useRef<Map<number, HTMLButtonElement>>(new Map())
@@ -99,9 +102,23 @@ export function ImagePickerGrid({
   const handleClick = useCallback(
     (image: SiteImage, index: number) => {
       onFocusChange(index)
-      onSelect(image)
+      
+      if (multiSelect && onMultiSelectChange) {
+        // Toggle selection in multi-select mode
+        const currentIndex = selectedIds.indexOf(image.id)
+        if (currentIndex >= 0) {
+          // Deselect
+          onMultiSelectChange(selectedIds.filter(id => id !== image.id))
+        } else {
+          // Select
+          onMultiSelectChange([...selectedIds, image.id])
+        }
+      } else {
+        // Single-select mode
+        onSelect(image)
+      }
     },
-    [onSelect, onFocusChange]
+    [onSelect, onFocusChange, multiSelect, selectedIds, onMultiSelectChange]
   )
 
   // Handle double-click
@@ -130,8 +147,13 @@ export function ImagePickerGrid({
       aria-multiselectable="false"
     >
       {images.map((image, index) => {
-        const isSelected = image.id === selectedId
+        const isSelected = multiSelect 
+          ? selectedIds.includes(image.id)
+          : image.id === selectedId
         const isFocused = index === focusedIndex
+        const selectionOrder = multiSelect && isSelected 
+          ? selectedIds.indexOf(image.id) + 1 
+          : 0
 
         return (
           <button
@@ -155,18 +177,22 @@ export function ImagePickerGrid({
               />
               {isSelected && (
                 <div className="selected-overlay" aria-hidden="true">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
+                  {multiSelect ? (
+                    <div className="selection-badge">{selectionOrder}</div>
+                  ) : (
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  )}
                 </div>
               )}
             </div>
@@ -241,6 +267,20 @@ export function ImagePickerGrid({
           justify-content: center;
           background: rgba(59, 130, 246, 0.4);
           color: white;
+        }
+
+        .selection-badge {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: var(--color-accent, #3b82f6);
+          color: white;
+          border-radius: 50%;
+          font-size: 16px;
+          font-weight: 600;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .image-label {

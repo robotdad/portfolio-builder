@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
-import type { ImagePickerProps } from '@/lib/types/image-picker'
+import type { ImagePickerProps, SiteImage } from '@/lib/types/image-picker'
 import { useImagePicker } from '@/hooks/useImagePicker'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 import { ImagePickerControls } from './ImagePickerControls'
@@ -37,12 +37,15 @@ export function ImagePicker({
   portfolioId,
   selectedId: initialSelectedId,
   onSelect,
+  onMultiSelect,
   onCancel,
   title = 'Choose Image',
   filter,
+  multiSelect = false,
 }: ImagePickerProps) {
   const [mounted, setMounted] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [selectedIds, setSelectedIds] = useState<string[]>([])
   const modalRef = useRef<HTMLDivElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
@@ -125,25 +128,43 @@ export function ImagePicker({
 
   // Handle confirm selection
   const handleConfirm = useCallback(() => {
-    if (selectedImage) {
+    if (multiSelect && onMultiSelect) {
+      // Multi-select mode: get selected images in order
+      const selectedImages = selectedIds
+        .map(id => state.images.find(img => img.id === id))
+        .filter((img): img is SiteImage => img !== undefined)
+      
+      if (selectedImages.length > 0) {
+        onMultiSelect(selectedImages)
+      }
+    } else if (selectedImage && onSelect) {
+      // Single-select mode
       onSelect(selectedImage)
     }
-  }, [selectedImage, onSelect])
+  }, [multiSelect, onMultiSelect, selectedIds, state.images, selectedImage, onSelect])
 
   // Handle image selection from grid
   const handleImageSelect = useCallback(
     (image: typeof selectedImage) => {
-      if (image) {
+      if (image && !multiSelect && onSelect) {
         selectImage(image.id)
       }
     },
-    [selectImage]
+    [selectImage, multiSelect, onSelect]
+  )
+  
+  // Handle multi-select changes
+  const handleMultiSelectChange = useCallback(
+    (imageIds: string[]) => {
+      setSelectedIds(imageIds)
+    },
+    []
   )
 
   // Handle double-click confirm from grid
   const handleImageConfirm = useCallback(
     (image: typeof selectedImage) => {
-      if (image) {
+      if (image && onSelect) {
         onSelect(image)
       }
     },
@@ -291,6 +312,9 @@ export function ImagePicker({
               onSelect={handleImageSelect}
               onConfirm={handleImageConfirm}
               onFocusChange={setFocusedIndex}
+              multiSelect={multiSelect}
+              selectedIds={selectedIds}
+              onMultiSelectChange={handleMultiSelectChange}
             />
           )}
         </div>
@@ -308,9 +332,12 @@ export function ImagePicker({
             type="button"
             className="confirm-btn"
             onClick={handleConfirm}
-            disabled={!selectedImage}
+            disabled={multiSelect ? selectedIds.length === 0 : !selectedImage}
           >
-            Use Selected Image
+            {multiSelect 
+              ? `Add ${selectedIds.length} Image${selectedIds.length !== 1 ? 's' : ''}`
+              : 'Use Selected Image'
+            }
           </button>
         </div>
       </div>
@@ -398,7 +425,6 @@ export function ImagePicker({
           display: flex;
           flex-direction: column;
           min-height: 0;
-          overflow: hidden;
         }
 
         .image-picker-state {
