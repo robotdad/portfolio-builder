@@ -397,7 +397,7 @@ export function ImagePicker({
           flex: 1;
           display: flex;
           flex-direction: column;
-          min-height: 300px;
+          min-height: 0;
           overflow: hidden;
         }
 

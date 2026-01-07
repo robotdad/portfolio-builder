@@ -184,7 +184,8 @@ export function ImagePickerGrid({
           gap: 16px;
           padding: 16px;
           overflow-y: auto;
-          flex: 1;
+          flex: 1 1 auto;
+          min-height: 0;
         }
 
         .image-item {
@@ -220,6 +221,8 @@ export function ImagePickerGrid({
           width: 100%;
           height: 200px;
           min-height: 200px;
+          max-height: 200px;
+          flex-shrink: 0;
           overflow: hidden;
           background: var(--color-bg-secondary, #f3f4f6);
         }
