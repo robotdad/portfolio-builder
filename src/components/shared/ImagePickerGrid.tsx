@@ -207,6 +207,7 @@ export function ImagePickerGrid({
         .image-picker-grid {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          grid-auto-rows: minmax(200px, auto);
           gap: 16px;
           padding: 16px;
           overflow-y: auto;
