@@ -278,34 +278,6 @@ async function main() {
     const summaryPath = path.join('ai_working', `${personaId}-summary.json`);
     fs.writeFileSync(summaryPath, JSON.stringify(summary, null, 2));
     
-    // Take screenshots
-    console.log('\n📸 Capturing screenshots...');
-    const page = await context.newPage();
-    
-    await page.goto('http://localhost:3000/admin', { waitUntil: 'domcontentloaded', timeout: 10000 });
-    await page.waitForTimeout(2000);
-    await page.screenshot({ 
-      path: path.join('ai_working', `${personaId}-dashboard.png`),
-      fullPage: true 
-    });
-    console.log('  ✓ Dashboard');
-    
-    await page.goto('http://localhost:3000/admin/categories', { waitUntil: 'domcontentloaded', timeout: 10000 });
-    await page.waitForTimeout(2000);
-    await page.screenshot({ 
-      path: path.join('ai_working', `${personaId}-categories.png`),
-      fullPage: true 
-    });
-    console.log('  ✓ Categories');
-    
-    await page.goto(`http://localhost:3000/${personaId}`, { waitUntil: 'domcontentloaded', timeout: 10000 });
-    await page.waitForTimeout(2000);
-    await page.screenshot({ 
-      path: path.join('ai_working', `${personaId}-public-site.png`),
-      fullPage: true 
-    });
-    console.log('  ✓ Public site');
-    
     console.log(`\n✅ All done! View at: http://localhost:3000/${personaId}`);
     console.log(`📄 Summary saved: ${summaryPath}`);
     
