@@ -64,6 +64,22 @@ export async function GET(request: NextRequest) {
             },
           },
         },
+        projectGalleryImages: {
+          select: {
+            project: {
+              select: {
+                id: true,
+                title: true,
+                category: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
       orderBy: { createdAt: 'desc' },
     })
@@ -93,6 +109,15 @@ export async function GET(request: NextRequest) {
           pageId: cat.id,
           pageTitle: cat.name,
           sectionType: 'featured' as const,
+        }
+      }
+      // Check if used as project gallery image
+      else if (asset.projectGalleryImages && asset.projectGalleryImages.length > 0) {
+        const galleryEntry = asset.projectGalleryImages[0]
+        source = {
+          pageId: galleryEntry.project.id,
+          pageTitle: `${galleryEntry.project.category.name} / ${galleryEntry.project.title}`,
+          sectionType: 'gallery' as const,
         }
       }
 

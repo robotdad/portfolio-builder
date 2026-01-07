@@ -180,8 +180,8 @@ export function ImagePickerGrid({
       <style jsx>{`
         .image-picker-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-          gap: 12px;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 16px;
           padding: 16px;
           overflow-y: auto;
           flex: 1;
@@ -217,7 +217,9 @@ export function ImagePickerGrid({
 
         .image-wrapper {
           position: relative;
-          aspect-ratio: 4 / 3;
+          width: 100%;
+          height: 200px;
+          min-height: 200px;
           overflow: hidden;
           background: var(--color-bg-secondary, #f3f4f6);
         }
@@ -255,9 +257,14 @@ export function ImagePickerGrid({
 
         @media (max-width: 640px) {
           .image-picker-grid {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
             padding: 12px;
+          }
+
+          .image-wrapper {
+            height: 160px;
+            min-height: 160px;
           }
 
           .image-item:hover {

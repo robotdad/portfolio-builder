@@ -205,6 +205,14 @@ async function main() {
               if (fs.existsSync(photoPath)) {
                 const asset = await uploadImage(context, photoPath, portfolioId);
                 
+                // Create ProjectGalleryImage junction record
+                await apiCall(context, 'POST', `/projects/${projectId}/gallery`, {
+                  assetId: asset.id,
+                  altText: photo.description || '',
+                  caption: photo.description || '',
+                  order: galleryImages.length
+                });
+                
                 // Create gallery image with CORRECT structure
                 const galleryItemId = `gallery_image_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
                 galleryImages.push({

@@ -82,6 +82,7 @@ model Asset {
   categoriesFeatured Category[] @relation("CategoryFeaturedImage")
   profilePortfolio Portfolio? @relation("ProfilePhoto")
   projectsFeatured  Project[] @relation("ProjectFeaturedImage")
+  projectGalleryImages ProjectGalleryImage[]
 }
 
 model Category {
@@ -129,12 +130,29 @@ model Project {
   featuredImageId String?
   featuredImage   Asset?   @relation("ProjectFeaturedImage", fields: [featuredImageId], references: [id], onDelete: SetNull)
 
+  galleryImages ProjectGalleryImage[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([categoryId, slug])
   @@index([categoryId, order])
   @@index([isFeatured])
+}
+
+model ProjectGalleryImage {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assetId   String
+  asset     Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  order     Int      @default(0)
+  altText   String   @default("")
+  caption   String?
+  createdAt DateTime @default(now())
+
+  @@unique([projectId, assetId])
+  @@index([projectId, order])
 }
 
 
