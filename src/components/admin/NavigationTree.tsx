@@ -252,7 +252,7 @@ export function NavigationTree({ onNavigate }: NavigationTreeProps) {
         </div>
         
         {/* Settings link */}
-        <div className="nav-section">
+        <div className="nav-section nav-section--settings">
           <Link
             href="/admin/settings"
             className={`settings-link ${pathname === '/admin/settings' ? 'settings-link--active' : ''}`}
@@ -308,6 +308,12 @@ export function NavigationTree({ onNavigate }: NavigationTreeProps) {
         
         .nav-section {
           margin-top: var(--space-2);
+        }
+        
+        .nav-section--settings {
+          margin-top: var(--space-6);
+          padding-top: var(--space-6);
+          border-top: 1px solid var(--admin-border);
         }
         
         .navigation-tree :global(.settings-link) {

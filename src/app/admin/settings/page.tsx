@@ -288,14 +288,14 @@ export default function SettingsPage() {
             )}
 
             {/* Portfolio Information Section */}
-            <section className="settings-section">
+            <section className="settings-section settings-section--compact">
               <h2 className="settings-section__title">Portfolio Information</h2>
               <p className="settings-section__description">
                 Basic information about your portfolio
               </p>
 
-              <div className="settings-fields">
-                <div className="settings-field">
+              <div className="settings-fields settings-fields--inline">
+                <div className="settings-field settings-field--inline">
                   <label htmlFor="name" className="settings-field__label">
                     Portfolio Name
                   </label>
@@ -310,7 +310,7 @@ export default function SettingsPage() {
                   />
                 </div>
 
-                <div className="settings-field">
+                <div className="settings-field settings-field--inline">
                   <label htmlFor="slug" className="settings-field__label">
                     Portfolio URL
                   </label>
@@ -567,6 +567,55 @@ export default function SettingsPage() {
         .settings-field__error {
           font-size: 13px;
           color: var(--color-error, #ef4444);
+        }
+
+        /* Compact section variant - reduced vertical space */
+        .settings-section--compact {
+          padding: var(--space-4, 16px) var(--space-6, 24px);
+        }
+
+        .settings-section--compact .settings-section__description {
+          margin-bottom: var(--space-4, 16px);
+        }
+
+        /* Inline fields layout - horizontal on desktop */
+        .settings-fields--inline {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: var(--space-4, 16px);
+        }
+
+        /* Mobile: stack vertically */
+        @media (max-width: 1023px) {
+          .settings-fields--inline {
+            grid-template-columns: 1fr;
+            gap: var(--space-4, 16px);
+          }
+        }
+
+        /* Inline field variant - reduced spacing */
+        .settings-field--inline {
+          gap: var(--space-2, 8px);
+        }
+
+        .settings-field--inline .settings-field__label {
+          font-size: 13px;
+          margin-bottom: 0;
+        }
+
+        .settings-field--inline .settings-field__input {
+          min-height: 40px;
+          padding: 8px 12px;
+          font-size: 14px;
+        }
+
+        .settings-field--inline .settings-field__input--with-prefix {
+          padding-left: 26px;
+        }
+
+        .settings-field--inline .settings-field__prefix {
+          left: 10px;
+          font-size: 13px;
         }
 
         .settings-actions {
