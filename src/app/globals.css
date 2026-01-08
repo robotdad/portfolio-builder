@@ -202,6 +202,16 @@
   --admin-nav-item-active-border: var(--admin-primary);
 }
 
+/* --------------------------------------------------------------------------
+   ACTION DIVIDER (Header Actions Separator)
+   -------------------------------------------------------------------------- */
+.action-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--admin-border);
+  margin: 0 12px;
+}
+
 /* Tablet: Slightly smaller targets (768px+) */
 @media (min-width: 768px) {
   :root {
@@ -6169,5 +6179,84 @@ textarea:focus-visible {
   
   .template-preview-actions .btn {
     flex: 1;
+  }
+}
+
+/* ==========================================================================
+   VIEW LINKS GROUP COMPONENT
+   Consistent draft/live preview links across admin pages
+   ========================================================================== */
+
+.view-links-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2); /* 8px between links */
+  margin-right: var(--space-4); /* 16px gap to the right */
+}
+
+.view-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1); /* 4px gap between icon and text */
+  min-height: 40px;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm); /* 14px */
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.view-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Draft link - muted blue */
+.view-link--draft {
+  color: hsl(220, 70%, 50%);
+}
+
+.view-link--draft:hover {
+  background: hsl(220, 70%, 96%);
+  color: hsl(220, 80%, 45%);
+}
+
+/* Live link - muted green */
+.view-link--live {
+  color: hsl(142, 65%, 45%);
+}
+
+.view-link--live:hover {
+  background: hsl(142, 65%, 96%);
+  color: hsl(142, 75%, 40%);
+}
+
+/* Icon styles */
+.view-link-icon-eye {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.view-link-icon-external {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .view-links-group {
+    gap: var(--space-1); /* 4px on mobile */
+    margin-right: var(--space-3); /* 12px on mobile */
+  }
+  
+  .view-link {
+    padding: var(--space-2);
+    font-size: var(--font-size-xs); /* Slightly smaller on mobile */
   }
 }

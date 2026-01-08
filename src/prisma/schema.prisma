@@ -19,6 +19,7 @@ model Portfolio {
   publishedTheme String @default("modern-minimal")
   draftTemplate String @default("featured-grid")
   publishedTemplate String @default("featured-grid")
+  lastPublishedAt DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   

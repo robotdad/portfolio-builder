@@ -20,6 +20,11 @@ export async function GET(
             name: true,
             slug: true,
             portfolioId: true,
+            portfolio: {
+              select: {
+                slug: true,
+              },
+            },
           },
         },
         featuredImage: {

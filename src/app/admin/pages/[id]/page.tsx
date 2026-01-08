@@ -8,6 +8,7 @@ import { AddSectionButton } from '@/components/editor/AddSectionButton'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { DraftIndicator, type DraftStatus } from '@/components/admin/DraftIndicator'
 import { PublishButton } from '@/components/admin/PublishButton'
+import { ViewLinksGroup } from '@/components/admin'
 import { useAutoSave } from '@/hooks/useAutoSave'
 import { type Section, isHeroSection } from '@/lib/content-schema'
 import { serializeSections, deserializeSections } from '@/lib/serialization'
@@ -19,6 +20,9 @@ interface Page {
   isHomepage: boolean
   showInNav: boolean
   portfolioId: string
+  portfolio: {
+    slug: string
+  }
   draftContent: string | null
   publishedContent: string | null
   lastPublishedAt: string | null
@@ -224,6 +228,16 @@ export default function PageEditorPage() {
     )
   }
 
+  // Construct URLs for ViewLinksGroup
+  const portfolioSlug = page.portfolio?.slug || 'portfolio'
+  const isHomepage = page.slug === 'home' || page.isHomepage
+  const draftUrl = isHomepage 
+    ? `/preview/${portfolioSlug}` 
+    : `/preview/${portfolioSlug}/pages/${page.slug}`
+  const liveUrl = isHomepage 
+    ? `/${portfolioSlug}` 
+    : `/${portfolioSlug}/pages/${page.slug}`
+
   return (
     <div className="min-h-screen" style={{ background: 'var(--admin-bg-secondary)' }}>
       {/* Header */}
@@ -238,6 +252,12 @@ export default function PageEditorPage() {
         }}
         actions={
           <>
+            <ViewLinksGroup
+              draftUrl={draftUrl}
+              liveUrl={liveUrl}
+              hasPublishedVersion={!!page.lastPublishedAt}
+            />
+            <div className="action-divider" />
             <DraftIndicator
               status={draftStatus}
               hasUnpublishedChanges={hasUnpublishedChanges}

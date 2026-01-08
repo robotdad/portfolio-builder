@@ -11,6 +11,13 @@ export async function GET(
 
     const page = await prisma.page.findUnique({
       where: { id },
+      include: {
+        portfolio: {
+          select: {
+            slug: true,
+          },
+        },
+      },
     })
 
     if (!page) {

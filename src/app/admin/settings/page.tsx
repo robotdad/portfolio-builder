@@ -1,11 +1,13 @@
 'use client'
 
-import { useState, useEffect, useCallback, type ChangeEvent } from 'react'
+import { useState, useEffect, useCallback, useMemo, type ChangeEvent } from 'react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { ThemeSelector } from '@/components/admin/ThemeSelector'
 import { TemplateSelector } from '@/components/admin/TemplateSelector'
 import { AboutSettings } from '@/components/admin/AboutSettings'
 import { TemplatePreviewModal } from '@/components/admin/TemplatePreviewModal'
+import { DraftIndicator, PublishButton, ViewLinksGroup } from '@/components/admin'
+import type { DraftStatus } from '@/components/admin'
 
 // ============================================================================
 // Types
@@ -17,6 +19,9 @@ interface Portfolio {
   slug: string
   draftTheme: string
   draftTemplate: string
+  publishedTheme: string
+  publishedTemplate: string
+  lastPublishedAt: string | null
   bio: string
   showAboutSection: boolean
   profilePhotoId: string | null
@@ -71,6 +76,7 @@ export default function SettingsPage() {
   const [slugError, setSlugError] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
   const [saveSuccess, setSaveSuccess] = useState(false)
+  const [saveError, setSaveError] = useState(false)
   const [previewTemplate, setPreviewTemplate] = useState<string | null>(null)
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
 
@@ -109,7 +115,24 @@ export default function SettingsPage() {
     loadPortfolio()
   }, [])
 
-  // Save portfolio settings
+  // Compute hasUnpublishedChanges
+  const hasUnpublishedChanges = useMemo(() => {
+    if (!portfolio) return false
+    return (
+      theme !== portfolio.publishedTheme ||
+      template !== portfolio.publishedTemplate
+    )
+  }, [theme, template, portfolio])
+
+  // Compute draftStatus
+  const draftStatus: DraftStatus = useMemo(() => {
+    if (isSaving) return 'saving'
+    if (saveSuccess) return 'saved'
+    if (saveError) return 'error'
+    return hasUnpublishedChanges ? 'draft' : 'published'
+  }, [isSaving, saveSuccess, saveError, hasUnpublishedChanges])
+
+  // Save portfolio settings (draft)
   const saveSettings = useCallback(async () => {
     if (!portfolio) return
 
@@ -121,6 +144,7 @@ export default function SettingsPage() {
 
     setIsSaving(true)
     setSaveSuccess(false)
+    setSaveError(false)
 
     try {
       const res = await fetch('/api/portfolio', {
@@ -153,13 +177,49 @@ export default function SettingsPage() {
     } catch (err) {
       console.error('Failed to save settings:', err)
       setError(err instanceof Error ? err.message : 'Failed to save settings')
+      setSaveError(true)
       
       // Clear error after 5 seconds
-      setTimeout(() => setError(null), 5000)
+      setTimeout(() => {
+        setError(null)
+        setSaveError(false)
+      }, 5000)
     } finally {
       setIsSaving(false)
     }
   }, [portfolio, name, slug, theme, template, bio, showAboutSection, profilePhotoId])
+
+  // Publish settings
+  const handlePublish = useCallback(async (): Promise<boolean> => {
+    if (!portfolio) return false
+
+    try {
+      // First save draft if there are unsaved changes
+      if (hasUnsavedChanges) {
+        await saveSettings()
+      }
+      
+      // Then publish: copy draft → published
+      const response = await fetch('/api/portfolio/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: portfolio.id })
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to publish')
+      }
+      
+      // Update local state
+      const updated = await response.json()
+      setPortfolio(updated)
+      
+      return true
+    } catch (error) {
+      console.error('Publish error:', error)
+      return false
+    }
+  }, [portfolio, hasUnsavedChanges, saveSettings])
 
   // Handle field changes
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -270,6 +330,27 @@ export default function SettingsPage() {
           ],
         }}
         title="Portfolio Settings"
+        actions={
+          portfolio ? (
+            <>
+              <ViewLinksGroup
+                draftUrl={`/preview/${portfolio.slug}`}
+                liveUrl={`/${portfolio.slug}`}
+                hasPublishedVersion={!!portfolio.lastPublishedAt}
+              />
+              <div className="action-divider" />
+              <DraftIndicator status={draftStatus} hasUnpublishedChanges={hasUnpublishedChanges} />
+              <button 
+                onClick={saveSettings} 
+                disabled={!hasUnsavedChanges || isSaving}
+                className="settings-button settings-button--primary"
+              >
+                {isSaving ? 'Saving...' : 'Save Draft'}
+              </button>
+              <PublishButton hasChangesToPublish={hasUnpublishedChanges} onPublish={handlePublish} />
+            </>
+          ) : undefined
+        }
       />
 
       <main className="settings-page">
@@ -388,19 +469,7 @@ export default function SettingsPage() {
               </div>
             </section>
 
-            {/* Actions */}
-            <div className="settings-actions">
-              <button
-                type="submit"
-                className="settings-button settings-button--primary"
-                disabled={isSaving || !hasUnsavedChanges}
-              >
-                {isSaving ? 'Saving...' : 'Save Settings'}
-              </button>
-              {hasUnsavedChanges && !isSaving && (
-                <span className="settings-unsaved-indicator">Unsaved changes</span>
-              )}
-            </div>
+            {/* Actions - removed as they're now in the header */}
           </form>
         </div>
       </main>

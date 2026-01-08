@@ -8,6 +8,7 @@ import { AddSectionButton } from '@/components/editor/AddSectionButton'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { DraftIndicator, type DraftStatus } from '@/components/admin/DraftIndicator'
 import { PublishButton } from '@/components/admin/PublishButton'
+import { ViewLinksGroup } from '@/components/admin'
 import { ProjectMetadataSidebar } from '@/components/admin/ProjectMetadataSidebar'
 import { FeaturedImagePicker } from '@/components/admin/FeaturedImagePicker'
 import { useAutoSave } from '@/hooks/useAutoSave'
@@ -19,7 +20,15 @@ interface Project {
   title: string
   slug: string
   categoryId: string
-  category: { id: string; name: string; slug: string; portfolioId: string }
+  category: { 
+    id: string
+    name: string
+    slug: string
+    portfolioId: string
+    portfolio: {
+      slug: string
+    }
+  }
   featuredImage: { id: string; url: string; thumbnailUrl: string; altText: string | null } | null
   draftContent: string | null
   publishedContent: string | null
@@ -273,6 +282,12 @@ export default function ProjectEditorPage() {
     )
   }
 
+  // Construct URLs for ViewLinksGroup
+  const portfolioSlug = project.category?.portfolio?.slug || 'portfolio'
+  const categorySlug = project.category?.slug || 'category'
+  const draftUrl = `/preview/${portfolioSlug}/${categorySlug}/${project.slug}`
+  const liveUrl = `/${portfolioSlug}/${categorySlug}/${project.slug}`
+
   return (
     <div className="min-h-screen" style={{ background: 'var(--admin-bg-secondary)' }}>
       {/* Header */}
@@ -288,6 +303,12 @@ export default function ProjectEditorPage() {
         }}
         actions={
           <>
+            <ViewLinksGroup
+              draftUrl={draftUrl}
+              liveUrl={liveUrl}
+              hasPublishedVersion={!!project.lastPublishedAt}
+            />
+            <div className="action-divider" />
             <DraftIndicator
               status={draftStatus}
               hasUnpublishedChanges={hasUnpublishedChanges}

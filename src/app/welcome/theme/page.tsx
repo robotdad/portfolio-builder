@@ -10,35 +10,17 @@ const THEMES: Theme[] = [
   {
     id: 'modern-minimal',
     name: 'Modern Minimal',
-    description: 'Clean lines, neutral palette, contemporary feel',
-    colors: {
-      background: 'hsl(210, 15%, 97%)',
-      surface: 'hsl(210, 12%, 95%)',
-      text: 'hsl(0, 0%, 10%)',
-      accent: 'hsl(220, 90%, 56%)',
-    },
+    description: 'Clean, professional, neutral - lets work shine',
   },
   {
     id: 'classic-elegant',
     name: 'Classic Elegant',
-    description: 'Warm tones, refined typography, timeless sophistication',
-    colors: {
-      background: 'hsl(40, 30%, 95%)',
-      surface: 'hsl(40, 25%, 93%)',
-      text: 'hsl(30, 20%, 15%)',
-      accent: 'hsl(25, 60%, 45%)',
-    },
+    description: 'Sophisticated, established - signals experience',
   },
   {
     id: 'bold-editorial',
     name: 'Bold Editorial',
-    description: 'Dark mode, dramatic contrast, magazine-inspired',
-    colors: {
-      background: 'hsl(0, 0%, 5%)',
-      surface: 'hsl(0, 0%, 10%)',
-      text: 'hsl(0, 0%, 98%)',
-      accent: 'hsl(340, 85%, 55%)',
-    },
+    description: 'Dramatic, contemporary - makes a statement',
   },
 ]
 

@@ -28,3 +28,12 @@ export type { DashboardStatsCardProps } from './DashboardStatsCard'
 
 export { DashboardOverview } from './DashboardOverview'
 export type { DashboardOverviewProps } from './DashboardOverview'
+
+// View links component
+export { default as ViewLinksGroup } from './ViewLinksGroup'
+
+// Draft/Publish workflow components
+export { DraftIndicator } from './DraftIndicator'
+export type { DraftStatus } from './DraftIndicator'
+
+export { PublishButton } from './PublishButton'
