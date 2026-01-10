@@ -203,6 +203,7 @@ export function FeaturedCarousel({
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const [isManualInteraction, setIsManualInteraction] = useState(false)
   const [transitionDuration, setTransitionDuration] = useState(800) // Auto transition
+  const [userPaused, setUserPaused] = useState(false) // WCAG 2.2.2: Track explicit user pause
 
   // Touch state
   const [touchStart, setTouchStart] = useState<number | null>(null)
@@ -274,8 +275,8 @@ export function FeaturedCarousel({
           clearTimeout(resumeTimeoutRef.current)
         }
 
-        // Schedule resume after manual interaction (10s)
-        if (autoRotate && !prefersReducedMotion) {
+        // WCAG 2.2.2: Only schedule auto-resume if user hasn't explicitly paused
+        if (autoRotate && !prefersReducedMotion && !userPaused) {
           resumeTimeoutRef.current = setTimeout(() => {
             setIsManualInteraction(false)
             setIsPlaying(true)
@@ -283,7 +284,7 @@ export function FeaturedCarousel({
         }
       }
     },
-    [currentIndex, prefersReducedMotion, autoRotate]
+    [currentIndex, prefersReducedMotion, autoRotate, userPaused]
   )
 
   const goNext = useCallback(() => {
@@ -387,7 +388,8 @@ export function FeaturedCarousel({
   }, [isManualInteraction, pause])
 
   const handleMouseLeave = useCallback(() => {
-    if (!isManualInteraction && autoRotate && !prefersReducedMotion) {
+    // WCAG 2.2.2: Only resume if user hasn't explicitly paused and autoRotate is enabled
+    if (!isManualInteraction && autoRotate && !prefersReducedMotion && !userPaused) {
       // Clear any existing resume timeout
       if (resumeTimeoutRef.current) {
         clearTimeout(resumeTimeoutRef.current)
@@ -398,7 +400,7 @@ export function FeaturedCarousel({
         play()
       }, hoverResumeDelay)
     }
-  }, [isManualInteraction, autoRotate, prefersReducedMotion, play])
+  }, [isManualInteraction, autoRotate, prefersReducedMotion, userPaused, play])
 
   // ==========================================================================
   // TOUCH HANDLERS (mobile swipe)
@@ -462,7 +464,8 @@ export function FeaturedCarousel({
           break
         case 'Escape':
           e.preventDefault()
-          pause()
+          setIsPlaying(false)
+          setUserPaused(true) // WCAG 2.2.2: Escape is explicit user pause
           break
       }
     },
@@ -569,7 +572,15 @@ export function FeaturedCarousel({
             {!prefersReducedMotion && (
               <button
                 className="carousel-pause-button"
-                onClick={togglePlayPause}
+                onClick={() => {
+                  // WCAG 2.2.2: Track explicit user pause to prevent auto-resume
+                  if (isPlaying) {
+                    setUserPaused(true)
+                  } else {
+                    setUserPaused(false)
+                  }
+                  setIsPlaying(!isPlaying)
+                }}
                 aria-label={isPlaying ? 'Pause carousel' : 'Play carousel'}
                 type="button"
               >
