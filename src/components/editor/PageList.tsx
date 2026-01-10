@@ -19,6 +19,7 @@ import {
   useSortable,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { VALIDATION_ERRORS } from '@/lib/messages'
 
 export interface PageData {
   id: string
@@ -252,7 +253,7 @@ export function PageSettingsModal({
 
     // Validate slug format
     if (slug && !/^[a-z0-9-]*$/.test(slug)) {
-      setError('URL can only contain lowercase letters, numbers, and hyphens')
+      setError(VALIDATION_ERRORS.SLUG_FORMAT)
       return
     }
 

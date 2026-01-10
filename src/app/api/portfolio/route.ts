@@ -1,5 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { VALIDATION_ERRORS } from '@/lib/messages'
+import { apiSuccess, apiCreated, apiValidationError, apiConflict, apiInternalError } from '@/lib/api'
 
 // GET - Fetch the first portfolio (for MVP, we only support one)
 export async function GET() {
@@ -20,13 +22,10 @@ export async function GET() {
       },
     })
     
-    return NextResponse.json(portfolio)
+    return apiSuccess(portfolio)
   } catch (error) {
     console.error('Failed to fetch portfolio:', error)
-    return NextResponse.json(
-      { message: 'Failed to fetch portfolio' },
-      { status: 500 }
-    )
+    return apiInternalError('Failed to fetch portfolio')
   }
 }
 
@@ -38,18 +37,12 @@ export async function POST(request: NextRequest) {
 
     // Validate required fields
     if (!slug) {
-      return NextResponse.json(
-        { message: 'Slug is required' },
-        { status: 400 }
-      )
+      return apiValidationError('Slug is required')
     }
 
     // Validate slug format
     if (!/^[a-z0-9-]+$/.test(slug)) {
-      return NextResponse.json(
-        { message: 'Slug can only contain lowercase letters, numbers, and hyphens' },
-        { status: 400 }
-      )
+      return apiValidationError(VALIDATION_ERRORS.SLUG_FORMAT)
     }
 
     // Check if slug is already taken
@@ -58,10 +51,7 @@ export async function POST(request: NextRequest) {
     })
 
     if (existing) {
-      return NextResponse.json(
-        { message: 'This URL is already taken. Please choose a different one.' },
-        { status: 409 }
-      )
+      return apiConflict(VALIDATION_ERRORS.SLUG_TAKEN)
     }
 
     // Create initial hero section content
@@ -118,13 +108,10 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    return NextResponse.json(portfolio, { status: 201 })
+    return apiCreated(portfolio)
   } catch (error) {
     console.error('Failed to create portfolio:', error)
-    return NextResponse.json(
-      { message: 'Failed to create portfolio' },
-      { status: 500 }
-    )
+    return apiInternalError('Failed to create portfolio')
   }
 }
 
@@ -136,20 +123,14 @@ export async function PUT(request: NextRequest) {
 
     // Validate required fields - only id is always required
     if (!id) {
-      return NextResponse.json(
-        { message: 'ID is required' },
-        { status: 400 }
-      )
+      return apiValidationError('ID is required')
     }
 
     // If slug is being updated, validate it
     if (slug !== undefined) {
       // Validate slug format
       if (!/^[a-z0-9-]+$/.test(slug)) {
-        return NextResponse.json(
-          { message: 'Slug can only contain lowercase letters, numbers, and hyphens' },
-          { status: 400 }
-        )
+        return apiValidationError(VALIDATION_ERRORS.SLUG_FORMAT)
       }
 
       // Check if slug is taken by another portfolio
@@ -161,10 +142,7 @@ export async function PUT(request: NextRequest) {
       })
 
       if (existing) {
-        return NextResponse.json(
-          { message: 'This URL is already taken. Please choose a different one.' },
-          { status: 409 }
-        )
+        return apiConflict(VALIDATION_ERRORS.SLUG_TAKEN)
       }
     }
 
@@ -201,12 +179,9 @@ export async function PUT(request: NextRequest) {
       },
     })
 
-    return NextResponse.json(portfolio)
+    return apiSuccess(portfolio)
   } catch (error) {
     console.error('Failed to update portfolio:', error)
-    return NextResponse.json(
-      { message: 'Failed to update portfolio' },
-      { status: 500 }
-    )
+    return apiInternalError('Failed to update portfolio')
   }
 }

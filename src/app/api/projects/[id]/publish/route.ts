@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { ENTITY_ERRORS } from '@/lib/messages'
 
 /**
  * POST /api/projects/[id]/publish
@@ -28,7 +29,7 @@ export async function POST(
 
     if (!project) {
       return NextResponse.json(
-        { error: 'Project not found', code: 'NOT_FOUND', success: false },
+        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
     }

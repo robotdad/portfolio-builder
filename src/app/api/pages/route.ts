@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { VALIDATION_ERRORS, ENTITY_ERRORS } from '@/lib/messages'
 
 // GET - Fetch all pages for a portfolio
 export async function GET(request: NextRequest) {
@@ -49,7 +50,7 @@ export async function POST(request: NextRequest) {
     // Validate slug format
     if (pageSlug && !/^[a-z0-9-]*$/.test(pageSlug)) {
       return NextResponse.json(
-        { message: 'Slug can only contain lowercase letters, numbers, and hyphens' },
+        { message: VALIDATION_ERRORS.SLUG_FORMAT },
         { status: 400 }
       )
     }
@@ -64,7 +65,7 @@ export async function POST(request: NextRequest) {
 
     if (existing) {
       return NextResponse.json(
-        { message: 'A page with this URL already exists' },
+        { message: ENTITY_ERRORS.PAGE_SLUG_TAKEN },
         { status: 409 }
       )
     }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { VALIDATION_ERRORS, ENTITY_ERRORS } from '@/lib/messages'
 
 // GET - Fetch a single page
 export async function GET(
@@ -22,7 +23,7 @@ export async function GET(
 
     if (!page) {
       return NextResponse.json(
-        { message: 'Page not found' },
+        { message: ENTITY_ERRORS.PAGE_NOT_FOUND },
         { status: 404 }
       )
     }
@@ -54,7 +55,7 @@ export async function PUT(
 
     if (!existingPage) {
       return NextResponse.json(
-        { message: 'Page not found' },
+        { message: ENTITY_ERRORS.PAGE_NOT_FOUND },
         { status: 404 }
       )
     }
@@ -74,7 +75,7 @@ export async function PUT(
     const pageSlug = slug !== undefined ? slug : existingPage.slug
     if (pageSlug && !/^[a-z0-9-]*$/.test(pageSlug)) {
       return NextResponse.json(
-        { message: 'Slug can only contain lowercase letters, numbers, and hyphens' },
+        { message: VALIDATION_ERRORS.SLUG_FORMAT },
         { status: 400 }
       )
     }
@@ -91,7 +92,7 @@ export async function PUT(
 
       if (slugTaken) {
         return NextResponse.json(
-          { message: 'A page with this URL already exists' },
+          { message: ENTITY_ERRORS.PAGE_SLUG_TAKEN },
           { status: 409 }
         )
       }
@@ -155,7 +156,7 @@ export async function DELETE(
 
     if (!page) {
       return NextResponse.json(
-        { message: 'Page not found' },
+        { message: ENTITY_ERRORS.PAGE_NOT_FOUND },
         { status: 404 }
       )
     }

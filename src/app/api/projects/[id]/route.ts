@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { ENTITY_ERRORS } from '@/lib/messages'
 import { updateProjectSchema } from '@/lib/validations/project'
 import { generateSlug } from '@/lib/utils/slug'
 
@@ -40,7 +41,7 @@ export async function GET(
 
     if (!project) {
       return NextResponse.json(
-        { error: 'Project not found', code: 'NOT_FOUND', success: false },
+        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
     }
@@ -79,7 +80,7 @@ export async function PUT(
 
     if (!existing) {
       return NextResponse.json(
-        { error: 'Project not found', code: 'NOT_FOUND', success: false },
+        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
     }
@@ -95,7 +96,7 @@ export async function PUT(
       })
       if (!newCategory) {
         return NextResponse.json(
-          { error: 'Target category not found', code: 'NOT_FOUND', success: false },
+          { error: ENTITY_ERRORS.CATEGORY_NOT_FOUND, code: 'NOT_FOUND', success: false },
           { status: 404 }
         )
       }
@@ -189,7 +190,7 @@ export async function DELETE(
 
     if (!existing) {
       return NextResponse.json(
-        { error: 'Project not found', code: 'NOT_FOUND', success: false },
+        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
     }

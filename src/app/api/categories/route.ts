@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { ENTITY_ERRORS } from '@/lib/messages'
 import { createCategorySchema } from '@/lib/validations/category'
 import { generateSlug } from '@/lib/utils/slug'
 
@@ -78,7 +79,7 @@ export async function POST(request: NextRequest) {
 
     if (!portfolio) {
       return NextResponse.json(
-        { error: 'Portfolio not found', code: 'NOT_FOUND', success: false },
+        { error: ENTITY_ERRORS.PORTFOLIO_NOT_FOUND, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
     }
