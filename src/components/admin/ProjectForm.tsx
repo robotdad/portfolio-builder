@@ -5,6 +5,17 @@ import { FeaturedImagePicker, type FeaturedImage } from './FeaturedImagePicker'
 import { GalleryImageGrid, type GalleryImage } from './GalleryImageGrid'
 import { ImagePicker } from '@/components/shared/ImagePicker'
 import type { SiteImage } from '@/lib/types/image-picker'
+import { 
+  ProjectBasicInfo, 
+  validateTitle, 
+  validateYear, 
+  validateVenue, 
+  validateRole,
+  MAX_TITLE_LENGTH,
+  type BasicInfoValues,
+  type BasicInfoErrors,
+  type BasicInfoTouched,
+} from './ProjectBasicInfo'
 
 // ============================================================================
 // Types
@@ -68,43 +79,11 @@ export interface ProjectFormProps {
 // Constants
 // ============================================================================
 
-const MAX_TITLE_LENGTH = 200
 const MAX_DESCRIPTION_LENGTH = 5000
 
 // ============================================================================
 // Validation Functions
 // ============================================================================
-
-const validateTitle = (value: string): string | undefined => {
-  if (!value.trim()) {
-    return 'Project title is required'
-  }
-  if (value.length > MAX_TITLE_LENGTH) {
-    return `Title must be ${MAX_TITLE_LENGTH} characters or less`
-  }
-  return undefined
-}
-
-const validateYear = (value: string): string | undefined => {
-  if (value && value.length > 50) {
-    return 'Year must be 50 characters or less'
-  }
-  return undefined
-}
-
-const validateVenue = (value: string): string | undefined => {
-  if (value && value.length > 200) {
-    return 'Venue must be 200 characters or less'
-  }
-  return undefined
-}
-
-const validateRole = (value: string): string | undefined => {
-  if (value && value.length > 200) {
-    return 'Role must be 200 characters or less'
-  }
-  return undefined
-}
 
 const validateDescription = (value: string): string | undefined => {
   if (value.length > MAX_DESCRIPTION_LENGTH) {
@@ -235,57 +214,59 @@ export function ProjectForm({
   // Field Handlers
   // ============================================================================
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setTitle(value)
-    if (touched.title) {
-      setErrors((prev) => ({ ...prev, title: validateTitle(value) }))
-    }
-  }
+  // Unified handlers for basic info fields
+  const handleBasicInfoChange = useCallback(
+    (field: keyof BasicInfoValues, value: string) => {
+      switch (field) {
+        case 'title':
+          setTitle(value)
+          if (touched.title) {
+            setErrors((prev) => ({ ...prev, title: validateTitle(value) }))
+          }
+          break
+        case 'year':
+          setYear(value)
+          if (touched.year) {
+            setErrors((prev) => ({ ...prev, year: validateYear(value) }))
+          }
+          break
+        case 'venue':
+          setVenue(value)
+          if (touched.venue) {
+            setErrors((prev) => ({ ...prev, venue: validateVenue(value) }))
+          }
+          break
+        case 'role':
+          setRole(value)
+          if (touched.role) {
+            setErrors((prev) => ({ ...prev, role: validateRole(value) }))
+          }
+          break
+      }
+    },
+    [touched]
+  )
 
-  const handleTitleBlur = () => {
-    setTouched((prev) => ({ ...prev, title: true }))
-    setErrors((prev) => ({ ...prev, title: validateTitle(title) }))
-  }
-
-  const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setYear(value)
-    if (touched.year) {
-      setErrors((prev) => ({ ...prev, year: validateYear(value) }))
-    }
-  }
-
-  const handleYearBlur = () => {
-    setTouched((prev) => ({ ...prev, year: true }))
-    setErrors((prev) => ({ ...prev, year: validateYear(year) }))
-  }
-
-  const handleVenueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setVenue(value)
-    if (touched.venue) {
-      setErrors((prev) => ({ ...prev, venue: validateVenue(value) }))
-    }
-  }
-
-  const handleVenueBlur = () => {
-    setTouched((prev) => ({ ...prev, venue: true }))
-    setErrors((prev) => ({ ...prev, venue: validateVenue(venue) }))
-  }
-
-  const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setRole(value)
-    if (touched.role) {
-      setErrors((prev) => ({ ...prev, role: validateRole(value) }))
-    }
-  }
-
-  const handleRoleBlur = () => {
-    setTouched((prev) => ({ ...prev, role: true }))
-    setErrors((prev) => ({ ...prev, role: validateRole(role) }))
-  }
+  const handleBasicInfoBlur = useCallback(
+    (field: keyof BasicInfoValues) => {
+      setTouched((prev) => ({ ...prev, [field]: true }))
+      switch (field) {
+        case 'title':
+          setErrors((prev) => ({ ...prev, title: validateTitle(title) }))
+          break
+        case 'year':
+          setErrors((prev) => ({ ...prev, year: validateYear(year) }))
+          break
+        case 'venue':
+          setErrors((prev) => ({ ...prev, venue: validateVenue(venue) }))
+          break
+        case 'role':
+          setErrors((prev) => ({ ...prev, role: validateRole(role) }))
+          break
+      }
+    },
+    [title, year, venue, role]
+  )
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
@@ -443,31 +424,15 @@ export function ProjectForm({
   return (
     <>
       <form onSubmit={handleSubmit} className="project-form" noValidate>
-        {/* Title Field */}
-        <div className="form-group">
-          <label htmlFor={titleId} className="form-label">
-            Project Title <span className="required">*</span>
-          </label>
-          <input
-            id={titleId}
-            type="text"
-            className={`form-input ${errors.title ? 'form-input-error' : ''}`}
-            value={title}
-            onChange={handleTitleChange}
-            onBlur={handleTitleBlur}
-            placeholder="e.g., Hamlet, The Crown, Nike Campaign"
-            disabled={isSubmitting}
-            aria-required="true"
-            aria-invalid={errors.title ? 'true' : 'false'}
-            aria-describedby={errors.title ? titleErrorId : undefined}
-            autoFocus
-          />
-          {errors.title && (
-            <p id={titleErrorId} className="form-error" role="alert">
-              {errors.title}
-            </p>
-          )}
-        </div>
+        {/* Title field - always visible */}
+        <ProjectBasicInfo
+          values={{ title, year, venue, role }}
+          errors={errors}
+          touched={touched}
+          onChange={handleBasicInfoChange}
+          onBlur={handleBasicInfoBlur}
+          titleOnly={mode === 'quick-add'}
+        />
 
         {/* Featured Image Field */}
         <div className="form-group">
@@ -501,80 +466,6 @@ export function ProjectForm({
         {/* Full Mode: Additional Fields */}
         {mode === 'full' && (
           <>
-            {/* Year Field */}
-            <div className="form-group">
-              <label htmlFor={yearId} className="form-label">
-                Year
-              </label>
-              <input
-                id={yearId}
-                type="text"
-                className={`form-input ${errors.year ? 'form-input-error' : ''}`}
-                value={year}
-                onChange={handleYearChange}
-                onBlur={handleYearBlur}
-                placeholder="e.g., 2024 or 2023-2024"
-                disabled={isSubmitting}
-                aria-invalid={errors.year ? 'true' : 'false'}
-                aria-describedby={errors.year ? yearErrorId : undefined}
-              />
-              {errors.year ? (
-                <p id={yearErrorId} className="form-error" role="alert">
-                  {errors.year}
-                </p>
-              ) : (
-                <p className="form-hint">Optional - can be a range like "2023-2024"</p>
-              )}
-            </div>
-
-            {/* Venue Field */}
-            <div className="form-group">
-              <label htmlFor={venueId} className="form-label">
-                Venue
-              </label>
-              <input
-                id={venueId}
-                type="text"
-                className={`form-input ${errors.venue ? 'form-input-error' : ''}`}
-                value={venue}
-                onChange={handleVenueChange}
-                onBlur={handleVenueBlur}
-                placeholder="e.g., National Theatre, Netflix, BBC"
-                disabled={isSubmitting}
-                aria-invalid={errors.venue ? 'true' : 'false'}
-                aria-describedby={errors.venue ? venueErrorId : undefined}
-              />
-              {errors.venue && (
-                <p id={venueErrorId} className="form-error" role="alert">
-                  {errors.venue}
-                </p>
-              )}
-            </div>
-
-            {/* Role Field */}
-            <div className="form-group">
-              <label htmlFor={roleId} className="form-label">
-                Role
-              </label>
-              <input
-                id={roleId}
-                type="text"
-                className={`form-input ${errors.role ? 'form-input-error' : ''}`}
-                value={role}
-                onChange={handleRoleChange}
-                onBlur={handleRoleBlur}
-                placeholder="e.g., Director, Lead Actor, Producer"
-                disabled={isSubmitting}
-                aria-invalid={errors.role ? 'true' : 'false'}
-                aria-describedby={errors.role ? roleErrorId : undefined}
-              />
-              {errors.role && (
-                <p id={roleErrorId} className="form-error" role="alert">
-                  {errors.role}
-                </p>
-              )}
-            </div>
-
             {/* Description Field */}
             <div className="form-group">
               <label htmlFor={descriptionId} className="form-label">
