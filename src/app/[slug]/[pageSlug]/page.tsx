@@ -2,7 +2,6 @@ import { notFound, redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
 import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
-import { Navigation, type NavPage } from '@/components/portfolio/Navigation'
 import { CategoryLanding } from '@/components/portfolio/CategoryLanding'
 import { deserializeSections } from '@/lib/serialization'
 import { isHeroSection, isGallerySection } from '@/lib/content-schema'
@@ -144,24 +143,6 @@ async function renderCategoryPage(
   const heroSection = homePageSections.find(isHeroSection)
   const portfolioName = heroSection?.name || portfolio.name
 
-  // Prepare nav pages
-  const navPages: NavPage[] = portfolio.pages
-    .filter((p: any) => p.showInNav && p.publishedContent)
-    .map((p: any) => ({
-      id: p.id,
-      title: p.title,
-      slug: p.slug,
-      isHomepage: p.isHomepage,
-      showInNav: p.showInNav,
-    }))
-
-  // Prepare categories for navigation
-  const navCategories = portfolio.categories.map((c: any) => ({
-    id: c.id,
-    name: c.name,
-    slug: c.slug,
-  }))
-
   const projectsWithImages = projects.map(project => {
     // Prefer explicit featuredImage, fallback to first gallery image
     let featuredImageUrl: string | null = null
@@ -193,8 +174,6 @@ async function renderCategoryPage(
     }
   })
 
-  const theme = portfolio.publishedTheme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
-
   return (
     <CategoryLanding
       portfolio={{
@@ -209,8 +188,6 @@ async function renderCategoryPage(
         description: category.description,
       }}
       projects={projectsWithImages}
-      navPages={navPages}
-      categories={navCategories}
     />
   )
 }
@@ -225,62 +202,18 @@ function renderPortfolioPage(
 ) {
   // Parse sections from PUBLISHED content only
   const sections = deserializeSections(currentPage.publishedContent)
-  
-  // Get hero section from homepage for the name
-  const homePage = portfolio.pages.find((p: any) => p.isHomepage) || portfolio.pages[0]
-  const homePageSections = deserializeSections(homePage?.publishedContent)
-  const heroSection = homePageSections.find(isHeroSection)
-  const name = heroSection?.name || portfolio.name
 
-  // Prepare navigation pages
-  const navPages: NavPage[] = portfolio.pages
-    .filter((p: any) => p.showInNav && p.publishedContent)
-    .map((p: any) => ({
-      id: p.id,
-      title: p.title,
-      slug: p.slug,
-      isHomepage: p.isHomepage,
-      showInNav: p.showInNav,
-    }))
-
-  // Prepare categories for navigation
-  const navCategories = portfolio.categories.map((c: any) => ({
-    id: c.id,
-    name: c.name,
-    slug: c.slug,
-  }))
-
-  const theme = portfolio.publishedTheme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
-
+  // Note: Navigation and footer are provided by the layout
   return (
-    <div className="portfolio-page" data-theme={portfolio.publishedTheme}>
-      {(navPages.length > 1 || navCategories.length > 0) && (
-        <Navigation
-          portfolioSlug={portfolio.slug}
-          portfolioName={name}
-          pages={navPages}
-          categories={navCategories}
-          theme={theme}
-        />
+    <div className="container">
+      {sections.length > 0 ? (
+        <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
+      ) : (
+        <div className="portfolio-empty-page">
+          <h1>{currentPage.title}</h1>
+          <p>This page is under construction.</p>
+        </div>
       )}
-      <main className="portfolio-main">
-        <div className="container">
-          {sections.length > 0 ? (
-            <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
-          ) : (
-            <div className="portfolio-empty-page">
-              <h1>{currentPage.title}</h1>
-              <p>This page is under construction.</p>
-            </div>
-          )}
-        </div>
-      </main>
-
-      <footer className="portfolio-footer">
-        <div className="container">
-          <p>© {new Date().getFullYear()} {name}</p>
-        </div>
-      </footer>
     </div>
   )
 }

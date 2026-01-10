@@ -7,7 +7,6 @@ import {
   FeaturedGridTemplate, 
   CleanMinimalTemplate, 
   type TemplateId,
-  type NavPage 
 } from '@/components/portfolio/templates'
 import type { Metadata } from 'next'
 
@@ -108,24 +107,6 @@ export default async function PortfolioPage({ params }: PageProps) {
   const heroSection = sections.find(isHeroSection)
   const name = heroSection?.name || portfolio.name
 
-  // Prepare navigation pages (only show pages that have published content)
-  const navPages: NavPage[] = portfolio.pages
-    .filter(p => p.showInNav && p.publishedContent)
-    .map(p => ({
-      id: p.id,
-      title: p.title,
-      slug: p.slug,
-      isHomepage: p.isHomepage,
-      showInNav: p.showInNav,
-    }))
-
-  // Prepare categories for navigation
-  const navCategories = portfolio.categories.map(c => ({
-    id: c.id,
-    name: c.name,
-    slug: c.slug,
-  }))
-
   // Collect featured projects from all categories
   const featuredProjects = portfolio.categories.flatMap(category => 
     category.projects.map(project => {
@@ -162,8 +143,6 @@ export default async function PortfolioPage({ params }: PageProps) {
     })
   ).sort((a, b) => a.order - b.order).slice(0, 6)
 
-  const theme = portfolio.publishedTheme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
-
   // Select template based on portfolio's published template setting
   const templateId = (portfolio.publishedTemplate || 'featured-grid') as TemplateId
   const Template = TemplateComponents[templateId] || TemplateComponents['featured-grid']
@@ -186,9 +165,6 @@ export default async function PortfolioPage({ params }: PageProps) {
       }}
       sections={sections}
       featuredProjects={featuredProjects}
-      navPages={navPages}
-      navCategories={navCategories}
-      theme={theme}
     />
   )
 }

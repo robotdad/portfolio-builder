@@ -173,8 +173,6 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
               publishedContent: contentToShow,
               galleryImages,
             }}
-            navPages={navPages}
-            categories={navCategories}
           />
         </div>
       )
@@ -232,8 +230,6 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
             description: category.description,
           }}
           projects={projectsWithImages}
-          navPages={navPages}
-          categories={navCategories}
         />
       </div>
     )
@@ -313,9 +309,6 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
           portfolio={{ slug: `preview/${portfolio.slug}`, name }}
           sections={sections}
           featuredProjects={featuredProjects}
-          navPages={navPages}
-          navCategories={navCategories}
-          theme={theme}
         />
       </>
     )

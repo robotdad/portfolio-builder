@@ -1,6 +1,5 @@
 'use client'
 
-import { Navigation, type NavPage } from './Navigation'
 import { Breadcrumb } from './Breadcrumb'
 import { ProjectCard } from './ProjectCard'
 import { EmptyState } from './EmptyState'
@@ -31,8 +30,6 @@ interface CategoryLandingProps {
   }
   category: Category
   projects: CategoryProject[]
-  navPages: NavPage[]
-  categories: Array<{ id: string; name: string; slug: string }>
 }
 
 /**
@@ -45,75 +42,54 @@ interface CategoryLandingProps {
  * 
  * Features:
  * - Breadcrumb navigation (just category name on category page)
- * - Navigation with dynamic categories
  * - Project cards with hover overlay
  * - Professional empty state when no projects
+ * 
+ * Note: Navigation and footer are provided by the layout.
  */
 export function CategoryLanding({ 
   portfolio, 
   category, 
-  projects,
-  navPages,
-  categories 
+  projects
 }: CategoryLandingProps) {
-  const theme = portfolio.publishedTheme as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
-  
   return (
-    <div className="portfolio-page" data-theme={portfolio.publishedTheme}>
-      <Navigation
-        portfolioSlug={portfolio.slug}
-        portfolioName={portfolio.name}
-        pages={navPages}
-        categories={categories}
-        theme={theme}
-      />
+    <div className="container">
+      {/* Page header with breadcrumb */}
+      <header className="category-header">
+        <Breadcrumb 
+          items={[
+            { label: category.name }
+          ]} 
+        />
+        <h1 className="category-title">{category.name}</h1>
+      </header>
       
-      <main className="portfolio-main">
-        <div className="container">
-          {/* Page header with breadcrumb */}
-          <header className="category-header">
-            <Breadcrumb 
-              items={[
-                { label: category.name }
-              ]} 
+      {/* Projects grid or empty state */}
+      {projects.length > 0 ? (
+        <div className="category-grid">
+          {projects.map(project => (
+            <ProjectCard
+              key={project.id}
+              project={{
+                slug: project.slug,
+                title: project.title,
+                venue: project.venue,
+                year: project.year,
+                featuredImageUrl: project.featuredImageUrl,
+                featuredImageAlt: project.featuredImageAlt,
+              }}
+              categorySlug={category.slug}
+              portfolioSlug={portfolio.slug}
             />
-            <h1 className="category-title">{category.name}</h1>
-          </header>
-          
-          {/* Projects grid or empty state */}
-          {projects.length > 0 ? (
-            <div className="category-grid">
-              {projects.map(project => (
-                <ProjectCard
-                  key={project.id}
-                  project={{
-                    slug: project.slug,
-                    title: project.title,
-                    venue: project.venue,
-                    year: project.year,
-                    featuredImageUrl: project.featuredImageUrl,
-                    featuredImageAlt: project.featuredImageAlt,
-                  }}
-                  categorySlug={category.slug}
-                  portfolioSlug={portfolio.slug}
-                />
-              ))}
-            </div>
-          ) : (
-            <EmptyState
-              icon="folder"
-              title={`No projects in ${category.name} yet`}
-              message="Projects added to this category will appear here. Add projects in the admin panel to showcase your work."
-            />
-          )}
+          ))}
         </div>
-      </main>
-      
-      <footer className="portfolio-footer">
-        <div className="container">
-          <p>© {new Date().getFullYear()} {portfolio.name}</p>
-        </div>
-      </footer>
+      ) : (
+        <EmptyState
+          icon="folder"
+          title={`No projects in ${category.name} yet`}
+          message="Projects added to this category will appear here. Add projects in the admin panel to showcase your work."
+        />
+      )}
     </div>
   )
 }

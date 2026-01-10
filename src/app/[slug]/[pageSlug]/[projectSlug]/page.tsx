@@ -4,7 +4,7 @@ import { ProjectDetail } from '@/components/portfolio/ProjectDetail'
 import { deserializeSections } from '@/lib/serialization'
 import { isHeroSection, isGallerySection } from '@/lib/content-schema'
 import type { Metadata } from 'next'
-import type { NavPage } from '@/components/portfolio/Navigation'
+
 
 interface PageProps {
   params: Promise<{ slug: string; pageSlug: string; projectSlug: string }>
@@ -108,24 +108,6 @@ export default async function ProjectPage({ params }: PageProps) {
   // Filter out gallery section from content (we'll render it separately)
   const contentSections = projectSections.filter(s => s.type !== 'gallery')
 
-  // Prepare nav pages
-  const navPages: NavPage[] = portfolio.pages
-    .filter(p => p.showInNav && p.publishedContent)
-    .map(p => ({
-      id: p.id,
-      title: p.title,
-      slug: p.slug,
-      isHomepage: p.isHomepage,
-      showInNav: p.showInNav,
-    }))
-
-  // Prepare categories for navigation
-  const navCategories = portfolio.categories.map(c => ({
-    id: c.id,
-    name: c.name,
-    slug: c.slug,
-  }))
-
   // Serialize content back for SectionRenderer
   const contentForRenderer = contentSections.length > 0 
     ? JSON.stringify(contentSections) 
@@ -153,8 +135,6 @@ export default async function ProjectPage({ params }: PageProps) {
         publishedContent: contentForRenderer,
         galleryImages,
       }}
-      navPages={navPages}
-      categories={navCategories}
     />
   )
 }

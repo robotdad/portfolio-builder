@@ -44,9 +44,6 @@ export interface TemplateProps {
   }
   sections: any[] // Section[] from content-schema
   featuredProjects: FeaturedProject[]
-  navPages: NavPage[]
-  navCategories: NavCategory[]
-  theme: 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 }
 
 // Template metadata for UI

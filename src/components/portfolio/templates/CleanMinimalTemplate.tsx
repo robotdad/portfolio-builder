@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { Navigation } from '../Navigation'
 import { SectionRenderer } from '../SectionRenderer'
 import { ImageWithFallback } from '../ImageFallback'
 import { AboutSection } from '../AboutSection'
@@ -11,13 +10,7 @@ export function CleanMinimalTemplate({
   portfolio,
   sections,
   featuredProjects,
-  navPages,
-  navCategories,
-  theme,
 }: TemplateProps) {
-  const currentYear = new Date().getFullYear()
-  const showNav = navPages.length > 1 || navCategories.length > 0
-  
   // Clean minimal shows 3-6 projects in a stacked layout
   const displayProjects = featuredProjects.slice(0, 6)
 
@@ -27,18 +20,7 @@ export function CleanMinimalTemplate({
     portfolio.bio?.trim()
 
   return (
-    <div className="portfolio-page template-clean-minimal" data-theme={theme}>
-      {showNav && (
-        <Navigation
-          portfolioSlug={portfolio.slug}
-          portfolioName={portfolio.name}
-          pages={navPages}
-          categories={navCategories}
-          theme={theme}
-        />
-      )}
-
-      <main className="portfolio-main clean-minimal-main">
+    <>
         {/* Hero and other sections with expansive styling */}
         <div className="clean-minimal-hero-wrapper">
           <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
@@ -97,13 +79,6 @@ export function CleanMinimalTemplate({
             </div>
           </section>
         )}
-      </main>
-
-      <footer className="portfolio-footer clean-minimal-footer">
-        <div className="container">
-          <p>&copy; {currentYear} {portfolio.name}</p>
-        </div>
-      </footer>
-    </div>
+    </>
   )
 }
