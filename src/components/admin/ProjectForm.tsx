@@ -16,6 +16,9 @@ import {
   type BasicInfoErrors,
   type BasicInfoTouched,
 } from './ProjectBasicInfo'
+import { ProjectDescription, validateDescription, MAX_DESCRIPTION_LENGTH } from './ProjectDescription'
+import { ProjectMetadata } from './ProjectMetadata'
+import { ProjectFormActions } from './ProjectFormActions'
 
 // ============================================================================
 // Types
@@ -76,23 +79,6 @@ export interface ProjectFormProps {
 }
 
 // ============================================================================
-// Constants
-// ============================================================================
-
-const MAX_DESCRIPTION_LENGTH = 5000
-
-// ============================================================================
-// Validation Functions
-// ============================================================================
-
-const validateDescription = (value: string): string | undefined => {
-  if (value.length > MAX_DESCRIPTION_LENGTH) {
-    return `Description must be ${MAX_DESCRIPTION_LENGTH} characters or less`
-  }
-  return undefined
-}
-
-// ============================================================================
 // ProjectForm Component
 // ============================================================================
 
@@ -134,18 +120,7 @@ export function ProjectForm({
   initialMode,
 }: ProjectFormProps) {
   // Generate unique IDs for form fields (accessibility)
-  const titleId = useId()
-  const yearId = useId()
-  const venueId = useId()
-  const roleId = useId()
-  const descriptionId = useId()
   const featuredId = useId()
-  const titleErrorId = useId()
-  const yearErrorId = useId()
-  const venueErrorId = useId()
-  const roleErrorId = useId()
-  const descriptionErrorId = useId()
-  const featuredImageErrorId = useId()
 
   // Determine if we're in edit mode
   const isEditMode = Boolean(project)
@@ -268,18 +243,17 @@ export function ProjectForm({
     [title, year, venue, role]
   )
 
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value
+  const handleDescriptionChange = useCallback((value: string) => {
     setDescription(value)
     if (touched.description) {
       setErrors((prev) => ({ ...prev, description: validateDescription(value) }))
     }
-  }
+  }, [touched.description])
 
-  const handleDescriptionBlur = () => {
+  const handleDescriptionBlur = useCallback(() => {
     setTouched((prev) => ({ ...prev, description: true }))
     setErrors((prev) => ({ ...prev, description: validateDescription(description) }))
-  }
+  }, [description])
 
   // ============================================================================
   // Image Handlers
@@ -411,13 +385,6 @@ export function ProjectForm({
   }
 
   // ============================================================================
-  // Computed Values
-  // ============================================================================
-
-  const descriptionLength = description.length
-  const isDescriptionNearLimit = descriptionLength > MAX_DESCRIPTION_LENGTH * 0.8
-
-  // ============================================================================
   // Render
   // ============================================================================
 
@@ -467,53 +434,19 @@ export function ProjectForm({
         {mode === 'full' && (
           <>
             {/* Description Field */}
-            <div className="form-group">
-              <label htmlFor={descriptionId} className="form-label">
-                Description
-              </label>
-              <textarea
-                id={descriptionId}
-                className={`form-textarea ${errors.description ? 'form-input-error' : ''}`}
-                value={description}
-                onChange={handleDescriptionChange}
-                onBlur={handleDescriptionBlur}
-                placeholder="Optional description of the project..."
-                disabled={isSubmitting}
-                rows={4}
-                aria-invalid={errors.description ? 'true' : 'false'}
-                aria-describedby={errors.description ? descriptionErrorId : undefined}
-              />
-              <div className="form-field-footer">
-                {errors.description ? (
-                  <p id={descriptionErrorId} className="form-error" role="alert">
-                    {errors.description}
-                  </p>
-                ) : (
-                  <span className="form-hint">Optional</span>
-                )}
-                <span
-                  className={`char-count ${isDescriptionNearLimit ? 'char-count-warning' : ''}`}
-                  aria-live="polite"
-                >
-                  {descriptionLength}/{MAX_DESCRIPTION_LENGTH}
-                </span>
-              </div>
-            </div>
+            <ProjectDescription
+              value={description}
+              error={errors.description}
+              touched={touched.description}
+              onChange={handleDescriptionChange}
+              onBlur={handleDescriptionBlur}
+            />
 
             {/* Featured Checkbox */}
-            <div className="form-group">
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  className="checkbox-input"
-                  checked={isFeatured}
-                  onChange={(e) => setIsFeatured(e.target.checked)}
-                  disabled={isSubmitting}
-                />
-                <span className="checkbox-text">Feature on homepage</span>
-              </label>
-              <p className="form-hint">Featured projects appear in the portfolio highlights section</p>
-            </div>
+            <ProjectMetadata
+              isFeatured={isFeatured}
+              onFeaturedChange={setIsFeatured}
+            />
 
             {/* Gallery Images Field */}
             <div className="form-group">
@@ -532,30 +465,11 @@ export function ProjectForm({
         )}
 
         {/* Form Actions */}
-        <div className="form-actions">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={onCancel}
-            disabled={isSubmitting}
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <>
-                <span className="btn-spinner" aria-hidden="true" />
-                <span>{isEditMode ? 'Saving...' : 'Creating...'}</span>
-              </>
-            ) : (
-              isEditMode ? 'Save Changes' : 'Create Project'
-            )}
-          </button>
-        </div>
+        <ProjectFormActions
+          isSubmitting={isSubmitting}
+          isEditMode={isEditMode}
+          onCancel={onCancel}
+        />
       </form>
 
       {/* Gallery Image Picker Modal */}
@@ -595,24 +509,6 @@ export function ProjectForm({
           box-shadow: 0 0 0 3px rgb(220 38 38 / 0.1);
         }
 
-        .form-field-footer {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          gap: var(--space-4);
-          margin-top: var(--space-1);
-        }
-
-        .char-count {
-          font-size: var(--font-size-xs);
-          color: var(--color-text-muted);
-          white-space: nowrap;
-        }
-
-        .char-count-warning {
-          color: var(--admin-error, #dc2626);
-        }
-
         /* Expand Button */
         .expand-btn {
           display: flex;
@@ -649,86 +545,21 @@ export function ProjectForm({
           cursor: not-allowed;
         }
 
-        /* Checkbox */
-        .checkbox-label {
-          display: flex;
-          align-items: center;
-          gap: var(--space-3);
-          cursor: pointer;
-        }
-
-        .checkbox-input {
-          width: 18px;
-          height: 18px;
-          margin: 0;
-          accent-color: var(--color-accent);
-          cursor: pointer;
-        }
-
-        .checkbox-input:disabled {
-          cursor: not-allowed;
-        }
-
-        .checkbox-text {
-          font-size: var(--font-size-base);
-          font-weight: var(--font-weight-medium);
-          color: var(--color-text);
-        }
-
-        /* Form Actions */
-        .form-actions {
-          display: flex;
-          justify-content: flex-end;
-          gap: var(--space-3);
-          padding-top: var(--space-4);
-          border-top: 1px solid var(--color-border);
-        }
-
-        /* Button Spinner */
-        .btn-spinner {
-          width: 16px;
-          height: 16px;
-          border: 2px solid currentColor;
-          border-right-color: transparent;
-          border-radius: 50%;
-          animation: spin 0.6s linear infinite;
-        }
-
-        @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
         /* Mobile Styles */
         @media (max-width: 767px) {
           .project-form {
             gap: var(--space-5);
           }
 
-          .form-actions {
-            flex-direction: column-reverse;
-          }
-
-          .form-actions .btn {
-            width: 100%;
-          }
-
           .expand-btn {
             min-height: 48px;
-          }
-
-          .checkbox-label {
-            min-height: 44px;
           }
         }
 
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
-          .expand-btn,
-          .btn-spinner {
+          .expand-btn {
             transition: none;
-            animation: none;
           }
         }
       `}</style>
