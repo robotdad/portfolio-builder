@@ -2,10 +2,10 @@
 bundle:
   name: portfolio
   version: 0.1.0
-  description: Foundation bundle with TypeScript/JavaScript code intelligence
+  description: Expert delegation bundle with TS web dev bundle
 
-# Include both foundation and lsp-typescript
+# Include both exp-delegation and ts web dev bundle
 includes:
-  - bundle: git+https://github.com/microsoft/amplifier-foundation@main
-  - bundle: git+https://github.com/microsoft/amplifier-bundle-lsp-typescript@main
+  - bundle: git+https://github.com/microsoft/amplifier-foundation@main#subdirectory=experiments/delegation-only
+  - bundle: git+https://github.com/robotdad/amplifier-bundle-ts-dev@main
 ---
