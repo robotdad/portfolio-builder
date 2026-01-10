@@ -6,6 +6,31 @@ import { saveProcessedImages } from '@/lib/storage/local'
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 const MAX_SIZE = 10 * 1024 * 1024 // 10MB
 
+/**
+ * Sanitize filename to prevent path traversal and remove dangerous characters.
+ * Preserves the file extension and limits length.
+ */
+function sanitizeFilename(filename: string): string {
+  // Get extension safely
+  const lastDot = filename.lastIndexOf('.')
+  const ext = lastDot > 0 ? filename.slice(lastDot).toLowerCase() : ''
+  const base = lastDot > 0 ? filename.slice(0, lastDot) : filename
+  
+  // Remove path separators and dangerous characters
+  const sanitizedBase = base
+    .replace(/[/\\]/g, '_')           // Path separators
+    .replace(/\.\./g, '_')            // Parent directory
+    .replace(/[<>:"|?*\x00-\x1f]/g, '_')  // Invalid/control chars
+    .replace(/^\.+/, '_')             // Leading dots
+    .trim()
+  
+  // Limit length (255 is common filesystem limit)
+  const maxBaseLength = 200 // Leave room for extension and uniqueness
+  const truncatedBase = sanitizedBase.slice(0, maxBaseLength) || 'unnamed'
+  
+  return truncatedBase + ext
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
@@ -69,7 +94,7 @@ export async function POST(request: NextRequest) {
     const asset = await prisma.asset.create({
       data: {
         portfolioId,
-        filename: file.name,
+        filename: sanitizeFilename(file.name),
         mimeType: file.type,
         size: file.size,
         width: processed.metadata.width,

@@ -3,6 +3,13 @@ import { prisma } from '@/lib/prisma'
 import { rm } from 'fs/promises'
 import path from 'path'
 
+// CUID format: 25 alphanumeric characters (e.g., "clrk8z1234567abcdefghij")
+const VALID_ID_PATTERN = /^[a-z0-9]{20,30}$/i
+
+function isValidAssetId(id: string): boolean {
+  return VALID_ID_PATTERN.test(id)
+}
+
 interface RouteParams {
   params: Promise<{ id: string }>
 }
@@ -11,6 +18,15 @@ interface RouteParams {
 export async function PATCH(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params
+
+    // Validate ID format to prevent path traversal
+    if (!isValidAssetId(id)) {
+      return NextResponse.json(
+        { message: 'Invalid asset ID format' },
+        { status: 400 }
+      )
+    }
+
     const body = await request.json()
     const { altText, caption } = body
 
@@ -58,6 +74,14 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params
 
+    // Validate ID format to prevent path traversal
+    if (!isValidAssetId(id)) {
+      return NextResponse.json(
+        { message: 'Invalid asset ID format' },
+        { status: 400 }
+      )
+    }
+
     // Validate asset exists
     const existing = await prisma.asset.findUnique({
       where: { id },
@@ -70,8 +94,18 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       )
     }
 
-    // Delete files from disk
-    const assetDir = path.join(process.cwd(), 'public/uploads', id)
+    // Construct path with additional safety check
+    const uploadsDir = path.resolve(process.cwd(), 'public/uploads')
+    const assetDir = path.resolve(uploadsDir, id)
+    
+    // Ensure resolved path is still within uploads directory (defense in depth)
+    if (!assetDir.startsWith(uploadsDir)) {
+      return NextResponse.json(
+        { message: 'Invalid asset path' },
+        { status: 400 }
+      )
+    }
+    
     try {
       await rm(assetDir, { recursive: true, force: true })
     } catch (fileError) {

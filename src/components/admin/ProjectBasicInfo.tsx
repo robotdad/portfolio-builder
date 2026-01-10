@@ -66,10 +66,10 @@ export interface BasicInfoErrors {
 }
 
 export interface BasicInfoTouched {
-  title: boolean
-  year: boolean
-  venue: boolean
-  role: boolean
+  title?: boolean
+  year?: boolean
+  venue?: boolean
+  role?: boolean
 }
 
 interface ProjectBasicInfoProps {
@@ -128,7 +128,7 @@ export function ProjectBasicInfo({
         onChange={handleTitleChange}
         onBlur={handleTitleBlur}
         error={errors.title}
-        touched={touched.title}
+        touched={touched.title ?? false}
         placeholder="Enter project title"
         maxLength={MAX_TITLE_LENGTH}
         showCharCount
@@ -144,7 +144,7 @@ export function ProjectBasicInfo({
             onChange={handleYearChange}
             onBlur={handleYearBlur}
             error={errors.year}
-            touched={touched.year}
+            touched={touched.year ?? false}
             placeholder="e.g., 2024"
             maxLength={MAX_YEAR_LENGTH}
           />
@@ -156,7 +156,7 @@ export function ProjectBasicInfo({
             onChange={handleVenueChange}
             onBlur={handleVenueBlur}
             error={errors.venue}
-            touched={touched.venue}
+            touched={touched.venue ?? false}
             placeholder="e.g., National Theatre"
             maxLength={MAX_VENUE_LENGTH}
           />
@@ -168,7 +168,7 @@ export function ProjectBasicInfo({
             onChange={handleRoleChange}
             onBlur={handleRoleBlur}
             error={errors.role}
-            touched={touched.role}
+            touched={touched.role ?? false}
             placeholder="e.g., Director, Lead Designer"
             maxLength={MAX_ROLE_LENGTH}
           />
