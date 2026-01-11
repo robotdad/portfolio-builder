@@ -1,3 +1,12 @@
+/**
+ * Image upload hook with optimistic UI and undo support.
+ *
+ * Handles the full upload lifecycle: validation, preview generation,
+ * server upload, and error recovery. Works with the Toast system to
+ * provide undo capability after successful uploads.
+ *
+ * Used by: ImageUpload, GalleryManager, profile photo, and hero image editors.
+ */
 import { useState, useRef, useCallback } from 'react'
 import { useToast } from '@/components/shared/Toast'
 

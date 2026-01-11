@@ -1,8 +1,17 @@
 /**
- * Content Schema - Section-based page architecture
- * 
- * Pages are composed of an array of sections that can be reordered.
- * Each section has a type and type-specific content.
+ * Content Schema - Section-based page/project content architecture.
+ *
+ * Pages and projects are composed of an ordered array of sections.
+ * Each section has a type discriminator and type-specific content.
+ *
+ * This schema is the source of truth for content structure - used by:
+ * - Editor components (render appropriate UI per section type)
+ * - API routes (validate incoming content)
+ * - Portfolio renderers (select correct display component)
+ * - Serialization utilities (convert to/from storage format)
+ *
+ * Content is stored as JSON in draftContent/publishedContent fields.
+ * See the Draft/Publish workflow documentation for how these fields relate.
  */
 
 // Base section interface
