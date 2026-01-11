@@ -29,7 +29,7 @@ export async function POST(
 
     if (!project) {
       return NextResponse.json(
-        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND, code: 'NOT_FOUND', success: false },
+        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND.message, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
     }

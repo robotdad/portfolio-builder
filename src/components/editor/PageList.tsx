@@ -253,7 +253,7 @@ export function PageSettingsModal({
 
     // Validate slug format
     if (slug && !/^[a-z0-9-]*$/.test(slug)) {
-      setError(VALIDATION_ERRORS.SLUG_FORMAT)
+      setError(VALIDATION_ERRORS.SLUG_FORMAT.message)
       return
     }
 

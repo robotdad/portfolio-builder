@@ -449,7 +449,7 @@ export function ProjectList({
             aria-disabled="true"
           >
             <PlusIcon />
-            <span>New Project</span>
+            <span>Create Project</span>
           </button>
         </header>
 
@@ -543,7 +543,7 @@ export function ProjectList({
           onClick={onCreateClick}
         >
           <PlusIcon />
-          <span>New Project</span>
+          <span>Create Project</span>
         </button>
       </header>
 

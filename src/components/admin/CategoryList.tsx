@@ -512,7 +512,7 @@ export function CategoryList({
             aria-disabled="true"
           >
             <PlusIcon />
-            <span>New Category</span>
+            <span>Create Category</span>
           </button>
         </header>
 
@@ -622,7 +622,7 @@ export function CategoryList({
           disabled={isReordering}
         >
           <PlusIcon />
-          <span>New Category</span>
+          <span>Create Category</span>
         </button>
       </header>
 

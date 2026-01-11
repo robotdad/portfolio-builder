@@ -395,7 +395,7 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
           display: flex;
           align-items: center;
           gap: var(--space-2);
-          min-height: 36px;
+          min-height: 44px;
           padding: var(--space-2) var(--space-4);
           padding-left: calc(var(--space-4) + 48px);
           color: var(--admin-text);

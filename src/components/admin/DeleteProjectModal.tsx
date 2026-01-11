@@ -184,7 +184,7 @@ export function DeleteProjectModal({
                 Deleting...
               </>
             ) : (
-              'Delete Project'
+              'Delete'
             )}
           </button>
         </div>

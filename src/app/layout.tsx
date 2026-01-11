@@ -7,12 +7,10 @@ export const metadata: Metadata = {
   description: 'Create your professional portfolio',
 }
 
-// Mobile viewport configuration - prevents iOS zoom on input focus
+// Mobile viewport configuration - WCAG 2.1 AA compliant (allows user scaling)
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   viewportFit: 'cover',
 }
 

@@ -191,6 +191,8 @@ export function NavigationTree({ onNavigate }: NavigationTreeProps) {
           }
           
           .retry-button {
+            min-height: 44px;
+            min-width: 44px;
             padding: var(--space-2) var(--space-4);
             background-color: var(--admin-primary);
             color: white;

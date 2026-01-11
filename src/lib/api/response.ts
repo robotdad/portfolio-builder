@@ -61,7 +61,7 @@ export function apiError(
 
 export function apiNotFound(entity: string) {
   return apiError(
-    API_ERRORS.NOT_FOUND(entity),
+    API_ERRORS.NOT_FOUND(entity).message,
     'NOT_FOUND',
     404
   )
@@ -75,7 +75,7 @@ export function apiConflict(message: string) {
   return apiError(message, 'CONFLICT', 409)
 }
 
-export function apiUnauthorized(message: string = API_ERRORS.UNAUTHORIZED) {
+export function apiUnauthorized(message: string = API_ERRORS.UNAUTHORIZED.message) {
   return apiError(message, 'UNAUTHORIZED', 401)
 }
 
@@ -83,7 +83,7 @@ export function apiForbidden(message = 'Forbidden') {
   return apiError(message, 'FORBIDDEN', 403)
 }
 
-export function apiInternalError(message: string = API_ERRORS.INTERNAL_ERROR) {
+export function apiInternalError(message: string = API_ERRORS.INTERNAL_ERROR.message) {
   return apiError(message, 'INTERNAL_ERROR', 500)
 }
 
@@ -99,5 +99,5 @@ export function handleApiError(error: unknown, entity: string) {
     return apiInternalError(error.message)
   }
   
-  return apiInternalError(API_ERRORS.FETCH_FAILED(entity))
+  return apiInternalError(API_ERRORS.FETCH_FAILED(entity).message)
 }

@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
 
     // Validate slug format
     if (!/^[a-z0-9-]+$/.test(slug)) {
-      return apiValidationError(VALIDATION_ERRORS.SLUG_FORMAT)
+      return apiValidationError(VALIDATION_ERRORS.SLUG_FORMAT.message)
     }
 
     // Check if slug is already taken
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     })
 
     if (existing) {
-      return apiConflict(VALIDATION_ERRORS.SLUG_TAKEN)
+      return apiConflict(VALIDATION_ERRORS.SLUG_TAKEN.message)
     }
 
     // Create initial hero section content
@@ -130,7 +130,7 @@ export async function PUT(request: NextRequest) {
     if (slug !== undefined) {
       // Validate slug format
       if (!/^[a-z0-9-]+$/.test(slug)) {
-        return apiValidationError(VALIDATION_ERRORS.SLUG_FORMAT)
+        return apiValidationError(VALIDATION_ERRORS.SLUG_FORMAT.message)
       }
 
       // Check if slug is taken by another portfolio
@@ -142,7 +142,7 @@ export async function PUT(request: NextRequest) {
       })
 
       if (existing) {
-        return apiConflict(VALIDATION_ERRORS.SLUG_TAKEN)
+        return apiConflict(VALIDATION_ERRORS.SLUG_TAKEN.message)
       }
     }
 

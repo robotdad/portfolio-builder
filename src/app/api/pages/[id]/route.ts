@@ -23,7 +23,7 @@ export async function GET(
 
     if (!page) {
       return NextResponse.json(
-        { message: ENTITY_ERRORS.PAGE_NOT_FOUND },
+        { message: ENTITY_ERRORS.PAGE_NOT_FOUND.message },
         { status: 404 }
       )
     }
@@ -55,7 +55,7 @@ export async function PUT(
 
     if (!existingPage) {
       return NextResponse.json(
-        { message: ENTITY_ERRORS.PAGE_NOT_FOUND },
+        { message: ENTITY_ERRORS.PAGE_NOT_FOUND.message },
         { status: 404 }
       )
     }
@@ -75,7 +75,7 @@ export async function PUT(
     const pageSlug = slug !== undefined ? slug : existingPage.slug
     if (pageSlug && !/^[a-z0-9-]*$/.test(pageSlug)) {
       return NextResponse.json(
-        { message: VALIDATION_ERRORS.SLUG_FORMAT },
+        { message: VALIDATION_ERRORS.SLUG_FORMAT.message },
         { status: 400 }
       )
     }
@@ -92,7 +92,7 @@ export async function PUT(
 
       if (slugTaken) {
         return NextResponse.json(
-          { message: ENTITY_ERRORS.PAGE_SLUG_TAKEN },
+          { message: ENTITY_ERRORS.PAGE_SLUG_TAKEN.message },
           { status: 409 }
         )
       }
@@ -156,7 +156,7 @@ export async function DELETE(
 
     if (!page) {
       return NextResponse.json(
-        { message: ENTITY_ERRORS.PAGE_NOT_FOUND },
+        { message: ENTITY_ERRORS.PAGE_NOT_FOUND.message },
         { status: 404 }
       )
     }

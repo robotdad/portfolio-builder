@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
 
     if (!portfolio) {
       return NextResponse.json(
-        { error: ENTITY_ERRORS.PORTFOLIO_NOT_FOUND, code: 'NOT_FOUND', success: false },
+        { error: ENTITY_ERRORS.PORTFOLIO_NOT_FOUND.message, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
     }

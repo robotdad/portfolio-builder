@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 
@@ -10,12 +10,15 @@ export interface MobileDrawerProps {
   children: React.ReactNode
 }
 
+const SWIPE_THRESHOLD = 100 // pixels to trigger close
+
 /**
  * MobileDrawer - Slide-in drawer for mobile navigation
  * 
  * Features:
  * - React Portal to render to document.body
  * - Slide animation from left
+ * - Swipe-to-close gesture support
  * - Focus trap when open
  * - Escape key closes drawer
  * - Body scroll lock when open
@@ -28,6 +31,41 @@ export function MobileDrawer({ isOpen, onClose, children }: MobileDrawerProps) {
     isActive: isOpen,
     containerRef: drawerRef as React.RefObject<HTMLElement>
   })
+  
+  // Swipe gesture state
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchCurrent, setTouchCurrent] = useState<number | null>(null)
+  const [isSwiping, setIsSwiping] = useState(false)
+  
+  // Calculate swipe offset (negative = swiping left to close)
+  // For left-side drawer, swiping left (touchStart > touchCurrent) should close
+  const swipeOffset = touchStart !== null && touchCurrent !== null
+    ? Math.max(0, touchStart - touchCurrent) // Positive when swiping left
+    : 0
+  
+  // Check for reduced motion preference
+  const prefersReducedMotion = typeof window !== 'undefined' 
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.touches[0].clientX)
+    setTouchCurrent(e.touches[0].clientX)
+    setIsSwiping(true)
+  }
+  
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStart === null) return
+    setTouchCurrent(e.touches[0].clientX)
+  }
+  
+  const handleTouchEnd = () => {
+    if (swipeOffset > SWIPE_THRESHOLD) {
+      onClose()
+    }
+    setTouchStart(null)
+    setTouchCurrent(null)
+    setIsSwiping(false)
+  }
   
   // Lock body scroll when drawer is open
   useEffect(() => {
@@ -59,6 +97,12 @@ export function MobileDrawer({ isOpen, onClose, children }: MobileDrawerProps) {
     return null
   }
   
+  // Calculate transform for swipe visual feedback
+  // When swiping, translate drawer left by swipe amount
+  const swipeTransform = isSwiping && swipeOffset > 0 && !prefersReducedMotion
+    ? `translateX(-${swipeOffset}px)`
+    : undefined
+  
   const drawer = (
     <>
       <div
@@ -70,6 +114,12 @@ export function MobileDrawer({ isOpen, onClose, children }: MobileDrawerProps) {
         aria-hidden={!isOpen}
         aria-label="Navigation menu"
         data-open={isOpen}
+        data-swiping={isSwiping}
+        style={swipeTransform ? { transform: swipeTransform } : undefined}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
       >
         {children}
       </div>
@@ -91,10 +141,18 @@ export function MobileDrawer({ isOpen, onClose, children }: MobileDrawerProps) {
           /* Safe area inset for notched devices */
           padding-left: env(safe-area-inset-left, 0);
           padding-bottom: env(safe-area-inset-bottom, 0);
+          /* Prevent text selection during swipe */
+          touch-action: pan-y;
+          user-select: none;
         }
         
         .mobile-drawer[data-open="true"] {
           transform: translateX(0);
+        }
+        
+        /* Disable transition during swipe for responsive feedback */
+        .mobile-drawer[data-swiping="true"] {
+          transition: none;
         }
         
         /* Reduced motion support */

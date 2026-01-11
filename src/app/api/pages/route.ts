@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     // Validate slug format
     if (pageSlug && !/^[a-z0-9-]*$/.test(pageSlug)) {
       return NextResponse.json(
-        { message: VALIDATION_ERRORS.SLUG_FORMAT },
+        { message: VALIDATION_ERRORS.SLUG_FORMAT.message },
         { status: 400 }
       )
     }
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
 
     if (existing) {
       return NextResponse.json(
-        { message: ENTITY_ERRORS.PAGE_SLUG_TAKEN },
+        { message: ENTITY_ERRORS.PAGE_SLUG_TAKEN.message },
         { status: 409 }
       )
     }

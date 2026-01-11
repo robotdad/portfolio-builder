@@ -41,7 +41,7 @@ export async function GET(
 
     if (!project) {
       return NextResponse.json(
-        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND, code: 'NOT_FOUND', success: false },
+        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND.message, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
     }
@@ -80,7 +80,7 @@ export async function PUT(
 
     if (!existing) {
       return NextResponse.json(
-        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND, code: 'NOT_FOUND', success: false },
+        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND.message, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
     }
@@ -96,7 +96,7 @@ export async function PUT(
       })
       if (!newCategory) {
         return NextResponse.json(
-          { error: ENTITY_ERRORS.CATEGORY_NOT_FOUND, code: 'NOT_FOUND', success: false },
+          { error: ENTITY_ERRORS.CATEGORY_NOT_FOUND.message, code: 'NOT_FOUND', success: false },
           { status: 404 }
         )
       }
@@ -190,7 +190,7 @@ export async function DELETE(
 
     if (!existing) {
       return NextResponse.json(
-        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND, code: 'NOT_FOUND', success: false },
+        { error: ENTITY_ERRORS.PROJECT_NOT_FOUND.message, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
     }
