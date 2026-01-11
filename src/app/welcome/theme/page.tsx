@@ -38,8 +38,9 @@ export default function ThemeSelectionPage() {
     const checkPortfolio = async () => {
       try {
         const res = await fetch('/api/portfolio')
-        const data = await res.json()
-        if (data && data.id) {
+        const result = await res.json()
+        // API returns { success: true, data: portfolio } - unwrap it
+        if (result.success && result.data?.id) {
           router.push('/admin')
           return
         }

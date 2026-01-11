@@ -86,15 +86,16 @@ export function useNavigationData(): NavigationData {
           throw new Error('Failed to fetch portfolio')
         }
 
-        const portfolio = await portfolioResponse.json()
+        const portfolioResult = await portfolioResponse.json()
 
         if (!isMountedRef.current) return
 
-        if (!portfolio) {
+        // API returns { success: true, data: portfolio } - unwrap it
+        if (!portfolioResult.success || !portfolioResult.data) {
           throw new Error('No portfolio found')
         }
 
-        const portfolioId = portfolio.id
+        const portfolioId = portfolioResult.data.id
 
         // Step 2: Fetch pages and categories in parallel
         const [pagesResponse, categoriesResponse] = await Promise.all([

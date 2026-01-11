@@ -88,13 +88,15 @@ export default function SettingsPage() {
         if (!res.ok) {
           throw new Error('Failed to load portfolio')
         }
-        const data = await res.json()
+        const result = await res.json()
         
-        if (!data) {
+        // API returns { success: true, data: portfolio } - unwrap it
+        if (!result.success || !result.data) {
           setError('No portfolio found. Please create a portfolio first.')
           return
         }
 
+        const data = result.data
         setPortfolio(data)
         setName(data.name || '')
         setSlug(data.slug || '')

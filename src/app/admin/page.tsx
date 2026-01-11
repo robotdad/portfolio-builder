@@ -21,9 +21,10 @@ export default function AdminDashboardPage() {
       try {
         const res = await fetch('/api/portfolio')
         if (res.ok) {
-          const data = await res.json()
-          if (data) {
-            setPortfolio(data)
+          const result = await res.json()
+          // API returns { success: true, data: portfolio } - unwrap it
+          if (result.success && result.data) {
+            setPortfolio(result.data)
           } else {
             setError('No portfolio found. Please create a portfolio first.')
           }

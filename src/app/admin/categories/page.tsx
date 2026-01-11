@@ -28,9 +28,10 @@ export default function CategoriesPage() {
       try {
         const res = await fetch('/api/portfolio')
         if (res.ok) {
-          const data = await res.json()
-          if (data?.id) {
-            setPortfolioId(data.id)
+          const result = await res.json()
+          // API returns { success: true, data: portfolio } - unwrap it
+          if (result.success && result.data?.id) {
+            setPortfolioId(result.data.id)
           } else {
             setPortfolioError('No portfolio found. Please create a portfolio first.')
           }
