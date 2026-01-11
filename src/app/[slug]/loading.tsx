@@ -1,4 +1,4 @@
-import { FeaturedWorkSkeleton } from '@/components/portfolio/SkeletonCard'
+import { SkeletonGrid } from '@/components/ui'
 
 /**
  * Loading state for portfolio homepage
@@ -23,7 +23,7 @@ export default function PortfolioLoading() {
         </section>
         
         {/* Featured work skeleton */}
-        <FeaturedWorkSkeleton />
+        <SkeletonGrid count={3} columns={{ mobile: 1, tablet: 2, desktop: 3 }} />
       </div>
     </div>
   )

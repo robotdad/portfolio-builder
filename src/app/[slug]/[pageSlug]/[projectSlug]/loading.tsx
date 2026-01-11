@@ -1,4 +1,4 @@
-import { GallerySkeleton } from '@/components/portfolio/SkeletonCard'
+import { SkeletonGrid } from '@/components/ui'
 
 /**
  * Loading state for project detail page
@@ -28,7 +28,7 @@ export default function ProjectLoading() {
             
             {/* Gallery skeleton */}
             <section className="project-gallery-section" style={{ marginTop: 'var(--space-8)' }}>
-              <GallerySkeleton />
+              <SkeletonGrid count={4} columns={{ mobile: 1, tablet: 2, desktop: 2 }} />
             </section>
           </div>
         </main>

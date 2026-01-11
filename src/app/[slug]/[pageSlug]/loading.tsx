@@ -1,4 +1,4 @@
-import { CategoryGridSkeleton } from '@/components/portfolio/SkeletonCard'
+import { SkeletonGrid } from '@/components/ui'
 
 /**
  * Loading state for category/page routes
@@ -24,7 +24,7 @@ export default function CategoryLoading() {
             </header>
             
             {/* Grid skeleton */}
-            <CategoryGridSkeleton />
+            <SkeletonGrid count={6} columns={{ mobile: 1, tablet: 2, desktop: 3 }} />
           </div>
         </main>
       </div>

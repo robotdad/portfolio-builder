@@ -1,6 +1,13 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import {
+  Card,
+  CardImage,
+  CardBody,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui'
 
 // ============================================================================
 // Types
@@ -76,26 +83,6 @@ function MoreIcon() {
   )
 }
 
-function ImagePlaceholderIcon() {
-  return (
-    <svg
-      width="48"
-      height="48"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <circle cx="8.5" cy="8.5" r="1.5" />
-      <path d="M21 15l-5-5L5 21" />
-    </svg>
-  )
-}
-
 function FolderIcon() {
   return (
     <svg
@@ -162,9 +149,6 @@ function DropdownMenu({
   useEffect(() => {
     if (isOpen && triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect()
-      const menuWidth = 160
-      
-      // Position below the button, aligned to the right
       setPosition({
         top: rect.height + 4,
         right: 0,
@@ -188,7 +172,6 @@ function DropdownMenu({
       }
     }
 
-    // Use mousedown for immediate response
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [isOpen, onClose, triggerRef])
@@ -209,7 +192,6 @@ function DropdownMenu({
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [isOpen, onClose, triggerRef])
 
-  // Handle menu item selection
   const handleViewProjects = () => {
     onViewProjects()
     onClose()
@@ -220,7 +202,6 @@ function DropdownMenu({
     onClose()
   }
 
-  // Handle keyboard navigation within menu
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault()
@@ -397,34 +378,24 @@ export function CategoryCard({
   const imageUrl = category.featuredImage?.thumbnailUrl || category.featuredImage?.url
 
   return (
-    <article
-      className={`category-card ${isDragging ? 'category-card--dragging' : ''}`}
+    <Card
+      variant="interactive"
+      isDragging={isDragging}
       aria-label={`Category: ${category.name}`}
     >
-      {/* Featured Image */}
-      <div className="category-card-image">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={category.featuredImage?.altText || `Featured image for ${category.name}`}
-            className="category-card-img"
-            loading="lazy"
-          />
-        ) : (
-          <div className="category-card-placeholder">
-            <ImagePlaceholderIcon />
-          </div>
-        )}
-      </div>
+      <CardImage
+        src={imageUrl}
+        alt={category.featuredImage?.altText || `Featured image for ${category.name}`}
+        aspectRatio="16/9"
+        loading="lazy"
+      />
 
-      {/* Content */}
-      <div className="category-card-content">
+      <CardBody className="category-card-body">
         <div className="category-card-info">
-          <h3 className="category-card-name">{category.name}</h3>
-          <p className="category-card-count">{projectCountText}</p>
+          <CardTitle className="category-card-title">{category.name}</CardTitle>
+          <CardDescription className="category-card-count">{projectCountText}</CardDescription>
         </div>
 
-        {/* Actions */}
         <div className="category-card-actions">
           <button
             type="button"
@@ -455,103 +426,33 @@ export function CategoryCard({
             />
           </div>
         </div>
-      </div>
+      </CardBody>
 
       <style jsx>{`
-        .category-card {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          background: var(--color-bg, #ffffff);
-          border: 1px solid var(--color-border, #e5e7eb);
-          border-radius: 12px;
-          overflow: visible;
-          transition: box-shadow 200ms ease, transform 200ms ease, opacity 200ms ease;
-        }
-
-        .category-card:hover {
-          box-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.08),
-            0 2px 4px hsla(0, 0%, 0%, 0.04);
-        }
-
-        .category-card:focus-within {
-          box-shadow: 0 0 0 2px var(--color-accent, #3b82f6);
-        }
-
-        .category-card--dragging {
-          opacity: 0.5;
-          transform: scale(1.02);
-          box-shadow: 0 8px 24px hsla(0, 0%, 0%, 0.15);
-        }
-
-        /* Image container with 16:9 aspect ratio */
-        .category-card-image {
-          position: relative;
-          width: 100%;
-          padding-top: 56.25%; /* 16:9 aspect ratio */
-          background: var(--color-surface-secondary, #f3f4f6);
-          overflow: hidden;
-        }
-
-        .category-card-img {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 200ms ease;
-        }
-
-        .category-card:hover .category-card-img {
-          transform: scale(1.03);
-        }
-
-        .category-card-placeholder {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--color-text-muted, #9ca3af);
-        }
-
-        /* Content area */
-        .category-card-content {
+        .category-card-body {
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 12px;
-          padding: 12px 14px;
         }
 
         .category-card-info {
           flex: 1;
-          min-width: 0; /* Allow text truncation */
+          min-width: 0;
         }
 
-        .category-card-name {
-          margin: 0;
+        .category-card-title {
           font-size: 15px;
-          font-weight: 600;
-          color: var(--color-text, #1f2937);
-          line-height: 1.3;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
 
         .category-card-count {
-          margin: 2px 0 0 0;
+          margin-top: 2px;
           font-size: 13px;
-          color: var(--color-text-muted, #6b7280);
-          line-height: 1.3;
         }
 
-        /* Action buttons */
         .category-card-actions {
           display: flex;
           align-items: center;
@@ -597,24 +498,13 @@ export function CategoryCard({
           background: var(--color-surface-active, hsla(0, 0%, 0%, 0.08));
         }
 
-        /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
-          .category-card,
-          .category-card-img,
           .category-card-btn {
             transition: none;
           }
-
-          .category-card:hover .category-card-img {
-            transform: none;
-          }
-
-          .category-card--dragging {
-            transform: none;
-          }
         }
       `}</style>
-    </article>
+    </Card>
   )
 }
 
