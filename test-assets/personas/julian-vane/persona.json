@@ -15,6 +15,14 @@
         "file": "julian-1qh8hwhbb.jpg",
         "description": "Workshop Selfie: A candid capture of Julian Vane in the tailoring workshop during a build period.",
         "prompt": "Casual smartphone mirror selfie taken by Julian Vane in a tailoring workshop, wearing a work apron over a t-shirt, messy background"
+      },
+      {
+        "file": "julian-vane-headshot.jpg",
+        "description": "Studio Headshot: Alternative professional portrait of Julian Vane for press and promotional materials."
+      },
+      {
+        "file": "julian-workshop-selfie.jpg",
+        "description": "Workshop Portrait: Behind-the-scenes candid of Julian in his element, surrounded by works in progress."
       }
     ]
   },
@@ -75,6 +83,24 @@
               "description": "Hardware Details: Custom closures and fastenings sourced for 'Bespoke Morning Coat', completing the Heavy wool, horsehair canvas, hand stitching, crisp pressing aesthetic.",
               "isFeatured": false,
               "isIdentity": false
+            },
+            {
+              "file": "workshop-overview-phone.jpg",
+              "description": "Workshop Overview: A panoramic view of the tailoring workspace during the Morning Coat build, showing the organized chaos of a major construction.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "workshop-management.jpg",
+              "description": "Production Management: The workshop during peak build period, demonstrating professional workflow organization.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "jacket-fitting-on-form.jpg",
+              "description": "Fitting Process: The Morning Coat taking shape on the dress form, checking proportions and drape before final assembly.",
+              "isFeatured": false,
+              "isIdentity": false
             }
           ]
         },
@@ -128,6 +154,50 @@
             {
               "file": "julian-z846wgpfc.jpg",
               "description": "Hardware Details: Custom closures and fastenings sourced for 'The Diplomat's Suit', completing the Heavy wool, horsehair canvas, hand stitching, crisp pressing aesthetic.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Officers & Generals - Military Tailoring",
+          "description": "Historical military uniforms requiring exacting precision, authentic insignia placement, and period-accurate construction techniques.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "military-uniform-performance.jpg",
+              "description": "Dress Uniform Ensemble",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "precision-cutting-table.jpg",
+              "description": "Precision Pattern Cutting",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "shears-sharpening.jpg",
+              "description": "Traditional Tool Maintenance",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "The Gentleman's Waistcoat Collection",
+          "description": "Bespoke waistcoats showcasing various historical periods and construction techniques from Regency to Edwardian.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "waistcoats-production-shot.jpg",
+              "description": "Period Waistcoat Selection",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "welt-pocket-execution.jpg",
+              "description": "Welt Pocket Construction",
               "isFeatured": false,
               "isIdentity": false
             }
@@ -360,6 +430,25 @@
             {
               "file": "julian-5wwex7jc6.jpg",
               "description": "Hardware Details: Custom closures and fastenings sourced for 'Bridal Structure', completing the Silk satin, spiral steel boning, grommet setting, coutil lining aesthetic.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Foundation Garments - Corsetry",
+          "description": "Historical foundation garments requiring precise boning, period-accurate construction, and comfort for extended performance wear.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "phone-capture-corset-wip.jpg",
+              "description": "Corset Construction Progress",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "corsetry-technical-detail.jpg",
+              "description": "Boning and Channel Detail",
               "isFeatured": false,
               "isIdentity": false
             }

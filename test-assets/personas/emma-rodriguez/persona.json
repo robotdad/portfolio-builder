@@ -15,6 +15,14 @@
         "file": "emma-9ri7wdee2.jpg",
         "description": "Trailer Selfie: A candid on-location capture of Emma Rodriguez managing the wardrobe trailer.",
         "prompt": "Casual smartphone selfie of Emma Rodriguez in a film production trailer, wearing a headset, background filled with costume racks"
+      },
+      {
+        "file": "emma-rodriguez-headshot.jpg",
+        "description": "Studio Headshot: Alternate professional headshot of Emma Rodriguez for industry press and credits."
+      },
+      {
+        "file": "emma-trailer-selfie.jpg",
+        "description": "Behind the Scenes: Candid moment captured during production, showing Emma's day-to-day work environment."
       }
     ]
   },
@@ -224,6 +232,25 @@
               "isIdentity": false
             }
           ]
+        },
+        {
+          "title": "Dust & Denim - Western Epic",
+          "description": "Authentic Old West costuming requiring period-accurate materials, distressing techniques, and practical durability for action sequences.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "western-authentic-wear.jpg",
+              "description": "Hero Cowboy Ensemble: Period-accurate western wear featuring authentic distressing and weathering for the lead character.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "prop-detail-distressing.jpg",
+              "description": "Authentic Distressing Detail: Close-up of specialized aging techniques applied to leather and fabric elements.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
         }
       ]
     },
@@ -325,6 +352,132 @@
               "file": "emma-y5ab92o35.jpg",
               "description": "Night Logistics: Set preparation for 'Nightshade' night shoots, highlighting the texture of Tactical gear, sleek suits, fake blood continuity, urban grit textiles under artificial set lighting.",
               "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Night Protocol - Action Thriller",
+          "description": "Contemporary tactical and civilian wardrobes for a high-stakes thriller requiring practical, camera-ready costumes.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "modern-thriller-wardrobe.jpg",
+              "description": "Protagonist Tactical Wardrobe: Hero costume featuring functional tactical elements designed for action sequences.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "on-set-supervisor-workflow.jpg",
+              "description": "On-Set Supervision: Emma coordinating costume changes and continuity during active production.",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "costume-department-busy.jpg",
+              "description": "Department in Full Production: Overview of the costume department during peak production activity.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Period Drama",
+      "featuredPhoto": "victorian-ballroom-scene.jpg",
+      "projects": [
+        {
+          "title": "The Gilded Cage - Victorian Drama",
+          "description": "Opulent Victorian-era costumes for a period drama exploring class and society through intricate period-accurate construction.",
+          "isFeatured": true,
+          "photos": [
+            {
+              "file": "victorian-ballroom-scene.jpg",
+              "description": "Ballroom Gala Ensemble: Full Victorian formal wear for the pivotal ballroom sequence.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "actor-fitting.jpg",
+              "description": "Principal Actor Fitting: Final fitting session ensuring period-accurate silhouette and movement.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Shadows of '47 - Film Noir",
+          "description": "Post-war period piece requiring authentic 1940s silhouettes, fabrics, and accessories with attention to historical accuracy.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "period-film-1940s-production.jpg",
+              "description": "Lead Detective Wardrobe: Classic 1940s menswear featuring period-accurate tailoring and accessories.",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "phone-capture-continuity-board.jpg",
+              "description": "Continuity Board Reference: Quick reference capture of costume continuity details for on-set use.",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sci-Fi",
+      "featuredPhoto": "sci-fi-costume-set.jpg",
+      "projects": [
+        {
+          "title": "Stellar Horizons",
+          "description": "Futuristic costume supervision for a space exploration epic, blending practical fabrication with innovative materials.",
+          "isFeatured": true,
+          "photos": [
+            {
+              "file": "sci-fi-costume-set.jpg",
+              "description": "Crew Uniform Display: Full range of spacecraft crew costumes showcasing functional futuristic design.",
+              "isFeatured": true,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fantasy",
+      "featuredPhoto": "fantasy-medieval-armor.jpg",
+      "projects": [
+        {
+          "title": "Realm of the Fallen Crown",
+          "description": "Epic fantasy production requiring armor, period-inspired garments, and mythical creature costumes built for both beauty and durability.",
+          "isFeatured": true,
+          "photos": [
+            {
+              "file": "fantasy-medieval-armor.jpg",
+              "description": "Knight Commander Armor: Hero armor piece combining historical construction techniques with fantasy design elements.",
+              "isFeatured": true,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Industry",
+      "featuredPhoto": "industry-panel-speaking.jpg",
+      "projects": [
+        {
+          "title": "Speaking & Professional Engagements",
+          "description": "Industry panels, workshops, and professional development events sharing expertise in film costume supervision.",
+          "isFeatured": true,
+          "photos": [
+            {
+              "file": "industry-panel-speaking.jpg",
+              "description": "Panel Speaking Engagement: Emma sharing industry expertise at a professional film production conference.",
+              "isFeatured": true,
               "isIdentity": false
             }
           ]

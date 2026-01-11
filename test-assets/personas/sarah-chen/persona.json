@@ -15,6 +15,16 @@
         "file": "sarah-8xzq9d5w4.jpg",
         "description": "Backstage Selfie",
         "prompt": "Casual smartphone mirror selfie of Sarah Chen in a dark theatre backstage area, holding a smartphone, wearing a headset and casual black work clothes"
+      },
+      {
+        "file": "sarah-chen-headshot.jpg",
+        "description": "Studio Headshot",
+        "prompt": "Professional studio portrait"
+      },
+      {
+        "file": "sarah-selfie-backstage.jpg",
+        "description": "Behind the Scenes",
+        "prompt": "Casual backstage selfie"
       }
     ]
   },
@@ -87,6 +97,12 @@
               "description": "Ready for Curtain",
               "isFeatured": false,
               "isIdentity": false
+            },
+            {
+              "file": "macbeth-witches-trio.jpg",
+              "description": "The Weird Sisters Ensemble",
+              "isFeatured": false,
+              "isIdentity": false
             }
           ]
         },
@@ -152,6 +168,112 @@
             {
               "file": "sarah-rzi7j3ucd.jpg",
               "description": "Ready for Curtain",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Romeo & Juliet - Star-Crossed Couture",
+          "description": "Romantic tragedy brought to life through Renaissance-inspired designs with modern sensibility. The Capulet ballroom scene required opulent fabrics and period-accurate construction.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "romeo-juliet-ballgown.jpg",
+              "description": "Juliet's Capulet Ball Gown",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "sketch-to-costume.jpg",
+              "description": "Design Evolution - Sketch to Final",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "fabric-selection-table.jpg",
+              "description": "Fabric Selection Process",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "costume-fitting-backstage.jpg",
+              "description": "Backstage Fitting Session",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "King Lear - Descent into Madness",
+          "description": "Lear's journey from regal authority to broken humanity required costumes that physically deteriorate across the production, reflecting his psychological unraveling.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "king-lear-aging-king.jpg",
+              "description": "Lear's Final Storm Costume",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "costume-rack-organized.jpg",
+              "description": "Production Costume Organization",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "dress-rehearsal-action.jpg",
+              "description": "Dress Rehearsal Movement",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        },
+        {
+          "title": "Hamlet: Redux",
+          "description": "A modern reinterpretation of Shakespeare's classic, blending contemporary silhouettes with traditional court aesthetics.",
+          "isFeatured": false,
+          "photos": [
+            {
+              "file": "hamlet-court-production.jpg",
+              "description": "Court Scene Production Still",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "modern-hamlet-rehearsal.jpg",
+              "description": "Modern Rehearsal Blocking",
+              "isFeatured": false,
+              "isIdentity": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Shakespearean Comedy",
+      "featuredPhoto": "midsummer-fairy-costumes.jpg",
+      "projects": [
+        {
+          "title": "A Midsummer Night's Dream - Fairy Court",
+          "description": "Ethereal fairy realm costumes blending organic textures with iridescent materials. Each fairy character received distinct botanical inspirations.",
+          "isFeatured": true,
+          "photos": [
+            {
+              "file": "midsummer-fairy-costumes.jpg",
+              "description": "Fairy Ensemble - Titania's Court",
+              "isFeatured": true,
+              "isIdentity": false
+            },
+            {
+              "file": "embroidery-detail-phone.jpg",
+              "description": "Wing Embroidery Detail",
+              "isFeatured": false,
+              "isIdentity": false
+            },
+            {
+              "file": "phone-capture-swatches.jpg",
+              "description": "Iridescent Fabric Swatches",
               "isFeatured": false,
               "isIdentity": false
             }
