@@ -10,7 +10,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const { Blob } = require('node:buffer');
 
 const API_BASE = 'http://localhost:3000/api';
 const PERSONAS_DIR = 'test-assets/personas';
@@ -54,9 +53,11 @@ async function uploadImage(imagePath, portfolioId) {
   const fileName = path.basename(imagePath);
   const mimeType = getMimeType(imagePath);
   
+  // Use Blob instead of File - Node.js's File constructor doesn't properly transmit
+  // buffer data via arrayBuffer(). Pass filename as 3rd param to formData.append()
   const blob = new Blob([fileBuffer], { type: mimeType });
   const formData = new FormData();
-  formData.append('file', blob, fileName);
+  formData.append('file', blob, fileName);  // filename as 3rd param
   formData.append('portfolioId', portfolioId);
   
   const response = await fetch(`${API_BASE}/upload`, {

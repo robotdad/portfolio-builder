@@ -87,6 +87,15 @@ export async function POST(request: NextRequest) {
     const arrayBuffer = await file.arrayBuffer()
     const buffer = Buffer.from(arrayBuffer)
 
+    // Validate that we actually received file data
+    if (buffer.length === 0) {
+      console.error('Upload error: Empty buffer received - file data not transmitted')
+      return NextResponse.json(
+        { success: false, error: 'File data not received. Please retry the upload.' },
+        { status: 400 }
+      )
+    }
+
     // Process image (generate variants)
     const processed = await processImage(buffer)
 
