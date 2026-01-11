@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ImageWithFallback } from './ImageFallback'
+import { Card, CardImage, CardBody, CardTitle, CardDescription } from '@/components/ui'
 
 interface ProjectCardProps {
   project: {
@@ -24,8 +24,7 @@ interface ProjectCardProps {
  * - Desktop: Clean image, hover reveals overlay with title/venue/year
  * - Mobile: Title and metadata shown below image (no hover)
  * - 16:9 aspect ratio for featured images
- * - Transition: 300ms ease for smooth overlay animation
- * - Graceful fallback for broken/missing images
+ * - Uses Card primitives for consistent styling
  */
 export function ProjectCard({ 
   project, 
@@ -35,62 +34,84 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const href = `/${portfolioSlug}/${categorySlug}/${project.slug}`
   
+  // Overlay content for desktop hover
+  const overlayContent = (
+    <div className="project-overlay">
+      <h3 className="project-overlay__title">{project.title}</h3>
+      {project.venue && (
+        <p className="project-overlay__venue">{project.venue}</p>
+      )}
+      {project.year && (
+        <p className="project-overlay__year">{project.year}</p>
+      )}
+    </div>
+  )
+  
   return (
-    <Link
-      href={href}
-      className={`project-card group ${className}`}
-    >
-      {/* Image container with 16:9 aspect ratio */}
-      <div className="project-card-image-wrapper">
-        {project.featuredImageUrl ? (
-          <ImageWithFallback
-            src={project.featuredImageUrl}
+    <>
+      <Link href={href} className={`project-card-link ${className}`}>
+        <Card variant="interactive" className="project-card">
+          <CardImage
+            src={project.featuredImageUrl || undefined}
             alt={project.featuredImageAlt || project.title}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="project-card-image"
             aspectRatio="16/9"
-            fallbackMessage="Image unavailable"
+            hoverOverlay={overlayContent}
+            className="project-card__image"
           />
-        ) : (
-          <div className="project-card-placeholder">
-            <svg 
-              width="48" 
-              height="48" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="1.5" 
-              aria-hidden="true"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <path d="M21 15l-5-5L5 21" />
-            </svg>
-          </div>
-        )}
-        
-        {/* Desktop hover overlay - hidden on mobile */}
-        <div className="project-card-overlay">
-          <div className="project-card-overlay-content">
-            <h3 className="project-card-overlay-title">{project.title}</h3>
+          
+          {/* Mobile: Show text below image */}
+          <CardBody className="project-card__info">
+            <CardTitle>{project.title}</CardTitle>
             {project.venue && (
-              <p className="project-card-overlay-venue">{project.venue}</p>
+              <CardDescription>{project.venue}</CardDescription>
             )}
-            {project.year && (
-              <p className="project-card-overlay-year">{project.year}</p>
-            )}
-          </div>
-        </div>
-      </div>
+          </CardBody>
+        </Card>
+      </Link>
       
-      {/* Mobile: Show text below image */}
-      <div className="project-card-info">
-        <h3 className="project-card-title">{project.title}</h3>
-        {project.venue && (
-          <p className="project-card-venue">{project.venue}</p>
-        )}
-      </div>
-    </Link>
+      <style jsx>{`
+        .project-card-link {
+          display: block;
+          text-decoration: none;
+          color: inherit;
+        }
+      `}</style>
+      
+      <style jsx global>{`
+        /* Overlay content styling */
+        .project-overlay {
+          text-align: center;
+          color: white;
+          padding: var(--space-4, 16px);
+        }
+        
+        .project-overlay__title {
+          margin: 0;
+          font-size: var(--font-size-lg, 1.125rem);
+          font-weight: 600;
+        }
+        
+        .project-overlay__venue,
+        .project-overlay__year {
+          margin: var(--space-1, 4px) 0 0;
+          font-size: var(--font-size-sm, 0.875rem);
+          opacity: 0.9;
+        }
+        
+        /* Desktop: hide mobile info section */
+        @media (hover: hover) and (min-width: 640px) {
+          .project-card__info {
+            display: none;
+          }
+        }
+        
+        /* Mobile: hide overlay, show info below image */
+        @media (hover: none), (max-width: 639px) {
+          .project-card__image .card-image__overlay {
+            display: none;
+          }
+        }
+      `}</style>
+    </>
   )
 }

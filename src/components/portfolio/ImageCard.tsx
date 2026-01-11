@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ImageWithFallback, ImageFallback } from './ImageFallback'
+import { Card, CardImage } from '@/components/ui'
 
 interface ImageCardProps {
   imageUrl: string | null
@@ -15,11 +15,10 @@ interface ImageCardProps {
 /**
  * ImageCard with Hover Overlay
  * 
- * Design spec implementation:
- * - Default: Clean image display with aspect ratio preserved
- * - Hover: Scale 1.05, overlay opacity 0.9, reveal title/category
- * - Transition: 200ms ease for smooth motion
- * - Mobile: Touch-friendly with tap to reveal overlay
+ * Migrated to use Card primitives:
+ * - Card variant="interactive" for hover states
+ * - CardImage with hoverOverlay for title/category reveal
+ * - Preserves touch toggle behavior for mobile
  */
 export function ImageCard({ 
   imageUrl, 
@@ -28,57 +27,81 @@ export function ImageCard({
   link,
   altText,
 }: ImageCardProps) {
-  const [isHovered, setIsHovered] = useState(false)
-  const [isTouched, setIsTouched] = useState(false)
+  const [showInfo, setShowInfo] = useState(false)
 
-  // For mobile: toggle overlay on touch
+  // Toggle overlay on touch for mobile
   const handleTouchStart = () => {
-    setIsTouched(!isTouched)
+    setShowInfo(prev => !prev)
   }
 
-  const isActive = isHovered || isTouched
+  const overlayContent = (
+    <div className="image-card-overlay-content">
+      {category && (
+        <span className="image-card-category">{category}</span>
+      )}
+      {title && (
+        <h3 className="image-card-title">{title}</h3>
+      )}
 
-  const cardContent = (
-    <div 
-      className={`image-card ${isActive ? 'image-card-active' : ''}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onTouchStart={handleTouchStart}
-    >
-      <div className="image-card-image-wrapper">
-        {imageUrl ? (
-          <ImageWithFallback 
-            src={imageUrl} 
-            alt={altText || title || 'Portfolio work'} 
-            className="image-card-image"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            fallbackMessage="Image unavailable"
-          />
-        ) : (
-          <ImageFallback 
-            message="No image"
-            className="image-card-placeholder"
-          />
-        )}
-      </div>
-      
-      <div className={`image-card-overlay ${isActive ? 'image-card-overlay-visible' : ''}`}>
-        <div className="image-card-content">
-          {category && (
-            <span className="image-card-category">{category}</span>
-          )}
-          {title && (
-            <h3 className="image-card-title">{title}</h3>
-          )}
-        </div>
-      </div>
+      <style jsx>{`
+        .image-card-overlay-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: var(--space-4, 16px);
+          color: white;
+        }
+
+        .image-card-category {
+          font-size: var(--font-size-xs, 0.75rem);
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          opacity: 0.9;
+          margin-bottom: var(--space-2, 8px);
+        }
+
+        .image-card-title {
+          margin: 0;
+          font-size: var(--font-size-lg, 1.125rem);
+          font-weight: 600;
+          line-height: 1.3;
+        }
+      `}</style>
     </div>
   )
 
-  // If link is provided, wrap in Link component
+  const cardContent = (
+    <Card 
+      variant="interactive"
+      className={showInfo ? 'image-card--show-info' : ''}
+      onTouchStart={handleTouchStart}
+    >
+      <CardImage
+        src={imageUrl || undefined}
+        alt={altText || title || 'Portfolio work'}
+        aspectRatio="16/9"
+        hoverOverlay={overlayContent}
+      />
+
+      <style jsx global>{`
+        /* Touch toggle: hide overlay by default on touch devices, show when toggled */
+        @media (hover: none) {
+          .image-card--show-info .card-image__overlay {
+            opacity: 1 !important;
+          }
+          
+          .card:not(.image-card--show-info) .card-image__overlay {
+            opacity: 0 !important;
+          }
+        }
+      `}</style>
+    </Card>
+  )
+
+  // Handle linking
   if (link) {
-    // Check if it's an internal or external link
     const isExternal = link.startsWith('http') || link.startsWith('//')
     
     if (isExternal) {
@@ -90,6 +113,13 @@ export function ImageCard({
           className="image-card-link"
         >
           {cardContent}
+          <style jsx>{`
+            .image-card-link {
+              display: block;
+              text-decoration: none;
+              color: inherit;
+            }
+          `}</style>
         </a>
       )
     }
@@ -97,6 +127,13 @@ export function ImageCard({
     return (
       <Link href={link} className="image-card-link">
         {cardContent}
+        <style jsx>{`
+          .image-card-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+          }
+        `}</style>
       </Link>
     )
   }

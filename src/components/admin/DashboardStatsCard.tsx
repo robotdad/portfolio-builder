@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { Card, CardHeader, CardBody, CardFooter } from '@/components/ui'
 
 export interface DashboardStatsCardProps {
   title: string
@@ -23,56 +24,46 @@ export function DashboardStatsCard({
   variant = 'default',
 }: DashboardStatsCardProps) {
   return (
-    <div className={`dashboard-stats-card dashboard-stats-card--${variant}`}>
-      <div className="dashboard-stats-card__header">
-        <h3 className="dashboard-stats-card__title">{title}</h3>
-        {icon && <div className="dashboard-stats-card__icon">{icon}</div>}
-      </div>
-      
-      <div className="dashboard-stats-card__body">
-        <div className="dashboard-stats-card__count">{count}</div>
-        <p className="dashboard-stats-card__subtitle">{subtitle}</p>
-      </div>
-      
-      <div className="dashboard-stats-card__footer">
-        <Link href={linkHref} className="dashboard-stats-card__link">
-          {linkText} →
-        </Link>
-      </div>
+    <>
+      <Card
+        variant="interactive"
+        className={`dashboard-stats-card dashboard-stats-card--${variant}`}
+      >
+        <CardHeader
+          actions={icon && <span className="dashboard-stats-card__icon">{icon}</span>}
+        >
+          <h3 className="dashboard-stats-card__title">{title}</h3>
+        </CardHeader>
+
+        <CardBody>
+          <div className="dashboard-stats-card__count">{count}</div>
+          <p className="dashboard-stats-card__subtitle">{subtitle}</p>
+        </CardBody>
+
+        <CardFooter align="start">
+          <Link href={linkHref} className="dashboard-stats-card__link">
+            {linkText} →
+          </Link>
+        </CardFooter>
+      </Card>
 
       <style jsx>{`
-        .dashboard-stats-card {
-          background: white;
-          border: 1px solid var(--border-color, #e5e7eb);
-          border-radius: var(--radius-md, 8px);
-          padding: var(--space-6, 24px);
-          transition: all 0.2s ease;
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-4, 16px);
+        /* Variant colors - Card handles base styling */
+        :global(.dashboard-stats-card--warning) {
+          border-color: var(--color-warning, #f59e0b) !important;
+          background: var(--color-warning-light, #fffbeb) !important;
         }
 
-        .dashboard-stats-card:hover {
+        :global(.dashboard-stats-card--success) {
+          border-color: var(--color-success, #10b981) !important;
+          background: var(--color-success-light, #f0fdf4) !important;
+        }
+
+        /* Hover lift effect */
+        :global(.dashboard-stats-card:hover) {
+          transform: translateY(-2px);
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
                       0 2px 4px -1px rgba(0, 0, 0, 0.06);
-          transform: translateY(-2px);
-        }
-
-        .dashboard-stats-card--warning {
-          border-color: var(--color-warning, #f59e0b);
-          background: var(--color-warning-light, #fffbeb);
-        }
-
-        .dashboard-stats-card--success {
-          border-color: var(--color-success, #10b981);
-          background: var(--color-success-light, #f0fdf4);
-        }
-
-        .dashboard-stats-card__header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: var(--space-2, 8px);
         }
 
         .dashboard-stats-card__title {
@@ -90,12 +81,6 @@ export function DashboardStatsCard({
           align-items: center;
         }
 
-        .dashboard-stats-card__body {
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-1, 4px);
-        }
-
         .dashboard-stats-card__count {
           font-size: var(--text-4xl, 36px);
           font-weight: 700;
@@ -106,13 +91,7 @@ export function DashboardStatsCard({
         .dashboard-stats-card__subtitle {
           font-size: var(--text-sm, 14px);
           color: var(--text-secondary, #6b7280);
-          margin: 0;
-        }
-
-        .dashboard-stats-card__footer {
-          margin-top: auto;
-          padding-top: var(--space-2, 8px);
-          border-top: 1px solid var(--border-color, #e5e7eb);
+          margin: var(--space-1, 4px) 0 0;
         }
 
         .dashboard-stats-card__link {
@@ -128,18 +107,13 @@ export function DashboardStatsCard({
           text-decoration: underline;
         }
 
-        /* Mobile responsive - compact padding */
+        /* Mobile responsive */
         @media (max-width: 768px) {
-          .dashboard-stats-card {
-            padding: var(--space-4, 16px);
-            gap: var(--space-3, 12px);
-          }
-
           .dashboard-stats-card__count {
             font-size: var(--text-3xl, 30px);
           }
         }
       `}</style>
-    </div>
+    </>
   )
 }
