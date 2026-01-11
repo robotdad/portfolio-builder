@@ -39,7 +39,7 @@ This is a single-user portfolio application built with Next.js. It provides:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/portfolio.git
+git clone https://github.com/robotdad/portfolio.git
 cd portfolio
 
 # Install dependencies
