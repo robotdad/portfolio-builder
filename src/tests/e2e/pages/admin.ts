@@ -167,6 +167,7 @@ export class ProjectPage extends AdminPage {
 
   /** Click a project card to navigate to edit page */
   async openProject(projectId: string) {
+    await this.page.waitForTimeout(500)
     await this.projectCard(projectId).click()
     await this.page.waitForURL(/\/admin\/projects\//, { timeout: 10000 })
   }

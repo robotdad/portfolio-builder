@@ -352,6 +352,14 @@ Some tests are skipped on mobile viewports due to timing issues with animations 
 
 **Workaround:** Test uses `test.skip(isMobile, 'Publish button state unreliable on mobile viewport')` to skip on mobile viewports.
 
+### Publish Button Detection (Desktop)
+
+**Test:** `should publish a project and verify it appears on public site`
+
+**Issue:** The test cannot reliably click the publish button on the admin project editor page.
+
+**Status:** Skipped pending investigation
+
 **Future Fix:** Consider one of:
 1. Add `data-testid` for modal animation state (e.g., `data-modal-state="closed"`)
 2. Use `waitForFunction` to check computed styles
