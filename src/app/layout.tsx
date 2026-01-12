@@ -22,9 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google Fonts for themes */}
+        {/* Google Fonts for themes - using <link> instead of next/font because we need
+            multiple font families loaded dynamically based on theme selection.
+            next/font requires static imports which doesn't support runtime theme switching. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font -- Dynamic theme fonts require <link>, not next/font */}
         <link 
           href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Sora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" 
           rel="stylesheet" 

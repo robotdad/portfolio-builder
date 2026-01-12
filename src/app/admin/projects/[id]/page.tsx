@@ -229,7 +229,7 @@ export default function ProjectEditorPage() {
       console.error('Failed to publish:', err)
       return false
     }
-  }, [project, projectId, saveDraft, sections])
+  }, [project, projectId, saveDraft, sections, metadata])
 
   // Section handlers
   const handleSectionsChange = useCallback((newSections: Section[]) => {

@@ -463,7 +463,7 @@ export function FeaturedCarousel({
           break
       }
     },
-    [goPrev, goNext, goFirst, goLast, pause]
+    [goPrev, goNext, goFirst, goLast]
   )
 
   // Pause on focus within carousel

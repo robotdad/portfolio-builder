@@ -409,6 +409,7 @@ export default function PortfolioPage() {
                   />
                   {photoPreview ? (
                     <div className="photo-preview-container">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- photoPreview is a data URL from FileReader which next/image doesn't support */}
                       <img
                         src={photoPreview}
                         alt="Profile preview"

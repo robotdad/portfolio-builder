@@ -172,6 +172,7 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
             {src ? (
               // Use regular <img> for Blob sources (optimistic previews), Next.js Image for URLs
               src instanceof Blob ? (
+                // eslint-disable-next-line @next/next/no-img-element -- Blob URLs not supported by next/image
                 <img src={URL.createObjectURL(src)} alt={alt} className="card-image__img" style={{ objectFit: 'cover' }} />
               ) : (
                 <Image src={src} alt={alt} className="card-image__img" fill unoptimized style={{ objectFit: 'cover' }} />
