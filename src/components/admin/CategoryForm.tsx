@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useId } from 'react'
+import Image from 'next/image'
 import { ImagePicker } from '@/components/shared/ImagePicker'
 import type { SiteImage } from '@/lib/types/image-picker'
 
@@ -78,15 +79,15 @@ export function CategoryForm({
   const nameErrorId = useId()
   const descriptionErrorId = useId()
 
-  // Form state
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
+  // Form state - initialized from category prop (use key prop on parent to reset)
+  const [name, setName] = useState(() => category?.name ?? '')
+  const [description, setDescription] = useState(() => category?.description ?? '')
   const [selectedImage, setSelectedImage] = useState<{
     id: string
     url: string
     thumbnailUrl: string
     altText: string
-  } | null>(null)
+  } | null>(() => category?.featuredImage ?? null)
 
   // UI state
   const [showImagePicker, setShowImagePicker] = useState(false)
@@ -95,21 +96,6 @@ export function CategoryForm({
 
   // Determine if we're in edit mode
   const isEditMode = Boolean(category)
-
-  // Reset form state when category prop changes
-  useEffect(() => {
-    if (category) {
-      setName(category.name)
-      setDescription(category.description || '')
-      setSelectedImage(category.featuredImage)
-    } else {
-      setName('')
-      setDescription('')
-      setSelectedImage(null)
-    }
-    setErrors({})
-    setTouched({})
-  }, [category])
 
   // Validate form fields
   const validateName = (value: string): string | undefined => {
@@ -268,10 +254,14 @@ export function CategoryForm({
           
           {selectedImage ? (
             <div className="image-preview">
-              <img
+              <Image
                 src={selectedImage.thumbnailUrl || selectedImage.url}
                 alt={selectedImage.altText}
                 className="image-preview-img"
+                width={80}
+                height={80}
+                unoptimized
+                style={{ objectFit: 'cover' }}
               />
               <div className="image-preview-actions">
                 <button

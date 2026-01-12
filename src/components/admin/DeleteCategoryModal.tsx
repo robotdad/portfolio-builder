@@ -1,7 +1,10 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
+
+// Subscription for useSyncExternalStore (no-op since we only need client detection)
+const emptySubscribe = () => () => {}
 
 interface DeleteCategoryModalProps {
   category: { id: string; name: string; _count: { projects: number } } | null
@@ -44,24 +47,14 @@ export function DeleteCategoryModal({
   onConfirm,
   isDeleting = false,
 }: DeleteCategoryModalProps) {
-  const [mounted, setMounted] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
-
-  // Handle mounting for portal
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Handle visibility animation
-  useEffect(() => {
-    if (isOpen) {
-      // Small delay to trigger CSS transition
-      const timer = setTimeout(() => setIsVisible(true), 10)
-      return () => clearTimeout(timer)
-    } else {
-      setIsVisible(false)
-    }
-  }, [isOpen])
+  // Use useSyncExternalStore for hydration-safe client detection
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+  // Track closing state for exit animation (set in event handler, not effect)
+  const [isClosing, setIsClosing] = useState(false)
 
   // Handle body scroll lock
   useEffect(() => {
@@ -74,11 +67,14 @@ export function DeleteCategoryModal({
     }
   }, [isOpen])
 
-  // Close with animation
+  // Close with animation - set closing state in event handler (not effect)
   const handleClose = useCallback(() => {
     if (isDeleting) return
-    setIsVisible(false)
-    setTimeout(onClose, 200) // Wait for exit animation
+    setIsClosing(true)
+    setTimeout(() => {
+      setIsClosing(false)
+      onClose()
+    }, 200) // Wait for exit animation
   }, [onClose, isDeleting])
 
   // Handle Escape key
@@ -111,11 +107,11 @@ export function DeleteCategoryModal({
 
   const modalContent = (
     <div
-      className={`modal-overlay ${isVisible ? 'visible' : ''}`}
+      className={`modal-overlay ${isClosing ? 'closing' : 'entering'}`}
       onClick={handleBackdropClick}
     >
       <div
-        className={`modal-content delete-modal ${isVisible ? 'visible' : ''}`}
+        className={`modal-content delete-modal ${isClosing ? 'closing' : 'entering'}`}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby="delete-modal-title"
@@ -191,24 +187,52 @@ export function DeleteCategoryModal({
       </div>
 
       <style jsx>{`
-        .modal-overlay {
-          opacity: 0;
-          transition: opacity 0.2s ease-out;
+        .modal-overlay.entering {
+          animation: overlayEnter 0.2s ease-out forwards;
         }
 
-        .modal-overlay.visible {
-          opacity: 1;
+        .modal-overlay.closing {
+          animation: overlayExit 0.2s ease-out forwards;
         }
 
-        .modal-content {
-          opacity: 0;
-          transform: scale(0.95);
-          transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+        @keyframes overlayEnter {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
-        .modal-content.visible {
-          opacity: 1;
-          transform: scale(1);
+        @keyframes overlayExit {
+          from { opacity: 1; }
+          to { opacity: 0; }
+        }
+
+        .modal-content.entering {
+          animation: modalEnter 0.2s ease-out forwards;
+        }
+
+        .modal-content.closing {
+          animation: modalExit 0.2s ease-out forwards;
+        }
+
+        @keyframes modalEnter {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes modalExit {
+          from {
+            opacity: 1;
+            transform: scale(1);
+          }
+          to {
+            opacity: 0;
+            transform: scale(0.95);
+          }
         }
 
         .modal-body {

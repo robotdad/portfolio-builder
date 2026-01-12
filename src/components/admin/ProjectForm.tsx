@@ -126,15 +126,15 @@ export function ProjectForm({
   const defaultMode = initialMode ?? (isEditMode ? 'full' : 'quick-add')
   const [mode, setMode] = useState<'quick-add' | 'full'>(defaultMode)
 
-  // Form state
-  const [title, setTitle] = useState('')
-  const [year, setYear] = useState('')
-  const [venue, setVenue] = useState('')
-  const [role, setRole] = useState('')
-  const [description, setDescription] = useState('')
-  const [isFeatured, setIsFeatured] = useState(false)
-  const [featuredImage, setFeaturedImage] = useState<FeaturedImage | null>(null)
-  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([])
+  // Form state - initialized from project prop (use key prop on parent to reset)
+  const [title, setTitle] = useState(() => project?.title ?? '')
+  const [year, setYear] = useState(() => project?.year ?? '')
+  const [venue, setVenue] = useState(() => project?.venue ?? '')
+  const [role, setRole] = useState(() => project?.role ?? '')
+  const [description, setDescription] = useState(() => project?.description ?? '')
+  const [isFeatured, setIsFeatured] = useState(() => project?.isFeatured ?? false)
+  const [featuredImage, setFeaturedImage] = useState<FeaturedImage | null>(() => project?.featuredImage ?? null)
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>(() => project?.galleryImages ?? [])
 
   // UI state
   const [showGalleryPicker, setShowGalleryPicker] = useState(false)
@@ -154,33 +154,6 @@ export function ProjectForm({
     description?: boolean
     featuredImage?: boolean
   }>({})
-
-  // Reset form state when project prop changes
-  useEffect(() => {
-    if (project) {
-      setTitle(project.title)
-      setYear(project.year || '')
-      setVenue(project.venue || '')
-      setRole(project.role || '')
-      setDescription(project.description || '')
-      setIsFeatured(project.isFeatured)
-      setFeaturedImage(project.featuredImage)
-      setGalleryImages(project.galleryImages || [])
-      setMode('full')
-    } else {
-      setTitle('')
-      setYear('')
-      setVenue('')
-      setRole('')
-      setDescription('')
-      setIsFeatured(false)
-      setFeaturedImage(null)
-      setGalleryImages([])
-      setMode(initialMode ?? 'quick-add')
-    }
-    setErrors({})
-    setTouched({})
-  }, [project, initialMode])
 
   // ============================================================================
   // Field Handlers

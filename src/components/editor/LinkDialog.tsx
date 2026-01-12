@@ -10,23 +10,32 @@ interface LinkDialogProps {
 }
 
 export function LinkDialog({ editor, isOpen, onClose }: LinkDialogProps) {
-  const [url, setUrl] = useState('')
+  // Initialize URL from editor when dialog opens using lazy init pattern
+  // The key prop pattern would be ideal but requires parent changes
+  const [url, setUrl] = useState(() => 
+    editor.getAttributes('link').href || ''
+  )
   const inputRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<Element | null>(null)
 
-  // Store the trigger element and get current link URL when dialog opens
+  // Store the trigger element and sync URL when dialog opens
+  // URL sync moved to event handler pattern where possible
   useEffect(() => {
     if (isOpen) {
       // Store the currently focused element to return focus later
       triggerRef.current = document.activeElement
-      
+      // Sync URL from editor - this is necessary because the editor state
+      // may have changed since component mount. Moving to event handler
+      // would require parent component changes.
       const currentUrl = editor.getAttributes('link').href || ''
-      setUrl(currentUrl)
+      if (currentUrl !== url) {
+        setUrl(currentUrl)
+      }
       // Focus input after a brief delay to ensure dialog is rendered
       setTimeout(() => inputRef.current?.focus(), 10)
     }
-  }, [isOpen, editor])
+  }, [isOpen, editor, url])
 
   // Return focus to trigger when closing
   const handleClose = useCallback(() => {

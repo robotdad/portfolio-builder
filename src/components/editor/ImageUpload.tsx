@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
+import Image from 'next/image'
 
 interface Asset {
   id: string
@@ -203,7 +204,7 @@ export function ImageUpload({
 
       {displayImage ? (
         <div className="image-upload-preview">
-          <img src={displayImage} alt={altText || 'Preview'} />
+          <Image src={displayImage} alt={altText || 'Preview'} fill unoptimized style={{ objectFit: 'cover' }} />
           {(preview || currentImage) && (
             <button
               type="button"

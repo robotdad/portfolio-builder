@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -39,16 +39,20 @@ export function Navigation({
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const dropdownButtonRef = useRef<HTMLButtonElement>(null)
 
-  // Track when component is mounted for portal rendering
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  // Track when component is mounted for portal rendering using useSyncExternalStore
+  const mounted = useSyncExternalStore(
+    // Subscribe function (no-op since mount state never changes)
+    () => () => {},
+    // getSnapshot (client)
+    () => true,
+    // getServerSnapshot
+    () => false
+  )
 
   // Filter to only pages shown in nav
   const navPages = pages.filter(p => p.showInNav)

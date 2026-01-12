@@ -1,6 +1,7 @@
 'use client'
 
 import { forwardRef, type HTMLAttributes, type ImgHTMLAttributes, type ReactNode } from 'react'
+import Image from 'next/image'
 
 /* =============================================================================
    Card Root
@@ -132,7 +133,9 @@ Card.displayName = 'Card'
    Card Image
    ============================================================================= */
 
-export interface CardImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+export interface CardImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
+  /** Image source - can be a URL string or Blob for optimistic previews */
+  src?: string | Blob
   /** Aspect ratio - defaults to 16:9 (project standard) */
   aspectRatio?: '16/9' | '4/3' | '3/2' | '1/1'
   /** Show overlay on hover */
@@ -150,7 +153,7 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
       src,
       alt = '',
       className = '',
-      ...props
+      ..._props
     },
     ref
   ) => {
@@ -167,7 +170,12 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
         <div ref={ref} className={`card-image ${className}`}>
           <div className="card-image__wrapper">
             {src ? (
-              <img src={src} alt={alt} className="card-image__img" {...props} />
+              // Use regular <img> for Blob sources (optimistic previews), Next.js Image for URLs
+              src instanceof Blob ? (
+                <img src={URL.createObjectURL(src)} alt={alt} className="card-image__img" style={{ objectFit: 'cover' }} />
+              ) : (
+                <Image src={src} alt={alt} className="card-image__img" fill unoptimized style={{ objectFit: 'cover' }} />
+              )
             ) : (
               <div className="card-image__placeholder">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">

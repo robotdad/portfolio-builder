@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useCallback } from 'react'
+import Image from 'next/image'
 import {
   DndContext,
   closestCenter,
@@ -355,8 +356,8 @@ export function GallerySectionEditor({
 
             <DragOverlay>
               {activeImage ? (
-                <div className="gallery-image-drag-overlay">
-                  <img src={activeImage.imageUrl || ''} alt={activeImage.altText || 'Image'} />
+                <div className="gallery-image-drag-overlay" style={{ position: 'relative', width: 80, height: 80 }}>
+                  <Image src={activeImage.imageUrl || ''} alt={activeImage.altText || 'Image'} fill unoptimized style={{ objectFit: 'cover' }} />
                 </div>
               ) : null}
             </DragOverlay>
@@ -485,8 +486,8 @@ function SortableGalleryImage({
         </button>
 
         {/* Image thumbnail */}
-        <div className="gallery-editor-item-thumb" onClick={onToggleExpand}>
-          <img src={image.imageUrl || ''} alt={image.altText || 'Gallery image'} />
+        <div className="gallery-editor-item-thumb" onClick={onToggleExpand} style={{ position: 'relative' }}>
+          <Image src={image.imageUrl || ''} alt={image.altText || 'Gallery image'} fill unoptimized style={{ objectFit: 'cover' }} />
         </div>
 
         {/* Quick actions */}

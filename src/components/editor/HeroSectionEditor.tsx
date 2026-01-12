@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useCallback } from 'react'
+import Image from 'next/image'
 import { RichTextEditor } from './RichTextEditor'
 import { useImageUpload } from '@/hooks/useImageUpload'
 import { ProgressRing } from '@/components/shared/ProgressRing'
@@ -13,9 +14,6 @@ interface HeroSectionEditorProps {
   onDelete: () => void
   onSaveRequest?: () => void
 }
-
-const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif']
-const MAX_SIZE = 10 * 1024 * 1024 // 10MB
 
 export function HeroSectionEditor({
   section,
@@ -32,7 +30,7 @@ export function HeroSectionEditor({
   const previousImageRef = useRef<string | undefined>(section.profileImageUrl ?? undefined)
 
   // Use the optimistic upload hook
-  const { uploadFile, isUploading, progress, error, retry, clearError } = useImageUpload({
+  const { uploadFile, isUploading, progress, error, retry } = useImageUpload({
     portfolioId,
     context: 'profile',
     currentImageUrl: section.profileImageUrl ?? undefined,
@@ -61,7 +59,7 @@ export function HeroSectionEditor({
         profileImageUrl: previousUrl ?? null,
       })
     },
-    onError: (errorMsg) => {
+    onError: (_errorMsg) => {
       // Revert optimistic update on error
       setOptimisticImageUrl(null)
     },
@@ -188,7 +186,7 @@ export function HeroSectionEditor({
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
             >
-              <img src={displayImage} alt="Profile preview" />
+              <Image src={displayImage} alt="Profile preview" fill unoptimized style={{ objectFit: 'cover' }} />
               
               {/* Upload progress overlay */}
               {isUploading && (

@@ -5,8 +5,12 @@ import {
   useRef,
   useState,
   useCallback,
+  useSyncExternalStore,
   type ChangeEvent,
 } from 'react'
+
+// Subscription for useSyncExternalStore (no-op since we only need client detection)
+const emptySubscribe = () => () => {}
 import { createPortal } from 'react-dom'
 import { usePopoverPosition } from '@/hooks/usePopoverPosition'
 import { BottomSheet } from '@/components/shared/BottomSheet'
@@ -458,8 +462,14 @@ function DesktopDropdown({
   const popoverRef = useRef<HTMLDivElement>(null)
   const nameInputRef = useRef<HTMLInputElement>(null)
   const slugInputRef = useRef<HTMLInputElement>(null)
-  const [mounted, setMounted] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
+  // Use useSyncExternalStore for hydration-safe client detection
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+  // Track closing state for exit animation (set in event handler, not effect)
+  const [isClosing, setIsClosing] = useState(false)
 
   // Use the positioning hook
   const { placement, style, arrowStyle } = usePopoverPosition({
@@ -470,20 +480,10 @@ function DesktopDropdown({
     align: 'end',
   })
 
-  // Handle client-side mounting for portal
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Animation and focus management when opening/closing
+  // Focus management when opening (separate from animation)
   useEffect(() => {
     if (isOpen) {
-      // Slight delay to allow portal to mount and position to calculate
-      const showTimer = setTimeout(() => {
-        setIsVisible(true)
-      }, 10)
-
-      // Focus first input after animation starts
+      // Focus first input after mount
       const focusTimer = setTimeout(() => {
         // Focus name input if visible, otherwise slug input
         if (!formProps.hasHeroSection && nameInputRef.current) {
@@ -493,21 +493,18 @@ function DesktopDropdown({
         }
       }, 50)
 
-      return () => {
-        clearTimeout(showTimer)
-        clearTimeout(focusTimer)
-      }
-    } else {
-      setIsVisible(false)
+      return () => clearTimeout(focusTimer)
     }
   }, [isOpen, formProps.hasHeroSection])
 
-  // Return focus to trigger when closing
+  // Return focus to trigger when closing - set closing state in event handler
   const handleClose = useCallback(() => {
-    onClose()
+    setIsClosing(true)
     setTimeout(() => {
+      setIsClosing(false)
+      onClose()
       triggerRef.current?.focus()
-    }, 0)
+    }, 200)
   }, [onClose, triggerRef])
 
   // Handle click outside
@@ -589,7 +586,7 @@ function DesktopDropdown({
       aria-label="Portfolio Settings"
       aria-modal="true"
       data-position={placement}
-      className={`settings-dropdown ${isVisible ? 'settings-dropdown--visible' : ''}`}
+      className={`settings-dropdown ${isClosing ? 'settings-dropdown--closing' : 'settings-dropdown--entering'}`}
       style={{
         ...style,
         width: 320,
@@ -624,10 +621,6 @@ function DesktopDropdown({
             0 2px 4px hsla(0, 0%, 0%, 0.08);
           overflow: hidden;
 
-          /* Animation initial state */
-          opacity: 0;
-          transform: scale(0.95);
-          transition: opacity 150ms ease-out, transform 150ms ease-out;
         }
 
         /* Transform origin based on position */
@@ -639,17 +632,41 @@ function DesktopDropdown({
           transform-origin: bottom right;
         }
 
-        .settings-dropdown--visible {
-          opacity: 1;
-          transform: scale(1);
+        .settings-dropdown--entering {
+          animation: dropdownEnter 150ms ease-out forwards;
+        }
+
+        .settings-dropdown--closing {
+          animation: dropdownExit 150ms ease-out forwards;
+        }
+
+        @keyframes dropdownEnter {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes dropdownExit {
+          from {
+            opacity: 1;
+            transform: scale(1);
+          }
+          to {
+            opacity: 0;
+            transform: scale(0.95);
+          }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .settings-dropdown {
-            transition: none;
-            transform: none;
-          }
-          .settings-dropdown--visible {
+          .settings-dropdown--entering,
+          .settings-dropdown--closing {
+            animation: none;
+            opacity: 1;
             transform: none;
           }
         }
@@ -751,13 +768,15 @@ export function SettingsDropdown({
   hasHeroSection = false,
   portfolioSlug,
 }: SettingsDropdownProps) {
-  const [isMobile, setIsMobile] = useState(false)
+  // Initialize isMobile with SSR-safe default and subscribe to changes
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(max-width: 767px)').matches
+  })
 
-  // Detect mobile viewport
+  // Subscribe to media query changes only
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 767px)')
-    setIsMobile(mediaQuery.matches)
-
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
     mediaQuery.addEventListener('change', handler)
     return () => mediaQuery.removeEventListener('change', handler)

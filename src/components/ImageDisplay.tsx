@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 interface Asset {
   id: string
   url: string
@@ -37,7 +39,7 @@ export function ImageDisplay({
   if (asset.srcset1200) srcsetParts.push(`${asset.srcset1200} 1200w`)
   if (asset.srcset1600) srcsetParts.push(`${asset.srcset1600} 1600w`)
   
-  const srcset = srcsetParts.length > 0 ? srcsetParts.join(', ') : undefined
+  const _srcset = srcsetParts.length > 0 ? srcsetParts.join(', ') : undefined
 
   // Calculate aspect ratio for placeholder sizing
   const aspectRatio = asset.width / asset.height
@@ -57,21 +59,14 @@ export function ImageDisplay({
           backgroundPosition: 'center',
         }}
       >
-        <img
+        <Image
           src={asset.url}
-          srcSet={srcset}
-          sizes={sizes}
           alt={asset.altText}
-          width={asset.width}
-          height={asset.height}
-          loading={priority ? 'eager' : 'lazy'}
-          decoding={priority ? 'sync' : 'async'}
+          fill
+          sizes={sizes}
+          priority={priority}
+          unoptimized
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
             objectFit: 'cover',
           }}
         />

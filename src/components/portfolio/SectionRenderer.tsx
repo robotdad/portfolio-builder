@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { sanitizeHtml } from '@/lib/sanitize'
 import { ImageCard } from './ImageCard'
 import { Lightbox } from './Lightbox'
@@ -79,12 +80,16 @@ function ImageSectionView({ section }: { section: ImageSection }) {
   return (
     <section className="section section-image">
       <figure className="image-figure">
-        <img 
-          src={section.imageUrl} 
-          alt={section.altText || ''} 
-          className="section-image-img"
-          loading="lazy"
-        />
+        <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9' }}>
+          <Image 
+            src={section.imageUrl} 
+            alt={section.altText || ''} 
+            className="section-image-img"
+            fill
+            unoptimized
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
         {section.caption && (
           <figcaption className="image-caption">
             {section.caption}
@@ -101,12 +106,13 @@ function HeroSectionView({ section }: { section: HeroSection }) {
     <section className="section section-hero">
       <div className="hero-content">
         {section.profileImageUrl && (
-          <div className="hero-profile-image">
-            <img
+          <div className="hero-profile-image" style={{ position: 'relative', width: 150, height: 150 }}>
+            <Image
               src={section.profileImageUrl}
               alt={`${section.name}'s profile photo`}
-              width={150}
-              height={150}
+              fill
+              unoptimized
+              style={{ objectFit: 'cover', borderRadius: '50%' }}
             />
           </div>
         )}
@@ -243,11 +249,13 @@ function GallerySectionView({ section }: { section: GallerySection }) {
               className="gallery-item-btn"
               aria-label={`View ${image.altText || 'image'} in lightbox`}
             >
-              <img
+              <Image
                 src={image.imageUrl || ''}
                 alt={image.altText || 'Gallery image'}
-                loading="lazy"
                 className="gallery-item-img"
+                fill
+                unoptimized
+                style={{ objectFit: 'cover' }}
               />
             </button>
             {image.caption && (

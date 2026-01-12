@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback } from 'react'
+import Image from 'next/image'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import styles from './CategoryListItem.module.css'
@@ -161,10 +162,12 @@ export function CategoryListItem({
       {/* Thumbnail */}
       <div className={styles.thumbnail}>
         {imageUrl ? (
-          <img 
+          <Image 
             src={imageUrl} 
             alt="" 
-            loading="lazy"
+            fill
+            unoptimized
+            style={{ objectFit: 'cover' }}
           />
         ) : (
           <div className={styles.placeholder}>

@@ -25,7 +25,7 @@ interface InlineAddButtonProps {
 export function InlineAddButton({
   onAdd,
   hasHeroSection = false,
-  insertIndex,
+  insertIndex: _insertIndex,
 }: InlineAddButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useCallback, useState } from 'react'
+import { useEffect, useRef, useCallback, useState, useSyncExternalStore } from 'react'
 
 export type AutoSaveStatus = 'idle' | 'pending' | 'saving' | 'saved' | 'error'
 
@@ -30,6 +30,55 @@ interface UseAutoSaveReturn {
   lastSavedAt: Date | null
 }
 
+// Timer store for countdown - avoids setState in useEffect
+function createTimerStore() {
+  let timeUntilSave: number | null = null
+  let listeners: Array<() => void> = []
+  let countdownInterval: NodeJS.Timeout | null = null
+  let saveEndTime: number | null = null
+
+  return {
+    subscribe(listener: () => void) {
+      listeners.push(listener)
+      return () => {
+        listeners = listeners.filter(l => l !== listener)
+      }
+    },
+    getSnapshot() {
+      return timeUntilSave
+    },
+    getServerSnapshot() {
+      return null
+    },
+    startCountdown(duration: number) {
+      this.stopCountdown()
+      saveEndTime = Date.now() + duration
+      timeUntilSave = duration
+      listeners.forEach(l => l())
+      
+      countdownInterval = setInterval(() => {
+        if (saveEndTime) {
+          timeUntilSave = Math.max(0, saveEndTime - Date.now())
+          listeners.forEach(l => l())
+        }
+      }, 1000)
+    },
+    stopCountdown() {
+      if (countdownInterval) {
+        clearInterval(countdownInterval)
+        countdownInterval = null
+      }
+      saveEndTime = null
+      timeUntilSave = null
+      listeners.forEach(l => l())
+    },
+    cleanup() {
+      this.stopCountdown()
+      listeners = []
+    }
+  }
+}
+
 /**
  * Hook for auto-saving content at regular intervals
  * 
@@ -50,12 +99,18 @@ export function useAutoSave({
   const [status, setStatus] = useState<AutoSaveStatus>('idle')
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null)
-  const [timeUntilSave, setTimeUntilSave] = useState<number | null>(null)
+  
+  // Timer store for countdown (avoids setState in useEffect)
+  const timerStoreRef = useRef(createTimerStore())
+  const timeUntilSave = useSyncExternalStore(
+    timerStoreRef.current.subscribe,
+    timerStoreRef.current.getSnapshot,
+    timerStoreRef.current.getServerSnapshot
+  )
   
   // Refs for tracking state across renders
   const lastSavedDataRef = useRef<string>('')
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const countdownRef = useRef<NodeJS.Timeout | null>(null)
   const debounceRef = useRef<NodeJS.Timeout | null>(null)
   const isMountedRef = useRef(true)
 
@@ -110,11 +165,7 @@ export function useAutoSave({
       clearTimeout(saveTimeoutRef.current)
       saveTimeoutRef.current = null
     }
-    if (countdownRef.current) {
-      clearInterval(countdownRef.current)
-      countdownRef.current = null
-    }
-    setTimeUntilSave(null)
+    timerStoreRef.current.stopCountdown()
     
     await performSave()
   }, [performSave])
@@ -153,23 +204,12 @@ export function useAutoSave({
         clearTimeout(saveTimeoutRef.current)
         saveTimeoutRef.current = null
       }
-      if (countdownRef.current) {
-        clearInterval(countdownRef.current)
-        countdownRef.current = null
-      }
-      setTimeUntilSave(null)
+      timerStoreRef.current.stopCountdown()
       return
     }
 
-    // Set up the save timer
-    const saveAt = Date.now() + interval
-    setTimeUntilSave(interval)
-
-    // Countdown timer for UI
-    countdownRef.current = setInterval(() => {
-      const remaining = Math.max(0, saveAt - Date.now())
-      setTimeUntilSave(remaining)
-    }, 1000)
+    // Start countdown using the timer store (no setState in effect)
+    timerStoreRef.current.startCountdown(interval)
 
     // Actual save timer
     saveTimeoutRef.current = setTimeout(() => {
@@ -180,21 +220,20 @@ export function useAutoSave({
       if (saveTimeoutRef.current) {
         clearTimeout(saveTimeoutRef.current)
       }
-      if (countdownRef.current) {
-        clearInterval(countdownRef.current)
-      }
+      timerStoreRef.current.stopCountdown()
     }
   }, [enabled, hasUnsavedChanges, interval, performSave])
 
   // Cleanup on unmount
   useEffect(() => {
     isMountedRef.current = true
+    const timerStore = timerStoreRef.current
     
     return () => {
       isMountedRef.current = false
       if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current)
-      if (countdownRef.current) clearInterval(countdownRef.current)
       if (debounceRef.current) clearTimeout(debounceRef.current)
+      timerStore.cleanup()
     }
   }, [])
 

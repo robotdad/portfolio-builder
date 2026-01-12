@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import {
   DndContext,
   closestCenter,
@@ -225,7 +226,7 @@ function DragOverlayItem({ category }: DragOverlayItemProps) {
       </div>
       <div className="drag-overlay-item-thumbnail">
         {imageUrl ? (
-          <img src={imageUrl} alt="" />
+          <Image src={imageUrl} alt="" fill unoptimized style={{ objectFit: 'cover' }} />
         ) : (
           <div className="drag-overlay-item-placeholder">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

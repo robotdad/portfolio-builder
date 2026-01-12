@@ -53,7 +53,7 @@ function Toast({ id, message, type, action, duration = DEFAULT_DURATION, onDismi
   const [isVisible, setIsVisible] = useState(false)
   const [progress, setProgress] = useState(100)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const startTimeRef = useRef<number>(Date.now())
+  const startTimeRef = useRef<number | null>(null)
   const animationRef = useRef<number | null>(null)
 
   // Check for reduced motion preference
@@ -89,7 +89,7 @@ function Toast({ id, message, type, action, duration = DEFAULT_DURATION, onDismi
     startTimeRef.current = Date.now()
 
     const updateProgress = () => {
-      const elapsed = Date.now() - startTimeRef.current
+      const elapsed = Date.now() - (startTimeRef.current ?? Date.now())
       const remaining = Math.max(0, 100 - (elapsed / duration) * 100)
       setProgress(remaining)
 

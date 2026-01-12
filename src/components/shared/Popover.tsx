@@ -5,11 +5,15 @@ import {
   useRef,
   useCallback,
   useState,
+  useSyncExternalStore,
   type ReactNode,
   type KeyboardEvent,
 } from 'react'
 import { createPortal } from 'react-dom'
 import { usePopoverPosition } from '@/hooks/usePopoverPosition'
+
+// Subscription for useSyncExternalStore (no-op since we only need client detection)
+const emptySubscribe = () => () => {}
 
 // ============================================================================
 // Types
@@ -34,7 +38,7 @@ interface PopoverItemProps {
   disabled?: boolean
 }
 
-interface PopoverDividerProps {}
+type PopoverDividerProps = Record<string, never>
 
 // ============================================================================
 // PopoverItem Component
@@ -180,8 +184,14 @@ function Popover({
   className = '',
 }: PopoverProps) {
   const popoverRef = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  // Track closing state for exit animation (set in event handler, not effect)
+  const [isClosing, setIsClosing] = useState(false)
+  // Use useSyncExternalStore for hydration-safe client detection
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
   const focusedIndexRef = useRef<number>(-1)
 
   // Use the positioning hook
@@ -192,11 +202,6 @@ function Popover({
     gap,
     align,
   })
-
-  // Handle client-side mounting for portal
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   // Get all focusable menu items
   const getFocusableItems = useCallback((): HTMLElement[] => {
@@ -219,36 +224,28 @@ function Popover({
     items[clampedIndex]?.focus()
   }, [getFocusableItems])
 
-  // Animation and focus management when opening/closing
+  // Focus management when opening (separate from animation)
   useEffect(() => {
     if (isOpen) {
-      // Slight delay to allow portal to mount and position to calculate
-      const showTimer = setTimeout(() => {
-        setIsVisible(true)
-      }, 10)
-
-      // Focus first item after animation starts
+      // Focus first item after mount
       const focusTimer = setTimeout(() => {
         focusItem(0)
       }, 50)
 
-      return () => {
-        clearTimeout(showTimer)
-        clearTimeout(focusTimer)
-      }
+      return () => clearTimeout(focusTimer)
     } else {
-      setIsVisible(false)
       focusedIndexRef.current = -1
     }
   }, [isOpen, focusItem])
 
-  // Return focus to trigger when closing
+  // Return focus to trigger when closing - set closing state in event handler
   const handleClose = useCallback(() => {
-    onClose()
-    // Return focus to trigger element
+    setIsClosing(true)
     setTimeout(() => {
+      setIsClosing(false)
+      onClose()
       triggerRef.current?.focus()
-    }, 0)
+    }, 150)
   }, [onClose, triggerRef])
 
   // Handle click outside
@@ -355,7 +352,7 @@ function Popover({
       role="menu"
       aria-label="Menu"
       data-position={placement}
-      className={`popover ${isVisible ? 'popover--visible' : ''} ${className}`}
+      className={`popover ${isClosing ? 'popover--closing' : 'popover--entering'} ${className}`}
       style={style}
       onKeyDown={handleKeyDown}
       onClick={(e) => {
@@ -391,10 +388,6 @@ function Popover({
           max-width: 320px;
           overflow: hidden;
 
-          /* Animation initial state */
-          opacity: 0;
-          transform: scale(0.95);
-          transition: opacity 150ms ease-out, transform 150ms ease-out;
         }
 
         /* Transform origin based on position */
@@ -406,17 +399,41 @@ function Popover({
           transform-origin: bottom center;
         }
 
-        .popover--visible {
-          opacity: 1;
-          transform: scale(1);
+        .popover--entering {
+          animation: popoverEnter 150ms ease-out forwards;
+        }
+
+        .popover--closing {
+          animation: popoverExit 150ms ease-out forwards;
+        }
+
+        @keyframes popoverEnter {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes popoverExit {
+          from {
+            opacity: 1;
+            transform: scale(1);
+          }
+          to {
+            opacity: 0;
+            transform: scale(0.95);
+          }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .popover {
-            transition: none;
-            transform: none;
-          }
-          .popover--visible {
+          .popover--entering,
+          .popover--closing {
+            animation: none;
+            opacity: 1;
             transform: none;
           }
         }

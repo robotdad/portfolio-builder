@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import React, { createContext, useContext, useState, useEffect, useCallback, useSyncExternalStore, ReactNode } from 'react'
 import { SkipLink } from './SkipLink'
 import { AdminSidebar } from './AdminSidebar'
 import { MobileDrawer } from './MobileDrawer'
@@ -63,37 +63,56 @@ export interface AdminLayoutProps {
  * | (includes page header)                   |
  * +------------------------------------------+
  */
+// Subscriptions for useSyncExternalStore
+const emptySubscribe = () => () => {}
+
+// Helper to get initial breakpoint from window width
+function getBreakpointFromWidth(width: number): Breakpoint {
+  if (width < 768) return 'mobile'
+  if (width < 1024) return 'tablet'
+  return 'desktop'
+}
+
 export function AdminLayout({ children }: AdminLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [breakpoint, setBreakpoint] = useState<Breakpoint>('mobile')
-  const [isTouchDevice, setIsTouchDevice] = useState(false)
-  const [mounted, setMounted] = useState(false)
   
-  // Detect device capabilities and breakpoint
+  // Use useSyncExternalStore for hydration-safe client detection
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+  
+  // Initialize breakpoint and touch device with SSR-safe defaults
+  const [breakpoint, setBreakpoint] = useState<Breakpoint>(() => {
+    if (typeof window === 'undefined') return 'mobile'
+    return getBreakpointFromWidth(window.innerWidth)
+  })
+  
+  const [isTouchDevice, setIsTouchDevice] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(hover: none) and (pointer: coarse)').matches
+  })
+  
+  // Subscribe to media query and resize changes
   useEffect(() => {
-    setMounted(true)
-    
-    // Detect touch-primary device (phones, tablets)
+    // Touch device detection
     const touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)')
-    setIsTouchDevice(touchQuery.matches)
-    
-    // Listen for changes (e.g., connecting mouse to tablet)
     const handleTouchChange = (e: MediaQueryListEvent) => setIsTouchDevice(e.matches)
     touchQuery.addEventListener('change', handleTouchChange)
     
-    // Detect viewport width for layout decisions
+    // Viewport breakpoint detection
     const updateBreakpoint = () => {
-      const width = window.innerWidth
-      if (width < 768) {
-        setBreakpoint('mobile')
-      } else if (width < 1024) {
-        setBreakpoint('tablet')
-      } else {
-        setBreakpoint('desktop')
-      }
+      const newBreakpoint = getBreakpointFromWidth(window.innerWidth)
+      setBreakpoint((prev) => {
+        // Close sidebar when switching to desktop (inline to avoid separate effect)
+        if (newBreakpoint === 'desktop' && prev !== 'desktop') {
+          setIsSidebarOpen(false)
+        }
+        return newBreakpoint
+      })
     }
     
-    updateBreakpoint()
     window.addEventListener('resize', updateBreakpoint)
     
     return () => {
@@ -101,13 +120,6 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       window.removeEventListener('resize', updateBreakpoint)
     }
   }, [])
-  
-  // Close sidebar when switching to desktop
-  useEffect(() => {
-    if (breakpoint === 'desktop') {
-      setIsSidebarOpen(false)
-    }
-  }, [breakpoint])
   
   const toggleSidebar = useCallback(() => {
     setIsSidebarOpen(prev => !prev)

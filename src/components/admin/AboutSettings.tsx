@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback } from 'react'
+import Image from 'next/image'
 import { useImageUpload } from '@/hooks/useImageUpload'
 
 interface AboutSettingsProps {
@@ -151,10 +152,13 @@ export function AboutSettings({
         {displayPhotoUrl ? (
           <div className="about-settings__photo-preview">
             <div className="about-settings__photo-wrapper">
-              <img
+              <Image
                 src={displayPhotoUrl}
                 alt="Profile preview"
                 className="about-settings__photo-image"
+                fill
+                unoptimized
+                style={{ objectFit: 'cover' }}
               />
               {isUploading && (
                 <div className="about-settings__upload-overlay">

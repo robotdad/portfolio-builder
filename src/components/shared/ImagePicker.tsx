@@ -1,12 +1,15 @@
 'use client'
 
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import type { ImagePickerProps, SiteImage } from '@/lib/types/image-picker'
 import { useImagePicker } from '@/hooks/useImagePicker'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 import { ImagePickerControls } from './ImagePickerControls'
 import { ImagePickerGrid } from './ImagePickerGrid'
+
+// Subscription for useSyncExternalStore (no-op since we only need client detection)
+const emptySubscribe = () => () => {}
 
 /**
  * Image Picker Modal
@@ -43,11 +46,16 @@ export function ImagePicker({
   filter,
   multiSelect = false,
 }: ImagePickerProps) {
-  const [mounted, setMounted] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
+  // Use useSyncExternalStore for hydration-safe client detection
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+  // Track closing state for exit animation (set in event handler, not effect)
+  const [isClosing, setIsClosing] = useState(false)
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const modalRef = useRef<HTMLDivElement>(null)
-  const searchInputRef = useRef<HTMLInputElement>(null)
 
   const {
     state,
@@ -66,26 +74,10 @@ export function ImagePicker({
   })
 
   // Set up focus trap
-  const { containerRef } = useFocusTrap({
+  useFocusTrap({
     isActive: isOpen,
     containerRef: modalRef as React.RefObject<HTMLElement>,
   })
-
-  // Handle mounting for portal
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Handle visibility animation
-  useEffect(() => {
-    if (isOpen) {
-      // Small delay to trigger CSS transition
-      const timer = setTimeout(() => setIsVisible(true), 10)
-      return () => clearTimeout(timer)
-    } else {
-      setIsVisible(false)
-    }
-  }, [isOpen])
 
   // Handle body scroll lock
   useEffect(() => {
@@ -98,10 +90,13 @@ export function ImagePicker({
     }
   }, [isOpen])
 
-  // Close with animation - defined before useEffect that references it
+  // Close with animation - set closing state in event handler (not effect)
   const handleClose = useCallback(() => {
-    setIsVisible(false)
-    setTimeout(onCancel, 200) // Wait for exit animation
+    setIsClosing(true)
+    setTimeout(() => {
+      setIsClosing(false)
+      onCancel()
+    }, 200) // Wait for exit animation
   }, [onCancel])
 
   // Handle Escape key
@@ -176,13 +171,13 @@ export function ImagePicker({
 
   const modalContent = (
     <div
-      className={`image-picker-backdrop ${isVisible ? 'visible' : ''}`}
+      className={`image-picker-backdrop ${isClosing ? 'closing' : 'entering'}`}
       onClick={handleBackdropClick}
       aria-hidden={!isOpen}
     >
       <div
         ref={modalRef}
-        className={`image-picker-modal ${isVisible ? 'visible' : ''}`}
+        className={`image-picker-modal ${isClosing ? 'closing' : 'entering'}`}
         role="dialog"
         aria-modal="true"
         aria-label={title}
@@ -351,12 +346,24 @@ export function ImagePicker({
           align-items: center;
           justify-content: center;
           padding: 24px;
-          background: rgba(0, 0, 0, 0);
-          transition: background-color 0.2s ease-out;
         }
 
-        .image-picker-backdrop.visible {
-          background: rgba(0, 0, 0, 0.5);
+        .image-picker-backdrop.entering {
+          animation: backdropEnter 0.2s ease-out forwards;
+        }
+
+        .image-picker-backdrop.closing {
+          animation: backdropExit 0.2s ease-out forwards;
+        }
+
+        @keyframes backdropEnter {
+          from { background: rgba(0, 0, 0, 0); }
+          to { background: rgba(0, 0, 0, 0.5); }
+        }
+
+        @keyframes backdropExit {
+          from { background: rgba(0, 0, 0, 0.5); }
+          to { background: rgba(0, 0, 0, 0); }
         }
 
         .image-picker-modal {
@@ -368,15 +375,37 @@ export function ImagePicker({
           background: var(--color-bg, #ffffff);
           border-radius: 12px;
           box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-          opacity: 0;
-          transform: scale(0.95);
-          transition: opacity 0.2s ease-out, transform 0.2s ease-out;
           overflow: hidden;
         }
 
-        .image-picker-modal.visible {
-          opacity: 1;
-          transform: scale(1);
+        .image-picker-modal.entering {
+          animation: modalEnter 0.2s ease-out forwards;
+        }
+
+        .image-picker-modal.closing {
+          animation: modalExit 0.2s ease-out forwards;
+        }
+
+        @keyframes modalEnter {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes modalExit {
+          from {
+            opacity: 1;
+            transform: scale(1);
+          }
+          to {
+            opacity: 0;
+            transform: scale(0.95);
+          }
         }
 
         .image-picker-header {

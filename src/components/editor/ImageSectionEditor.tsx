@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
+import Image from 'next/image'
 import type { ImageSection as ImageSectionType } from '@/lib/content-schema'
 
 interface ImageSectionEditorProps {
@@ -240,7 +241,7 @@ export function ImageSectionEditor({
 
         {displayImage ? (
           <div className="image-upload-preview">
-            <img src={displayImage} alt={section.altText || 'Preview'} />
+            <Image src={displayImage} alt={section.altText || 'Preview'} fill unoptimized style={{ objectFit: 'cover' }} />
             <button
               type="button"
               onClick={handleRemoveImage}

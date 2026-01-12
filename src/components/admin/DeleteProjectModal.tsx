@@ -1,8 +1,11 @@
 'use client'
 
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
+
+// Subscription for useSyncExternalStore (no-op since we only need client detection)
+const emptySubscribe = () => () => {}
 
 interface DeleteProjectModalProps {
   isOpen: boolean
@@ -47,8 +50,14 @@ export function DeleteProjectModal({
   onCancel,
   isDeleting,
 }: DeleteProjectModalProps) {
-  const [mounted, setMounted] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
+  // Use useSyncExternalStore for hydration-safe client detection
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+  // Track closing state for exit animation (set in event handler, not effect)
+  const [isClosing, setIsClosing] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
   const cancelButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -58,21 +67,6 @@ export function DeleteProjectModal({
     containerRef: modalRef as React.RefObject<HTMLElement>,
     initialFocusRef: cancelButtonRef as React.RefObject<HTMLElement>,
   })
-
-  // Handle mounting for portal
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Handle visibility animation
-  useEffect(() => {
-    if (isOpen) {
-      const timer = setTimeout(() => setIsVisible(true), 10)
-      return () => clearTimeout(timer)
-    } else {
-      setIsVisible(false)
-    }
-  }, [isOpen])
 
   // Handle body scroll lock
   useEffect(() => {
@@ -85,11 +79,14 @@ export function DeleteProjectModal({
     }
   }, [isOpen])
 
-  // Close with animation
+  // Close with animation - set closing state in event handler (not effect)
   const handleClose = useCallback(() => {
     if (isDeleting) return
-    setIsVisible(false)
-    setTimeout(onCancel, 200)
+    setIsClosing(true)
+    setTimeout(() => {
+      setIsClosing(false)
+      onCancel()
+    }, 200) // Wait for exit animation
   }, [onCancel, isDeleting])
 
   // Handle Escape key
@@ -119,12 +116,12 @@ export function DeleteProjectModal({
 
   const modalContent = (
     <div
-      className={`delete-project-backdrop ${isVisible ? 'visible' : ''}`}
+      className={`delete-project-backdrop ${isClosing ? 'closing' : 'entering'}`}
       onClick={handleBackdropClick}
     >
       <div
         ref={modalRef}
-        className={`delete-project-modal ${isVisible ? 'visible' : ''}`}
+        className={`delete-project-modal ${isClosing ? 'closing' : 'entering'}`}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby="delete-project-title"
@@ -199,12 +196,24 @@ export function DeleteProjectModal({
           align-items: center;
           justify-content: center;
           padding: 24px;
-          background: rgba(0, 0, 0, 0);
-          transition: background-color 0.2s ease-out;
         }
 
-        .delete-project-backdrop.visible {
-          background: rgba(0, 0, 0, 0.5);
+        .delete-project-backdrop.entering {
+          animation: backdropEnter 0.2s ease-out forwards;
+        }
+
+        .delete-project-backdrop.closing {
+          animation: backdropExit 0.2s ease-out forwards;
+        }
+
+        @keyframes backdropEnter {
+          from { background: rgba(0, 0, 0, 0); }
+          to { background: rgba(0, 0, 0, 0.5); }
+        }
+
+        @keyframes backdropExit {
+          from { background: rgba(0, 0, 0, 0.5); }
+          to { background: rgba(0, 0, 0, 0); }
         }
 
         .delete-project-modal {
@@ -215,14 +224,36 @@ export function DeleteProjectModal({
           border-radius: 12px;
           box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
           text-align: center;
-          opacity: 0;
-          transform: scale(0.95);
-          transition: opacity 0.2s ease-out, transform 0.2s ease-out;
         }
 
-        .delete-project-modal.visible {
-          opacity: 1;
-          transform: scale(1);
+        .delete-project-modal.entering {
+          animation: modalEnter 0.2s ease-out forwards;
+        }
+
+        .delete-project-modal.closing {
+          animation: modalExit 0.2s ease-out forwards;
+        }
+
+        @keyframes modalEnter {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes modalExit {
+          from {
+            opacity: 1;
+            transform: scale(1);
+          }
+          to {
+            opacity: 0;
+            transform: scale(0.95);
+          }
         }
 
         .warning-icon {

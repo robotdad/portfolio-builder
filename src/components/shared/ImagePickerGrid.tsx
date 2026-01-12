@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import type { ImagePickerGridProps } from '@/lib/types/image-picker'
 import type { SiteImage } from '@/lib/types/image-picker'
 
@@ -169,11 +170,12 @@ export function ImagePickerGrid({
             onKeyDown={(e) => handleKeyDown(e, index, image)}
           >
             <div className="image-wrapper">
-              <img
+              <Image
                 src={image.thumbnailUrl}
                 alt={image.meta.alt || image.filename}
-                loading="lazy"
-                decoding="async"
+                fill
+                unoptimized
+                style={{ objectFit: 'cover' }}
               />
               {isSelected && (
                 <div className="selected-overlay" aria-hidden="true">

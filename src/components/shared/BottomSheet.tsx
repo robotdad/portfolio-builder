@@ -5,9 +5,13 @@ import {
   useRef,
   useCallback,
   useState,
+  useSyncExternalStore,
   type ReactNode,
 } from 'react'
 import { createPortal } from 'react-dom'
+
+// Subscription for useSyncExternalStore (no-op since we only need client detection)
+const emptySubscribe = () => () => {}
 
 // ============================================================================
 // Types
@@ -151,26 +155,21 @@ function BottomSheet({
   children,
   className = '',
 }: BottomSheetProps) {
-  const [mounted, setMounted] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
+  // Use useSyncExternalStore for hydration-safe client detection
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+  // Track closing state for exit animation (set in event handler, not effect)
+  const [isClosing, setIsClosing] = useState(false)
   const sheetRef = useRef<HTMLDivElement>(null)
   const previousActiveElement = useRef<HTMLElement | null>(null)
 
-  // Handle mounting for portal
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Handle visibility animation
+  // Store focused element when opening (no state change in effect)
   useEffect(() => {
     if (isOpen) {
-      // Store currently focused element
       previousActiveElement.current = document.activeElement as HTMLElement
-      // Small delay to trigger CSS transition
-      const timer = setTimeout(() => setIsVisible(true), 10)
-      return () => clearTimeout(timer)
-    } else {
-      setIsVisible(false)
     }
   }, [isOpen])
 
@@ -242,11 +241,14 @@ function BottomSheet({
     }
   }, [isOpen])
 
-  // Handle close with animation
+  // Handle close with animation - set closing state in event handler (not effect)
   const handleClose = useCallback(() => {
-    setIsVisible(false)
+    setIsClosing(true)
     // Wait for animation to complete
-    setTimeout(onClose, 250)
+    setTimeout(() => {
+      setIsClosing(false)
+      onClose()
+    }, 250)
   }, [onClose])
 
   // Handle backdrop click
@@ -260,7 +262,7 @@ function BottomSheet({
 
   const content = (
     <div
-      className={`bottom-sheet-backdrop ${isVisible ? 'bottom-sheet-backdrop--visible' : ''}`}
+      className={`bottom-sheet-backdrop ${isClosing ? 'bottom-sheet-backdrop--closing' : 'bottom-sheet-backdrop--entering'}`}
       onClick={handleBackdropClick}
       aria-hidden="true"
     >
@@ -269,7 +271,7 @@ function BottomSheet({
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className={`bottom-sheet ${isVisible ? 'bottom-sheet--visible' : ''} ${className}`}
+        className={`bottom-sheet ${isClosing ? 'bottom-sheet--closing' : 'bottom-sheet--entering'} ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drag handle */}
@@ -303,17 +305,31 @@ function BottomSheet({
           inset: 0;
           background: hsla(0, 0%, 0%, 0.4);
           z-index: var(--z-modal-backdrop, 400);
-          opacity: 0;
-          transition: opacity 250ms ease-out;
         }
 
-        .bottom-sheet-backdrop--visible {
-          opacity: 1;
+        .bottom-sheet-backdrop--entering {
+          animation: backdropEnter 250ms ease-out forwards;
+        }
+
+        .bottom-sheet-backdrop--closing {
+          animation: backdropExit 250ms ease-out forwards;
+        }
+
+        @keyframes backdropEnter {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes backdropExit {
+          from { opacity: 1; }
+          to { opacity: 0; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .bottom-sheet-backdrop {
-            transition: none;
+          .bottom-sheet-backdrop--entering,
+          .bottom-sheet-backdrop--closing {
+            animation: none;
+            opacity: 1;
           }
         }
 
@@ -329,22 +345,32 @@ function BottomSheet({
           z-index: var(--z-modal, 500);
           display: flex;
           flex-direction: column;
-          transform: translateY(100%);
-          transition: transform 250ms ease-out;
           box-shadow: 0 -4px 20px hsla(0, 0%, 0%, 0.15);
         }
 
-        .bottom-sheet--visible {
-          transform: translateY(0);
+        .bottom-sheet--entering {
+          animation: sheetEnter 250ms ease-out forwards;
+        }
+
+        .bottom-sheet--closing {
+          animation: sheetExit 250ms ease-out forwards;
+        }
+
+        @keyframes sheetEnter {
+          from { transform: translateY(100%); }
+          to { transform: translateY(0); }
+        }
+
+        @keyframes sheetExit {
+          from { transform: translateY(0); }
+          to { transform: translateY(100%); }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .bottom-sheet {
-            transition: none;
-            transform: none;
-          }
-          .bottom-sheet:not(.bottom-sheet--visible) {
-            display: none;
+          .bottom-sheet--entering,
+          .bottom-sheet--closing {
+            animation: none;
+            transform: translateY(0);
           }
         }
 

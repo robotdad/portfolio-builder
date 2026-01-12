@@ -196,11 +196,21 @@ export function FeaturedCarousel({
   // Limit to 6 projects max
   const displayProjects = projects.slice(0, 6)
 
+  // Initialize prefersReducedMotion with SSR-safe default
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  })
+
   // State
   const [currentIndex, setCurrentIndex] = useState(0)
   const [previousIndex, setPreviousIndex] = useState<number | null>(null)
-  const [isPlaying, setIsPlaying] = useState(autoRotate)
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  // Initialize isPlaying based on autoRotate and reduced motion preference
+  const [isPlaying, setIsPlaying] = useState(() => {
+    if (typeof window === 'undefined') return autoRotate
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    return autoRotate && !reducedMotion
+  })
   const [isManualInteraction, setIsManualInteraction] = useState(false)
   const [transitionDuration, setTransitionDuration] = useState(800) // Auto transition
   const [userPaused, setUserPaused] = useState(false) // WCAG 2.2.2: Track explicit user pause
@@ -210,8 +220,8 @@ export function FeaturedCarousel({
   const [touchEnd, setTouchEnd] = useState<number | null>(null)
 
   // Refs
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
 
   const minSwipeDistance = 50
@@ -219,13 +229,12 @@ export function FeaturedCarousel({
   const manualResumeDelay = 10000
 
   // ==========================================================================
-  // REDUCED MOTION CHECK
+  // REDUCED MOTION CHECK - Subscribe to changes only
   // ==========================================================================
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
-
+    
     const handleChange = (e: MediaQueryListEvent) => {
       setPrefersReducedMotion(e.matches)
       if (e.matches) {
@@ -236,13 +245,6 @@ export function FeaturedCarousel({
     mediaQuery.addEventListener('change', handleChange)
     return () => mediaQuery.removeEventListener('change', handleChange)
   }, [])
-
-  // Disable auto-rotation if reduced motion is preferred
-  useEffect(() => {
-    if (prefersReducedMotion && isPlaying) {
-      setIsPlaying(false)
-    }
-  }, [prefersReducedMotion, isPlaying])
 
   // ==========================================================================
   // NAVIGATION FUNCTIONS

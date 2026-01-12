@@ -201,22 +201,13 @@ export function PageSettingsModal({
   onSave,
   existingSlugs,
 }: PageSettingsModalProps) {
-  const [title, setTitle] = useState(page?.title || '')
-  const [slug, setSlug] = useState(page?.slug || '')
-  const [isHomepage, setIsHomepage] = useState(page?.isHomepage || false)
-  const [showInNav, setShowInNav] = useState(page?.showInNav !== false)
+  // Use lazy initialization - state initializes from page prop
+  // Parent should pass key={page?.id || 'new'} to reset state when page changes
+  const [title, setTitle] = useState(() => page?.title || '')
+  const [slug, setSlug] = useState(() => page?.slug || '')
+  const [isHomepage, setIsHomepage] = useState(() => page?.isHomepage || false)
+  const [showInNav, setShowInNav] = useState(() => page?.showInNav !== false)
   const [error, setError] = useState<string | null>(null)
-
-  // Reset form when modal opens or page changes
-  useEffect(() => {
-    if (isOpen) {
-      setTitle(page?.title || '')
-      setSlug(page?.slug || '')
-      setIsHomepage(page?.isHomepage || false)
-      setShowInNav(page?.showInNav !== false)
-      setError(null)
-    }
-  }, [isOpen, page])
 
   // Auto-generate slug from title (only for new pages)
   const handleTitleChange = (newTitle: string) => {

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useId } from 'react'
+import Image from 'next/image'
 import { ImagePicker } from '@/components/shared/ImagePicker'
 import type { SiteImage } from '@/lib/types/image-picker'
 import styles from './FeaturedImagePicker.module.css'
@@ -184,10 +185,13 @@ export function FeaturedImagePicker({
         {currentImage ? (
           <div className={styles.imageSelected}>
             <div className={styles.imagePreviewContainer}>
-              <img
+              <Image
                 src={currentImage.thumbnailUrl || currentImage.url}
                 alt={currentImage.altText || 'Featured image preview'}
                 className={styles.imagePreview}
+                fill
+                unoptimized
+                style={{ objectFit: 'cover' }}
               />
               {uploading && (
                 <div className={styles.uploadOverlay} aria-live="polite">

@@ -124,23 +124,25 @@ export default function PortfolioPage() {
     checkPortfolio()
   }, [router])
 
-  // Form state - initialize from persisted state
-  const [form, setForm] = useState<FormState>({
-    name: '',
-    slug: '',
-  })
+  // Form state - initialize from persisted state using lazy initialization
+  const [form, setForm] = useState<FormState>(() => ({
+    name: state.portfolioName || '',
+    slug: state.portfolioSlug || '',
+  }))
 
-  // Optional fields state
-  const [title, setTitle] = useState('')
-  const [bio, setBio] = useState('')
-  const [photoPreview, setPhotoPreview] = useState<string>('')
-  const [photoFile, setPhotoFile] = useState<File | null>(null)
+  // Optional fields state - initialize from persisted state
+  const [title, setTitle] = useState(() => state.portfolioTitle || '')
+  const [bio, setBio] = useState(() => state.portfolioBio || '')
+  const [photoPreview, setPhotoPreview] = useState<string>(() => state.profilePhotoPreview || '')
+  const [photoFile, setPhotoFile] = useState<File | null>(() => state.profilePhotoFile || null)
 
-  // Collapsible section state
-  const [isExpanded, setIsExpanded] = useState(false)
+  // Collapsible section state - auto-expand if any optional fields have data
+  const [isExpanded, setIsExpanded] = useState(() => 
+    !!(state.portfolioTitle || state.portfolioBio || state.profilePhotoPreview)
+  )
 
-  // Track if slug has been manually edited
-  const [slugManuallyEdited, setSlugManuallyEdited] = useState(false)
+  // Track if slug has been manually edited - true if persisted slug exists
+  const [slugManuallyEdited, setSlugManuallyEdited] = useState(() => !!state.portfolioSlug)
 
   // Track which fields have been touched (for validation display)
   const [touched, setTouched] = useState<TouchedState>({
@@ -153,37 +155,6 @@ export default function PortfolioPage() {
     name: null,
     slug: null,
   })
-
-  // Initialize form from persisted state on mount
-  useEffect(() => {
-    if (state.portfolioName || state.portfolioSlug) {
-      setForm({
-        name: state.portfolioName,
-        slug: state.portfolioSlug,
-      })
-      // If slug exists, assume it was manually edited or confirmed
-      if (state.portfolioSlug) {
-        setSlugManuallyEdited(true)
-      }
-    }
-    // Initialize optional fields from state
-    if (state.portfolioTitle) {
-      setTitle(state.portfolioTitle)
-    }
-    if (state.portfolioBio) {
-      setBio(state.portfolioBio)
-    }
-    if (state.profilePhotoPreview) {
-      setPhotoPreview(state.profilePhotoPreview)
-    }
-    if (state.profilePhotoFile) {
-      setPhotoFile(state.profilePhotoFile)
-    }
-    // Auto-expand if any optional fields have data
-    if (state.portfolioTitle || state.portfolioBio || state.profilePhotoPreview) {
-      setIsExpanded(true)
-    }
-  }, [state.portfolioName, state.portfolioSlug, state.portfolioTitle, state.portfolioBio, state.profilePhotoPreview, state.profilePhotoFile])
 
   // Handle name change - auto-generate slug if not manually edited
   const handleNameChange = useCallback((value: string) => {

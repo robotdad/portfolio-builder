@@ -29,7 +29,10 @@ type ThemeId = 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 export default function ThemeSelectionPage() {
   const router = useRouter()
   const { state, updateState, completeStep } = useOnboardingState()
-  const [selectedTheme, setSelectedTheme] = useState<ThemeId>('modern-minimal')
+  // Initialize from persisted state using lazy initialization (no setState in effect)
+  const [selectedTheme, setSelectedTheme] = useState<ThemeId>(() => 
+    state.selectedTheme || 'modern-minimal'
+  )
 
   // Portfolio existence check - redirect if already onboarded
   const [isChecking, setIsChecking] = useState(true)
@@ -51,13 +54,6 @@ export default function ThemeSelectionPage() {
     }
     checkPortfolio()
   }, [router])
-
-  // Initialize from persisted state once loaded
-  useEffect(() => {
-    if (state.selectedTheme) {
-      setSelectedTheme(state.selectedTheme)
-    }
-  }, [state.selectedTheme])
 
   const handleThemeSelect = (themeId: ThemeId) => {
     setSelectedTheme(themeId)

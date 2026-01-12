@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback } from 'react'
+import Image from 'next/image'
 import type { FeaturedCarouselSection, FeaturedWorkItem } from '@/lib/content-schema'
 import { createFeaturedWorkItem } from '@/lib/content-schema'
 import { useImageUpload } from '@/hooks/useImageUpload'
@@ -237,7 +238,7 @@ function CarouselItemEditor({
   const previousImageRef = useRef<string | undefined>(item.imageUrl ?? undefined)
 
   // Use the optimistic upload hook
-  const { uploadFile, isUploading, progress, error, retry, clearError } = useImageUpload({
+  const { uploadFile, isUploading, progress, error, retry } = useImageUpload({
     portfolioId,
     context: 'featured',
     currentImageUrl: item.imageUrl ?? undefined,
@@ -373,11 +374,15 @@ function CarouselItemEditor({
             {item.title || 'Untitled slide'}
           </span>
           {displayImage && (
-            <img
-              src={displayImage}
-              alt=""
-              className="featured-item-preview-thumb"
-            />
+            <div className="featured-item-preview-thumb" style={{ position: 'relative', width: 32, height: 32 }}>
+              <Image
+                src={displayImage}
+                alt=""
+                fill
+                unoptimized
+                style={{ objectFit: 'cover', borderRadius: 4 }}
+              />
+            </div>
           )}
         </button>
         <button
@@ -415,7 +420,7 @@ function CarouselItemEditor({
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
               >
-                <img src={displayImage} alt={item.title || 'Preview'} />
+                <Image src={displayImage} alt={item.title || 'Preview'} fill unoptimized style={{ objectFit: 'cover' }} />
                 
                 {/* Upload progress overlay */}
                 {isUploading && (

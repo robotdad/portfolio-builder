@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import {
   DndContext,
   closestCenter,
@@ -124,11 +125,14 @@ function SortableThumbnail({
       {...attributes}
       {...listeners}
     >
-      <img
+      <Image
         src={image.thumbnailUrl}
         alt={image.altText || `Gallery image ${position}`}
         className="thumbnail-image"
+        fill
+        unoptimized
         draggable={false}
+        style={{ objectFit: 'cover' }}
       />
       <div className="thumbnail-overlay">
         <button
@@ -254,11 +258,14 @@ interface ThumbnailOverlayProps {
 function ThumbnailOverlay({ image }: ThumbnailOverlayProps) {
   return (
     <div className="overlay-thumbnail">
-      <img
+      <Image
         src={image.thumbnailUrl}
         alt={image.altText || 'Dragging image'}
         className="overlay-image"
+        fill
+        unoptimized
         draggable={false}
+        style={{ objectFit: 'cover' }}
       />
 
       <style jsx>{`

@@ -96,63 +96,71 @@ interface UseOnboardingStateReturn {
  * reset();
  * ```
  */
-export function useOnboardingState(): UseOnboardingStateReturn {
-  // Use ref to track if we've initialized from storage
-  const isInitializedRef = useRef(false)
+// Helper to load state from sessionStorage (handles migration)
+function loadStateFromStorage(): OnboardingState {
+  if (typeof window === 'undefined') return DEFAULT_STATE
 
-  // Initialize state - will be hydrated from sessionStorage in useEffect
-  const [state, setState] = useState<OnboardingState>(DEFAULT_STATE)
+  try {
+    // Try to load from new storage key first
+    let stored = sessionStorage.getItem(STORAGE_KEY)
+    
+    // Migrate from legacy key if new key doesn't exist
+    if (!stored) {
+      const legacyStored = sessionStorage.getItem(LEGACY_STORAGE_KEY)
+      if (legacyStored) {
+        // Migrate legacy data - add new fields with defaults
+        const legacyParsed = JSON.parse(legacyStored)
+        const migrated: SerializableState = {
+          ...DEFAULT_STATE,
+          ...legacyParsed,
+          // Ensure new fields have defaults if missing
+          portfolioTitle: legacyParsed.portfolioTitle ?? '',
+          portfolioBio: legacyParsed.portfolioBio ?? '',
+          profilePhotoPreview: legacyParsed.profilePhotoPreview ?? '',
+        }
+        // Save migrated data to new key
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(migrated))
+        // Remove legacy key
+        sessionStorage.removeItem(LEGACY_STORAGE_KEY)
+        stored = JSON.stringify(migrated)
+      }
+    }
+
+    if (stored) {
+      const parsed = JSON.parse(stored) as SerializableState
+      // Merge with defaults to ensure all fields exist, add non-serializable fields
+      return {
+        ...DEFAULT_STATE,
+        ...parsed,
+        profilePhotoFile: null, // File objects can't be restored from storage
+      }
+    }
+  } catch (error) {
+    console.error('Failed to load onboarding state from sessionStorage:', error)
+  }
+  
+  return DEFAULT_STATE
+}
+
+export function useOnboardingState(): UseOnboardingStateReturn {
+  // Initialize state with lazy initialization from sessionStorage
+  // This avoids setState in useEffect for hydration
+  const [state, setState] = useState<OnboardingState>(() => loadStateFromStorage())
 
   // Ref to always have access to current state (for getState callback)
   const stateRef = useRef<OnboardingState>(state)
-  stateRef.current = state
+  
+  // Track initialization to avoid saving on first render
+  const isInitializedRef = useRef(false)
 
-  // Load state from sessionStorage on mount (client-side only)
+  // Keep ref in sync with state (must be in useEffect, not during render)
   useEffect(() => {
-    if (isInitializedRef.current) return
+    stateRef.current = state
+  }, [state])
+
+  // Mark as initialized after mount to enable sessionStorage saves
+  useEffect(() => {
     isInitializedRef.current = true
-
-    if (typeof window === 'undefined') return
-
-    try {
-      // Try to load from new storage key first
-      let stored = sessionStorage.getItem(STORAGE_KEY)
-      
-      // Migrate from legacy key if new key doesn't exist
-      if (!stored) {
-        const legacyStored = sessionStorage.getItem(LEGACY_STORAGE_KEY)
-        if (legacyStored) {
-          // Migrate legacy data - add new fields with defaults
-          const legacyParsed = JSON.parse(legacyStored)
-          const migrated: SerializableState = {
-            ...DEFAULT_STATE,
-            ...legacyParsed,
-            // Ensure new fields have defaults if missing
-            portfolioTitle: legacyParsed.portfolioTitle ?? '',
-            portfolioBio: legacyParsed.portfolioBio ?? '',
-            profilePhotoPreview: legacyParsed.profilePhotoPreview ?? '',
-          }
-          // Save migrated data to new key
-          sessionStorage.setItem(STORAGE_KEY, JSON.stringify(migrated))
-          // Remove legacy key
-          sessionStorage.removeItem(LEGACY_STORAGE_KEY)
-          stored = JSON.stringify(migrated)
-        }
-      }
-
-      if (stored) {
-        const parsed = JSON.parse(stored) as SerializableState
-        // Merge with defaults to ensure all fields exist, add non-serializable fields
-        setState({
-          ...DEFAULT_STATE,
-          ...parsed,
-          profilePhotoFile: null, // File objects can't be restored from storage
-        })
-      }
-    } catch (error) {
-      console.error('Failed to load onboarding state from sessionStorage:', error)
-      // Continue with default state
-    }
   }, [])
 
   // Save to sessionStorage whenever state changes (after initialization)

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useSyncExternalStore } from 'react'
 import { Popover, PopoverItem } from '@/components/shared/Popover'
 import { BottomSheet, BottomSheetItem } from '@/components/shared/BottomSheet'
 import { 
@@ -16,6 +16,23 @@ import {
 } from '@/lib/content-schema'
 import styles from './AddSectionButton.module.css'
 
+// Media query subscription for useSyncExternalStore
+const mobileQuery = '(max-width: 767px)'
+
+function subscribeMobileQuery(callback: () => void) {
+  const mediaQuery = window.matchMedia(mobileQuery)
+  mediaQuery.addEventListener('change', callback)
+  return () => mediaQuery.removeEventListener('change', callback)
+}
+
+function getIsMobile() {
+  return window.matchMedia(mobileQuery).matches
+}
+
+function getServerIsMobile() {
+  return false // SSR default
+}
+
 interface AddSectionButtonProps {
   onAdd: (section: Section) => void
   hasHeroSection?: boolean
@@ -23,18 +40,10 @@ interface AddSectionButtonProps {
 
 export function AddSectionButton({ onAdd, hasHeroSection = false }: AddSectionButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  // Detect mobile viewport
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)')
-    setIsMobile(mediaQuery.matches)
-
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
-    mediaQuery.addEventListener('change', handler)
-    return () => mediaQuery.removeEventListener('change', handler)
-  }, [])
+  // Detect mobile viewport using useSyncExternalStore (no setState in effect)
+  const isMobile = useSyncExternalStore(subscribeMobileQuery, getIsMobile, getServerIsMobile)
 
   const handleAddSection = (type: SectionType) => {
     let section: Section

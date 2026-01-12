@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 export type SaveStatus = 'idle' | 'saving' | 'saved' | 'error'
 
@@ -20,24 +20,29 @@ interface SaveIndicatorProps {
  * - Auto-hides after successful save
  */
 export function SaveIndicator({ status, errorMessage }: SaveIndicatorProps) {
-  const [visible, setVisible] = useState(false)
+  // Track if we've shown the indicator (for auto-hide on 'saved')
+  const hasShownRef = useRef(false)
+  const indicatorRef = useRef<HTMLDivElement>(null)
 
-  // Show indicator when status changes from idle
+  // Mark as shown when status is not idle
+  if (status !== 'idle') {
+    hasShownRef.current = true
+  }
+
+  // Auto-hide via CSS animation after successful save (no setState)
   useEffect(() => {
-    if (status !== 'idle') {
-      setVisible(true)
-    }
-
-    // Auto-hide after successful save
-    if (status === 'saved') {
+    if (status === 'saved' && indicatorRef.current) {
       const timer = setTimeout(() => {
-        setVisible(false)
+        indicatorRef.current?.classList.add('save-indicator--hiding')
       }, 2000)
       return () => clearTimeout(timer)
     }
   }, [status])
 
-  if (!visible && status === 'idle') {
+  // Derive visibility from status and ref (no useState needed)
+  const visible = status !== 'idle' || hasShownRef.current
+
+  if (!visible) {
     return null
   }
 
@@ -104,6 +109,7 @@ export function SaveIndicator({ status, errorMessage }: SaveIndicatorProps) {
 
   return (
     <div 
+      ref={indicatorRef}
       className={`save-indicator ${status}`}
       role="status"
       aria-live="polite"

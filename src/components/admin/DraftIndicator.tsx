@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 
 export type DraftStatus = 'draft' | 'published' | 'saving' | 'saved' | 'error'
 
@@ -28,13 +28,20 @@ export function DraftIndicator({
   hasUnpublishedChanges,
   className = '' 
 }: DraftIndicatorProps) {
-  const [isAnimating, setIsAnimating] = useState(false)
+  // Use ref to track previous status for animation (no state needed)
+  const prevStatusRef = useRef(status)
+  const indicatorRef = useRef<HTMLDivElement>(null)
 
-  // Trigger animation on status change
+  // Trigger CSS animation on status change via class manipulation (no setState)
   useEffect(() => {
-    setIsAnimating(true)
-    const timer = setTimeout(() => setIsAnimating(false), 200)
-    return () => clearTimeout(timer)
+    if (prevStatusRef.current !== status && indicatorRef.current) {
+      indicatorRef.current.classList.add('draft-indicator--animating')
+      const timer = setTimeout(() => {
+        indicatorRef.current?.classList.remove('draft-indicator--animating')
+      }, 200)
+      prevStatusRef.current = status
+      return () => clearTimeout(timer)
+    }
   }, [status])
 
   const getStatusConfig = () => {
@@ -107,7 +114,8 @@ export function DraftIndicator({
 
   return (
     <div 
-      className={`draft-indicator ${config.className} ${isAnimating ? 'draft-indicator--animating' : ''} ${className}`}
+      ref={indicatorRef}
+      className={`draft-indicator ${config.className} ${className}`}
       role="status"
       aria-live="polite"
     >
