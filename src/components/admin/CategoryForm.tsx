@@ -187,7 +187,7 @@ export function CategoryForm({
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="category-form" noValidate>
+      <form onSubmit={handleSubmit} className="category-form" noValidate data-testid="category-form">
         {/* Name Field */}
         <div className="form-group">
           <label htmlFor={nameId} className="form-label">
@@ -206,6 +206,7 @@ export function CategoryForm({
             aria-invalid={errors.name ? 'true' : 'false'}
             aria-describedby={errors.name ? nameErrorId : undefined}
             autoFocus
+            data-testid="category-form-name-input"
           />
           {errors.name && (
             <p id={nameErrorId} className="form-error" role="alert">
@@ -230,6 +231,7 @@ export function CategoryForm({
             rows={3}
             aria-invalid={errors.description ? 'true' : 'false'}
             aria-describedby={errors.description ? descriptionErrorId : undefined}
+            data-testid="category-form-description-input"
           />
           <div className="form-field-footer">
             {errors.description ? (
@@ -288,6 +290,7 @@ export function CategoryForm({
               className="image-select-btn"
               onClick={() => setShowImagePicker(true)}
               disabled={isSubmitting}
+              data-testid="category-form-image-picker"
             >
               <svg
                 width="24"
@@ -317,6 +320,7 @@ export function CategoryForm({
             className="btn btn-secondary"
             onClick={onCancel}
             disabled={isSubmitting}
+            data-testid="category-form-cancel-btn"
           >
             Cancel
           </button>
@@ -324,6 +328,7 @@ export function CategoryForm({
             type="submit"
             className="btn btn-primary"
             disabled={isSubmitting}
+            data-testid="category-form-submit-btn"
           >
             {isSubmitting ? (
               <>

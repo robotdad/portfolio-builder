@@ -109,6 +109,7 @@ export function MobileDrawer({ isOpen, onClose, children }: MobileDrawerProps) {
         ref={drawerRef}
         id="mobile-drawer"
         className="mobile-drawer"
+        data-testid="mobile-drawer"
         role="dialog"
         aria-modal="true"
         aria-hidden={!isOpen}

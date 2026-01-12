@@ -122,6 +122,7 @@ function SortableThumbnail({
       style={style}
       className={`thumbnail-item ${isDragging ? 'thumbnail-item--dragging' : ''}`}
       aria-label={`Image ${position} of gallery`}
+      data-testid={`gallery-image-${position - 1}`}
       {...attributes}
       {...listeners}
     >
@@ -144,6 +145,7 @@ function SortableThumbnail({
           }}
           aria-label={`Remove image ${position}`}
           disabled={disabled}
+          data-testid="gallery-image-remove-btn"
         >
           <CloseIcon />
         </button>
@@ -314,6 +316,7 @@ function AddImageButton({ onClick, disabled }: AddImageButtonProps) {
       onClick={onClick}
       disabled={disabled}
       aria-label="Add image to gallery"
+      data-testid="gallery-add-btn"
     >
       <PlusIcon />
       <span className="add-text">Add</span>
@@ -450,7 +453,7 @@ export function GalleryImageGrid({
   // Empty state - just show add button
   if (images.length === 0) {
     return (
-      <div className="gallery-grid-container">
+      <div className="gallery-grid-container" data-testid="gallery-image-grid">
         <div className="gallery-grid">
           <AddImageButton onClick={onAdd} disabled={disabled} />
         </div>
@@ -490,7 +493,7 @@ export function GalleryImageGrid({
   }
 
   return (
-    <div className="gallery-grid-container">
+    <div className="gallery-grid-container" data-testid="gallery-image-grid">
       {/* Screen reader announcements */}
       <div
         role="status"

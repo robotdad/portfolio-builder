@@ -170,7 +170,7 @@ export function FeaturedImagePicker({
 
   return (
     <>
-      <div className={styles.featuredImagePicker}>
+      <div className={styles.featuredImagePicker} data-testid="featured-image-picker">
         <input
           ref={fileInputRef}
           type="file"
@@ -180,6 +180,7 @@ export function FeaturedImagePicker({
           className={styles.srOnly}
           aria-label="Select image file"
           disabled={isDisabled}
+          data-testid="featured-image-input"
         />
 
         {currentImage ? (
@@ -210,6 +211,7 @@ export function FeaturedImagePicker({
               onClick={handleRemove}
               disabled={isDisabled}
               aria-label="Remove featured image"
+              data-testid="featured-image-remove-btn"
             >
               Remove
             </button>
@@ -220,6 +222,7 @@ export function FeaturedImagePicker({
                 className={`btn btn-primary ${styles.actionBtn}`}
                 onClick={handleDropzoneClick}
                 disabled={isDisabled}
+                data-testid="featured-image-replace-btn"
               >
                 <CameraIcon />
                 <span>Replace Image</span>
@@ -229,6 +232,7 @@ export function FeaturedImagePicker({
                 className={`btn btn-secondary ${styles.actionBtn}`}
                 onClick={() => setShowImagePicker(true)}
                 disabled={isDisabled}
+                data-testid="featured-image-gallery-btn"
               >
                 <GalleryIcon />
                 <span>Choose from Gallery</span>
@@ -255,6 +259,7 @@ export function FeaturedImagePicker({
               onDrop={handleDrop}
               aria-label={`Add featured image${required ? ' (required)' : ''}`}
               aria-describedby={error ? `${dropzoneId}-error` : undefined}
+              data-testid="featured-image-dropzone"
             >
               {uploading ? (
                 <div className={styles.uploadingState} aria-live="polite">
@@ -282,6 +287,7 @@ export function FeaturedImagePicker({
               className={`btn btn-secondary ${styles.galleryBtn}`}
               onClick={() => setShowImagePicker(true)}
               disabled={isDisabled}
+              data-testid="featured-image-gallery-btn"
             >
               <GalleryIcon />
               <span>Choose from Gallery</span>

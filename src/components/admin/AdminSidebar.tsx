@@ -19,7 +19,7 @@ export interface AdminSidebarProps {
 export function AdminSidebar({ className = '' }: AdminSidebarProps) {
   return (
     <>
-      <aside className={`admin-sidebar ${className}`}>
+      <aside className={`admin-sidebar ${className}`} data-testid="admin-sidebar">
         <NavigationTree />
       </aside>
       <style jsx>{`

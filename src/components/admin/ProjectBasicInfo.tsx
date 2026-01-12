@@ -133,6 +133,7 @@ export function ProjectBasicInfo({
         maxLength={MAX_TITLE_LENGTH}
         showCharCount
         required
+        inputProps={{ 'data-testid': 'project-form-title-input' }}
       />
 
       {!titleOnly && (
@@ -147,6 +148,7 @@ export function ProjectBasicInfo({
             touched={touched.year ?? false}
             placeholder="e.g., 2024"
             maxLength={MAX_YEAR_LENGTH}
+            inputProps={{ 'data-testid': 'project-form-year-input' }}
           />
 
           <FormField
@@ -159,6 +161,7 @@ export function ProjectBasicInfo({
             touched={touched.venue ?? false}
             placeholder="e.g., National Theatre"
             maxLength={MAX_VENUE_LENGTH}
+            inputProps={{ 'data-testid': 'project-form-venue-input' }}
           />
 
           <FormField
@@ -171,6 +174,7 @@ export function ProjectBasicInfo({
             touched={touched.role ?? false}
             placeholder="e.g., Director, Lead Designer"
             maxLength={MAX_ROLE_LENGTH}
+            inputProps={{ 'data-testid': 'project-form-role-input' }}
           />
         </>
       )}

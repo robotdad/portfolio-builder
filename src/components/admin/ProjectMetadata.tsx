@@ -30,6 +30,7 @@ export function ProjectMetadata({
             id={checkboxId}
             checked={isFeatured}
             onChange={(e) => onFeaturedChange(e.target.checked)}
+            data-testid="project-form-featured-checkbox"
           />
           <span>Feature on homepage</span>
         </label>

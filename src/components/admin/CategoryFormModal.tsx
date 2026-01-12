@@ -133,6 +133,7 @@ export function CategoryFormModal({
       className={`category-modal-backdrop ${isClosing ? 'closing' : 'entering'}`}
       onClick={handleBackdropClick}
       aria-hidden={!isOpen}
+      data-testid="category-modal-overlay"
     >
       <div
         ref={modalRef}
@@ -140,9 +141,10 @@ export function CategoryFormModal({
         role="dialog"
         aria-modal="true"
         aria-label={title}
+        data-testid="category-modal"
       >
         {/* Header */}
-        <div className="category-modal-header">
+        <div className="category-modal-header" data-testid="category-modal-header">
           {/* Back button for mobile */}
           <button
             type="button"
@@ -150,6 +152,7 @@ export function CategoryFormModal({
             onClick={handleClose}
             disabled={isSubmitting}
             aria-label="Close"
+            data-testid="category-modal-back-btn"
           >
             <svg
               width="24"
@@ -174,6 +177,7 @@ export function CategoryFormModal({
             onClick={handleClose}
             disabled={isSubmitting}
             aria-label="Close"
+            data-testid="category-modal-close-btn"
           >
             <svg
               width="20"

@@ -31,6 +31,7 @@ export function HamburgerButton({ isOpen, onClick, className = '' }: HamburgerBu
       aria-controls="mobile-drawer"
       aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
       className={className}
+      data-testid="hamburger-btn"
     >
       <svg
         width="24"

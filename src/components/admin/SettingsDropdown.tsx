@@ -179,6 +179,7 @@ function SettingsForm({
             onBlur={onFieldBlur}
             placeholder="My Portfolio"
             maxLength={100}
+            data-testid="settings-name-input"
           />
         </div>
       )}
@@ -205,6 +206,7 @@ function SettingsForm({
             pattern="[a-z0-9-]+"
             aria-describedby={slugError ? 'slug-error' : undefined}
             aria-invalid={!!slugError}
+            data-testid="settings-slug-input"
           />
         </div>
         {slugError && (
@@ -215,7 +217,7 @@ function SettingsForm({
       </div>
 
       {/* Theme selector */}
-      <div className="settings-field settings-field--theme">
+      <div className="settings-field settings-field--theme" data-testid="settings-theme-selector">
         <ThemeSelector
           value={theme}
           onChange={handleThemeChange}
@@ -223,7 +225,7 @@ function SettingsForm({
       </div>
 
       {/* Template selector */}
-      <div className="settings-field settings-field--template">
+      <div className="settings-field settings-field--template" data-testid="settings-template-selector">
         <TemplateSelector
           value={template}
           onChange={handleTemplateChange}
@@ -587,6 +589,7 @@ function DesktopDropdown({
       aria-modal="true"
       data-position={placement}
       className={`settings-dropdown ${isClosing ? 'settings-dropdown--closing' : 'settings-dropdown--entering'}`}
+      data-testid="settings-dropdown"
       style={{
         ...style,
         width: 320,

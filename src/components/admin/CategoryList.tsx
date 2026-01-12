@@ -323,7 +323,7 @@ interface EmptyStateProps {
 
 function EmptyState({ onCreateClick }: EmptyStateProps) {
   return (
-    <div className="empty-state" role="status">
+    <div className="empty-state" role="status" data-testid="category-list-empty">
       <div className="empty-state-icon">
         <FolderIcon />
       </div>
@@ -335,6 +335,7 @@ function EmptyState({ onCreateClick }: EmptyStateProps) {
         type="button"
         className="empty-state-button"
         onClick={onCreateClick}
+        data-testid="category-list-empty-create-btn"
       >
         <PlusIcon />
         <span>Create First Category</span>
@@ -621,6 +622,7 @@ export function CategoryList({
           className="category-list-create-btn"
           onClick={onCreateClick}
           disabled={isReordering}
+          data-testid="category-list-create-btn"
         >
           <PlusIcon />
           <span>Create Category</span>
@@ -642,6 +644,7 @@ export function CategoryList({
             className="category-list-grid"
             role="list"
             aria-label="Draggable category list"
+            data-testid="category-list"
           >
             {categories.map((category) => (
               <div key={category.id} role="listitem">

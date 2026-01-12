@@ -149,6 +149,7 @@ export function ProjectFormModal({
       className={`project-modal-backdrop ${isClosing ? 'closing' : 'entering'}`}
       onClick={handleBackdropClick}
       aria-hidden={!isOpen}
+      data-testid="project-modal-overlay"
     >
       <div
         ref={modalRef}
@@ -156,9 +157,10 @@ export function ProjectFormModal({
         role="dialog"
         aria-modal="true"
         aria-label={title}
+        data-testid="project-modal"
       >
         {/* Header */}
-        <div className="project-modal-header">
+        <div className="project-modal-header" data-testid="project-modal-header">
           {/* Back button for mobile */}
           <button
             type="button"
@@ -166,6 +168,7 @@ export function ProjectFormModal({
             onClick={handleClose}
             disabled={isSubmitting}
             aria-label="Close"
+            data-testid="project-modal-back-btn"
           >
             <svg
               width="24"
@@ -190,6 +193,7 @@ export function ProjectFormModal({
             onClick={handleClose}
             disabled={isSubmitting}
             aria-label="Close"
+            data-testid="project-modal-close-btn"
           >
             <svg
               width="20"

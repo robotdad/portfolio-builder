@@ -62,6 +62,7 @@ export function ProjectFormActions({
         className="btn btn--secondary"
         onClick={onCancel}
         disabled={isSubmitting}
+        data-testid="project-form-cancel-btn"
       >
         Cancel
       </button>
@@ -70,6 +71,7 @@ export function ProjectFormActions({
         className="btn btn--primary"
         disabled={isSubmitting || hasErrors}
         aria-busy={isSubmitting}
+        data-testid="project-form-submit-btn"
       >
         {isSubmitting ? (
           <>

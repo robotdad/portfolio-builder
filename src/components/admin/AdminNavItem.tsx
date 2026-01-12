@@ -50,6 +50,7 @@ export interface AdminNavItemProps {
   href: string
   icon: keyof typeof navIcons
   isActive: boolean
+  testId?: string
 }
 
 /**
@@ -61,7 +62,7 @@ export interface AdminNavItemProps {
  * - Hover state
  * - 44px minimum height for touch targets
  */
-export function AdminNavItem({ label, href, icon, isActive }: AdminNavItemProps) {
+export function AdminNavItem({ label, href, icon, isActive, testId }: AdminNavItemProps) {
   const IconComponent = navIcons[icon] || DashboardIcon
   
   return (
@@ -71,6 +72,7 @@ export function AdminNavItem({ label, href, icon, isActive }: AdminNavItemProps)
           href={href}
           className={`admin-nav-link ${isActive ? 'admin-nav-link--active' : ''}`}
           aria-current={isActive ? 'page' : undefined}
+          data-testid={testId ?? `nav-item-${href.replace(/\//g, '-').replace(/^-/, '')}`}
         >
           <span className="admin-nav-icon">
             <IconComponent />

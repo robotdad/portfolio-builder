@@ -360,7 +360,7 @@ export function ProjectForm({
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="project-form" noValidate>
+      <form onSubmit={handleSubmit} className="project-form" noValidate data-testid="project-form">
         {/* Title field - always visible */}
         <ProjectBasicInfo
           values={{ title, year, venue, role }}

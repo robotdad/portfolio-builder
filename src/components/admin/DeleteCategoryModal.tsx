@@ -109,6 +109,7 @@ export function DeleteCategoryModal({
     <div
       className={`modal-overlay ${isClosing ? 'closing' : 'entering'}`}
       onClick={handleBackdropClick}
+      data-testid="delete-category-modal-overlay"
     >
       <div
         className={`modal-content delete-modal ${isClosing ? 'closing' : 'entering'}`}
@@ -116,6 +117,7 @@ export function DeleteCategoryModal({
         aria-modal="true"
         aria-labelledby="delete-modal-title"
         aria-describedby="delete-modal-description"
+        data-testid="delete-category-modal"
       >
         {/* Header */}
         <div className="modal-header">
@@ -126,6 +128,7 @@ export function DeleteCategoryModal({
             onClick={handleClose}
             disabled={isDeleting}
             aria-label="Close"
+            data-testid="delete-category-modal-close-btn"
           >
             <svg
               width="20"
@@ -164,6 +167,7 @@ export function DeleteCategoryModal({
               className="btn btn-secondary"
               onClick={handleClose}
               disabled={isDeleting}
+              data-testid="delete-category-modal-cancel-btn"
             >
               Cancel
             </button>
@@ -172,6 +176,7 @@ export function DeleteCategoryModal({
               className="btn btn-danger"
               onClick={onConfirm}
               disabled={isDeleting}
+              data-testid="delete-category-modal-confirm-btn"
             >
               {isDeleting ? (
                 <>

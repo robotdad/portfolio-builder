@@ -262,7 +262,7 @@ interface EmptyStateProps {
 
 function EmptyState({ categoryName, onCreateClick }: EmptyStateProps) {
   return (
-    <div className="empty-state" role="status">
+    <div className="empty-state" role="status" data-testid="project-list-empty">
       <div className="empty-state-icon">
         <FolderIcon />
       </div>
@@ -274,6 +274,7 @@ function EmptyState({ categoryName, onCreateClick }: EmptyStateProps) {
         type="button"
         className="empty-state-button"
         onClick={onCreateClick}
+        data-testid="project-list-empty-create-btn"
       >
         <PlusIcon />
         <span>Create First Project</span>
@@ -541,6 +542,7 @@ export function ProjectList({
           type="button"
           className="project-list-create-btn"
           onClick={onCreateClick}
+          data-testid="project-list-create-btn"
         >
           <PlusIcon />
           <span>Create Project</span>
@@ -562,6 +564,7 @@ export function ProjectList({
             className="project-grid"
             role="list"
             aria-label="Draggable project list"
+            data-testid="project-list"
           >
             {projects.map((project) => (
               <div key={project.id} role="listitem">

@@ -81,6 +81,7 @@ export function ProjectCard({
       href={`/admin/projects/${project.id}`}
       className="project-card-link"
       aria-label={`Edit project: ${project.title}`}
+      data-testid={`project-card-${project.id}`}
     >
       <Card variant="interactive" isDragging={isDragging}>
         {/* Image Section with Overlays */}
@@ -110,6 +111,7 @@ export function ProjectCard({
               size="sm"
               onClick={handleDelete}
               aria-label={`Delete ${project.title}`}
+              data-testid="project-card-delete-btn"
             >
               <TrashIcon />
             </Button>

@@ -148,6 +148,7 @@ export function CategoryListItem({
       role="button"
       tabIndex={0}
       aria-label={`View ${category.name} projects`}
+      data-testid={`category-item-${category.id}`}
     >
       {/* Drag Handle */}
       <div 
@@ -155,6 +156,7 @@ export function CategoryListItem({
         {...listeners} 
         {...attributes}
         onClick={(e) => e.stopPropagation()}
+        data-testid="category-item-drag-handle"
       >
         <DragHandleIcon />
       </div>
@@ -189,6 +191,7 @@ export function CategoryListItem({
           onClick={handleEdit}
           aria-label={`Edit ${category.name}`}
           type="button"
+          data-testid="category-item-edit-btn"
         >
           <EditIcon />
           <span className={styles.actionText}>Edit</span>
@@ -199,6 +202,7 @@ export function CategoryListItem({
           onClick={handleDelete}
           aria-label={`Delete ${category.name}`}
           type="button"
+          data-testid="category-item-delete-btn"
         >
           <TrashIcon />
           <span className={styles.actionText}>Delete</span>

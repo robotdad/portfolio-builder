@@ -181,6 +181,7 @@ export function ImagePicker({
         role="dialog"
         aria-modal="true"
         aria-label={title}
+        data-testid="image-picker-modal"
       >
         {/* Header */}
         <div className="image-picker-header">
@@ -320,6 +321,7 @@ export function ImagePicker({
             type="button"
             className="cancel-btn"
             onClick={handleClose}
+            data-testid="image-picker-cancel-btn"
           >
             Cancel
           </button>
@@ -328,6 +330,7 @@ export function ImagePicker({
             className="confirm-btn"
             onClick={handleConfirm}
             disabled={multiSelect ? selectedIds.length === 0 : !selectedImage}
+            data-testid="image-picker-select-btn"
           >
             {multiSelect 
               ? `Add ${selectedIds.length} Image${selectedIds.length !== 1 ? 's' : ''}`

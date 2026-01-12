@@ -67,6 +67,7 @@ export function ProjectDescription({
         showCharCount
         rows={6}
         hint="Describe the project, your role, and any notable achievements."
+        textareaProps={{ 'data-testid': 'project-form-description-input' }}
       />
       {isNearLimit && charCount > 0 && (
         <p className="project-description__warning">

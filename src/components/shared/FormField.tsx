@@ -29,7 +29,7 @@ interface TextFieldProps extends FormFieldBaseProps {
   placeholder?: string
   maxLength?: number
   showCharCount?: boolean
-  inputProps?: Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange' | 'onBlur'>
+  inputProps?: Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange' | 'onBlur'> & Record<`data-${string}`, string | undefined>
 }
 
 interface TextAreaFieldProps extends FormFieldBaseProps {
@@ -41,7 +41,7 @@ interface TextAreaFieldProps extends FormFieldBaseProps {
   maxLength?: number
   showCharCount?: boolean
   rows?: number
-  textareaProps?: Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'value' | 'onChange' | 'onBlur'>
+  textareaProps?: Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'value' | 'onChange' | 'onBlur'> & Record<`data-${string}`, string | undefined>
 }
 
 interface CustomFieldProps extends FormFieldBaseProps {

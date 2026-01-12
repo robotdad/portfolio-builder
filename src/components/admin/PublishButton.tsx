@@ -123,6 +123,7 @@ export function PublishButton({
       className={className}
       aria-disabled={isDisabled || isPublishing}
       title={!hasChangesToPublish ? 'No changes to publish' : 'Publish changes to live site'}
+      data-testid="publish-btn"
     >
       {label}
     </Button>

@@ -118,6 +118,7 @@ export function DeleteProjectModal({
     <div
       className={`delete-project-backdrop ${isClosing ? 'closing' : 'entering'}`}
       onClick={handleBackdropClick}
+      data-testid="delete-project-modal-overlay"
     >
       <div
         ref={modalRef}
@@ -126,6 +127,7 @@ export function DeleteProjectModal({
         aria-modal="true"
         aria-labelledby="delete-project-title"
         aria-describedby="delete-project-description"
+        data-testid="delete-project-modal"
       >
         {/* Warning Icon */}
         <div className="warning-icon" aria-hidden="true">
@@ -166,6 +168,7 @@ export function DeleteProjectModal({
             className="btn-cancel"
             onClick={handleClose}
             disabled={isDeleting}
+            data-testid="delete-project-modal-cancel-btn"
           >
             Cancel
           </button>
@@ -174,6 +177,7 @@ export function DeleteProjectModal({
             className="btn-delete"
             onClick={onConfirm}
             disabled={isDeleting}
+            data-testid="delete-project-modal-confirm-btn"
           >
             {isDeleting ? (
               <>
