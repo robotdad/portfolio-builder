@@ -103,7 +103,7 @@ await page.getByRole('button', { name: 'Save' }).waitFor({ state: 'enabled' });
 ### Selector Strategy
 
 - Use `data-testid` selectors - all interactive elements have them
-- See `tests/e2e/fixtures.ts` for centralized selector definitions
+- See `src/tests/e2e/fixtures.ts` for centralized selector definitions
 - File inputs are often hidden - use `page.locator('input[type="file"]').setInputFiles(path)`
 
 ---
@@ -190,7 +190,7 @@ npm run test:e2e:ui       # Playwright UI mode
 
 **Key conventions:**
 - All interactive elements have `data-testid` attributes
-- Selectors centralized in `tests/e2e/fixtures.ts`
+- Selectors centralized in `src/tests/e2e/fixtures.ts`
 - Use API population for setup, Playwright for UI verification
 - **Never commit screenshots** - use `ai_working/screenshots/` (gitignored)
 

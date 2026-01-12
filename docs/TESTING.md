@@ -60,11 +60,12 @@ The population script (`scripts/populate-persona-api.js`) uses the REST API dire
 ### Structure
 
 ```
-tests/
-├── e2e/
-│   ├── admin-workflow.spec.ts   # Admin CRUD operations
-│   └── fixtures.ts              # API client, selectors
-└── (legacy scripts in root)     # Ad-hoc exploration scripts
+src/
+├── playwright.config.ts       # E2E test configuration
+├── tests/
+│   └── e2e/
+│       ├── admin-workflow.spec.ts   # E2E test specs
+│       └── fixtures.ts              # API client, selectors
 ```
 
 ### Running Tests
@@ -98,7 +99,7 @@ test('should create category', async ({ page, api }) => {
 
 ### Available Selectors
 
-All interactive elements have `data-testid` attributes. See `tests/e2e/fixtures.ts` for the complete list, organized by component:
+All interactive elements have `data-testid` attributes. See `src/tests/e2e/fixtures.ts` for the complete list, organized by component:
 
 - **Navigation**: `admin-sidebar`, `hamburger-btn`, `nav-item-*`
 - **Categories**: `category-list`, `category-form-*`, `category-item-*`
@@ -179,7 +180,7 @@ npm run test:e2e
 ### Selectors not found
 
 1. Check the component has `data-testid` attribute
-2. Verify selector name in `tests/e2e/fixtures.ts`
+2. Verify selector name in `src/tests/e2e/fixtures.ts`
 3. Use Playwright UI mode to inspect the page
 
 ### Database state issues
@@ -210,6 +211,5 @@ await page.screenshot({ path: 'ai_working/screenshots/debug/carousel-bug.png' })
 ```
 
 **Do NOT put screenshots in:**
-- `tests/screenshots/` - Legacy location, gitignored but cluttered
 - Project root - Pollutes the workspace
-- `tests/` - Reserved for test specs and fixtures
+- `src/tests/` - Reserved for test specs and fixtures

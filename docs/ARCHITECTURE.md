@@ -46,7 +46,10 @@ src/
 │   ├── utils/            # Utility functions
 │   └── validations/      # Zod schemas
 ├── prisma/               # Database schema
-└── public/               # Static assets & uploads
+├── public/               # Static assets & uploads
+├── tests/                # Test infrastructure
+│   └── e2e/             # Playwright E2E tests
+└── playwright.config.ts  # Playwright configuration
 ```
 
 ---
