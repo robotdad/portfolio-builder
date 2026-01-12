@@ -3,11 +3,13 @@ import { defineConfig, devices } from '@playwright/test'
 /**
  * Playwright configuration for portfolio E2E tests
  * 
- * Test structure:
- * - tests/e2e/ - End-to-end test specs
- * - tests/fixtures/ - Test data and helpers
+ * This config lives in src/ alongside the Next.js app.
  * 
- * Usage:
+ * Test structure:
+ * - src/tests/e2e/ - End-to-end test specs
+ * - src/tests/fixtures/ - Test data and helpers
+ * 
+ * Usage (from src/):
  * - npm run test:e2e - Run all E2E tests
  * - npm run test:e2e:ui - Run with Playwright UI
  * - npm run test:populate - Populate test data via API
@@ -56,7 +58,7 @@ export default defineConfig({
 
   /* Run local dev server before starting the tests */
   webServer: {
-    command: 'cd src && npm run dev',
+    command: 'npm run dev',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
