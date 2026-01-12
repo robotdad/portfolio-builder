@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useId, useCallback } from 'react'
+import { useState, useId, useCallback } from 'react'
 import { FeaturedImagePicker, type FeaturedImage } from './FeaturedImagePicker'
 import { GalleryImageGrid, type GalleryImage } from './GalleryImageGrid'
 import { ImagePicker } from '@/components/shared/ImagePicker'

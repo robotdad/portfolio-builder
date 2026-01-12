@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useId } from 'react'
+import { useState, useId } from 'react'
 import Image from 'next/image'
 import { ImagePicker } from '@/components/shared/ImagePicker'
 import type { SiteImage } from '@/lib/types/image-picker'

@@ -10,32 +10,31 @@ interface LinkDialogProps {
 }
 
 export function LinkDialog({ editor, isOpen, onClose }: LinkDialogProps) {
-  // Initialize URL from editor when dialog opens using lazy init pattern
-  // The key prop pattern would be ideal but requires parent changes
-  const [url, setUrl] = useState(() => 
-    editor.getAttributes('link').href || ''
-  )
+  const [url, setUrl] = useState('')
+  const [wasOpen, setWasOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<Element | null>(null)
 
-  // Store the trigger element and sync URL when dialog opens
-  // URL sync moved to event handler pattern where possible
+  // Reset URL when dialog opens - React's documented "adjust state during render" pattern
+  // This runs synchronously during render when isOpen transitions from false to true
+  if (isOpen && !wasOpen) {
+    setWasOpen(true)
+    setUrl(editor.getAttributes('link').href || '')
+  }
+  if (!isOpen && wasOpen) {
+    setWasOpen(false)
+  }
+
+  // Handle side effects when dialog opens (focus, storing trigger element)
   useEffect(() => {
     if (isOpen) {
       // Store the currently focused element to return focus later
       triggerRef.current = document.activeElement
-      // Sync URL from editor - this is necessary because the editor state
-      // may have changed since component mount. Moving to event handler
-      // would require parent component changes.
-      const currentUrl = editor.getAttributes('link').href || ''
-      if (currentUrl !== url) {
-        setUrl(currentUrl)
-      }
       // Focus input after a brief delay to ensure dialog is rendered
       setTimeout(() => inputRef.current?.focus(), 10)
     }
-  }, [isOpen, editor, url])
+  }, [isOpen])
 
   // Return focus to trigger when closing
   const handleClose = useCallback(() => {

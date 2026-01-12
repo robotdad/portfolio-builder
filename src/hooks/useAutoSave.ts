@@ -101,11 +101,12 @@ export function useAutoSave({
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null)
   
   // Timer store for countdown (avoids setState in useEffect)
-  const timerStoreRef = useRef(createTimerStore())
+  // Using useState with lazy initializer for stable reference without ref access during render
+  const [timerStore] = useState(() => createTimerStore())
   const timeUntilSave = useSyncExternalStore(
-    timerStoreRef.current.subscribe,
-    timerStoreRef.current.getSnapshot,
-    timerStoreRef.current.getServerSnapshot
+    timerStore.subscribe,
+    timerStore.getSnapshot,
+    timerStore.getServerSnapshot
   )
   
   // Refs for tracking state across renders
@@ -165,10 +166,10 @@ export function useAutoSave({
       clearTimeout(saveTimeoutRef.current)
       saveTimeoutRef.current = null
     }
-    timerStoreRef.current.stopCountdown()
+    timerStore.stopCountdown()
     
     await performSave()
-  }, [performSave])
+  }, [performSave, timerStore])
 
   // Detect changes with debouncing
   useEffect(() => {
@@ -204,12 +205,12 @@ export function useAutoSave({
         clearTimeout(saveTimeoutRef.current)
         saveTimeoutRef.current = null
       }
-      timerStoreRef.current.stopCountdown()
+      timerStore.stopCountdown()
       return
     }
 
     // Start countdown using the timer store (no setState in effect)
-    timerStoreRef.current.startCountdown(interval)
+    timerStore.startCountdown(interval)
 
     // Actual save timer
     saveTimeoutRef.current = setTimeout(() => {
@@ -220,14 +221,13 @@ export function useAutoSave({
       if (saveTimeoutRef.current) {
         clearTimeout(saveTimeoutRef.current)
       }
-      timerStoreRef.current.stopCountdown()
+      timerStore.stopCountdown()
     }
-  }, [enabled, hasUnsavedChanges, interval, performSave])
+  }, [enabled, hasUnsavedChanges, interval, performSave, timerStore])
 
   // Cleanup on unmount
   useEffect(() => {
     isMountedRef.current = true
-    const timerStore = timerStoreRef.current
     
     return () => {
       isMountedRef.current = false
@@ -235,7 +235,7 @@ export function useAutoSave({
       if (debounceRef.current) clearTimeout(debounceRef.current)
       timerStore.cleanup()
     }
-  }, [])
+  }, [timerStore])
 
   // Initialize lastSavedDataRef with initial data
   useEffect(() => {
