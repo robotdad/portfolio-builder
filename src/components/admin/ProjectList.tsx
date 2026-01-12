@@ -22,6 +22,7 @@ import {
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { ProjectCard, type Project } from './ProjectCard'
+import { PlusIcon, FolderIcon } from '../shared/icons'
 
 // ============================================================================
 // Types
@@ -34,47 +35,6 @@ interface ProjectListProps {
   onReorder: (orderedIds: string[]) => void
   isLoading?: boolean
   categoryName: string
-}
-
-// ============================================================================
-// Icons
-// ============================================================================
-
-function PlusIcon() {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <line x1="12" y1="5" x2="12" y2="19" />
-      <line x1="5" y1="12" x2="19" y2="12" />
-    </svg>
-  )
-}
-
-function FolderIcon() {
-  return (
-    <svg
-      width="48"
-      height="48"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
-    </svg>
-  )
 }
 
 // ============================================================================
@@ -264,7 +224,7 @@ function EmptyState({ categoryName, onCreateClick }: EmptyStateProps) {
   return (
     <div className="empty-state" role="status" data-testid="project-list-empty">
       <div className="empty-state-icon">
-        <FolderIcon />
+        <FolderIcon size={48} />
       </div>
       <h3 className="empty-state-heading">No projects in {categoryName} yet</h3>
       <p className="empty-state-text">
