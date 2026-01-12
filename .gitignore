@@ -23,6 +23,16 @@ coverage/
 .nyc_output/
 *.lcov
 
+# Test artifacts
+tests/screenshots/
+tests/**/*.png
+*.png
+!archive/mockups/*.png
+
+# Playwright
+playwright-report/
+test-results/
+
 # Test scripts (manual testing and data population)
 # Note: tests/ directory contains development/testing scripts, not production tests
 # Add to git if these scripts should be version controlled
