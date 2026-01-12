@@ -1,4 +1,5 @@
 import { notFound, redirect } from 'next/navigation'
+import type { Page, Category, Project } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
 import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
@@ -9,6 +10,16 @@ import type { Metadata } from 'next'
 
 interface PageProps {
   params: Promise<{ slug: string; pageSlug: string }>
+}
+
+// Type for project with included featuredImage relation
+interface ProjectWithFeaturedImage extends Project {
+  featuredImage: {
+    id: string
+    url: string
+    thumbnailUrl: string
+    altText: string
+  } | null
 }
 
 // Helper to determine if slug matches a category or page
@@ -24,13 +35,13 @@ async function resolveSlugType(portfolioSlug: string, targetSlug: string) {
   if (!portfolio) return { type: 'not_found' as const, portfolio: null }
 
   // Check if it's a category first (categories take precedence)
-  const category = portfolio.categories.find(c => c.slug === targetSlug)
+  const category = portfolio.categories.find((c: Category) => c.slug === targetSlug)
   if (category) {
     return { type: 'category' as const, portfolio, category }
   }
 
   // Check if it's a page
-  const page = portfolio.pages.find(p => p.slug === targetSlug)
+  const page = portfolio.pages.find((p: Page) => p.slug === targetSlug)
   if (page) {
     return { type: 'page' as const, portfolio, page }
   }
@@ -87,7 +98,7 @@ export default async function PortfolioSubPage({ params }: PageProps) {
   }
 
   // Check if slug matches a category first
-  const category = portfolio.categories.find(c => c.slug === pageSlug)
+  const category = portfolio.categories.find((c: Category) => c.slug === pageSlug)
   
   if (category) {
     // Render category landing page
@@ -95,7 +106,7 @@ export default async function PortfolioSubPage({ params }: PageProps) {
   }
 
   // Check if slug matches a page
-  const currentPage = portfolio.pages.find(p => p.slug === pageSlug)
+  const currentPage = portfolio.pages.find((p: Page) => p.slug === pageSlug)
   
   if (!currentPage) {
     notFound()
@@ -113,10 +124,10 @@ export default async function PortfolioSubPage({ params }: PageProps) {
 // Render category landing page
 async function renderCategoryPage(
   portfolio: Awaited<ReturnType<typeof prisma.portfolio.findUnique>> & { 
-    pages: any[]; 
-    categories: any[] 
+    pages: Page[]; 
+    categories: Category[] 
   },
-  category: any
+  category: Category
 ) {
   // Get projects for this category
   const projects = await prisma.project.findMany({
@@ -138,12 +149,12 @@ async function renderCategoryPage(
   })
 
   // Get portfolio name from hero section
-  const homePage = portfolio.pages.find((p: any) => p.isHomepage) || portfolio.pages[0]
+  const homePage = portfolio.pages.find((p: Page) => p.isHomepage) || portfolio.pages[0]
   const homePageSections = deserializeSections(homePage?.publishedContent)
   const heroSection = homePageSections.find(isHeroSection)
   const portfolioName = heroSection?.name || portfolio.name
 
-  const projectsWithImages = projects.map(project => {
+  const projectsWithImages = projects.map((project: ProjectWithFeaturedImage) => {
     // Prefer explicit featuredImage, fallback to first gallery image
     let featuredImageUrl: string | null = null
     let featuredImageAlt: string = project.title
@@ -195,10 +206,10 @@ async function renderCategoryPage(
 // Render regular portfolio page
 function renderPortfolioPage(
   portfolio: Awaited<ReturnType<typeof prisma.portfolio.findUnique>> & { 
-    pages: any[]; 
-    categories: any[] 
+    pages: Page[]; 
+    categories: Category[] 
   },
-  currentPage: any
+  currentPage: Page
 ) {
   // Parse sections from PUBLISHED content only
   const sections = deserializeSections(currentPage.publishedContent)

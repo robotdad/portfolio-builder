@@ -11,7 +11,6 @@ import type {
   ImageSection, 
   HeroSection, 
   FeaturedGridSection,
-  FeaturedCarouselSection,
   GallerySection,
   GalleryImage,
 } from '@/lib/content-schema'

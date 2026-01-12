@@ -17,7 +17,7 @@ export function generateSlug(input: string): string {
 export async function ensureUniqueSlug(
   baseSlug: string,
   checkExists: (slug: string) => Promise<boolean>,
-  excludeId?: string
+  _excludeId?: string
 ): Promise<string> {
   let slug = baseSlug
   let counter = 2

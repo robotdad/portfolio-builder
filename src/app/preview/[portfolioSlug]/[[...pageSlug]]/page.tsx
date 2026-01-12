@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
 import { Navigation, type NavPage } from '@/components/portfolio/Navigation'
-import { FeaturedWork } from '@/components/portfolio/FeaturedWork'
 import { CategoryLanding } from '@/components/portfolio/CategoryLanding'
 import { ProjectDetail } from '@/components/portfolio/ProjectDetail'
 import { deserializeSections } from '@/lib/serialization'
@@ -355,9 +355,9 @@ function PreviewBanner() {
         <span>Preview Mode</span>
         <span className="preview-banner-hint">This is how your page will look when published</span>
       </div>
-      <a href="/admin" className="preview-banner-exit">
+      <Link href="/admin" className="preview-banner-exit">
         ← Back to Editor
-      </a>
+      </Link>
     </div>
   )
 }

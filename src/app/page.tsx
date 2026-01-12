@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 
@@ -10,7 +9,7 @@ export default async function Home() {
   let portfolio = null
   try {
     portfolio = await prisma.portfolio.findFirst()
-  } catch (error) {
+  } catch {
     // Database may not be set up yet - redirect to onboarding
     redirect('/welcome/portfolio')
   }

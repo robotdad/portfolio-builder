@@ -1,6 +1,6 @@
 'use client'
 
-import { templates, type TemplateId } from '@/components/portfolio/templates'
+import { templates } from '@/components/portfolio/templates'
 
 interface TemplateSelectorProps {
   value: string

@@ -369,14 +369,6 @@ export function FeaturedCarousel({
     }
   }, [prefersReducedMotion])
 
-  const togglePlayPause = useCallback(() => {
-    if (isPlaying) {
-      pause()
-    } else {
-      play()
-    }
-  }, [isPlaying, pause, play])
-
   // ==========================================================================
   // HOVER HANDLERS (desktop)
   // ==========================================================================

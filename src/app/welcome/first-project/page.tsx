@@ -29,7 +29,7 @@ export default function FirstProjectPage() {
           router.push('/admin')
           return
         }
-      } catch (error) {
+      } catch {
         // If check fails, allow onboarding to proceed
       }
       setIsChecking(false)

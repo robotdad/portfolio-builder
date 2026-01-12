@@ -28,13 +28,11 @@ export function AboutSettings({
   portfolioId,
   bio,
   profilePhotoUrl,
-  profilePhotoId,
   showAboutSection,
   onBioChange,
   onProfilePhotoChange,
   onShowAboutChange,
   onFieldBlur,
-  isSaving = false,
 }: AboutSettingsProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [optimisticPhotoUrl, setOptimisticPhotoUrl] = useState<string | null>(null)

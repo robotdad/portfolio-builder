@@ -1,4 +1,4 @@
-import { ComponentType } from 'react'
+import type { Section } from '@/lib/content-schema'
 
 // Types for template props - templates receive identical props
 export interface FeaturedProject {
@@ -42,7 +42,7 @@ export interface TemplateProps {
     profilePhoto?: ProfilePhoto | null
     showAboutSection?: boolean | null
   }
-  sections: any[] // Section[] from content-schema
+  sections: Section[]
   featuredProjects: FeaturedProject[]
 }
 

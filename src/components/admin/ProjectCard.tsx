@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Card, CardImage, CardBody, CardTitle, CardDescription, Button } from '@/components/ui'
-import { type Project, type FeaturedImage } from '@/hooks/useProjects'
+import { type Project } from '@/hooks/useProjects'
 
 // ============================================================================
 // Types
@@ -185,4 +185,4 @@ export function ProjectCard({
 // ============================================================================
 
 export type { ProjectCardProps }
-export type { Project, FeaturedImage } from '@/hooks/useProjects'
+export type { Project } from '@/hooks/useProjects'

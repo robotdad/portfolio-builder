@@ -98,6 +98,12 @@ export function ImagePicker({
     }
   }, [isOpen])
 
+  // Close with animation - defined before useEffect that references it
+  const handleClose = useCallback(() => {
+    setIsVisible(false)
+    setTimeout(onCancel, 200) // Wait for exit animation
+  }, [onCancel])
+
   // Handle Escape key
   useEffect(() => {
     if (!isOpen) return
@@ -111,13 +117,7 @@ export function ImagePicker({
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen])
-
-  // Close with animation
-  const handleClose = useCallback(() => {
-    setIsVisible(false)
-    setTimeout(onCancel, 200) // Wait for exit animation
-  }, [onCancel])
+  }, [isOpen, handleClose])
 
   // Handle backdrop click
   const handleBackdropClick = (event: React.MouseEvent) => {

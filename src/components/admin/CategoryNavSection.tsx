@@ -104,13 +104,6 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
   const { expandedCategories, toggle: handleCategoryToggle } = useExpandedCategories()
   
   /**
-   * Determine if the categories management page is active
-   */
-  const isCategoriesActive = (): boolean => {
-    return currentPath === '/admin/categories'
-  }
-  
-  /**
    * Determine if a category is currently active
    * Active when path starts with /admin/categories/{id}
    */

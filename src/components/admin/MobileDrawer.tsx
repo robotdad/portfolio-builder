@@ -27,7 +27,7 @@ const SWIPE_THRESHOLD = 100 // pixels to trigger close
  */
 export function MobileDrawer({ isOpen, onClose, children }: MobileDrawerProps) {
   const drawerRef = useRef<HTMLDivElement>(null)
-  const { containerRef } = useFocusTrap({ 
+  useFocusTrap({ 
     isActive: isOpen,
     containerRef: drawerRef as React.RefObject<HTMLElement>
   })

@@ -111,6 +111,13 @@ export function ProjectFormModal({
     }
   }, [isOpen])
 
+  // Close with animation - defined before useEffect that references it
+  const handleClose = useCallback(() => {
+    if (isSubmitting) return
+    setIsVisible(false)
+    setTimeout(onClose, 200) // Wait for exit animation
+  }, [onClose, isSubmitting])
+
   // Handle Escape key
   useEffect(() => {
     if (!isOpen || isSubmitting) return
@@ -124,14 +131,7 @@ export function ProjectFormModal({
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, isSubmitting])
-
-  // Close with animation
-  const handleClose = useCallback(() => {
-    if (isSubmitting) return
-    setIsVisible(false)
-    setTimeout(onClose, 200) // Wait for exit animation
-  }, [onClose, isSubmitting])
+  }, [isOpen, isSubmitting, handleClose])
 
   // Handle backdrop click
   const handleBackdropClick = (event: React.MouseEvent) => {

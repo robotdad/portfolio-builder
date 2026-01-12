@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { CategoryList } from '@/components/admin/CategoryList'
 import { CategoryFormModal } from '@/components/admin/CategoryFormModal'

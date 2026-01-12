@@ -11,12 +11,9 @@ import {
   validateYear, 
   validateVenue, 
   validateRole,
-  MAX_TITLE_LENGTH,
   type BasicInfoValues,
-  type BasicInfoErrors,
-  type BasicInfoTouched,
 } from './ProjectBasicInfo'
-import { ProjectDescription, validateDescription, MAX_DESCRIPTION_LENGTH } from './ProjectDescription'
+import { ProjectDescription, validateDescription } from './ProjectDescription'
 import { ProjectMetadata } from './ProjectMetadata'
 import { ProjectFormActions } from './ProjectFormActions'
 

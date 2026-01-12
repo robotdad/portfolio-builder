@@ -67,6 +67,13 @@ function Toast({ id, message, type, action, duration = DEFAULT_DURATION, onDismi
     return () => clearTimeout(timer)
   }, [])
 
+  // Dismiss handler - defined before useEffect that references it
+  const handleDismiss = useCallback(() => {
+    setIsVisible(false)
+    // Wait for exit animation before removing
+    setTimeout(() => onDismiss(id), prefersReducedMotion ? 0 : 250)
+  }, [id, onDismiss, prefersReducedMotion])
+
   // Progress bar animation
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -99,13 +106,7 @@ function Toast({ id, message, type, action, duration = DEFAULT_DURATION, onDismi
       if (animationRef.current) cancelAnimationFrame(animationRef.current)
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
-  }, [duration, prefersReducedMotion])
-
-  const handleDismiss = useCallback(() => {
-    setIsVisible(false)
-    // Wait for exit animation before removing
-    setTimeout(() => onDismiss(id), prefersReducedMotion ? 0 : 250)
-  }, [id, onDismiss, prefersReducedMotion])
+  }, [duration, prefersReducedMotion, handleDismiss])
 
   const handleActionClick = () => {
     action?.onClick()
