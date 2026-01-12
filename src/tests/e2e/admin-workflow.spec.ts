@@ -115,7 +115,7 @@ test.describe('Category Management', () => {
     await page.getByTestId(selectors.categoryFormSubmitBtn).click()
     
     // Modal should close (longer timeout for mobile animations)
-    await expect(page.getByTestId(selectors.categoryModal)).not.toBeVisible({ timeout: 5000 })
+    await expect(page.getByTestId(selectors.categoryModal)).not.toBeVisible({ timeout: 10000 })
   })
 })
 

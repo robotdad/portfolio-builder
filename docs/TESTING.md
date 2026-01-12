@@ -213,3 +213,212 @@ await page.screenshot({ path: 'ai_working/screenshots/debug/carousel-bug.png' })
 **Do NOT put screenshots in:**
 - Project root - Pollutes the workspace
 - `src/tests/` - Reserved for test specs and fixtures
+
+## E2E Test Coverage
+
+The following workflows are covered by automated E2E tests:
+
+### Admin Workflow (`admin-workflow.spec.ts`)
+
+| Test | Coverage |
+|------|----------|
+| Admin sidebar display | Desktop and mobile responsive |
+| Navigation to categories | Mobile hamburger menu handling |
+| Category list/empty state | Conditional rendering |
+| Create category modal | Form interaction |
+| Create new category | Full CRUD flow |
+| Project list display | Category-project relationship |
+
+### Publish Workflow (`publish-workflow.spec.ts`)
+
+| Test | Coverage |
+|------|----------|
+| Publish project → public verification | Full draft-to-published lifecycle |
+| Unpublished content 404 | Draft content not visible publicly |
+| Draft vs published status | Admin status indicator |
+| Draft preview | Preview mode before publishing |
+| Publish button state | Disabled when no changes |
+| Settings publish | Theme/template changes |
+| Page publish | Page content workflow |
+
+### Mobile Responsive Testing
+
+All admin workflow tests run against multiple viewports via Playwright config. The test helpers (`openMobileMenuIfNeeded`, `getNavContainer`) automatically adapt to viewport size.
+
+## Manual Testing Areas
+
+Some features require manual testing due to their complexity or reliance on browser APIs that are difficult to automate reliably.
+
+### Rich Text Editor (TipTap/ProseMirror)
+
+**Location:** Project descriptions, page sections with text content
+
+**Why Manual:**
+- TipTap uses ProseMirror's `contenteditable` implementation
+- `contenteditable` behavior varies across browsers
+- Keyboard shortcuts, selection handling, and cursor positioning are highly stateful
+- Clipboard paste formatting is browser-dependent
+- Playwright's `fill()` doesn't simulate real typing in contenteditable
+
+**Test Scenarios:**
+- [ ] Type and format text (bold, italic, links)
+- [ ] Paste from external sources (Word, web pages)
+- [ ] Undo/redo behavior
+- [ ] Keyboard navigation within editor
+- [ ] Mobile keyboard interaction
+
+### Drag-and-Drop Reordering
+
+**Location:** Category list, project list, section ordering, gallery images
+
+**Why Manual:**
+- DnD libraries (dnd-kit, react-beautiful-dnd) use pointer events
+- Requires precise coordinate calculations that are fragile in automation
+- Touch vs mouse behavior differs significantly
+- Animation timing affects drop target detection
+- Accessibility (keyboard reordering) needs separate testing
+
+**Test Scenarios:**
+- [ ] Drag category to reorder (mouse)
+- [ ] Drag project cards to reorder
+- [ ] Drag gallery images to reorder
+- [ ] Drag sections within page editor
+- [ ] Touch drag on mobile devices
+- [ ] Keyboard-based reordering (accessibility)
+
+### Image Upload with Progress
+
+**Location:** Featured image picker, gallery upload, profile photo
+
+**Why Manual:**
+- File input interactions are limited in automation
+- Upload progress UI depends on network timing
+- Drag-drop file upload uses DataTransfer API
+- Image validation (size, dimensions) needs real files
+- Progress indicators are time-sensitive
+
+**Test Scenarios:**
+- [ ] Upload via file picker dialog
+- [ ] Drag-drop files onto dropzone
+- [ ] Progress bar during upload
+- [ ] Error handling for invalid files (too large, wrong type)
+- [ ] Cancel upload mid-progress
+- [ ] Multiple file upload to gallery
+
+### Section Editors
+
+**Location:** `/admin/pages/{id}` - Hero, Gallery, Featured Carousel, etc.
+
+**Why Manual:**
+- Each section type has unique interactive controls
+- Combines rich text, image upload, and ordering
+- Complex state management between section types
+- Real-time preview synchronization
+
+**Test Scenarios:**
+- [ ] Hero section: title, subtitle, background image
+- [ ] Gallery section: add/remove/reorder images, captions
+- [ ] Featured Carousel: select featured projects, ordering
+- [ ] Text section: rich text editing
+- [ ] Add/remove/reorder sections on page
+
+## Adding New Tests
+
+### Test File Location
+
+```
+src/
+├── tests/
+│   └── e2e/
+│       ├── fixtures.ts              # API client, selectors, test extensions
+│       ├── admin-workflow.spec.ts   # Admin CRUD tests
+│       └── publish-workflow.spec.ts # Publish lifecycle tests
+```
+
+Add new spec files to `src/tests/e2e/` with the naming pattern `{feature}-workflow.spec.ts`.
+
+### Adding Test IDs to Components
+
+1. **Add `data-testid` attribute to interactive elements:**
+
+```tsx
+// In your component
+<button
+  data-testid="my-feature-submit-btn"
+  onClick={handleSubmit}
+>
+  Submit
+</button>
+```
+
+2. **Follow the naming convention:**
+
+```
+[component]-[element]-[qualifier]
+
+Examples:
+- gallery-upload-btn
+- section-editor-save-btn
+- profile-photo-remove-btn
+```
+
+3. **For dynamic items, include the ID:**
+
+```tsx
+<div data-testid={`section-item-${section.id}`}>
+  {/* section content */}
+</div>
+```
+
+### Using fixtures.ts Selectors
+
+1. **Add selector to `fixtures.ts`:**
+
+```typescript
+// src/tests/e2e/fixtures.ts
+export const selectors = {
+  // ... existing selectors
+  
+  // My new feature
+  myFeatureContainer: 'my-feature-container',
+  myFeatureSubmitBtn: 'my-feature-submit-btn',
+  myFeatureItem: (id: string) => `my-feature-item-${id}`,
+}
+```
+
+2. **Use in tests:**
+
+```typescript
+import { test, expect, selectors } from './fixtures'
+
+test('should submit my feature', async ({ page }) => {
+  await page.goto('/admin/my-feature')
+  
+  // Use centralized selector
+  await page.getByTestId(selectors.myFeatureSubmitBtn).click()
+  
+  // Dynamic selector for list items
+  await expect(page.getByTestId(selectors.myFeatureItem('123'))).toBeVisible()
+})
+```
+
+3. **Use the API fixture for backend verification:**
+
+```typescript
+test('should create item via UI and verify via API', async ({ page, api }) => {
+  // Perform UI action
+  await page.getByTestId(selectors.myFeatureSubmitBtn).click()
+  
+  // Verify via API (add method to PortfolioAPI class in fixtures.ts)
+  const items = await api.getMyFeatureItems()
+  expect(items).toContainEqual(expect.objectContaining({ name: 'Test' }))
+})
+```
+
+### Test Organization Guidelines
+
+- **One workflow per file** - Keep tests focused on a single user journey
+- **Use `test.describe` blocks** - Group related tests logically
+- **Prefer API verification** - Use `api` fixture to verify state, not just UI
+- **Handle responsive** - Use helpers like `openMobileMenuIfNeeded()` for mobile support
+- **Clean test data** - Use `test:setup` before test runs for consistent state

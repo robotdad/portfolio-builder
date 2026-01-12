@@ -59,7 +59,7 @@ export function ProjectDetail({
   const sections = deserializeSections(project.publishedContent)
   
   return (
-    <div className="container">
+    <div className="container" data-testid="project-detail">
       {/* Breadcrumb navigation */}
       <Breadcrumb 
         items={[
@@ -73,17 +73,17 @@ export function ProjectDetail({
       
       {/* Project header with metadata */}
       <header className="project-header">
-        <h1 className="project-title">{project.title}</h1>
+        <h1 className="project-title" data-testid="project-detail-title">{project.title}</h1>
         
         <div className="project-meta">
           {project.venue && (
-            <p className="project-venue">{project.venue}</p>
+            <p className="project-venue" data-testid="project-detail-venue">{project.venue}</p>
           )}
           {project.year && (
-            <p className="project-year">{project.year}</p>
+            <p className="project-year" data-testid="project-detail-year">{project.year}</p>
           )}
           {project.role && (
-            <p className="project-role">{project.role}</p>
+            <p className="project-role" data-testid="project-detail-role">{project.role}</p>
           )}
         </div>
       </header>

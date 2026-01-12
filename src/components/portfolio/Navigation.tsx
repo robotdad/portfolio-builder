@@ -193,10 +193,10 @@ export function Navigation({
   const isAnyCategoryActive = categories.some(c => isCategoryActive(c))
 
   return (
-    <nav className={`portfolio-nav portfolio-nav--${theme}`} role="navigation" aria-label="Portfolio navigation">
+    <nav className={`portfolio-nav portfolio-nav--${theme}`} role="navigation" aria-label="Portfolio navigation" data-testid="portfolio-nav">
       {/* Desktop Navigation */}
       <div className="portfolio-nav-desktop">
-        <Link href={`/${portfolioSlug}`} className="portfolio-nav-logo">
+        <Link href={`/${portfolioSlug}`} className="portfolio-nav-logo" data-testid="portfolio-nav-logo">
           {portfolioName}
         </Link>
         <ul className="portfolio-nav-list" role="menubar">

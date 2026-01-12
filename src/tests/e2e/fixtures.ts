@@ -47,8 +47,11 @@ export class PortfolioAPI {
     return res.json()
   }
 
-  async getCategories() {
-    const res = await this.fetch('/api/categories')
+  async getCategories(portfolioId?: string) {
+    const url = portfolioId
+      ? `/api/categories?portfolioId=${portfolioId}`
+      : '/api/categories'
+    const res = await this.fetch(url)
     if (!res.ok) {
       throw new Error(`API error: ${res.status} ${await res.text()}`)
     }
@@ -181,4 +184,14 @@ export const selectors = {
   imagePickerModal: 'image-picker-modal',
   imagePickerSelectBtn: 'image-picker-select-btn',
   imagePickerCancelBtn: 'image-picker-cancel-btn',
+
+  // Public Portfolio
+  portfolioNav: 'portfolio-nav',
+  portfolioNavLogo: 'portfolio-nav-logo',
+  projectDetail: 'project-detail',
+  projectDetailTitle: 'project-detail-title',
+  projectDetailVenue: 'project-detail-venue',
+  projectDetailYear: 'project-detail-year',
+  projectDetailRole: 'project-detail-role',
+  featuredWork: 'featured-work',
 }

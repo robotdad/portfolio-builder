@@ -40,7 +40,7 @@ export function FeaturedWork({
   if (displayedProjects.length === 0) return null
   
   return (
-    <section className="featured-work-section">
+    <section className="featured-work-section" data-testid="featured-work">
       <h2 className="featured-work-heading">{heading}</h2>
       
       <div className="featured-work-grid">

@@ -49,7 +49,7 @@ export function ProjectCard({
   
   return (
     <>
-      <Link href={href} className={`project-card-link ${className}`}>
+      <Link href={href} className={`project-card-link ${className}`} data-testid={`project-card-${project.slug}`}>
         <Card variant="interactive" className="project-card">
           <CardImage
             src={project.featuredImageUrl || undefined}
