@@ -188,3 +188,28 @@ Reset to clean state:
 ```bash
 npm run test:setup
 ```
+
+## Screenshots
+
+When capturing screenshots during testing or debugging:
+
+**Location:** `ai_working/screenshots/`
+
+This directory is:
+- Gitignored (screenshots won't be committed)
+- Preserved across sessions (unlike temp directories)
+- Organized by purpose (create subdirs as needed)
+
+**Example workflow:**
+```javascript
+// In Playwright scripts
+await page.screenshot({ path: 'ai_working/screenshots/admin-dashboard.png' });
+
+// For debugging specific issues
+await page.screenshot({ path: 'ai_working/screenshots/debug/carousel-bug.png' });
+```
+
+**Do NOT put screenshots in:**
+- `tests/screenshots/` - Legacy location, gitignored but cluttered
+- Project root - Pollutes the workspace
+- `tests/` - Reserved for test specs and fixtures

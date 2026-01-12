@@ -179,7 +179,7 @@ Recommended sequence for admin interface work:
 
 ## Testing
 
-**Full documentation:** `docs/testing.md`
+**Full documentation:** `docs/TESTING.md`
 
 **Quick reference:**
 ```bash
@@ -192,7 +192,7 @@ npm run test:e2e:ui       # Playwright UI mode
 - All interactive elements have `data-testid` attributes
 - Selectors centralized in `tests/e2e/fixtures.ts`
 - Use API population for setup, Playwright for UI verification
-- **Never commit screenshots** - use `ai_working/` (gitignored)
+- **Never commit screenshots** - use `ai_working/screenshots/` (gitignored)
 
 ---
 
@@ -202,7 +202,7 @@ npm run test:e2e:ui       # Playwright UI mode
 |----------|---------|
 | `docs/API.md` | REST API endpoints, request/response formats |
 | `docs/ARCHITECTURE.md` | Tech stack, project structure, data model |
-| `docs/testing.md` | Test infrastructure, personas, E2E patterns |
+| `docs/TESTING.md` | Test infrastructure, personas, E2E patterns |
 | `README.md` | Setup, development, deployment |
 
 ---

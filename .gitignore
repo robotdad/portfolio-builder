@@ -106,3 +106,7 @@ logs/
 !package-lock.json
 !tsconfig.json
 skills/
+
+# AI working screenshots (keep directory, ignore contents)
+ai_working/screenshots/*
+!ai_working/screenshots/.gitkeep
