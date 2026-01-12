@@ -30,6 +30,9 @@ export class PortfolioAPI {
 
   async getPortfolio() {
     const res = await this.fetch('/api/portfolio')
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status} ${await res.text()}`)
+    }
     return res.json()
   }
 
@@ -38,11 +41,17 @@ export class PortfolioAPI {
       method: 'POST',
       body: JSON.stringify(data),
     })
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status} ${await res.text()}`)
+    }
     return res.json()
   }
 
   async getCategories() {
     const res = await this.fetch('/api/categories')
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status} ${await res.text()}`)
+    }
     return res.json()
   }
 
@@ -56,6 +65,9 @@ export class PortfolioAPI {
       method: 'POST',
       body: JSON.stringify(data),
     })
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status} ${await res.text()}`)
+    }
     return res.json()
   }
 
@@ -64,6 +76,9 @@ export class PortfolioAPI {
       ? `/api/projects?categoryId=${categoryId}`
       : '/api/projects'
     const res = await this.fetch(url)
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status} ${await res.text()}`)
+    }
     return res.json()
   }
 

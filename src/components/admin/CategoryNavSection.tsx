@@ -128,9 +128,17 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
   return (
     <>
       <div className="category-nav-section">
-        {/* Section Header - Static, not collapsible */}
+        {/* Section Header - Clickable link to categories list */}
         <div className="section-header">
-          <span className="section-title">Categories</span>
+          <Link
+            href="/admin/categories"
+            className={`section-title-link ${currentPath === '/admin/categories' ? 'section-title-link--active' : ''}`}
+            data-testid="nav-item-admin-categories"
+            aria-current={currentPath === '/admin/categories' ? 'page' : undefined}
+            onClick={handleLinkClick}
+          >
+            Categories
+          </Link>
         </div>
         
         {/* Category list with expandable projects */}
@@ -220,6 +228,27 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
         
         .section-title {
           flex: 1;
+        }
+        
+        .category-nav-section :global(.section-title-link) {
+          flex: 1;
+          color: var(--admin-text);
+          text-decoration: none;
+          transition: color var(--transition-fast);
+        }
+        
+        .category-nav-section :global(.section-title-link:hover) {
+          color: var(--admin-primary);
+        }
+        
+        .category-nav-section :global(.section-title-link:focus) {
+          outline: 2px solid var(--admin-primary);
+          outline-offset: 2px;
+          border-radius: var(--radius-sm);
+        }
+        
+        .category-nav-section :global(.section-title-link--active) {
+          color: var(--admin-primary);
         }
         
         .nav-item {

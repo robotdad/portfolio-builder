@@ -27,14 +27,25 @@ import { type Category } from '@/hooks/useCategories'
 // Types
 // ============================================================================
 
+/**
+ * Props for the CategoryList component
+ */
 interface CategoryListProps {
+  /** Array of categories to display in the list */
   categories: Category[]
+  /** Callback fired when user clicks the create category button */
   onCreateClick: () => void
+  /** Callback fired when user clicks edit on a category */
   onEditClick: (category: Category) => void
+  /** Callback fired when user clicks delete on a category */
   onDeleteClick: (category: Category) => void
+  /** Callback fired when user clicks to view projects within a category */
   onViewProjects: (category: Category) => void
+  /** Callback fired when categories are reordered via drag-and-drop */
   onReorder: (orderedIds: string[]) => void
+  /** Whether a reorder operation is currently in progress (disables create button) */
   isReordering?: boolean
+  /** Whether categories are currently loading (shows skeleton state) */
   isLoading?: boolean
 }
 
@@ -504,7 +515,7 @@ export function CategoryList({
   // Loading state
   if (isLoading) {
     return (
-      <div className="category-list-container">
+      <div className="category-list-container" data-testid="category-list-loading">
         <header className="category-list-header">
           <h2 className="category-list-title">Categories</h2>
           <button

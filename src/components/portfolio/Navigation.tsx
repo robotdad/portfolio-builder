@@ -1,5 +1,49 @@
 'use client'
 
+/**
+ * @module Navigation
+ * @description Primary navigation component for portfolio sites with responsive
+ * desktop/mobile layouts and theme-aware styling.
+ *
+ * ## Responsive Strategy
+ *
+ * - **Desktop:** Horizontal nav bar with logo, category links/dropdown, and page links.
+ *   Categories appear as direct links when ≤5, or collapse into a dropdown when >5.
+ * - **Mobile:** Hamburger button triggers a slide-in drawer panel rendered via React
+ *   Portal to ensure proper z-index stacking and full-viewport coverage.
+ *
+ * ## Key Features
+ *
+ * - **Adaptive category display:** Automatically switches between inline links and
+ *   dropdown menu based on `CATEGORY_DROPDOWN_THRESHOLD` (5 categories)
+ * - **Active state detection:** Highlights current page/category based on URL path
+ *   segments with `aria-current="page"` for screen readers
+ * - **Theme variants:** Supports 'modern-minimal', 'classic-elegant', and
+ *   'bold-editorial' themes via BEM modifier classes
+ * - **Body scroll lock:** Prevents background scrolling when mobile menu is open
+ *
+ * ## Accessibility
+ *
+ * - Semantic `<nav>` element with `aria-label` for landmark identification
+ * - ARIA menubar/menu roles for proper screen reader navigation
+ * - `aria-expanded` and `aria-haspopup` on dropdown triggers
+ * - `aria-controls` linking hamburger button to mobile menu panel
+ * - Escape key closes open menus and returns focus to trigger button
+ * - Click-outside detection for intuitive menu dismissal
+ * - `aria-hidden` on decorative elements and closed menu panels
+ *
+ * @example
+ * ```tsx
+ * <Navigation
+ *   portfolioSlug="jane-doe"
+ *   portfolioName="Jane Doe Photography"
+ *   pages={[{ id: '1', title: 'About', slug: 'about', isHomepage: false, showInNav: true }]}
+ *   categories={[{ id: '1', name: 'Portraits', slug: 'portraits' }]}
+ *   theme="modern-minimal"
+ * />
+ * ```
+ */
+
 import { useState, useEffect, useRef, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'

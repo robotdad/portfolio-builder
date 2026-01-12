@@ -43,14 +43,14 @@ export async function POST(request: NextRequest) {
     // Validate required fields
     if (!file) {
       return NextResponse.json(
-        { message: 'No file provided' },
+        { success: false, error: 'No file provided', code: 'VALIDATION_ERROR' },
         { status: 400 }
       )
     }
 
     if (!portfolioId) {
       return NextResponse.json(
-        { message: 'Portfolio ID is required' },
+        { success: false, error: 'Portfolio ID is required', code: 'VALIDATION_ERROR' },
         { status: 400 }
       )
     }
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     // Validate file type
     if (!ALLOWED_TYPES.includes(file.type)) {
       return NextResponse.json(
-        { message: 'Invalid file type. Allowed: JPEG, PNG, WebP' },
+        { success: false, error: 'Invalid file type. Allowed: JPEG, PNG, WebP', code: 'VALIDATION_ERROR' },
         { status: 400 }
       )
     }
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
     // Validate file size
     if (file.size > MAX_SIZE) {
       return NextResponse.json(
-        { message: 'File too large. Maximum size: 10MB' },
+        { success: false, error: 'File too large. Maximum size: 10MB', code: 'VALIDATION_ERROR' },
         { status: 400 }
       )
     }
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
 
     if (!portfolio) {
       return NextResponse.json(
-        { message: 'Portfolio not found' },
+        { success: false, error: 'Portfolio not found', code: 'NOT_FOUND' },
         { status: 404 }
       )
     }
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
     if (buffer.length === 0) {
       console.error('Upload error: Empty buffer received - file data not transmitted')
       return NextResponse.json(
-        { success: false, error: 'File data not received. Please retry the upload.' },
+        { success: false, error: 'File data not received. Please retry the upload.', code: 'VALIDATION_ERROR' },
         { status: 400 }
       )
     }
@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Upload failed:', error)
     return NextResponse.json(
-      { message: 'Failed to upload image' },
+      { success: false, error: 'Failed to upload image', code: 'INTERNAL_ERROR' },
       { status: 500 }
     )
   }

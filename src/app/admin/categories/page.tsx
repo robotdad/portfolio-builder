@@ -122,6 +122,9 @@ export default function CategoriesPage() {
         })
       }
       // Close modal on success
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur()
+      }
       setIsFormModalOpen(false)
       setEditingCategory(null)
     } catch (err) {
