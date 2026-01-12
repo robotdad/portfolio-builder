@@ -1,4 +1,4 @@
-import { test, expect, selectors } from './fixtures'
+import { test, expect, selectors, PortfolioAPI } from './fixtures'
 
 /**
  * Admin workflow E2E tests
@@ -71,6 +71,19 @@ test.describe('Admin Dashboard', () => {
 })
 
 test.describe('Category Management', () => {
+  const createdCategoryIds: string[] = []
+
+  test.afterAll(async () => {
+    const api = new PortfolioAPI()
+    for (const id of createdCategoryIds) {
+      try {
+        await api.deleteCategory(id)
+      } catch {
+        // Ignore errors - category may not exist
+      }
+    }
+  })
+
   test.beforeEach(async ({ page }) => {
     await page.goto('/admin/categories')
   })
@@ -100,6 +113,8 @@ test.describe('Category Management', () => {
   })
 
   test('should create a new category', async ({ page }) => {
+    const categoryName = `Test Category ${Date.now()}`
+    
     // Wait for and click create button
     const createBtn = page.getByTestId(selectors.categoryCreateBtn).or(
       page.getByTestId('category-list-empty-create-btn')
@@ -108,7 +123,7 @@ test.describe('Category Management', () => {
     await createBtn.first().click()
     
     // Fill form
-    await page.getByTestId(selectors.categoryFormNameInput).fill('Test Category')
+    await page.getByTestId(selectors.categoryFormNameInput).fill(categoryName)
     await page.getByTestId(selectors.categoryFormDescriptionInput).fill('A test category description')
     
     // Submit
@@ -116,6 +131,17 @@ test.describe('Category Management', () => {
     
     // Modal should close (longer timeout for mobile animations)
     await expect(page.getByTestId(selectors.categoryModal)).not.toBeVisible({ timeout: 10000 })
+    
+    // Find the created category and store its ID for cleanup
+    const api = new PortfolioAPI()
+    const portfolioResponse = await api.getPortfolio()
+    const portfolio = portfolioResponse.data || portfolioResponse
+    const categoriesResponse = await api.getCategories(portfolio.id)
+    const categories = categoriesResponse.data || categoriesResponse
+    const createdCategory = categories.find((c: { name: string }) => c.name === categoryName)
+    if (createdCategory?.id) {
+      createdCategoryIds.push(createdCategory.id)
+    }
   })
 })
 

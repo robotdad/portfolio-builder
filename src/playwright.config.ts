@@ -15,6 +15,9 @@ import { defineConfig, devices } from '@playwright/test'
  * - npm run test:populate - Populate test data via API
  */
 export default defineConfig({
+  /* Global setup runs once before all tests to reset database state */
+  globalSetup: './tests/e2e/global-setup.ts',
+  
   testDir: './tests/e2e',
   
   /* Run tests in parallel */
