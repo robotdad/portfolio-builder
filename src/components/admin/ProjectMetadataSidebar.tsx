@@ -95,6 +95,7 @@ export function ProjectMetadataSidebar({
               onChange={(e) => handleTextChange('year', e.target.value)}
               placeholder="e.g., 2024"
               className={styles.fieldInput}
+              data-testid="project-metadata-year-input"
             />
           </div>
 
@@ -111,6 +112,7 @@ export function ProjectMetadataSidebar({
               onChange={(e) => handleTextChange('venue', e.target.value)}
               placeholder="e.g., Gallery Name"
               className={styles.fieldInput}
+              data-testid="project-metadata-venue-input"
             />
           </div>
 
@@ -127,6 +129,7 @@ export function ProjectMetadataSidebar({
               onChange={(e) => handleTextChange('role', e.target.value)}
               placeholder="e.g., Lead Designer"
               className={styles.fieldInput}
+              data-testid="project-metadata-role-input"
             />
           </div>
 

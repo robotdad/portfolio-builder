@@ -322,6 +322,43 @@ Some features require manual testing due to their complexity or reliance on brow
 - [ ] Text section: rich text editing
 - [ ] Add/remove/reorder sections on page
 
+## Known Mobile Limitations
+
+Some tests are skipped on mobile viewports due to timing issues with animations and modal interactions.
+
+### Category Modal Close Animation
+
+**Affected Tests:**
+- `admin-workflow.spec.ts` - "should create a new category"
+- `crud-operations.spec.ts` - "should delete a category"
+
+**Issue:** The category modal close animation timing is unreliable on mobile viewports. After form submission or deletion confirmation, the modal sometimes takes longer than expected to fully close, causing `not.toBeVisible()` assertions to flake.
+
+**Root Cause:** Mobile viewports trigger different CSS transitions and touch-optimized animations. The combination of:
+- Slower animation durations on mobile
+- Touch event handling differences
+- Viewport resize effects on modal positioning
+
+...creates inconsistent timing that cannot be reliably awaited.
+
+**Workaround:** These tests use `test.skip(isMobile, 'Modal close animation unreliable on mobile')` to skip on mobile viewports while still running on desktop.
+
+### Publish Button State Detection
+
+**Affected Tests:**
+- `publish-workflow.spec.ts` - "should load project editor and navigate to public site"
+
+**Issue:** The publish button state detection (enabled/disabled, text changes to "Published!") is unreliable on mobile viewports. The button state transitions don't always complete within expected timeouts.
+
+**Workaround:** Test uses `test.skip(isMobile, 'Publish button state unreliable on mobile viewport')` to skip on mobile viewports.
+
+**Future Fix:** Consider one of:
+1. Add `data-testid` for modal animation state (e.g., `data-modal-state="closed"`)
+2. Use `waitForFunction` to check computed styles
+3. Disable animations in test mode via CSS media query `prefers-reduced-motion`
+
+---
+
 ## Adding New Tests
 
 ### Test File Location

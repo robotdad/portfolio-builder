@@ -158,6 +158,11 @@ export const selectors = {
   projectFormCancelBtn: 'project-form-cancel-btn',
   projectFormSubmitBtn: 'project-form-submit-btn',
 
+  // Project Metadata Sidebar (on project edit page)
+  projectMetadataYearInput: 'project-metadata-year-input',
+  projectMetadataVenueInput: 'project-metadata-venue-input',
+  projectMetadataRoleInput: 'project-metadata-role-input',
+
   // Delete Project Modal
   deleteProjectModal: 'delete-project-modal',
   deleteProjectModalConfirmBtn: 'delete-project-modal-confirm-btn',
