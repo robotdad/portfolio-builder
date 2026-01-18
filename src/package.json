@@ -17,8 +17,9 @@
     "test:populate:sarah": "node ../scripts/populate-persona-api.js sarah-chen",
     "test:populate:emma": "node ../scripts/populate-persona-api.js emma-rodriguez",
     "test:populate:julian": "node ../scripts/populate-persona-api.js julian-vane",
-    "test:reset": "rm -f prisma/portfolio.db && npx prisma db push",
-    "test:setup": "npm run test:reset && npm run test:populate:sarah"
+    "db:reset": "rm -f prisma/dev.db && npx prisma db push",
+    "test:reset": "npm run db:reset",
+    "test:setup": "npm run db:reset && npm run test:populate:sarah"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
