@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
 import { deserializeSections } from '@/lib/serialization'
 import { isHeroSection, isGallerySection } from '@/lib/content-schema'
+import { Navigation, type NavPage, type NavCategory } from '@/components/portfolio/Navigation'
+import { PublicFooter } from '@/components/portfolio/PublicFooter'
 import { 
   FeaturedGridTemplate, 
   CleanMinimalTemplate, 
@@ -159,17 +161,48 @@ export default async function Home() {
     altText: portfolio.profilePhoto.altText || undefined,
   } : null
 
+  // Prepare navigation data
+  const navPages: NavPage[] = portfolio.pages
+    .filter(p => p.showInNav)
+    .map(p => ({
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      isHomepage: p.isHomepage,
+      showInNav: p.showInNav,
+    }))
+
+  const navCategories: NavCategory[] = portfolio.categories.map(c => ({
+    id: c.id,
+    name: c.name,
+    slug: c.slug,
+  }))
+
+  const theme = (portfolio.publishedTheme || 'modern-minimal') as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
+
   return (
-    <Template
-      portfolio={{
-        slug: '',
-        name,
-        bio: portfolio.bio || null,
-        profilePhoto,
-        showAboutSection: portfolio.showAboutSection ?? true,
-      }}
-      sections={sections}
-      featuredProjects={featuredProjects}
-    />
+    <div className="portfolio-page" data-theme={theme}>
+      <Navigation
+        portfolioSlug=""
+        portfolioName={name}
+        pages={navPages}
+        categories={navCategories}
+        theme={theme}
+      />
+      <main className="portfolio-main">
+        <Template
+          portfolio={{
+            slug: '',
+            name,
+            bio: portfolio.bio || null,
+            profilePhoto,
+            showAboutSection: portfolio.showAboutSection ?? true,
+          }}
+          sections={sections}
+          featuredProjects={featuredProjects}
+        />
+      </main>
+      <PublicFooter portfolioName={name} />
+    </div>
   )
 }

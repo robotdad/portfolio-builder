@@ -268,14 +268,44 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      // 3. Create About page IF bio is provided
+      // 3. Create Homepage (required - every portfolio needs a homepage)
+      const homepageContent = JSON.stringify({
+        sections: [
+          {
+            id: generateId(),
+            type: 'hero',
+            name: portfolioName,
+            title: portfolioTitle || '',
+            bio: '',
+            profileImageId: null,
+            profileImageUrl: null,
+            showResumeLink: false,
+            resumeUrl: '',
+          },
+        ],
+      });
+      
+      await tx.page.create({
+        data: {
+          portfolioId: newPortfolio.id,
+          title: 'Home',
+          slug: 'home',
+          navOrder: 0,
+          isHomepage: true,
+          showInNav: false, // Homepage link is the logo
+          draftContent: homepageContent,
+          publishedContent: homepageContent, // Publish immediately so site works
+        },
+      });
+
+      // 4. Create About page IF bio is provided
       if (portfolioBio && portfolioBio.trim()) {
         await tx.page.create({
           data: {
             portfolioId: newPortfolio.id,
             title: 'About',
             slug: 'about',
-            navOrder: 1, // After homepage
+            navOrder: 1,
             isHomepage: false,
             showInNav: true,
             draftContent: JSON.stringify({
@@ -298,7 +328,7 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      // 4. Create Category
+      // 5. Create Category
       const newCategory = await tx.category.create({
         data: {
           portfolioId: newPortfolio.id,
