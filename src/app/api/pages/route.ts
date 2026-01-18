@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { portfolioId, title, slug, isHomepage, showInNav, content, draftContent } = body
+    const { portfolioId, title, slug, isHomepage, showInNav, content, draftContent, publishedContent } = body
 
     // Validate required fields
     if (!portfolioId || !title) {
@@ -94,8 +94,12 @@ export async function POST(request: NextRequest) {
 
     // Determine draft content - support both 'content' (legacy) and 'draftContent' (new)
     const finalDraftContent = draftContent || content || null
+    
+    // Determine published content and timestamp
+    const finalPublishedContent = publishedContent !== undefined ? publishedContent : null
+    const lastPublishedAt = finalPublishedContent !== null ? new Date() : null
 
-    // Create page with draft content only (not published until explicit publish action)
+    // Create page with draft and optional published content
     const page = await prisma.page.create({
       data: {
         portfolioId,
@@ -105,8 +109,8 @@ export async function POST(request: NextRequest) {
         isHomepage: shouldBeHomepage,
         showInNav: showInNav !== false,
         draftContent: finalDraftContent,
-        publishedContent: null, // New pages start unpublished
-        lastPublishedAt: null,
+        publishedContent: finalPublishedContent,
+        lastPublishedAt,
       },
     })
 

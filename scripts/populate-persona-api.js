@@ -132,15 +132,20 @@ async function populatePersona(personaId = 'sarah-chen') {
   // Step 2: Upload and set profile photo
   console.log('📸 Setting up profile...');
   const profilePhoto = personaData.profile?.images?.[0];
+  let profileAssetId = null;
+  let profileAssetUrl = null;
+  let bio = '';
   
   if (profilePhoto) {
     const profilePath = path.join(personaDir, 'images', profilePhoto.file);
     if (fs.existsSync(profilePath)) {
       const profileAsset = await uploadImage(profilePath, portfolioId);
+      profileAssetId = profileAsset.id;
+      profileAssetUrl = profileAsset.url;
       stats.images++;
 
       // Construct bio
-      const bio = `${personaData.persona.name} is a ${personaData.persona.role} specializing in ${personaData.categories.map(c => c.name).join(', ')}. With extensive experience bringing creative visions to life, their work has been featured across major productions, known for meticulous attention to detail and artistic innovation.`;
+      bio = `${personaData.persona.name} is a ${personaData.persona.role} specializing in ${personaData.categories.map(c => c.name).join(', ')}. With extensive experience bringing creative visions to life, their work has been featured across major productions, known for meticulous attention to detail and artistic innovation.`;
 
       await apiCall('PUT', '/portfolio', {
         id: portfolioId,
@@ -150,6 +155,81 @@ async function populatePersona(personaId = 'sarah-chen') {
       });
       console.log('✓ Profile configured');
     }
+  }
+
+  // Step 2b: Create pages (Homepage and About)
+  console.log('\n📄 Creating pages...');
+  
+  // Check if pages already exist (portfolio creation auto-creates homepage)
+  const pagesCheck = await fetch(`${API_BASE}/portfolio`);
+  const portfolioData = await pagesCheck.json();
+  const existingPages = portfolioData?.data?.pages || [];
+  
+  // Generate random IDs for sections
+  const generateId = () => `section_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+  
+  // Create Homepage only if it doesn't exist
+  const homepageExists = existingPages.some(p => p.isHomepage || p.slug === '' || p.slug === 'home');
+  if (!homepageExists) {
+    const homepageContent = JSON.stringify({
+      sections: [{
+        id: generateId(),
+        type: 'hero',
+        name: personaData.persona.name,
+        title: `${personaData.persona.name} Portfolio`,
+        bio: '',
+        profileImageId: null,
+        profileImageUrl: null,
+        showResumeLink: false,
+        resumeUrl: ''
+      }]
+    });
+    
+    await apiCall('POST', '/pages', {
+      portfolioId: portfolioId,
+      title: 'Home',
+      slug: '',  // Empty slug for homepage (matches API convention)
+      navOrder: 0,
+      isHomepage: true,
+      showInNav: false,
+      draftContent: homepageContent,
+      publishedContent: homepageContent  // Publish immediately
+    });
+    console.log('  ✓ Homepage created');
+  } else {
+    console.log('  ✓ Homepage already exists');
+  }
+  
+  // Create About page (if bio exists and page doesn't exist)
+  const aboutExists = existingPages.some(p => p.slug === 'about');
+  if (bio && bio.trim() && !aboutExists) {
+    const aboutContent = JSON.stringify({
+      sections: [{
+        id: generateId(),
+        type: 'hero',
+        name: personaData.persona.name,
+        title: `${personaData.persona.name} Portfolio`,
+        bio: bio,
+        profileImageId: profileAssetId,
+        profileImageUrl: profileAssetUrl,
+        showResumeLink: false,
+        resumeUrl: ''
+      }]
+    });
+    
+    await apiCall('POST', '/pages', {
+      portfolioId: portfolioId,
+      title: 'About',
+      slug: 'about',
+      navOrder: 1,
+      isHomepage: false,
+      showInNav: true,
+      draftContent: aboutContent,
+      publishedContent: aboutContent  // Publish immediately
+    });
+    console.log('  ✓ About page created');
+  } else if (aboutExists) {
+    console.log('  ✓ About page already exists');
   }
 
   // Step 3: Create categories
@@ -260,8 +340,10 @@ async function populatePersona(personaId = 'sarah-chen') {
               images: galleryImages
             }];
             
+            const contentJson = JSON.stringify({ sections });
             await apiCall('PUT', `/projects/${projectId}`, {
-              draftContent: JSON.stringify({ sections })
+              draftContent: contentJson,
+              publishedContent: contentJson  // Publish immediately so content appears on live site
             });
             
             console.log(`    ✓ Added ${galleryImages.length} gallery images`);

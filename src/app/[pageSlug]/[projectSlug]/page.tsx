@@ -100,10 +100,10 @@ export default async function ProjectPage({ params }: PageProps) {
   // Extract gallery images
   const galleryImages = gallerySection?.images?.map((img, index) => ({
     id: img.id || `img-${index}`,
-    url: img.imageUrl || '',
+    imageUrl: img.imageUrl || '',
     altText: img.altText || '',
     caption: img.caption || '',
-  })).filter(img => img.url) || []
+  })).filter(img => img.imageUrl) || []
 
   // Filter out gallery section from content (we'll render it separately)
   const contentSections = projectSections.filter(s => s.type !== 'gallery')

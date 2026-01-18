@@ -93,10 +93,7 @@ export function AdminPageHeader({
   showMobileMenu = true,
   className = '',
 }: AdminPageHeaderProps) {
-  const { isSidebarOpen, toggleSidebar, breakpoint } = useAdminLayout()
-  
-  // Show hamburger on mobile/tablet only (hidden on desktop ≥1024px)
-  const showMenuButton = showMobileMenu && breakpoint !== 'desktop'
+  const { isSidebarOpen, toggleSidebar } = useAdminLayout()
   
   return (
     <>
@@ -104,7 +101,7 @@ export function AdminPageHeader({
         <div className="admin-page-header-content">
           {/* Left: Mobile menu + Navigation */}
           <div className="header-left">
-            {showMenuButton && (
+            {showMobileMenu && (
               <HamburgerButton
                 isOpen={isSidebarOpen}
                 onClick={toggleSidebar}
@@ -167,6 +164,13 @@ export function AdminPageHeader({
           gap: var(--space-3, 12px);
           flex: 1;
           min-width: 0; /* Allow flex child to shrink */
+        }
+        
+        /* Hide hamburger on desktop (≥1024px) via CSS to avoid hydration mismatch */
+        @media (min-width: 1024px) {
+          .header-left :global(button[data-testid="hamburger-btn"]) {
+            display: none;
+          }
         }
         
         .header-left :global(.dashboard-logo) {

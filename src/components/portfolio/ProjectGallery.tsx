@@ -7,7 +7,7 @@ import { EmptyState } from './EmptyState'
 
 interface GalleryImage {
   id: string
-  url: string
+  imageUrl: string
   thumbnailUrl?: string
   altText?: string
   caption?: string
@@ -37,7 +37,7 @@ export function ProjectGallery({
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   
   // Filter to valid images only
-  const validImages = images.filter(img => img.url)
+  const validImages = images.filter(img => img.imageUrl)
   
   // Show empty state if enabled and no valid images
   if (validImages.length === 0) {
@@ -67,7 +67,7 @@ export function ProjectGallery({
   
   // Convert to lightbox format
   const lightboxImages = validImages.map(img => ({
-    imageUrl: img.url,
+    imageUrl: img.imageUrl,
     altText: img.altText,
     caption: img.caption,
   }))
@@ -84,7 +84,7 @@ export function ProjectGallery({
             aria-label={`View ${image.altText || 'gallery image'} in full screen`}
           >
             <Image
-              src={image.url}
+              src={image.imageUrl}
               alt={image.altText || 'Gallery image'}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"

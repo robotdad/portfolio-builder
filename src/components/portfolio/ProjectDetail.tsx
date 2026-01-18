@@ -7,7 +7,7 @@ import { deserializeSections } from '@/lib/serialization'
 
 interface GalleryImage {
   id: string
-  url: string
+  imageUrl: string
   thumbnailUrl?: string
   altText?: string
   caption?: string
