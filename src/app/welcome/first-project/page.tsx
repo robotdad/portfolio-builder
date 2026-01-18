@@ -148,7 +148,7 @@ export default function FirstProjectPage() {
     const currentState = getState()
 
     // Check if we have the required data from previous steps
-    if (!currentState.portfolioName || !currentState.portfolioSlug) {
+    if (!currentState.portfolioName) {
       setSubmitError('Missing portfolio information. Please go back and complete the previous steps.')
       return
     }
@@ -163,22 +163,15 @@ export default function FirstProjectPage() {
         },
         body: JSON.stringify({
           portfolioName: currentState.portfolioName,
-          portfolioSlug: currentState.portfolioSlug,
           theme: currentState.selectedTheme,
           categoryName: categoryName.trim(),
           projectTitle: projectTitle.trim(),
-          // Bio/About fields from Step 2
+          // Bio/About fields from Step 1
           portfolioTitle: currentState.portfolioTitle || undefined,
           portfolioBio: currentState.portfolioBio || undefined,
           profilePhoto: currentState.profilePhotoPreview || undefined,
         }),
       })
-
-      if (response.status === 409) {
-        setSubmitError('This URL is already taken. Go back and choose another.')
-        setIsSubmitting(false)
-        return
-      }
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
