@@ -338,7 +338,7 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // 6. Create Project with minimal draft content so it shows up in listings
+      // 6. Create Project with minimal content (published so it shows immediately)
       const projectContent = JSON.stringify({
         sections: [
           {
@@ -357,6 +357,7 @@ export async function POST(request: NextRequest) {
           slug: projectSlug,
           order: 0,
           draftContent: projectContent,
+          publishedContent: projectContent, // Publish immediately so it shows on live site
         },
       });
 
