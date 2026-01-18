@@ -12,7 +12,9 @@ const fs = require('fs');
 const path = require('path');
 
 const API_BASE = 'http://localhost:3000/api';
-const PERSONAS_DIR = 'test-assets/personas';
+// Resolve paths relative to script location (project root), not cwd
+const PROJECT_ROOT = path.resolve(__dirname, '..');
+const PERSONAS_DIR = path.join(PROJECT_ROOT, 'test-assets/personas');
 
 // Helper to get MIME type
 function getMimeType(filename) {
@@ -304,7 +306,7 @@ async function populatePersona(personaId = 'sarah-chen') {
     success: true
   };
   
-  const summaryPath = path.join('ai_working', `${personaId}-summary.json`);
+  const summaryPath = path.join(PROJECT_ROOT, 'ai_working', `${personaId}-summary.json`);
   fs.writeFileSync(summaryPath, JSON.stringify(summary, null, 2));
   
   console.log(`\n✅ All done! View at: http://localhost:3000/${personaId}`);
