@@ -15,7 +15,8 @@ export async function GET(
       include: {
         portfolio: {
           select: {
-            slug: true,
+            id: true,
+            name: true,
           },
         },
       },

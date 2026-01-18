@@ -300,6 +300,22 @@ export async function POST(request: NextRequest) {
 
       // 4. Create About page IF bio is provided
       if (portfolioBio && portfolioBio.trim()) {
+        const aboutContent = JSON.stringify({
+          sections: [
+            {
+              id: generateId(),
+              type: 'hero',
+              name: portfolioName,
+              title: portfolioTitle || '',
+              bio: portfolioBio,
+              profileImageId: profilePhotoAssetId || null,
+              profileImageUrl: profilePhotoUrl || null,
+              showResumeLink: false,
+              resumeUrl: '',
+            },
+          ],
+        });
+
         await tx.page.create({
           data: {
             portfolioId: newPortfolio.id,
@@ -308,22 +324,8 @@ export async function POST(request: NextRequest) {
             navOrder: 1,
             isHomepage: false,
             showInNav: true,
-            draftContent: JSON.stringify({
-              sections: [
-                {
-                  id: generateId(),
-                  type: 'hero',
-                  name: portfolioName,
-                  title: portfolioTitle || '',
-                  bio: portfolioBio,
-                  profileImageId: profilePhotoAssetId || null,
-                  profileImageUrl: profilePhotoUrl || null,
-                  showResumeLink: false,
-                  resumeUrl: '',
-                },
-              ],
-            }),
-            publishedContent: null, // Not published yet
+            draftContent: aboutContent,
+            publishedContent: aboutContent, // Publish immediately so it shows on live site
           },
         });
       }
