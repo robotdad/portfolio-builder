@@ -16,7 +16,6 @@ import type { DraftStatus } from '@/components/admin'
 interface Portfolio {
   id: string
   name: string
-  slug: string
   draftTheme: string
   draftTemplate: string
   publishedTheme: string
@@ -31,17 +30,6 @@ interface Portfolio {
     thumbnailUrl: string | null
     altText: string | null
   } | null
-}
-
-// ============================================================================
-// Slug validation
-// ============================================================================
-
-const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
-
-function isValidSlug(slug: string): boolean {
-  if (!slug) return false
-  return SLUG_PATTERN.test(slug)
 }
 
 // ============================================================================
@@ -64,7 +52,6 @@ export default function SettingsPage() {
 
   // Form state
   const [name, setName] = useState('')
-  const [slug, setSlug] = useState('')
   const [theme, setTheme] = useState('')
   const [template, setTemplate] = useState('')
   const [bio, setBio] = useState('')
@@ -73,7 +60,6 @@ export default function SettingsPage() {
   const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null)
 
   // UI state
-  const [slugError, setSlugError] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
   const [saveSuccess, setSaveSuccess] = useState(false)
   const [saveError, setSaveError] = useState(false)
@@ -99,7 +85,6 @@ export default function SettingsPage() {
         const data = result.data
         setPortfolio(data)
         setName(data.name || '')
-        setSlug(data.slug || '')
         setTheme(data.draftTheme || 'modern-minimal')
         setTemplate(data.draftTemplate || 'featured-grid')
         setBio(data.bio || '')
@@ -138,12 +123,6 @@ export default function SettingsPage() {
   const saveSettings = useCallback(async () => {
     if (!portfolio) return
 
-    // Validate slug
-    if (slug && !isValidSlug(slug)) {
-      setSlugError('Use lowercase letters, numbers, and hyphens only')
-      return
-    }
-
     setIsSaving(true)
     setSaveSuccess(false)
     setSaveError(false)
@@ -155,7 +134,6 @@ export default function SettingsPage() {
         body: JSON.stringify({
           id: portfolio.id,
           name,
-          slug,
           theme,
           template,
           bio,
@@ -189,7 +167,7 @@ export default function SettingsPage() {
     } finally {
       setIsSaving(false)
     }
-  }, [portfolio, name, slug, theme, template, bio, showAboutSection, profilePhotoId])
+  }, [portfolio, name, theme, template, bio, showAboutSection, profilePhotoId])
 
   // Publish settings
   const handlePublish = useCallback(async (): Promise<boolean> => {
@@ -227,24 +205,6 @@ export default function SettingsPage() {
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)
     setHasUnsavedChanges(true)
-  }
-
-  const handleSlugChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '')
-    setSlug(value)
-    setHasUnsavedChanges(true)
-    
-    // Clear error while typing
-    if (slugError) setSlugError(null)
-  }
-
-  const handleSlugBlur = () => {
-    // Validate slug on blur
-    if (slug && !isValidSlug(slug)) {
-      setSlugError('Use lowercase letters, numbers, and hyphens only')
-    } else {
-      setSlugError(null)
-    }
   }
 
   const handleThemeChange = (themeId: string) => {
@@ -336,8 +296,8 @@ export default function SettingsPage() {
           portfolio ? (
             <>
               <ViewLinksGroup
-                draftUrl={`/preview/${portfolio.slug}`}
-                liveUrl={`/${portfolio.slug}`}
+                draftUrl="/preview"
+                liveUrl="/"
                 hasPublishedVersion={!!portfolio.lastPublishedAt}
               />
               <div className="action-divider" />
@@ -377,8 +337,8 @@ export default function SettingsPage() {
                 Basic information about your portfolio
               </p>
 
-              <div className="settings-fields settings-fields--inline">
-                <div className="settings-field settings-field--inline">
+              <div className="settings-fields">
+                <div className="settings-field">
                   <label htmlFor="name" className="settings-field__label">
                     Portfolio Name
                   </label>
@@ -391,35 +351,6 @@ export default function SettingsPage() {
                     placeholder="My Portfolio"
                     maxLength={100}
                   />
-                </div>
-
-                <div className="settings-field settings-field--inline">
-                  <label htmlFor="slug" className="settings-field__label">
-                    Portfolio URL
-                  </label>
-                  <div className="settings-field__input-wrapper">
-                    <span className="settings-field__prefix" aria-hidden="true">/</span>
-                    <input
-                      id="slug"
-                      type="text"
-                      className={`settings-field__input settings-field__input--with-prefix ${
-                        slugError ? 'settings-field__input--error' : ''
-                      }`}
-                      value={slug}
-                      onChange={handleSlugChange}
-                      onBlur={handleSlugBlur}
-                      placeholder="my-portfolio"
-                      maxLength={50}
-                      pattern="[a-z0-9-]+"
-                      aria-describedby={slugError ? 'slug-error' : undefined}
-                      aria-invalid={!!slugError}
-                    />
-                  </div>
-                  {slugError && (
-                    <span id="slug-error" className="settings-field__error" role="alert">
-                      {slugError}
-                    </span>
-                  )}
                 </div>
               </div>
             </section>
@@ -480,7 +411,7 @@ export default function SettingsPage() {
       {previewTemplate && portfolio && (
         <TemplatePreviewModal
           templateId={previewTemplate}
-          portfolioSlug={portfolio.slug}
+          portfolioSlug=""
           onClose={() => setPreviewTemplate(null)}
           onSelect={() => {
             handleTemplateChange(previewTemplate)
@@ -582,20 +513,6 @@ export default function SettingsPage() {
           color: var(--color-text, #374151);
         }
 
-        .settings-field__input-wrapper {
-          display: flex;
-          align-items: center;
-          position: relative;
-        }
-
-        .settings-field__prefix {
-          position: absolute;
-          left: 12px;
-          font-size: 14px;
-          color: var(--color-text-muted, #6b7280);
-          pointer-events: none;
-        }
-
         .settings-field__input {
           width: 100%;
           min-height: 44px;
@@ -606,10 +523,6 @@ export default function SettingsPage() {
           border: 1px solid var(--color-border, #d1d5db);
           border-radius: 8px;
           transition: border-color 150ms ease, box-shadow 150ms ease;
-        }
-
-        .settings-field__input--with-prefix {
-          padding-left: 28px;
         }
 
         .settings-field__input:hover {
@@ -638,55 +551,6 @@ export default function SettingsPage() {
         .settings-field__error {
           font-size: 13px;
           color: var(--color-error, #ef4444);
-        }
-
-        /* Compact section variant - reduced vertical space */
-        .settings-section--compact {
-          padding: var(--space-4, 16px) var(--space-6, 24px);
-        }
-
-        .settings-section--compact .settings-section__description {
-          margin-bottom: var(--space-4, 16px);
-        }
-
-        /* Inline fields layout - horizontal on desktop */
-        .settings-fields--inline {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: var(--space-4, 16px);
-        }
-
-        /* Mobile: stack vertically */
-        @media (max-width: 1023px) {
-          .settings-fields--inline {
-            grid-template-columns: 1fr;
-            gap: var(--space-4, 16px);
-          }
-        }
-
-        /* Inline field variant - reduced spacing */
-        .settings-field--inline {
-          gap: var(--space-2, 8px);
-        }
-
-        .settings-field--inline .settings-field__label {
-          font-size: 13px;
-          margin-bottom: 0;
-        }
-
-        .settings-field--inline .settings-field__input {
-          min-height: 40px;
-          padding: 8px 12px;
-          font-size: 14px;
-        }
-
-        .settings-field--inline .settings-field__input--with-prefix {
-          padding-left: 26px;
-        }
-
-        .settings-field--inline .settings-field__prefix {
-          left: 10px;
-          font-size: 13px;
         }
 
         .settings-actions {

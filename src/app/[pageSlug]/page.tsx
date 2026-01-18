@@ -186,7 +186,6 @@ async function renderCategoryPage(
   return (
     <CategoryLanding
       portfolio={{
-        slug: '',
         name: portfolioName,
         publishedTheme: portfolio.publishedTheme,
       }}

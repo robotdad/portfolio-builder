@@ -229,14 +229,13 @@ export default function PageEditorPage() {
   }
 
   // Construct URLs for ViewLinksGroup
-  const portfolioSlug = page.portfolio?.slug || 'portfolio'
   const isHomepage = page.slug === 'home' || page.isHomepage
   const draftUrl = isHomepage 
-    ? `/preview/${portfolioSlug}` 
-    : `/preview/${portfolioSlug}/pages/${page.slug}`
+    ? '/preview' 
+    : `/preview/pages/${page.slug}`
   const liveUrl = isHomepage 
-    ? `/${portfolioSlug}` 
-    : `/${portfolioSlug}/pages/${page.slug}`
+    ? '/' 
+    : `/pages/${page.slug}`
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--admin-bg-secondary)' }}>

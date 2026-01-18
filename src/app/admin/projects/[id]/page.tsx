@@ -283,10 +283,9 @@ export default function ProjectEditorPage() {
   }
 
   // Construct URLs for ViewLinksGroup
-  const portfolioSlug = project.category?.portfolio?.slug || 'portfolio'
   const categorySlug = project.category?.slug || 'category'
-  const draftUrl = `/preview/${portfolioSlug}/${categorySlug}/${project.slug}`
-  const liveUrl = `/${portfolioSlug}/${categorySlug}/${project.slug}`
+  const draftUrl = `/preview/${categorySlug}/${project.slug}`
+  const liveUrl = `/${categorySlug}/${project.slug}`
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--admin-bg-secondary)' }}>

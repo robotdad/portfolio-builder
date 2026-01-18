@@ -152,7 +152,6 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
           />
           <ProjectDetail
             portfolio={{
-              slug: 'preview',
               name: portfolio.name,
               publishedTheme: theme,
             }}
@@ -217,7 +216,6 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
         <PreviewBanner />
         <CategoryLanding
           portfolio={{
-            slug: 'preview',
             name: portfolio.name,
             publishedTheme: theme,
           }}
@@ -312,7 +310,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
         />
         <main className="portfolio-main">
           <Template
-            portfolio={{ slug: 'preview', name }}
+            portfolio={{ name }}
             sections={sections}
             featuredProjects={featuredProjects}
           />

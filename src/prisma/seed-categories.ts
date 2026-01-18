@@ -9,7 +9,7 @@ import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 import path from 'path'
 
 // Use same adapter pattern as lib/prisma.ts
-const dbPath = path.join(process.cwd(), 'dev.db')
+const dbPath = path.join(process.cwd(), 'prisma', 'dev.db')
 const adapter = new PrismaBetterSqlite3({ url: `file:${dbPath}` })
 const prisma = new PrismaClient({ adapter })
 
@@ -23,7 +23,6 @@ async function main() {
     console.log('Creating test portfolio...')
     portfolio = await prisma.portfolio.create({
       data: {
-        slug: 'test-portfolio',
         name: 'Test Designer',
         title: 'Costume Designer',
         bio: 'A test portfolio for development',

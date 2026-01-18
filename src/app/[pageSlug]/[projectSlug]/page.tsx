@@ -116,7 +116,6 @@ export default async function ProjectPage({ params }: PageProps) {
   return (
     <ProjectDetail
       portfolio={{
-        slug: '',
         name: portfolioName,
         publishedTheme: portfolio.publishedTheme,
       }}

@@ -192,7 +192,6 @@ export default async function Home() {
       <main className="portfolio-main">
         <Template
           portfolio={{
-            slug: '',
             name,
             bio: portfolio.bio || null,
             profilePhoto,

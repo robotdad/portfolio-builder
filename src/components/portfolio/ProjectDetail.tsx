@@ -32,7 +32,6 @@ interface Category {
 
 interface ProjectDetailProps {
   portfolio: {
-    slug: string
     name: string
     publishedTheme: string
   }
