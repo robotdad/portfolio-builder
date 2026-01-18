@@ -6,41 +6,6 @@ import { StepLayout } from '@/components/onboarding/StepLayout'
 import { useOnboardingState } from '@/hooks/useOnboardingState'
 
 /**
- * Generates a URL-safe slug from a portfolio name.
- * - Converts to lowercase
- * - Removes special characters
- * - Replaces spaces with hyphens
- * - Collapses multiple hyphens
- * - Trims leading/trailing hyphens
- */
-const generateSlug = (name: string): string => {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '') // Remove special chars
-    .replace(/\s+/g, '-')          // Spaces to hyphens
-    .replace(/-+/g, '-')           // Multiple hyphens to single
-    .replace(/^-|-$/g, '')         // Trim hyphens
-}
-
-/**
- * Validates a slug for URL safety.
- * Must contain only lowercase letters, numbers, and hyphens.
- * Cannot start or end with a hyphen.
- */
-const validateSlug = (slug: string): string | null => {
-  if (!slug) {
-    return 'Portfolio URL is required'
-  }
-  if (!/^[a-z0-9-]+$/.test(slug)) {
-    return 'Only lowercase letters, numbers, and hyphens allowed'
-  }
-  if (slug.startsWith('-') || slug.endsWith('-')) {
-    return 'Cannot start or end with a hyphen'
-  }
-  return null
-}
-
-/**
  * Validates portfolio name.
  */
 const validateName = (name: string): string | null => {
@@ -52,21 +17,6 @@ const validateName = (name: string): string | null => {
     return 'Portfolio name must be 100 characters or less'
   }
   return null
-}
-
-interface FormState {
-  name: string
-  slug: string
-}
-
-interface TouchedState {
-  name: boolean
-  slug: boolean
-}
-
-interface ErrorsState {
-  name: string | null
-  slug: string | null
 }
 
 /**
@@ -94,8 +44,8 @@ function ChevronIcon({ className }: { className?: string }) {
 }
 
 /**
- * Step 1 of onboarding: Portfolio name and URL slug.
- * User provides a portfolio name and can customize the auto-generated URL slug.
+ * Step 1 of onboarding: Portfolio name.
+ * User provides a portfolio name.
  * Optional "About You" section for professional title, bio, and profile photo.
  */
 export default function PortfolioPage() {
@@ -125,10 +75,7 @@ export default function PortfolioPage() {
   }, [router])
 
   // Form state - initialize from persisted state using lazy initialization
-  const [form, setForm] = useState<FormState>(() => ({
-    name: state.portfolioName || '',
-    slug: state.portfolioSlug || '',
-  }))
+  const [name, setName] = useState(() => state.portfolioName || '')
 
   // Optional fields state - initialize from persisted state
   const [title, setTitle] = useState(() => state.portfolioTitle || '')
@@ -141,41 +88,15 @@ export default function PortfolioPage() {
     !!(state.portfolioTitle || state.portfolioBio || state.profilePhotoPreview)
   )
 
-  // Track if slug has been manually edited - true if persisted slug exists
-  const [slugManuallyEdited, setSlugManuallyEdited] = useState(() => !!state.portfolioSlug)
-
   // Track which fields have been touched (for validation display)
-  const [touched, setTouched] = useState<TouchedState>({
-    name: false,
-    slug: false,
-  })
+  const [touched, setTouched] = useState(false)
 
-  // Validation errors
-  const [errors, setErrors] = useState<ErrorsState>({
-    name: null,
-    slug: null,
-  })
+  // Validation error
+  const [error, setError] = useState<string | null>(null)
 
-  // Handle name change - auto-generate slug if not manually edited
+  // Handle name change
   const handleNameChange = useCallback((value: string) => {
-    setForm(prev => {
-      const newSlug = slugManuallyEdited ? prev.slug : generateSlug(value)
-      return {
-        name: value,
-        slug: newSlug,
-      }
-    })
-  }, [slugManuallyEdited])
-
-  // Handle slug change - mark as manually edited
-  const handleSlugChange = useCallback((value: string) => {
-    // Sanitize input: lowercase and remove invalid characters as user types
-    const sanitized = value.toLowerCase().replace(/[^a-z0-9-]/g, '')
-    setSlugManuallyEdited(true)
-    setForm(prev => ({
-      ...prev,
-      slug: sanitized,
-    }))
+    setName(value)
   }, [])
 
   // Handle title change
@@ -221,40 +142,31 @@ export default function PortfolioPage() {
   }, [])
 
   // Validate field on blur
-  const handleBlur = useCallback((field: keyof FormState) => {
-    setTouched(prev => ({ ...prev, [field]: true }))
-
-    if (field === 'name') {
-      setErrors(prev => ({ ...prev, name: validateName(form.name) }))
-    } else if (field === 'slug') {
-      setErrors(prev => ({ ...prev, slug: validateSlug(form.slug) }))
-    }
-  }, [form.name, form.slug])
+  const handleBlur = useCallback(() => {
+    setTouched(true)
+    setError(validateName(name))
+  }, [name])
 
   // Check if form is valid
   const isFormValid = useCallback((): boolean => {
-    const nameError = validateName(form.name)
-    const slugError = validateSlug(form.slug)
-    return nameError === null && slugError === null
-  }, [form.name, form.slug])
+    return validateName(name) === null
+  }, [name])
 
   // Handle form submission
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault()
 
-    // Validate all fields
-    const nameError = validateName(form.name)
-    const slugError = validateSlug(form.slug)
+    // Validate
+    const nameError = validateName(name)
 
-    // Mark all as touched
-    setTouched({ name: true, slug: true })
-    setErrors({ name: nameError, slug: slugError })
+    // Mark as touched
+    setTouched(true)
+    setError(nameError)
 
     // If valid, save and navigate
-    if (nameError === null && slugError === null) {
+    if (nameError === null) {
       updateState({
-        portfolioName: form.name.trim(),
-        portfolioSlug: form.slug,
+        portfolioName: name.trim(),
         portfolioTitle: title.trim(),
         portfolioBio: bio.trim(),
         profilePhotoFile: photoFile,
@@ -263,7 +175,7 @@ export default function PortfolioPage() {
       completeStep(1)
       router.push('/welcome/theme')
     }
-  }, [form, title, bio, photoFile, photoPreview, updateState, completeStep, router])
+  }, [name, title, bio, photoFile, photoPreview, updateState, completeStep, router])
 
   // Show loading state while checking for existing portfolio
   if (isChecking) {
@@ -299,42 +211,18 @@ export default function PortfolioPage() {
             <input
               id="portfolio-name"
               type="text"
-              className={`form-input${touched.name && errors.name ? ' form-input-error' : ''}`}
+              className={`form-input${touched && error ? ' form-input-error' : ''}`}
               placeholder="e.g., Sarah Chen Costumes"
-              value={form.name}
+              value={name}
               onChange={(e) => handleNameChange(e.target.value)}
-              onBlur={() => handleBlur('name')}
+              onBlur={handleBlur}
               maxLength={100}
               autoComplete="off"
               autoFocus
             />
-            {touched.name && errors.name && (
+            {touched && error && (
               <p className="form-error" role="alert">
-                {errors.name}
-              </p>
-            )}
-          </div>
-
-          {/* Slug Field */}
-          <div className="form-group">
-            <label htmlFor="portfolio-slug" className="form-label">
-              Portfolio URL <span className="required">*</span>
-            </label>
-            <div className="slug-input-wrapper">
-              <span className="slug-prefix">yoursite.com/</span>
-              <input
-                id="portfolio-slug"
-                type="text"
-                className={`form-input slug-input${touched.slug && errors.slug ? ' form-input-error' : ''}`}
-                value={form.slug}
-                onChange={(e) => handleSlugChange(e.target.value)}
-                onBlur={() => handleBlur('slug')}
-                autoComplete="off"
-              />
-            </div>
-            {touched.slug && errors.slug && (
-              <p className="form-error" role="alert">
-                {errors.slug}
+                {error}
               </p>
             )}
           </div>
@@ -516,54 +404,6 @@ export default function PortfolioPage() {
         .form-input-error:focus {
           border-color: #DC2626;
           box-shadow: 0 0 0 3px rgb(220 38 38 / 0.1);
-        }
-
-        .slug-input-wrapper {
-          display: flex;
-          align-items: center;
-          border: 1px solid var(--color-border, #d1d5db);
-          border-radius: var(--radius-md, 6px);
-          background: var(--color-background, #ffffff);
-          overflow: hidden;
-          transition: border-color var(--transition-fast, 150ms),
-                      box-shadow var(--transition-fast, 150ms);
-        }
-
-        .slug-input-wrapper:hover {
-          border-color: var(--color-border-strong, #9ca3af);
-        }
-
-        .slug-input-wrapper:focus-within {
-          border-color: var(--color-accent, #2563eb);
-          box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
-        }
-
-        .slug-input-wrapper:has(.form-input-error) {
-          border-color: #DC2626;
-        }
-
-        .slug-input-wrapper:has(.form-input-error):focus-within {
-          border-color: #DC2626;
-          box-shadow: 0 0 0 3px rgb(220 38 38 / 0.1);
-        }
-
-        .slug-prefix {
-          padding: 0 0 0 var(--space-4, 16px);
-          color: var(--color-text-muted, #6b7280);
-          font-size: 16px;
-          white-space: nowrap;
-          user-select: none;
-        }
-
-        .slug-input {
-          border: none;
-          background: transparent;
-          padding-left: var(--space-1, 4px);
-        }
-
-        .slug-input:focus {
-          outline: none;
-          box-shadow: none;
         }
 
         /* Collapsible Section Styles */

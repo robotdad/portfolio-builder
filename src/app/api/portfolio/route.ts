@@ -1,7 +1,6 @@
 import { NextRequest } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { VALIDATION_ERRORS } from '@/lib/messages'
-import { apiSuccess, apiCreated, apiValidationError, apiConflict, apiInternalError } from '@/lib/api'
+import { apiSuccess, apiCreated, apiValidationError, apiInternalError } from '@/lib/api'
 
 // GET - Fetch the first portfolio (for MVP, we only support one)
 export async function GET() {
@@ -33,26 +32,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, slug, title, bio, theme } = body
-
-    // Validate required fields
-    if (!slug) {
-      return apiValidationError('Slug is required')
-    }
-
-    // Validate slug format
-    if (!/^[a-z0-9-]+$/.test(slug)) {
-      return apiValidationError(VALIDATION_ERRORS.SLUG_FORMAT.message)
-    }
-
-    // Check if slug is already taken
-    const existing = await prisma.portfolio.findUnique({
-      where: { slug },
-    })
-
-    if (existing) {
-      return apiConflict(VALIDATION_ERRORS.SLUG_TAKEN.message)
-    }
+    const { name, title, bio, theme } = body
 
     // Create initial hero section content
     const initialContent = JSON.stringify({
@@ -73,7 +53,6 @@ export async function POST(request: NextRequest) {
     const portfolio = await prisma.portfolio.create({
       data: {
         name: name || '',
-        slug,
         title: title || '',
         bio: bio || '',
         draftTheme: theme || 'modern-minimal',
@@ -119,38 +98,17 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json()
-    const { id, name, slug, title, bio, theme, template, showAboutSection, profilePhotoId } = body
+    const { id, name, title, bio, theme, template, showAboutSection, profilePhotoId } = body
 
     // Validate required fields - only id is always required
     if (!id) {
       return apiValidationError('ID is required')
     }
 
-    // If slug is being updated, validate it
-    if (slug !== undefined) {
-      // Validate slug format
-      if (!/^[a-z0-9-]+$/.test(slug)) {
-        return apiValidationError(VALIDATION_ERRORS.SLUG_FORMAT.message)
-      }
-
-      // Check if slug is taken by another portfolio
-      const existing = await prisma.portfolio.findFirst({
-        where: {
-          slug,
-          NOT: { id },
-        },
-      })
-
-      if (existing) {
-        return apiConflict(VALIDATION_ERRORS.SLUG_TAKEN.message)
-      }
-    }
-
     // Build update data - only include fields that were provided
     const updateData: Record<string, unknown> = {}
 
     if (name !== undefined) updateData.name = name
-    if (slug !== undefined) updateData.slug = slug
     if (title !== undefined) updateData.title = title
     if (bio !== undefined) updateData.bio = bio
     if (theme !== undefined) updateData.draftTheme = theme

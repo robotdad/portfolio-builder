@@ -25,6 +25,8 @@ interface ProjectCardProps {
  * - Mobile: Title and metadata shown below image (no hover)
  * - 16:9 aspect ratio for featured images
  * - Uses Card primitives for consistent styling
+ * 
+ * @param portfolioSlug - Empty string for published site, "preview" for preview mode
  */
 export function ProjectCard({ 
   project, 
@@ -32,7 +34,9 @@ export function ProjectCard({
   portfolioSlug,
   className = ''
 }: ProjectCardProps) {
-  const href = `/${portfolioSlug}/${categorySlug}/${project.slug}`
+  // Build href: /category/project for published, /preview/category/project for preview
+  const basePath = portfolioSlug ? `/${portfolioSlug}` : ''
+  const href = `${basePath}/${categorySlug}/${project.slug}`
   
   // Overlay content for desktop hover
   const overlayContent = (

@@ -24,12 +24,13 @@ interface Category {
 
 interface CategoryLandingProps {
   portfolio: {
-    slug: string
     name: string
     publishedTheme: string
   }
   category: Category
   projects: CategoryProject[]
+  /** Empty string for published site, "preview" for preview mode */
+  portfolioSlug?: string
 }
 
 /**
@@ -50,7 +51,8 @@ interface CategoryLandingProps {
 export function CategoryLanding({ 
   portfolio, 
   category, 
-  projects
+  projects,
+  portfolioSlug = ''
 }: CategoryLandingProps) {
   return (
     <div className="container">
@@ -79,7 +81,7 @@ export function CategoryLanding({
                 featuredImageAlt: project.featuredImageAlt,
               }}
               categorySlug={category.slug}
-              portfolioSlug={portfolio.slug}
+              portfolioSlug={portfolioSlug}
             />
           ))}
         </div>

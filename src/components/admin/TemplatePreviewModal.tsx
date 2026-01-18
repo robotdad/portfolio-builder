@@ -6,19 +6,19 @@ import { templates } from '@/components/portfolio/templates'
 
 interface TemplatePreviewModalProps {
   templateId: string
-  portfolioSlug: string
+  /** @deprecated No longer needed - preview URL is now /preview */
+  portfolioSlug?: string
   onClose: () => void
   onSelect: () => void
 }
 
 export function TemplatePreviewModal({
   templateId,
-  portfolioSlug,
   onClose,
   onSelect,
 }: TemplatePreviewModalProps) {
   const template = templates.find(t => t.id === templateId)
-  const previewUrl = `/preview/${portfolioSlug}?template=${templateId}`
+  const previewUrl = `/preview?template=${templateId}`
 
   // Close on escape
   const handleKeyDown = useCallback((e: KeyboardEvent) => {

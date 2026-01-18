@@ -48,7 +48,9 @@ function CarouselSlide({
   isExiting,
   transitionDuration,
 }: CarouselSlideProps) {
-  const href = `/${portfolioSlug}/${project.categorySlug}/${project.slug}`
+  // Build href: /category/project for published, /preview/category/project for preview
+  const basePath = portfolioSlug ? `/${portfolioSlug}` : ''
+  const href = `${basePath}/${project.categorySlug}/${project.slug}`
 
   // Determine CSS classes based on state
   let stateClass = ''

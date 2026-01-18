@@ -9,7 +9,7 @@ import { PublicFooter } from '@/components/portfolio/PublicFooter'
 
 interface LayoutProps {
   children: React.ReactNode
-  params: Promise<{ slug: string }>
+  params: Promise<{ pageSlug: string }>
 }
 
 type PortfolioTheme = 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
@@ -18,13 +18,11 @@ type PortfolioTheme = 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 // Data Fetching
 // ============================================================================
 
-async function getPortfolioForLayout(slug: string) {
-  const portfolio = await prisma.portfolio.findUnique({
-    where: { slug },
+async function getPortfolioForLayout() {
+  const portfolio = await prisma.portfolio.findFirst({
     select: {
       id: true,
       name: true,
-      slug: true,
       publishedTheme: true,
       pages: {
         where: { showInNav: true, publishedContent: { not: null } },
@@ -57,10 +55,8 @@ async function getPortfolioForLayout(slug: string) {
 
 export default async function PublicPortfolioLayout({
   children,
-  params,
 }: LayoutProps) {
-  const { slug } = await params
-  const portfolio = await getPortfolioForLayout(slug)
+  const portfolio = await getPortfolioForLayout()
 
   if (!portfolio) {
     notFound()
@@ -86,7 +82,7 @@ export default async function PublicPortfolioLayout({
   return (
     <div className="portfolio-page" data-theme={theme}>
       <Navigation
-        portfolioSlug={portfolio.slug}
+        portfolioSlug=""
         portfolioName={portfolio.name}
         pages={navPages}
         categories={navCategories}

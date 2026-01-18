@@ -7,15 +7,12 @@ import { saveProcessedImages } from '@/lib/storage/local';
 const VALID_THEMES = ['modern-minimal', 'classic-elegant', 'bold-editorial'] as const;
 type Theme = typeof VALID_THEMES[number];
 
-// Slug validation: lowercase letters, numbers, hyphens; no start/end hyphen
-const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-
 // Constraints
 const MAX_TITLE_LENGTH = 100;
 const MAX_BIO_LENGTH = 500;
 
 /**
- * Generate a URL-safe slug from text
+ * Generate a URL-safe slug from text (used for category and project slugs)
  */
 const generateSlug = (text: string): string => {
   return text
@@ -36,7 +33,6 @@ const generateId = () => Math.random().toString(36).substring(2, 11);
  */
 interface ValidatedData {
   portfolioName: string;
-  portfolioSlug: string;
   theme: Theme;
   categoryName: string;
   projectTitle: string;
@@ -61,7 +57,6 @@ function validateRequest(body: unknown): {
 
   const {
     portfolioName,
-    portfolioSlug,
     theme,
     categoryName,
     projectTitle,
@@ -75,10 +70,6 @@ function validateRequest(body: unknown): {
     return { valid: false, error: 'Portfolio name is required' };
   }
 
-  if (!portfolioSlug || typeof portfolioSlug !== 'string' || !portfolioSlug.trim()) {
-    return { valid: false, error: 'Portfolio URL slug is required' };
-  }
-
   if (!theme || typeof theme !== 'string' || !theme.trim()) {
     return { valid: false, error: 'Theme is required' };
   }
@@ -89,15 +80,6 @@ function validateRequest(body: unknown): {
 
   if (!projectTitle || typeof projectTitle !== 'string' || !projectTitle.trim()) {
     return { valid: false, error: 'Project title is required' };
-  }
-
-  // Validate slug format
-  const trimmedSlug = portfolioSlug.trim();
-  if (!SLUG_REGEX.test(trimmedSlug)) {
-    return {
-      valid: false,
-      error: 'Portfolio URL must contain only lowercase letters, numbers, and hyphens (no leading/trailing hyphens)',
-    };
   }
 
   // Validate theme
@@ -142,7 +124,6 @@ function validateRequest(body: unknown): {
     valid: true,
     data: {
       portfolioName: portfolioName.trim(),
-      portfolioSlug: trimmedSlug,
       theme: theme.trim() as Theme,
       categoryName: categoryName.trim(),
       projectTitle: projectTitle.trim(),
@@ -195,7 +176,6 @@ export async function POST(request: NextRequest) {
 
     const {
       portfolioName,
-      portfolioSlug,
       theme,
       categoryName,
       projectTitle,
@@ -203,18 +183,6 @@ export async function POST(request: NextRequest) {
       portfolioBio,
       profilePhoto,
     } = validation.data;
-
-    // Check if slug is already taken (before transaction for better UX)
-    const existing = await prisma.portfolio.findUnique({
-      where: { slug: portfolioSlug },
-    });
-
-    if (existing) {
-      return NextResponse.json(
-        { success: false, message: 'Portfolio URL already taken' },
-        { status: 409 }
-      );
-    }
 
     // Generate slugs for category and project
     const categorySlug = generateSlug(categoryName);
@@ -241,7 +209,6 @@ export async function POST(request: NextRequest) {
       const newPortfolio = await tx.portfolio.create({
         data: {
           name: portfolioName,
-          slug: portfolioSlug,
           title: portfolioTitle || portfolioName,
           bio: portfolioBio || '',
           draftTheme: theme,
@@ -359,7 +326,6 @@ export async function POST(request: NextRequest) {
         success: true,
         portfolio: {
           id: result.id,
-          slug: result.slug,
           name: result.name,
         },
       },
@@ -367,17 +333,6 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error('Onboarding completion failed:', error);
-
-    // Handle unique constraint violation (race condition on slug)
-    if (
-      error instanceof Error &&
-      error.message.includes('Unique constraint')
-    ) {
-      return NextResponse.json(
-        { success: false, message: 'Portfolio URL already taken' },
-        { status: 409 }
-      );
-    }
 
     return NextResponse.json(
       { success: false, message: 'Failed to create portfolio. Please try again.' },

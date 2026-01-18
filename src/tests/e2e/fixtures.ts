@@ -171,7 +171,6 @@ export const selectors = {
   // Settings
   settingsDropdown: 'settings-dropdown',
   settingsNameInput: 'settings-name-input',
-  settingsSlugInput: 'settings-slug-input',
   settingsThemeSelector: 'settings-theme-selector',
   settingsTemplateSelector: 'settings-template-selector',
 

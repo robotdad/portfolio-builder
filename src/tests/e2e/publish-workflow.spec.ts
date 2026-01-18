@@ -9,7 +9,7 @@ import { test, expect, selectors } from './fixtures'
  * Prerequisites:
  * - Database populated with test data (npm run test:populate)
  * - Server running at localhost:3000
- * - Portfolio exists with slug 'sarah-chen' (4 categories, 10 projects)
+ * - Portfolio exists with test data (4 categories, 10 projects)
  */
 
 // Helper to wait for network idle after navigation
@@ -61,7 +61,7 @@ test.describe('Publish Workflow', () => {
     await expect(publishBtn).toContainText(/Published/i, { timeout: 10000 })
     
     // 5. Navigate to public portfolio URL
-    await page.goto('/sarah-chen')
+    await page.goto('/')
     await waitForPageReady(page)
     
     // 6. Verify the portfolio page loads
@@ -69,14 +69,14 @@ test.describe('Publish Workflow', () => {
     
     // 7. Navigate to the published project via category
     // First, click on the category to go to category landing page
-    await page.goto(`/sarah-chen/${categorySlug}`)
+    await page.goto(`/${categorySlug}`)
     await waitForPageReady(page)
     
     // Verify we're on the category page
-    await expect(page).toHaveURL(new RegExp(`/sarah-chen/${categorySlug}`))
+    await expect(page).toHaveURL(new RegExp(`/${categorySlug}`))
     
     // 8. Navigate to the specific project
-    await page.goto(`/sarah-chen/${categorySlug}/${projectSlug}`)
+    await page.goto(`/${categorySlug}/${projectSlug}`)
     await waitForPageReady(page)
     
     // 9. Verify project content is visible on public site
@@ -107,7 +107,7 @@ test.describe('Publish Workflow', () => {
     const category = categories[0]
     
     // 2. Navigate to a non-existent project URL
-    const response = await page.goto(`/sarah-chen/${category.slug}/non-existent-project-slug`)
+    const response = await page.goto(`/${category.slug}/non-existent-project-slug`)
     
     // 3. Verify it returns 404 or shows not found state
     if (response) {
@@ -282,7 +282,7 @@ test.describe('Publish Workflow', () => {
     }
     
     // Navigate to public project page
-    await page.goto(`/sarah-chen/${category.slug}/${project.slug}`)
+    await page.goto(`/${category.slug}/${project.slug}`)
     await waitForPageReady(page)
     
     // Verify the project page renders (indicating publishedContent exists)

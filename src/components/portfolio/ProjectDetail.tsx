@@ -65,7 +65,7 @@ export function ProjectDetail({
         items={[
           { 
             label: category.name, 
-            href: `/${portfolio.slug}/${category.slug}` 
+            href: `/${category.slug}` 
           },
           { label: project.title }
         ]} 
@@ -91,7 +91,7 @@ export function ProjectDetail({
       {/* Content sections (description, etc.) */}
       {sections.length > 0 && (
         <div className="project-content">
-          <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
+          <SectionRenderer sections={sections} portfolioSlug="" />
         </div>
       )}
       

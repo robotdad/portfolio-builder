@@ -6,7 +6,6 @@ import { DashboardStatsCard } from './DashboardStatsCard'
 
 export interface DashboardOverviewProps {
   portfolioId: string
-  portfolioSlug: string
 }
 
 interface PageData {
@@ -48,7 +47,7 @@ interface Stats {
   }
 }
 
-export function DashboardOverview({ portfolioId, portfolioSlug }: DashboardOverviewProps) {
+export function DashboardOverview({ portfolioId }: DashboardOverviewProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [stats, setStats] = useState<Stats | null>(null)
@@ -440,7 +439,7 @@ export function DashboardOverview({ portfolioId, portfolioSlug }: DashboardOverv
             </div>
           </Link>
 
-          <a href={`/preview/${portfolioSlug}`} target="_blank" rel="noopener noreferrer" className="dashboard-action-card">
+          <a href="/preview" target="_blank" rel="noopener noreferrer" className="dashboard-action-card">
             <div className="dashboard-action-card__icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />

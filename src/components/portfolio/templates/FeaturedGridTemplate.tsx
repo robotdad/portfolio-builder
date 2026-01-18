@@ -17,7 +17,7 @@ export function FeaturedGridTemplate({
 
   return (
     <div className="container">
-      <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
+      <SectionRenderer sections={sections} portfolioSlug="" />
 
       {/* About Section - between hero and featured work */}
       {shouldShowAbout && (
@@ -31,7 +31,7 @@ export function FeaturedGridTemplate({
       {featuredProjects.length > 0 && (
         <FeaturedWork
           projects={featuredProjects}
-          portfolioSlug={portfolio.slug}
+          portfolioSlug=""
         />
       )}
     </div>

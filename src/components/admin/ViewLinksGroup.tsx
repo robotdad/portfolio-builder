@@ -7,17 +7,17 @@
  * @example
  * ```tsx
  * <ViewLinksGroup
- *   draftUrl={`/preview/${portfolio.slug}`}
- *   liveUrl={`/${portfolio.slug}`}
+ *   draftUrl="/preview"
+ *   liveUrl="/"
  *   hasPublishedVersion={!!portfolio.lastPublishedAt}
  * />
  * ```
  */
 
 interface ViewLinksGroupProps {
-  /** URL to draft preview (e.g., /preview/julian-vane) */
+  /** URL to draft preview (e.g., /preview) */
   draftUrl: string
-  /** URL to published version (e.g., /julian-vane) */
+  /** URL to published version (e.g., /) */
   liveUrl: string
   /** Whether published version exists (hides Live link if false) */
   hasPublishedVersion: boolean

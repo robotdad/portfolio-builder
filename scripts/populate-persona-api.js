@@ -116,7 +116,6 @@ async function populatePersona(personaId = 'sarah-chen') {
     // Create new portfolio
     portfolio = await apiCall('POST', '/portfolio', {
       name: `${personaData.persona.name} Portfolio`,
-      slug: personaId,
       title: `${personaData.persona.name} Portfolio`,
       draftTheme: 'modern-minimal',
       publishedTheme: 'modern-minimal',
@@ -309,7 +308,7 @@ async function populatePersona(personaId = 'sarah-chen') {
   const summaryPath = path.join(PROJECT_ROOT, 'ai_working', `${personaId}-summary.json`);
   fs.writeFileSync(summaryPath, JSON.stringify(summary, null, 2));
   
-  console.log(`\n✅ All done! View at: http://localhost:3000/${personaId}`);
+  console.log(`\n✅ All done! View at: http://localhost:3000/`);
   console.log(`📄 Summary saved: ${summaryPath}`);
 }
 

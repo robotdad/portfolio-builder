@@ -125,10 +125,6 @@ export const ENTITY_ERRORS = {
     message: 'Portfolio not found',
     recovery: 'The portfolio may have been deleted or the URL is incorrect. Check the address and try again.'
   },
-  PORTFOLIO_SLUG_TAKEN: {
-    message: 'This portfolio URL is already taken',
-    recovery: 'Please choose a unique URL for your portfolio.'
-  },
   
   // Project
   PROJECT_NOT_FOUND: {

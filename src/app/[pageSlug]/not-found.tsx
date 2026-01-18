@@ -1,21 +1,22 @@
 import Link from 'next/link'
 
 /**
- * Project Not Found
+ * Category/Page Not Found
  * 
- * Shown when project slug doesn't exist within a category.
+ * Shown when category or page slug doesn't exist within the portfolio.
+ * Links back to portfolio home.
  */
-export default function ProjectNotFound() {
+export default function CategoryNotFound() {
   return (
     <div className="not-found-page">
       <div className="not-found-content">
         <span className="not-found-code">404</span>
-        <h1 className="not-found-title">Project Not Found</h1>
+        <h1 className="not-found-title">Page Not Found</h1>
         <p className="not-found-message">
-          This project doesn&apos;t exist or has been removed.
+          This category or page doesn&apos;t exist.
         </p>
         <Link href="/" className="not-found-action btn btn-secondary">
-          Browse Portfolios
+          Back to Home
         </Link>
       </div>
     </div>

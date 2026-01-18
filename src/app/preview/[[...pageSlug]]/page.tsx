@@ -22,18 +22,17 @@ const TemplateComponents = {
 
 interface PageProps {
   params: Promise<{ 
-    portfolioSlug: string
     pageSlug?: string[] 
   }>
   searchParams: Promise<{ template?: string }>
 }
 
 // Generate metadata for SEO (preview pages shouldn't be indexed)
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { portfolioSlug } = await params
+export async function generateMetadata(): Promise<Metadata> {
+  const portfolio = await prisma.portfolio.findFirst()
   
   return {
-    title: `Preview - ${portfolioSlug}`,
+    title: `Preview - ${portfolio?.name || 'Portfolio'}`,
     robots: 'noindex, nofollow',
   }
 }
@@ -42,13 +41,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
  * Preview Route - Shows draft content in published layout
  * 
  * URL patterns:
- * - /preview/portfolio-slug - Preview homepage
- * - /preview/portfolio-slug/page-slug - Preview specific page
- * - /preview/portfolio-slug/category-slug - Preview category landing
- * - /preview/portfolio-slug/category-slug/project-slug - Preview project detail
+ * - /preview - Preview homepage
+ * - /preview/page-slug - Preview specific page
+ * - /preview/category-slug - Preview category landing
+ * - /preview/category-slug/project-slug - Preview project detail
  */
 export default async function PreviewPage({ params, searchParams }: PageProps) {
-  const { portfolioSlug, pageSlug } = await params
+  const { pageSlug } = await params
   const { template: templateOverride } = await searchParams
   
   // Parse URL segments
@@ -56,8 +55,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
   const secondSlug = pageSlug?.[1]
   
   // Fetch portfolio with all related data
-  const portfolio = await prisma.portfolio.findUnique({
-    where: { slug: portfolioSlug },
+  const portfolio = await prisma.portfolio.findFirst({
     include: {
       assets: true,
       pages: {
@@ -146,7 +144,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
         <div className="portfolio-page preview-mode" data-theme={theme}>
           <PreviewBanner />
           <Navigation
-            portfolioSlug={`preview/${portfolio.slug}`}
+            portfolioSlug="preview"
             portfolioName={portfolio.name}
             pages={navPages}
             categories={navCategories}
@@ -154,7 +152,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
           />
           <ProjectDetail
             portfolio={{
-              slug: `preview/${portfolio.slug}`,
+              slug: 'preview',
               name: portfolio.name,
               publishedTheme: theme,
             }}
@@ -219,7 +217,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
         <PreviewBanner />
         <CategoryLanding
           portfolio={{
-            slug: `preview/${portfolio.slug}`,
+            slug: 'preview',
             name: portfolio.name,
             publishedTheme: theme,
           }}
@@ -306,7 +304,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
       <>
         <PreviewBanner />
         <Template
-          portfolio={{ slug: `preview/${portfolio.slug}`, name }}
+          portfolio={{ slug: 'preview', name }}
           sections={sections}
           featuredProjects={featuredProjects}
         />
@@ -321,7 +319,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
 
       {(navPages.length > 1 || navCategories.length > 0) && (
         <Navigation
-          portfolioSlug={`preview/${portfolio.slug}`}
+          portfolioSlug="preview"
           portfolioName={name}
           pages={navPages}
           categories={navCategories}
@@ -331,13 +329,13 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
       
       <main className="portfolio-main">
         <div className="container">
-          <SectionRenderer sections={sections} portfolioSlug={`preview/${portfolio.slug}`} />
+          <SectionRenderer sections={sections} portfolioSlug="preview" />
         </div>
       </main>
 
       <footer className="portfolio-footer">
         <div className="container">
-          <p>© {new Date().getFullYear()} {name}</p>
+          <p>&copy; {new Date().getFullYear()} {name}</p>
         </div>
       </footer>
     </div>
@@ -356,7 +354,7 @@ function PreviewBanner() {
         <span className="preview-banner-hint">This is how your page will look when published</span>
       </div>
       <Link href="/admin" className="preview-banner-exit">
-        ← Back to Editor
+        &larr; Back to Editor
       </Link>
     </div>
   )

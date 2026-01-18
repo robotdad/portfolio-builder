@@ -9,7 +9,6 @@ const LEGACY_STORAGE_KEY = 'portfolio-onboarding-state'
 export interface OnboardingState {
   // Step 1: Portfolio
   portfolioName: string
-  portfolioSlug: string
   portfolioTitle: string        // Professional title (optional), max 100 chars
   portfolioBio: string          // Short bio (optional), max 500 chars
   profilePhotoFile: File | null // Profile photo file (not persisted to sessionStorage)
@@ -32,7 +31,6 @@ type SerializableState = Omit<OnboardingState, 'profilePhotoFile'>
 
 const DEFAULT_STATE: OnboardingState = {
   portfolioName: '',
-  portfolioSlug: '',
   portfolioTitle: '',
   portfolioBio: '',
   profilePhotoFile: null,
@@ -74,7 +72,7 @@ interface UseOnboardingStateReturn {
  * const { state, updateState, completeStep, goToStep, reset } = useOnboardingState();
  *
  * // Update portfolio name
- * updateState({ portfolioName: 'My Portfolio', portfolioSlug: 'my-portfolio' });
+ * updateState({ portfolioName: 'My Portfolio' });
  *
  * // Update bio fields
  * updateState({ 
@@ -172,7 +170,6 @@ export function useOnboardingState(): UseOnboardingStateReturn {
       // Create serializable version of state (exclude File object)
       const serializableState: SerializableState = {
         portfolioName: state.portfolioName,
-        portfolioSlug: state.portfolioSlug,
         portfolioTitle: state.portfolioTitle,
         portfolioBio: state.portfolioBio,
         profilePhotoPreview: state.profilePhotoPreview,

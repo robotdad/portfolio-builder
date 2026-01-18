@@ -34,11 +34,21 @@
  *
  * @example
  * ```tsx
+ * // Published site (links to /, /about, /portraits)
  * <Navigation
- *   portfolioSlug="jane-doe"
+ *   portfolioSlug=""
  *   portfolioName="Jane Doe Photography"
  *   pages={[{ id: '1', title: 'About', slug: 'about', isHomepage: false, showInNav: true }]}
  *   categories={[{ id: '1', name: 'Portraits', slug: 'portraits' }]}
+ *   theme="modern-minimal"
+ * />
+ * 
+ * // Preview mode (links to /preview, /preview/about, /preview/portraits)
+ * <Navigation
+ *   portfolioSlug="preview"
+ *   portfolioName="Jane Doe Photography"
+ *   pages={[...]}
+ *   categories={[...]}
  *   theme="modern-minimal"
  * />
  * ```
@@ -102,8 +112,13 @@ export function Navigation({
   const navPages = pages.filter(p => p.showInNav)
 
   // Get current path segments for active detection
+  // For preview mode (/preview/category), skip the first segment
+  // For published site (/category), use the first segment
   const pathSegments = pathname.split('/').filter(Boolean)
-  const currentCategorySlug = pathSegments.length >= 2 ? pathSegments[1] : ''
+  const isPreviewMode = portfolioSlug === 'preview'
+  const categorySegmentIndex = isPreviewMode ? 1 : 0
+  const pageSegmentIndex = isPreviewMode ? 1 : 0
+  const currentCategorySlug = pathSegments[categorySegmentIndex] || ''
 
   // Determine if we should show dropdown (>5 categories) or direct links
   const showCategoryDropdown = categories.length > CATEGORY_DROPDOWN_THRESHOLD
@@ -163,25 +178,31 @@ export function Navigation({
     }
   }, [isMenuOpen])
 
+  // Base path for links: empty for published site, '/preview' for preview mode
+  const basePath = portfolioSlug ? `/${portfolioSlug}` : ''
+
   // Get href for a page
   const getPageHref = (page: NavPage) => {
     if (page.isHomepage || page.slug === '') {
-      return `/${portfolioSlug}`
+      return basePath || '/'
     }
-    return `/${portfolioSlug}/${page.slug}`
+    return `${basePath}/${page.slug}`
   }
 
   // Get href for a category
   const getCategoryHref = (category: NavCategory) => {
-    return `/${portfolioSlug}/${category.slug}`
+    return `${basePath}/${category.slug}`
   }
 
   // Check if page is active
   const isPageActive = (page: NavPage) => {
     if (page.isHomepage || page.slug === '') {
-      return pathSegments.length === 1 && pathSegments[0] === portfolioSlug
+      // Homepage is active when at root (/) or /preview
+      return isPreviewMode 
+        ? pathSegments.length === 1 && pathSegments[0] === 'preview'
+        : pathSegments.length === 0
     }
-    return pathSegments[1] === page.slug
+    return pathSegments[pageSegmentIndex] === page.slug
   }
 
   // Check if category is active
@@ -196,7 +217,7 @@ export function Navigation({
     <nav className={`portfolio-nav portfolio-nav--${theme}`} role="navigation" aria-label="Portfolio navigation" data-testid="portfolio-nav">
       {/* Desktop Navigation */}
       <div className="portfolio-nav-desktop">
-        <Link href={`/${portfolioSlug}`} className="portfolio-nav-logo" data-testid="portfolio-nav-logo">
+        <Link href={basePath || '/'} className="portfolio-nav-logo" data-testid="portfolio-nav-logo">
           {portfolioName}
         </Link>
         <ul className="portfolio-nav-list" role="menubar">
@@ -284,7 +305,7 @@ export function Navigation({
 
       {/* Mobile Navigation */}
       <div className="portfolio-nav-mobile">
-        <Link href={`/${portfolioSlug}`} className="portfolio-nav-logo">
+        <Link href={basePath || '/'} className="portfolio-nav-logo">
           {portfolioName}
         </Link>
         <button
@@ -326,8 +347,8 @@ export function Navigation({
               {/* Home link */}
               <li role="none">
                 <Link
-                  href={`/${portfolioSlug}`}
-                  className={`portfolio-nav-menu-link ${pathSegments.length === 1 ? 'portfolio-nav-menu-link--active' : ''}`}
+                  href={basePath || '/'}
+                  className={`portfolio-nav-menu-link ${isPreviewMode ? (pathSegments.length === 1 && pathSegments[0] === 'preview') : pathSegments.length === 0 ? 'portfolio-nav-menu-link--active' : ''}`}
                   role="menuitem"
                   onClick={() => setIsMenuOpen(false)}
                 >

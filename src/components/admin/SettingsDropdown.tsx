@@ -14,7 +14,6 @@ export function SettingsDropdown({
   onClose,
   triggerRef,
   name,
-  slug,
   theme,
   template,
   portfolioId,
@@ -23,7 +22,6 @@ export function SettingsDropdown({
   profilePhotoId,
   showAboutSection,
   onNameChange,
-  onSlugChange,
   onThemeChange,
   onTemplateChange,
   onBioChange,
@@ -32,7 +30,6 @@ export function SettingsDropdown({
   onFieldBlur,
   isSaving = false,
   hasHeroSection = false,
-  portfolioSlug,
 }: SettingsDropdownProps) {
   // Initialize isMobile with SSR-safe default and subscribe to changes
   const [isMobile, setIsMobile] = useState(() => {
@@ -50,7 +47,6 @@ export function SettingsDropdown({
 
   const formProps = {
     name,
-    slug,
     theme,
     template,
     portfolioId,
@@ -59,7 +55,6 @@ export function SettingsDropdown({
     profilePhotoId,
     showAboutSection,
     onNameChange,
-    onSlugChange,
     onThemeChange,
     onTemplateChange,
     onBioChange,
@@ -68,7 +63,6 @@ export function SettingsDropdown({
     onFieldBlur,
     isSaving,
     hasHeroSection,
-    portfolioSlug,
   }
 
   if (isMobile) {

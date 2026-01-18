@@ -23,7 +23,7 @@ export function CleanMinimalTemplate({
     <>
         {/* Hero and other sections with expansive styling */}
         <div className="clean-minimal-hero-wrapper">
-          <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
+          <SectionRenderer sections={sections} portfolioSlug="" />
         </div>
 
         {/* About Section - between hero and featured work */}
@@ -44,7 +44,7 @@ export function CleanMinimalTemplate({
               {displayProjects.map((project) => (
                 <Link
                   key={project.id}
-                  href={`/${portfolio.slug}/${project.categorySlug}/${project.slug}`}
+                  href={`/${project.categorySlug}/${project.slug}`}
                   className="clean-minimal-stack-item"
                 >
                   <div className="clean-minimal-stack-image-wrapper">

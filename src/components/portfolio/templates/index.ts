@@ -36,7 +36,6 @@ export interface ProfilePhoto {
 
 export interface TemplateProps {
   portfolio: {
-    slug: string
     name: string
     bio?: string | null
     profilePhoto?: ProfilePhoto | null

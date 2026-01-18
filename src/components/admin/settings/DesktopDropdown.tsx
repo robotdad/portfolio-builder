@@ -27,7 +27,6 @@ export function DesktopDropdown({
 }: DesktopDropdownProps) {
   const popoverRef = useRef<HTMLDivElement>(null)
   const nameInputRef = useRef<HTMLInputElement>(null)
-  const slugInputRef = useRef<HTMLInputElement>(null)
   
   // Use useSyncExternalStore for hydration-safe client detection
   const mounted = useSyncExternalStore(
@@ -52,16 +51,14 @@ export function DesktopDropdown({
   useEffect(() => {
     if (isOpen) {
       const focusTimer = setTimeout(() => {
-        if (!formProps.hasHeroSection && nameInputRef.current) {
+        if (nameInputRef.current) {
           nameInputRef.current.focus()
-        } else if (slugInputRef.current) {
-          slugInputRef.current.focus()
         }
       }, 50)
 
       return () => clearTimeout(focusTimer)
     }
-  }, [isOpen, formProps.hasHeroSection])
+  }, [isOpen])
 
   // Return focus to trigger when closing
   const handleClose = useCallback(() => {
@@ -173,7 +170,6 @@ export function DesktopDropdown({
         <SettingsForm
           {...formProps}
           nameInputRef={nameInputRef}
-          slugInputRef={slugInputRef}
         />
       </div>
 

@@ -7,27 +7,29 @@ import type { Metadata } from 'next'
 
 
 interface PageProps {
-  params: Promise<{ slug: string; pageSlug: string; projectSlug: string }>
+  params: Promise<{ pageSlug: string; projectSlug: string }>
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug, pageSlug, projectSlug } = await params
+  const { pageSlug, projectSlug } = await params
+  
+  const portfolio = await prisma.portfolio.findFirst()
+  
+  if (!portfolio) {
+    return { title: 'Project Not Found' }
+  }
   
   const project = await prisma.project.findFirst({
     where: {
       slug: projectSlug,
       category: {
         slug: pageSlug,
-        portfolio: { slug },
+        portfolioId: portfolio.id,
       },
     },
     include: {
-      category: {
-        include: {
-          portfolio: true,
-        },
-      },
+      category: true,
     },
   })
 
@@ -35,7 +37,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Project Not Found' }
   }
 
-  const portfolio = project.category.portfolio
   const description = project.venue 
     ? `${project.title} at ${project.venue}${project.year ? ` (${project.year})` : ''}`
     : project.title
@@ -47,11 +48,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ProjectPage({ params }: PageProps) {
-  const { slug, pageSlug: categorySlug, projectSlug } = await params
+  const { pageSlug: categorySlug, projectSlug } = await params
   
   // Get portfolio with categories
-  const portfolio = await prisma.portfolio.findUnique({
-    where: { slug },
+  const portfolio = await prisma.portfolio.findFirst({
     include: {
       pages: {
         orderBy: { navOrder: 'asc' },
@@ -116,7 +116,7 @@ export default async function ProjectPage({ params }: PageProps) {
   return (
     <ProjectDetail
       portfolio={{
-        slug: portfolio.slug,
+        slug: '',
         name: portfolioName,
         publishedTheme: portfolio.publishedTheme,
       }}

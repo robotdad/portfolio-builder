@@ -6,7 +6,6 @@ import { DashboardOverview } from '@/components/admin/DashboardOverview'
 
 interface Portfolio {
   id: string
-  slug: string
   name: string
 }
 
@@ -100,7 +99,7 @@ export default function AdminDashboardPage() {
         navigation={{ type: 'dashboard', title: 'Dashboard' }}
         actions={
           <a
-            href={`/${portfolio.slug}`}
+            href="/"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-ghost"
@@ -115,7 +114,6 @@ export default function AdminDashboardPage() {
         <div className="container" style={{ maxWidth: '1200px' }}>
           <DashboardOverview
             portfolioId={portfolio.id}
-            portfolioSlug={portfolio.slug}
           />
         </div>
       </main>

@@ -9,7 +9,7 @@ import { isHeroSection, isGallerySection } from '@/lib/content-schema'
 import type { Metadata } from 'next'
 
 interface PageProps {
-  params: Promise<{ slug: string; pageSlug: string }>
+  params: Promise<{ pageSlug: string }>
 }
 
 // Type for project with included featuredImage relation
@@ -23,9 +23,8 @@ interface ProjectWithFeaturedImage extends Project {
 }
 
 // Helper to determine if slug matches a category or page
-async function resolveSlugType(portfolioSlug: string, targetSlug: string) {
-  const portfolio = await prisma.portfolio.findUnique({
-    where: { slug: portfolioSlug },
+async function resolveSlugType(targetSlug: string) {
+  const portfolio = await prisma.portfolio.findFirst({
     include: {
       pages: { orderBy: { navOrder: 'asc' } },
       categories: { orderBy: { order: 'asc' } },
@@ -51,8 +50,8 @@ async function resolveSlugType(portfolioSlug: string, targetSlug: string) {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug, pageSlug } = await params
-  const result = await resolveSlugType(slug, pageSlug)
+  const { pageSlug } = await params
+  const result = await resolveSlugType(pageSlug)
 
   if (result.type === 'not_found' || !result.portfolio) {
     return { title: 'Not Found' }
@@ -82,10 +81,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function PortfolioSubPage({ params }: PageProps) {
-  const { slug, pageSlug } = await params
+  const { pageSlug } = await params
   
-  const portfolio = await prisma.portfolio.findUnique({
-    where: { slug },
+  const portfolio = await prisma.portfolio.findFirst({
     include: {
       assets: true,
       pages: { orderBy: { navOrder: 'asc' } },
@@ -114,7 +112,7 @@ export default async function PortfolioSubPage({ params }: PageProps) {
 
   // If this page is the homepage, redirect to the base portfolio URL
   if (currentPage.isHomepage) {
-    redirect(`/${slug}`)
+    redirect('/')
   }
 
   // Render regular page
@@ -123,7 +121,7 @@ export default async function PortfolioSubPage({ params }: PageProps) {
 
 // Render category landing page
 async function renderCategoryPage(
-  portfolio: Awaited<ReturnType<typeof prisma.portfolio.findUnique>> & { 
+  portfolio: Awaited<ReturnType<typeof prisma.portfolio.findFirst>> & { 
     pages: Page[]; 
     categories: Category[] 
   },
@@ -188,7 +186,7 @@ async function renderCategoryPage(
   return (
     <CategoryLanding
       portfolio={{
-        slug: portfolio.slug,
+        slug: '',
         name: portfolioName,
         publishedTheme: portfolio.publishedTheme,
       }}
@@ -205,7 +203,7 @@ async function renderCategoryPage(
 
 // Render regular portfolio page
 function renderPortfolioPage(
-  portfolio: Awaited<ReturnType<typeof prisma.portfolio.findUnique>> & { 
+  portfolio: Awaited<ReturnType<typeof prisma.portfolio.findFirst>> & { 
     pages: Page[]; 
     categories: Category[] 
   },
@@ -218,7 +216,7 @@ function renderPortfolioPage(
   return (
     <div className="container">
       {sections.length > 0 ? (
-        <SectionRenderer sections={sections} portfolioSlug={portfolio.slug} />
+        <SectionRenderer sections={sections} portfolioSlug="" />
       ) : (
         <div className="portfolio-empty-page">
           <h1>{currentPage.title}</h1>

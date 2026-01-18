@@ -1,6 +1,6 @@
 /**
  * Shared settings form component used by both desktop and mobile views.
- * Contains all portfolio settings fields: name, slug, theme, template, and about section.
+ * Contains all portfolio settings fields: name, theme, template, and about section.
  */
 'use client'
 
@@ -9,11 +9,10 @@ import { ThemeSelector } from '@/components/admin/ThemeSelector'
 import { TemplateSelector } from '@/components/admin/TemplateSelector'
 import { TemplatePreviewModal } from '@/components/admin/TemplatePreviewModal'
 import { AboutSettings } from '@/components/admin/AboutSettings'
-import { isValidSlug, type SettingsFormProps } from './types'
+import type { SettingsFormProps } from './types'
 
 export function SettingsForm({
   name,
-  slug,
   theme,
   template,
   portfolioId,
@@ -22,7 +21,6 @@ export function SettingsForm({
   profilePhotoId,
   showAboutSection,
   onNameChange,
-  onSlugChange,
   onThemeChange,
   onTemplateChange,
   onBioChange,
@@ -31,34 +29,13 @@ export function SettingsForm({
   onFieldBlur,
   isSaving = false,
   hasHeroSection = false,
-  portfolioSlug,
   nameInputRef,
-  slugInputRef,
 }: SettingsFormProps) {
-  const [slugError, setSlugError] = useState<string | null>(null)
   const [previewTemplate, setPreviewTemplate] = useState<string | null>(null)
   const [aboutExpanded, setAboutExpanded] = useState(false)
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     onNameChange(e.target.value)
-  }
-
-  const handleSlugChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '')
-    onSlugChange(value)
-    
-    // Clear error while typing
-    if (slugError) setSlugError(null)
-  }
-
-  const handleSlugBlur = () => {
-    // Validate slug on blur
-    if (slug && !isValidSlug(slug)) {
-      setSlugError('Use lowercase letters, numbers, and hyphens only')
-    } else {
-      setSlugError(null)
-      onFieldBlur()
-    }
   }
 
   const handleThemeChange = (themeId: string) => {
@@ -101,38 +78,6 @@ export function SettingsForm({
           />
         </div>
       )}
-
-      {/* Slug field */}
-      <div className="settings-field">
-        <label htmlFor="settings-slug" className="settings-field__label">
-          Portfolio URL
-        </label>
-        <div className="settings-field__input-wrapper">
-          <span className="settings-field__prefix" aria-hidden="true">/</span>
-          <input
-            ref={hasHeroSection ? slugInputRef : undefined}
-            id="settings-slug"
-            type="text"
-            className={`settings-field__input settings-field__input--with-prefix ${
-              slugError ? 'settings-field__input--error' : ''
-            }`}
-            value={slug}
-            onChange={handleSlugChange}
-            onBlur={handleSlugBlur}
-            placeholder="my-portfolio"
-            maxLength={50}
-            pattern="[a-z0-9-]+"
-            aria-describedby={slugError ? 'slug-error' : undefined}
-            aria-invalid={!!slugError}
-            data-testid="settings-slug-input"
-          />
-        </div>
-        {slugError && (
-          <span id="slug-error" className="settings-field__error" role="alert">
-            {slugError}
-          </span>
-        )}
-      </div>
 
       {/* Theme selector */}
       <div className="settings-field settings-field--theme" data-testid="settings-theme-selector">
@@ -198,7 +143,7 @@ export function SettingsForm({
       {previewTemplate && (
         <TemplatePreviewModal
           templateId={previewTemplate}
-          portfolioSlug={portfolioSlug}
+          portfolioSlug=""
           onClose={() => setPreviewTemplate(null)}
           onSelect={() => {
             handleTemplateChange(previewTemplate)

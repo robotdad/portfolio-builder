@@ -14,7 +14,6 @@ export interface SettingsDropdownProps {
   triggerRef: RefObject<HTMLButtonElement | null>
   // Settings values
   name: string
-  slug: string
   theme: string
   template: string
   // About section values
@@ -25,7 +24,6 @@ export interface SettingsDropdownProps {
   showAboutSection: boolean
   // Handlers
   onNameChange: (name: string) => void
-  onSlugChange: (slug: string) => void
   onThemeChange: (theme: string) => void
   onTemplateChange: (template: string) => void
   onBioChange: (bio: string) => void
@@ -35,12 +33,10 @@ export interface SettingsDropdownProps {
   // State
   isSaving?: boolean
   hasHeroSection?: boolean // If true, hide name field (name comes from hero)
-  portfolioSlug: string // Needed for template preview URL
 }
 
 export interface SettingsFormProps {
   name: string
-  slug: string
   theme: string
   template: string
   portfolioId: string
@@ -49,7 +45,6 @@ export interface SettingsFormProps {
   profilePhotoId: string | null
   showAboutSection: boolean
   onNameChange: (name: string) => void
-  onSlugChange: (slug: string) => void
   onThemeChange: (theme: string) => void
   onTemplateChange: (template: string) => void
   onBioChange: (bio: string) => void
@@ -58,20 +53,7 @@ export interface SettingsFormProps {
   onFieldBlur: () => void
   isSaving?: boolean
   hasHeroSection?: boolean
-  portfolioSlug: string
   nameInputRef?: RefObject<HTMLInputElement | null>
-  slugInputRef?: RefObject<HTMLInputElement | null>
-}
-
-// ============================================================================
-// Slug validation
-// ============================================================================
-
-const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
-
-export function isValidSlug(slug: string): boolean {
-  if (!slug) return false
-  return SLUG_PATTERN.test(slug)
 }
 
 // Re-export ChangeEvent for convenience
