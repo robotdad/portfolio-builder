@@ -301,14 +301,23 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
   // Homepage uses template component
   if (targetPage.isHomepage) {
     return (
-      <>
+      <div className="portfolio-page preview-mode" data-theme={theme}>
         <PreviewBanner />
-        <Template
-          portfolio={{ slug: 'preview', name }}
-          sections={sections}
-          featuredProjects={featuredProjects}
+        <Navigation
+          portfolioSlug="preview"
+          portfolioName={name}
+          pages={navPages}
+          categories={navCategories}
+          theme={theme}
         />
-      </>
+        <main className="portfolio-main">
+          <Template
+            portfolio={{ slug: 'preview', name }}
+            sections={sections}
+            featuredProjects={featuredProjects}
+          />
+        </main>
+      </div>
     )
   }
 

@@ -338,13 +338,25 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // 5. Create Project
+      // 6. Create Project with minimal draft content so it shows up in listings
+      const projectContent = JSON.stringify({
+        sections: [
+          {
+            id: generateId(),
+            type: 'gallery',
+            heading: '',
+            images: [],
+          },
+        ],
+      });
+
       await tx.project.create({
         data: {
           categoryId: newCategory.id,
           title: projectTitle,
           slug: projectSlug,
           order: 0,
+          draftContent: projectContent,
         },
       });
 
