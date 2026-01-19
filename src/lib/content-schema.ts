@@ -89,8 +89,40 @@ export interface GallerySection extends BaseSection {
   images: GalleryImage[]
 }
 
+// Category Grid Section - Auto-populated grid of categories
+// Displays categories from the database with optional filtering and ordering
+export interface CategoryGridSection extends BaseSection {
+  type: 'category-grid'
+  heading: string
+  description: string // Optional intro text
+  categoryIds: string[] | null // Explicit ordering, null = use all categories by Category.order
+  columns: 2 | 3 | 4 // Grid layout (desktop)
+  showDescription: boolean // Show category.description
+  showProjectCount: boolean // Show "5 projects"
+}
+
+// Project Grid Section - Auto-populated grid of projects
+// Displays projects from the parent category with optional filtering and ordering
+export interface ProjectGridSection extends BaseSection {
+  type: 'project-grid'
+  heading: string
+  description: string
+  projectIds: string[] | null // Explicit ordering, null = use all projects by Project.order
+  columns: 2 | 3 | 4
+  showMetadata: boolean // Show year, venue, role
+  layout: 'grid' | 'masonry' | 'list'
+}
+
 // Union type of all sections
-export type Section = TextSection | ImageSection | HeroSection | FeaturedGridSection | FeaturedCarouselSection | GallerySection
+export type Section = 
+  | TextSection 
+  | ImageSection 
+  | HeroSection 
+  | FeaturedGridSection 
+  | FeaturedCarouselSection 
+  | GallerySection
+  | CategoryGridSection
+  | ProjectGridSection
 
 // Page content structure
 export interface PageContent {
@@ -120,6 +152,14 @@ export function isFeaturedCarouselSection(section: Section): section is Featured
 
 export function isGallerySection(section: Section): section is GallerySection {
   return section.type === 'gallery'
+}
+
+export function isCategoryGridSection(section: Section): section is CategoryGridSection {
+  return section.type === 'category-grid'
+}
+
+export function isProjectGridSection(section: Section): section is ProjectGridSection {
+  return section.type === 'project-grid'
 }
 
 // Factory functions to create new sections
@@ -210,6 +250,32 @@ export function createGalleryImage(): GalleryImage {
   }
 }
 
+export function createCategoryGridSection(): CategoryGridSection {
+  return {
+    id: generateId(),
+    type: 'category-grid',
+    heading: 'Work',
+    description: '',
+    categoryIds: null, // null = auto-populate all categories
+    columns: 3,
+    showDescription: true,
+    showProjectCount: true,
+  }
+}
+
+export function createProjectGridSection(): ProjectGridSection {
+  return {
+    id: generateId(),
+    type: 'project-grid',
+    heading: 'Projects',
+    description: '',
+    projectIds: null, // null = auto-populate all projects in category
+    columns: 3,
+    showMetadata: true,
+    layout: 'grid',
+  }
+}
+
 // Simple ID generator
 function generateId(): string {
   return `section_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
@@ -252,6 +318,18 @@ export const sectionTypes = [
     label: 'Gallery',
     description: 'Multiple images in a grid',
     icon: '🖼️',
+  },
+  {
+    type: 'category-grid' as const,
+    label: 'Category Grid',
+    description: 'Grid of all categories',
+    icon: '📁',
+  },
+  {
+    type: 'project-grid' as const,
+    label: 'Project Grid',
+    description: 'Grid of projects in this category',
+    icon: '🗂️',
   },
 ] as const
 

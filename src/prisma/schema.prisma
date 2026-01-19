@@ -19,6 +19,12 @@ model Portfolio {
   draftTemplate String @default("featured-grid")
   publishedTemplate String @default("featured-grid")
   lastPublishedAt DateTime?
+  
+  // Category list page content (section-based)
+  categoryPageDraftContent String?
+  categoryPagePublishedContent String?
+  categoryPageLastPublishedAt DateTime?
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
@@ -95,6 +101,11 @@ model Category {
   
   featuredImageId String?
   featuredImage Asset? @relation("CategoryFeaturedImage", fields: [featuredImageId], references: [id], onDelete: SetNull)
+  
+  // Category landing page content (section-based)
+  draftContent String?
+  publishedContent String?
+  lastPublishedAt DateTime?
   
   projects Project[]
   
