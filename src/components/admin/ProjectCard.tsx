@@ -145,7 +145,7 @@ export function ProjectCard({
         </CardBody>
       </Card>
 
-      <style jsx>{`
+      <style jsx global>{`
         .project-card-link {
           text-decoration: none;
           color: inherit;
@@ -180,7 +180,7 @@ export function ProjectCard({
 
         .drag-handle-wrapper {
           position: absolute;
-          top: 8px;
+          bottom: 8px;
           left: 8px;
           display: flex;
           align-items: center;
