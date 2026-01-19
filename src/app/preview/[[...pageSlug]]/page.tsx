@@ -42,6 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
  * 
  * URL patterns:
  * - /preview - Preview homepage
+ * - /preview/categories - Preview category list page
  * - /preview/page-slug - Preview specific page
  * - /preview/category-slug - Preview category landing
  * - /preview/category-slug/project-slug - Preview project detail
@@ -110,6 +111,53 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
     name: c.name,
     slug: c.slug,
   }))
+
+  // Check for category list page preview (/preview/categories)
+  // Must come BEFORE category slug check to avoid conflicts with a category named "categories"
+  if (firstSlug === 'categories' && !secondSlug) {
+    // Deserialize category page draft content
+    const sections = deserializeSections(portfolio.categoryPageDraftContent || '')
+    
+    // Map categories to format expected by CategoryGridRenderer
+    const categoriesWithCount = portfolio.categories.map(c => ({
+      id: c.id,
+      name: c.name,
+      slug: c.slug,
+      description: c.description,
+      order: c.order,
+      featuredImage: c.featuredImage,
+      _count: {
+        projects: c.projects.length,
+      },
+    }))
+    
+    return (
+      <div className="portfolio-page preview-mode" data-theme={theme}>
+        <PreviewBanner />
+        <Navigation
+          portfolioSlug="preview"
+          portfolioName={portfolio.name}
+          pages={navPages}
+          categories={navCategories}
+          theme={theme}
+        />
+        <main className="portfolio-main">
+          {sections.length > 0 ? (
+            <SectionRenderer 
+              sections={sections} 
+              portfolioSlug="preview"
+              categories={categoriesWithCount}
+            />
+          ) : (
+            <div className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>
+              <h2>No Draft Content</h2>
+              <p>Create your category list page in the editor to see it here.</p>
+            </div>
+          )}
+        </main>
+      </div>
+    )
+  }
 
   // Check if first slug matches a category
   const category = portfolio.categories.find(c => c.slug === firstSlug)
