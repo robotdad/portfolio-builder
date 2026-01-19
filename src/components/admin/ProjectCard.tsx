@@ -196,6 +196,7 @@ export function ProjectCard({
                       background-color var(--transition-fast, 150ms) ease,
                       transform 100ms ease;
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          z-index: 10;
         }
 
         .drag-handle-wrapper:hover {
@@ -214,8 +215,8 @@ export function ProjectCard({
             opacity: 0;
           }
 
-          .project-card-link:hover .drag-handle-wrapper,
-          .project-card-link:focus-within .drag-handle-wrapper {
+          :global(.project-card-link:hover) .drag-handle-wrapper,
+          :global(.project-card-link:focus-within) .drag-handle-wrapper {
             opacity: 1;
           }
         }
