@@ -37,9 +37,6 @@ export interface ProfilePhoto {
 export interface TemplateProps {
   portfolio: {
     name: string
-    bio?: string | null
-    profilePhoto?: ProfilePhoto | null
-    showAboutSection?: boolean | null
   }
   sections: Section[]
   featuredProjects: FeaturedProject[]

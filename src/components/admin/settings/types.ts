@@ -21,14 +21,12 @@ export interface SettingsDropdownProps {
   bio: string
   profilePhotoUrl: string | null
   profilePhotoId: string | null
-  showAboutSection: boolean
   // Handlers
   onNameChange: (name: string) => void
   onThemeChange: (theme: string) => void
   onTemplateChange: (template: string) => void
   onBioChange: (bio: string) => void
   onProfilePhotoChange: (photoId: string | null, photoUrl: string | null) => void
-  onShowAboutChange: (show: boolean) => void
   onFieldBlur: () => void // Called when any field loses focus - triggers auto-save
   // State
   isSaving?: boolean
@@ -43,13 +41,11 @@ export interface SettingsFormProps {
   bio: string
   profilePhotoUrl: string | null
   profilePhotoId: string | null
-  showAboutSection: boolean
   onNameChange: (name: string) => void
   onThemeChange: (theme: string) => void
   onTemplateChange: (template: string) => void
   onBioChange: (bio: string) => void
   onProfilePhotoChange: (photoId: string | null, photoUrl: string | null) => void
-  onShowAboutChange: (show: boolean) => void
   onFieldBlur: () => void
   isSaving?: boolean
   hasHeroSection?: boolean

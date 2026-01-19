@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useCallback, useMemo, type ChangeEvent } from 'react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminEditorToolbar } from '@/components/admin/AdminEditorToolbar'
+import { type DraftStatus } from '@/components/admin/DraftIndicator'
 import { ThemeSelector } from '@/components/admin/ThemeSelector'
 import { TemplateSelector } from '@/components/admin/TemplateSelector'
 import { AboutSettings } from '@/components/admin/AboutSettings'
 import { TemplatePreviewModal } from '@/components/admin/TemplatePreviewModal'
-import { DraftIndicator, PublishButton, ViewLinksGroup } from '@/components/admin'
-import type { DraftStatus } from '@/components/admin'
 
 // ============================================================================
 // Types
@@ -22,7 +22,6 @@ interface Portfolio {
   publishedTemplate: string
   lastPublishedAt: string | null
   bio: string
-  showAboutSection: boolean
   profilePhotoId: string | null
   profilePhoto: {
     id: string
@@ -55,7 +54,6 @@ export default function SettingsPage() {
   const [theme, setTheme] = useState('')
   const [template, setTemplate] = useState('')
   const [bio, setBio] = useState('')
-  const [showAboutSection, setShowAboutSection] = useState(true)
   const [profilePhotoId, setProfilePhotoId] = useState<string | null>(null)
   const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null)
 
@@ -88,7 +86,6 @@ export default function SettingsPage() {
         setTheme(data.draftTheme || 'modern-minimal')
         setTemplate(data.draftTemplate || 'featured-grid')
         setBio(data.bio || '')
-        setShowAboutSection(data.showAboutSection ?? true)
         setProfilePhotoId(data.profilePhotoId || null)
         setProfilePhotoUrl(data.profilePhoto?.url || null)
       } catch (err) {
@@ -120,8 +117,8 @@ export default function SettingsPage() {
   }, [isSaving, saveSuccess, saveError, hasUnpublishedChanges])
 
   // Save portfolio settings (draft)
-  const saveSettings = useCallback(async () => {
-    if (!portfolio) return
+  const saveSettings = useCallback(async (): Promise<Portfolio | null> => {
+    if (!portfolio) return null
 
     setIsSaving(true)
     setSaveSuccess(false)
@@ -137,7 +134,6 @@ export default function SettingsPage() {
           theme,
           template,
           bio,
-          showAboutSection,
           profilePhotoId,
         }),
       })
@@ -147,13 +143,21 @@ export default function SettingsPage() {
         throw new Error(data.message || 'Failed to save settings')
       }
 
-      const updatedPortfolio = await res.json()
-      setPortfolio(updatedPortfolio)
+      const result = await res.json()
+      
+      // API returns { success: true, data: portfolio } - unwrap it
+      if (!result.success || !result.data) {
+        throw new Error('Invalid response from server')
+      }
+      
+      setPortfolio(result.data)
       setHasUnsavedChanges(false)
       setSaveSuccess(true)
 
       // Clear success message after 3 seconds
       setTimeout(() => setSaveSuccess(false), 3000)
+      
+      return result.data
     } catch (err) {
       console.error('Failed to save settings:', err)
       setError(err instanceof Error ? err.message : 'Failed to save settings')
@@ -164,10 +168,12 @@ export default function SettingsPage() {
         setError(null)
         setSaveError(false)
       }, 5000)
+      
+      return null
     } finally {
       setIsSaving(false)
     }
-  }, [portfolio, name, theme, template, bio, showAboutSection, profilePhotoId])
+  }, [portfolio, name, theme, template, bio, profilePhotoId])
 
   // Publish settings
   const handlePublish = useCallback(async (): Promise<boolean> => {
@@ -175,19 +181,25 @@ export default function SettingsPage() {
 
     try {
       // First save draft if there are unsaved changes
+      let currentPortfolio = portfolio
       if (hasUnsavedChanges) {
-        await saveSettings()
+        const saved = await saveSettings()
+        if (!saved) {
+          throw new Error('Failed to save changes before publishing')
+        }
+        currentPortfolio = saved
       }
       
       // Then publish: copy draft → published
       const response = await fetch('/api/portfolio/publish', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: portfolio.id })
+        body: JSON.stringify({ id: currentPortfolio.id })
       })
       
       if (!response.ok) {
-        throw new Error('Failed to publish')
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to publish')
       }
       
       // Update local state
@@ -225,11 +237,6 @@ export default function SettingsPage() {
   const handleProfilePhotoChange = (photoId: string | null, photoUrl: string | null) => {
     setProfilePhotoId(photoId)
     setProfilePhotoUrl(photoUrl)
-    setHasUnsavedChanges(true)
-  }
-
-  const handleShowAboutChange = (show: boolean) => {
-    setShowAboutSection(show)
     setHasUnsavedChanges(true)
   }
 
@@ -283,6 +290,7 @@ export default function SettingsPage() {
 
   return (
     <>
+      {/* Header - Clean navigation only */}
       <AdminPageHeader
         navigation={{
           type: 'breadcrumb',
@@ -292,28 +300,23 @@ export default function SettingsPage() {
           ],
         }}
         title="Portfolio Settings"
-        actions={
-          portfolio ? (
-            <>
-              <ViewLinksGroup
-                draftUrl="/preview"
-                liveUrl="/"
-                hasPublishedVersion={!!portfolio.lastPublishedAt}
-              />
-              <div className="action-divider" />
-              <DraftIndicator status={draftStatus} hasUnpublishedChanges={hasUnpublishedChanges} />
-              <button 
-                onClick={saveSettings} 
-                disabled={!hasUnsavedChanges || isSaving}
-                className="settings-button settings-button--primary"
-              >
-                {isSaving ? 'Saving...' : 'Save Draft'}
-              </button>
-              <PublishButton hasChangesToPublish={hasUnpublishedChanges} onPublish={handlePublish} />
-            </>
-          ) : undefined
-        }
       />
+
+      {/* Editor Toolbar - Dedicated editing controls */}
+      {portfolio && (
+        <AdminEditorToolbar
+          viewLinks={{
+            draftUrl: "/preview",
+            liveUrl: "/",
+            hasPublishedVersion: !!portfolio.lastPublishedAt,
+          }}
+          draftStatus={draftStatus}
+          hasUnpublishedChanges={hasUnpublishedChanges}
+          onSaveDraft={saveSettings}
+          onPublish={handlePublish}
+          isSaveDraftDisabled={!hasUnsavedChanges || isSaving}
+        />
+      )}
 
       <main className="settings-page">
         <div className="settings-container">
@@ -377,11 +380,11 @@ export default function SettingsPage() {
               </div>
             </section>
 
-            {/* About Section */}
+            {/* Default Bio */}
             <section className="settings-section">
-              <h2 className="settings-section__title">About Section</h2>
+              <h2 className="settings-section__title">Default Bio</h2>
               <p className="settings-section__description">
-                Add a personal bio and profile photo to your homepage
+                This bio and photo will be used as the default when you add a Profile Card to any page. You can customize each page individually.
               </p>
 
               <div className="settings-fields">
@@ -391,10 +394,8 @@ export default function SettingsPage() {
                     bio={bio}
                     profilePhotoUrl={profilePhotoUrl}
                     profilePhotoId={profilePhotoId}
-                    showAboutSection={showAboutSection}
                     onBioChange={handleBioChange}
                     onProfilePhotoChange={handleProfilePhotoChange}
-                    onShowAboutChange={handleShowAboutChange}
                     onFieldBlur={() => {}} // No auto-save on blur for full page
                     isSaving={isSaving}
                   />

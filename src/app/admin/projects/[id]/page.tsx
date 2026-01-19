@@ -6,9 +6,8 @@ import Link from 'next/link'
 import { SectionList } from '@/components/editor/SectionList'
 import { AddSectionButton } from '@/components/editor/AddSectionButton'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
-import { DraftIndicator, type DraftStatus } from '@/components/admin/DraftIndicator'
-import { PublishButton } from '@/components/admin/PublishButton'
-import { ViewLinksGroup } from '@/components/admin'
+import { AdminEditorToolbar } from '@/components/admin/AdminEditorToolbar'
+import { type DraftStatus } from '@/components/admin/DraftIndicator'
 import { ProjectMetadataSidebar } from '@/components/admin/ProjectMetadataSidebar'
 import { FeaturedImagePicker } from '@/components/admin/FeaturedImagePicker'
 import { useAutoSave } from '@/hooks/useAutoSave'
@@ -289,7 +288,7 @@ export default function ProjectEditorPage() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--admin-bg-secondary)' }}>
-      {/* Header */}
+      {/* Header - Clean navigation only */}
       <AdminPageHeader
         navigation={{ 
           type: 'breadcrumb', 
@@ -300,32 +299,21 @@ export default function ProjectEditorPage() {
             { label: project.title }
           ]
         }}
-        actions={
-          <>
-            <ViewLinksGroup
-              draftUrl={draftUrl}
-              liveUrl={liveUrl}
-              hasPublishedVersion={!!project.lastPublishedAt}
-            />
-            <div className="action-divider" />
-            <DraftIndicator
-              status={draftStatus}
-              hasUnpublishedChanges={hasUnpublishedChanges}
-            />
-            <button
-              type="button"
-              onClick={saveDraft}
-              disabled={!isDirty}
-              className="btn btn-secondary"
-            >
-              Save Draft
-            </button>
-            <PublishButton
-              hasChangesToPublish={hasUnpublishedChanges}
-              onPublish={handlePublish}
-            />
-          </>
-        }
+        title={project.title}
+      />
+
+      {/* Editor Toolbar - Dedicated editing controls */}
+      <AdminEditorToolbar
+        viewLinks={{
+          draftUrl,
+          liveUrl,
+          hasPublishedVersion: !!project.lastPublishedAt,
+        }}
+        draftStatus={draftStatus}
+        hasUnpublishedChanges={hasUnpublishedChanges}
+        onSaveDraft={saveDraft}
+        onPublish={handlePublish}
+        isSaveDraftDisabled={!isDirty}
       />
 
       {/* Main Content */}
@@ -419,6 +407,7 @@ export default function ProjectEditorPage() {
                 <AddSectionButton
                   onAdd={handleAddSection}
                   hasHeroSection={hasHeroSection}
+                  portfolioId={project.category.portfolioId}
                 />
               </div>
             </div>

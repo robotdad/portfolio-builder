@@ -9,10 +9,8 @@ interface AboutSettingsProps {
   bio: string
   profilePhotoUrl: string | null
   profilePhotoId: string | null
-  showAboutSection: boolean
   onBioChange: (bio: string) => void
   onProfilePhotoChange: (photoId: string | null, photoUrl: string | null) => void
-  onShowAboutChange: (show: boolean) => void
   onFieldBlur: () => void
   isSaving?: boolean
 }
@@ -29,10 +27,8 @@ export function AboutSettings({
   portfolioId,
   bio,
   profilePhotoUrl,
-  showAboutSection,
   onBioChange,
   onProfilePhotoChange,
-  onShowAboutChange,
   onFieldBlur,
 }: AboutSettingsProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -83,37 +79,10 @@ export function AboutSettings({
     }
   }, [onBioChange])
 
-  const handleToggleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    onShowAboutChange(e.target.checked)
-  }, [onShowAboutChange])
-
   const displayPhotoUrl = optimisticPhotoUrl || profilePhotoUrl
 
   return (
     <div className="about-settings">
-      {/* Section header */}
-      <div className="about-settings__header">
-        <h3 className="about-settings__title">About Section</h3>
-      </div>
-
-      {/* Toggle control */}
-      <div className="about-settings__field about-settings__field--toggle">
-        <label className="checkbox-label">
-          <input
-            type="checkbox"
-            checked={showAboutSection}
-            onChange={handleToggleChange}
-            onBlur={onFieldBlur}
-          />
-          <span className="checkbox-label-text">
-            Show About section on homepage
-          </span>
-        </label>
-        <p className="about-settings__helper">
-          Display your bio and profile photo below the hero section
-        </p>
-      </div>
-
       {/* Bio field */}
       <div className="about-settings__field">
         <label htmlFor="about-bio" className="about-settings__label">

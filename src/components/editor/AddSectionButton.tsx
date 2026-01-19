@@ -36,16 +36,17 @@ function getServerIsMobile() {
 interface AddSectionButtonProps {
   onAdd: (section: Section) => void
   hasHeroSection?: boolean
+  portfolioId?: string // Optional - used to fetch default bio for profile cards
 }
 
-export function AddSectionButton({ onAdd, hasHeroSection = false }: AddSectionButtonProps) {
+export function AddSectionButton({ onAdd, hasHeroSection = false, portfolioId }: AddSectionButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   // Detect mobile viewport using useSyncExternalStore (no setState in effect)
   const isMobile = useSyncExternalStore(subscribeMobileQuery, getIsMobile, getServerIsMobile)
 
-  const handleAddSection = (type: SectionType) => {
+  const handleAddSection = async (type: SectionType) => {
     let section: Section
 
     switch (type) {
@@ -56,7 +57,34 @@ export function AddSectionButton({ onAdd, hasHeroSection = false }: AddSectionBu
         section = createImageSection()
         break
       case 'hero':
-        section = createHeroSection()
+        // Fetch default bio from Portfolio settings
+        let defaultBio = ''
+        let defaultProfileImageId = null
+        let defaultProfileImageUrl = null
+        
+        if (portfolioId) {
+          try {
+            const res = await fetch('/api/portfolio')
+            if (res.ok) {
+              const result = await res.json()
+              if (result.success && result.data) {
+                defaultBio = result.data.bio || ''
+                defaultProfileImageId = result.data.profilePhotoId || null
+                if (result.data.profilePhoto) {
+                  defaultProfileImageUrl = result.data.profilePhoto.url || null
+                }
+              }
+            }
+          } catch (err) {
+            console.error('Failed to fetch default bio:', err)
+          }
+        }
+        
+        section = {
+          ...createHeroSection('', '', defaultBio),
+          profileImageId: defaultProfileImageId,
+          profileImageUrl: defaultProfileImageUrl,
+        }
         break
       case 'featured-grid':
         section = createFeaturedGridSection()

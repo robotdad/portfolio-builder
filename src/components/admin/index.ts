@@ -37,3 +37,6 @@ export { DraftIndicator } from './DraftIndicator'
 export type { DraftStatus } from './DraftIndicator'
 
 export { PublishButton } from './PublishButton'
+
+export { AdminEditorToolbar } from './AdminEditorToolbar'
+export type { AdminEditorToolbarProps } from './AdminEditorToolbar'

@@ -82,6 +82,8 @@ export default function PortfolioPage() {
   const [bio, setBio] = useState(() => state.portfolioBio || '')
   const [photoPreview, setPhotoPreview] = useState<string>(() => state.profilePhotoPreview || '')
   const [photoFile, setPhotoFile] = useState<File | null>(() => state.profilePhotoFile || null)
+  const [bioOnHome, setBioOnHome] = useState(() => state.bioOnHome ?? true)
+  const [bioOnAbout, setBioOnAbout] = useState(() => state.bioOnAbout ?? false)
 
   // Collapsible section state - auto-expand if any optional fields have data
   const [isExpanded, setIsExpanded] = useState(() => 
@@ -171,11 +173,13 @@ export default function PortfolioPage() {
         portfolioBio: bio.trim(),
         profilePhotoFile: photoFile,
         profilePhotoPreview: photoPreview,
+        bioOnHome,
+        bioOnAbout,
       })
       completeStep(1)
       router.push('/welcome/theme')
     }
-  }, [name, title, bio, photoFile, photoPreview, updateState, completeStep, router])
+  }, [name, title, bio, photoFile, photoPreview, bioOnHome, bioOnAbout, updateState, completeStep, router])
 
   // Show loading state while checking for existing portfolio
   if (isChecking) {
@@ -353,6 +357,38 @@ export default function PortfolioPage() {
                     </button>
                   )}
                 </div>
+
+                {/* Bio Placement Options - only show if bio is provided */}
+                {bio.trim() && (
+                  <div className="form-group">
+                    <label className="form-label">
+                      Where should your bio appear?
+                    </label>
+                    <p className="form-guidance">
+                      You can always add or remove it from pages later
+                    </p>
+                    <div className="checkbox-group">
+                      <label className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={bioOnHome}
+                          onChange={(e) => setBioOnHome(e.target.checked)}
+                          className="checkbox-input"
+                        />
+                        <span className="checkbox-text">Home page</span>
+                      </label>
+                      <label className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={bioOnAbout}
+                          onChange={(e) => setBioOnAbout(e.target.checked)}
+                          className="checkbox-input"
+                        />
+                        <span className="checkbox-text">About page</span>
+                      </label>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -507,6 +543,41 @@ export default function PortfolioPage() {
           transition: border-color var(--transition-fast, 150ms),
                       background-color var(--transition-fast, 150ms);
           width: 100%;
+        }
+
+        /* Checkbox Group */
+        .checkbox-group {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-3, 12px);
+          margin-top: var(--space-2, 8px);
+        }
+
+        .checkbox-label {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2, 8px);
+          cursor: pointer;
+          padding: var(--space-2, 8px);
+          border-radius: var(--radius-sm, 4px);
+          transition: background-color var(--transition-fast, 150ms);
+        }
+
+        .checkbox-label:hover {
+          background: var(--color-surface-hover, #f3f4f6);
+        }
+
+        .checkbox-input {
+          width: 18px;
+          height: 18px;
+          cursor: pointer;
+          accent-color: var(--color-accent, #2563eb);
+        }
+
+        .checkbox-text {
+          font-size: var(--font-size-base, 16px);
+          color: var(--color-text, #111827);
+          user-select: none;
         }
 
         .photo-upload-area:hover {

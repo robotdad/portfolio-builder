@@ -39,6 +39,8 @@ interface ValidatedData {
   portfolioTitle?: string;
   portfolioBio?: string;
   profilePhoto?: string;
+  bioOnHome?: boolean;
+  bioOnAbout?: boolean;
 }
 
 /**
@@ -63,6 +65,8 @@ function validateRequest(body: unknown): {
     portfolioTitle,
     portfolioBio,
     profilePhoto,
+    bioOnHome,
+    bioOnAbout,
   } = body as Record<string, unknown>;
 
   // Check required fields are present and non-empty strings
@@ -130,6 +134,8 @@ function validateRequest(body: unknown): {
       portfolioTitle: portfolioTitle ? (portfolioTitle as string).trim() : undefined,
       portfolioBio: portfolioBio ? (portfolioBio as string).trim() : undefined,
       profilePhoto: profilePhoto as string | undefined,
+      bioOnHome: typeof bioOnHome === 'boolean' ? bioOnHome : undefined,
+      bioOnAbout: typeof bioOnAbout === 'boolean' ? bioOnAbout : undefined,
     },
   };
 }
@@ -182,6 +188,8 @@ export async function POST(request: NextRequest) {
       portfolioTitle,
       portfolioBio,
       profilePhoto,
+      bioOnHome,
+      bioOnAbout,
     } = validation.data;
 
     // Generate slugs for category and project
@@ -269,21 +277,23 @@ export async function POST(request: NextRequest) {
       }
 
       // 3. Create Homepage (required - every portfolio needs a homepage)
-      const homepageContent = JSON.stringify({
-        sections: [
-          {
-            id: generateId(),
-            type: 'hero',
-            name: portfolioName,
-            title: portfolioTitle || '',
-            bio: '',
-            profileImageId: null,
-            profileImageUrl: null,
-            showResumeLink: false,
-            resumeUrl: '',
-          },
-        ],
-      });
+      // Add profile card to homepage if bioOnHome is true
+      const homepageSections = [];
+      if (bioOnHome && portfolioBio && portfolioBio.trim()) {
+        homepageSections.push({
+          id: generateId(),
+          type: 'hero',
+          name: portfolioName,
+          title: portfolioTitle || '',
+          bio: portfolioBio,
+          profileImageId: profilePhotoAssetId || null,
+          profileImageUrl: profilePhotoUrl || null,
+          showResumeLink: false,
+          resumeUrl: '',
+        });
+      }
+
+      const homepageContent = JSON.stringify({ sections: homepageSections });
       
       await tx.page.create({
         data: {
@@ -298,8 +308,8 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // 4. Create About page IF bio is provided
-      if (portfolioBio && portfolioBio.trim()) {
+      // 4. Create About page IF bioOnAbout is true AND bio is provided
+      if (bioOnAbout && portfolioBio && portfolioBio.trim()) {
         const aboutContent = JSON.stringify({
           sections: [
             {

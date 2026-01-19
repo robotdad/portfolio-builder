@@ -121,7 +121,6 @@ async function populatePersona(personaId = 'sarah-chen') {
       publishedTheme: 'modern-minimal',
       draftTemplate: 'featured-grid',
       publishedTemplate: 'featured-grid',
-      showAboutSection: true
     });
     portfolioId = portfolio.data.id;
     console.log(`✓ Portfolio created: ${portfolioId}`);
@@ -151,7 +150,6 @@ async function populatePersona(personaId = 'sarah-chen') {
         id: portfolioId,
         bio: bio,
         profilePhotoId: profileAsset.id,
-        showAboutSection: true
       });
       console.log('✓ Profile configured');
     }

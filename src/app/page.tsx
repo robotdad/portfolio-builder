@@ -154,13 +154,6 @@ export default async function Home() {
   const templateId = (portfolio.publishedTemplate || 'featured-grid') as TemplateId
   const Template = TemplateComponents[templateId] || TemplateComponents['featured-grid']
 
-  // Prepare profile photo for template (if exists)
-  const profilePhoto = portfolio.profilePhoto ? {
-    url: portfolio.profilePhoto.url,
-    thumbnailUrl: portfolio.profilePhoto.thumbnailUrl,
-    altText: portfolio.profilePhoto.altText || undefined,
-  } : null
-
   // Prepare navigation data
   const navPages: NavPage[] = portfolio.pages
     .filter(p => p.showInNav)
@@ -193,9 +186,6 @@ export default async function Home() {
         <Template
           portfolio={{
             name,
-            bio: portfolio.bio || null,
-            profilePhoto,
-            showAboutSection: portfolio.showAboutSection ?? true,
           }}
           sections={sections}
           featuredProjects={featuredProjects}

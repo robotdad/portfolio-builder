@@ -13,6 +13,8 @@ export interface OnboardingState {
   portfolioBio: string          // Short bio (optional), max 500 chars
   profilePhotoFile: File | null // Profile photo file (not persisted to sessionStorage)
   profilePhotoPreview: string   // Data URL for preview (persisted to sessionStorage)
+  bioOnHome: boolean            // Should bio appear on homepage?
+  bioOnAbout: boolean           // Should About page be created with bio?
 
   // Step 2: Theme
   selectedTheme: 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
@@ -35,6 +37,8 @@ const DEFAULT_STATE: OnboardingState = {
   portfolioBio: '',
   profilePhotoFile: null,
   profilePhotoPreview: '',
+  bioOnHome: true,  // Default to showing bio on home
+  bioOnAbout: false, // Default to NOT creating About page
   selectedTheme: 'modern-minimal',
   categoryName: '',
   projectTitle: '',
@@ -115,6 +119,8 @@ function loadStateFromStorage(): OnboardingState {
           portfolioTitle: legacyParsed.portfolioTitle ?? '',
           portfolioBio: legacyParsed.portfolioBio ?? '',
           profilePhotoPreview: legacyParsed.profilePhotoPreview ?? '',
+          bioOnHome: legacyParsed.bioOnHome ?? true,
+          bioOnAbout: legacyParsed.bioOnAbout ?? false,
         }
         // Save migrated data to new key
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(migrated))
@@ -173,6 +179,8 @@ export function useOnboardingState(): UseOnboardingStateReturn {
         portfolioTitle: state.portfolioTitle,
         portfolioBio: state.portfolioBio,
         profilePhotoPreview: state.profilePhotoPreview,
+        bioOnHome: state.bioOnHome,
+        bioOnAbout: state.bioOnAbout,
         selectedTheme: state.selectedTheme,
         categoryName: state.categoryName,
         projectTitle: state.projectTitle,

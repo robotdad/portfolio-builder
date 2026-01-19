@@ -135,7 +135,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
       const gallerySection = projectSections.find(isGallerySection)
       const galleryImages = (gallerySection?.images || []).map(img => ({
         id: img.id,
-        url: img.imageUrl || '',
+        imageUrl: img.imageUrl || '',
         altText: img.altText,
         caption: img.caption,
       }))
@@ -226,6 +226,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
             description: category.description,
           }}
           projects={projectsWithImages}
+          portfolioSlug="preview"
         />
       </div>
     )

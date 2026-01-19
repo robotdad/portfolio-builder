@@ -170,6 +170,8 @@ export default function FirstProjectPage() {
           portfolioTitle: currentState.portfolioTitle || undefined,
           portfolioBio: currentState.portfolioBio || undefined,
           profilePhoto: currentState.profilePhotoPreview || undefined,
+          bioOnHome: currentState.bioOnHome,
+          bioOnAbout: currentState.bioOnAbout,
         }),
       })
 

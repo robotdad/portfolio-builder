@@ -231,8 +231,8 @@ export const sectionTypes = [
   },
   {
     type: 'hero' as const,
-    label: 'Hero',
-    description: 'Name, title, and introduction',
+    label: 'Profile Card',
+    description: 'Your bio and photo (uses Default Bio from Settings)',
     icon: '👤',
   },
   {

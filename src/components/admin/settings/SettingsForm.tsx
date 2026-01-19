@@ -19,13 +19,11 @@ export function SettingsForm({
   bio,
   profilePhotoUrl,
   profilePhotoId,
-  showAboutSection,
   onNameChange,
   onThemeChange,
   onTemplateChange,
   onBioChange,
   onProfilePhotoChange,
-  onShowAboutChange,
   onFieldBlur,
   isSaving = false,
   hasHeroSection = false,
@@ -96,7 +94,7 @@ export function SettingsForm({
         />
       </div>
 
-      {/* About Section Settings (collapsible) */}
+      {/* Default Bio Settings (collapsible) */}
       <div className="settings-field settings-field--about">
         <button
           type="button"
@@ -104,7 +102,7 @@ export function SettingsForm({
           onClick={() => setAboutExpanded(!aboutExpanded)}
           aria-expanded={aboutExpanded}
         >
-          <span>About Section</span>
+          <span>Default Bio</span>
           <svg
             className={`settings-collapsible-chevron ${aboutExpanded ? 'settings-collapsible-chevron--open' : ''}`}
             width="16"
@@ -128,10 +126,8 @@ export function SettingsForm({
               bio={bio}
               profilePhotoUrl={profilePhotoUrl}
               profilePhotoId={profilePhotoId}
-              showAboutSection={showAboutSection}
               onBioChange={onBioChange}
               onProfilePhotoChange={onProfilePhotoChange}
-              onShowAboutChange={onShowAboutChange}
               onFieldBlur={onFieldBlur}
               isSaving={isSaving}
             />

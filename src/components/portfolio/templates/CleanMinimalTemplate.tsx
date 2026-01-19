@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { SectionRenderer } from '../SectionRenderer'
 import { ImageWithFallback } from '../ImageFallback'
-import { AboutSection } from '../AboutSection'
 import type { TemplateProps } from './index'
 
 export function CleanMinimalTemplate({
@@ -14,28 +13,12 @@ export function CleanMinimalTemplate({
   // Clean minimal shows 3-6 projects in a stacked layout
   const displayProjects = featuredProjects.slice(0, 6)
 
-  // Determine if About section should show
-  const shouldShowAbout = 
-    portfolio.showAboutSection === true && 
-    portfolio.bio?.trim()
-
   return (
     <>
         {/* Hero and other sections with expansive styling */}
         <div className="clean-minimal-hero-wrapper">
           <SectionRenderer sections={sections} portfolioSlug="" />
         </div>
-
-        {/* About Section - between hero and featured work */}
-        {shouldShowAbout && (
-          <div className="container">
-            <AboutSection
-              bio={portfolio.bio!}
-              profilePhoto={portfolio.profilePhoto}
-              name={portfolio.name}
-            />
-          </div>
-        )}
 
         {/* Stacked featured projects */}
         {displayProjects.length > 0 && (
