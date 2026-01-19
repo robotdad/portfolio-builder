@@ -4,6 +4,8 @@ import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
 import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
 import { CategoryLanding } from '@/components/portfolio/CategoryLanding'
+import { Navigation, type NavPage, type NavCategory } from '@/components/portfolio/Navigation'
+import { PublicFooter } from '@/components/portfolio/PublicFooter'
 import { deserializeSections } from '@/lib/serialization'
 import { isHeroSection, isGallerySection } from '@/lib/content-schema'
 import type { Metadata } from 'next'
@@ -127,13 +129,12 @@ async function renderCategoryPage(
   },
   category: Category
 ) {
-  // Get projects for this category
-  const projects = await prisma.project.findMany({
+  // Fetch full category data with publishedContent and featuredImage
+  const fullCategory = await prisma.category.findFirst({
     where: { 
-      categoryId: category.id,
-      publishedContent: { not: null },
+      id: category.id,
+      portfolioId: portfolio.id,
     },
-    orderBy: { order: 'asc' },
     include: {
       featuredImage: {
         select: {
@@ -143,8 +144,29 @@ async function renderCategoryPage(
           altText: true,
         },
       },
+      projects: {
+        where: { publishedContent: { not: null } },
+        orderBy: { order: 'asc' },
+        include: {
+          featuredImage: {
+            select: {
+              id: true,
+              url: true,
+              thumbnailUrl: true,
+              altText: true,
+            },
+          },
+        },
+      },
     },
   })
+
+  if (!fullCategory) {
+    notFound()
+  }
+
+  // Deserialize sections from published content
+  const sections = deserializeSections(fullCategory.publishedContent)
 
   // Get portfolio name from hero section
   const homePage = portfolio.pages.find((p: Page) => p.isHomepage) || portfolio.pages[0]
@@ -152,7 +174,51 @@ async function renderCategoryPage(
   const heroSection = homePageSections.find(isHeroSection)
   const portfolioName = heroSection?.name || portfolio.name
 
-  const projectsWithImages = projects.map((project: ProjectWithFeaturedImage) => {
+  const theme = (portfolio.publishedTheme || 'modern-minimal') as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
+
+  // Prepare navigation data
+  const navPages: NavPage[] = portfolio.pages
+    .filter(p => p.showInNav)
+    .map(p => ({
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      isHomepage: p.isHomepage,
+      showInNav: p.showInNav,
+    }))
+
+  const navCategories: NavCategory[] = portfolio.categories.map(c => ({
+    id: c.id,
+    name: c.name,
+    slug: c.slug,
+  }))
+
+  // If we have published content, use section-based rendering
+  if (sections.length > 0) {
+    return (
+      <div className="portfolio-page" data-theme={theme}>
+        <Navigation
+          portfolioSlug=""
+          portfolioName={portfolio.name}
+          pages={navPages}
+          categories={navCategories}
+          theme={theme}
+        />
+        <main className="portfolio-main">
+          <SectionRenderer
+            sections={sections}
+            portfolioSlug=""
+            categorySlug={fullCategory.slug}
+            projects={fullCategory.projects}
+          />
+        </main>
+        <PublicFooter portfolioName={portfolio.name} />
+      </div>
+    )
+  }
+
+  // Otherwise fall back to existing CategoryLanding component (backward compatibility)
+  const projectsWithImages = fullCategory.projects.map((project: ProjectWithFeaturedImage) => {
     // Prefer explicit featuredImage, fallback to first gallery image
     let featuredImageUrl: string | null = null
     let featuredImageAlt: string = project.title
@@ -190,10 +256,10 @@ async function renderCategoryPage(
         publishedTheme: portfolio.publishedTheme,
       }}
       category={{
-        id: category.id,
-        name: category.name,
-        slug: category.slug,
-        description: category.description,
+        id: fullCategory.id,
+        name: fullCategory.name,
+        slug: fullCategory.slug,
+        description: fullCategory.description,
       }}
       projects={projectsWithImages}
     />
