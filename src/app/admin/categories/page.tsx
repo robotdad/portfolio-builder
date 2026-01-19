@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { CategoryList } from '@/components/admin/CategoryList'
 import { CategoryFormModal } from '@/components/admin/CategoryFormModal'
 import { DeleteCategoryModal } from '@/components/admin/DeleteCategoryModal'
@@ -205,13 +206,18 @@ export default function CategoriesPage() {
         }}
         title="Categories"
         actions={
-          <button
-            type="button"
-            onClick={handleCreateClick}
-            className="btn btn-primary"
-          >
-            + New Category
-          </button>
+          <div style={{ display: 'flex', gap: '12px' }}>
+            <Link href="/admin/categories/edit" className="btn btn-secondary">
+              Edit Category List Page
+            </Link>
+            <button
+              type="button"
+              onClick={handleCreateClick}
+              className="btn btn-primary"
+            >
+              + New Category
+            </button>
+          </div>
         }
       />
 
