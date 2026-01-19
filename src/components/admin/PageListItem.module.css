@@ -1,11 +1,11 @@
-/* CategoryListItem.module.css
- * Extracted from styled-jsx for improved maintainability
- * Component: CategoryListItem - Sortable list item for category management
+/* PageListItem.module.css
+ * Component: PageListItem - Sortable list item for page management
+ * Similar to CategoryListItem but without thumbnail, with status badges
  */
 
-.categoryListItem {
+.pageListItem {
   display: grid;
-  grid-template-columns: auto 64px 1fr auto auto;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
@@ -18,18 +18,18 @@
               opacity var(--transition-fast);
 }
 
-.categoryListItem:hover {
+.pageListItem:hover {
   background: var(--admin-bg-secondary);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.categoryListItem:focus-visible {
+.pageListItem:focus-visible {
   outline: 2px solid var(--admin-primary);
   outline-offset: 2px;
 }
 
-.categoryListItemDragging {
-  composes: categoryListItem;
+.pageListItemDragging {
+  composes: pageListItem;
   opacity: 0.5;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -50,33 +50,6 @@
   cursor: grabbing;
 }
 
-/* Thumbnail */
-.thumbnail {
-  position: relative;
-  width: 64px;
-  height: 64px;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--admin-bg-secondary);
-  flex-shrink: 0;
-}
-
-.thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-}
-
-.placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--admin-text-muted);
-}
-
 /* Info */
 .info {
   display: flex;
@@ -85,7 +58,7 @@
   min-width: 0;
 }
 
-.name {
+.title {
   margin: 0;
   font-size: var(--font-size-base);
   font-weight: 600;
@@ -95,9 +68,56 @@
   text-overflow: ellipsis;
 }
 
-.count {
+.slug {
   font-size: var(--font-size-sm);
   color: var(--admin-text-muted);
+  font-family: var(--font-mono, 'Courier New', monospace);
+}
+
+.badges {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.badgePublished {
+  composes: badge;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.badgeDraft {
+  composes: badge;
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.badgeHomepage {
+  composes: badge;
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.badgeInNav {
+  composes: badge;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
 }
 
 /* Actions */
@@ -157,25 +177,20 @@
 
 /* Mobile Layout */
 @media (max-width: 767px) {
-  .categoryListItem {
-    grid-template-columns: auto 48px 1fr auto;
+  .pageListItem {
+    grid-template-columns: auto 1fr auto;
     grid-template-rows: auto auto;
     gap: var(--space-2);
     padding: var(--space-3);
   }
 
-  .thumbnail {
-    width: 48px;
-    height: 48px;
-  }
-
   .info {
-    grid-column: 3;
+    grid-column: 2;
     grid-row: 1;
   }
 
   .chevron {
-    grid-column: 4;
+    grid-column: 3;
     grid-row: 1;
   }
 

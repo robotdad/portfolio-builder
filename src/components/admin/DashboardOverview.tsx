@@ -316,7 +316,7 @@ export function DashboardOverview({ portfolioId }: DashboardOverviewProps) {
           title="Pages"
           count={stats.pages.total}
           subtitle={`${stats.pages.published} published, ${stats.pages.draft} draft`}
-          linkHref="/admin"
+          linkHref="/admin/pages"
           linkText="Manage pages"
           icon={
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -407,7 +407,7 @@ export function DashboardOverview({ portfolioId }: DashboardOverviewProps) {
       <div className="dashboard-overview__actions">
         <h2 className="dashboard-overview__actions-title">Quick Actions</h2>
         <div className="dashboard-overview__actions-grid">
-          <Link href="/admin" className="dashboard-action-card">
+          <Link href="/admin/pages" className="dashboard-action-card">
             <div className="dashboard-action-card__icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />

@@ -244,7 +244,7 @@ export default function PageEditorPage() {
           type: 'breadcrumb', 
           items: [
             { label: 'Dashboard', href: '/admin' },
-            { label: 'Pages', href: '/admin' },
+            { label: 'Pages', href: '/admin/pages' },
             { label: page.title }
           ]
         }}
