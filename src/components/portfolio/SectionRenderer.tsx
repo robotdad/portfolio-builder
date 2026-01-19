@@ -16,20 +16,67 @@ import type {
   GalleryImage,
 } from '@/lib/content-schema'
 import { FeaturedCarouselDisplay } from './FeaturedCarouselDisplay'
+import { CategoryGridRenderer } from './CategoryGridRenderer'
+import { ProjectGridRenderer } from './ProjectGridRenderer'
+
+// Type for categories with project count
+interface CategoryWithCount {
+  id: string
+  name: string
+  slug: string
+  description: string | null
+  order: number
+  featuredImage: {
+    id: string
+    url: string
+    thumbnailUrl: string
+    altText: string
+  } | null
+  _count: {
+    projects: number
+  }
+}
+
+// Type for projects with featured image
+interface ProjectWithImage {
+  id: string
+  title: string
+  slug: string
+  year: string | null
+  venue: string | null
+  role: string | null
+  order: number
+  featuredImage: {
+    id: string
+    url: string
+    thumbnailUrl: string
+    altText: string
+  } | null
+}
 
 interface SectionRendererProps {
   sections: Section[]
   portfolioSlug: string
+  categories?: CategoryWithCount[]
+  categorySlug?: string
+  projects?: ProjectWithImage[]
 }
 
 /**
  * Renders an array of sections on the public portfolio page
  */
-export function SectionRenderer({ sections, portfolioSlug }: SectionRendererProps) {
+export function SectionRenderer({ sections, portfolioSlug, categories, categorySlug, projects }: SectionRendererProps) {
   return (
     <>
       {sections.map((section) => (
-        <SectionComponent key={section.id} section={section} portfolioSlug={portfolioSlug} />
+        <SectionComponent 
+          key={section.id} 
+          section={section} 
+          portfolioSlug={portfolioSlug}
+          categories={categories}
+          categorySlug={categorySlug}
+          projects={projects}
+        />
       ))}
     </>
   )
@@ -38,9 +85,12 @@ export function SectionRenderer({ sections, portfolioSlug }: SectionRendererProp
 interface SectionComponentProps {
   section: Section
   portfolioSlug: string
+  categories?: CategoryWithCount[]
+  categorySlug?: string
+  projects?: ProjectWithImage[]
 }
 
-function SectionComponent({ section, portfolioSlug }: SectionComponentProps) {
+function SectionComponent({ section, portfolioSlug, categories, categorySlug, projects }: SectionComponentProps) {
   switch (section.type) {
     case 'text':
       return <TextSectionView section={section} />
@@ -54,6 +104,18 @@ function SectionComponent({ section, portfolioSlug }: SectionComponentProps) {
       return <FeaturedCarouselDisplay section={section} portfolioSlug={portfolioSlug} />
     case 'gallery':
       return <GallerySectionView section={section} />
+    case 'category-grid':
+      if (!categories) {
+        console.warn('CategoryGridSection requires categories prop')
+        return null
+      }
+      return <CategoryGridRenderer section={section} categories={categories} portfolioSlug={portfolioSlug} />
+    case 'project-grid':
+      if (!projects || !categorySlug) {
+        console.warn('ProjectGridSection requires projects and categorySlug props')
+        return null
+      }
+      return <ProjectGridRenderer section={section} projects={projects} categorySlug={categorySlug} portfolioSlug={portfolioSlug} />
     default:
       return null
   }
