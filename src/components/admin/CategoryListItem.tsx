@@ -4,6 +4,7 @@ import { useCallback } from 'react'
 import Image from 'next/image'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { DragHandle } from '@/components/shared/DragHandle'
 import styles from './CategoryListItem.module.css'
 
 // ============================================================================
@@ -39,19 +40,6 @@ interface CategoryListItemProps {
 // ============================================================================
 // Icons
 // ============================================================================
-
-function DragHandleIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <circle cx="6" cy="4" r="1" fill="currentColor" />
-      <circle cx="10" cy="4" r="1" fill="currentColor" />
-      <circle cx="6" cy="8" r="1" fill="currentColor" />
-      <circle cx="10" cy="8" r="1" fill="currentColor" />
-      <circle cx="6" cy="12" r="1" fill="currentColor" />
-      <circle cx="10" cy="12" r="1" fill="currentColor" />
-    </svg>
-  )
-}
 
 function FolderIcon() {
   return (
@@ -151,15 +139,14 @@ export function CategoryListItem({
       data-testid={`category-item-${category.id}`}
     >
       {/* Drag Handle */}
-      <div 
+      <DragHandle
         className={styles.dragHandle} 
         {...listeners} 
         {...attributes}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e: React.MouseEvent) => e.stopPropagation()}
+        aria-label="Drag to reorder category"
         data-testid="category-item-drag-handle"
-      >
-        <DragHandleIcon />
-      </div>
+      />
 
       {/* Thumbnail */}
       <div className={styles.thumbnail}>

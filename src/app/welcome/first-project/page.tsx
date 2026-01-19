@@ -4,6 +4,7 @@ import { useState, useEffect, useId } from 'react'
 import { useRouter } from 'next/navigation'
 import { StepLayout } from '@/components/onboarding/StepLayout'
 import { useOnboardingState } from '@/hooks/useOnboardingState'
+import { MultiImageUpload } from '@/components/onboarding/MultiImageUpload'
 
 /**
  * Step 3: First Category and Project
@@ -46,6 +47,8 @@ export default function FirstProjectPage() {
   // Form state
   const [categoryName, setCategoryName] = useState('')
   const [projectTitle, setProjectTitle] = useState('')
+  const [projectImages, setProjectImages] = useState<File[]>([])
+  const [imagePreviews, setImagePreviews] = useState<string[]>([])
 
   // Validation state
   const [errors, setErrors] = useState<{
@@ -75,6 +78,19 @@ export default function FirstProjectPage() {
   useEffect(() => {
     updateState({ categoryName, projectTitle })
   }, [categoryName, projectTitle, updateState])
+
+  // Cleanup image previews on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      imagePreviews.forEach((url) => {
+        if (url.startsWith('blob:')) {
+          URL.revokeObjectURL(url)
+        }
+      })
+    }
+    // Only run on unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Validation functions
   const validateCategoryName = (value: string): string | undefined => {
@@ -119,6 +135,16 @@ export default function FirstProjectPage() {
     setErrors((prev) => ({ ...prev, projectTitle: validateProjectTitle(projectTitle) }))
   }
 
+  // Helper function to convert File to base64 string
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = (error) => reject(error)
+    })
+  }
+
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -156,6 +182,21 @@ export default function FirstProjectPage() {
     setIsSubmitting(true)
 
     try {
+      // Convert images to base64 if any were uploaded
+      let projectPhotos: string[] | undefined = undefined
+      if (projectImages.length > 0) {
+        try {
+          projectPhotos = await Promise.all(
+            projectImages.map((file) => fileToBase64(file))
+          )
+        } catch (conversionError) {
+          console.error('Image conversion error:', conversionError)
+          setSubmitError('Failed to process images. Please try again or continue without photos.')
+          setIsSubmitting(false)
+          return
+        }
+      }
+
       const response = await fetch('/api/onboarding/complete', {
         method: 'POST',
         headers: {
@@ -172,6 +213,8 @@ export default function FirstProjectPage() {
           profilePhoto: currentState.profilePhotoPreview || undefined,
           bioOnHome: currentState.bioOnHome,
           bioOnAbout: currentState.bioOnAbout,
+          // Project photos (optional)
+          projectPhotos,
         }),
       })
 
@@ -286,6 +329,19 @@ export default function FirstProjectPage() {
               You can add more details like venue and credits later
             </p>
           </div>
+        </section>
+
+        {/* Project Photos Section */}
+        <section className="form-section">
+          <MultiImageUpload
+            images={projectImages}
+            previews={imagePreviews}
+            onImagesChange={(images: File[], previews: string[]) => {
+              setProjectImages(images)
+              setImagePreviews(previews)
+            }}
+            disabled={isSubmitting}
+          />
         </section>
 
         {/* Submit Button */}

@@ -70,23 +70,17 @@ function SortableItem({ id, project, onDelete, disabled }: SortableItemProps) {
       ref={setNodeRef}
       style={style}
       className={`sortable-item ${isDragging ? 'sortable-item--dragging' : ''}`}
-      {...attributes}
-      {...listeners}
     >
       <ProjectCard
         project={project}
         onDelete={onDelete}
         isDragging={isDragging}
+        dragHandleProps={{ attributes, listeners } as any}
       />
 
       <style jsx>{`
         .sortable-item {
           touch-action: none;
-          cursor: grab;
-        }
-
-        .sortable-item:active {
-          cursor: grabbing;
         }
 
         .sortable-item--dragging {

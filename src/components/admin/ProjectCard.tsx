@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Card, CardImage, CardBody, CardTitle, CardDescription, Button } from '@/components/ui'
 import { type Project } from '@/hooks/useProjects'
+import { DragHandle } from '@/components/shared/DragHandle'
 
 // ============================================================================
 // Types
@@ -12,6 +13,7 @@ interface ProjectCardProps {
   project: Project
   onDelete: () => void
   isDragging?: boolean
+  dragHandleProps?: any
 }
 
 // ============================================================================
@@ -67,6 +69,7 @@ export function ProjectCard({
   project,
   onDelete,
   isDragging = false,
+  dragHandleProps,
 }: ProjectCardProps) {
   const imageUrl = project.featuredImage?.thumbnailUrl || project.featuredImage?.url
 
@@ -101,6 +104,23 @@ export function ProjectCard({
           {/* Year Badge */}
           {project.year && (
             <span className="year-badge">{project.year}</span>
+          )}
+
+          {/* Drag Handle */}
+          {dragHandleProps && (
+            <div
+              className="drag-handle-wrapper"
+              {...dragHandleProps.attributes}
+              {...dragHandleProps.listeners}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+              }}
+              aria-label="Drag to reorder project"
+              data-testid="project-card-drag-handle"
+            >
+              <DragHandle />
+            </div>
           )}
 
           {/* Delete Button */}
@@ -158,6 +178,48 @@ export function ProjectCard({
           backdrop-filter: blur(4px);
         }
 
+        .drag-handle-wrapper {
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          background: hsla(0, 0%, 100%, 0.95);
+          border: 1px solid var(--color-border, #e5e7eb);
+          border-radius: 6px;
+          color: var(--color-text-muted, #6b7280);
+          opacity: 1;
+          transition: opacity var(--transition-fast, 150ms) ease,
+                      background-color var(--transition-fast, 150ms) ease,
+                      transform 100ms ease;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .drag-handle-wrapper:hover {
+          background: white;
+          color: var(--color-text, #1f2937);
+          transform: scale(1.05);
+        }
+
+        .drag-handle-wrapper:active {
+          transform: scale(0.98);
+        }
+
+        /* Hide drag handle on desktop until hover/focus */
+        @media (min-width: 640px) {
+          .drag-handle-wrapper {
+            opacity: 0;
+          }
+
+          .project-card-link:hover .drag-handle-wrapper,
+          .project-card-link:focus-within .drag-handle-wrapper {
+            opacity: 1;
+          }
+        }
+
         .delete-wrapper {
           position: absolute;
           top: 8px;
@@ -175,6 +237,18 @@ export function ProjectCard({
           .project-card-link:hover .delete-wrapper,
           .project-card-link:focus-within .delete-wrapper {
             opacity: 1;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .drag-handle-wrapper,
+          .delete-wrapper {
+            transition: none;
+          }
+
+          .drag-handle-wrapper:hover,
+          .drag-handle-wrapper:active {
+            transform: none;
           }
         }
       `}</style>

@@ -39,6 +39,7 @@ interface ValidatedData {
   portfolioTitle?: string;
   portfolioBio?: string;
   profilePhoto?: string;
+  projectPhotos?: string[];
   bioOnHome?: boolean;
   bioOnAbout?: boolean;
 }
@@ -65,6 +66,7 @@ function validateRequest(body: unknown): {
     portfolioTitle,
     portfolioBio,
     profilePhoto,
+    projectPhotos,
     bioOnHome,
     bioOnAbout,
   } = body as Record<string, unknown>;
@@ -124,6 +126,25 @@ function validateRequest(body: unknown): {
     }
   }
 
+  // Validate optional projectPhotos
+  if (projectPhotos !== undefined && projectPhotos !== null) {
+    if (!Array.isArray(projectPhotos)) {
+      return { valid: false, error: 'Project photos must be an array' };
+    }
+    if (projectPhotos.length > 10) {
+      return { valid: false, error: 'Maximum 10 project photos allowed' };
+    }
+    for (let i = 0; i < projectPhotos.length; i++) {
+      const photo = projectPhotos[i];
+      if (typeof photo !== 'string') {
+        return { valid: false, error: `Project photo ${i + 1} must be a string` };
+      }
+      if (!photo.startsWith('data:image')) {
+        return { valid: false, error: `Project photo ${i + 1} must be a valid base64 image data URL` };
+      }
+    }
+  }
+
   return {
     valid: true,
     data: {
@@ -134,6 +155,7 @@ function validateRequest(body: unknown): {
       portfolioTitle: portfolioTitle ? (portfolioTitle as string).trim() : undefined,
       portfolioBio: portfolioBio ? (portfolioBio as string).trim() : undefined,
       profilePhoto: profilePhoto as string | undefined,
+      projectPhotos: projectPhotos as string[] | undefined,
       bioOnHome: typeof bioOnHome === 'boolean' ? bioOnHome : undefined,
       bioOnAbout: typeof bioOnAbout === 'boolean' ? bioOnAbout : undefined,
     },
@@ -188,6 +210,7 @@ export async function POST(request: NextRequest) {
       portfolioTitle,
       portfolioBio,
       profilePhoto,
+      projectPhotos,
       bioOnHome,
       bioOnAbout,
     } = validation.data;
@@ -208,6 +231,33 @@ export async function POST(request: NextRequest) {
           ext: parsed.ext,
           processed,
         };
+      }
+    }
+
+    // Pre-process project photos if provided (before transaction)
+    type ProcessedPhoto = {
+      buffer: Buffer;
+      ext: string;
+      processed: Awaited<ReturnType<typeof processImage>>;
+    };
+
+    let processedProjectPhotos: ProcessedPhoto[] = [];
+
+    if (projectPhotos && projectPhotos.length > 0) {
+      try {
+        const parsePromises = projectPhotos.map(async (photoDataUrl) => {
+          const parsed = parseBase64Image(photoDataUrl);
+          if (!parsed) throw new Error('Invalid image format');
+          const processed = await processImage(parsed.buffer);
+          return { buffer: parsed.buffer, ext: parsed.ext, processed };
+        });
+        processedProjectPhotos = await Promise.all(parsePromises);
+      } catch (error) {
+        console.error('Project photo processing failed:', error);
+        return NextResponse.json(
+          { success: false, message: 'Failed to process project photos. Please check file formats and try again.' },
+          { status: 400 }
+        );
       }
     }
 
@@ -362,7 +412,7 @@ export async function POST(request: NextRequest) {
         ],
       });
 
-      await tx.project.create({
+      const newProject = await tx.project.create({
         data: {
           categoryId: newCategory.id,
           title: projectTitle,
@@ -372,6 +422,78 @@ export async function POST(request: NextRequest) {
           publishedContent: projectContent, // Publish immediately so it shows on live site
         },
       });
+
+      // 6b. Create project photo assets if provided
+      const projectPhotoReferences: { id: string; url: string }[] = [];
+
+      if (processedProjectPhotos.length > 0) {
+        for (let index = 0; index < processedProjectPhotos.length; index++) {
+          const photo = processedProjectPhotos[index];
+          const asset = await tx.asset.create({
+            data: {
+              portfolioId: newPortfolio.id,
+              filename: `project-photo-${index + 1}.${photo.ext}`,
+              mimeType: `image/${photo.ext}`,
+              size: photo.buffer.length,
+              width: photo.processed.metadata.width,
+              height: photo.processed.metadata.height,
+              altText: `${projectTitle} photo ${index + 1}`,
+              caption: null,
+              url: '',
+              thumbnailUrl: '',
+              placeholderUrl: photo.processed.placeholder,
+            },
+          });
+
+          const urls = await saveProcessedImages(asset.id, photo.processed);
+
+          await tx.asset.update({
+            where: { id: asset.id },
+            data: {
+              url: urls.url,
+              thumbnailUrl: urls.thumbnailUrl,
+              placeholderUrl: urls.placeholderUrl,
+              srcset400: urls.srcset400,
+              srcset800: urls.srcset800,
+              srcset1200: urls.srcset1200,
+              srcset1600: urls.srcset1600,
+            },
+          });
+
+          projectPhotoReferences.push({
+            id: asset.id,
+            url: urls.url,
+          });
+        }
+      }
+
+      // Update project content with images in gallery section
+      if (projectPhotoReferences.length > 0) {
+        const updatedProjectContent = JSON.stringify({
+          sections: [
+            {
+              id: generateId(),
+              type: 'gallery',
+              heading: '',
+              images: projectPhotoReferences.map((ref, index) => ({
+                id: generateId(),
+                imageId: ref.id,
+                imageUrl: ref.url,
+                altText: `${projectTitle} photo ${index + 1}`,
+                caption: '',
+              })),
+            },
+          ],
+        });
+
+        await tx.project.update({
+          where: { id: newProject.id },
+          data: {
+            draftContent: updatedProjectContent,
+            publishedContent: updatedProjectContent,
+          },
+        });
+      }
 
       return newPortfolio;
     });
