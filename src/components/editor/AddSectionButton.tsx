@@ -11,6 +11,8 @@ import {
   createFeaturedGridSection,
   createFeaturedCarouselSection,
   createGallerySection,
+  createCategoryGridSection,
+  createProjectGridSection,
   type Section,
   type SectionType,
 } from '@/lib/content-schema'
@@ -94,6 +96,12 @@ export function AddSectionButton({ onAdd, hasHeroSection = false, portfolioId }:
         break
       case 'gallery':
         section = createGallerySection()
+        break
+      case 'category-grid':
+        section = createCategoryGridSection()
+        break
+      case 'project-grid':
+        section = createProjectGridSection()
         break
       default:
         return
