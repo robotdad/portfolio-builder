@@ -27,6 +27,8 @@ import { HeroSectionEditor } from './HeroSectionEditor'
 import { FeaturedGridEditor } from './FeaturedGridEditor'
 import { FeaturedCarouselEditor } from './FeaturedCarouselEditor'
 import { GallerySectionEditor } from './GallerySectionEditor'
+import { CategoryGridEditor } from './CategoryGridEditor'
+import { ProjectGridEditor } from './ProjectGridEditor'
 import type { 
   Section, 
   TextSection as TextSectionType,
@@ -35,16 +37,19 @@ import type {
   FeaturedGridSection as FeaturedGridSectionType,
   FeaturedCarouselSection as FeaturedCarouselSectionType,
   GallerySection as GallerySectionType,
+  CategoryGridSection as CategoryGridSectionType,
+  ProjectGridSection as ProjectGridSectionType,
 } from '@/lib/content-schema'
 
 interface SectionListProps {
   sections: Section[]
   portfolioId: string
+  categoryId?: string // Optional: for project-grid sections
   onChange: (sections: Section[]) => void
   onSaveRequest?: () => void
 }
 
-export function SectionList({ sections, portfolioId, onChange, onSaveRequest }: SectionListProps) {
+export function SectionList({ sections, portfolioId, categoryId, onChange, onSaveRequest }: SectionListProps) {
   const [activeId, setActiveId] = useState<string | null>(null)
   
   // Detect if a hero section already exists (only one allowed)
@@ -146,6 +151,7 @@ export function SectionList({ sections, portfolioId, onChange, onSaveRequest }: 
                 <SectionEditor
                   section={section}
                   portfolioId={portfolioId}
+                  categoryId={categoryId}
                   onChange={(s) => handleSectionChange(index, s)}
                   onDelete={() => handleSectionDelete(index)}
                   onSaveRequest={onSaveRequest}
@@ -167,6 +173,7 @@ export function SectionList({ sections, portfolioId, onChange, onSaveRequest }: 
             <SectionEditor
               section={activeSection}
               portfolioId={portfolioId}
+              categoryId={categoryId}
               onChange={() => {}}
               onDelete={() => {}}
             />
@@ -181,12 +188,13 @@ export function SectionList({ sections, portfolioId, onChange, onSaveRequest }: 
 interface SectionEditorProps {
   section: Section
   portfolioId: string
+  categoryId?: string
   onChange: (section: Section) => void
   onDelete: () => void
   onSaveRequest?: () => void
 }
 
-function SectionEditor({ section, portfolioId, onChange, onDelete, onSaveRequest }: SectionEditorProps) {
+function SectionEditor({ section, portfolioId, categoryId, onChange, onDelete, onSaveRequest }: SectionEditorProps) {
   switch (section.type) {
     case 'text':
       return (
@@ -241,6 +249,31 @@ function SectionEditor({ section, portfolioId, onChange, onDelete, onSaveRequest
           onChange={onChange as (s: GallerySectionType) => void}
           onDelete={onDelete}
           onSaveRequest={onSaveRequest}
+        />
+      )
+    case 'category-grid':
+      return (
+        <CategoryGridEditor
+          section={section as CategoryGridSectionType}
+          portfolioId={portfolioId}
+          onChange={onChange as (s: CategoryGridSectionType) => void}
+          onDelete={onDelete}
+        />
+      )
+    case 'project-grid':
+      if (!categoryId) {
+        return (
+          <div className="section-editor section-editor-error">
+            <p>Project grid sections require a category context</p>
+          </div>
+        )
+      }
+      return (
+        <ProjectGridEditor
+          section={section as ProjectGridSectionType}
+          categoryId={categoryId}
+          onChange={onChange as (s: ProjectGridSectionType) => void}
+          onDelete={onDelete}
         />
       )
     default:
