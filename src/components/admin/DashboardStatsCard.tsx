@@ -25,29 +25,49 @@ export function DashboardStatsCard({
 }: DashboardStatsCardProps) {
   return (
     <>
-      <Card
-        variant="interactive"
-        className={`dashboard-stats-card dashboard-stats-card--${variant}`}
-      >
-        <CardHeader
-          actions={icon && <span className="dashboard-stats-card__icon">{icon}</span>}
+      <Link href={linkHref} className="dashboard-stats-card-link">
+        <Card
+          variant="interactive"
+          className={`dashboard-stats-card dashboard-stats-card--${variant}`}
         >
-          <h3 className="dashboard-stats-card__title">{title}</h3>
-        </CardHeader>
+          <CardHeader
+            actions={icon && <span className="dashboard-stats-card__icon">{icon}</span>}
+          >
+            <h3 className="dashboard-stats-card__title">{title}</h3>
+          </CardHeader>
 
-        <CardBody>
-          <div className="dashboard-stats-card__count">{count}</div>
-          <p className="dashboard-stats-card__subtitle">{subtitle}</p>
-        </CardBody>
+          <CardBody>
+            <div className="dashboard-stats-card__count">{count}</div>
+            <p className="dashboard-stats-card__subtitle">{subtitle}</p>
+          </CardBody>
 
-        <CardFooter align="start">
-          <Link href={linkHref} className="dashboard-stats-card__link">
-            {linkText} →
-          </Link>
-        </CardFooter>
-      </Card>
+          <CardFooter align="start">
+            <span className="dashboard-stats-card__link">
+              {linkText} →
+            </span>
+          </CardFooter>
+        </Card>
+      </Link>
 
       <style jsx>{`
+        /* Wrapper link styles - makes entire card clickable */
+        :global(.dashboard-stats-card-link) {
+          text-decoration: none;
+          display: block;
+          color: inherit;
+        }
+
+        :global(.dashboard-stats-card-link:focus) {
+          outline: 2px solid var(--color-primary, #3b82f6);
+          outline-offset: 2px;
+          border-radius: var(--radius-md, 8px);
+        }
+
+        :global(.dashboard-stats-card-link:focus-visible) {
+          outline: 2px solid var(--color-primary, #3b82f6);
+          outline-offset: 2px;
+        }
+
         /* Variant colors - Card handles base styling */
         :global(.dashboard-stats-card--warning) {
           border-color: var(--color-warning, #f59e0b) !important;

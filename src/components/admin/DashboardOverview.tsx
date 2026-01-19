@@ -1,11 +1,19 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { DashboardStatsCard } from './DashboardStatsCard'
+import { PublishQueueCard } from './PublishQueueCard'
+
+export interface SiteStatus {
+  hasUnpublishedChanges: boolean
+  unpublishedCount: number
+}
 
 export interface DashboardOverviewProps {
   portfolioId: string
+  /** Callback to report site status to parent component */
+  onSiteStatusComputed?: (status: SiteStatus) => void
 }
 
 interface PageData {
@@ -47,139 +55,118 @@ interface Stats {
   }
 }
 
-export function DashboardOverview({ portfolioId }: DashboardOverviewProps) {
+export function DashboardOverview({ portfolioId, onSiteStatusComputed }: DashboardOverviewProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [stats, setStats] = useState<Stats | null>(null)
-  const [isPublishingAll, setIsPublishingAll] = useState(false)
-  const [publishAllError, setPublishAllError] = useState<string | null>(null)
-  const [publishAllSuccess, setPublishAllSuccess] = useState(false)
+  const [unpublishedPages, setUnpublishedPages] = useState<Array<{ id: string; title: string; slug: string }>>([])
+  const [unpublishedProjects, setUnpublishedProjects] = useState<Array<{ id: string; title: string; categoryName: string }>>([])
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true)
-      setError(null)
-      
-      try {
-        // Fetch pages and categories in parallel
-        const [pagesRes, categoriesRes] = await Promise.all([
-          fetch(`/api/pages?portfolioId=${portfolioId}`),
-          fetch(`/api/categories?portfolioId=${portfolioId}`)
-        ])
-
-        if (!pagesRes.ok || !categoriesRes.ok) {
-          throw new Error('Failed to fetch dashboard data')
-        }
-
-        const pages: PageData[] = await pagesRes.json()
-        const categoriesData = await categoriesRes.json()
-        
-        // Categories API returns { data: [...], success: true }
-        const categories: CategoryData[] = categoriesData.data || categoriesData
-
-        // Compute stats
-        const computedStats: Stats = {
-          pages: {
-            total: pages.length,
-            published: pages.filter(p => p.lastPublishedAt !== null).length,
-            draft: pages.filter(p => p.lastPublishedAt === null).length
-          },
-          categories: {
-            total: categories.length,
-            empty: categories.filter(c => c._count.projects === 0).length
-          },
-          projects: {
-            total: categories.reduce((sum, c) => sum + c._count.projects, 0)
-          }
-        }
-
-        setStats(computedStats)
-      } catch (err) {
-        console.error('Failed to fetch dashboard data:', err)
-        setError(err instanceof Error ? err.message : 'Failed to load dashboard data')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [portfolioId])
-
-  // Handler to publish all pages and projects with unpublished changes
-  const handlePublishAll = async () => {
-    setIsPublishingAll(true)
-    setPublishAllError(null)
-    setPublishAllSuccess(false)
-
+  // Refetch function that can be called externally
+  const refetchData = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+    
     try {
-      // Fetch all pages and projects
+      // Fetch pages and categories (with projects) in parallel - single API call for categories
       const [pagesRes, categoriesRes] = await Promise.all([
         fetch(`/api/pages?portfolioId=${portfolioId}`),
         fetch(`/api/categories?portfolioId=${portfolioId}&includeProjects=true`)
       ])
 
       if (!pagesRes.ok || !categoriesRes.ok) {
-        throw new Error('Failed to fetch content for publishing')
+        throw new Error('Failed to fetch dashboard data')
       }
 
       const pages: PageData[] = await pagesRes.json()
       const categoriesData = await categoriesRes.json()
+      
+      // Categories API returns { data: [...], success: true }
       const categories: CategoryData[] = categoriesData.data || categoriesData
 
-      // Find pages with unpublished changes
-      const pagesToPublish = pages.filter(p => 
-        p.draftContent !== null && p.draftContent !== p.publishedContent
-      )
-
-      // Collect all projects from categories
-      const allProjects: Array<{ id: string; draftContent: string | null; publishedContent: string | null }> = []
+      // Collect all projects with category names
+      const allProjects: Array<{ 
+        id: string; 
+        title: string;
+        draftContent: string | null; 
+        publishedContent: string | null;
+        categoryName: string;
+      }> = []
       categories.forEach(cat => {
         if (cat.projects) {
           cat.projects.forEach(proj => {
-            allProjects.push(proj)
+            allProjects.push({
+              ...proj,
+              categoryName: cat.name
+            })
           })
         }
       })
 
-      // Find projects with unpublished changes
-      const projectsToPublish = allProjects.filter(p => 
+      // Compute site status and store unpublished items
+      const filteredUnpublishedPages = pages.filter(p => 
         p.draftContent !== null && p.draftContent !== p.publishedContent
       )
-
-      // Publish all pages
-      const pagePublishPromises = pagesToPublish.map(page =>
-        fetch(`/api/pages/${page.id}/publish`, { method: 'POST' })
+      const filteredUnpublishedProjects = allProjects.filter(p => 
+        p.draftContent !== null && p.draftContent !== p.publishedContent
       )
-
-      // Publish all projects
-      const projectPublishPromises = projectsToPublish.map(project =>
-        fetch(`/api/projects/${project.id}/publish`, { method: 'POST' })
-      )
-
-      // Execute all publish operations
-      const results = await Promise.allSettled([
-        ...pagePublishPromises,
-        ...projectPublishPromises
-      ])
-
-      // Check for failures
-      const failures = results.filter(r => r.status === 'rejected')
-      if (failures.length > 0) {
-        throw new Error(`Failed to publish ${failures.length} item(s)`)
+      
+      const siteStatus: SiteStatus = {
+        hasUnpublishedChanges: filteredUnpublishedPages.length > 0 || filteredUnpublishedProjects.length > 0,
+        unpublishedCount: filteredUnpublishedPages.length + filteredUnpublishedProjects.length
       }
 
-      // Success!
-      setPublishAllSuccess(true)
-      
-      // Reload dashboard data to show updated stats
-      window.location.reload()
+      // Store unpublished items for PublishQueueCard
+      setUnpublishedPages(filteredUnpublishedPages.map(p => ({
+        id: p.id,
+        title: p.title,
+        slug: p.slug
+      })))
+      setUnpublishedProjects(filteredUnpublishedProjects.map(p => ({
+        id: p.id,
+        title: p.title,
+        categoryName: p.categoryName
+      })))
+
+      // Compute stats
+      const computedStats: Stats = {
+        pages: {
+          total: pages.length,
+          published: pages.filter(p => p.lastPublishedAt !== null).length,
+          draft: pages.filter(p => p.lastPublishedAt === null).length
+        },
+        categories: {
+          total: categories.length,
+          empty: categories.filter(c => c._count.projects === 0).length
+        },
+        projects: {
+          total: categories.reduce((sum, c) => sum + c._count.projects, 0)
+        }
+      }
+
+      setStats(computedStats)
+
+      // Report site status to parent
+      if (onSiteStatusComputed) {
+        onSiteStatusComputed(siteStatus)
+      }
     } catch (err) {
-      console.error('Publish all failed:', err)
-      setPublishAllError(err instanceof Error ? err.message : 'Failed to publish all content')
+      console.error('Failed to fetch dashboard data:', err)
+      setError(err instanceof Error ? err.message : 'Failed to load dashboard data')
     } finally {
-      setIsPublishingAll(false)
+      setLoading(false)
     }
-  }
+  }, [portfolioId, onSiteStatusComputed])
+
+  // Initial data fetch on mount
+  useEffect(() => {
+    refetchData()
+  }, [refetchData])
+
+  // Handler for when publish succeeds - refetch dashboard data instead of full page reload
+  const handlePublishSuccess = useCallback(() => {
+    refetchData()
+  }, [refetchData])
 
   // Loading state
   if (loading) {
@@ -234,7 +221,7 @@ export function DashboardOverview({ portfolioId }: DashboardOverviewProps) {
           </svg>
           <h2>Error Loading Dashboard</h2>
           <p>{error}</p>
-          <button onClick={() => window.location.reload()} className="btn btn-primary">
+          <button onClick={refetchData} className="btn btn-primary">
             Retry
           </button>
         </div>
@@ -362,66 +349,36 @@ export function DashboardOverview({ portfolioId }: DashboardOverviewProps) {
         />
       </div>
 
-      {/* Publish All Section */}
-      {stats && (stats.pages.total > 0 || stats.projects.total > 0) && (
-        <div className="dashboard-overview__publish-all">
-          <div className="publish-all-content">
-            <div>
-              <h2 className="publish-all-title">Publish All Changes</h2>
-              <p className="publish-all-description">
-                Publish all pages and projects with unpublished changes in one action
-              </p>
-            </div>
-            <button
-              onClick={handlePublishAll}
-              disabled={isPublishingAll}
-              className="btn btn-primary"
-              style={{ minWidth: '120px' }}
-            >
-              {isPublishingAll ? 'Publishing...' : 'Publish All'}
-            </button>
-          </div>
-          {publishAllError && (
-            <div className="publish-all-error">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-              </svg>
-              {publishAllError}
-            </div>
-          )}
-          {publishAllSuccess && (
-            <div className="publish-all-success">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-              </svg>
-              All changes published successfully!
-            </div>
-          )}
-        </div>
-      )}
+      {/* Publish Queue Card */}
+      <PublishQueueCard
+        pages={unpublishedPages}
+        projects={unpublishedProjects}
+        onPublishSuccess={handlePublishSuccess}
+      />
 
-      {/* Quick Actions */}
+      {/* Create New Section - replaces Quick Actions */}
       <div className="dashboard-overview__actions">
-        <h2 className="dashboard-overview__actions-title">Quick Actions</h2>
+        <h2 className="dashboard-overview__actions-title">Create New</h2>
         <div className="dashboard-overview__actions-grid">
+          {/* New Page */}
           <Link href="/admin/pages" className="dashboard-action-card">
             <div className="dashboard-action-card__icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                 <polyline points="14 2 14 8 20 8" />
+                <line x1="12" y1="18" x2="12" y2="12" />
+                <line x1="9" y1="15" x2="15" y2="15" />
               </svg>
             </div>
             <div className="dashboard-action-card__content">
-              <h3 className="dashboard-action-card__title">Edit Pages</h3>
+              <h3 className="dashboard-action-card__title">New Page</h3>
               <p className="dashboard-action-card__description">
-                Update page content and settings
+                Add a new page to your portfolio
               </p>
             </div>
           </Link>
 
+          {/* New Category */}
           <Link href="/admin/categories" className="dashboard-action-card">
             <div className="dashboard-action-card__icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -429,30 +386,52 @@ export function DashboardOverview({ portfolioId }: DashboardOverviewProps) {
                 <rect x="14" y="3" width="7" height="7" />
                 <rect x="14" y="14" width="7" height="7" />
                 <rect x="3" y="14" width="7" height="7" />
+                <line x1="12" y1="8" x2="12" y2="2" />
+                <line x1="9" y1="5" x2="15" y2="5" />
               </svg>
             </div>
             <div className="dashboard-action-card__content">
-              <h3 className="dashboard-action-card__title">Manage Categories</h3>
+              <h3 className="dashboard-action-card__title">New Category</h3>
               <p className="dashboard-action-card__description">
-                Organize your portfolio projects
+                Create a category to organize projects
               </p>
             </div>
           </Link>
 
-          <a href="/preview" target="_blank" rel="noopener noreferrer" className="dashboard-action-card">
+          {/* New Project */}
+          <Link href="/admin/categories" className="dashboard-action-card">
             <div className="dashboard-action-card__icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                <circle cx="12" cy="12" r="3" />
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                <line x1="12" y1="11" x2="12" y2="17" />
+                <line x1="9" y1="14" x2="15" y2="14" />
               </svg>
             </div>
             <div className="dashboard-action-card__content">
-              <h3 className="dashboard-action-card__title">Preview Draft</h3>
+              <h3 className="dashboard-action-card__title">New Project</h3>
               <p className="dashboard-action-card__description">
-                See your draft changes before publishing
+                Add a project to showcase your work
               </p>
             </div>
-          </a>
+          </Link>
+
+          {/* Settings */}
+          <Link href="/admin/settings" className="dashboard-action-card">
+            <div className="dashboard-action-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M12 1v6m0 6v6m-8-7h6m6 0h6" />
+                <path d="M5.64 5.64l4.24 4.24m6.36 6.36l4.24 4.24M5.64 18.36l4.24-4.24m6.36-6.36l4.24-4.24" />
+              </svg>
+            </div>
+            <div className="dashboard-action-card__content">
+              <h3 className="dashboard-action-card__title">Settings</h3>
+              <p className="dashboard-action-card__description">
+                Configure your portfolio site
+              </p>
+            </div>
+          </Link>
         </div>
       </div>
 
@@ -560,69 +539,6 @@ export function DashboardOverview({ portfolioId }: DashboardOverviewProps) {
           }
         }
 
-        /* Publish All Section */
-        .dashboard-overview__publish-all {
-          margin-top: var(--space-8, 32px);
-          padding: var(--space-4, 16px);
-          background: white;
-          border: 1px solid var(--border-color, #e5e7eb);
-          border-radius: var(--radius-md, 8px);
-        }
-
-        .publish-all-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: var(--space-4, 16px);
-        }
-
-        .publish-all-title {
-          font-size: var(--text-lg, 18px);
-          font-weight: 600;
-          color: var(--text-primary, #111827);
-          margin: 0 0 var(--space-1, 4px) 0;
-        }
-
-        .publish-all-description {
-          font-size: var(--text-sm, 14px);
-          color: var(--text-secondary, #6b7280);
-          margin: 0;
-        }
-
-        .publish-all-error {
-          display: flex;
-          align-items: center;
-          gap: var(--space-2, 8px);
-          margin-top: var(--space-3, 12px);
-          padding: var(--space-3, 12px);
-          background: #fef2f2;
-          border: 1px solid #fecaca;
-          border-radius: var(--radius-sm, 6px);
-          color: #991b1b;
-          font-size: var(--text-sm, 14px);
-        }
-
-        .publish-all-error svg {
-          flex-shrink: 0;
-        }
-
-        .publish-all-success {
-          display: flex;
-          align-items: center;
-          gap: var(--space-2, 8px);
-          margin-top: var(--space-3, 12px);
-          padding: var(--space-3, 12px);
-          background: #f0fdf4;
-          border: 1px solid #bbf7d0;
-          border-radius: var(--radius-sm, 6px);
-          color: #166534;
-          font-size: var(--text-sm, 14px);
-        }
-
-        .publish-all-success svg {
-          flex-shrink: 0;
-        }
-
         /* Mobile - stack vertically */
         @media (max-width: 768px) {
           .dashboard-overview {
@@ -644,11 +560,6 @@ export function DashboardOverview({ portfolioId }: DashboardOverviewProps) {
 
           .dashboard-overview__actions-grid {
             grid-template-columns: 1fr;
-          }
-
-          .publish-all-content {
-            flex-direction: column;
-            align-items: flex-start;
           }
         }
       `}</style>

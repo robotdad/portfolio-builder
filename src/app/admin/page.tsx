@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
-import { DashboardOverview } from '@/components/admin/DashboardOverview'
+import { DashboardOverview, type SiteStatus } from '@/components/admin/DashboardOverview'
+import { DashboardToolbar } from '@/components/admin/DashboardToolbar'
 
 interface Portfolio {
   id: string
@@ -13,6 +14,10 @@ export default function AdminDashboardPage() {
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [siteStatus, setSiteStatus] = useState<SiteStatus>({
+    hasUnpublishedChanges: false,
+    unpublishedCount: 0
+  })
 
   // Load portfolio on mount
   useEffect(() => {
@@ -97,23 +102,21 @@ export default function AdminDashboardPage() {
     <div className="admin-layout">
       <AdminPageHeader
         navigation={{ type: 'dashboard', title: 'Dashboard' }}
-        actions={
-          <a
-            href="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-ghost"
-            title="View published site"
-          >
-            View Live Site →
-          </a>
-        }
+      />
+      
+      <DashboardToolbar
+        siteStatus={siteStatus}
+        viewLinks={{
+          draftUrl: '/preview',
+          liveUrl: '/'
+        }}
       />
       
       <main className="admin-main">
         <div className="container" style={{ maxWidth: '1200px' }}>
           <DashboardOverview
             portfolioId={portfolio.id}
+            onSiteStatusComputed={setSiteStatus}
           />
         </div>
       </main>
