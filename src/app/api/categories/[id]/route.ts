@@ -74,7 +74,7 @@ export async function PUT(
       )
     }
 
-    const { name, description, order, featuredImageId } = validation.data
+    const { name, description, order, featuredImageId, draftContent } = validation.data
     const updateData: Record<string, unknown> = {}
 
     if (name !== undefined) {
@@ -102,6 +102,7 @@ export async function PUT(
     if (description !== undefined) updateData.description = description
     if (order !== undefined) updateData.order = order
     if (featuredImageId !== undefined) updateData.featuredImageId = featuredImageId
+    if (draftContent !== undefined) updateData.draftContent = draftContent
 
     const category = await prisma.category.update({
       where: { id },

@@ -12,6 +12,8 @@ export const updateCategorySchema = z.object({
   description: z.string().max(500, 'Description must be 500 characters or less').nullable().optional(),
   order: z.number().int().min(0).optional(),
   featuredImageId: z.string().nullable().optional(),
+  draftContent: z.string().nullable().optional(), // JSON serialized Section[]
+  publishedContent: z.string().nullable().optional(), // JSON serialized Section[]
 })
 
 export const reorderCategoriesSchema = z.object({
