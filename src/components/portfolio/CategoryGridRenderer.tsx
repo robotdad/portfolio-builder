@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Card, CardImage, CardBody, CardTitle, CardDescription } from '@/components/ui'
 import { EmptyState } from './EmptyState'
+import { AdaptiveGrid } from '@/components/layout/AdaptiveGrid'
 import type { CategoryGridSection } from '@/lib/content-schema'
 
 /**
@@ -73,7 +74,12 @@ export function CategoryGridRenderer({
       )}
 
       {filteredCategories.length > 0 ? (
-        <div className={`category-grid category-grid--cols-${section.columns}`}>
+        <AdaptiveGrid
+          items={filteredCategories}
+          minCardWidth={320}
+          idealCardWidth={450}
+          maxCardWidth={600}
+        >
           {filteredCategories.map(category => (
             <Link
               key={category.id}
@@ -105,7 +111,7 @@ export function CategoryGridRenderer({
               </Card>
             </Link>
           ))}
-        </div>
+        </AdaptiveGrid>
       ) : (
         <EmptyState
           icon="folder"

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { Lightbox } from './Lightbox'
 import { EmptyState } from './EmptyState'
+import { AdaptiveGrid } from '@/components/layout/AdaptiveGrid'
 
 interface GalleryImage {
   id: string
@@ -74,7 +75,13 @@ export function ProjectGallery({
   
   return (
     <>
-      <div className={`project-gallery ${className}`}>
+      <AdaptiveGrid
+        items={validImages}
+        minCardWidth={250}
+        idealCardWidth={400}
+        maxCardWidth={550}
+        className={className}
+      >
         {validImages.map((image, index) => (
           <button
             key={image.id}
@@ -93,7 +100,7 @@ export function ProjectGallery({
             />
           </button>
         ))}
-      </div>
+      </AdaptiveGrid>
       
       {lightboxIndex !== null && (
         <Lightbox

@@ -3,6 +3,7 @@
 import { Breadcrumb } from './Breadcrumb'
 import { ProjectCard } from './ProjectCard'
 import { EmptyState } from './EmptyState'
+import { AdaptiveGrid } from '@/components/layout/AdaptiveGrid'
 
 interface CategoryProject {
   id: string
@@ -68,7 +69,12 @@ export function CategoryLanding({
       
       {/* Projects grid or empty state */}
       {projects.length > 0 ? (
-        <div className="category-grid">
+        <AdaptiveGrid
+          items={projects}
+          minCardWidth={320}
+          idealCardWidth={450}
+          maxCardWidth={600}
+        >
           {projects.map(project => (
             <ProjectCard
               key={project.id}
@@ -84,7 +90,7 @@ export function CategoryLanding({
               portfolioSlug={portfolioSlug}
             />
           ))}
-        </div>
+        </AdaptiveGrid>
       ) : (
         <EmptyState
           icon="folder"

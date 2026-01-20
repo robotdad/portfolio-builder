@@ -1,6 +1,7 @@
 'use client'
 
 import { ProjectCard } from './ProjectCard'
+import { AdaptiveGrid } from '@/components/layout/AdaptiveGrid'
 
 interface FeaturedProject {
   id: string
@@ -43,7 +44,12 @@ export function FeaturedWork({
     <section className="featured-work-section" data-testid="featured-work">
       <h2 className="featured-work-heading">{heading}</h2>
       
-      <div className="featured-work-grid">
+      <AdaptiveGrid
+        items={displayedProjects}
+        minCardWidth={400}
+        idealCardWidth={550}
+        maxCardWidth={700}
+      >
         {displayedProjects.map(project => (
           <ProjectCard
             key={project.id}
@@ -59,7 +65,7 @@ export function FeaturedWork({
             portfolioSlug={portfolioSlug}
           />
         ))}
-      </div>
+      </AdaptiveGrid>
     </section>
   )
 }

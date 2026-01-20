@@ -88,6 +88,14 @@
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
   --transition-slow: 350ms ease;
+
+  /* --------------------------------------------------------------------------
+     CONTAINER MAX-WIDTH (Tiered responsive system)
+     -------------------------------------------------------------------------- */
+  --container-max-width: 1200px;  /* Base: tablets and small desktops */
+  --nav-max-width: 1200px;         /* Navigation (initially same as content) */
+  --visual-content-max-width: 1200px;  /* Grids, galleries, carousels */
+  --text-content-max-width: 900px;     /* Text sections for readability */
 }
 
 /* --------------------------------------------------------------------------
@@ -492,7 +500,7 @@ textarea:focus-visible {
 /* Container */
 .container {
   width: 100%;
-  max-width: var(--container-xl);
+  max-width: var(--container-max-width);
   margin-left: auto;
   margin-right: auto;
   padding-left: var(--space-4);
@@ -2843,7 +2851,7 @@ textarea:focus-visible {
 
 /* Featured Grid Section */
 .section-featured-grid {
-  max-width: 1200px;
+  max-width: var(--visual-content-max-width);
   margin-left: auto;
   margin-right: auto;
 }
@@ -2881,7 +2889,7 @@ textarea:focus-visible {
    -------------------------------------------------------------------------- */
 
 .section-gallery {
-  max-width: 1200px;
+  max-width: var(--visual-content-max-width);
   margin-left: auto;
   margin-right: auto;
 }
@@ -3744,7 +3752,7 @@ textarea:focus-visible {
   display: none;
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px;
+  max-width: var(--nav-max-width);  /* Use nav-specific width */
   margin: 0 auto;
   padding: var(--space-4) var(--space-6);
 }
@@ -3773,7 +3781,8 @@ textarea:focus-visible {
 .portfolio-nav-list {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-2);
+  flex-wrap: wrap;  /* Allow items to wrap to multiple rows */
   list-style: none;
   margin: 0;
   padding: 0;
@@ -3788,6 +3797,8 @@ textarea:focus-visible {
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   touch-action: manipulation;
+  white-space: nowrap;
+  hyphens: none;
 }
 
 .portfolio-nav-link:hover {
@@ -3796,6 +3807,177 @@ textarea:focus-visible {
 
 .portfolio-nav-link--active {
   font-weight: var(--font-weight-semibold);
+}
+
+/* Adjust vertical spacing when wrapped */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .portfolio-nav-list {
+    row-gap: var(--space-1); /* Tighter vertical gap when items wrap */
+  }
+}
+
+/* Progressive spacing enhancement for larger viewports */
+@media (min-width: 1024px) {
+  .portfolio-nav-list {
+    gap: var(--space-3); /* 12px at 1024px+ */
+  }
+}
+
+@media (min-width: 1200px) {
+  .portfolio-nav-list {
+    gap: var(--space-4); /* 16px at 1200px+ */
+  }
+}
+
+/* Tiered max-width for larger viewports */
+@media (min-width: 1280px) {
+  :root {
+    --container-max-width: 1400px; /* Content sections */
+    --nav-max-width: 1600px;        /* Nav extends wider */
+    --visual-content-max-width: 1400px;  /* Grids, galleries, carousels */
+    --text-content-max-width: 900px;      /* Text sections for readability */
+  }
+  
+  .portfolio-nav-list {
+    gap: var(--space-3);                /* 12px gap */
+  }
+  
+  .portfolio-nav-desktop {
+    padding: var(--space-4) var(--space-8); /* 32px horizontal */
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --container-max-width: 1600px; /* Content stays readable */
+    --nav-max-width: 1800px;        /* Nav extends wider */
+    --visual-content-max-width: 1600px;  /* Grids, galleries, carousels */
+    --text-content-max-width: 1000px;     /* Text sections for readability */
+  }
+  
+  .portfolio-nav-list {
+    gap: var(--space-4);                /* 16px gap */
+  }
+  
+  .portfolio-nav-desktop {
+    padding: var(--space-4) var(--space-10); /* 40px horizontal */
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --container-max-width: 1800px;
+    --nav-max-width: 2000px;
+    --visual-content-max-width: 1800px;  /* Grids, galleries, carousels */
+    --text-content-max-width: 1000px;     /* Text sections for readability */
+  }
+}
+
+/* Ultra-wide 21:9 displays (3440px) - Premium ultrawide monitors */
+@media (min-width: 3440px) {
+  :root {
+    --container-max-width: 2200px;
+    --visual-content-max-width: 2200px;
+    --nav-max-width: 2400px;
+    --text-content-max-width: 900px; /* Text stays narrow for readability */
+  }
+  
+  .portfolio-nav-list {
+    gap: var(--space-4);
+  }
+  
+  .portfolio-nav-desktop {
+    padding: var(--space-4) var(--space-12);
+  }
+}
+
+/* 4K UHD displays (3800px+) - Accounts for browser chrome on 4K monitors */
+@media (min-width: 3800px) {
+  :root {
+    --container-max-width: 2400px;
+    --visual-content-max-width: 2400px;
+    --nav-max-width: 2600px;
+    --text-content-max-width: 900px;
+  }
+}
+
+/* 5K and Super Ultra-wide displays (5120px+) - HARD CAP */
+/* Content stops scaling here to maintain visual hierarchy */
+@media (min-width: 5120px) {
+  :root {
+    --container-max-width: 2600px; /* Maximum container size */
+    --visual-content-max-width: 2600px;
+    --nav-max-width: 2800px;
+    --text-content-max-width: 1000px;
+  }
+}
+
+/* ==========================================================================
+   CATEGORY GRID - Base responsive rules (must come before ultra-wide)
+   ========================================================================== */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==========================================================================
+   ULTRA-WIDE GRID COLUMN ADJUSTMENTS
+   Show more project cards side-by-side on ultra-wide displays
+   ========================================================================== */
+
+/* Ultra-wide 21:9 displays (3440px) - 5 columns */
+@media (min-width: 3440px) {
+  .category-grid,
+  .featured-grid,
+  .featured-work-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* 4K UHD displays (3800px+) - 6 columns (accounts for browser chrome) */
+@media (min-width: 3800px) {
+  .category-grid,
+  .featured-grid,
+  .featured-work-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  .gallery-grid,
+  .project-gallery {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* 5K+ displays (5120px) - stay at 6 columns (cap) */
+@media (min-width: 5120px) {
+  .category-grid,
+  .featured-grid,
+  .featured-work-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  .gallery-grid,
+  .project-gallery {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 
 /* Mobile Navigation */
@@ -4718,6 +4900,30 @@ textarea:focus-visible {
   }
 }
 
+@media (min-width: 1024px) {
+  .project-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 3440px) {
+  .project-gallery {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 3800px) {
+  .project-gallery {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 5120px) {
+  .project-gallery {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
 .project-gallery-item {
   position: relative;
   aspect-ratio: 3 / 2;
@@ -4764,24 +4970,6 @@ textarea:focus-visible {
 @media (max-width: 767px) {
   .category-title {
     font-size: var(--font-size-3xl);
-  }
-}
-
-.category-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-}
-
-@media (min-width: 640px) {
-  .category-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .category-grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -4884,6 +5072,25 @@ textarea:focus-visible {
   }
 }
 
+/* Ultra-wide displays - Override base grid with more columns */
+@media (min-width: 3440px) {
+  .featured-work-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 3800px) {
+  .featured-work-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 5120px) {
+  .featured-work-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
 /* ==========================================================================
    FEATURED CAROUSEL COMPONENT
    Full-featured carousel for featured portfolio projects
@@ -4906,7 +5113,7 @@ textarea:focus-visible {
 .featured-carousel {
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--visual-content-max-width);
   margin: 0 auto;
   border-radius: var(--radius-lg);
   overflow: hidden;
