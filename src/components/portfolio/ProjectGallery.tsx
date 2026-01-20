@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Lightbox } from './Lightbox'
 import { EmptyState } from './EmptyState'
@@ -40,6 +40,20 @@ export function ProjectGallery({
   // Filter to valid images only
   const validImages = images.filter(img => img.imageUrl)
   
+  // Deep linking: handle #image-{id} hash on mount
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash.startsWith('#image-')) return;
+    
+    const imageId = hash.replace('#image-', '');
+    const index = validImages.findIndex(img => img.id === imageId);
+    
+    if (index !== -1) {
+      // Open lightbox immediately to the targeted image
+      setLightboxIndex(index);
+    }
+  }, [validImages])
+  
   // Show empty state if enabled and no valid images
   if (validImages.length === 0) {
     if (showEmptyState) {
@@ -59,6 +73,9 @@ export function ProjectGallery({
   }
   
   const handleCloseLightbox = () => {
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
     setLightboxIndex(null)
   }
   
@@ -85,6 +102,7 @@ export function ProjectGallery({
         {validImages.map((image, index) => (
           <button
             key={image.id}
+            id={`gallery-image-${image.id}`}
             type="button"
             onClick={() => handleImageClick(index)}
             className="project-gallery-item"

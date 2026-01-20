@@ -8,11 +8,14 @@
  * Example: node scripts/populate-persona-api.js sarah-chen
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const API_BASE = 'http://localhost:3000/api';
 // Resolve paths relative to script location (project root), not cwd
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const PERSONAS_DIR = path.join(PROJECT_ROOT, 'test-assets/personas');
 
@@ -40,6 +43,14 @@ async function apiCall(method, endpoint, data = null) {
   }
   
   const response = await fetch(`${API_BASE}${endpoint}`, opts);
+  
+  // Better error handling for non-JSON responses
+  const contentType = response.headers.get('content-type');
+  if (!contentType || !contentType.includes('application/json')) {
+    const text = await response.text();
+    throw new Error(`API ${method} ${endpoint} returned non-JSON response (${response.status}): ${text.substring(0, 200)}`);
+  }
+  
   const json = await response.json();
   
   if (!response.ok) {
@@ -305,20 +316,19 @@ async function populatePersona(personaId = 'sarah-chen') {
             if (fs.existsSync(photoPath)) {
               const asset = await uploadImage(photoPath, portfolioId);
               
-              // Create ProjectGalleryImage junction record
-              await apiCall('POST', `/projects/${projectId}/gallery`, {
+              // Capture the database response
+              const galleryRecord = await apiCall('POST', `/projects/${projectId}/gallery`, {
                 assetId: asset.id,
                 altText: photo.description || '',
                 caption: photo.description || '',
                 order: galleryImages.length
               });
               
-              // Create gallery image with CORRECT structure
-              const galleryItemId = `gallery_image_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+              // Use the database ID from the response
               galleryImages.push({
-                id: galleryItemId,           // Unique gallery item ID
-                imageId: asset.id,                // Asset ID reference
-                imageUrl: asset.url,              // Full URL to image
+                id: galleryRecord.id,  // ✅ CORRECT - Database ID
+                imageId: asset.id,
+                imageUrl: asset.url,
                 altText: photo.description || '',
                 caption: photo.description || ''
               });

@@ -18,13 +18,14 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string; galleryImageId: string }> }
 ) {
   const { galleryImageId } = await params
-  const { altText, caption } = await request.json()
+  const { altText, caption, order } = await request.json()
   
   const updated = await prisma.projectGalleryImage.update({
     where: { id: galleryImageId },
     data: {
       altText: altText !== undefined ? altText : undefined,
       caption: caption !== undefined ? caption : undefined,
+      order: order !== undefined ? order : undefined,
     },
   })
   

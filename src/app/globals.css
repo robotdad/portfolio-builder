@@ -1,3 +1,6 @@
+/* Import Tailwind CSS (v4 syntax) */
+@import "tailwindcss";
+
 /* ==========================================================================
    PORTFOLIO BUILDER DESIGN SYSTEM
    A comprehensive design token system for professional portfolio sites
@@ -6611,25 +6614,25 @@ textarea:focus-visible {
   max-width: 800px;
   margin: 0 auto;
   padding: 0.625rem 0.875rem;
-  background: #f9fafb;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  background: var(--color-background);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
 }
 
 .search-overlay-icon {
   width: 18px;
   height: 18px;
-  color: #9ca3af;
+  color: var(--color-text-muted);
   flex-shrink: 0;
   margin-right: 10px;
 }
 
 .search-overlay-input {
   flex: 1;
-  font-family: inherit;
-  font-size: 15px;
+  font-family: var(--font-family-secondary);
+  font-size: 16px;
   line-height: 1.5;
-  color: #111827;
+  color: var(--color-text-primary);
   background: transparent;
   border: none;
   outline: none;
@@ -6638,8 +6641,8 @@ textarea:focus-visible {
 }
 
 .search-overlay-input::placeholder {
-  color: #9ca3af;
-  font-size: 15px;
+  color: var(--color-text-muted);
+  font-size: 16px;
 }
 
 .search-overlay-close {
@@ -6890,5 +6893,195 @@ textarea:focus-visible {
   .search-nested-image-card,
   .search-standalone-image-card {
     min-height: 44px;
+  }
+}
+
+/* ==========================================================================
+   SEARCH IMAGE GRID - 150-180px responsive cards
+   ========================================================================== */
+
+/* Image card container - responsive sizing with 3:2 aspect ratio */
+.search-image-card-container {
+  position: relative;
+  aspect-ratio: 3/2;
+  overflow: hidden;
+  border-radius: 0.5rem; /* 8px */
+  background-color: rgb(243, 244, 246); /* gray-100 */
+  margin-bottom: 0.5rem; /* 8px */
+}
+
+/* Ensure Next.js Image fills container */
+.search-image-card-container img {
+  object-fit: cover;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Hover scale effect */
+.search-image-card-link:hover .search-image-card-container img {
+  transform: scale(1.05);
+}
+
+/* Hover overlay */
+.search-image-card-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.search-image-card-link:hover .search-image-card-overlay {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Match indicator badge */
+.search-image-match-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: rgb(34, 197, 94); /* green-500 */
+  color: white;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Image caption */
+.search-image-caption {
+  font-size: 0.75rem;
+  color: rgb(75, 85, 99); /* gray-600 */
+  transition: color 0.2s ease-in-out;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-image-card-link:hover .search-image-caption {
+  color: rgb(37, 99, 235); /* blue-600 */
+}
+
+/* Image grid - responsive columns */
+.search-image-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  .search-image-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .search-image-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .search-image-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* Image group container */
+.search-image-group {
+  margin-bottom: 2rem;
+}
+
+/* Project header link */
+.search-image-group-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: rgb(75, 85, 99); /* gray-600 */
+  transition: color 0.2s ease-in-out;
+  margin-bottom: 0.75rem;
+  text-decoration: none;
+}
+
+.search-image-group-header:hover {
+  color: rgb(37, 99, 235); /* blue-600 */
+}
+
+.search-image-group-title {
+  font-weight: 500;
+}
+
+.search-image-group-meta {
+  font-size: 0.75rem;
+}
+
+.search-image-group-badge {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  background-color: rgb(219, 234, 254); /* blue-100 */
+  color: rgb(29, 78, 216); /* blue-700 */
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+/* Block link styling */
+.search-image-card-link {
+  display: block;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   SEARCH ANIMATIONS - Phase 3 Polish
+   Smooth transitions for search interactions
+   ========================================================================== */
+
+/* Search overlay fade-in animation */
+.search-overlay {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Search results section slide-in */
+.search-results-section {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Image card hover lift effect */
+.search-image-card-container {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.search-image-card-link:hover .search-image-card-container {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Project header hover transition */
+.search-image-group-header {
+  transition: color 0.2s ease-out;
+}
+
+/* Reduced motion support for search animations */
+@media (prefers-reduced-motion: reduce) {
+  .search-overlay,
+  .search-results-section,
+  .search-image-card-container,
+  .search-image-group-header {
+    animation: none !important;
+    transition: none !important;
   }
 }

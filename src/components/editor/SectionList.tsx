@@ -45,11 +45,12 @@ interface SectionListProps {
   sections: Section[]
   portfolioId: string
   categoryId?: string // Optional: for project-grid sections
+  projectId?: string // Optional: for project-specific features (e.g., gallery image database records)
   onChange: (sections: Section[]) => void
   onSaveRequest?: () => void
 }
 
-export function SectionList({ sections, portfolioId, categoryId, onChange, onSaveRequest }: SectionListProps) {
+export function SectionList({ sections, portfolioId, categoryId, projectId, onChange, onSaveRequest }: SectionListProps) {
   const [activeId, setActiveId] = useState<string | null>(null)
   
   // Detect if a hero section already exists (only one allowed)
@@ -152,6 +153,7 @@ export function SectionList({ sections, portfolioId, categoryId, onChange, onSav
                   section={section}
                   portfolioId={portfolioId}
                   categoryId={categoryId}
+                  projectId={projectId}
                   onChange={(s) => handleSectionChange(index, s)}
                   onDelete={() => handleSectionDelete(index)}
                   onSaveRequest={onSaveRequest}
@@ -174,6 +176,7 @@ export function SectionList({ sections, portfolioId, categoryId, onChange, onSav
               section={activeSection}
               portfolioId={portfolioId}
               categoryId={categoryId}
+              projectId={projectId}
               onChange={() => {}}
               onDelete={() => {}}
             />
@@ -189,12 +192,13 @@ interface SectionEditorProps {
   section: Section
   portfolioId: string
   categoryId?: string
+  projectId?: string
   onChange: (section: Section) => void
   onDelete: () => void
   onSaveRequest?: () => void
 }
 
-function SectionEditor({ section, portfolioId, categoryId, onChange, onDelete, onSaveRequest }: SectionEditorProps) {
+function SectionEditor({ section, portfolioId, categoryId, projectId, onChange, onDelete, onSaveRequest }: SectionEditorProps) {
   switch (section.type) {
     case 'text':
       return (
@@ -246,6 +250,7 @@ function SectionEditor({ section, portfolioId, categoryId, onChange, onDelete, o
         <GallerySectionEditor
           section={section as GallerySectionType}
           portfolioId={portfolioId}
+          projectId={projectId}
           onChange={onChange as (s: GallerySectionType) => void}
           onDelete={onDelete}
           onSaveRequest={onSaveRequest}

@@ -32,6 +32,7 @@ export interface ImageResult {
   categorySlug: string;
   categoryName?: string;
   score: number;
+  inheritedFromProjectMatch?: boolean;
 }
 
 export interface PageResult {

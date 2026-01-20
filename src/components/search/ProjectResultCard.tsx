@@ -17,6 +17,7 @@ interface ProjectResultCardProps {
   featuredImageUrl: string | null;
   excerpt: string;
   query: string;
+  onClick?: () => void;
 }
 
 export function ProjectResultCard({
@@ -27,12 +28,14 @@ export function ProjectResultCard({
   year,
   featuredImageUrl,
   query,
+  onClick,
 }: ProjectResultCardProps) {
   const projectUrl = `/${categorySlug}/${slug}`;
   
   return (
     <Link
       href={projectUrl}
+      onClick={onClick}
       className="flex items-center gap-2 px-2.5 py-1 bg-white border border-gray-200 rounded hover:bg-gray-50 hover:border-gray-300 transition-colors duration-150"
     >
       {/* Compact thumbnail */}

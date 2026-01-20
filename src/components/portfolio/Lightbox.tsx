@@ -70,6 +70,9 @@ export function Lightbox({
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     switch (e.key) {
       case 'Escape':
+        if (window.location.hash) {
+          window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
         onClose()
         break
       case 'ArrowLeft':
@@ -144,6 +147,9 @@ export function Lightbox({
   // Click outside image to close
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === overlayRef.current) {
+      if (window.location.hash) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
       onClose()
     }
   }
@@ -174,7 +180,12 @@ export function Lightbox({
       <button
         ref={closeButtonRef}
         className="lightbox-close"
-        onClick={onClose}
+        onClick={() => {
+          if (window.location.hash) {
+            window.history.replaceState(null, '', window.location.pathname + window.location.search);
+          }
+          onClose();
+        }}
         aria-label="Close lightbox"
         type="button"
       >

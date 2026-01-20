@@ -13,23 +13,15 @@ export function SearchEmptyState({ query }: SearchEmptyStateProps) {
       <Search className="w-16 h-16 text-gray-300 mb-6" />
       
       <h2 className="text-2xl font-semibold text-gray-900 mb-2">
-        No results found
+        No results found for "{query}"
       </h2>
       
-      <p className="text-gray-600 mb-6 max-w-md">
-        We couldn't find any projects, pages, or images matching{' '}
-        <span className="font-semibold">"{query}"</span>
-      </p>
-      
       <div className="text-left mb-8 max-w-md">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">
-          Suggestions:
-        </h3>
+        <p className="text-gray-600 mb-4">Try:</p>
         <ul className="text-sm text-gray-600 space-y-2">
-          <li>• Check your spelling</li>
-          <li>• Try different keywords</li>
-          <li>• Use fewer or more general words</li>
-          <li>• Browse by category instead</li>
+          <li>• Different keywords</li>
+          <li>• Project names</li>
+          <li>• Image descriptions</li>
         </ul>
       </div>
       

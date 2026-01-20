@@ -23,12 +23,14 @@ interface ImageResult {
   type: 'image';
   id: string;
   imageUrl: string;
+  url: string; // Alias for imageUrl
   caption: string;
   altText: string;
   projectTitle: string;
   projectSlug: string;
   categorySlug: string;
   score: number;
+  inheritedFromProjectMatch?: boolean;
 }
 
 interface PageResult {
@@ -218,6 +220,32 @@ export async function GET(request: NextRequest) {
           excerpt: extractExcerpt(contentText || project.title, searchQuery),
           score,
         });
+        
+        // Fetch all gallery images for this project
+        const allProjectImages = await prisma.projectGalleryImage.findMany({
+          where: { projectId: project.id },
+          include: {
+            asset: { select: { url: true } },
+          },
+          orderBy: { order: 'asc' },
+        });
+        
+        // Add all images to results with inherited flag
+        allProjectImages.forEach((image: any) => {
+          results.push({
+            type: 'image',
+            id: image.id,
+            imageUrl: image.asset.url,
+            url: image.asset.url, // Alias for compatibility
+            caption: image.caption || '',
+            altText: image.altText || '',
+            projectTitle: project.title,
+            projectSlug: project.slug,
+            categorySlug: project.category.slug,
+            score: score * 0.8,
+            inheritedFromProjectMatch: true,
+          });
+        });
       }
     }
     
@@ -260,6 +288,7 @@ export async function GET(request: NextRequest) {
           type: 'image',
           id: image.id,
           imageUrl: image.asset.url,
+          url: image.asset.url, // Alias for compatibility
           caption: image.caption || '',
           altText: image.altText || '',
           projectTitle: image.project.title,

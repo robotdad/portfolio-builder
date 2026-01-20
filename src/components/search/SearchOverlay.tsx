@@ -4,10 +4,11 @@ import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { Search, X, Loader2 } from 'lucide-react';
 import { groupSearchResults } from '@/lib/search/groupSearchResults';
-import { ExpandableProjectCard } from './ExpandableProjectCard';
-import { StandaloneImageCard } from './StandaloneImageCard';
+import { ImageGridGroup } from './ImageGridGroup';
+import { SearchImageCard } from './SearchImageCard';
 import { PageResultCard } from './PageResultCard';
 import { CategoryResultCard } from './CategoryResultCard';
+import { ProjectResultCard } from './ProjectResultCard';
 import { SearchEmptyState } from './SearchEmptyState';
 import type { SearchResult } from '@/types/search';
 
@@ -96,9 +97,14 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
   }, [results, query]);
 
   // Calculate total results from grouped structure
+  const totalImageResults = groupedResults
+    ? groupedResults.projects.reduce((acc: number, p: any) => acc + p.imageMatchCount, 0) +
+      groupedResults.standaloneImages.length
+    : 0;
+
   const totalResults = groupedResults 
-    ? groupedResults.projects.length + 
-      groupedResults.standaloneImages.length + 
+    ? totalImageResults +
+      groupedResults.projectsWithoutImages.length +
       groupedResults.pages.length + 
       groupedResults.categories.length
     : 0;
@@ -210,29 +216,53 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
                 </p>
               </div>
 
-              {/* PROJECTS Section - Hierarchical */}
+              {/* IMAGES from Projects - Image-First Display */}
               {groupedResults?.projects && groupedResults.projects.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
-                    PROJECTS ({groupedResults.projects.length})
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">
+                    IMAGES ({totalImageResults})
                   </h3>
-                  <div className="space-y-2">
-                    {groupedResults.projects.map((project) => (
-                      <ExpandableProjectCard key={project.id} project={project} query={query} />
+                  <div className="space-y-6">
+                    {groupedResults.projects.map((project: any, idx: number) => (
+                      <ImageGridGroup key={project.id || idx} project={project} query={query} />
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* IMAGES Section - Standalone only */}
+              {/* IMAGES Section - Standalone images (no project context) */}
               {groupedResults?.standaloneImages && groupedResults.standaloneImages.length > 0 && (
                 <div className="mb-6">
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">
+                    STANDALONE IMAGES ({groupedResults.standaloneImages.length})
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    {groupedResults.standaloneImages.map((image: any, idx: number) => (
+                      <SearchImageCard
+                        key={image.id || idx}
+                        image={image}
+                        query={query}
+                        projectUrl={image.categorySlug ? `/${image.categorySlug}` : '/gallery'}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* PROJECTS Section - Projects that matched but have no matching images */}
+              {groupedResults?.projectsWithoutImages && groupedResults.projectsWithoutImages.length > 0 && (
+                <div className="mb-6">
                   <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
-                    IMAGES ({groupedResults.standaloneImages.length})
+                    PROJECTS ({groupedResults.projectsWithoutImages.length})
                   </h3>
                   <div className="space-y-2">
-                    {groupedResults.standaloneImages.map((image) => (
-                      <StandaloneImageCard key={image.id} image={image} query={query} />
+                    {groupedResults.projectsWithoutImages.map((project: any) => (
+                      <ProjectResultCard
+                        key={project.id}
+                        {...project}
+                        query={query}
+                        onClick={handleResultClick}
+                      />
                     ))}
                   </div>
                 </div>
@@ -245,7 +275,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
                     PAGES ({groupedResults.pages.length})
                   </h3>
                   <div className="space-y-3">
-                    {groupedResults.pages.map((result) => (
+                    {groupedResults.pages.map((result: any) => (
                       <PageResultCard
                         key={result.id}
                         {...result}
@@ -263,7 +293,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
                     CATEGORIES ({groupedResults.categories.length})
                   </h3>
                   <div className="space-y-3">
-                    {groupedResults.categories.map((result) => (
+                    {groupedResults.categories.map((result: any) => (
                       <CategoryResultCard
                         key={result.id}
                         {...result}

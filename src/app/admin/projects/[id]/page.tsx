@@ -398,6 +398,7 @@ export default function ProjectEditorPage() {
                 <SectionList
                   sections={sections}
                   portfolioId={project.category.portfolioId}
+                  projectId={projectId}
                   onChange={handleSectionsChange}
                   onSaveRequest={handleSaveRequest}
                 />

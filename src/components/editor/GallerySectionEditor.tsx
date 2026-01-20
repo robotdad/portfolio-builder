@@ -28,6 +28,7 @@ import { createGalleryImage } from '@/lib/content-schema'
 interface GallerySectionEditorProps {
   section: GallerySectionType
   portfolioId: string
+  projectId?: string // Optional: if provided, creates ProjectGalleryImage records with database IDs
   onChange: (section: GallerySectionType) => void
   onDelete: () => void
   onSaveRequest?: () => void
@@ -39,6 +40,7 @@ const MAX_SIZE = 10 * 1024 * 1024 // 10MB per file
 export function GallerySectionEditor({
   section,
   portfolioId,
+  projectId,
   onChange,
   onDelete,
   onSaveRequest,
@@ -85,6 +87,23 @@ export function GallerySectionEditor({
         ...section,
         images: newImages,
       })
+
+      // Sync order to database
+      if (projectId && onSaveRequest) {
+        // Update order field in database for all database-backed images
+        newImages.forEach((img, idx) => {
+          if (!img.id.startsWith('section_')) {
+            fetch(`/api/projects/${projectId}/gallery/${img.id}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ order: idx }),
+            }).catch(err => console.error('Failed to sync order:', err))
+          }
+        })
+        
+        // Trigger save to persist section content
+        setTimeout(() => onSaveRequest(), 100)
+      }
     }
 
     setActiveId(null)
@@ -140,10 +159,49 @@ export function GallerySectionEditor({
           const asset = await response.json()
 
           // Create a new gallery image
-          const galleryImage = createGalleryImage()
-          galleryImage.imageId = asset.id
-          galleryImage.imageUrl = asset.url
-          galleryImage.altText = asset.altText || ''
+          let galleryImageId: string
+          
+          // If projectId is provided, create a ProjectGalleryImage database record
+          // and use its ID for deep linking support
+          if (projectId) {
+            try {
+              const galleryResponse = await fetch(`/api/projects/${projectId}/gallery`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  assetId: asset.id,
+                  altText: asset.altText || '',
+                  caption: '',
+                  order: section.images.length + newImages.length,
+                }),
+              })
+              
+              if (galleryResponse.ok) {
+                const galleryRecord = await galleryResponse.json()
+                galleryImageId = galleryRecord.id // Use database ID for deep linking
+              } else {
+                console.warn('Failed to create ProjectGalleryImage, using generated ID')
+                const tempImage = createGalleryImage()
+                galleryImageId = tempImage.id
+              }
+            } catch (err) {
+              console.error('Error creating ProjectGalleryImage:', err)
+              const tempImage = createGalleryImage()
+              galleryImageId = tempImage.id
+            }
+          } else {
+            // No projectId: use generated ID (for pages/categories)
+            const tempImage = createGalleryImage()
+            galleryImageId = tempImage.id
+          }
+
+          const galleryImage: GalleryImage = {
+            id: galleryImageId,
+            imageId: asset.id,
+            imageUrl: asset.url,
+            altText: asset.altText || '',
+            caption: '',
+          }
 
           newImages.push(galleryImage)
 
@@ -173,7 +231,7 @@ export function GallerySectionEditor({
         setUploadProgress(0)
       }
     },
-    [portfolioId, section, onChange, onSaveRequest]
+    [portfolioId, section, onChange, onSaveRequest, projectId]
   )
 
   // Handle file input change
@@ -216,11 +274,24 @@ export function GallerySectionEditor({
   const handleRemoveImage = useCallback(
     async (imageId: string) => {
       const image = section.images.find((img) => img.id === imageId)
+      
+      // If this is a project gallery image (database record), delete it
+      if (projectId && imageId && !imageId.startsWith('section_')) {
+        try {
+          await fetch(`/api/projects/${projectId}/gallery/${imageId}`, { 
+            method: 'DELETE' 
+          })
+        } catch (err) {
+          console.error('Failed to delete ProjectGalleryImage:', err)
+        }
+      }
+      
+      // Also delete the asset if present
       if (image?.imageId) {
         try {
           await fetch(`/api/upload/${image.imageId}`, { method: 'DELETE' })
         } catch (err) {
-          console.error('Failed to delete image:', err)
+          console.error('Failed to delete asset:', err)
         }
       }
 
@@ -229,7 +300,7 @@ export function GallerySectionEditor({
         images: section.images.filter((img) => img.id !== imageId),
       })
     },
-    [section, onChange]
+    [section, onChange, projectId]
   )
 
   const handleImageChange = useCallback(
@@ -242,21 +313,32 @@ export function GallerySectionEditor({
         ),
       })
 
-      // Sync alt text and caption to server if imageId exists
       const image = section.images.find((img) => img.id === imageId)
-      if (image?.imageId && (updates.altText !== undefined || updates.caption !== undefined)) {
-        // Fire-and-forget server update
+      
+      // Sync to ProjectGalleryImage if this is a project and it's a database record
+      if (projectId && imageId && !imageId.startsWith('section_') && (updates.altText !== undefined || updates.caption !== undefined)) {
+        fetch(`/api/projects/${projectId}/gallery/${imageId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            altText: updates.altText ?? image?.altText,
+            caption: updates.caption ?? image?.caption,
+          }),
+        }).catch((err) => console.error('Failed to sync ProjectGalleryImage metadata:', err))
+      }
+      
+      // Also sync alt text to the asset
+      if (image?.imageId && updates.altText !== undefined) {
         fetch(`/api/upload/${image.imageId}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            altText: updates.altText ?? image.altText,
-            caption: updates.caption ?? image.caption,
+            altText: updates.altText,
           }),
-        }).catch((err) => console.error('Failed to sync image metadata:', err))
+        }).catch((err) => console.error('Failed to sync asset metadata:', err))
       }
     },
-    [section, onChange]
+    [section, onChange, projectId]
   )
 
   const handleHeadingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
