@@ -1,66 +1,21 @@
 'use client';
 
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { Search, X, Loader2 } from 'lucide-react';
-import { ProjectResultCard } from './ProjectResultCard';
-import { ImageResultCard } from './ImageResultCard';
+import { groupSearchResults } from '@/lib/search/groupSearchResults';
+import { ExpandableProjectCard } from './ExpandableProjectCard';
+import { StandaloneImageCard } from './StandaloneImageCard';
 import { PageResultCard } from './PageResultCard';
 import { CategoryResultCard } from './CategoryResultCard';
 import { SearchEmptyState } from './SearchEmptyState';
+import type { SearchResult } from '@/types/search';
 
 interface SearchOverlayProps {
   isOpen: boolean;
   onClose: () => void;
   theme: 'modern-minimal' | 'classic-elegant' | 'bold-editorial';
 }
-
-type SearchResult =
-  | {
-      type: 'project';
-      id: string;
-      title: string;
-      slug: string;
-      categoryName: string;
-      categorySlug: string;
-      description: string;
-      year: string | null;
-      venue: string | null;
-      role: string | null;
-      featuredImageUrl: string | null;
-      excerpt: string;
-      score: number;
-    }
-  | {
-      type: 'image';
-      id: string;
-      imageUrl: string;
-      caption: string;
-      altText: string;
-      projectTitle: string;
-      projectSlug: string;
-      categorySlug: string;
-      score: number;
-    }
-  | {
-      type: 'page';
-      id: string;
-      title: string;
-      slug: string;
-      excerpt: string;
-      lastUpdated: string;
-      score: number;
-    }
-  | {
-      type: 'category';
-      id: string;
-      name: string;
-      slug: string;
-      description: string;
-      projectCount: number;
-      featuredImageUrl: string | null;
-      score: number;
-    };
 
 export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
   const [query, setQuery] = useState('');
@@ -134,11 +89,19 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
     return () => clearTimeout(timeoutId);
   }, [query]);
 
-  // Group results by type
-  const projectResults = results.filter((r) => r.type === 'project');
-  const imageResults = results.filter((r) => r.type === 'image');
-  const pageResults = results.filter((r) => r.type === 'page');
-  const categoryResults = results.filter((r) => r.type === 'category');
+  // Group results into hierarchical structure
+  const groupedResults = useMemo(() => {
+    if (!results || results.length === 0) return null;
+    return groupSearchResults(results, query);
+  }, [results, query]);
+
+  // Calculate total results from grouped structure
+  const totalResults = groupedResults 
+    ? groupedResults.projects.length + 
+      groupedResults.standaloneImages.length + 
+      groupedResults.pages.length + 
+      groupedResults.categories.length
+    : 0;
 
   const handleResultClick = useCallback(() => {
     onClose();
@@ -242,55 +205,47 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
               {/* Results header */}
               <div className="mb-6">
                 <p className="text-gray-600">
-                  Found <span className="font-semibold">{results.length}</span>{' '}
-                  {results.length === 1 ? 'result' : 'results'}
+                  Found <span className="font-semibold">{totalResults}</span>{' '}
+                  {totalResults === 1 ? 'result' : 'results'}
                 </p>
               </div>
 
-              {/* Projects */}
-              {projectResults.length > 0 && (
-                <section>
-                  <h2>
-                    Projects ({projectResults.length})
-                  </h2>
-                  <div className="space-y-3">
-                    {projectResults.map((result) => (
-                      <ProjectResultCard
-                        key={result.id}
-                        {...result}
-                        query={query}
-                      />
+              {/* PROJECTS Section - Hierarchical */}
+              {groupedResults?.projects && groupedResults.projects.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                    PROJECTS ({groupedResults.projects.length})
+                  </h3>
+                  <div className="space-y-2">
+                    {groupedResults.projects.map((project) => (
+                      <ExpandableProjectCard key={project.id} project={project} query={query} />
                     ))}
                   </div>
-                </section>
+                </div>
               )}
 
-              {/* Images */}
-              {imageResults.length > 0 && (
-                <section>
-                  <h2>
-                    Images ({imageResults.length})
-                  </h2>
-                  <div className="space-y-3">
-                    {imageResults.map((result) => (
-                      <ImageResultCard
-                        key={result.id}
-                        {...result}
-                        query={query}
-                      />
+              {/* IMAGES Section - Standalone only */}
+              {groupedResults?.standaloneImages && groupedResults.standaloneImages.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                    IMAGES ({groupedResults.standaloneImages.length})
+                  </h3>
+                  <div className="space-y-2">
+                    {groupedResults.standaloneImages.map((image) => (
+                      <StandaloneImageCard key={image.id} image={image} query={query} />
                     ))}
                   </div>
-                </section>
+                </div>
               )}
 
               {/* Pages */}
-              {pageResults.length > 0 && (
-                <section>
-                  <h2>
-                    Pages ({pageResults.length})
-                  </h2>
+              {groupedResults?.pages && groupedResults.pages.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                    PAGES ({groupedResults.pages.length})
+                  </h3>
                   <div className="space-y-3">
-                    {pageResults.map((result) => (
+                    {groupedResults.pages.map((result) => (
                       <PageResultCard
                         key={result.id}
                         {...result}
@@ -298,17 +253,17 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
                       />
                     ))}
                   </div>
-                </section>
+                </div>
               )}
 
               {/* Categories */}
-              {categoryResults.length > 0 && (
-                <section>
-                  <h2>
-                    Categories ({categoryResults.length})
-                  </h2>
+              {groupedResults?.categories && groupedResults.categories.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                    CATEGORIES ({groupedResults.categories.length})
+                  </h3>
                   <div className="space-y-3">
-                    {categoryResults.map((result) => (
+                    {groupedResults.categories.map((result) => (
                       <CategoryResultCard
                         key={result.id}
                         {...result}
@@ -316,7 +271,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
                       />
                     ))}
                   </div>
-                </section>
+                </div>
               )}
             </div>
           )}

@@ -6799,3 +6799,96 @@ textarea:focus-visible {
     animation: none;
   }
 }
+
+/* ==========================================================================
+   SEARCH RESULT CARDS - RESPONSIVE THUMBNAILS
+   Hierarchical search overlay with visual-first design
+   ========================================================================== */
+
+/* Project thumbnails - 150-180px responsive */
+.search-project-thumbnail {
+  width: 140px;
+  height: 90px;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .search-project-thumbnail {
+    width: 150px;
+    height: 95px;
+  }
+}
+
+@media (min-width: 768px) {
+  .search-project-thumbnail {
+    width: 160px;
+    height: 100px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .search-project-thumbnail {
+    width: 180px;
+    height: 115px;
+  }
+}
+
+/* Nested image thumbnails - 80-100px responsive */
+.search-nested-image {
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .search-nested-image {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media (min-width: 768px) {
+  .search-nested-image {
+    width: 95px;
+    height: 95px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .search-nested-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Standalone image thumbnails - 150px */
+.search-standalone-image {
+  width: 150px;
+  height: 150px;
+  position: relative;
+}
+
+/* Match type indicators - visual hierarchy */
+.search-project-card[data-match-type="title"] {
+  border-left-width: 4px;
+  border-left-color: rgb(59, 130, 246); /* blue-500 */
+}
+
+.search-project-card[data-match-type="content"] {
+  border-left-width: 2px;
+  border-left-color: rgb(156, 163, 175); /* gray-400 */
+}
+
+/* Smooth transitions */
+.search-project-card {
+  transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+/* Touch target minimum for mobile (44px as per Apple HIG) */
+@media (max-width: 640px) {
+  .search-project-card button,
+  .search-nested-image-card,
+  .search-standalone-image-card {
+    min-height: 44px;
+  }
+}

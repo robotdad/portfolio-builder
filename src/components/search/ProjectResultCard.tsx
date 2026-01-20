@@ -52,7 +52,7 @@ export function ProjectResultCard({
       {/* Content - single line with inline metadata */}
       <div className="flex-1 min-w-0 flex items-center">
         <span className="text-sm text-gray-900 truncate leading-none">
-          <span className="font-medium"><SearchHighlight text={title} query={query} /></span>
+          <span className="font-medium"><SearchHighlight text={title} query={query} /></span>{' '}
           <span className="text-xs text-gray-500 ml-2">
             <SearchHighlight text={categoryName} query={query} />
             {year && <> • {year}</>}

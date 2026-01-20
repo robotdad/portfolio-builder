@@ -46,7 +46,7 @@ export function ImageResultCard({
       {/* Content - single line with inline metadata */}
       <div className="flex-1 min-w-0">
         <p className="text-sm text-gray-900 truncate leading-snug">
-          <span className="font-medium">{caption || altText || 'Gallery Image'}</span>
+          <span className="font-medium">{caption || altText || 'Gallery Image'}</span>{' '}
           <span className="text-xs text-gray-500 ml-2">
             from <SearchHighlight text={projectTitle} query={query} />
           </span>
