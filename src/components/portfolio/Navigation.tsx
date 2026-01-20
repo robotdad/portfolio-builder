@@ -58,6 +58,8 @@ import { useState, useEffect, useRef, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { Search } from 'lucide-react'
+import { SearchOverlay } from '@/components/search/SearchOverlay'
 
 export interface NavPage {
   id: string
@@ -93,6 +95,7 @@ export function Navigation({
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -300,6 +303,20 @@ export function Navigation({
               </Link>
             </li>
           ))}
+          
+          {/* Search */}
+          <li role="none">
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(true)}
+              className="portfolio-nav-link portfolio-nav-link--icon"
+              role="menuitem"
+              aria-label="Search"
+              title="Search"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+          </li>
         </ul>
       </div>
 
@@ -397,10 +414,36 @@ export function Navigation({
                   ))}
                 </>
               )}
+              
+              {/* Search */}
+              <li className="portfolio-nav-menu-divider" role="separator" />
+              <li role="none">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setIsSearchOpen(true);
+                  }}
+                  className="portfolio-nav-menu-link"
+                  role="menuitem"
+                >
+                  <Search className="w-5 h-5 inline-block mr-2" />
+                  Search
+                </button>
+              </li>
             </ul>
           </div>
         </>,
         document.body
+      )}
+
+      {/* Search Overlay */}
+      {mounted && (
+        <SearchOverlay
+          isOpen={isSearchOpen}
+          onClose={() => setIsSearchOpen(false)}
+          theme={theme}
+        />
       )}
     </nav>
   )
