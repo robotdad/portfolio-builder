@@ -221,31 +221,43 @@ export async function GET(request: NextRequest) {
           score,
         });
         
-        // Fetch all gallery images for this project
-        const allProjectImages = await prisma.projectGalleryImage.findMany({
-          where: { projectId: project.id },
-          include: {
-            asset: { select: { url: true } },
-          },
-          orderBy: { order: 'asc' },
-        });
+        // ONLY fetch all images when PROJECT TITLE matched (not category/other fields)
+        const lowerQuery = searchQuery.toLowerCase();
+        const projectTitleMatched = project.title.toLowerCase().includes(lowerQuery);
         
-        // Add all images to results with inherited flag
-        allProjectImages.forEach((image: any) => {
-          results.push({
-            type: 'image',
-            id: image.id,
-            imageUrl: image.asset.url,
-            url: image.asset.url, // Alias for compatibility
-            caption: image.caption || '',
-            altText: image.altText || '',
-            projectTitle: project.title,
-            projectSlug: project.slug,
-            categorySlug: project.category.slug,
-            score: score * 0.8,
-            inheritedFromProjectMatch: true,
+        if (projectTitleMatched) {
+          // Fetch all gallery images for this project
+          const allProjectImages = await prisma.projectGalleryImage.findMany({
+            where: { projectId: project.id },
+            include: {
+              asset: { select: { url: true } },
+            },
+            orderBy: { order: 'asc' },
           });
-        });
+          
+          // Dedupe: Only add if not already in results from direct image search
+          const existingImageIds = new Set(
+            results.filter(r => r.type === 'image').map(r => r.id)
+          );
+          
+          allProjectImages.forEach((image: any) => {
+            if (!existingImageIds.has(image.id)) {
+              results.push({
+                type: 'image',
+                id: image.id,
+                imageUrl: image.asset.url,
+                url: image.asset.url, // Alias for compatibility
+                caption: image.caption || '',
+                altText: image.altText || '',
+                projectTitle: project.title,
+                projectSlug: project.slug,
+                categorySlug: project.category.slug,
+                score: score * 0.8,
+                inheritedFromProjectMatch: true,
+              });
+            }
+          });
+        }
       }
     }
     
@@ -284,18 +296,22 @@ export async function GET(request: NextRequest) {
         calculateScore(image.altText || '', searchQuery, 6);
       
       if (score > 0) {
-        results.push({
-          type: 'image',
-          id: image.id,
-          imageUrl: image.asset.url,
-          url: image.asset.url, // Alias for compatibility
-          caption: image.caption || '',
-          altText: image.altText || '',
-          projectTitle: image.project.title,
-          projectSlug: image.project.slug,
-          categorySlug: image.project.category.slug,
-          score,
-        });
+        // Check if image already exists in results (prevent duplicates from project title matches)
+        const existingImage = results.find(r => r.type === 'image' && r.id === image.id);
+        if (!existingImage) {
+          results.push({
+            type: 'image',
+            id: image.id,
+            imageUrl: image.asset.url,
+            url: image.asset.url, // Alias for compatibility
+            caption: image.caption || '',
+            altText: image.altText || '',
+            projectTitle: image.project.title,
+            projectSlug: image.project.slug,
+            categorySlug: image.project.category.slug,
+            score,
+          });
+        }
       }
     }
     
