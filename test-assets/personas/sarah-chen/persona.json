@@ -2,560 +2,1591 @@
   "persona": {
     "id": "sarah-chen",
     "name": "Sarah Chen",
-    "role": "Theatre Costume Designer"
+    "role": "Costume Designer",
+    "location": "Portland, OR",
+    "bio": "Award-nominated costume designer specializing in visual storytelling through fabric, color, and silhouette. Known for emotionally resonant design choices that support character development and narrative arcs. 8 years designing for theater, film, and television.",
+    "yearsActive": "2016-present"
   },
   "profile": {
     "images": [
       {
-        "file": "sarah-40opfzbgb.jpg",
-        "description": "Headshot",
-        "prompt": "Professional headshot of a 32-year-old Korean-American woman with shoulder-length black hair, wearing a black crew neck sweater, warm confident smile, soft studio lighting, neutral gray background"
+        "file": "profile/headshot-primary.jpg",
+        "type": "headshot_primary",
+        "title": "Professional Headshot",
+        "description": "Studio portrait - character reference for all identity-based images",
+        "prompt": "Professional studio portrait of a 32-year-old Korean-American woman, costume designer, shoulder-length black hair, warm confident smile, wearing black crew neck sweater, soft studio lighting against neutral gray background, professional headshot photography, 85mm lens, sharp detail"
       },
       {
-        "file": "sarah-8xzq9d5w4.jpg",
-        "description": "Backstage Selfie",
-        "prompt": "Casual smartphone mirror selfie of Sarah Chen in a dark theatre backstage area, holding a smartphone, wearing a headset and casual black work clothes"
+        "file": "profile/selfie-design-studio.jpg",
+        "type": "selfie",
+        "title": "Design Studio Selfie",
+        "description": "Casual selfie in design studio surrounded by sketches and fabric swatches",
+        "prompt": "iPhone front-facing camera selfie of Korean-American woman with shoulder-length black hair, warm friendly smile, casual black work clothes, in design studio with costume sketches pinned to corkboard and fabric swatches on work table behind her, natural window lighting, camera at chest level angled slightly upward. Clean final photograph - no camera UI, no shutter button, no interface overlays, no hands holding phone, no timestamps.",
+        "isIdentity": true
       },
       {
-        "file": "sarah-chen-headshot.jpg",
-        "description": "Studio Headshot",
-        "prompt": "Professional studio portrait"
+        "file": "profile/candid-fabric-selection.jpg",
+        "type": "candid",
+        "title": "Fabric Sourcing",
+        "description": "Candid shot of Sarah examining fabrics at textile supplier",
+        "prompt": "Candid photo of Sarah Chen examining fabric bolts at textile supplier, shot by colleague, Korean-American woman with shoulder-length black hair focused on feeling fabric texture, multiple fabric bolts around her, professional fabric sourcing environment, natural lighting, authentic work documentation",
+        "isIdentity": true
       },
       {
-        "file": "sarah-selfie-backstage.jpg",
-        "description": "Behind the Scenes",
-        "prompt": "Casual backstage selfie"
+        "file": "profile/on-job-action.jpg",
+        "type": "on_job",
+        "title": "Design Presentation",
+        "description": "Sarah presenting costume designs to production team",
+        "prompt": "Sarah Chen presenting costume sketches and fabric boards to production team during design meeting, shot by production photographer, Korean-American woman with shoulder-length black hair gesturing to design boards on wall, collaborative creative environment, captured mid-presentation showing design expertise and communication",
+        "isIdentity": true
       }
     ]
   },
   "categories": [
     {
-      "name": "Shakespearean Tragedy",
-      "featuredPhoto": "sarah-zn1224dvq.jpg",
+      "id": "theater-production",
+      "name": "Theater Production",
+      "slug": "theater-production",
+      "description": "Costume design for contemporary and classical theater. From initial concept through opening night, creating visual narratives that support character arcs and directorial vision.",
+      "order": 1,
+      "featuredPhoto": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
+      "categoryContent": {
+        "headline": "Designing Stories for the Stage",
+        "introduction": "Theater design is about visual storytelling. Every color choice, every texture, every silhouette contributes to the audience's understanding of character and narrative. I design with the director's vision in mind, translating abstract concepts into costumes that actors can inhabit and audiences can read.",
+        "approach": "My process begins with research and conversation - understanding the director's vision, the play's themes, and each character's journey. I sketch ideas, create mood boards, and source fabrics that tell the story through color and texture."
+      },
       "projects": [
         {
+          "id": "the-obsidian-crown",
           "title": "The Obsidian Crown",
-          "description": "Costume design and direction for the production 'The Obsidian Crown', focusing on Dark, moody, velvet, blood red, royalty, gold embroidery.",
+          "slug": "the-obsidian-crown",
+          "description": "Original dark fantasy tragedy exploring power and moral corruption through visual design. I created a color language where each character's costume palette darkened in proportion to their moral descent - from rich burgundies and golds representing innocence to charcoal and midnight black representing corruption. Designed 28 principal costumes and 50+ ensemble pieces with progressive deterioration as a visual metaphor for psychological unraveling.",
           "isFeatured": true,
+          "order": 1,
+          "projectDetails": {
+            "role": "Lead Costume Designer",
+            "production": "The Obsidian Crown - Original Work",
+            "venue": "Blackfriars Repertory Theatre, London",
+            "year": 2024,
+            "director": "Marcus Winters",
+            "timeline": "4 weeks design, 12 weeks build, 10 weeks performance",
+            "budget": "$45,000",
+            "scale": "28 principal costumes, 50+ ensemble"
+          },
+          "projectContent": {
+            "challenge": "The director wanted costume to be an active participant in storytelling - characters' moral journeys needed to be visible in their clothing. This meant designing not just costumes, but costume transformations across five acts.",
+            "approach": "I developed a 'moral spectrum' color theory: warm burgundies and golds (innocence/nobility) progressing through blood reds and deep purples (temptation/conflict) to charcoal and black (corruption/death). Each principal character had a mapped color journey. Worked with my construction team to develop layered distressing techniques that could be repeated across costume phases.",
+            "outcome": "Nominated for Portland Area Theatre Alliance Best Costume Design, 2024. Eight of twelve reviews specifically mentioned the costume work as integral to the production's emotional impact. The progressive darkening technique has been requested by two other directors for upcoming productions."
+          },
+          "techniques": [
+            "Color theory as narrative device",
+            "Progressive fabric deterioration design",
+            "Symbolic embroidery and motif development",
+            "Multi-phase costume planning",
+            "Collaboration with lighting design for color impact"
+          ],
+          "recognition": [
+            "Portland Area Theatre Alliance Best Costume Design Nomination, 2024",
+            "Featured in Theatre Design Northwest magazine, Summer 2024"
+          ],
           "photos": [
             {
-              "file": "sarah-zn1224dvq.jpg",
-              "description": "Character Design Rendering",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/concept-sketches.jpg",
+              "title": "Character Arc Sketches",
+              "description": "Initial concept sketches showing Queen Morwen's five costume phases",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of design sketchbook page showing five costume sketches for character arc, pencil and watercolor renderings progressing from burgundy to black, annotations about moral descent visible, designer's working sketches, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-ckyxh86xf.jpg",
-              "description": "Fabrication Palette",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/color-progression-board.jpg",
+              "title": "Color Progression Mood Board",
+              "description": "Mood board showing color journey from burgundy to black with fabric swatches",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of mood board on studio wall, fabric swatches arranged in progression from rich burgundy through blood red to midnight black, color theory annotations, reference images pinned around swatches, visual progression chart for moral descent theme, design development documentation, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-fcza6izb5.jpg",
-              "description": "Technical Draft",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/fabric-swatches-laid-out.jpg",
+              "title": "Fabric Selection for Queen's Gown",
+              "description": "Burgundy silk velvet and gold metallic thread swatches arranged on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with burgundy silk velvet fabric swatches, gold metallic embroidery thread spools, trim samples arranged for Queen's gown, fabric selection process, color and texture comparison, design development, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-0nxmufmtj.jpg",
-              "description": "Muslin Prototype Presentation",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/embroidery-design-sketch.jpg",
+              "title": "Curse Symbol Design",
+              "description": "Sketches of curse symbol embroidery motifs for Queen's costume",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of sketchbook page showing hand-drawn embroidery motif designs, decorative curse symbols sketched in detail, annotations about symbolism and placement, gold pen highlights, designer's working drawings, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-4ssfd7v73.jpg",
-              "description": "Embroidery Detail",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/workshop-construction.jpg",
+              "title": "Workshop Construction in Progress",
+              "description": "Behind-the-scenes photo Sarah took of workshop during gown construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume workshop during construction, dress form with burgundy velvet gown in progress, draper working on bodice, fabric pieces on cutting table, active workshop environment, Sarah documenting her team's work, natural workshop lighting, atmospheric behind-the-scenes. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-k0ei64w36.jpg",
-              "description": "Production Still: The Lead",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/embroidery-in-progress.jpg",
+              "title": "Embroidery Work Session",
+              "description": "Sarah's photo of embroiderer working on gold curse symbols",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of embroiderer's hands working on burgundy velvet fabric in embroidery hoop, gold metallic thread being stitched to create curse symbol, active work session captured by Sarah, workshop atmosphere, natural lighting, behind-the-scenes of detailed craft work. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-3pfxk4eis.jpg",
-              "description": "Ensemble Tableau",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/queen-gown-fitting.jpg",
+              "title": "First Fitting - Queen's Gown",
+              "description": "Close-up of burgundy gown fit on actress during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of burgundy velvet gown bodice on actress during fitting session, focus on bodice fit and embroidery detail, actress's head cropped from top of frame, checking how design translates to body, static fitting documentation, natural workshop lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-mspvayik9.jpg",
-              "description": "Texture under lighting",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/gown-detail-fitting.jpg",
+              "title": "Embroidery Detail During Fitting",
+              "description": "Close-up of gold curse symbol embroidery during fitting check",
+              "tags": [],
+              "prompt": "Extreme close-up iPhone 14 Pro photo of gold embroidered curse symbols on burgundy velvet bodice during actress fitting, focus on embroidery detail and how it sits on body, checking design execution in wear, static fitting detail, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-wrno9vuhb.jpg",
-              "description": "Movement Test",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/deterioration-costume-phases.jpg",
+              "title": "Five Costume Phases Comparison",
+              "description": "Multiple dress forms showing Queen's costume progression from burgundy to black",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of five dress forms in a row showing Queen's costume in five progressive phases of deterioration, burgundy velvet to darkened black, visual representation of character arc through costume, design progression documentation, workshop setting, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-1s7ibnitx.jpg",
-              "description": "Ready for Curtain",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/queen-gown-finished.jpg",
+              "title": "Queen's Gown - Phase One Complete",
+              "description": "Finished burgundy velvet gown on dress form before delivery",
+              "tags": [],
+              "prompt": "Professional documentation photo of completed burgundy silk velvet gown on professional dress form, elaborate gold embroidered curse symbols visible on bodice, perfect drape and fit, structured silhouette, dramatic period costume, soft studio lighting showing fabric texture and embroidery detail, neutral background, museum-quality presentation"
             },
             {
-              "file": "macbeth-witches-trio.jpg",
-              "description": "The Weird Sisters Ensemble",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
+              "title": "Queen Morwen - Production Photo",
+              "description": "Professional production photograph of actress in Queen's burgundy gown",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - James Chen",
+                "performance_date": "Opening Night - April 12, 2024",
+                "character": "Queen Morwen",
+                "scene": "Act II - Court Scene"
+              },
+              "prompt": "Professional theatrical production photography, actress in elaborate burgundy velvet gown with gold embroidered curse symbols, dramatic stage lighting from above and sides, rich fabric texture visible under lights, period theatrical costume, captured during performance, high-quality production photography, theatrical atmosphere"
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/officer-costume-sketch.jpg",
+              "title": "Officer's Coat Design Sketch",
+              "description": "Design rendering for Captain Aldric's navy military coat",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor and ink rendering of navy military coat for male character, period military styling with brass buttons, annotations about fabric and construction notes, designer's working sketch with color notes, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/military-fabric-selection.jpg",
+              "title": "Military Coat Fabric Selection",
+              "description": "Navy wool swatches and brass button samples for Officer's coat",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with navy wool fabric swatches, brass military button samples arranged, trim and braid options, fabric selection for military coat design, material comparison, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/construction-workshop-atmosphere.jpg",
+              "title": "Workshop Build Session",
+              "description": "Sarah's photo of workshop during Officer's coat construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume workshop during active construction session, tailor working at sewing machine on navy wool coat, cutting table with pattern pieces in background, busy workshop atmosphere captured by Sarah, natural workshop lighting, behind-the-scenes of build process. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/officer-coat-fitting.jpg",
+              "title": "Officer's Coat Fitting",
+              "description": "Close-up of navy military coat fit on actor during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of navy wool military coat on actor during fitting session, focus on coat shoulder and upper back fit, actor's head cropped from top of frame, checking design execution and silhouette, static fitting documentation, natural workshop lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/officer-production.jpg",
+              "title": "Captain Aldric - Production Photo",
+              "description": "Professional production photo of actor in Officer's coat during performance",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - James Chen",
+                "character": "Captain Aldric",
+                "scene": "Act III - Confrontation"
+              },
+              "prompt": "Professional theatrical production photography, actor in navy wool military coat with brass buttons, dramatic stage lighting, period military costume in performance, captured during live show, theatrical atmosphere, high-quality production photography"
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/tech-rehearsal-notes.jpg",
+              "title": "Tech Rehearsal - Taking Notes",
+              "description": "Sarah backstage during tech rehearsal reviewing costume under lights",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo backstage during tech rehearsal, Korean-American woman with shoulder-length black hair reviewing costume on actor under stage lights, taking notes on clipboard, working backstage environment, tech week atmosphere, shot by stage manager, behind-the-scenes documentation",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/ensemble-costume-rack.jpg",
+              "title": "Ensemble Costumes Ready",
+              "description": "Costume rack with completed ensemble pieces showing color progression",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume rack backstage with multiple ensemble costumes hanging, showing color range from burgundy to dark charcoal, deterioration progression visible across garments, ready for performance, backstage documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/full-cast-production.jpg",
+              "title": "Full Cast - Production Photo",
+              "description": "Professional ensemble cast photo showing complete design range",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - James Chen",
+                "scene": "Act V - Final Scene",
+                "note": "Full costume design progression visible"
+              },
+              "prompt": "Professional theatrical production photography, ensemble cast in elaborate period costumes showing designed color progression from pristine burgundy and gold to darkened distressed garments, dramatic stage lighting, full cast arranged in theatrical tableau, high-quality production photography showing complete costume design vision"
             }
           ]
         },
         {
-          "title": "Macbeth: Blood & Fog",
-          "description": "Costume design and direction for the production 'Macbeth: Blood & Fog', focusing on Dark, moody, velvet, blood red, royalty, gold embroidery.",
-          "isFeatured": false,
-          "photos": [
-            {
-              "file": "sarah-vn4bbkshe.jpg",
-              "description": "Character Design Rendering",
-              "isFeatured": true,
-              "isIdentity": false
-            },
-            {
-              "file": "sarah-xwvt4d911.jpg",
-              "description": "Fabrication Palette",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "sarah-3h37mkbjf.jpg",
-              "description": "Technical Draft",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "sarah-954sws6bh.jpg",
-              "description": "Muslin Prototype Presentation",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "sarah-w808u4itv.jpg",
-              "description": "Embroidery Detail",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "sarah-fvk4h7ff8.jpg",
-              "description": "Production Still: The Lead",
-              "isFeatured": true,
-              "isIdentity": false
-            },
-            {
-              "file": "sarah-jbpt8646g.jpg",
-              "description": "Ensemble Tableau",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "sarah-nucq8wq5x.jpg",
-              "description": "Texture under lighting",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "sarah-hhgbyxknz.jpg",
-              "description": "Movement Test",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "sarah-rzi7j3ucd.jpg",
-              "description": "Ready for Curtain",
-              "isFeatured": false,
-              "isIdentity": false
-            }
-          ]
-        },
-        {
-          "title": "Romeo & Juliet - Star-Crossed Couture",
-          "description": "Romantic tragedy brought to life through Renaissance-inspired designs with modern sensibility. The Capulet ballroom scene required opulent fabrics and period-accurate construction.",
-          "isFeatured": false,
-          "photos": [
-            {
-              "file": "romeo-juliet-ballgown.jpg",
-              "description": "Juliet's Capulet Ball Gown",
-              "isFeatured": true,
-              "isIdentity": false
-            },
-            {
-              "file": "sketch-to-costume.jpg",
-              "description": "Design Evolution - Sketch to Final",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "fabric-selection-table.jpg",
-              "description": "Fabric Selection Process",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "costume-fitting-backstage.jpg",
-              "description": "Backstage Fitting Session",
-              "isFeatured": false,
-              "isIdentity": false
-            }
-          ]
-        },
-        {
-          "title": "King Lear - Descent into Madness",
-          "description": "Lear's journey from regal authority to broken humanity required costumes that physically deteriorate across the production, reflecting his psychological unraveling.",
-          "isFeatured": false,
-          "photos": [
-            {
-              "file": "king-lear-aging-king.jpg",
-              "description": "Lear's Final Storm Costume",
-              "isFeatured": true,
-              "isIdentity": false
-            },
-            {
-              "file": "costume-rack-organized.jpg",
-              "description": "Production Costume Organization",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "dress-rehearsal-action.jpg",
-              "description": "Dress Rehearsal Movement",
-              "isFeatured": false,
-              "isIdentity": false
-            }
-          ]
-        },
-        {
-          "title": "Hamlet: Redux",
-          "description": "A modern reinterpretation of Shakespeare's classic, blending contemporary silhouettes with traditional court aesthetics.",
-          "isFeatured": false,
-          "photos": [
-            {
-              "file": "hamlet-court-production.jpg",
-              "description": "Court Scene Production Still",
-              "isFeatured": true,
-              "isIdentity": false
-            },
-            {
-              "file": "modern-hamlet-rehearsal.jpg",
-              "description": "Modern Rehearsal Blocking",
-              "isFeatured": false,
-              "isIdentity": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Shakespearean Comedy",
-      "featuredPhoto": "midsummer-fairy-costumes.jpg",
-      "projects": [
-        {
-          "title": "A Midsummer Night's Dream - Fairy Court",
-          "description": "Ethereal fairy realm costumes blending organic textures with iridescent materials. Each fairy character received distinct botanical inspirations.",
+          "id": "neon-babel",
+          "title": "Neon Babel",
+          "slug": "neon-babel",
+          "description": "Contemporary experimental theater piece set in a near-future underground club exploring language, identity, and connection. Designed costumes blending cyberpunk aesthetics with streetwear functionality - LED-embedded garments, reflective materials, and modular pieces that transformed throughout the 90-minute performance. Collaborated closely with lighting designer to create costumes that reacted to and amplified the lighting design.",
           "isFeatured": true,
+          "order": 2,
+          "projectDetails": {
+            "role": "Costume Designer",
+            "production": "Neon Babel - New Work",
+            "venue": "The Pit - Black Box Theater, Portland",
+            "year": 2024,
+            "director": "Yuki Tanaka",
+            "timeline": "6 weeks design and build with ongoing rehearsal collaboration",
+            "budget": "$18,000",
+            "scale": "6 principal costumes with transformation elements"
+          },
+          "projectContent": {
+            "challenge": "Creating costumes that would glow and react under UV and LED stage lighting while maintaining the gritty streetwear aesthetic. Every fabric choice had to be tested under multiple lighting conditions. LED integration needed to be safe, battery-powered, and allow costume changes.",
+            "approach": "I sourced reflective and UV-reactive materials typically used in sportswear and safety gear, then deconstructed them into fashion silhouettes. Collaborated with an electronics artist for safe LED integration. Built modular layers that actors could add or remove to transform characters.",
+            "outcome": "The costumes became a character in the production - critics noted they 'pulsed with the rhythm of the underground'. The LED integration technique has been adopted by the theater for future experimental work."
+          },
+          "techniques": [
+            "UV-reactive and reflective material sourcing",
+            "Safe LED integration in costumes",
+            "Modular streetwear design",
+            "Collaboration with lighting design",
+            "Cyberpunk aesthetic in theatrical context"
+          ],
           "photos": [
             {
-              "file": "midsummer-fairy-costumes.jpg",
-              "description": "Fairy Ensemble - Titania's Court",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/theater-production/neon-babel/cyberpunk-concept-board.jpg",
+              "title": "Cyberpunk Concept Board",
+              "description": "Mood board with cyberpunk references, fabric samples, and LED component ideas",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of large mood board on studio wall, cyberpunk aesthetic references with neon colors, reflective fabric swatches, LED component samples, streetwear inspiration images, design concept development, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "embroidery-detail-phone.jpg",
-              "description": "Wing Embroidery Detail",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/neon-babel/reflective-fabrics.jpg",
+              "title": "Reflective Material Testing",
+              "description": "Collection of reflective and UV-reactive fabrics being tested",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of work table with multiple reflective fabric swatches laid out, silver reflective mesh, UV-reactive materials, neon accent fabrics, material testing for costume design, fabric exploration, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "phone-capture-swatches.jpg",
-              "description": "Iridescent Fabric Swatches",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/neon-babel/led-integration-test.jpg",
+              "title": "LED Component Testing",
+              "description": "LED strips and battery packs being tested for costume integration",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of work table with LED strip lights, small battery packs, and flexible LED components arranged for testing, electronics integration planning for costumes, design development for light-up garments, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/neon-babel/jacket-sketch-led-placement.jpg",
+              "title": "LED Placement Design",
+              "description": "Costume sketch with annotations showing LED strip placement",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch showing cyberpunk jacket with LED strip placement marked, technical annotations about wiring and battery placement, designer's working technical drawing, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/neon-babel/jacket-construction-wip.jpg",
+              "title": "Jacket with LED Integration",
+              "description": "Black jacket on form showing LED strips integrated into design",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of black streetwear-style jacket on dress form with LED strips integrated along seams, reflective details visible, cyberpunk costume construction in progress on form, work-in-progress documentation, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/neon-babel/modular-pieces-array.jpg",
+              "title": "Modular Costume Pieces",
+              "description": "Array of modular garment pieces that reconfigure throughout show",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of multiple modular costume pieces laid out on table, black base layers, reflective vests, LED-embedded panels, neon accent pieces, showing how pieces can be combined in different configurations, design system documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/neon-babel/fitting-base-layer.jpg",
+              "title": "Base Layer Fitting",
+              "description": "Close-up of black base layer garment fit during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of black base layer garment on actor during fitting, focus on fit and how it will layer with other pieces, actor's head cropped from frame, modular costume system fitting check, natural workshop lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/neon-babel/uv-reactive-test.jpg",
+              "title": "UV Reactive Material Test",
+              "description": "Testing UV-reactive fabrics under different lighting",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of UV-reactive fabric samples under testing light showing how materials glow, different fabric responses to UV visible, material testing for lighting collaboration, workshop experiment, dim lighting showing UV glow. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/neon-babel/tech-rehearsal-lighting.jpg",
+              "title": "Tech Rehearsal - Lighting Test",
+              "description": "Sarah watching costume under stage lighting during tech rehearsal",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo during tech rehearsal in black box theater, Korean-American woman with shoulder-length black hair watching actor in LED-embedded costume under experimental lighting, reviewing how design works under lights, shot by stage manager, tech rehearsal atmosphere, dim theater lighting",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/theater-production/neon-babel/costume-transformation-rehearsal.jpg",
+              "title": "Transformation Rehearsal",
+              "description": "Sarah working with actor on costume transformation sequence",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo during rehearsal, Korean-American woman with shoulder-length black hair helping actor with costume transformation technique, modular pieces being added/removed, black box theater space, experimental theater rehearsal, shot by assistant director, behind-the-scenes collaboration",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/theater-production/neon-babel/led-costume-complete.jpg",
+              "title": "LED Jacket Complete",
+              "description": "Finished cyberpunk jacket on form showing LED integration",
+              "tags": [],
+              "prompt": "Professional documentation photo of completed black cyberpunk jacket on dress form with LED strips integrated into seams, reflective panels, neon accent details, contemporary experimental costume, soft studio lighting, neutral background"
+            },
+            {
+              "file": "categories/theater-production/neon-babel/production-uv-lighting.jpg",
+              "title": "Production - UV Lighting Moment",
+              "description": "Professional production photo showing costume under UV lighting",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - Theater Staff",
+                "scene": "Club scene under UV",
+                "note": "UV-reactive materials glowing"
+              },
+              "prompt": "Professional theatrical production photography in black box theater, actor in cyberpunk costume with UV-reactive materials glowing under ultraviolet stage lighting, LED strips illuminated, experimental theater aesthetic, dark background with neon glow, high-quality production photography"
+            },
+            {
+              "file": "categories/theater-production/neon-babel/production-led-moment.jpg",
+              "title": "Production - LED Costume Active",
+              "description": "Professional production photo of LED-embedded costume illuminated",
+              "tags": [
+                "featured",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - Theater Staff",
+                "scene": "Transformation sequence",
+                "note": "LED integration in performance"
+              },
+              "prompt": "Professional theatrical production photography in black box theater, actor in black streetwear-style costume with LED strips glowing along seams, cyberpunk aesthetic, minimal lighting emphasizing LED glow, experimental theater moment, high-quality production photography capturing light-up costume in performance"
+            }
+          ]
+        },
+        {
+          "id": "a-dolls-house-reimagined",
+          "title": "A Doll's House: Reimagined",
+          "slug": "a-dolls-house-reimagined",
+          "description": "Contemporary adaptation of Ibsen's classic set in present-day corporate America. Designed costume progression for Nora from conformist professional wear (structured blazers, muted colors) to liberated personal style (flowing fabrics, bold colors). Used fashion as visual metaphor for Nora's psychological journey from constraint to freedom. Designed 8 principal costumes with Nora requiring 5 distinct looks tracking her evolution.",
+          "isFeatured": false,
+          "order": 3,
+          "projectDetails": {
+            "role": "Costume Designer",
+            "production": "A Doll's House: Reimagined",
+            "venue": "Portland Civic Theater",
+            "year": 2023,
+            "director": "Lisa Morrison",
+            "timeline": "5 weeks design, 7 weeks build",
+            "budget": "$22,000",
+            "scale": "8 principal costumes, 12 ensemble"
+          },
+          "projectContent": {
+            "challenge": "Making Ibsen's 1879 themes resonate for contemporary audiences through costume. Nora's journey from doll-wife to independent woman needed to be visible in her clothing choices without being heavy-handed.",
+            "approach": "I designed Nora's arc through fashion language: restrictive corporate suiting in greys and beiges (conformity) progressing through jewel tones (awakening) to flowing personal style in vibrant colors (liberation). Each costume represented a stage of her psychological development.",
+            "outcome": "The audience reported being able to track Nora's journey through costume alone. Reviews praised the 'visual poetry' of the costume progression. The design approach has been requested as a case study for a university theater design program."
+          },
+          "techniques": [
+            "Contemporary fashion as character development",
+            "Color psychology in design",
+            "Silhouette progression as narrative",
+            "Modern tailoring for corporate costumes",
+            "Collaboration with actors on character wardrobe"
+          ],
+          "photos": [
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/nora-arc-sketches.jpg",
+              "title": "Nora's Costume Arc - Sketches",
+              "description": "Five costume sketches showing Nora's visual journey from constraint to freedom",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of design board with five costume sketches for character arc, fashion illustrations progressing from grey corporate suit to vibrant flowing dress, color progression from muted to bold, annotations about character psychology, designer's concept development, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/corporate-suit-sketch.jpg",
+              "title": "Nora's Corporate Suit Design",
+              "description": "Design rendering for Nora's restrictive opening costume",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor and ink rendering of grey corporate blazer and pencil skirt, restrictive silhouette, annotations about constraint and conformity, designer's working sketch, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/grey-suiting-fabric.jpg",
+              "title": "Corporate Costume Fabrics",
+              "description": "Grey and beige suiting fabrics selected for opening costumes",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with grey and beige wool suiting fabric swatches, muted professional fabrics for corporate costumes, fabric selection for constraint theme, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/jewel-tone-fabrics.jpg",
+              "title": "Awakening - Jewel Tone Selection",
+              "description": "Emerald and sapphire fabric swatches for Nora's middle-act costumes",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of design table with rich jewel-tone fabric swatches, emerald green and sapphire blue silks, transition fabrics between constraint and freedom, color awakening in design progression, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/liberation-dress-sketch.jpg",
+              "title": "Final Liberation Dress Design",
+              "description": "Design sketch for Nora's final costume - flowing and vibrant",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of flowing dress in vibrant coral-red, loose silhouette representing freedom, annotations about liberation and self-expression, designer's concept sketch for final costume, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/construction-blazer.jpg",
+              "title": "Corporate Blazer Construction",
+              "description": "Grey blazer on form during construction for opening costume",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of grey wool blazer on dress form in construction, restrictive corporate silhouette taking shape, contemporary tailoring, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/nora-suit-fitting.jpg",
+              "title": "Corporate Suit Fitting",
+              "description": "Close-up of grey suit fit on actress during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of grey corporate suit on actress during fitting, focus on blazer fit and restrictive silhouette, actress's head cropped from frame, checking design execution for constraint theme, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/emerald-dress-construction.jpg",
+              "title": "Emerald Dress on Form",
+              "description": "Emerald green dress on form during construction - middle act costume",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of emerald green silk dress on dress form in construction, jewel-tone costume for character's awakening phase, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/fitting-emerald-dress.jpg",
+              "title": "Emerald Dress Fitting",
+              "description": "Close-up of emerald dress fit during fitting session",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of emerald green silk dress on actress during fitting, focus on dress bodice and color against skin, actress's head cropped from frame, checking mid-transformation costume, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/coral-dress-construction.jpg",
+              "title": "Liberation Dress Construction",
+              "description": "Vibrant coral flowing dress on form - final costume",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of vibrant coral-red flowing dress on dress form in construction, loose liberation silhouette, final transformation costume, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/final-dress-fitting.jpg",
+              "title": "Final Costume Fitting",
+              "description": "Close-up of coral liberation dress fit during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of vibrant coral flowing dress on actress during fitting, focus on how loose liberated silhouette contrasts with earlier costumes, actress's head cropped from frame, checking final transformation design, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/costume-progression-rack.jpg",
+              "title": "Nora's Complete Arc on Rack",
+              "description": "All five of Nora's costumes hanging in sequence showing progression",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume rack with Nora's five costumes hanging in order, visual progression from grey corporate suit to vibrant coral dress, complete character arc visible in costume sequence, design documentation, backstage setting, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/nora-corporate-production.jpg",
+              "title": "Nora - Act I Corporate Costume",
+              "description": "Professional production photo of actress in grey suit during opening scene",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Production photographer - Theater Staff",
+                "character": "Nora",
+                "scene": "Act I - Corporate conformity"
+              },
+              "prompt": "Professional theatrical production photography, actress in grey corporate suit costume, restrictive professional styling, stage lighting, contemporary setting, captured during performance, high-quality production photography"
+            },
+            {
+              "file": "categories/theater-production/a-dolls-house-reimagined/nora-liberation-production.jpg",
+              "title": "Nora - Final Scene Liberation",
+              "description": "Professional production photo of actress in coral dress during final scene",
+              "tags": [
+                "featured",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - Theater Staff",
+                "character": "Nora",
+                "scene": "Final scene - Door slam"
+              },
+              "prompt": "Professional theatrical production photography, actress in vibrant coral flowing dress costume, liberated styling and movement, dramatic stage lighting, contemporary setting, captured during powerful final scene, high-quality production photography showing costume design transformation complete"
             }
           ]
         }
       ]
     },
     {
-      "name": "High Concept Sci-Fi",
-      "featuredPhoto": "sarah-9f7soqfm7.jpg",
+      "id": "film-production",
+      "name": "Film Production",
+      "slug": "film-production",
+      "description": "Costume design for feature films. Designing for camera requires different approaches than theater - every detail visible in close-up, costumes must support character development across long shooting schedules, and design must work with cinematography and color grading.",
+      "order": 2,
+      "featuredPhoto": "categories/film-production/the-last-correspondence/period-gown-production.jpg",
+      "categoryContent": {
+        "headline": "Designing for the Camera",
+        "introduction": "Film costume design is about creating character through clothing that reads perfectly in close-up. Every fabric choice, every color decision must support the cinematographer's vision while serving the character's journey. My designs are built to withstand the scrutiny of the big screen.",
+        "approach": "I work closely with directors and cinematographers from pre-production, understanding the color palette, the lighting approach, and how costume will integrate with production design. My sketches become roadmaps for character development through visual storytelling."
+      },
       "projects": [
         {
-          "title": "Nebula Rising",
-          "description": "Costume design and direction for the production 'Nebula Rising', focusing on Holographic fabrics, structural LEDs, translucent plastic, angular silhouettes.",
-          "isFeatured": false,
+          "id": "the-last-correspondence",
+          "title": "The Last Correspondence",
+          "slug": "the-last-correspondence",
+          "description": "Romantic period drama set in 1920s England following two women's forbidden relationship told through discovered letters. Designed costumes that showed class distinction, evolving intimacy, and the tension between public conformity and private desire. Lead design on both protagonists - aristocratic lady in structured formal wear and working-class artist in bohemian layers. Color palette evolved from separated cool tones to shared warm intimacy.",
+          "isFeatured": true,
+          "order": 1,
+          "projectDetails": {
+            "role": "Costume Designer",
+            "production": "The Last Correspondence (Independent Feature)",
+            "location": "UK Location - Bath and London",
+            "year": 2024,
+            "director": "Eleanor Price",
+            "timeline": "8 weeks design, 14 weeks build, 3 months filming",
+            "budget": "$85,000",
+            "scale": "12 principal costumes, 30+ supporting and background"
+          },
+          "projectContent": {
+            "challenge": "Designing subtle visual language for forbidden love in a repressive era. Costumes needed to show both characters' public facades and hint at their hidden emotional lives. Color theory became crucial - cold blues and greys for public scenes, warm amber and rose for private intimate moments.",
+            "approach": "I created two distinct design vocabularies that gradually converged. The aristocrat's costumes: structured, pastel, controlled. The artist's costumes: layered, earth tones, bohemian. As their relationship deepened, I brought warmer shared colors into both wardrobes - subtle visual intimacy.",
+            "outcome": "Film premiered at Sundance 2024 to critical acclaim. Costume design specifically noted in Variety review as 'speaking volumes through silhouette and color'. The color progression technique is now used in film school curricula as an example of visual storytelling through costume."
+          },
+          "techniques": [
+            "1920s period research and construction",
+            "Color theory for emotional storytelling",
+            "Class distinction through silhouette",
+            "Subtle visual intimacy through shared palette",
+            "Collaboration with cinematography for color grading"
+          ],
+          "recognition": [
+            "Sundance Film Festival 2024 Official Selection",
+            "Featured in Variety - 'Costume Work Speaks Volumes'",
+            "Costume Designers Guild nomination consideration"
+          ],
           "photos": [
             {
-              "file": "sarah-9f7soqfm7.jpg",
-              "description": "Character Design Rendering",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/film-production/the-last-correspondence/character-arc-sketches.jpg",
+              "title": "Character Relationship Through Costume",
+              "description": "Sketches showing both characters' costume arcs and color convergence",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of large design board with costume sketches for both lead characters, watercolor renderings showing color progression from separated palettes to shared warm tones, character relationship tracked through visual design, annotations about intimacy and color theory, designer's concept development, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-pq5h9ygtb.jpg",
-              "description": "Fabrication Palette",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/the-last-correspondence/1920s-research-board.jpg",
+              "title": "1920s Research and References",
+              "description": "Mood board with 1920s period references and class distinction images",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of research mood board on studio wall, 1920s period photographs, fashion plates showing class distinctions, aristocratic and bohemian reference images, historical research for period accuracy, design development, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-dzhd895ne.jpg",
-              "description": "Technical Draft",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/the-last-correspondence/aristocrat-dress-sketch.jpg",
+              "title": "Aristocrat's Day Dress Design",
+              "description": "Design rendering for aristocratic character's structured day dress",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of pale blue 1920s day dress with structured silhouette, aristocratic styling, annotations about fabric and construction, designer's working sketch with color notes, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-ho41hwqm0.jpg",
-              "description": "Muslin Prototype Presentation",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/the-last-correspondence/pale-blue-silk-swatches.jpg",
+              "title": "Aristocrat Fabric Selection",
+              "description": "Pale blue and grey silk fabric swatches for aristocratic costumes",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with pale blue silk, grey wool, and cream lace fabric swatches arranged, cool color palette for aristocratic character, fabric selection for period costumes, texture and color comparison, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-d8uxi9qz2.jpg",
-              "description": "Embroidery Detail",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/the-last-correspondence/artist-costume-sketch.jpg",
+              "title": "Artist's Bohemian Layers Design",
+              "description": "Design rendering for working-class artist character's layered look",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of layered bohemian costume with earth tones, loose artist's blouse over long skirt, 1920s working-class styling, annotations about freedom and creativity, designer's concept sketch, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-6cpudc60n.jpg",
-              "description": "Production Still: The Lead",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/film-production/the-last-correspondence/earth-tone-fabrics.jpg",
+              "title": "Artist Fabric Selection",
+              "description": "Earth tone cotton and linen swatches for artist's costumes",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with earth tone fabric swatches, warm browns, ochres, and olive linens and cottons, bohemian character palette, fabric selection for working-class artist, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-arnbexouf.jpg",
-              "description": "Ensemble Tableau",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/the-last-correspondence/shared-color-swatches.jpg",
+              "title": "Intimacy Color Palette",
+              "description": "Warm amber and rose fabric swatches for intimate scenes shared by both characters",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of design table with warm amber, rose, and soft gold fabric swatches, shared intimate color palette for both characters' later costumes, color convergence design strategy, fabric exploration, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-19ee6f4hl.jpg",
-              "description": "Texture under lighting",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/the-last-correspondence/construction-workshop-aristocrat.jpg",
+              "title": "Aristocrat Dress Construction",
+              "description": "Workshop during construction of pale blue aristocratic dress",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume workshop, draper working on pale blue silk 1920s dress on dress form, structured silhouette construction in progress, active workshop environment captured by Sarah, natural workshop lighting, behind-the-scenes of build process. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-zey2schor.jpg",
-              "description": "Movement Test",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/the-last-correspondence/lace-detail-construction.jpg",
+              "title": "Lace Application Detail",
+              "description": "Detail of cream lace collar being attached to aristocrat's dress",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of cream lace collar already attached to pale blue silk dress bodice, delicate lace detail work complete, period costume construction detail, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
             },
             {
-              "file": "sarah-52r5g1rmq.jpg",
-              "description": "Ready for Curtain",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/the-last-correspondence/aristocrat-dress-fitting.jpg",
+              "title": "Aristocrat Dress Fitting",
+              "description": "Close-up of pale blue dress fit on actress during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of pale blue silk 1920s dress on actress during fitting, focus on structured bodice and lace collar, actress's head cropped from frame, checking period silhouette and design execution, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-last-correspondence/artist-layers-construction.jpg",
+              "title": "Artist's Layered Costume Construction",
+              "description": "Bohemian layered costume on form showing earth-tone pieces",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of layered bohemian costume on dress form, earth-tone cotton blouse with long brown skirt, 1920s working-class artist styling, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-last-correspondence/artist-fitting.jpg",
+              "title": "Artist Costume Fitting",
+              "description": "Close-up of bohemian layers fit on actress during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of earth-tone layered costume on actress during fitting, focus on how bohemian blouse and skirt layer, actress's head cropped from frame, checking working-class artist character design, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-last-correspondence/intimate-scene-costume.jpg",
+              "title": "Shared Warmth - Intimate Costume",
+              "description": "Amber-toned dress on form for intimate scene",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of amber-toned silk dress on dress form, warm color from shared intimate palette, both characters eventually wear warm tones, design progression costume, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-last-correspondence/on-set-check.jpg",
+              "title": "On-Set Costume Check",
+              "description": "Sarah reviewing costume under film lighting during shoot",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo on film set, Korean-American woman with shoulder-length black hair reviewing actress's costume under film lighting, checking how design reads on camera, on-set collaboration, shot by crew member, behind-the-scenes documentation",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/film-production/the-last-correspondence/period-gown-complete.jpg",
+              "title": "Aristocrat's Evening Gown Complete",
+              "description": "Finished pale blue silk evening gown on dress form",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed 1920s pale blue silk evening gown on dress form, structured aristocratic styling, lace and bead details, perfect period construction, soft studio lighting, neutral background, museum-quality presentation"
+            },
+            {
+              "file": "categories/film-production/the-last-correspondence/period-gown-production.jpg",
+              "title": "Aristocrat - On Set",
+              "description": "Professional on-set photo of actress in pale blue gown during filming",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Drawing room scene",
+                "note": "Hero costume showing class and constraint"
+              },
+              "prompt": "Professional film production photography on set, actress in pale blue silk 1920s evening gown, period interior setting with elegant furnishings, natural lighting from windows, camera-ready costume showing aristocratic character, high-quality unit photography, cinematic composition, romantic period atmosphere"
+            },
+            {
+              "file": "categories/film-production/the-last-correspondence/artist-costume-complete.jpg",
+              "title": "Artist's Costume Complete",
+              "description": "Finished earth-tone bohemian layered costume on dress form",
+              "tags": [],
+              "prompt": "Professional documentation photo of completed 1920s bohemian layered costume on dress form, earth-tone cotton blouse and long brown skirt, working-class artist styling, soft studio lighting, neutral background, period costume documentation"
+            },
+            {
+              "file": "categories/film-production/the-last-correspondence/artist-production.jpg",
+              "title": "Artist - On Set",
+              "description": "Professional on-set photo of actress in bohemian costume during filming",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Artist's studio scene"
+              },
+              "prompt": "Professional film production photography on set, actress in earth-tone bohemian 1920s costume, artist's studio setting with paintings, natural lighting, camera-ready working-class character costume, high-quality unit photography, intimate atmosphere"
+            },
+            {
+              "file": "categories/film-production/the-last-correspondence/intimate-scene-production.jpg",
+              "title": "Intimate Scene - Shared Warmth",
+              "description": "Professional production photo showing both characters in warm shared color palette",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Private letter reading scene",
+                "note": "Costume color convergence visible"
+              },
+              "prompt": "Professional film production photography on set, two actresses in 1920s costumes both wearing warm amber and rose tones showing costume design's color convergence, intimate lighting, romantic period atmosphere, camera-ready costumes showing visual intimacy through shared palette, high-quality cinematic unit photography"
             }
           ]
         },
         {
-          "title": "The Chromium Protocol",
-          "description": "Costume design and direction for the production 'The Chromium Protocol', focusing on Holographic fabrics, structural LEDs, translucent plastic, angular silhouettes.",
-          "isFeatured": false,
+          "id": "velvet-and-ash",
+          "title": "Velvet and Ash",
+          "slug": "velvet-and-ash",
+          "description": "Noir psychological thriller set in contemporary New York following a gallery owner's descent into obsession. Designed costumes tracking character's psychological unraveling through increasingly chaotic styling - from pristine minimalist fashion to disheveled luxury. Collaborated with cinematographer on high-contrast black and white aesthetic. Lead design for protagonist's 8 costume transformations plus supporting cast of art world characters.",
+          "isFeatured": true,
+          "order": 2,
+          "projectDetails": {
+            "role": "Costume Designer",
+            "production": "Velvet and Ash (Independent Feature)",
+            "location": "New York City",
+            "year": 2023,
+            "director": "Marcus Chen",
+            "timeline": "6 weeks design, 10 weeks build, 4 months filming",
+            "budget": "$65,000",
+            "scale": "10 principal costumes, 40+ supporting and extras"
+          },
+          "projectContent": {
+            "challenge": "Designing for a film shot in high-contrast black and white style despite being captured in color. Every fabric had to be tested for how it would read in the cinematographer's stark lighting. Character's descent needed to be visible in progressive costume dishevelment.",
+            "approach": "Started with minimalist monochrome fashion - clean lines, luxurious fabrics, perfect styling. Each subsequent costume introduced subtle chaos: an unbuttoned collar, a missing earring, rumpled silk. By the final act, the same expensive fabrics read as destroyed through styling alone.",
+            "outcome": "Selected for Toronto International Film Festival 2023. Cinematographer credited costume design as integral to the film's visual strategy. The 'progressive dishevelment' technique generated significant discussion in film design communities."
+          },
+          "techniques": [
+            "High-contrast fabric selection for B&W cinematography",
+            "Progressive dishevelment as character development",
+            "Minimalist luxury fashion styling",
+            "Collaboration with cinematography and color grading",
+            "Contemporary fashion in psychological thriller context"
+          ],
+          "recognition": [
+            "Toronto International Film Festival 2023 Official Selection",
+            "Highlighted in IndieWire - 'Costume Design as Psychological Portrait'"
+          ],
           "photos": [
             {
-              "file": "sarah-a8phho7s3.jpg",
-              "description": "Character Design Rendering",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/film-production/velvet-and-ash/character-descent-sketches.jpg",
+              "title": "Psychological Descent Through Costume",
+              "description": "Eight costume sketches showing protagonist's progression from pristine to disheveled",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of design board with eight fashion illustration sketches showing character's costume progression, minimalist black and white fashion gradually becoming more disheveled while maintaining luxury, annotations about psychological state, visual storytelling through styling, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-hr6g0wp9v.jpg",
-              "description": "Fabrication Palette",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/velvet-and-ash/monochrome-fabric-board.jpg",
+              "title": "Monochrome Luxury Fabrics",
+              "description": "Black, white, and grey luxury fabric swatches for protagonist's wardrobe",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with monochrome fabric swatches, black silk velvet, white cashmere, charcoal wool, cream silk, luxury materials in neutral palette, fabric selection for psychological thriller, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-4iury72b8.jpg",
-              "description": "Technical Draft",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/velvet-and-ash/pristine-look-sketch.jpg",
+              "title": "Opening Look - Pristine Control",
+              "description": "Design sketch for protagonist's first appearance - perfect minimalist styling",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch, fashion illustration of minimalist black pantsuit with white silk blouse, pristine styling, annotations about control and perfection, opening costume design, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-77fpapuhj.jpg",
-              "description": "Muslin Prototype Presentation",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/velvet-and-ash/black-suit-construction.jpg",
+              "title": "Black Suit Construction",
+              "description": "Pristine black suit on form during construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of minimalist black suit on dress form in construction, contemporary tailoring, perfect lines, luxury suiting for opening costume, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-kul4175z7.jpg",
-              "description": "Embroidery Detail",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/velvet-and-ash/white-silk-blouse.jpg",
+              "title": "White Silk Blouse Detail",
+              "description": "Pristine white silk blouse on form showing perfect construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of white silk blouse on dress form, crisp minimalist styling, perfect pressing, luxury fabric, opening costume component, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-mbhujzeup.jpg",
-              "description": "Production Still: The Lead",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/film-production/velvet-and-ash/mid-descent-styling.jpg",
+              "title": "Mid-Descent Costume Styling",
+              "description": "Same black suit re-styled to show early psychological fracture",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of black suit on dress form re-styled with subtle dishevelment, one button undone, collar slightly askew, same expensive pieces now reading differently through styling, psychological progression documentation, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-sbsk1bv7f.jpg",
-              "description": "Ensemble Tableau",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/velvet-and-ash/velvet-coat-sketch.jpg",
+              "title": "Black Velvet Coat Design",
+              "description": "Design sketch for protagonist's signature black velvet coat",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch, fashion illustration of dramatic black velvet coat with wide collar, luxury outerwear for character, annotations about texture and drama, designer's working sketch, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-oft7ngnm8.jpg",
-              "description": "Texture under lighting",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/velvet-and-ash/velvet-coat-construction.jpg",
+              "title": "Velvet Coat on Form",
+              "description": "Black velvet coat on dress form during construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of dramatic black velvet coat on dress form in construction, rich fabric texture visible, luxury outerwear taking shape, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-kz1n5hgbo.jpg",
-              "description": "Movement Test",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/velvet-and-ash/final-descent-styling.jpg",
+              "title": "Final Descent Costume",
+              "description": "Black velvet coat and disheveled layers showing complete psychological break",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of dress form with final descent costume, black velvet coat over disheveled black silk layers, intentionally chaotic styling, same luxury fabrics now reading as destruction, psychological breakdown visible through costume styling, workshop documentation. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-s7zt3k5bi.jpg",
-              "description": "Ready for Curtain",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/film-production/velvet-and-ash/fitting-pristine-look.jpg",
+              "title": "Fitting - Opening Costume",
+              "description": "Close-up of pristine black suit fit on actress during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of minimalist black suit on actress during fitting, focus on perfect tailoring and crisp styling, actress's head cropped from frame, checking pristine opening look, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/velvet-and-ash/on-set-styling-check.jpg",
+              "title": "On-Set Styling Supervision",
+              "description": "Sarah checking costume styling on set for psychological accuracy",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo on film set, Korean-American woman with shoulder-length black hair adjusting disheveled styling on actress's costume, checking psychological progression accuracy, on-set collaboration, shot by crew member, behind-the-scenes documentation",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/film-production/velvet-and-ash/pristine-costume-complete.jpg",
+              "title": "Opening Look Complete",
+              "description": "Finished pristine black suit and white blouse on form",
+              "tags": [],
+              "prompt": "Professional documentation photo of completed minimalist black suit with white silk blouse on dress form, pristine styling, luxury contemporary fashion, perfect for camera, soft studio lighting, neutral background"
+            },
+            {
+              "file": "categories/film-production/velvet-and-ash/velvet-coat-complete.jpg",
+              "title": "Black Velvet Coat Complete",
+              "description": "Finished dramatic black velvet coat on form",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed black velvet coat on dress form, dramatic wide collar, rich fabric texture, luxury outerwear, soft studio lighting showing velvet depth, neutral background"
+            },
+            {
+              "file": "categories/film-production/velvet-and-ash/pristine-production.jpg",
+              "title": "Opening Scene - Pristine Control",
+              "description": "Professional production photo of actress in opening costume",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Gallery opening scene",
+                "note": "Character at peak of control"
+              },
+              "prompt": "Professional film production photography on set, actress in pristine minimalist black suit with white silk blouse, art gallery setting, clean high-contrast lighting, camera-ready costume showing control and perfection, high-quality cinematic unit photography"
+            },
+            {
+              "file": "categories/film-production/velvet-and-ash/mid-descent-production.jpg",
+              "title": "Mid-Film - Fracture Beginning",
+              "description": "Professional production photo showing subtle dishevelment",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Private apartment scene"
+              },
+              "prompt": "Professional film production photography on set, actress in same black suit now subtly disheveled, collar slightly open, styling showing psychological fracture beginning, moody interior lighting, camera-ready costume progression, high-quality unit photography"
+            },
+            {
+              "file": "categories/film-production/velvet-and-ash/final-descent-production.jpg",
+              "title": "Final Scene - Complete Unraveling",
+              "description": "Professional production photo showing complete psychological breakdown through costume",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Climactic confrontation",
+                "note": "Visual culmination of descent"
+              },
+              "prompt": "Professional film production photography on set, actress in black velvet coat over disheveled layers, complete psychological breakdown visible through chaotic styling, dramatic high-contrast noir lighting with harsh shadows, camera-ready final costume showing character's destruction, high-quality cinematic unit photography, psychological thriller atmosphere"
+            }
+          ]
+        },
+        {
+          "id": "paper-tigers",
+          "title": "Paper Tigers",
+          "slug": "paper-tigers",
+          "description": "Corporate espionage thriller set in contemporary Silicon Valley tech world. Designed costumes that used fashion-as-armor concept - characters dressed in power suits and tech-casual as uniforms revealing allegiances. Created distinct visual languages for old-guard corporate (traditional suiting) versus new-tech disruptors (elevated streetwear). Lead design for CEO character whose costume devolved from perfect control to paranoid dishevelment as her empire crumbled.",
+          "isFeatured": false,
+          "order": 3,
+          "projectDetails": {
+            "role": "Costume Designer",
+            "production": "Paper Tigers (Indie Thriller)",
+            "location": "San Francisco Bay Area",
+            "year": 2023,
+            "director": "David Ko",
+            "timeline": "7 weeks design, 12 weeks build, 4 months filming",
+            "budget": "$72,000",
+            "scale": "14 principal costumes, 50+ supporting cast in corporate/tech wardrobes"
+          },
+          "projectContent": {
+            "challenge": "Making contemporary corporate and tech fashion visually distinct enough to signal allegiances and power dynamics. Traditional power suits versus tech-bro hoodies needed to feel equally valid but opposing.",
+            "approach": "Created two fashion vocabularies: Old Guard (structured suiting, traditional luxury brands, power dressing) versus New Tech (elevated streetwear, normcore with expensive details, calculated casual). Color coding by allegiance. CEO's wardrobe devolved from pristine to chaotic as her control slipped.",
+            "outcome": "Tech press praised the 'accurate portrayal of Silicon Valley fashion politics'. The costume-coded allegiances helped audiences track complex corporate maneuvering. Film screened at SXSW 2024."
+          },
+          "techniques": [
+            "Contemporary fashion as power dynamics",
+            "Elevated streetwear design",
+            "Corporate suiting for psychological portraiture",
+            "Wardrobe devolution as narrative device",
+            "Fashion tribalism in tech culture"
+          ],
+          "photos": [
+            {
+              "file": "categories/film-production/paper-tigers/power-dynamics-sketches.jpg",
+              "title": "Fashion Tribes Concept Sketches",
+              "description": "Design sketches showing old-guard suiting versus new-tech casual styling",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of design sketches showing two distinct fashion vocabularies, traditional power suits next to elevated tech casual wear, visual allegiance coding through fashion, corporate espionage costume concept, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/paper-tigers/ceo-arc-sketches.jpg",
+              "title": "CEO Character Arc - Pristine to Paranoid",
+              "description": "Six sketches showing CEO's costume devolution from perfect to disheveled",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of design board with six fashion illustrations showing CEO character's visual arc, immaculate white power suit gradually becoming disheveled and chaotic, psychological descent visible through styling, character development design, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/paper-tigers/power-suit-fabrics.jpg",
+              "title": "Old Guard Corporate Fabrics",
+              "description": "Luxury suiting fabrics for traditional power dressing",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with luxury suiting fabric swatches, crisp white wool, navy pinstripe, charcoal Italian wool, traditional corporate power dressing materials, fabric selection, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/paper-tigers/tech-casual-fabrics.jpg",
+              "title": "New Tech Elevated Casual Fabrics",
+              "description": "Expensive casual fabrics for tech character wardrobes",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with elevated casual fabric swatches, expensive grey jersey knits, high-end denim, cashmere blends, Japanese technical fabrics, tech-world fashion materials, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/paper-tigers/white-suit-sketch.jpg",
+              "title": "CEO's Power Suit Design",
+              "description": "Design rendering for CEO's pristine white power suit",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch, fashion illustration of immaculate white power suit with sharp shoulders, CEO power dressing, annotations about control and perfection, designer's concept sketch, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/paper-tigers/white-suit-construction.jpg",
+              "title": "White Power Suit Construction",
+              "description": "White wool suit on form during construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of white wool power suit on dress form in construction, structured blazer with sharp shoulders, contemporary corporate styling, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/paper-tigers/tech-casual-outfit.jpg",
+              "title": "Tech Disruptor Costume",
+              "description": "Elevated casual outfit on form for tech antagonist",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of elevated casual outfit on dress form, expensive grey hoodie with high-end denim, calculated casual tech-world fashion, contemporary styling, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/paper-tigers/ceo-fitting-pristine.jpg",
+              "title": "CEO Fitting - Pristine Opening",
+              "description": "Close-up of white power suit fit on actress during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of white wool power suit on actress during fitting, focus on immaculate tailoring and crisp styling, actress's head cropped from frame, checking pristine opening costume, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/paper-tigers/ceo-disheveled-styling.jpg",
+              "title": "CEO's Descent - Styling Evolution",
+              "description": "Same white suit re-styled to show psychological fracture",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of white power suit on dress form re-styled with deliberate dishevelment, blazer askew, blouse untucked, same expensive pieces now reading as chaos, psychological progression styling, workshop documentation. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/film-production/paper-tigers/on-set-styling-supervision.jpg",
+              "title": "On-Set Styling Check",
+              "description": "Sarah adjusting disheveled styling on actress on set",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo on film set, Korean-American woman with shoulder-length black hair adjusting deliberately disheveled white suit styling on actress, checking psychological accuracy of costume progression, on-set collaboration, shot by crew member, behind-the-scenes documentation",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/film-production/paper-tigers/ceo-pristine-production.jpg",
+              "title": "CEO - Opening Scene Perfection",
+              "description": "Professional production photo of actress in pristine white power suit",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Board room power play"
+              },
+              "prompt": "Professional film production photography on set, actress in immaculate white power suit with sharp shoulders, modern corporate setting, clean high-contrast lighting, camera-ready costume showing character at peak control, high-quality cinematic unit photography"
+            },
+            {
+              "file": "categories/film-production/paper-tigers/ceo-descent-production.jpg",
+              "title": "CEO - Paranoid Descent",
+              "description": "Professional production photo showing CEO's costume dishevelment",
+              "tags": [
+                "featured",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Office breakdown scene",
+                "note": "Same suit, psychological transformation visible"
+              },
+              "prompt": "Professional film production photography on set, actress in white power suit now disheveled and chaotic, blazer hanging open, psychological breakdown visible through styling, moody dramatic lighting, camera-ready costume showing character's unraveling, high-quality cinematic unit photography, thriller atmosphere"
+            },
+            {
+              "file": "categories/film-production/paper-tigers/tech-casual-production.jpg",
+              "title": "Tech Disruptor - On Set",
+              "description": "Professional production photo of tech antagonist in elevated casual wear",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Tech startup headquarters"
+              },
+              "prompt": "Professional film production photography on set, actor in expensive grey hoodie and high-end denim, tech startup interior setting, natural lighting, calculated casual tech fashion, camera-ready costume, high-quality unit photography, Silicon Valley aesthetic"
             }
           ]
         }
       ]
     },
     {
-      "name": "Period Restoration",
-      "featuredPhoto": "sarah-7gqri77jx.jpg",
+      "id": "television-production",
+      "name": "Television Production",
+      "slug": "television-production",
+      "description": "Costume design for limited series and episodic television. TV design requires planning for long-term character development, maintaining continuity across multiple episodes, and designing wardrobes that evolve with story arcs.",
+      "order": 3,
+      "featuredPhoto": "categories/television-production/the-architects-daughter/finale-gown-production.jpg",
+      "categoryContent": {
+        "headline": "Designing Character Evolution for Television",
+        "introduction": "Television costume design is unique - characters live in their wardrobes for 6, 8, 10 episodes or more. I design not just costumes, but complete wardrobes that can mix, evolve, and tell long-form stories. Every piece must work across multiple episodes while showing character growth.",
+        "approach": "I create wardrobe bibles for each character - color palettes, silhouette guidelines, and signature pieces. Then I map costume choices to character arcs across the season, planning visual evolution that audiences might not consciously notice but emotionally feel."
+      },
       "projects": [
         {
-          "title": "The Gilded Court",
-          "description": "Costume design and direction for the production 'The Gilded Court', focusing on Authentic 18th century silk, delicate lace, pastel floral embroidery, powdered wigs.",
-          "isFeatured": false,
+          "id": "the-architects-daughter",
+          "title": "The Architect's Daughter",
+          "slug": "the-architects-daughter",
+          "description": "Eight-episode limited series following a young architect navigating her famous father's legacy while developing her own design voice. Designed complete wardrobe showing evolution from rigid corporate minimalism to confident personal style. Created visual distinction between her 'professional armor' and her 'creative self' through silhouette and color, with gradual integration as she found her voice. Designed 45+ costume combinations across 8 episodes.",
+          "isFeatured": true,
+          "order": 1,
+          "projectDetails": {
+            "role": "Costume Designer",
+            "production": "The Architect's Daughter (Limited Series - Streaming)",
+            "year": 2024,
+            "network": "Major Streaming Platform",
+            "timeline": "10 weeks design and wardrobe building, 5 months filming",
+            "budget": "$120,000",
+            "scale": "Principal character wardrobe (45+ pieces), 6 supporting character wardrobes, 200+ background"
+          },
+          "projectContent": {
+            "challenge": "Creating a wardrobe that could mix and match across 8 episodes while showing clear visual evolution. The character needed signature pieces that audiences would recognize, but styling had to evolve from rigid to relaxed. Every combination needed to work for camera and support her emotional arc.",
+            "approach": "Built a capsule wardrobe system: 15 core pieces in corporate palette (black, white, grey, navy) for early episodes, gradually introducing personal pieces in rust, forest green, and warm neutrals. Same blazer styled buttoned-up in Episode 1, worn open over band t-shirt in Episode 6. Visual loosening tracked emotional growth.",
+            "outcome": "Audience engagement analytics showed viewers specifically commenting on 'watching her style evolve' as part of character development. Fashion press coverage. The wardrobe bible approach has been requested by two other streaming shows."
+          },
+          "techniques": [
+            "Capsule wardrobe system for episodic TV",
+            "Wardrobe bible creation and management",
+            "Visual evolution through re-styling core pieces",
+            "Contemporary fashion as character psychology",
+            "Long-form storytelling through costume"
+          ],
+          "recognition": [
+            "Featured in Fashionista - 'TV Costume Design That Shows Growth'",
+            "Wardrobe bible used as teaching example in costume design programs"
+          ],
           "photos": [
             {
-              "file": "sarah-7gqri77jx.jpg",
-              "description": "Character Design Rendering",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/television-production/the-architects-daughter/wardrobe-bible-cover.jpg",
+              "title": "Character Wardrobe Bible",
+              "description": "Cover page of comprehensive wardrobe planning document for lead character",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of wardrobe bible binder cover page, character name and episode breakdown visible, professional wardrobe planning document, design organization for TV series, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-h2vvkj6ac.jpg",
-              "description": "Fabrication Palette",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/the-architects-daughter/episode-arc-chart.jpg",
+              "title": "8-Episode Costume Arc Chart",
+              "description": "Visual chart mapping costume choices across all 8 episodes",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of large chart on studio wall showing costume planning across 8 episodes, color-coded costume choices for each episode, visual arc from corporate to personal style, episode-by-episode design planning, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-fby2igmab.jpg",
-              "description": "Technical Draft",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/the-architects-daughter/corporate-capsule-sketches.jpg",
+              "title": "Corporate Capsule Wardrobe Sketches",
+              "description": "Design sketches for core corporate pieces - early season wardrobe",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of fashion illustration sketches showing capsule wardrobe pieces, minimalist blazers, tailored trousers, structured dresses in black, white, grey, navy, corporate professional wardrobe design, annotations about mixing pieces, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-wyw8iwiwf.jpg",
-              "description": "Muslin Prototype Presentation",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/the-architects-daughter/corporate-fabrics.jpg",
+              "title": "Corporate Wardrobe Fabrics",
+              "description": "Monochrome professional fabric swatches for early episodes",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with corporate fabric swatches, black wool suiting, white silk, grey linen, navy gabardine, professional capsule wardrobe materials, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-mn6lc0va7.jpg",
-              "description": "Embroidery Detail",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/the-architects-daughter/personal-style-sketches.jpg",
+              "title": "Personal Style Evolution Sketches",
+              "description": "Design sketches showing introduction of personal style pieces",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of fashion illustration sketches showing personal style pieces, rust-colored blouses, forest green sweaters, relaxed silhouettes, warmer color palette for later episodes, character evolution design, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-h1lomzvfr.jpg",
-              "description": "Production Still: The Lead",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/television-production/the-architects-daughter/warm-tone-fabrics.jpg",
+              "title": "Personal Palette Introduction",
+              "description": "Warm-toned fabrics for character's personal style emergence",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with warm-toned fabric swatches, rust silk, forest green wool, cream linen, warm neutrals, personal style palette emerging, fabric selection for character evolution, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-zgbsz45s7.jpg",
-              "description": "Ensemble Tableau",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/the-architects-daughter/signature-blazer-construction.jpg",
+              "title": "Signature Navy Blazer",
+              "description": "Navy blazer on form - character's signature piece styled multiple ways",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of navy wool blazer on dress form, signature piece that appears across multiple episodes, contemporary tailoring, versatile wardrobe staple, construction complete, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-ws2zimk39.jpg",
-              "description": "Texture under lighting",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/the-architects-daughter/styling-progression-samples.jpg",
+              "title": "Same Blazer - Three Stylings",
+              "description": "Three dress forms showing same blazer styled for Episodes 1, 4, and 7",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of three dress forms showing same navy blazer styled three different ways, buttoned-up corporate in first, open over blouse in second, casual over band t-shirt in third, visual evolution through re-styling, design documentation, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-06xcfgcrw.jpg",
-              "description": "Movement Test",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/the-architects-daughter/wardrobe-rack-complete.jpg",
+              "title": "Complete Wardrobe Collection",
+              "description": "Full wardrobe rack with all 45 pieces for character",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume rack with complete character wardrobe hanging, 45+ pieces showing range from corporate to personal style, full TV wardrobe system, color progression visible across rack, backstage/workshop setting, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-jzm9w9lov.jpg",
-              "description": "Ready for Curtain",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/the-architects-daughter/fitting-corporate-look.jpg",
+              "title": "Fitting - Early Season Look",
+              "description": "Close-up fitting of corporate blazer and white blouse",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of navy blazer and white blouse on actress during fitting, focus on corporate styling and fit, actress's head cropped from frame, checking early season professional wardrobe, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/television-production/the-architects-daughter/fitting-personal-style.jpg",
+              "title": "Fitting - Later Season Look",
+              "description": "Close-up fitting of relaxed personal style costume",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of rust-colored silk blouse and relaxed trousers on actress during fitting, focus on personal style and relaxed fit, actress's head cropped from frame, checking later season evolution wardrobe, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/television-production/the-architects-daughter/on-set-wardrobe-check.jpg",
+              "title": "On-Set Wardrobe Continuity",
+              "description": "Sarah checking wardrobe continuity on set with wardrobe bible",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo on TV set, Korean-American woman with shoulder-length black hair reviewing actress's costume against wardrobe bible, checking continuity and episode accuracy, on-set costume supervision, shot by crew member, behind-the-scenes documentation",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/television-production/the-architects-daughter/episode-1-production.jpg",
+              "title": "Episode 1 - Corporate Armor",
+              "description": "Professional production still from opening episode showing corporate styling",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "episode": "Episode 1",
+                "scene": "Office presentation scene"
+              },
+              "prompt": "Professional television production photography on set, actress in pristine black corporate suit with white blouse, modern office setting, clean professional lighting, camera-ready costume showing character's rigid control, high-quality unit photography"
+            },
+            {
+              "file": "categories/television-production/the-architects-daughter/episode-4-production.jpg",
+              "title": "Episode 4 - Transition Styling",
+              "description": "Professional production still showing mid-season styling evolution",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "episode": "Episode 4",
+                "scene": "Personal studio scene"
+              },
+              "prompt": "Professional television production photography on set, actress in navy blazer over rust-colored blouse with relaxed styling, personal workspace setting, natural lighting, camera-ready costume showing character evolution, high-quality unit photography"
+            },
+            {
+              "file": "categories/television-production/the-architects-daughter/finale-gown-sketch.jpg",
+              "title": "Finale Gown Design",
+              "description": "Design sketch for character's finale gown - confident personal style",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of flowing evening gown in warm amber tone, confident personal style for finale, annotations about character's arrived confidence, designer's finale costume concept, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/television-production/the-architects-daughter/amber-gown-construction.jpg",
+              "title": "Finale Gown Construction",
+              "description": "Warm amber gown on form during construction for finale episode",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of flowing amber-toned silk gown on dress form in construction, finale costume showing character's confident personal style, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/television-production/the-architects-daughter/finale-gown-fitting.jpg",
+              "title": "Finale Gown Fitting",
+              "description": "Close-up of amber gown fit during fitting session",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of warm amber silk gown on actress during fitting, focus on flowing silhouette and confident styling, actress's head cropped from frame, checking finale costume design, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/television-production/the-architects-daughter/finale-gown-complete.jpg",
+              "title": "Finale Gown Complete",
+              "description": "Finished amber evening gown on dress form",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed flowing amber silk evening gown on dress form, confident personal style for finale, warm tone, elegant silhouette, soft studio lighting, neutral background"
+            },
+            {
+              "file": "categories/television-production/the-architects-daughter/finale-gown-production.jpg",
+              "title": "Finale - Confident Arrival",
+              "description": "Professional production photo from finale showing character's complete transformation",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "episode": "Episode 8 - Finale",
+                "scene": "Award ceremony scene",
+                "note": "Visual culmination of character arc"
+              },
+              "prompt": "Professional television production photography on set, actress in flowing amber evening gown, confident personal style, elegant event setting, warm cinematic lighting, camera-ready finale costume showing character's complete transformation and self-actualization, high-quality unit photography, celebratory atmosphere"
             }
           ]
         },
         {
-          "title": "Letter from Vienna",
-          "description": "Costume design and direction for the production 'Letter from Vienna', focusing on Authentic 18th century silk, delicate lace, pastel floral embroidery, powdered wigs.",
+          "id": "beneath-the-surface",
+          "title": "Beneath the Surface",
+          "slug": "beneath-the-surface",
+          "description": "Six-episode psychological mystery series following a marine biologist uncovering dark secrets in a coastal research facility. Designed costumes reflecting character's dual lives - professional scientist by day, obsessive investigator by night. Created visual progression from bright optimistic coastal colors to darker paranoid palette. Wardrobe included technical outdoor gear, lab wear, and after-hours investigation clothes that became increasingly dark and protective.",
           "isFeatured": false,
+          "order": 2,
+          "projectDetails": {
+            "role": "Costume Designer",
+            "production": "Beneath the Surface (Limited Series - Streaming)",
+            "year": 2024,
+            "network": "Streaming Platform",
+            "timeline": "8 weeks design and wardrobe building, 4 months filming",
+            "budget": "$95,000",
+            "scale": "Lead character wardrobe (40+ pieces), 5 supporting wardrobes, 150+ background"
+          },
+          "projectContent": {
+            "challenge": "Creating dual costume vocabularies for the same character - professional credibility as scientist versus paranoid obsessive investigator. Needed wardrobe that could transition from bright coastal optimism to dark thriller aesthetic across 6 episodes while maintaining character continuity.",
+            "approach": "Built two overlapping wardrobes: Technical Scientist (bright blues, whites, practical outdoor gear, lab coats) and Night Investigator (navy, black, layered protective clothing). Started with cheerful bright palette in Episode 1, gradually introducing darker pieces until by Episode 6 even daytime scenes featured darker, more protective clothing.",
+            "outcome": "Series became sleeper hit with strong audience engagement. Viewers specifically noted 'watching her wardrobe darken' as part of the psychological tension. Cinematographer praised costume design for supporting the visual shift from bright coastal thriller to dark paranoid mystery."
+          },
+          "techniques": [
+            "Dual wardrobe psychology for single character",
+            "Color progression from bright to dark",
+            "Technical outdoor gear as costume",
+            "Lab wear as character costume",
+            "Episodic color planning for mood shift"
+          ],
           "photos": [
             {
-              "file": "sarah-4q2z6o49c.jpg",
-              "description": "Character Design Rendering",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/television-production/beneath-the-surface/dual-wardrobe-sketches.jpg",
+              "title": "Dual Wardrobe Concept Sketches",
+              "description": "Sketches showing scientist wardrobe versus investigator wardrobe for same character",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of design sketches showing two costume vocabularies, bright coastal scientist outfits next to dark investigator layers, dual character wardrobe concept, annotations about psychological modes, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-1n2jrzee0.jpg",
-              "description": "Fabrication Palette",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/beneath-the-surface/episode-progression-chart.jpg",
+              "title": "6-Episode Color Progression",
+              "description": "Chart showing costume color shift from bright to dark across episodes",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of wall chart showing costume planning across 6 episodes, color swatches progressing from bright blues and whites to dark navy and black, visual mood shift planning, episode-by-episode design strategy, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-19llj5d3c.jpg",
-              "description": "Technical Draft",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/beneath-the-surface/coastal-palette-fabrics.jpg",
+              "title": "Coastal Scientist Palette",
+              "description": "Bright blue, white, and aqua fabric swatches for early episodes",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of design table with coastal color fabric swatches, bright blue cotton, white linen, aqua technical fabrics, optimistic early-season palette, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-wa6q8mckc.jpg",
-              "description": "Muslin Prototype Presentation",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/beneath-the-surface/technical-gear-sketch.jpg",
+              "title": "Technical Outdoor Gear Design",
+              "description": "Sketch for marine biologist's field work costume with technical gear",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume design sketch, illustration of technical outdoor gear for marine biologist character, waterproof jacket, field pants, practical coastal work outfit, annotations about functionality, designer's working sketch, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-tcntfb7ov.jpg",
-              "description": "Embroidery Detail",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/beneath-the-surface/bright-field-jacket.jpg",
+              "title": "Bright Field Jacket Construction",
+              "description": "Bright blue technical jacket on form for early season field work",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of bright blue technical field jacket on dress form, waterproof outdoor gear for marine biologist character, optimistic early-season costume, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-af044mvve.jpg",
-              "description": "Production Still: The Lead",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/television-production/beneath-the-surface/lab-coat-styling.jpg",
+              "title": "Lab Coat with Personal Styling",
+              "description": "White lab coat on form styled over bright coastal casual wear",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of white lab coat on dress form over bright blue shirt, professional scientist costume with personal style visible underneath, early-season wardrobe, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-efmpfutst.jpg",
-              "description": "Ensemble Tableau",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/beneath-the-surface/dark-investigation-layers.jpg",
+              "title": "Investigation Wardrobe - Dark Layers",
+              "description": "Dark layered costume for night investigation scenes",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of layered dark costume on dress form, navy hoodie over black layers, protective investigator styling, paranoid later-season wardrobe, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-5htss0wx0.jpg",
-              "description": "Texture under lighting",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/beneath-the-surface/wardrobe-evolution-rack.jpg",
+              "title": "Wardrobe Progression on Rack",
+              "description": "Costume rack showing visual shift from bright to dark across episodes",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of costume rack with character's wardrobe hanging in episode order, visible progression from bright blues and whites to dark navy and black, visual mood shift across series, TV wardrobe documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-8lip6jaz4.jpg",
-              "description": "Movement Test",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/beneath-the-surface/fitting-bright-look.jpg",
+              "title": "Fitting - Early Season Optimism",
+              "description": "Close-up fitting of bright blue field jacket and casual wear",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of bright blue technical jacket and coastal casual wear on actress during fitting, focus on bright optimistic styling, actress's head cropped from frame, checking early-season wardrobe, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
             },
             {
-              "file": "sarah-w5jj9sv60.jpg",
-              "description": "Ready for Curtain",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/television-production/beneath-the-surface/fitting-dark-look.jpg",
+              "title": "Fitting - Later Season Paranoia",
+              "description": "Close-up fitting of dark layered investigator outfit",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of dark navy and black layered outfit on actress during fitting, focus on protective paranoid styling, actress's head cropped from frame, checking later-season dark wardrobe, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/television-production/beneath-the-surface/on-location-coastal.jpg",
+              "title": "On Location - Coastal Shoot",
+              "description": "Sarah on coastal location checking costume in natural environment",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo on coastal location, Korean-American woman with shoulder-length black hair checking actress's bright blue field jacket against natural coastal setting, on-location costume supervision, shot by crew member, behind-the-scenes documentation",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/television-production/beneath-the-surface/episode-1-production.jpg",
+              "title": "Episode 1 - Bright Optimism",
+              "description": "Professional production still showing bright coastal scientist wardrobe",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "episode": "Episode 1",
+                "scene": "Coastal field work"
+              },
+              "prompt": "Professional television production photography on location, actress in bright blue technical field jacket over casual coastal wear, sunny coastal setting, optimistic natural lighting, camera-ready early-season costume, high-quality unit photography, bright coastal atmosphere"
+            },
+            {
+              "file": "categories/television-production/beneath-the-surface/episode-3-lab-production.jpg",
+              "title": "Episode 3 - Lab Scene",
+              "description": "Professional production still of actress in lab coat and coastal casual",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "episode": "Episode 3",
+                "scene": "Research lab"
+              },
+              "prompt": "Professional television production photography on set, actress in white lab coat over bright casual clothing, research laboratory setting, professional scientist costume, natural lighting, camera-ready mid-season wardrobe, high-quality unit photography"
+            },
+            {
+              "file": "categories/television-production/beneath-the-surface/episode-4-transition-production.jpg",
+              "title": "Episode 4 - Color Transition",
+              "description": "Professional production still showing shift toward darker wardrobe",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "episode": "Episode 4",
+                "scene": "Evening investigation"
+              },
+              "prompt": "Professional television production photography on set, actress in navy field jacket over darker layers, transitional mid-series costume showing mood shift, moody evening lighting, camera-ready wardrobe evolution, high-quality unit photography"
+            },
+            {
+              "file": "categories/television-production/beneath-the-surface/episode-6-dark-production.jpg",
+              "title": "Episode 6 - Paranoid Investigator",
+              "description": "Professional production still showing dark protective final wardrobe",
+              "tags": [
+                "featured",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "episode": "Episode 6 - Finale",
+                "scene": "Night investigation"
+              },
+              "prompt": "Professional television production photography on set at night, actress in dark navy and black layered investigator outfit, protective paranoid styling, dramatic moody lighting, camera-ready finale wardrobe showing complete mood transformation, high-quality cinematic unit photography, psychological thriller atmosphere"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fashion-design",
+      "name": "Fashion Design",
+      "slug": "fashion-design",
+      "description": "Capsule fashion collections exploring wearable art and conceptual design. These projects showcase design vision outside narrative constraints - pure exploration of silhouette, texture, and conceptual themes translated into wearable garments.",
+      "order": 4,
+      "featuredPhoto": "categories/fashion-design/urban-armor/collection-hero-shot.jpg",
+      "categoryContent": {
+        "headline": "Fashion as Artistic Expression",
+        "introduction": "Fashion design allows me to explore ideas without narrative constraints. These collections are where I experiment with silhouette, push material boundaries, and develop design concepts that often influence my theatrical work.",
+        "approach": "Each collection starts with a conceptual theme - protection, transformation, memory. I translate abstract ideas into wearable forms, focusing on how garments make the wearer feel and how design communicates beyond words."
+      },
+      "projects": [
+        {
+          "id": "urban-armor",
+          "title": "Urban Armor",
+          "slug": "urban-armor",
+          "description": "Six-piece capsule collection exploring protection and vulnerability through fashion. Designed structured outerwear with soft interior linings - hard shell/soft interior metaphor. Deconstructed military details reimagined for urban streetwear. Showcased at Portland Fashion Week 2024. Each piece featured protective exterior (structured shoulders, hardware, utility details) with unexpected soft elements (silk linings, delicate embroidery on interior).",
+          "isFeatured": true,
+          "order": 1,
+          "projectDetails": {
+            "role": "Designer",
+            "presentation": "Portland Fashion Week 2024",
+            "year": 2024,
+            "timeline": "8 weeks design and construction",
+            "scale": "6-piece capsule collection"
+          },
+          "projectContent": {
+            "challenge": "Translating conceptual theme of 'armor' into wearable fashion without being costume-y. How to make protective structures feel contemporary and desirable rather than theatrical?",
+            "approach": "Deconstructed military tailoring - epaulettes became sculptural shoulders, utility pockets became design details, harsh hardware contrasted with silk linings. Each piece worked as everyday wear while carrying conceptual weight.",
+            "outcome": "Collection showed at Portland Fashion Week to positive reception. Three pieces were commissioned for private purchase. The 'hard shell/soft interior' concept has influenced my theatrical work on characters presenting protective facades."
+          },
+          "techniques": [
+            "Deconstructed military tailoring",
+            "Structured shoulder sculpture",
+            "Contrast material pairing (utility/luxury)",
+            "Hardware as jewelry",
+            "Conceptual fashion design"
+          ],
+          "photos": [
+            {
+              "file": "categories/fashion-design/urban-armor/concept-board.jpg",
+              "title": "Urban Armor Concept Board",
+              "description": "Mood board with protection theme, military references, and soft/hard contrasts",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of large concept mood board on studio wall, military reference images, armor concepts, soft fabric swatches contrasted with hardware samples, protection and vulnerability theme development, annotations about hard/soft metaphor, design concept exploration, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/collection-sketches.jpg",
+              "title": "Collection Design Sketches",
+              "description": "Six fashion illustrations for complete Urban Armor collection",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of six fashion illustration sketches laid out, structured jacket designs with military details, deconstructed tailoring, sculptural shoulders visible in drawings, complete collection concept, designer's working sketches, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/fabric-contrast-board.jpg",
+              "title": "Hard/Soft Material Pairings",
+              "description": "Fabric board showing utility fabrics paired with luxury linings",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of design board with fabric pairings, heavy canvas next to silk charmeuse, utility cotton next to cashmere, hard/soft material contrasts for collection theme, fabric exploration, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/structured-jacket-sketch.jpg",
+              "title": "Hero Jacket Design",
+              "description": "Detailed design rendering for collection's signature structured jacket",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of detailed costume design sketch, fashion illustration of structured black jacket with sculptural shoulders and utility details, technical annotations about construction, hero piece design, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/jacket-construction-wip.jpg",
+              "title": "Hero Jacket Construction",
+              "description": "Structured black jacket on form during construction showing interior silk",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of structured black jacket on dress form in construction, sculptural shoulders taking shape, interior soft grey silk lining partially visible, hard/soft contrast in progress, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/shoulder-detail-construction.jpg",
+              "title": "Sculptural Shoulder Detail",
+              "description": "Close-up of structured shoulder construction with internal padding",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of jacket shoulder construction on form, sculptural shoulder structure visible, padding and canvas work creating architectural shape, deconstructed military detail, construction detail, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/hardware-detail.jpg",
+              "title": "Hardware as Design Detail",
+              "description": "Heavy brass hardware and D-rings used as decorative elements",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of heavy brass D-rings and hardware attached to black utility fabric, military-inspired hardware as fashion jewelry, detail work complete, construction detail, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/silk-lining-detail.jpg",
+              "title": "Interior Silk Lining",
+              "description": "Soft grey silk lining contrasting with harsh exterior",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of jacket interior showing soft grey silk lining, contrast with structured exterior, hard shell/soft interior theme visible, construction detail, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/fitting-session.jpg",
+              "title": "Collection Fitting",
+              "description": "Close-up of structured jacket fit on model during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of structured black jacket on model during fitting, focus on sculptural shoulder and jacket fit, model's head cropped from frame, checking fashion silhouette, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/backstage-fashion-week.jpg",
+              "title": "Backstage - Fashion Week Prep",
+              "description": "Sarah backstage at Portland Fashion Week preparing collection",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo backstage at fashion show, Korean-American woman with shoulder-length black hair preparing collection pieces on rack, fashion week backstage atmosphere, shot by assistant, behind-the-scenes documentation",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/collection-complete-rack.jpg",
+              "title": "Complete Collection Ready",
+              "description": "All six pieces of Urban Armor collection on rack ready for show",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of garment rack with complete six-piece Urban Armor collection hanging, structured jackets and pieces visible, cohesive collection ready for presentation, backstage fashion week setting, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/hero-jacket-complete.jpg",
+              "title": "Hero Jacket Complete",
+              "description": "Finished structured black jacket on dress form",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed structured black jacket on dress form, sculptural shoulders, hardware details, urban armor aesthetic, contemporary fashion design, soft studio lighting, neutral background, fashion presentation quality"
+            },
+            {
+              "file": "categories/fashion-design/urban-armor/collection-hero-shot.jpg",
+              "title": "Urban Armor Collection",
+              "description": "Professional styled photo of collection's hero pieces",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Fashion photographer - Portland Fashion Week",
+                "presentation": "Portland Fashion Week 2024 Runway"
+              },
+              "prompt": "Professional fashion photography, model wearing structured black jacket from Urban Armor collection, sculptural shoulders and hardware details visible, contemporary fashion styling, dramatic lighting, fashion presentation quality photography, editorial aesthetic"
             }
           ]
         }

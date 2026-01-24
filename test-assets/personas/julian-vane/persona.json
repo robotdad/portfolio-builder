@@ -2,455 +2,1667 @@
   "persona": {
     "id": "julian-vane",
     "name": "Julian Vane",
-    "role": "Professional First Hand"
+    "role": "Professional First Hand",
+    "location": "London, UK",
+    "bio": "Master tailor specializing in period construction and bespoke theatrical costume fabrication. Known for impeccable hand-stitching, traditional Savile Row techniques, and structural engineering for performance durability. 12 years building costumes for West End theater and major film productions.",
+    "yearsActive": "2012-present"
   },
   "profile": {
     "images": [
       {
-        "file": "julian-q6lt0tuu9.jpg",
-        "description": "Headshot: Official professional headshot of Julian Vane, Professional First Hand.",
-        "prompt": "Professional high-end headshot of a 35-year-old British-Nigerian man with a short buzz cut, clean-shaven face, focused gaze, wearing a crisp white collared shirt"
+        "file": "profile/headshot-primary.jpg",
+        "type": "headshot_primary",
+        "title": "Professional Headshot",
+        "description": "Studio portrait - character reference for all identity-based images",
+        "prompt": "Professional studio portrait of a 35-year-old British-Nigerian man, professional first hand tailor, short buzz cut, clean-shaven, medium-dark brown skin tone, focused confident gaze, wearing crisp white collared shirt, soft studio lighting against neutral gray background, professional headshot photography, 85mm lens, sharp detail"
       },
       {
-        "file": "julian-1qh8hwhbb.jpg",
-        "description": "Workshop Selfie: A candid capture of Julian Vane in the tailoring workshop during a build period.",
-        "prompt": "Casual smartphone mirror selfie taken by Julian Vane in a tailoring workshop, wearing a work apron over a t-shirt, messy background"
+        "file": "profile/selfie-workshop.jpg",
+        "type": "selfie",
+        "title": "Workshop Selfie",
+        "description": "Casual moment in the tailoring workshop during a build period",
+        "prompt": "Generate a photo in the style of an iPhone front camera snapshot. British-Nigerian man with medium-dark brown skin and short buzz cut centered in frame looking directly at the lens with casual friendly expression, wearing work apron over t-shirt, measuring tape around neck, positioned close to camera as if holding it at arm's length. Tailoring workshop visible behind him with cutting table and fabric bolts. Natural workshop lighting from windows. Camera positioned at chest level pointing slightly upward at his face. The composition and lighting match what an iPhone front-facing camera captures in a casual indoor selfie, but the image shows ONLY what the camera lens sees - the person and background. The phone taking the photo is not visible in the resulting image. No hands holding phone visible. No camera interface, buttons, or UI elements. No timestamp or date overlays. Clean photograph from the camera's perspective.",
+        "isIdentity": true
       },
       {
-        "file": "julian-vane-headshot.jpg",
-        "description": "Studio Headshot: Alternative professional portrait of Julian Vane for press and promotional materials."
+        "file": "profile/candid-workshop.jpg",
+        "type": "candid",
+        "title": "Candid Workshop Shot",
+        "description": "Behind-the-scenes candid of Julian working at his cutting table",
+        "prompt": "Candid photo of Julian Vane working at large cutting table, shot by workshop colleague, British-Nigerian man with medium-dark brown skin and short buzz cut focused on precision cutting fabric with professional shears, wearing work apron, pattern pieces and rulers visible on table, measuring tools, professional tailoring workshop environment, natural daylight from windows, authentic work documentation",
+        "isIdentity": true
       },
       {
-        "file": "julian-workshop-selfie.jpg",
-        "description": "Workshop Portrait: Behind-the-scenes candid of Julian in his element, surrounded by works in progress."
+        "file": "profile/on-job-action.jpg",
+        "type": "on_job",
+        "title": "Fitting Session",
+        "description": "Julian conducting a fitting, demonstrating his construction expertise",
+        "prompt": "Julian Vane during live fitting session, shot by colleague, British-Nigerian man with medium-dark brown skin and short buzz cut actively pinning fabric adjustments on actor wearing half-finished garment, measuring tape draped over shoulder, pin cushion on wrist, professional workshop setting, captured mid-action showing expertise and precision",
+        "isIdentity": true
       }
     ]
   },
   "categories": [
     {
+      "id": "menswear-tailoring",
       "name": "Menswear Tailoring",
-      "featuredPhoto": "julian-kl5ou58eo.jpg",
+      "slug": "menswear-tailoring",
+      "description": "Traditional Savile Row construction techniques applied to period and contemporary menswear. Hand pad-stitching, canvas work, and precision fitting for theatrical and bespoke projects.",
+      "order": 1,
+      "featuredPhoto": "categories/menswear-tailoring/bespoke-morning-coat/featured.jpg",
+      "categoryContent": {
+        "headline": "Traditional Tailoring for Stage and Screen",
+        "introduction": "Menswear tailoring demands precision, patience, and deep knowledge of structural construction. Every jacket I build receives hours of hand pad-stitching, carefully engineered canvas layers, and multiple fittings to achieve both period-accurate silhouettes and modern performance durability.",
+        "approach": "I follow traditional Savile Row methods: hand-drafted patterns, horsehair canvas interfacing, pad-stitched lapels, and hand-sewn buttonholes. Each garment is built to last 100+ performances while maintaining crisp lines and perfect drape."
+      },
       "projects": [
         {
+          "id": "bespoke-morning-coat",
           "title": "Bespoke Morning Coat",
-          "description": "Technical construction and tailoring for 'Bespoke Morning Coat', utilizing Heavy wool, horsehair canvas, hand stitching, crisp pressing.",
+          "slug": "bespoke-morning-coat",
+          "description": "Traditional formal morning coat requiring exacting Savile Row construction standards. Built for a period drama production demanding authentic Victorian tailoring techniques. The coat featured hand-stitched peak lapels with perfect roll, internal canvas architecture for shoulder structure, and hand-sewn buttonholes. Construction time: 80 hours over 4 weeks.",
           "isFeatured": true,
+          "order": 1,
+          "projectDetails": {
+            "role": "Lead Construction - Professional First Hand",
+            "production": "Victorian-era period drama",
+            "location": "London West End",
+            "year": 2024,
+            "timeline": "4 weeks from first pattern to final press",
+            "scale": "Single bespoke garment, 6 fittings"
+          },
+          "projectContent": {
+            "challenge": "Achieving authentic Victorian silhouette while ensuring durability for 40+ performances. The morning coat's distinctive peak lapels required extensive hand pad-stitching to achieve proper roll without collapse during wear.",
+            "approach": "Hand-drafted pattern from historical references, traditional canvas construction with horsehair interlining, 12 hours of pad-stitching on lapels and fronts, hand-sewn buttonholes, and steam-pressed shaping.",
+            "outcome": "The coat maintained its crisp silhouette through the entire run, with the director specifically noting the authenticity of movement and drape during performance."
+          },
+          "techniques": [
+            "Hand pad-stitching for lapel architecture",
+            "Horsehair canvas interfacing",
+            "Steam-pressed shaping and molding",
+            "Hand-sewn buttonholes",
+            "Traditional sleeve attachment"
+          ],
+          "challenges": [
+            "Achieving authentic Victorian lapel roll",
+            "Balancing historical accuracy with performance durability",
+            "Fitting across multiple body positions (sitting, standing, movement)",
+            "Period-accurate pressing techniques"
+          ],
           "photos": [
             {
-              "file": "julian-kl5ou58eo.jpg",
-              "description": "Construction Detail: Hand-executed pad stitching for 'Bespoke Morning Coat'. This internal stitching is critical for ensuring the proper lapel roll in the Heavy wool, horsehair canvas, hand stitching, crisp pressing style.",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/bespoke-morning-coat/featured.jpg",
+              "title": "Completed Morning Coat",
+              "altText": "Navy wool morning coat on professional dress form showing peak lapels and tailored silhouette",
+              "description": "Finished morning coat on dress form, showcasing the precise lapel roll, shoulder line, and overall silhouette achieved through traditional construction methods.",
+              "tags": [
+                "featured",
+                "category_carousel",
+                "home_carousel"
+              ],
+              "imageMetadata": {
+                "garment": "Victorian morning coat",
+                "fabrication_time": "80 hours",
+                "primary_materials": [
+                  "navy wool suiting",
+                  "horsehair canvas",
+                  "silk thread"
+                ],
+                "techniques": [
+                  "Hand pad-stitching",
+                  "Steam shaping",
+                  "Hand-sewn buttonholes"
+                ]
+              },
+              "prompt": "Professional costume photography of navy wool morning coat on professional dress form, peak lapels with perfect roll clearly visible, structured shoulders, hand-stitched buttonholes catching light, impeccable tailoring details, soft studio lighting against neutral background, museum-quality presentation, sharp focus on lapel construction"
             },
             {
-              "file": "julian-cnbixhkws.jpg",
-              "description": "Pressing: The final press of the Heavy wool, horsehair canvas, hand stitching, crisp pressing jacket for 'Bespoke Morning Coat', demonstrating the crisp, professional tailoring standards required.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/bespoke-morning-coat/pattern-layout.jpg",
+              "title": "Pattern Pieces Laid Out",
+              "description": "Morning coat pattern pieces arranged on cutting table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of morning coat pattern pieces laid out on cutting table, brown kraft paper with measurements and markings, coat body, sleeves, collar, and tail pieces visible, pattern preparation documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-xo9yus6g1.jpg",
-              "description": "Internal Architecture: A view of the hidden interfacing layers for 'Bespoke Morning Coat', which form the structural foundation of the Heavy wool, horsehair canvas, hand stitching, crisp pressing silhouette.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/bespoke-morning-coat/navy-wool-cut-pieces.jpg",
+              "title": "Navy Wool Cut and Ready",
+              "description": "Cut navy wool pieces for morning coat arranged on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing navy wool suiting fabric pieces already cut and arranged on cutting table, coat body, sleeves, collar pieces visible with clean cut edges, pattern pieces nearby, static work documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-7mkfx6i5j.jpg",
-              "description": "Cutting Layout: Precision-cut fabric components for 'Bespoke Morning Coat', laid out and prepared for the complex Heavy wool, horsehair canvas, hand stitching, crisp pressing assembly process.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/bespoke-morning-coat/pad-stitching-detail.jpg",
+              "title": "Pad Stitching Detail",
+              "description": "Completed pad-stitching on horsehair canvas for lapel",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "technique": "Hand pad-stitching",
+                "hours_for_this_element": "12 hours for both lapels",
+                "materials": [
+                  "horsehair canvas",
+                  "silk thread"
+                ]
+              },
+              "prompt": "Smartphone extreme close-up of horsehair canvas showing completed pad-stitching, silk thread creating precise parallel diagonal rows, traditional tailoring technique detail, construction documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
             },
             {
-              "file": "julian-lxkdd51wp.jpg",
-              "description": "Pattern Draft: The master pattern set for 'Bespoke Morning Coat', engineered specifically to achieve the Heavy wool, horsehair canvas, hand stitching, crisp pressing design requirements.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/bespoke-morning-coat/internal-canvas.jpg",
+              "title": "Internal Canvas Architecture",
+              "altText": "Inside view of coat showing horsehair canvas interfacing layers and structural elements",
+              "description": "View of the hidden internal canvas layers that provide structure and support to the coat's silhouette, showing the careful engineering that goes into traditional tailoring.",
+              "tags": [],
+              "imageMetadata": {
+                "technique": "Canvas interfacing",
+                "materials": [
+                  "horsehair canvas",
+                  "linen tape",
+                  "cotton thread"
+                ]
+              },
+              "prompt": "iPhone 14 Pro photo of coat interior showing horsehair canvas interfacing layers, visible basting stitches, chest piece construction, shoulder pads, internal structure exposed, educational technical documentation. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-qingxsw3x.jpg",
-              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Heavy wool, horsehair canvas, hand stitching, crisp pressing materials for 'Bespoke Morning Coat', highlighting tension and consistency.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/bespoke-morning-coat/buttonhole-complete.jpg",
+              "title": "Hand-Sewn Buttonhole",
+              "altText": "Close-up of hand-stitched buttonhole showing traditional bar tack and precise thread work",
+              "description": "Detail of hand-sewn buttonhole showing the traditional bar tacks and gimp thread that distinguish quality tailoring from machine work.",
+              "tags": [],
+              "imageMetadata": {
+                "technique": "Hand-sewn buttonhole with gimp",
+                "hours_per_buttonhole": "45 minutes"
+              },
+              "prompt": "Smartphone macro close-up of completed hand-sewn buttonhole on navy wool, showing precise buttonhole stitch, gimp thread reinforcement, bar tacks at each end, traditional tailor's technique, sharp detail on stitching craftsmanship, natural light. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
             },
             {
-              "file": "julian-kpcjxjkjf.jpg",
-              "description": "Completed Garment: The finished build for 'Bespoke Morning Coat', a complex Heavy wool, horsehair canvas, hand stitching, crisp pressing piece presented on a professional dress form.",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/bespoke-morning-coat/coat-on-form-wip.jpg",
+              "title": "Morning Coat Construction Stage",
+              "description": "Navy morning coat on dress form during mid-construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of navy wool morning coat on dress form in mid-construction, coat mostly assembled but not finished, peak lapels taking shape, structured shoulders visible, work-in-progress on form, construction stage documentation, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-d5yhweyvk.jpg",
-              "description": "Hardware Details: Custom closures and fastenings sourced for 'Bespoke Morning Coat', completing the Heavy wool, horsehair canvas, hand stitching, crisp pressing aesthetic.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/bespoke-morning-coat/fitting-shoulder.jpg",
+              "title": "Fitting - Shoulder Check",
+              "description": "Close-up of morning coat shoulder and upper back fit on actor during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of navy wool morning coat shoulder area on actor during fitting, focus on how coat sits on shoulder and upper back, actor's head cropped from top of frame, pins visible marking adjustment points, static fitting documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "workshop-overview-phone.jpg",
-              "description": "Workshop Overview: A panoramic view of the tailoring workspace during the Morning Coat build, showing the organized chaos of a major construction.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/bespoke-morning-coat/lapel-fit-check.jpg",
+              "title": "Lapel Roll Check",
+              "description": "Detail of peak lapel roll during fitting session",
+              "tags": [],
+              "prompt": "Extreme close-up iPhone 14 Pro photo of navy wool morning coat peak lapel on actor during fitting, focus on how lapel rolls and sits, checking the pad-stitched structure in wear, actor's upper chest only in frame with head cropped, static fitting detail, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "workshop-management.jpg",
-              "description": "Production Management: The workshop during peak build period, demonstrating professional workflow organization.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "jacket-fitting-on-form.jpg",
-              "description": "Fitting Process: The Morning Coat taking shape on the dress form, checking proportions and drape before final assembly.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/bespoke-morning-coat/pressed-ready.jpg",
+              "title": "After Final Pressing",
+              "description": "Completed morning coat on form after final steam pressing",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of completed navy wool morning coat on dress form after final pressing, perfect lapel roll, crisp pressing, ready for delivery, construction completion documentation, workshop setting with neutral background. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             }
           ]
         },
         {
+          "id": "the-diplomats-suit",
           "title": "The Diplomat's Suit",
-          "description": "Technical construction and tailoring for 'The Diplomat's Suit', utilizing Heavy wool, horsehair canvas, hand stitching, crisp pressing.",
+          "slug": "the-diplomats-suit",
+          "description": "Three-piece charcoal suit built for lead character in contemporary political drama. Required modern fit with traditional construction methods for camera-ready appearance and durability across 60+ filming days. Full canvas construction with hand-finished details throughout. This project led to an unexpected commission - a real diplomat who visited the production was so impressed with the construction quality that he commissioned a personal suit using the same techniques.",
           "isFeatured": false,
+          "order": 2,
+          "projectDetails": {
+            "role": "Lead Construction - Professional First Hand",
+            "production": "Contemporary political drama (film)",
+            "location": "London",
+            "year": 2023,
+            "timeline": "5 weeks including fittings",
+            "scale": "Three-piece suit plus backup pieces"
+          },
+          "projectContent": {
+            "challenge": "Building a modern suit that would read perfectly on camera in close-up while maintaining traditional construction integrity. The production required the suit to look sharp across 60+ filming days with no visible wear.",
+            "outcome": "The suit's construction quality caught the attention of a visiting diplomat who later commissioned a personal three-piece suit. The film's costume designer credited the tailoring as 'invisible perfection' - exactly what camera-ready work demands."
+          },
+          "techniques": [
+            "Full canvas construction",
+            "Hand-finished collar and cuffs",
+            "Hand-sewn buttonholes on waistcoat",
+            "Pick-stitched edges",
+            "Camera-ready finishing"
+          ],
           "photos": [
             {
-              "file": "julian-wolhiz9tk.jpg",
-              "description": "Construction Detail: Hand-executed pad stitching for 'The Diplomat's Suit'. This internal stitching is critical for ensuring the proper lapel roll in the Heavy wool, horsehair canvas, hand stitching, crisp pressing style.",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/featured.jpg",
+              "title": "Three-Piece Suit Complete",
+              "description": "Finished three-piece charcoal suit on dress form showing jacket, waistcoat, and trousers.",
+              "tags": [
+                "featured",
+                "category_carousel"
+              ],
+              "prompt": "Professional costume photography of complete three-piece charcoal gray suit on dress form, jacket with notch lapels, matching waistcoat visible underneath, pressed trousers, coordinated ensemble, soft studio lighting, neutral background, sharp detail on construction quality"
             },
             {
-              "file": "julian-ly3kcwlxy.jpg",
-              "description": "Pressing: The final press of the Heavy wool, horsehair canvas, hand stitching, crisp pressing jacket for 'The Diplomat's Suit', demonstrating the crisp, professional tailoring standards required.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/suit-pattern-layout.jpg",
+              "title": "Suit Pattern Layout",
+              "description": "Pattern pieces for three-piece suit laid out on cutting table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of three-piece suit pattern on cutting table, jacket, waistcoat, and trouser patterns arranged, modern menswear construction patterns, measurements visible, pattern preparation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-gza2snmel.jpg",
-              "description": "Internal Architecture: A view of the hidden interfacing layers for 'The Diplomat's Suit', which form the structural foundation of the Heavy wool, horsehair canvas, hand stitching, crisp pressing silhouette.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/charcoal-wool-cut.jpg",
+              "title": "Charcoal Wool Cut Pieces",
+              "description": "Cut charcoal wool pieces for suit arranged on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing charcoal grey wool suiting fabric pieces already cut for jacket arranged on cutting table, suit pieces with clean edges, fine suiting wool, static work documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-nm0ivleaf.jpg",
-              "description": "Cutting Layout: Precision-cut fabric components for 'The Diplomat's Suit', laid out and prepared for the complex Heavy wool, horsehair canvas, hand stitching, crisp pressing assembly process.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/canvas-pad-stitching.jpg",
+              "title": "Canvas Pad Stitching Complete",
+              "description": "Completed pad-stitching on canvas for suit jacket fronts",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of horsehair canvas showing completed pad-stitching for suit jacket, diagonal parallel stitch rows clearly visible, charcoal wool piece nearby, traditional construction technique documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-lpoihfgqf.jpg",
-              "description": "Pattern Draft: The master pattern set for 'The Diplomat's Suit', engineered specifically to achieve the Heavy wool, horsehair canvas, hand stitching, crisp pressing design requirements.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/waistcoat-wip.jpg",
+              "title": "Waistcoat Under Construction",
+              "description": "Charcoal waistcoat on form showing construction with silk back",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of waistcoat on small dress form under construction, charcoal wool front with burgundy silk back lining visible, welt pockets complete, formal menswear construction on form, work-in-progress documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-tnert8ani.jpg",
-              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Heavy wool, horsehair canvas, hand stitching, crisp pressing materials for 'The Diplomat's Suit', highlighting tension and consistency.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/jacket-on-form-wip.jpg",
+              "title": "Jacket Construction Stage",
+              "description": "Charcoal suit jacket on dress form during mid-construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of charcoal suit jacket on dress form in mid-construction, jacket partially assembled showing construction progress, canvas structure visible, work-in-progress on form, construction stage documentation, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-sxd9d7vbp.jpg",
-              "description": "Completed Garment: The finished build for 'The Diplomat's Suit', a complex Heavy wool, horsehair canvas, hand stitching, crisp pressing piece presented on a professional dress form.",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/jacket-fitting.jpg",
+              "title": "Jacket Fit Check",
+              "description": "Close-up of charcoal suit jacket fit on actor during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of charcoal suit jacket shoulder and upper back on actor during fitting, focus on how jacket sits on body, actor's head cropped from top of frame, pins marking adjustment points, static fitting documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-z846wgpfc.jpg",
-              "description": "Hardware Details: Custom closures and fastenings sourced for 'The Diplomat's Suit', completing the Heavy wool, horsehair canvas, hand stitching, crisp pressing aesthetic.",
-              "isFeatured": false,
-              "isIdentity": false
-            }
-          ]
-        },
-        {
-          "title": "Officers & Generals - Military Tailoring",
-          "description": "Historical military uniforms requiring exacting precision, authentic insignia placement, and period-accurate construction techniques.",
-          "isFeatured": false,
-          "photos": [
-            {
-              "file": "military-uniform-performance.jpg",
-              "description": "Dress Uniform Ensemble",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/waistcoat-fitting.jpg",
+              "title": "Waistcoat Fit Detail",
+              "description": "Close-up of waistcoat fit during fitting session",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of charcoal waistcoat being worn by actor during fitting, focus on waistcoat front and welt pockets, actor's head cropped from frame, checking fit and button placement, static fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "precision-cutting-table.jpg",
-              "description": "Precision Pattern Cutting",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/trouser-fitting.jpg",
+              "title": "Trouser Fit Check",
+              "description": "Close-up of charcoal trousers fit during fitting session",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of charcoal wool trousers on actor during fitting, focus on waist and trouser drape, actor's upper body only in frame, static fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "shears-sharpening.jpg",
-              "description": "Traditional Tool Maintenance",
-              "isFeatured": false,
-              "isIdentity": false
-            }
-          ]
-        },
-        {
-          "title": "The Gentleman's Waistcoat Collection",
-          "description": "Bespoke waistcoats showcasing various historical periods and construction techniques from Regency to Edwardian.",
-          "isFeatured": false,
-          "photos": [
-            {
-              "file": "waistcoats-production-shot.jpg",
-              "description": "Period Waistcoat Selection",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/collar-detail-complete.jpg",
+              "title": "Collar Construction Detail",
+              "description": "Finished collar showing hand-finished edge detail",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of charcoal suit jacket collar showing hand-finished edge with pick-stitching visible, traditional detail work complete, collar construction detail, natural light. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "welt-pocket-execution.jpg",
-              "description": "Welt Pocket Construction",
-              "isFeatured": false,
-              "isIdentity": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Leather Work",
-      "featuredPhoto": "julian-bnltk1dph.jpg",
-      "projects": [
-        {
-          "title": "Wasteland Armor Build",
-          "description": "Technical construction and tailoring for 'Wasteland Armor Build', utilizing Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles.",
-          "isFeatured": false,
-          "photos": [
-            {
-              "file": "julian-bnltk1dph.jpg",
-              "description": "Construction Detail: Hand-executed pad stitching for 'Wasteland Armor Build'. This internal stitching is critical for ensuring the proper lapel roll in the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles style.",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/sleeve-buttonholes.jpg",
+              "title": "Sleeve Buttonholes Complete",
+              "description": "Four working buttonholes on jacket sleeve cuff",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of charcoal suit jacket sleeve cuff showing four working hand-sewn buttonholes, functional sleeve detail, traditional tailoring, buttonhole work complete, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-jg8yumvb4.jpg",
-              "description": "Pressing: The final press of the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles jacket for 'Wasteland Armor Build', demonstrating the crisp, professional tailoring standards required.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-mxcdotrr5.jpg",
-              "description": "Internal Architecture: A view of the hidden interfacing layers for 'Wasteland Armor Build', which form the structural foundation of the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles silhouette.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-wqqhfx5lh.jpg",
-              "description": "Cutting Layout: Precision-cut fabric components for 'Wasteland Armor Build', laid out and prepared for the complex Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles assembly process.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-z3qoavzge.jpg",
-              "description": "Pattern Draft: The master pattern set for 'Wasteland Armor Build', engineered specifically to achieve the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles design requirements.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-26kxixt8j.jpg",
-              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles materials for 'Wasteland Armor Build', highlighting tension and consistency.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-eyft23jq4.jpg",
-              "description": "Completed Garment: The finished build for 'Wasteland Armor Build', a complex Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles piece presented on a professional dress form.",
-              "isFeatured": true,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-srfjy31pw.jpg",
-              "description": "Hardware Details: Custom closures and fastenings sourced for 'Wasteland Armor Build', completing the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles aesthetic.",
-              "isFeatured": false,
-              "isIdentity": false
-            }
-          ]
-        },
-        {
-          "title": "The Aviator Jacket",
-          "description": "Technical construction and tailoring for 'The Aviator Jacket', utilizing Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles.",
-          "isFeatured": false,
-          "photos": [
-            {
-              "file": "julian-n02rc7g3l.jpg",
-              "description": "Construction Detail: Hand-executed pad stitching for 'The Aviator Jacket'. This internal stitching is critical for ensuring the proper lapel roll in the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles style.",
-              "isFeatured": true,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-mjh96lx88.jpg",
-              "description": "Pressing: The final press of the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles jacket for 'The Aviator Jacket', demonstrating the crisp, professional tailoring standards required.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-3n2qm9q80.jpg",
-              "description": "Internal Architecture: A view of the hidden interfacing layers for 'The Aviator Jacket', which form the structural foundation of the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles silhouette.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-1phy7s3m6.jpg",
-              "description": "Cutting Layout: Precision-cut fabric components for 'The Aviator Jacket', laid out and prepared for the complex Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles assembly process.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-s4cp4ha7o.jpg",
-              "description": "Pattern Draft: The master pattern set for 'The Aviator Jacket', engineered specifically to achieve the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles design requirements.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-rfn5cc95c.jpg",
-              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles materials for 'The Aviator Jacket', highlighting tension and consistency.",
-              "isFeatured": false,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-6s9qxyhh8.jpg",
-              "description": "Completed Garment: The finished build for 'The Aviator Jacket', a complex Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles piece presented on a professional dress form.",
-              "isFeatured": true,
-              "isIdentity": false
-            },
-            {
-              "file": "julian-nu1vz5lar.jpg",
-              "description": "Hardware Details: Custom closures and fastenings sourced for 'The Aviator Jacket', completing the Thick vegetable tanned leather, brass rivets, dyeing tools, heavy needles aesthetic.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/menswear-tailoring/the-diplomats-suit/suit-pressed-complete.jpg",
+              "title": "Suit After Final Pressing",
+              "description": "Complete three-piece suit on form after final pressing",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of completed three-piece charcoal suit on dress form after final pressing, jacket, waistcoat, and trousers coordinated, perfect pressing for camera, ready for delivery, construction completion, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             }
           ]
         }
       ]
     },
     {
-      "name": "Corsetry",
-      "featuredPhoto": "julian-dylyp2uri.jpg",
+      "id": "theater-production",
+      "name": "Theater Production",
+      "slug": "theater-production",
+      "description": "Construction work for West End and regional theater productions. From pattern drafting through tech rehearsals, documenting the complete build process for principal and ensemble costumes.",
+      "order": 2,
+      "featuredPhoto": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
+      "categoryContent": {
+        "headline": "Building Costumes for the Stage",
+        "introduction": "Theater construction demands both historical accuracy and extreme durability. Each costume must withstand 40+ performances while maintaining its silhouette and details under harsh stage lighting and intense physical movement.",
+        "approach": "I document every build from first pattern draft through opening night. My phone captures the construction details - the patterns laid out, the fabric cut and ready, the garment taking shape on the form. Production photographers capture the finished work under lights."
+      },
       "projects": [
         {
-          "title": "Victorian Silk Bodice",
-          "description": "Technical construction and tailoring for 'Victorian Silk Bodice', utilizing Silk satin, spiral steel boning, grommet setting, coutil lining.",
-          "isFeatured": false,
+          "id": "the-obsidian-crown",
+          "title": "The Obsidian Crown",
+          "slug": "the-obsidian-crown",
+          "description": "Dark fantasy tragedy requiring costume deterioration effects across the run. Built 28 principal costumes and 50+ ensemble pieces. Lead construction on Queen's gown with progressive darkening effects, Officer's coat with hidden armor structure, and multiple courtier ensembles with distressed embroidery.",
+          "isFeatured": true,
+          "order": 1,
+          "projectDetails": {
+            "role": "Lead Construction - Professional First Hand",
+            "production": "The Obsidian Crown - Original Work",
+            "venue": "Blackfriars Repertory Theatre, London",
+            "year": 2024,
+            "timeline": "12 weeks from first pattern to opening night",
+            "scale": "28 principal costumes, 50+ ensemble, 4-person build team"
+          },
+          "techniques": [
+            "Progressive fabric deterioration and distressing",
+            "Structured canvas work for period silhouettes",
+            "Hand embroidery with deliberate fraying",
+            "Hidden LED integration for curse effects",
+            "Modular construction for quick-change sequences"
+          ],
           "photos": [
             {
-              "file": "julian-dylyp2uri.jpg",
-              "description": "Construction Detail: Hand-executed pad stitching for 'Victorian Silk Bodice'. This internal stitching is critical for ensuring the proper lapel roll in the Silk satin, spiral steel boning, grommet setting, coutil lining style.",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/queen-pattern-draft.jpg",
+              "title": "Queen's Gown - Pattern Drafting",
+              "description": "First pattern draft for Queen Morwen's burgundy gown laid out on cutting table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo taken from above of large pattern pieces laid out on cutting table, brown kraft paper with pencil markings and measurements, pattern for elaborate period gown bodice and skirt pieces clearly visible, ruler and French curve resting on table, natural workshop lighting, static documentation shot. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-wwhzvgx15.jpg",
-              "description": "Pressing: The final press of the Silk satin, spiral steel boning, grommet setting, coutil lining jacket for 'Victorian Silk Bodice', demonstrating the crisp, professional tailoring standards required.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/burgundy-velvet-cut.jpg",
+              "title": "Burgundy Velvet Cut Pieces",
+              "description": "Cut burgundy silk velvet pieces arranged on table after cutting from pattern",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo looking down at cutting table with rich burgundy silk velvet fabric pieces already cut and arranged, pattern pieces visible nearby, cut edges clean, fabric nap clearly visible in velvet pile, natural workshop lighting, static work documentation. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-5m8blii42.jpg",
-              "description": "Internal Architecture: A view of the hidden interfacing layers for 'Victorian Silk Bodice', which form the structural foundation of the Silk satin, spiral steel boning, grommet setting, coutil lining silhouette.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/bodice-construction-wip.jpg",
+              "title": "Queen's Bodice - Internal Canvas",
+              "description": "Burgundy velvet bodice on dress form showing internal canvas structure",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of burgundy velvet bodice on dress form, turned partially inside-out to show horsehair canvas interfacing and boning channels with white thread basting, internal structure visible, early construction stage on form, work-in-progress documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-cl8wfz5zy.jpg",
-              "description": "Cutting Layout: Precision-cut fabric components for 'Victorian Silk Bodice', laid out and prepared for the complex Silk satin, spiral steel boning, grommet setting, coutil lining assembly process.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/embroidery-detail-complete.jpg",
+              "title": "Gold Embroidery Detail",
+              "description": "Completed section of gold curse symbol embroidery on burgundy velvet",
+              "tags": [],
+              "prompt": "Smartphone extreme close-up of completed embroidery work on burgundy velvet fabric, gold metallic thread forming decorative curse symbol pattern, intricate stitching detail visible, embroidery already finished, detail documentation showing craftsmanship, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
             },
             {
-              "file": "julian-20wonb0yv.jpg",
-              "description": "Pattern Draft: The master pattern set for 'Victorian Silk Bodice', engineered specifically to achieve the Silk satin, spiral steel boning, grommet setting, coutil lining design requirements.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/queen-bodice-fitting.jpg",
+              "title": "First Fitting - Bodice",
+              "description": "Close-up of burgundy velvet gown bodice fit on actress during fitting session",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of burgundy velvet gown bodice being worn by actress during fitting, focus on bodice fit and shoulder seam detail, actress's head cropped out of top of frame, static fitting documentation showing garment on body, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-wg7dv9r5a.jpg",
-              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Silk satin, spiral steel boning, grommet setting, coutil lining materials for 'Victorian Silk Bodice', highlighting tension and consistency.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/bodice-fit-detail.jpg",
+              "title": "Bodice Side Seam Fit",
+              "description": "Detail of bodice side seam fit during fitting session",
+              "tags": [],
+              "prompt": "Extreme close-up iPhone 14 Pro photo of burgundy velvet bodice side seam on actress during fitting, focus on how fabric fits at waist and hip, pins marking where adjustments are needed, actress's upper body only in frame with head cropped, static fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-kux8a2n1e.jpg",
-              "description": "Completed Garment: The finished build for 'Victorian Silk Bodice', a complex Silk satin, spiral steel boning, grommet setting, coutil lining piece presented on a professional dress form.",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/skirt-hem-pinned.jpg",
+              "title": "Skirt Hem Marked for Adjustment",
+              "description": "Burgundy velvet skirt hem with pins marking final length",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of burgundy velvet skirt hem area with pins marking hem adjustment, skirt on actress, focus on lower skirt and hem line with pins visible, static fitting documentation, natural lighting showing where hem will be finished. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-ajgx4r4w7.jpg",
-              "description": "Hardware Details: Custom closures and fastenings sourced for 'Victorian Silk Bodice', completing the Silk satin, spiral steel boning, grommet setting, coutil lining aesthetic.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-obsidian-crown/deterioration-samples.jpg",
+              "title": "Distressing Test Samples",
+              "description": "Fabric swatches showing progressive distressing effects from burgundy to darkened state",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of fabric swatches laid out flat on work table showing deterioration progression, burgundy velvet samples in various stages of intentional distressing and darkening from pristine to frayed and blackened, test samples with handwritten notes visible, technique development documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/queen-gown-finished.jpg",
+              "title": "Queen's Gown Complete",
+              "description": "Finished burgundy velvet gown on dress form ready for delivery",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed burgundy silk velvet gown on professional dress form, elaborate gold embroidered curse symbols visible on bodice, perfect drape and fit, structured silhouette, dramatic period costume, soft studio lighting showing fabric texture and embroidery detail, neutral background, museum-quality presentation"
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
+              "title": "Queen Morwen - Production Photo",
+              "description": "Professional production photograph of actress in Queen's burgundy gown during performance",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - James Chen",
+                "performance_date": "Opening Night - April 12, 2024",
+                "character": "Queen Morwen",
+                "scene": "Act II - Court Scene"
+              },
+              "prompt": "Professional theatrical production photography, actress in elaborate burgundy velvet gown with gold embroidered curse symbols, dramatic stage lighting from above and sides, rich fabric texture visible under lights, period theatrical costume, captured during performance, high-quality production photography, theatrical atmosphere"
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/officer-coat-pattern.jpg",
+              "title": "Officer's Coat - Pattern Layout",
+              "description": "Pattern pieces for Officer's navy wool coat arranged on cutting table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of large cutting table with pattern pieces for military-style coat laid out, brown kraft paper patterns visible with measurements and markings, navy wool fabric bolt visible at edge of frame, pattern preparation documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/navy-wool-cut-pieces.jpg",
+              "title": "Navy Wool Cut and Ready",
+              "description": "Cut navy wool pieces for Officer's coat arranged on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing navy blue wool fabric pieces already cut and arranged on cutting table, coat body, sleeves, and collar pieces visible, pattern pieces nearby, clean cut edges, work documentation after cutting, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/coat-canvas-detail.jpg",
+              "title": "Coat Front Canvas Work",
+              "description": "Detail of completed pad-stitching on horsehair canvas for coat front",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of horsehair canvas for coat fronts showing completed pad-stitching, diagonal parallel rows of hand-stitching clearly visible, navy wool fashion fabric piece resting nearby, traditional tailoring technique documentation, construction detail, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/brass-buttons-ready.jpg",
+              "title": "Brass Buttons Attached",
+              "description": "Navy coat front with brass military buttons attached",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo photo of navy wool coat front with brass military buttons already sewn in place, row of buttons catching light, button attachment complete, construction detail showing finished element, natural light. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/officer-coat-on-form.jpg",
+              "title": "Officer's Coat - Construction Stage",
+              "description": "Navy wool coat on dress form showing construction progress",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of navy wool military coat on dress form in mid-construction, coat mostly assembled but not finished, brass buttons visible, structured shoulders taking shape, work-in-progress on form, construction stage documentation, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/coat-fitting-check.jpg",
+              "title": "Coat Fitting - Shoulder Check",
+              "description": "Close-up of navy coat shoulder fit on actor during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of navy wool military coat shoulder area on actor during fitting, focus on how coat sits on shoulder and upper back, actor's head cropped from top of frame, pins visible marking adjustment points, static fitting documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/sleeve-fit-check.jpg",
+              "title": "Sleeve Set Check",
+              "description": "Detail of coat sleeve armscye fit during fitting session",
+              "tags": [],
+              "prompt": "Extreme close-up iPhone 14 Pro photo of navy wool coat sleeve at armscye on actor during fitting, focus on how sleeve attaches and hangs, pins marking adjustment if needed, actor's upper arm and shoulder in frame only, static fitting detail, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/coat-pressed-ready.jpg",
+              "title": "Officer's Coat - Final Pressed",
+              "description": "Completed and pressed navy coat on dress form",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of completed navy wool military coat on dress form after final pressing, brass buttons catching light, perfectly pressed lapels and front, finished construction, ready for delivery, construction documentation, workshop setting with neutral background. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/officer-coat-finished.jpg",
+              "title": "Officer's Coat Complete",
+              "description": "Completed navy wool Officer's coat on dress form with all details finished",
+              "tags": [],
+              "prompt": "Professional documentation photo of completed navy wool military coat on dress form, brass military buttons, structured shoulders and lapels, perfect pressing, period military costume, soft studio lighting, neutral background, professional costume documentation"
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/officer-production.jpg",
+              "title": "Officer's Coat - Production",
+              "description": "Professional production photo of actor in navy Officer's coat during performance",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - James Chen",
+                "character": "Captain Aldric",
+                "scene": "Act III - Confrontation"
+              },
+              "prompt": "Professional theatrical production photography, actor in navy wool military coat with brass buttons, dramatic stage lighting, period military costume in performance, captured during live show, theatrical atmosphere, high-quality production photography"
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/ensemble-distressing-samples.jpg",
+              "title": "Ensemble Deterioration Work",
+              "description": "Multiple courtier costume pieces showing progressive deterioration effects",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of work table with multiple costume pieces laid out flat, showing various stages of intentional distressing and darkening, burgundy and dark fabrics with fraying and staining effects visible, deterioration samples for ensemble work, bulk construction documentation, workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/quick-change-snaps.jpg",
+              "title": "Quick-Change Snap Detail",
+              "description": "Hidden snap fasteners installed for quick costume changes",
+              "tags": [],
+              "prompt": "Smartphone macro photo of hidden snap fasteners sewn into costume interior, heavy-duty snaps for quick-change already installed, interior construction detail visible, engineering for performance needs, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/tech-rehearsal-backstage.jpg",
+              "title": "Tech Rehearsal Backstage",
+              "description": "Julian backstage during tech rehearsal checking costumes before performance",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo backstage during tech rehearsal, British-Nigerian man with medium-dark brown skin and short buzz cut checking costume details on actor, costume rack visible in background, working backstage environment, tech week atmosphere, shot by colleague, backstage documentation. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph.",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/theater-production/the-obsidian-crown/full-cast-production.jpg",
+              "title": "Full Cast - Production Photo",
+              "description": "Professional ensemble cast photo showing range of costumes built",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - James Chen",
+                "scene": "Act V - Final Scene",
+                "note": "Showing full range of costume deterioration effects"
+              },
+              "prompt": "Professional theatrical production photography, ensemble cast in elaborate period costumes showing range from pristine burgundy and gold to darkened distressed garments, dramatic stage lighting, full cast arranged in theatrical tableau, high-quality production photography showing costume design progression"
             }
           ]
         },
         {
-          "title": "Bridal Structure",
-          "description": "Technical construction and tailoring for 'Bridal Structure', utilizing Silk satin, spiral steel boning, grommet setting, coutil lining.",
-          "isFeatured": false,
+          "id": "much-ado-miami",
+          "title": "Much Ado About Nothing: 1960s Miami",
+          "slug": "much-ado-miami",
+          "description": "Contemporary reimagining of Shakespeare's comedy set in 1960s Miami. Built 18 principal costumes requiring period-accurate 1960s silhouettes with tropical color palette and lightweight fabrics for outdoor summer performances. Lead construction on Beatrice's mod shift dress with geometric trim and Benedick's linen suit.",
+          "isFeatured": true,
+          "order": 2,
+          "projectDetails": {
+            "role": "Lead Construction - Professional First Hand",
+            "production": "Much Ado About Nothing",
+            "venue": "Portland Shakespeare Festival Outdoor Amphitheater",
+            "year": 2023,
+            "timeline": "8 weeks build",
+            "scale": "18 principal costumes, 25 ensemble pieces"
+          },
+          "techniques": [
+            "1960s period construction techniques",
+            "Lightweight tropical fabric handling",
+            "Mod-style geometric trim application",
+            "Weather-resistant finishing for outdoor performance",
+            "Quick-change construction for scene transitions"
+          ],
           "photos": [
             {
-              "file": "julian-s3nd5uzza.jpg",
-              "description": "Construction Detail: Hand-executed pad stitching for 'Bridal Structure'. This internal stitching is critical for ensuring the proper lapel roll in the Silk satin, spiral steel boning, grommet setting, coutil lining style.",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/theater-production/much-ado-miami/beatrice-dress-pattern.jpg",
+              "title": "Beatrice's Dress Pattern",
+              "description": "Pattern for 1960s mod shift dress laid out on cutting table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of pattern pieces for 1960s mod shift dress on cutting table, geometric neckline pattern visible, simple A-line silhouette pattern pieces arranged, measurements marked on kraft paper, pattern weights holding paper flat, natural workshop lighting, static documentation shot. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-q49uqhg7n.jpg",
-              "description": "Pressing: The final press of the Silk satin, spiral steel boning, grommet setting, coutil lining jacket for 'Bridal Structure', demonstrating the crisp, professional tailoring standards required.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/much-ado-miami/coral-linen-cut.jpg",
+              "title": "Coral Linen Pieces Cut",
+              "description": "Cut bright coral linen pieces arranged after pattern cutting",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing bright coral-pink linen fabric pieces already cut and arranged on cutting table, dress pieces visible, pattern pieces nearby, vibrant 1960s color, natural lighting showing fabric texture, static work documentation. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-v5qauz4xw.jpg",
-              "description": "Internal Architecture: A view of the hidden interfacing layers for 'Bridal Structure', which form the structural foundation of the Silk satin, spiral steel boning, grommet setting, coutil lining silhouette.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/much-ado-miami/trim-pieces-arranged.jpg",
+              "title": "Geometric Trim Layout",
+              "description": "White and navy trim pieces arranged on coral dress bodice",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of coral linen dress bodice piece laid flat on work table with white and navy blue geometric trim pieces arranged for placement testing, 1960s mod style design visible, planning layout before sewing, pins holding trim position, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-35rhu7uxn.jpg",
-              "description": "Cutting Layout: Precision-cut fabric components for 'Bridal Structure', laid out and prepared for the complex Silk satin, spiral steel boning, grommet setting, coutil lining assembly process.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/much-ado-miami/trim-attached-detail.jpg",
+              "title": "Trim Attached to Neckline",
+              "description": "Completed geometric trim attachment at dress neckline",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of coral linen fabric with white geometric trim already sewn onto neckline, clean topstitching visible, mod-style trim application complete, construction detail showing finished element, workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-d8viekf0r.jpg",
-              "description": "Pattern Draft: The master pattern set for 'Bridal Structure', engineered specifically to achieve the Silk satin, spiral steel boning, grommet setting, coutil lining design requirements.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/much-ado-miami/dress-on-form-wip.jpg",
+              "title": "Dress on Form - Construction Stage",
+              "description": "Coral mod dress on dress form during mid-construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of bright coral mod shift dress on dress form in mid-construction, bodice with geometric trim mostly complete, skirt attached but hem not finished yet, work-in-progress on form, construction stage documentation, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-a5knpaf10.jpg",
-              "description": "Stitch Quality: A close-up of the heavy-duty top-stitching on Silk satin, spiral steel boning, grommet setting, coutil lining materials for 'Bridal Structure', highlighting tension and consistency.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/much-ado-miami/beatrice-dress-fitting.jpg",
+              "title": "Dress Fit Check",
+              "description": "Close-up of coral dress fit on actress during fitting session",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of bright coral mod shift dress being worn by actress during fitting, focus on dress bodice and neckline trim, actress's head cropped out of top of frame, static fitting documentation showing how garment sits on body, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-m8zhfmfgr.jpg",
-              "description": "Completed Garment: The finished build for 'Bridal Structure', a complex Silk satin, spiral steel boning, grommet setting, coutil lining piece presented on a professional dress form.",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/theater-production/much-ado-miami/neckline-trim-fit.jpg",
+              "title": "Neckline Trim Fit Detail",
+              "description": "Detail of geometric neckline trim fit during fitting",
+              "tags": [],
+              "prompt": "Extreme close-up iPhone 14 Pro photo of geometric white trim at neckline of coral dress on actress during fitting, focus on neck and shoulder area showing how trim sits, actress's face cropped out, checking fit of mod-style trim detail, static fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "julian-5wwex7jc6.jpg",
-              "description": "Hardware Details: Custom closures and fastenings sourced for 'Bridal Structure', completing the Silk satin, spiral steel boning, grommet setting, coutil lining aesthetic.",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/much-ado-miami/hem-marked.jpg",
+              "title": "Hem Marked for Finishing",
+              "description": "Coral dress hem with pins marking final length",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of coral linen dress skirt hem area with pins marking hem length adjustment, dress on actress, focus on lower skirt showing where hem will be finished, static fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/beatrice-dress-complete.jpg",
+              "title": "Beatrice's Dress Complete",
+              "description": "Finished coral mod dress on dress form ready for delivery",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed 1960s mod shift dress on dress form, bright coral-pink linen with white and navy geometric trim at neckline, clean A-line silhouette, perfect 1960s period costume, soft studio lighting showing fabric color and trim detail, neutral background"
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/beatrice-production.jpg",
+              "title": "Beatrice - Production Photo",
+              "description": "Professional production photo of actress in coral dress during outdoor performance",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - Festival Staff",
+                "character": "Beatrice",
+                "scene": "Act II - Garden Scene",
+                "setting": "Outdoor amphitheater"
+              },
+              "prompt": "Professional theatrical production photography outdoors, actress in bright coral 1960s mod shift dress with geometric white trim, natural outdoor lighting, tropical Florida setting visible in background, period costume in performance, vibrant color, high-quality production photography"
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/benedick-suit-pattern.jpg",
+              "title": "Benedick's Suit Pattern",
+              "description": "Pattern layout for 1960s men's linen suit",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of pattern pieces for 1960s men's suit on cutting table, jacket and trouser patterns arranged, lightweight summer suit construction patterns, measurements marked on kraft paper, natural workshop lighting, pattern preparation documentation. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/cream-linen-cut.jpg",
+              "title": "Cream Linen Cut Pieces",
+              "description": "Cut cream-colored linen pieces for suit jacket arranged on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing cream-colored linen fabric pieces already cut for suit jacket arranged on cutting table, jacket pieces visible with clean cut edges, lightweight summer suiting fabric, static work documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/suit-canvas-detail.jpg",
+              "title": "Lightweight Canvas Work",
+              "description": "Completed pad-stitching on lightweight canvas for tropical suit",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of lightweight canvas interfacing showing completed pad-stitching for cream linen jacket, adapted technique for summer-weight garment visible, diagonal stitch rows clear, cream linen fashion fabric piece nearby, construction detail documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/jacket-on-form-wip.jpg",
+              "title": "Suit Jacket on Form - Construction",
+              "description": "Cream linen jacket on dress form during construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of cream linen suit jacket on dress form in mid-construction, jacket partially assembled showing construction progress, lightweight summer suit taking shape, work-in-progress on form, construction stage documentation, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/jacket-fitting-check.jpg",
+              "title": "Suit Jacket Fit",
+              "description": "Close-up of cream linen jacket fit on actor during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of cream linen suit jacket shoulder and upper back on actor during fitting, focus on how jacket sits on body, actor's head cropped from top of frame, pins visible if adjustments needed, static fitting documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/trouser-fitting.jpg",
+              "title": "Trouser Fit Check",
+              "description": "Close-up of cream linen trousers fit at waist during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of cream linen trousers waistband area on actor during fitting, focus on waist fit and trouser detail, static fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/suit-pressed-ready.jpg",
+              "title": "Suit After Final Pressing",
+              "description": "Cream linen suit on dress form after final pressing",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of cream linen suit on dress form after final pressing, jacket perfectly pressed with clean lapels, lightweight summer suit ready for delivery, construction completion documentation, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/benedick-suit-complete.jpg",
+              "title": "Benedick's Suit Complete",
+              "description": "Finished cream linen suit on dress form, 1960s tropical styling",
+              "tags": [],
+              "prompt": "Professional documentation photo of completed cream linen 1960s summer suit on dress form, lightweight tropical suit with period tailoring, clean lines, perfect for outdoor performance, soft studio lighting, neutral background, professional costume documentation"
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/benedick-production.jpg",
+              "title": "Benedick - Production Photo",
+              "description": "Professional production photo of actor in cream linen suit during performance",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - Festival Staff",
+                "character": "Benedick",
+                "scene": "Act IV - Confrontation"
+              },
+              "prompt": "Professional theatrical production photography outdoors, actor in cream linen 1960s suit, natural outdoor lighting, tropical setting, period costume in performance, high-quality production photography, outdoor amphitheater atmosphere"
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/ensemble-fabrics-laid-out.jpg",
+              "title": "Ensemble Print Fabrics",
+              "description": "Collection of tropical print fabrics for ensemble laid out for reference",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of work table with multiple vibrant 1960s tropical print fabrics laid out flat, floral and geometric patterns in bright colors visible, fabric selection for ensemble pieces, colorful array, work preparation documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/ensemble-pieces-wip.jpg",
+              "title": "Ensemble Construction in Progress",
+              "description": "Multiple ensemble costumes on dress forms at various construction stages",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of multiple dress forms with ensemble costumes in various stages of construction, colorful 1960s tropical prints visible, half-finished dresses and shirts on forms, ensemble build in progress, busy workshop scene showing scale of work, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/quick-change-mechanism.jpg",
+              "title": "Quick-Change Construction Detail",
+              "description": "Hidden zipper and snap system for rapid costume change",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of quick-change mechanism in costume interior, hidden side zipper and snap fasteners already installed for rapid costume change, construction detail showing engineering for performance needs, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/weather-proof-seams.jpg",
+              "title": "Weather-Resistant Finishing",
+              "description": "Seams with weather-resistant treatment for outdoor performance",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume interior showing seams with weather-resistant sealant applied, weather-proofing for outdoor performance in rain and heat visible, construction detail for durability, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/dress-rehearsal-backstage.jpg",
+              "title": "Dress Rehearsal Check",
+              "description": "Julian backstage during outdoor dress rehearsal checking costume details",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo backstage during outdoor dress rehearsal, British-Nigerian man with medium-dark brown skin and short buzz cut checking costume details on actors, natural outdoor evening light, tropical setting visible in background, pre-show preparation, backstage atmosphere, shot by colleague. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph.",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/theater-production/much-ado-miami/full-cast-production.jpg",
+              "title": "Full Cast - Production Photo",
+              "description": "Professional ensemble cast photo showing vibrant 1960s Miami costumes",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - Festival Staff",
+                "scene": "Curtain Call",
+                "note": "Full costume range in tropical colors"
+              },
+              "prompt": "Professional theatrical production photography outdoors, ensemble cast in vibrant 1960s Miami-themed costumes, bright tropical colors including coral, cream, turquoise, geometric patterns, natural outdoor lighting, outdoor amphitheater setting, high-quality production photography showing full costume palette"
             }
           ]
         },
         {
-          "title": "Foundation Garments - Corsetry",
-          "description": "Historical foundation garments requiring precise boning, period-accurate construction, and comfort for extended performance wear.",
+          "id": "the-negative-space",
+          "title": "The Negative Space",
+          "slug": "the-negative-space",
+          "description": "Contemporary experimental black box production exploring grief and memory through minimalist costume design. Built 6 principal costumes with transformation elements allowing actors to shift between past and present. Lead construction on reversible coat revealing inner emotional state, deconstructed shirt with exposed seam work as design element, and modular ensemble pieces that reconfigured throughout the 90-minute one-act.",
           "isFeatured": false,
+          "order": 3,
+          "projectDetails": {
+            "role": "Lead Construction - Professional First Hand",
+            "production": "The Negative Space - New Work",
+            "venue": "The Pit - Black Box Theater, London",
+            "year": 2024,
+            "timeline": "6 weeks build with ongoing rehearsal collaboration",
+            "scale": "6 principal costumes, multiple configuration options"
+          },
+          "projectContent": {
+            "challenge": "Building costumes that could physically transform during performance without quick-change booths. Each garment needed to function in multiple configurations while maintaining the minimalist aesthetic. Exposed construction elements became design features rather than hidden work.",
+            "approach": "Deconstructed tailoring where seams, darts, and internal structure became visible design elements. Reversible construction techniques. Modular pieces that could be worn multiple ways. Everything needed to transform silently on stage.",
+            "outcome": "The costumes became active participants in the storytelling. Critics noted the 'haunting minimalism' of the costume work. The reversible coat technique has since been adopted by other designers for similar experimental work."
+          },
+          "techniques": [
+            "Reversible garment construction",
+            "Exposed seam work as design element",
+            "Modular clothing systems",
+            "Silent transformation mechanisms",
+            "Deconstructed tailoring techniques"
+          ],
           "photos": [
             {
-              "file": "phone-capture-corset-wip.jpg",
-              "description": "Corset Construction Progress",
-              "isFeatured": true,
-              "isIdentity": false
+              "file": "categories/theater-production/the-negative-space/reversible-coat-pattern.jpg",
+              "title": "Reversible Coat Pattern",
+              "description": "Pattern for reversible coat showing both exterior and interior construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of reversible coat pattern laid out on cutting table, pattern pieces for both grey exterior and black interior visible, reversible construction pattern, measurements marked, complex technical pattern, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
             },
             {
-              "file": "corsetry-technical-detail.jpg",
-              "description": "Boning and Channel Detail",
-              "isFeatured": false,
-              "isIdentity": false
+              "file": "categories/theater-production/the-negative-space/grey-black-fabrics.jpg",
+              "title": "Reversible Fabric Layers",
+              "description": "Grey wool and black cotton fabrics cut and ready for reversible construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing grey wool and black cotton fabric pieces cut and arranged on table, coat pieces for both sides of reversible garment, contrasting fabrics for dual-sided construction, static work documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/exposed-seams-detail.jpg",
+              "title": "Exposed Seam Construction",
+              "description": "Detail of deliberately exposed French seams as design element",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Smartphone extreme close-up of exposed French seam on grey wool fabric, seam deliberately showing on exterior as design detail, precise stitching visible, deconstructed design technique, construction detail becoming aesthetic element, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/reversible-construction-wip.jpg",
+              "title": "Reversible Construction Process",
+              "description": "Coat on form showing both sides during construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of reversible coat on dress form turned to show construction method, grey exterior partially visible with black interior exposed, dual-layer construction in progress, complex reversible garment on form, work-in-progress documentation, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/transformation-mechanism.jpg",
+              "title": "Silent Transformation Detail",
+              "description": "Hidden snap system allowing silent coat reversal during performance",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of hidden snap fastener system in reversible coat interior, strategic snap placement for silent transformation, engineering for onstage costume change, construction detail, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/deconstructed-shirt-wip.jpg",
+              "title": "Deconstructed Shirt Construction",
+              "description": "White shirt with intentionally exposed seams and darts on form",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of white deconstructed shirt on dress form, exposed seam allowances visible on exterior, darts deliberately showing, minimalist experimental design, construction-as-design on form, work-in-progress, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/modular-pieces-arranged.jpg",
+              "title": "Modular Ensemble Pieces",
+              "description": "Collection of modular garment pieces that reconfigure throughout performance",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of work table with multiple modular garment pieces laid out flat, grey and black fabric pieces that can be worn in different configurations, vest pieces, sleeve panels, collar variations, modular costume system, construction documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/coat-fitting-grey-side.jpg",
+              "title": "Fitting - Grey Exterior",
+              "description": "Close-up of reversible coat grey side during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of grey wool side of reversible coat on actor during fitting, focus on coat shoulder and drape, actor's head cropped from frame, checking fit of exterior configuration, static fitting documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/coat-fitting-black-side.jpg",
+              "title": "Fitting - Black Interior Revealed",
+              "description": "Close-up of reversible coat black side during fitting check",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of black cotton side of reversible coat on actor during fitting, coat turned inside-out showing interior configuration, focus on coat body and fit, actor's head cropped from frame, checking fit of reversed configuration, static fitting documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/coat-complete-grey.jpg",
+              "title": "Reversible Coat - Grey Side",
+              "description": "Finished reversible coat on form showing grey exterior",
+              "tags": [],
+              "prompt": "Professional documentation photo of completed reversible coat on dress form showing grey wool exterior, minimalist contemporary design, exposed seam details visible, clean construction, soft studio lighting, neutral background"
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/coat-complete-black.jpg",
+              "title": "Reversible Coat - Black Side",
+              "description": "Same coat on form reversed to show black interior",
+              "tags": [],
+              "prompt": "Professional documentation photo of same reversible coat on dress form now showing black cotton interior as exterior, minimalist design, contrasting configuration of same garment, soft studio lighting, neutral background"
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/transformation-rehearsal.jpg",
+              "title": "Transformation Rehearsal",
+              "description": "Julian with cast during rehearsal testing costume transformations",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo during rehearsal in black box theater space, British-Nigerian man with medium-dark brown skin and short buzz cut working with actors on costume transformation technique, minimal stage lighting, experimental theater rehearsal atmosphere, shot by stage manager. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph.",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/production-grey-moment.jpg",
+              "title": "Production - Grey Coat Scene",
+              "description": "Professional production photo showing coat in grey configuration during performance",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Production photographer - Theater Staff",
+                "scene": "Memory sequence",
+                "note": "Grey exterior configuration"
+              },
+              "prompt": "Professional theatrical production photography in black box theater, actor in grey reversible coat, minimal stark lighting, experimental theater aesthetic, dark background, intimate performance space, high-quality production photography"
+            },
+            {
+              "file": "categories/theater-production/the-negative-space/production-transformation.jpg",
+              "title": "Production - Coat Transformation",
+              "description": "Professional production photo capturing moment of coat reversal during performance",
+              "tags": [
+                "featured",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Production photographer - Theater Staff",
+                "scene": "Transformation moment",
+                "note": "Coat mid-reversal showing both sides"
+              },
+              "prompt": "Professional theatrical production photography in black box theater, actor mid-transformation reversing coat from grey to black, both fabrics visible during transition, dramatic minimal lighting, experimental theater moment, high-quality production photography capturing costume change"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "film-production",
+      "name": "Film Production",
+      "slug": "film-production",
+      "description": "Costume construction for film and television. Building for camera requires different finishing techniques than theater - everything must be perfect in close-up, continuity across multiple shooting days is critical, and stunts require duplicate builds.",
+      "order": 3,
+      "featuredPhoto": "categories/film-production/the-crimson-inheritance/lead-gown-production.jpg",
+      "categoryContent": {
+        "headline": "Building for the Camera",
+        "introduction": "Film construction demands invisible perfection. Every seam, every button, every stitch must be flawless because the camera sees everything. Continuity across weeks of shooting means meticulous documentation and sometimes building multiple identical copies of the same garment.",
+        "approach": "I photograph every stage of construction - not just for my records, but because the continuity department needs documentation. My phone documents the build stages; the unit photographer captures the work on set under lights."
+      },
+      "projects": [
+        {
+          "id": "the-crimson-inheritance",
+          "title": "The Crimson Inheritance",
+          "slug": "the-crimson-inheritance",
+          "description": "Period mystery drama set in 1880s England exploring family secrets and inheritance disputes. Six-month shoot requiring historically accurate Victorian construction. Built 12 principal character costumes with multiple copies for stunts and continuity. Lead construction on female lead's burgundy silk day dress with 30+ buttonholes and male lead's formal three-piece suit.",
+          "isFeatured": true,
+          "order": 1,
+          "projectDetails": {
+            "role": "Lead Construction - Professional First Hand",
+            "production": "The Crimson Inheritance (Major Studio Feature)",
+            "location": "UK Location Shoot - Yorkshire and London",
+            "year": 2023,
+            "timeline": "16 weeks pre-production build, 6 months on-set support",
+            "scale": "12 principal costumes, 40+ duplicates and specialty builds"
+          },
+          "techniques": [
+            "Historical 1880s construction methods",
+            "Hand-sewn buttonholes (30+ per garment)",
+            "Spiral steel boning in corsets and bodices",
+            "Period-accurate linings and interlinings",
+            "Stunt double construction and continuity matching"
+          ],
+          "photos": [
+            {
+              "file": "categories/film-production/the-crimson-inheritance/lead-dress-pattern.jpg",
+              "title": "Lead Dress Pattern Draft",
+              "description": "Pattern for 1880s day dress with fitted bodice and bustle skirt",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of elaborate Victorian dress pattern laid out on cutting table, 1880s bodice with princess seams and bustle skirt back visible, many pattern pieces arranged, measurements marked on kraft paper, complex period construction pattern, static documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/burgundy-silk-cut.jpg",
+              "title": "Burgundy Silk Cut Pieces",
+              "description": "Cut burgundy silk taffeta pieces arranged after pattern cutting",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing rich burgundy silk taffeta fabric pieces already cut and arranged on cutting table, intricate pattern pieces for Victorian dress visible, luxurious fabric with slight sheen, static construction documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/bodice-boning-complete.jpg",
+              "title": "Boning Channels Complete",
+              "description": "Bodice lining with finished boning channels ready for bones",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of burgundy silk bodice lining laid flat showing completed parallel boning channels stitched in, precise channel work visible ready for spiral steel bones to be inserted, Victorian construction technique, workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/buttonholes-progress.jpg",
+              "title": "Hand-Sewn Buttonholes - Eight Complete",
+              "description": "Row of completed hand-sewn buttonholes on dress front",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of burgundy silk fabric showing eight completed hand-sewn buttonholes in vertical row, traditional hand-sewing technique visible, many more buttonholes still to come, construction progress documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/buttonhole-macro.jpg",
+              "title": "Buttonhole Detail",
+              "description": "Single finished hand-sewn buttonhole showing period technique",
+              "tags": [],
+              "prompt": "Macro iPhone 14 Pro photo of single completed hand-sewn buttonhole on burgundy silk, showing precise buttonhole stitch and bar tacks, period-accurate construction detail, extreme close-up showing craftsmanship, natural light. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/bodice-on-form-wip.jpg",
+              "title": "Bodice Assembly Stage",
+              "description": "Burgundy silk bodice on dress form during mid-construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of burgundy silk Victorian bodice on dress form, partially assembled with some interior boning channels visible, pins holding seams, princess seam construction visible, complex period garment mid-build on form, work documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/bustle-pad-built.jpg",
+              "title": "Bustle Pad Structure",
+              "description": "Completed wire and padding structure for 1880s bustle",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of completed bustle pad, wire framework with cotton padding attached, Victorian understructure for skirt support finished, construction detail showing period garment engineering, workshop table setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/dress-bodice-fitting.jpg",
+              "title": "First Fitting - Bodice Fit",
+              "description": "Close-up of burgundy bodice fit on actress during fitting session",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of burgundy silk bodice being worn by actress during fitting, focus on bodice fit and princess seams, actress's head cropped from top of frame, pins visible marking adjustment points if needed, static fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/sleeve-fit.jpg",
+              "title": "Sleeve Fitting Detail",
+              "description": "Close-up of tight 1880s sleeve fit during fitting session",
+              "tags": [],
+              "prompt": "Extreme close-up iPhone 14 Pro photo of burgundy silk sleeve on actress's arm during fitting, tight 1880s sleeve construction, focus on arm and sleeve fit only, pins marking adjustment point if needed, period sleeve construction check, static fitting detail, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/bustle-back-fitting.jpg",
+              "title": "Bustle Drape Check",
+              "description": "Back view of bustle drape during fitting session",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from behind showing burgundy silk skirt with bustle drape on actress during fitting, focus on back of skirt and how bustle pad creates silhouette, period bustle shape visible, static fitting documentation from back, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/skirt-hem-pinned.jpg",
+              "title": "Skirt Hem Marked",
+              "description": "Burgundy silk skirt hem with pins marking final length",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of burgundy silk skirt hem area with pins marking hem length, skirt on actress, focus on lower skirt showing where final hem will be, static fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/buttons-attached-row.jpg",
+              "title": "Covered Buttons Complete",
+              "description": "Row of silk-covered buttons sewn onto dress front",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo photo of burgundy silk-covered buttons already sewn onto dress front in vertical row, matching buttons complete, button attachment finished, construction detail, natural light. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/continuity-photos.jpg",
+              "title": "Continuity Documentation Setup",
+              "description": "Dress on form being photographed from multiple angles for continuity",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of dress form with burgundy Victorian dress, showing process of taking detailed documentation photos from multiple angles for film continuity department, costume fully assembled on form, documentation process in progress, neutral background. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/dress-final-pressed.jpg",
+              "title": "Dress After Final Pressing",
+              "description": "Completed burgundy dress on form after final pressing before delivery",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of completed burgundy silk Victorian dress on dress form after final pressing, all 30+ buttonholes finished, perfect pressing for camera, ready for delivery to set, construction completion, workshop setting with neutral background. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/lead-gown-finished.jpg",
+              "title": "Lead Dress Complete",
+              "description": "Finished burgundy silk 1880s day dress on dress form",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed 1880s burgundy silk day dress on dress form, fitted bodice with row of hand-sewn buttonholes down front, bustle back, perfect Victorian period construction, museum-quality detail, soft studio lighting showing silk fabric and construction, neutral background"
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/lead-gown-production.jpg",
+              "title": "Lead Character - On Set",
+              "description": "Professional on-set photo of actress in burgundy dress during filming",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Drawing room scene",
+                "note": "Hero costume for lead character"
+              },
+              "prompt": "Professional film production photography on set, actress in burgundy silk 1880s day dress, period room setting with Victorian furnishings, natural lighting from windows, camera-ready costume, high-quality unit photography, cinematic composition"
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/male-suit-pattern.jpg",
+              "title": "Male Lead Suit Pattern",
+              "description": "Pattern for 1880s three-piece formal suit laid out",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of Victorian men's formal suit pattern on cutting table, tailcoat with long tails, waistcoat, and trousers pattern pieces arranged, 1880s formal menswear construction patterns, pattern preparation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/charcoal-wool-cut.jpg",
+              "title": "Charcoal Wool Cut Pieces",
+              "description": "Cut charcoal wool pieces for formal suit arranged on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing dark charcoal grey wool suiting fabric pieces already cut for tailcoat arranged on cutting table, coat pieces with clean cut edges visible, fine wool for formal Victorian suit, static work documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/tailcoat-canvas-complete.jpg",
+              "title": "Tailcoat Canvas Detail",
+              "description": "Completed pad-stitching on canvas layers for formal tailcoat",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of horsehair canvas for Victorian tailcoat fronts showing completed pad-stitching, traditional formal tailoring technique visible, diagonal parallel stitch rows clear, charcoal wool piece nearby, period construction documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/tailcoat-on-form-wip.jpg",
+              "title": "Tailcoat Construction Stage",
+              "description": "Charcoal wool tailcoat on dress form during mid-construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of charcoal wool Victorian tailcoat on dress form in mid-construction, coat partially assembled showing tails, structured work-in-progress, formal Victorian menswear taking shape on form, construction stage documentation, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/tailcoat-fitting.jpg",
+              "title": "Tailcoat Fitting Check",
+              "description": "Close-up of tailcoat fit on actor during fitting session",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of charcoal wool Victorian tailcoat back and tails on actor during fitting, focus on coat back fit and tail length, actor's head cropped from frame, checking fit and drape, static fitting documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/waistcoat-construction.jpg",
+              "title": "Waistcoat Detail Construction",
+              "description": "Victorian waistcoat on form showing construction with silk back",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of Victorian waistcoat on small dress form showing construction stage, charcoal wool front with burgundy silk back lining visible, welt pockets complete, formal menswear construction, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/suit-pressed-complete.jpg",
+              "title": "Suit After Final Pressing",
+              "description": "Completed tailcoat and waistcoat on form after pressing",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of completed charcoal wool Victorian tailcoat and waistcoat on dress form after final pressing, coat tails hanging properly, perfect pressing for camera, formal suit ready for set, construction completion, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/male-suit-complete.jpg",
+              "title": "Male Lead Suit Complete",
+              "description": "Finished charcoal three-piece Victorian suit on dress form",
+              "tags": [],
+              "prompt": "Professional documentation photo of completed 1880s three-piece suit on dress form, charcoal wool tailcoat with long tails, matching waistcoat and trousers, formal Victorian menswear, perfect period construction, soft studio lighting, neutral background"
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/male-lead-production.jpg",
+              "title": "Male Lead - On Set",
+              "description": "Professional on-set photo of actor in formal Victorian suit during filming",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Gentleman's club scene"
+              },
+              "prompt": "Professional film production photography on set, actor in charcoal Victorian three-piece suit with tailcoat, period interior setting, formal Victorian atmosphere, camera-ready costume, high-quality unit photography, cinematic lighting"
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/stunt-double-comparison.jpg",
+              "title": "Stunt Double Matching",
+              "description": "Stunt double dress next to original for continuity matching",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of two dress forms side by side, stunt double burgundy dress next to original hero dress for comparison, matching construction and fabric, duplicate build for continuity, documentation of matching work, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/the-crimson-inheritance/on-set-repair.jpg",
+              "title": "On-Set Repair Work",
+              "description": "Julian doing emergency costume repair on set between takes",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo on film set, British-Nigerian man with medium-dark brown skin and short buzz cut making quick repair to costume between takes, portable sewing kit visible on table, on-set work environment, film production atmosphere, shot by crew member, backstage/on-set documentation. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph.",
+              "isIdentity": true
+            }
+          ]
+        },
+        {
+          "id": "shadows-and-smoke",
+          "title": "Shadows and Smoke",
+          "slug": "shadows-and-smoke",
+          "description": "Neo-noir crime thriller set in 1940s Los Angeles with contemporary edge. Eight-month shoot requiring period film noir construction with modern cinematic finishing. Built 15 principal costumes emphasizing sharp tailoring, dramatic silhouettes, and high-contrast fabric choices for black-and-white aesthetic despite color filming. Lead construction on detective's signature double-breasted overcoat, femme fatale's bias-cut evening gowns, and gangster three-piece suits.",
+          "isFeatured": true,
+          "order": 2,
+          "projectDetails": {
+            "role": "Lead Construction - Professional First Hand",
+            "production": "Shadows and Smoke (Independent Feature)",
+            "location": "UK Studio + Los Angeles Location",
+            "year": 2024,
+            "timeline": "14 weeks pre-production build, 8 months production support",
+            "scale": "15 principal costumes, 30+ duplicates for stunts and continuity"
+          },
+          "projectContent": {
+            "challenge": "Creating costumes that would read dramatically in the director's high-contrast lighting style. Every fabric choice had to consider how it would appear under harsh key lighting and deep shadows. The detective's overcoat needed to move beautifully for the noir aesthetic while surviving stunt work.",
+            "approach": "Heavy emphasis on silhouette and drape over surface decoration. Structured shoulders, crisp lapels, perfect pressing. Fabrics chosen for how they absorbed or reflected light. Built three identical copies of the detective's hero coat for stunts, continuity, and backup.",
+            "outcome": "The costume work became integral to the film's visual style. The director specifically lit scenes to showcase the coat's movement. Film festival reviews noted the 'impeccable period tailoring' as enhancing the noir atmosphere."
+          },
+          "techniques": [
+            "1940s period tailoring techniques",
+            "Bias-cut evening gown construction",
+            "Structured shoulder pads for noir silhouettes",
+            "Duplicate builds for stunt continuity",
+            "High-contrast fabric selection for dramatic lighting"
+          ],
+          "photos": [
+            {
+              "file": "categories/film-production/shadows-and-smoke/overcoat-pattern-layout.jpg",
+              "title": "Detective's Overcoat Pattern",
+              "description": "Pattern for 1940s double-breasted overcoat laid out on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of large pattern for 1940s double-breasted overcoat on cutting table, dramatic collar and wide lapel patterns visible, belt and pocket patterns, noir-style coat construction, kraft paper with measurements, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/charcoal-wool-melton-cut.jpg",
+              "title": "Charcoal Melton Wool Cut",
+              "description": "Cut pieces of heavy charcoal melton wool for overcoat arranged on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing heavy charcoal grey melton wool fabric pieces already cut for overcoat, large coat body and sleeve pieces arranged on cutting table, thick winter-weight wool for dramatic noir coat, static work documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/overcoat-canvas-work.jpg",
+              "title": "Overcoat Canvas Construction",
+              "description": "Heavy canvas interfacing with completed pad-stitching for dramatic shoulders",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of heavy horsehair canvas showing completed extensive pad-stitching for overcoat fronts and shoulders, structured construction for dramatic 1940s silhouette visible, traditional technique documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/wide-lapels-detail.jpg",
+              "title": "Wide Lapel Construction",
+              "description": "Detail of completed wide peaked lapels characteristic of 1940s styling",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro close-up photo of charcoal wool overcoat lapel construction, wide peaked lapel with perfect roll visible, 1940s period styling, lapel construction detail, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/overcoat-on-form-wip.jpg",
+              "title": "Overcoat Construction Stage",
+              "description": "Charcoal overcoat on dress form during mid-construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of charcoal melton wool overcoat on dress form in mid-construction, dramatic double-breasted front visible, wide lapels taking shape, structured shoulders, 1940s noir coat on form, work-in-progress, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/belt-detail-complete.jpg",
+              "title": "Belt and Buckle Detail",
+              "description": "Completed overcoat belt with period-accurate buckle",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of charcoal wool overcoat belt with vintage-style buckle already attached, belt construction complete, period hardware detail, natural light. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/overcoat-fitting-shoulder.jpg",
+              "title": "Overcoat Fitting - Shoulder Drape",
+              "description": "Close-up of overcoat shoulder fit on actor during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of charcoal overcoat shoulder area on actor during fitting, focus on how dramatic structured shoulder sits and coat drapes, actor's head cropped from top of frame, checking 1940s silhouette, static fitting documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/overcoat-movement-check.jpg",
+              "title": "Checking Coat Movement",
+              "description": "Full overcoat on actor during fitting checking drape and movement",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of actor wearing full charcoal overcoat during fitting, coat shown from behind to see how it drapes and moves, belt tied, dramatic coat length visible, checking movement and drape for camera, actor's head may be cropped or turned away, fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/overcoat-pressed-ready.jpg",
+              "title": "Overcoat After Final Pressing",
+              "description": "Completed overcoat on form after final pressing, ready for set",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of completed charcoal melton wool overcoat on dress form after final pressing, dramatic wide lapels perfectly pressed, structured shoulders, belt detail, 1940s noir coat ready for camera, construction completion, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/overcoat-finished.jpg",
+              "title": "Detective's Overcoat Complete",
+              "description": "Finished double-breasted overcoat on form, iconic noir silhouette",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed 1940s charcoal double-breasted overcoat on dress form, wide peaked lapels, structured shoulders, dramatic noir silhouette, perfect period tailoring, soft studio lighting creating slight film noir mood, neutral background"
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/detective-overcoat-production.jpg",
+              "title": "Detective - On Set",
+              "description": "Professional on-set photo of lead actor in signature overcoat during filming",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Alley confrontation scene",
+                "note": "Hero costume - iconic detective look"
+              },
+              "prompt": "Professional film production photography on set, actor in charcoal 1940s double-breasted overcoat, dramatic film noir lighting with harsh shadows and key light, atmospheric smoke or fog, urban noir setting, camera-ready hero costume, high-quality cinematic unit photography, moody noir atmosphere"
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/evening-gown-pattern.jpg",
+              "title": "Bias-Cut Gown Pattern",
+              "description": "Pattern for bias-cut evening gown laid out showing dramatic true-bias draping",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of bias-cut evening gown pattern on cutting table, pattern pieces arranged on true bias angle visible, 1940s evening gown with dramatic drape, complex bias construction pattern, measurements marked, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/silver-satin-cut.jpg",
+              "title": "Silver Satin Cut on Bias",
+              "description": "Cut pieces of silver-grey satin arranged showing bias grain direction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing silver-grey silk satin fabric pieces cut on the bias arranged on table, bias grain direction visible in how pieces are laid, elegant draping fabric for evening gown, luxurious fabric with sheen, static work documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/bias-drape-on-form.jpg",
+              "title": "Bias Draping on Form",
+              "description": "Silver satin evening gown on form showing bias-cut drape taking shape",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of silver-grey satin evening gown on dress form in construction, bias-cut drape creating elegant flow, cowl neckline taking shape, 1940s evening gown silhouette on form, work-in-progress, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/gown-fitting-drape.jpg",
+              "title": "Evening Gown Fitting - Drape Check",
+              "description": "Close-up of bias-cut gown drape on actress during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of silver-grey satin bias-cut evening gown on actress during fitting, focus on how bias drape flows over body, cowl neckline and shoulder area, actress's head cropped from frame, checking drape and movement, static fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/gown-back-fitting.jpg",
+              "title": "Gown Back Detail Fitting",
+              "description": "Back view of evening gown during fitting showing bias drape from behind",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from behind showing silver-grey satin evening gown on actress during fitting, focus on how bias-cut fabric drapes down back, elegant 1940s silhouette, static fitting documentation from rear, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/evening-gown-complete.jpg",
+              "title": "Evening Gown Complete",
+              "description": "Finished silver satin bias-cut evening gown on dress form",
+              "tags": [],
+              "prompt": "Professional documentation photo of completed 1940s bias-cut evening gown on dress form, silver-grey silk satin with elegant drape, cowl neckline, dramatic noir-era glamour, perfect construction, soft studio lighting showing fabric flow and sheen, neutral background"
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/femme-fatale-production.jpg",
+              "title": "Femme Fatale - On Set",
+              "description": "Professional on-set photo of actress in silver evening gown during filming",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Nightclub scene",
+                "note": "Signature femme fatale costume"
+              },
+              "prompt": "Professional film production photography on set, actress in silver-grey bias-cut 1940s evening gown, dramatic film noir lighting with hard shadows, elegant drape visible, nightclub setting, camera-ready glamour costume, high-quality cinematic unit photography, classic noir atmosphere"
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/gangster-suit-pattern.jpg",
+              "title": "Gangster Suit Pattern",
+              "description": "Pattern for 1940s wide-shouldered three-piece suit",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of 1940s three-piece suit pattern on cutting table, jacket with exaggerated wide shoulders, waistcoat and trousers, gangster-style menswear pattern, measurements marked on kraft paper, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/pinstripe-fabric-cut.jpg",
+              "title": "Pinstripe Wool Cut",
+              "description": "Cut navy pinstripe wool pieces for gangster suit arranged on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing navy wool fabric with subtle pinstripe already cut for suit, jacket pieces arranged on table, 1940s gangster suit construction, clean cut edges, static work documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/exaggerated-shoulder-pads.jpg",
+              "title": "Wide Shoulder Pad Construction",
+              "description": "Oversized shoulder pads for 1940s gangster silhouette",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of exaggerated shoulder pads for 1940s suit jacket, large structured shoulder forms that create wide gangster silhouette, padding and canvas construction visible, period tailoring element, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/suit-on-form-wip.jpg",
+              "title": "Gangster Suit Construction",
+              "description": "Navy pinstripe suit on form showing wide-shouldered construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of navy pinstripe suit jacket on dress form in mid-construction, exaggerated wide shoulders visible, 1940s gangster silhouette taking shape, work-in-progress on form, construction stage documentation, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/suit-fitting-shoulders.jpg",
+              "title": "Suit Fitting - Shoulder Check",
+              "description": "Close-up of wide-shouldered suit jacket fit on actor during fitting",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo of navy pinstripe suit jacket with exaggerated wide shoulders on actor during fitting, focus on shoulder and upper back area, actor's head cropped from frame, checking dramatic 1940s silhouette, static fitting documentation, natural workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/waistcoat-detail.jpg",
+              "title": "Gangster Waistcoat Detail",
+              "description": "Navy pinstripe waistcoat on form showing construction",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of navy pinstripe waistcoat on small dress form, matching suit fabric, welt pockets complete, 1940s menswear construction visible, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/suit-complete-hero.jpg",
+              "title": "Hero Suit Complete",
+              "description": "Finished navy pinstripe gangster suit on dress form",
+              "tags": [],
+              "prompt": "Professional documentation photo of completed 1940s three-piece suit on dress form, navy wool with subtle pinstripe, exaggerated wide shoulders, double-breasted jacket, gangster-era tailoring, perfect period construction for film, soft studio lighting, neutral background"
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/stunt-double-suits.jpg",
+              "title": "Duplicate Builds for Stunts",
+              "description": "Three identical gangster suits on forms for hero, stunt, and backup",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of three dress forms in a row, each wearing identical navy pinstripe suit, hero and stunt doubles visible, matching construction for continuity, duplicate builds documentation, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/gangster-production.jpg",
+              "title": "Gangster - On Set",
+              "description": "Professional on-set photo of actor in navy pinstripe suit during filming",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Warehouse confrontation"
+              },
+              "prompt": "Professional film production photography on set, actor in navy pinstripe 1940s suit with exaggerated wide shoulders, dramatic noir lighting with hard shadows, period interior setting, gangster costume in performance, high-quality cinematic unit photography, film noir atmosphere"
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/overcoat-continuity-photos.jpg",
+              "title": "Overcoat Continuity Documentation",
+              "description": "Multiple angle documentation photos of detective's coat for continuity",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo showing dress form with charcoal overcoat being photographed from multiple angles for continuity department, coat fully finished, documentation process for film continuity records, neutral background. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/detective-coat-complete.jpg",
+              "title": "Detective's Overcoat Complete",
+              "description": "Finished charcoal double-breasted overcoat on dress form",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed 1940s charcoal double-breasted overcoat on dress form, wide peaked lapels, belt detail, dramatic noir silhouette, perfect period construction, soft studio lighting creating subtle film noir mood, neutral background"
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/detective-coat-production.jpg",
+              "title": "Detective - Signature Coat Scene",
+              "description": "Professional on-set photo of detective in iconic overcoat",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit photographer",
+                "scene": "Rain-soaked alley scene",
+                "note": "Iconic detective silhouette"
+              },
+              "prompt": "Professional film production photography on set at night, actor in charcoal 1940s double-breasted overcoat with belt, dramatic film noir lighting with rain and atmospheric fog, hard key light creating sharp shadows, wet pavement reflecting light, urban noir setting, camera-ready hero costume, high-quality cinematic unit photography, classic noir detective atmosphere"
+            },
+            {
+              "file": "categories/film-production/shadows-and-smoke/on-set-with-director.jpg",
+              "title": "On Set with Director",
+              "description": "Julian on set consulting with director about costume details",
+              "tags": [],
+              "prompt": "Candid iPhone 14 Pro photo on film set, British-Nigerian man with medium-dark brown skin and short buzz cut in conversation with director about costume details, film production environment visible, professional on-set collaboration, shot by crew member, behind-the-scenes documentation. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph.",
+              "isIdentity": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specialty-techniques",
+      "name": "Specialty Techniques",
+      "slug": "specialty-techniques",
+      "description": "Advanced construction skills beyond standard tailoring: leatherwork, corsetry, and armor fabrication. These techniques showcase the breadth of skills required in theatrical costume construction, often combining multiple crafts in a single project.",
+      "order": 3,
+      "featuredPhoto": "categories/specialty-techniques/leatherwork/armor-vest-complete.jpg",
+      "categoryContent": {
+        "headline": "Mastering Specialized Construction",
+        "introduction": "Theatrical costume construction demands expertise beyond traditional tailoring. Leatherwork requires different tools, different stitching techniques, different finishing. Corsetry demands precision engineering for both historical accuracy and performer comfort. Each specialty technique is a craft unto itself.",
+        "approach": "I document these techniques extensively - the tools, the materials, the finished elements. These builds often span multiple projects, showing technique development across different applications."
+      },
+      "projects": [
+        {
+          "id": "leatherwork",
+          "title": "Leatherwork",
+          "slug": "leatherwork",
+          "description": "Leather construction techniques across multiple projects: armor pieces, period accessories, and structural costume elements. Working with vegetable-tanned leather, brass hardware, hand-tooling, and weathering effects. This showcase includes work from post-apocalyptic armor to historical leather doublets.",
+          "isFeatured": true,
+          "order": 1,
+          "techniques": [
+            "Vegetable-tanned leather cutting and shaping",
+            "Brass rivet and hardware installation",
+            "Hand leather tooling and stamping",
+            "Leather dyeing and weathering",
+            "Articulated armor construction"
+          ],
+          "photos": [
+            {
+              "file": "categories/specialty-techniques/leatherwork/armor-pattern-layout.jpg",
+              "title": "Armor Vest Pattern",
+              "description": "Pattern for articulated leather armor vest laid out on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of leather armor pattern laid out on work table, shoulder guards and chest piece patterns on brown kraft paper, articulated armor design visible, measurements marked, pattern preparation for leather work, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/leatherwork/leather-pieces-cut.jpg",
+              "title": "Leather Armor Pieces Cut",
+              "description": "Cut thick brown leather pieces arranged after pattern cutting",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing thick brown vegetable-tanned leather pieces already cut and arranged on work surface, armor vest pieces visible with clean cut edges, heavy leather for armor construction, static work documentation, workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/leatherwork/tooling-complete-detail.jpg",
+              "title": "Hand Tooling Complete",
+              "description": "Completed decorative tooling on leather armor piece",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro close-up photo of brown leather piece showing completed hand-tooled decorative pattern, swivel knife cuts and stamped designs visible, finished leather crafting work, decorative detail for armor, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/leatherwork/rivet-holes-marked.jpg",
+              "title": "Rivet Placement Marked",
+              "description": "Precise measurements and marks for brass rivet placement on leather",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of ruler on brown leather with pencil marks indicating precise rivet placement, pattern of marks for hardware installation visible, measurement marks for rivets, leather work documentation, natural light. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/leatherwork/rivets-installed.jpg",
+              "title": "Brass Rivets Set",
+              "description": "Multiple brass rivets installed through thick leather",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro close-up photo of thick brown leather with multiple brass rivets already set in place, hardware installation complete, rivets catching light, leather armor construction detail, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/leatherwork/edges-burnished.jpg",
+              "title": "Burnished Leather Edges",
+              "description": "Smoothly finished leather edges after burnishing",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of cut leather edge that has been burnished smooth, finished edge of thick leather showing smooth polish, leather finishing technique complete, detail work, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/leatherwork/weathering-applied.jpg",
+              "title": "Leather Weathering Complete",
+              "description": "Leather pieces with applied dye and weathering effects",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of leather pieces laid out on work table showing applied leather dye and weathering effects, dark brown aged appearance with worn spots, weathering technique for costume leather complete, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/leatherwork/buckles-attached.jpg",
+              "title": "Brass Buckles Installed",
+              "description": "Heavy brass buckles attached to leather straps with reinforced stitching",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of brass buckle already sewn onto thick leather strap, reinforced attachment stitching visible, functional hardware attachment complete, leather strap construction detail, natural light. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/leatherwork/armor-vest-complete.jpg",
+              "title": "Leather Armor Vest Complete",
+              "description": "Finished articulated leather armor vest with brass hardware",
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed brown leather armor vest on dress form, articulated shoulder guards with brass rivets, hand-tooled decorative patterns, brass buckles and straps, weathered finish, dramatic studio lighting showing leather texture and metalwork, neutral background"
+            },
+            {
+              "file": "categories/specialty-techniques/leatherwork/doublet-on-form-wip.jpg",
+              "title": "Leather Doublet Construction",
+              "description": "Historical leather doublet on form showing construction progress",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of historical leather doublet on dress form in mid-construction, interior lining visible where not yet closed, leather body panels assembled, period garment construction in progress on form, work-in-progress documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            }
+          ]
+        },
+        {
+          "id": "corsetry",
+          "title": "Corsetry",
+          "slug": "corsetry",
+          "description": "Period corsetry construction for theater and film. Building historically accurate foundation garments with modern comfort considerations for 8+ hour performance wear. Techniques include spiral steel boning, hand-set grommets, and traditional coutil construction. Work shown spans Victorian, Edwardian, and Regency periods.",
+          "isFeatured": false,
+          "order": 2,
+          "techniques": [
+            "Spiral steel boning channel construction",
+            "Hand-set brass grommets",
+            "Coutil and silk construction",
+            "Historical corsetry methods",
+            "Comfort engineering for extended wear"
+          ],
+          "photos": [
+            {
+              "file": "categories/specialty-techniques/corsetry/corset-pattern-laid-out.jpg",
+              "title": "Victorian Corset Pattern",
+              "description": "Pattern for 1880s corset with complex paneling laid out",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above of Victorian corset pattern pieces laid out on table, multiple curved panels for structured corset, boning channel marks visible on patterns, complex period undergarment pattern, kraft paper with measurements, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/corsetry/coutil-pieces-cut.jpg",
+              "title": "Coutil Foundation Cut",
+              "description": "Cut coutil fabric pieces for corset foundation arranged on table",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo from above showing heavy natural-colored coutil fabric pieces already cut for corset foundation arranged on cutting table, corset panel pieces with clean edges, strong foundation fabric, static work documentation, workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/corsetry/boning-channels-complete.jpg",
+              "title": "Boning Channels Stitched",
+              "description": "Corset panel with completed parallel boning channels",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro close-up photo of coutil fabric panel showing completed precise parallel boning channels stitched in, multiple channel rows visible ready for spiral steel bones, corset construction detail, workshop lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/corsetry/bones-inserted.jpg",
+              "title": "Spiral Steel Bones In Place",
+              "description": "Boning channels with spiral steel bones inserted",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of corset panel with spiral steel boning already inserted into stitched channels, flexible steel bones visible through channel openings, boning insertion complete, corsetry construction detail, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/corsetry/grommet-placement-marked.jpg",
+              "title": "Grommet Positions Marked",
+              "description": "Precisely marked grommet positions for corset lacing",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of corset back panel with ruler measuring equal spacing, pencil marks indicating grommet hole positions, precise measurement for symmetrical lacing, corset construction detail, natural light. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/corsetry/grommets-set-complete.jpg",
+              "title": "Brass Grommets Set",
+              "description": "Row of brass grommets set into corset back panel",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro close-up photo of brass grommets already set into corset fabric in vertical row, symmetrical grommet placement complete, hardware installation finished, corset lacing holes ready, workshop setting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/corsetry/silk-exterior-attached.jpg",
+              "title": "Silk Exterior Applied",
+              "description": "Silk satin exterior layer attached to coutil foundation",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of corset showing ivory silk satin fabric already basted to coutil foundation layer, hand-basting stitches visible, layers combined, fashion fabric attached to foundation, corset construction, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/corsetry/binding-complete.jpg",
+              "title": "Edge Binding Finished",
+              "description": "Corset edges with completed binding tape finish",
+              "tags": [],
+              "prompt": "iPhone 14 Pro close-up photo of corset edge with silk binding tape already whip-stitched in place, edge finishing complete, neat binding visible, corset finishing detail, natural light. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/corsetry/corset-on-actress-fit.jpg",
+              "title": "Corset Fitting Check",
+              "description": "Close-up of fitted corset on actress during fitting session",
+              "tags": [],
+              "prompt": "Close-up iPhone 14 Pro photo showing completed ivory silk corset being worn by actress during fitting, focus on corset body and how it fits, actress's face and head completely cropped out of frame, lacing visible, static fitting documentation, natural lighting. No visible phone or camera in frame, no timestamp overlays, no UI elements, no date stamps, clean professional documentation photograph."
+            },
+            {
+              "file": "categories/specialty-techniques/corsetry/finished-corset.jpg",
+              "title": "Victorian Corset Complete",
+              "description": "Finished ivory silk corset with brass grommets and perfect period silhouette",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "Professional documentation photo of completed Victorian corset on dress form, ivory silk satin exterior, brass grommets laced with silk ribbon, perfect 1880s silhouette, boning creating structured shape, museum-quality corsetry, soft studio lighting showing construction detail, neutral background"
             }
           ]
         }
