@@ -1,5 +1,9 @@
 # Portfolio Builder Planning
 
+> **Historical Reference**
+> 
+> These planning materials were used during the initial rough-in of the project. The application has since evolved beyond these original specifications. They remain as a reference for the early design thinking and approach to building the application, but are no longer actively used for development.
+
 This directory contains the complete planning and specifications for the portfolio builder project.
 
 ---
