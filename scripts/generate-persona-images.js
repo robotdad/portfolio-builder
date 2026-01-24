@@ -25,9 +25,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const PERSONAS_DIR = path.join(PROJECT_ROOT, 'test-assets', 'personas');
 
-// Load API key from .env.local
+// Load API key from .env
 async function loadApiKey() {
-  const envPath = path.join(PROJECT_ROOT, '.env.local');
+  const envPath = path.join(PROJECT_ROOT, '.env');
   try {
     const envContent = await fs.readFile(envPath, 'utf-8');
     const match = envContent.match(/GEMINI_API_KEY[=:]?\s*["']?([^"'\n]+)["']?/);
@@ -35,9 +35,9 @@ async function loadApiKey() {
       return match[1].trim().replace(/^["']|["']$/g, '');
     }
   } catch (e) {
-    throw new Error('Could not read .env.local - make sure GEMINI_API_KEY is set');
+    throw new Error('Could not read .env - make sure GEMINI_API_KEY is set');
   }
-  throw new Error('GEMINI_API_KEY not found in .env.local');
+  throw new Error('GEMINI_API_KEY not found in .env');
 }
 
 // Generate single image

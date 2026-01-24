@@ -3,22 +3,20 @@ import { defineConfig, devices } from '@playwright/test'
 /**
  * Playwright configuration for portfolio E2E tests
  * 
- * This config lives in src/ alongside the Next.js app.
- * 
  * Test structure:
  * - src/tests/e2e/ - End-to-end test specs
  * - src/tests/fixtures/ - Test data and helpers
  * 
- * Usage (from src/):
+ * Usage (from project root):
  * - npm run test:e2e - Run all E2E tests
  * - npm run test:e2e:ui - Run with Playwright UI
  * - npm run test:populate - Populate test data via API
  */
 export default defineConfig({
   /* Global setup runs once before all tests to reset database state */
-  globalSetup: './tests/e2e/global-setup.ts',
+  globalSetup: './src/tests/e2e/global-setup.ts',
   
-  testDir: './tests/e2e',
+  testDir: './src/tests/e2e',
   
   /* Run tests in parallel */
   fullyParallel: true,

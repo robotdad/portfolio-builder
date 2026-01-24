@@ -32,8 +32,8 @@ const globalForPrisma = globalThis as unknown as {
 
 function createPrismaClient() {
   // Resolve database path relative to current working directory
-  // Next.js runs from src/, and Prisma CLI creates DB at src/prisma/dev.db
-  const dbPath = path.join(process.cwd(), 'prisma', 'dev.db')
+  // Project runs from root, database is at src/prisma/dev.db
+  const dbPath = path.join(process.cwd(), 'src', 'prisma', 'dev.db')
   const adapter = new PrismaBetterSqlite3({ url: `file:${dbPath}` })
   return new PrismaClient({ adapter })
 }
