@@ -207,6 +207,111 @@ npm run test:e2e:ui       # Playwright UI mode
 
 ---
 
+## Test Data Scripts
+
+### Persona Population
+
+**Script:** `scripts/populate-persona-api.js`
+
+Populates the database with complete persona portfolios using direct API calls (not UI automation).
+
+```bash
+# Populate a single persona
+node scripts/populate-persona-api.js sarah-chen
+
+# Available personas: sarah-chen, julian-vane, emma-rodriguez
+```
+
+**What it does:**
+- Creates portfolio with bio, location, profile photos
+- Creates categories with descriptions and featured images
+- Creates projects with full metadata (venue, year, budget, etc.)
+- Uploads all images and creates gallery sections
+- Takes 10-20 seconds per persona
+
+**When to use:**
+- Setting up test data for development
+- Resetting database to known state
+- Demo preparation
+
+### Image Generation
+
+**Script:** `scripts/generate-persona-images.js`
+
+Generates AI images for personas using prompts from `persona.json`.
+
+```bash
+# Generate all images for a persona
+node scripts/generate-persona-images.js sarah-chen
+
+# Generate only profile images
+node scripts/generate-persona-images.js sarah-chen --profile-only
+
+# Generate for a specific category
+node scripts/generate-persona-images.js sarah-chen --category theater-production
+```
+
+**Features:**
+- Uses identity reference (headshot) for consistency across images
+- Skips existing images (incremental generation)
+- Organized output to `images/profile/` and `images/categories/`
+
+**Full documentation:** `test-assets/README.md`
+
+---
+
+## Issue Tracking
+
+The `issue_manager` tool provides persistent issue tracking with dependency management. Use it to:
+
+- Break down complex tasks into trackable issues
+- Track blockers and dependencies between issues
+- Find ready work (issues with no blockers)
+- Link issues to Amplifier sessions for context
+
+### Common Operations
+
+```
+# Create an issue
+issue_manager(operation="create", params={title: "...", issue_type: "task", priority: 2})
+
+# List open issues
+issue_manager(operation="list", params={status: "open"})
+
+# Get issues ready to work on (no blockers)
+issue_manager(operation="get_ready")
+
+# Check what's blocked
+issue_manager(operation="get_blocked")
+
+# Update an issue
+issue_manager(operation="update", params={issue_id: "...", status: "in_progress"})
+
+# Close an issue
+issue_manager(operation="close", params={issue_id: "...", reason: "Completed"})
+```
+
+### Priority Levels
+
+| Priority | Level | Use For |
+|----------|-------|---------|
+| 0 | Critical | Blocking issues, production bugs |
+| 1 | High | Important features, significant bugs |
+| 2 | Normal | Standard tasks (default) |
+| 3 | Low | Nice-to-have, minor improvements |
+| 4 | Deferred | Future consideration |
+
+### When to Use Issues vs Todos
+
+| Use Issues | Use Todos |
+|------------|-----------|
+| Multi-session work | Single session tasks |
+| Complex dependencies | Simple sequential steps |
+| Need to track blockers | Linear workflow |
+| Want session history | Ephemeral tracking |
+
+---
+
 ## Key Takeaways
 
 1. **Delegate early** - Use agents from turn 2-3 to preserve context
@@ -215,7 +320,9 @@ npm run test:e2e:ui       # Playwright UI mode
 4. **Fix async issues** - setTimeout breaks Playwright timing
 5. **Use test-assets** - Personas and images exist for testing
 6. **Organize artifacts** - Screenshots in ai_working/, not committed
+7. **Use issue_manager** - For complex multi-session work with dependencies
+8. **Populate via API** - Use scripts, not UI automation, for test data
 
 ---
 
-*Based on sessions 3350e6b6 and 18d9144c.*
+*Based on sessions 3350e6b6, 18d9144c, and d59ce54f.*
