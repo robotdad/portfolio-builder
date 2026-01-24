@@ -181,8 +181,9 @@ Recommended sequence for admin interface work:
 
 **Full documentation:** `docs/TESTING.md`
 
-**Quick reference:**
+**Quick reference (run from project root):**
 ```bash
+npm run db:generate       # Generate Prisma client (after fresh install)
 npm run test:setup        # Reset DB + populate test data
 npm run test:e2e          # Run Playwright tests
 npm run test:e2e:ui       # Playwright UI mode

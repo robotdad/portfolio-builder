@@ -13,8 +13,6 @@ The testing strategy focuses on:
 ## Quick Start
 
 ```bash
-cd src
-
 # Reset database and populate with test data
 npm run test:setup
 
@@ -60,12 +58,13 @@ The population script (`scripts/populate-persona-api.js`) uses the REST API dire
 ### Structure
 
 ```
-src/
-├── playwright.config.ts       # E2E test configuration
-├── tests/
-│   └── e2e/
-│       ├── admin-workflow.spec.ts   # E2E test specs
-│       └── fixtures.ts              # API client, selectors
+portfolio-builder/
+├── playwright.config.ts           # E2E test configuration (root)
+└── src/
+    └── tests/
+        └── e2e/
+            ├── admin-workflow.spec.ts   # E2E test specs
+            └── fixtures.ts              # API client, selectors
 ```
 
 ### Running Tests
@@ -372,12 +371,14 @@ Some tests are skipped on mobile viewports due to timing issues with animations 
 ### Test File Location
 
 ```
-src/
-├── tests/
-│   └── e2e/
-│       ├── fixtures.ts              # API client, selectors, test extensions
-│       ├── admin-workflow.spec.ts   # Admin CRUD tests
-│       └── publish-workflow.spec.ts # Publish lifecycle tests
+portfolio-builder/
+├── playwright.config.ts             # E2E test configuration
+└── src/
+    └── tests/
+        └── e2e/
+            ├── fixtures.ts              # API client, selectors, test extensions
+            ├── admin-workflow.spec.ts   # Admin CRUD tests
+            └── publish-workflow.spec.ts # Publish lifecycle tests
 ```
 
 Add new spec files to `src/tests/e2e/` with the naming pattern `{feature}-workflow.spec.ts`.

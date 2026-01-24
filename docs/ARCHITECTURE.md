@@ -21,35 +21,44 @@ This document describes the architecture and design patterns of the Portfolio Bu
 ## Project Structure
 
 ```
-src/
-├── app/                    # Next.js App Router
-│   ├── api/               # REST API routes
-│   ├── admin/             # Admin dashboard pages
-│   ├── welcome/           # Onboarding wizard
-│   ├── preview/           # Draft preview mode
-│   └── [slug]/            # Public portfolio routes
-├── components/
-│   ├── admin/             # Admin UI components
-│   ├── editor/            # Rich text & section editors
-│   ├── onboarding/        # Welcome flow components
-│   ├── portfolio/         # Public display components
-│   │   └── templates/     # Homepage templates
-│   ├── providers/         # React context providers
-│   ├── shared/            # Reusable UI components
-│   └── ui/                # Base primitives (Button, Card)
-├── hooks/                 # Custom React hooks
-├── lib/
-│   ├── api/              # API response helpers
-│   ├── messages/         # Centralized error/success messages
-│   ├── storage/          # File storage utilities
-│   ├── types/            # TypeScript definitions
-│   ├── utils/            # Utility functions
-│   └── validations/      # Zod schemas
-├── prisma/               # Database schema
-├── public/               # Static assets & uploads
-├── tests/                # Test infrastructure
-│   └── e2e/             # Playwright E2E tests
-└── playwright.config.ts  # Playwright configuration
+portfolio-builder/
+├── package.json              # Dependencies and scripts
+├── tsconfig.json             # TypeScript configuration
+├── playwright.config.ts      # E2E test configuration
+├── prisma.config.ts          # Prisma configuration
+├── next.config.ts            # Next.js configuration
+├── eslint.config.mjs         # ESLint configuration
+├── scripts/                  # Utility scripts (populate, generate)
+├── test-assets/              # Test personas and images
+├── docs/                     # Documentation
+└── src/                      # Application source
+    ├── app/                  # Next.js App Router
+    │   ├── api/              # REST API routes
+    │   ├── admin/            # Admin dashboard pages
+    │   ├── welcome/          # Onboarding wizard
+    │   ├── preview/          # Draft preview mode
+    │   └── [slug]/           # Public portfolio routes
+    ├── components/
+    │   ├── admin/            # Admin UI components
+    │   ├── editor/           # Rich text & section editors
+    │   ├── onboarding/       # Welcome flow components
+    │   ├── portfolio/        # Public display components
+    │   │   └── templates/    # Homepage templates
+    │   ├── providers/        # React context providers
+    │   ├── shared/           # Reusable UI components
+    │   └── ui/               # Base primitives (Button, Card)
+    ├── hooks/                # Custom React hooks
+    ├── lib/
+    │   ├── api/              # API response helpers
+    │   ├── messages/         # Centralized error/success messages
+    │   ├── storage/          # File storage utilities
+    │   ├── types/            # TypeScript definitions
+    │   ├── utils/            # Utility functions
+    │   └── validations/      # Zod schemas
+    ├── prisma/               # Database schema and migrations
+    ├── public/               # Static assets & uploads
+    └── tests/                # Test infrastructure
+        └── e2e/              # Playwright E2E tests
 ```
 
 ---

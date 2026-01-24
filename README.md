@@ -39,15 +39,14 @@ This is a single-user portfolio application built with Next.js. It provides:
 
 ```bash
 # Clone the repository
-git clone https://github.com/robotdad/portfolio.git
-cd portfolio
+git clone https://github.com/robotdad/portfolio-builder.git
+cd portfolio-builder
 
 # Install dependencies
-cd src
 npm install
 
-# Initialize the database
-npx prisma db push
+# Generate Prisma client
+npm run db:generate
 
 # Start the development server
 npm run dev
@@ -76,11 +75,9 @@ portfolio/
 └── docs/                  # Documentation (WIP)
 ```
 
-See [src/README.md](src/README.md) for detailed application documentation.
-
 ## Scripts
 
-Run these from the `src/` directory:
+Run all commands from the project root:
 
 | Command | Description |
 |---------|-------------|
@@ -100,14 +97,14 @@ cp .env.example .env
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DATABASE_URL` | SQLite database path | `file:./prisma/dev.db` |
+| `DATABASE_URL` | SQLite database path | `file:./src/prisma/dev.db` |
 
 ## Documentation
 
-- [Application Details](src/README.md) — Tech stack, API endpoints, theme details
+- [Architecture](docs/ARCHITECTURE.md) — System design overview
+- [API Reference](docs/API.md) — REST API documentation
+- [Testing Guide](docs/TESTING.md) — Test infrastructure and patterns
 - [Deployment Guide](docs/DEPLOYMENT.md) — Production deployment options *(coming soon)*
-- [API Reference](docs/API.md) — REST API documentation *(coming soon)*
-- [Architecture](docs/ARCHITECTURE.md) — System design overview *(coming soon)*
 
 ## Test Data
 
