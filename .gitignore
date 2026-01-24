@@ -25,9 +25,6 @@ coverage/
 
 # Test artifacts
 tests/screenshots/
-tests/**/*.png
-*.png
-!archive/mockups/*.png
 
 # Playwright
 playwright-report/
@@ -107,6 +104,10 @@ logs/
 !tsconfig.json
 skills/
 
-# AI working screenshots (keep directory, ignore contents)
-ai_working/screenshots/*
+# AI working area - ignore all images (screenshots, reference images, etc.)
+ai_working/**/*.png
+ai_working/**/*.jpg
+ai_working/**/*.jpeg
+ai_working/**/*.gif
+ai_working/**/*.webp
 !ai_working/screenshots/.gitkeep

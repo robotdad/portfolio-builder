@@ -196,6 +196,35 @@ npm run test:e2e:ui       # Playwright UI mode
 
 ---
 
+## AI Working Directory
+
+**Location:** `ai_working/`
+
+This is the designated **temp workspace** for AI agent sessions. Use it for all intermediate artifacts:
+
+| Content | Example |
+|---------|---------|
+| Analysis docs | `UX-REVIEW-FINDINGS.md`, `CODE-REVIEW.md` |
+| Implementation specs | `AUTH-IMPLEMENTATION-PLAN.md` |
+| Session summaries | `SESSION_SUMMARY.md`, `population-summary.json` |
+| Temporary scripts | `verify-fixes.js`, `capture-screenshots.js` |
+| Screenshots | `screenshots/*.png` (gitignored) |
+
+**Organization:** Always create a date folder for your work:
+```
+ai_working/2026-01-24/your-analysis.md
+ai_working/screenshots/your-capture.png
+```
+
+**Do NOT:**
+- Create random folders in the project root
+- Leave intermediate files outside `ai_working/`
+- Commit screenshots (they're gitignored)
+
+See `ai_working/README.md` for full guidelines.
+
+---
+
 ## Project Documentation
 
 | Document | Content |
