@@ -29,6 +29,8 @@ import { FeaturedCarouselEditor } from './FeaturedCarouselEditor'
 import { GallerySectionEditor } from './GallerySectionEditor'
 import { CategoryGridEditor } from './CategoryGridEditor'
 import { ProjectGridEditor } from './ProjectGridEditor'
+import { ProjectCardEditor } from './ProjectCardEditor'
+import { ProjectListEditor } from './ProjectListEditor'
 import { LayoutTwoColumnEditor } from './layouts/LayoutTwoColumnEditor'
 import { LayoutThreeColumnEditor } from './layouts/LayoutThreeColumnEditor'
 import { LayoutSidebarEditor } from './layouts/LayoutSidebarEditor'
@@ -43,6 +45,8 @@ import type {
   GallerySection as GallerySectionType,
   CategoryGridSection as CategoryGridSectionType,
   ProjectGridSection as ProjectGridSectionType,
+  ProjectCardSection as ProjectCardSectionType,
+  ProjectListSection as ProjectListSectionType,
   LayoutTwoColumnSection as LayoutTwoColumnSectionType,
   LayoutThreeColumnSection as LayoutThreeColumnSectionType,
   LayoutSidebarSection as LayoutSidebarSectionType,
@@ -335,6 +339,24 @@ function SectionEditor({ section, portfolioId, categoryId, projectId, onChange, 
           onDelete={onDelete}
           onUnwrap={onUnwrap}
           onSaveRequest={onSaveRequest}
+        />
+      )
+    case 'project-card':
+      return (
+        <ProjectCardEditor
+          section={section as ProjectCardSectionType}
+          onChange={onChange as (s: ProjectCardSectionType) => void}
+          onDelete={onDelete}
+          categoryId={categoryId}
+        />
+      )
+    case 'project-list':
+      return (
+        <ProjectListEditor
+          section={section as ProjectListSectionType}
+          onChange={onChange as (s: ProjectListSectionType) => void}
+          onDelete={onDelete}
+          categoryId={categoryId}
         />
       )
     default:
