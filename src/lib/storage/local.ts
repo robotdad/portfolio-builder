@@ -1,28 +1,33 @@
-import { mkdir, writeFile } from 'fs/promises'
+import { mkdir, writeFile, rm } from 'fs/promises'
 import path from 'path'
 import type { ProcessedImage } from '../image-processor'
-
-export interface StoredImageUrls {
-  url: string          // Display version (800w)
-  thumbnailUrl: string // Thumbnail version (400w)
-  placeholderUrl: string // Base64 data URI (stored directly, not as file)
-  srcset400: string
-  srcset800: string
-  srcset1200: string
-  srcset1600: string
-}
+import type { StorageAdapter, StoredImageUrls } from './types'
 
 const UPLOADS_DIR = 'public/uploads'
 
 /**
- * Save processed images to local filesystem
- * Creates directory structure: public/uploads/[assetId]/
- * Returns relative URLs for each variant
+ * Validate asset ID to prevent path traversal attacks.
  */
-export async function saveProcessedImages(
+function validateAssetId(assetId: string): void {
+  if (!assetId || 
+      assetId.includes('..') || 
+      assetId.includes('/') || 
+      assetId.includes('\\') ||
+      assetId.startsWith('.')) {
+    throw new Error('Invalid asset ID')
+  }
+}
+
+/**
+ * Save processed images to local filesystem.
+ * Creates directory structure: public/uploads/[assetId]/
+ */
+async function saveProcessedImages(
   assetId: string,
   processed: ProcessedImage
 ): Promise<StoredImageUrls> {
+  validateAssetId(assetId)
+  
   // Create asset directory
   const assetDir = path.join(process.cwd(), UPLOADS_DIR, assetId)
   await mkdir(assetDir, { recursive: true })
@@ -51,4 +56,18 @@ export async function saveProcessedImages(
     srcset1200: `${baseUrl}/w1200.webp`,
     srcset1600: `${baseUrl}/w1600.webp`,
   }
+}
+
+/**
+ * Delete all files for an asset (idempotent - succeeds even if not exists).
+ */
+async function deleteAssetFiles(assetId: string): Promise<void> {
+  validateAssetId(assetId)
+  const assetDir = path.join(process.cwd(), UPLOADS_DIR, assetId)
+  await rm(assetDir, { recursive: true, force: true })
+}
+
+export const localStorageAdapter: StorageAdapter = {
+  saveProcessedImages,
+  deleteAssetFiles,
 }
