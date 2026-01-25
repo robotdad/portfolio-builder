@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth/middleware"
 import { NextResponse } from "next/server"
 
-const PROTECTED_PATTERNS = ['/admin', '/preview', '/api/admin']
+const PROTECTED_PATTERNS = ['/admin', '/preview', '/api/admin', '/welcome', '/api/setup']
 const PUBLIC_PATTERNS = ['/api/auth', '/auth', '/_next', '/favicon.ico']
 
 export default auth((req) => {
