@@ -396,18 +396,6 @@ export function ProjectList({
   if (isLoading) {
     return (
       <div className="project-list-container">
-        <header className="project-list-header">
-          <button
-            type="button"
-            className="project-list-create-btn"
-            disabled
-            aria-disabled="true"
-          >
-            <PlusIcon />
-            <span>Create Project</span>
-          </button>
-        </header>
-
         <div className="project-grid" aria-busy="true" aria-label="Loading projects">
           <SkeletonCard />
           <SkeletonCard />
@@ -417,29 +405,6 @@ export function ProjectList({
         <style jsx>{`
           .project-list-container {
             width: 100%;
-          }
-
-          .project-list-header {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 16px;
-            margin-bottom: 24px;
-          }
-
-          .project-list-create-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 16px;
-            background: var(--color-accent, #3b82f6);
-            color: white;
-            font-size: 14px;
-            font-weight: 500;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            opacity: 0.6;
           }
 
           .project-grid {
@@ -490,18 +455,6 @@ export function ProjectList({
       >
         {announcement}
       </div>
-
-      <header className="project-list-header">
-        <button
-          type="button"
-          className="project-list-create-btn"
-          onClick={onCreateClick}
-          data-testid="project-list-create-btn"
-        >
-          <PlusIcon />
-          <span>Create Project</span>
-        </button>
-      </header>
 
       <DndContext
         sensors={sensors}
@@ -562,47 +515,6 @@ export function ProjectList({
           clip: rect(0, 0, 0, 0);
           white-space: nowrap;
           border: 0;
-        }
-
-        .project-list-header {
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          gap: 16px;
-          margin-bottom: 24px;
-          flex-wrap: wrap;
-        }
-
-        .project-list-create-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 10px 16px;
-          background: var(--color-accent, #3b82f6);
-          color: white;
-          font-size: 14px;
-          font-weight: 500;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: background-color 200ms ease, transform 100ms ease;
-        }
-
-        .project-list-create-btn:hover {
-          background: var(--color-accent-hover, #2563eb);
-        }
-
-        .project-list-create-btn:focus {
-          outline: none;
-        }
-
-        .project-list-create-btn:focus-visible {
-          outline: 2px solid var(--color-accent, #3b82f6);
-          outline-offset: 2px;
-        }
-
-        .project-list-create-btn:active {
-          transform: scale(0.98);
         }
 
         .project-grid {
