@@ -331,7 +331,7 @@ export function DashboardOverview({ portfolioId, onSiteStatusComputed }: Dashboa
               <rect x="3" y="14" width="7" height="7" />
             </svg>
           }
-          variant={stats.categories.empty > 0 ? 'warning' : 'success'}
+          variant={stats.categories.empty > 0 ? 'warning' : 'default'}
         />
 
         <DashboardStatsCard
@@ -412,23 +412,6 @@ export function DashboardOverview({ portfolioId, onSiteStatusComputed }: Dashboa
               <h3 className="dashboard-action-card__title">New Project</h3>
               <p className="dashboard-action-card__description">
                 Add a project to showcase your work
-              </p>
-            </div>
-          </Link>
-
-          {/* Settings */}
-          <Link href="/admin/settings" className="dashboard-action-card">
-            <div className="dashboard-action-card__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M12 1v6m0 6v6m-8-7h6m6 0h6" />
-                <path d="M5.64 5.64l4.24 4.24m6.36 6.36l4.24 4.24M5.64 18.36l4.24-4.24m6.36-6.36l4.24-4.24" />
-              </svg>
-            </div>
-            <div className="dashboard-action-card__content">
-              <h3 className="dashboard-action-card__title">Settings</h3>
-              <p className="dashboard-action-card__description">
-                Configure your portfolio site
               </p>
             </div>
           </Link>

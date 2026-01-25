@@ -74,6 +74,45 @@ export function PublishQueueCard({ pages, projects, onPublishSuccess }: PublishQ
     }
   }
 
+  // Compact empty state - no need for full card when nothing to publish
+  if (totalCount === 0) {
+    return (
+      <div className="publish-queue-empty">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+          <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
+        <span>Publish Queue</span>
+        <span className="empty-status">All content published</span>
+        <style jsx>{`
+          .publish-queue-empty {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3, 12px);
+            padding: var(--space-3, 12px) var(--space-4, 16px);
+            background: var(--bg-secondary, #f9fafb);
+            border: 1px solid var(--border-color, #e5e7eb);
+            border-radius: var(--radius-md, 8px);
+            font-size: var(--text-sm, 14px);
+            color: var(--text-secondary, #6b7280);
+          }
+          .publish-queue-empty svg {
+            color: var(--color-success, #10b981);
+            flex-shrink: 0;
+          }
+          .publish-queue-empty span:first-of-type {
+            font-weight: 600;
+            color: var(--text-primary, #111827);
+          }
+          .empty-status {
+            margin-left: auto;
+            color: var(--color-success, #10b981);
+          }
+        `}</style>
+      </div>
+    )
+  }
+
   return (
     <div className="publish-queue-card">
       <div className="card-header">
