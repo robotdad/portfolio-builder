@@ -5399,11 +5399,11 @@ textarea:focus-visible {
   padding-bottom: var(--space-2);
 }
 
-/* Consecutive layout sections need additional visual separation 
+/* Consecutive layout sections need substantial visual separation 
    The flexbox gap is uniform, but edge-to-edge content in layouts
-   appears "smooshed" without extra breathing room */
+   appears "smooshed" without extra breathing room between them */
 .project-content > .section-layout + .section-layout {
-  padding-top: var(--space-6);
+  padding-top: var(--space-12);
 }
 
 .project-gallery-section {
