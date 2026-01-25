@@ -15,6 +15,16 @@ This application is designed for single-user deployment. It uses SQLite for simp
 - VPS/bare metal deployment
 - Database migration to PostgreSQL
 
+## Authentication Setup
+
+This application uses Google OAuth for admin authentication.
+
+**[Google OAuth Setup Guide](./GOOGLE-OAUTH-SETUP.md)** - Complete instructions for:
+- Creating Google Cloud Console credentials
+- Configuring OAuth consent screen
+- Setting up environment variables
+- Testing the authentication flow
+
 ## Environment Configuration
 
-See [.env.example](../src/.env.example) for required environment variables.
+See [.env.example](../.env.example) for required environment variables.
