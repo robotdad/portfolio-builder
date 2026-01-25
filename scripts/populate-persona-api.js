@@ -1,18 +1,22 @@
 #!/usr/bin/env node
 
 /**
- * Enhanced persona population using persona-enhanced.json
+ * Persona population script
  * Resets database and populates rich metadata for categories, projects, and images
  * 
- * Usage: node scripts/populate-persona-enhanced.js [persona-id] [--no-reset]
- * Example: node scripts/populate-persona-enhanced.js sarah-chen
- *          node scripts/populate-persona-enhanced.js emma-rodriguez --no-reset
+ * Usage: node scripts/populate-persona-api.js [persona-id] [--no-reset]
+ * Example: node scripts/populate-persona-api.js sarah-chen
+ *          node scripts/populate-persona-api.js emma-rodriguez --no-reset
  */
 
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
+
+// Layout enhancement modules
+import { createTagContext, processPhotoTags } from './lib/tag-processor.js';
+import { applyLayoutEnhancements } from './lib/apply-layouts.js';
 
 const API_BASE = 'http://localhost:3000/api';
 const __filename = fileURLToPath(import.meta.url);
@@ -144,100 +148,237 @@ function findImagePath(personaDir, photo, category = null, project = null) {
 }
 
 // Build project content sections from enhanced metadata
+/**
+ * Format plain text as HTML with proper paragraph structure
+ */
+function formatAsHtml(text) {
+  if (!text) return '';
+  // If already has HTML tags, return as-is
+  if (/<[^>]+>/.test(text)) return text;
+  
+  // Split into sentences, group into paragraphs of 2-3 sentences
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  const paragraphs = [];
+  
+  for (let i = 0; i < sentences.length; i += 2) {
+    const chunk = sentences.slice(i, i + 2).join(' ');
+    if (chunk.trim()) {
+      paragraphs.push(`<p>${chunk.trim()}</p>`);
+    }
+  }
+  
+  return paragraphs.join('\n');
+}
+
+/**
+ * Build project sections with SIDE-BY-SIDE layouts using layout-two-column.
+ * 
+ * Layout Pattern:
+ * 1. HERO: Full-width image (immediate visual impact)
+ * 2. INTRO: Two-column 60-40 (description left, project details right)
+ * 3. CHALLENGE: Two-column 50-50 (text left, image right)
+ * 4. PROCESS GALLERY: Full-width gallery (visual break)
+ * 5. APPROACH: Two-column 40-60 (image left, text right) - ALTERNATES
+ * 6. OUTCOME: Two-column 50-50 (text left, image right)
+ * 7. DETAILS: Two-column 60-40 (techniques left, recognition right)
+ * 8. FINAL GALLERY: Remaining images
+ */
 function buildProjectSections(project, galleryImages) {
   const sections = [];
+  const images = [...galleryImages]; // Copy so we can consume from it
   
-  // Overview section
-  if (project.description) {
+  // Helper to get next image if available
+  const getNextImage = () => images.length > 0 ? images.shift() : null;
+  
+  // Helper to create image section for use in columns
+  const createImageSection = (img, fallbackAlt = '') => ({
+    id: generateId(),
+    type: 'image',
+    imageId: img.imageId || img.assetId || null,
+    imageUrl: img.imageUrl || img.url || null,
+    altText: img.altText || fallbackAlt,
+    caption: img.caption || ''
+  });
+  
+  // Helper to create text section for use in columns
+  const createTextSection = (content) => ({
+    id: generateId(),
+    type: 'text',
+    content: content
+  });
+  
+  // 1. HERO IMAGE - Full width at top (immediate visual impact)
+  const heroImage = getNextImage();
+  if (heroImage) {
+    sections.push(createImageSection(heroImage, project.title || 'Hero image'));
+  }
+  
+  // 2. INTRO SECTION - Two columns: Description (60%) + Project Details (40%)
+  const hasDescription = project.description;
+  const hasDetails = project.projectDetails && Object.keys(project.projectDetails).length > 0;
+  
+  if (hasDescription || hasDetails) {
+    // Build description HTML
+    const descriptionHtml = hasDescription 
+      ? `<h1>${project.title || 'Project'}</h1>\n${formatAsHtml(project.description)}`
+      : `<h1>${project.title || 'Project'}</h1>`;
+    
+    // Build details HTML
+    let detailsHtml = '';
+    if (hasDetails) {
+      const details = project.projectDetails;
+      const detailParts = [];
+      if (details.production) detailParts.push(`<p><strong>Production:</strong> ${details.production}</p>`);
+      if (details.venue) detailParts.push(`<p><strong>Venue:</strong> ${details.venue}</p>`);
+      if (details.director) detailParts.push(`<p><strong>Director:</strong> ${details.director}</p>`);
+      if (details.timeline) detailParts.push(`<p><strong>Timeline:</strong> ${details.timeline}</p>`);
+      if (details.year) detailParts.push(`<p><strong>Year:</strong> ${details.year}</p>`);
+      if (details.budget) detailParts.push(`<p><strong>Budget:</strong> ${details.budget}</p>`);
+      if (details.scale) detailParts.push(`<p><strong>Scale:</strong> ${details.scale}</p>`);
+      detailsHtml = `<h2>Details</h2>\n${detailParts.join('\n')}`;
+    }
+    
+    if (hasDescription && hasDetails) {
+      // Two-column layout: description left, details right
+      sections.push({
+        id: generateId(),
+        type: 'layout-two-column',
+        ratio: '60-40',
+        gap: 'default',
+        mobileStackOrder: 'left-first',
+        leftColumn: [createTextSection(descriptionHtml)],
+        rightColumn: [createTextSection(detailsHtml)]
+      });
+    } else {
+      // Single column fallback
+      sections.push(createTextSection(hasDescription ? descriptionHtml : detailsHtml));
+    }
+  }
+  
+  // 3. CHALLENGE SECTION - Two columns: Text (50%) + Image (50%)
+  if (project.projectContent?.challenge) {
+    const challengeImage = getNextImage();
+    const challengeHtml = `<h2>The Challenge</h2>\n${formatAsHtml(project.projectContent.challenge)}`;
+    
+    if (challengeImage) {
+      sections.push({
+        id: generateId(),
+        type: 'layout-two-column',
+        ratio: '50-50',
+        gap: 'default',
+        mobileStackOrder: 'left-first',
+        leftColumn: [createTextSection(challengeHtml)],
+        rightColumn: [createImageSection(challengeImage, 'Challenge context')]
+      });
+    } else {
+      sections.push(createTextSection(challengeHtml));
+    }
+  }
+  
+  // 4. PROCESS GALLERY - Full width visual break (3 images)
+  const processImages = [];
+  for (let i = 0; i < 3 && images.length > 0; i++) {
+    const img = images.shift();
+    processImages.push({
+      id: generateId(),
+      imageId: img.imageId || img.assetId || null,
+      imageUrl: img.imageUrl || img.url || null,
+      altText: img.altText || 'Process image',
+      caption: img.caption || ''
+    });
+  }
+  if (processImages.length > 0) {
     sections.push({
       id: generateId(),
-      type: 'text',
-      heading: 'Overview',
-      content: project.description
+      type: 'gallery',
+      heading: '',
+      images: processImages
     });
   }
   
-  // Project details as key-value section (if rich details available)
-  if (project.projectDetails) {
-    const details = project.projectDetails;
-    const detailsText = [];
+  // 5. APPROACH SECTION - Two columns: Image (40%) + Text (60%) - ALTERNATES direction
+  if (project.projectContent?.approach) {
+    const approachImage = getNextImage();
+    const approachHtml = `<h2>My Approach</h2>\n${formatAsHtml(project.projectContent.approach)}`;
     
-    if (details.production) detailsText.push(`**Production:** ${details.production}`);
-    if (details.venue) detailsText.push(`**Venue:** ${details.venue}`);
-    if (details.director) detailsText.push(`**Director:** ${details.director}`);
-    if (details.timeline) detailsText.push(`**Timeline:** ${details.timeline}`);
-    if (details.budget) detailsText.push(`**Budget:** ${details.budget}`);
-    if (details.scale) detailsText.push(`**Scale:** ${details.scale}`);
-    
-    if (detailsText.length > 0) {
+    if (approachImage) {
       sections.push({
         id: generateId(),
-        type: 'text',
-        heading: 'Production Details',
-        content: detailsText.join('\n\n')
+        type: 'layout-two-column',
+        ratio: '40-60',
+        gap: 'default',
+        mobileStackOrder: 'right-first', // Show text first on mobile
+        leftColumn: [createImageSection(approachImage, 'Approach visualization')],
+        rightColumn: [createTextSection(approachHtml)]
       });
+    } else {
+      sections.push(createTextSection(approachHtml));
     }
   }
   
-  // Challenge/Approach/Outcome sections
-  if (project.projectContent) {
-    const content = project.projectContent;
+  // 6. OUTCOME SECTION - Two columns: Text (50%) + Image (50%)
+  if (project.projectContent?.outcome) {
+    const outcomeImage = getNextImage();
+    const outcomeHtml = `<h2>The Outcome</h2>\n${formatAsHtml(project.projectContent.outcome)}`;
     
-    if (content.challenge) {
+    if (outcomeImage) {
       sections.push({
         id: generateId(),
-        type: 'text',
-        heading: 'The Challenge',
-        content: content.challenge
+        type: 'layout-two-column',
+        ratio: '50-50',
+        gap: 'default',
+        mobileStackOrder: 'left-first',
+        leftColumn: [createTextSection(outcomeHtml)],
+        rightColumn: [createImageSection(outcomeImage, 'Project outcome')]
       });
-    }
-    
-    if (content.approach) {
-      sections.push({
-        id: generateId(),
-        type: 'text',
-        heading: 'My Approach',
-        content: content.approach
-      });
-    }
-    
-    if (content.outcome) {
-      sections.push({
-        id: generateId(),
-        type: 'text',
-        heading: 'Outcome',
-        content: content.outcome
-      });
+    } else {
+      sections.push(createTextSection(outcomeHtml));
     }
   }
   
-  // Techniques as list section
-  if (project.techniques && project.techniques.length > 0) {
-    sections.push({
+  // 7. TECHNIQUES + RECOGNITION - Two columns if both exist
+  const hasTechniques = project.techniques && project.techniques.length > 0;
+  const hasRecognition = project.recognition && project.recognition.length > 0;
+  
+  if (hasTechniques || hasRecognition) {
+    const techniquesHtml = hasTechniques
+      ? `<h2>Techniques & Skills</h2>\n${project.techniques.map(t => `<p>• ${t}</p>`).join('\n')}`
+      : '';
+    
+    const recognitionHtml = hasRecognition
+      ? `<h2>Recognition</h2>\n${project.recognition.map(r => `<p><em>${r}</em></p>`).join('\n')}`
+      : '';
+    
+    if (hasTechniques && hasRecognition) {
+      sections.push({
+        id: generateId(),
+        type: 'layout-two-column',
+        ratio: '60-40',
+        gap: 'default',
+        mobileStackOrder: 'left-first',
+        leftColumn: [createTextSection(techniquesHtml)],
+        rightColumn: [createTextSection(recognitionHtml)]
+      });
+    } else {
+      sections.push(createTextSection(hasTechniques ? techniquesHtml : recognitionHtml));
+    }
+  }
+  
+  // 8. FINAL GALLERY - Any remaining images
+  if (images.length > 0) {
+    const galleryImageItems = images.map(img => ({
       id: generateId(),
-      type: 'list',
-      heading: 'Techniques & Skills',
-      items: project.techniques.map(t => ({ text: t }))
-    });
-  }
-  
-  // Recognition as list section
-  if (project.recognition && project.recognition.length > 0) {
-    sections.push({
-      id: generateId(),
-      type: 'list',
-      heading: 'Recognition',
-      items: project.recognition.map(r => ({ text: r }))
-    });
-  }
-  
-  // Gallery section
-  if (galleryImages.length > 0) {
+      imageId: img.imageId || img.assetId || null,
+      imageUrl: img.imageUrl || img.url || null,
+      altText: img.altText || '',
+      caption: img.caption || ''
+    }));
+    
     sections.push({
       id: generateId(),
       type: 'gallery',
       heading: 'Gallery',
-      images: galleryImages
+      images: galleryImageItems
     });
   }
   
@@ -302,12 +443,8 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
 
   const personaDir = path.join(PERSONAS_DIR, personaId);
   
-  // Try enhanced first, fall back to regular
-  let personaPath = path.join(personaDir, 'persona-enhanced.json');
-  if (!fs.existsSync(personaPath)) {
-    personaPath = path.join(personaDir, 'persona.json');
-    console.log('⚠️  No persona-enhanced.json found, using persona.json\n');
-  }
+  // Load persona data
+  const personaPath = path.join(personaDir, 'persona.json');
 
   if (!fs.existsSync(personaPath)) {
     throw new Error(`Persona not found: ${personaPath}`);
@@ -323,6 +460,17 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     sectionsCreated: 0
   };
   const startTime = Date.now();
+
+  // Layout enhancement context - tracks IDs and tagged images for Pass 2
+  const populationContext = {
+    portfolioId: null,
+    portfolioSlug: null,
+    personaId: personaId,
+    pages: { home: null },
+    categories: new Map(),
+    projects: new Map(),
+    taggedImages: createTagContext()
+  };
 
   // Step 1: Get or Create Portfolio
   console.log('📋 Setting up portfolio...');
@@ -343,8 +491,8 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
           console.log(`✓ Using existing portfolio: ${portfolioId} (${existingCategories.length} categories)`);
         }
       }
-    } catch (err) {
-      // Portfolio doesn't exist
+    } catch {
+      // Portfolio doesn't exist - continue to create new one
     }
   }
   
@@ -361,6 +509,10 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     portfolioId = portfolio.data.id;
     console.log(`✓ Portfolio created: ${portfolioId}`);
   }
+  
+  // Track portfolio in context for Pass 2
+  populationContext.portfolioId = portfolioId;
+  populationContext.portfolioSlug = portfolio?.data?.slug || personaId;
   
   console.log('');
 
@@ -424,8 +576,8 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   const portfolioData = await pagesCheck.json();
   const existingPages = portfolioData?.data?.pages || [];
   
-  const homepageExists = existingPages.some(p => p.isHomepage || p.slug === '' || p.slug === 'home');
-  if (!homepageExists) {
+  const existingHomepage = existingPages.find(p => p.isHomepage || p.slug === '' || p.slug === 'home');
+  if (!existingHomepage) {
     const homepageContent = JSON.stringify({
       sections: [{
         id: generateId(),
@@ -433,14 +585,14 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         name: persona.name || personaId,
         title: `${persona.name || personaId} Portfolio`,
         bio: '',
-        profileImageId: null,
-        profileImageUrl: null,
+        profileImageId: profileAssetId,
+        profileImageUrl: profileAssetUrl,
         showResumeLink: false,
         resumeUrl: ''
       }]
     });
     
-    await apiCall('POST', '/pages', {
+    const homePage = await apiCall('POST', '/pages', {
       portfolioId: portfolioId,
       title: 'Home',
       slug: '',
@@ -450,8 +602,12 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
       draftContent: homepageContent,
       publishedContent: homepageContent
     });
+    // Track home page for Pass 2
+    populationContext.pages.home = { id: homePage.data.id, slug: '' };
     console.log('  ✓ Homepage created');
   } else {
+    // Track existing home page for Pass 2
+    populationContext.pages.home = { id: existingHomepage.id, slug: existingHomepage.slug || '' };
     console.log('  ✓ Homepage already exists');
   }
   
@@ -520,8 +676,18 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     
     const created = await apiCall('POST', '/categories', categoryPayload);
     categoryId = created.data.id;
+    const categorySlug = created.data.slug || category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
     categoryMap[category.name] = categoryId;
     stats.categories++;
+    
+    // Track category for Pass 2
+    populationContext.categories.set(categorySlug, {
+      id: categoryId,
+      slug: categorySlug,
+      name: category.name,
+      projectIds: [],
+      existingSections: buildCategorySections(category)
+    });
     
     // Add category content sections
     const categorySections = buildCategorySections(category);
@@ -596,16 +762,46 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         
         const projectData = await apiCall('POST', '/projects', projectPayload);
         const projectId = projectData.data.id;
+        const categorySlug = category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
+        const projectSlug = projectData.data.slug || project.slug || project.title.toLowerCase().replace(/\s+/g, '-');
         stats.projects++;
+        
+        // Track project for Pass 2
+        populationContext.projects.set(projectId, {
+          id: projectId,
+          slug: projectSlug,
+          title: project.title,
+          categorySlug: categorySlug,
+          featuredImageId: featuredAsset.id,
+          existingSections: buildProjectSections(project, [])  // Gallery filled later
+        });
+        
+        // Add project ID to category's project list
+        const categoryContext = populationContext.categories.get(categorySlug);
+        if (categoryContext) {
+          categoryContext.projectIds.push(projectId);
+        }
+        
+        // Process tags on featured image
+        if (featuredPhoto.tags && featuredPhoto.tags.length > 0) {
+          processPhotoTags(featuredPhoto, featuredAsset, categorySlug, populationContext.taggedImages, projectSlug);
+        }
         
         console.log(`    ✓ Created (${details.year || '2024'}, ${details.venue || 'venue'})`);
         
-        // Upload gallery images
+        // Upload gallery images (excluding identity photos only - featured IS included)
         const galleryPhotos = (project.photos || []).filter(p => 
           p !== featuredPhoto && !p.isIdentity
         );
         
-        const galleryImages = [];
+        // Start with featured image as hero (already uploaded above)
+        const galleryImages = [{
+          id: `featured-${featuredAsset.id}`,
+          imageId: featuredAsset.id,
+          imageUrl: featuredAsset.url,
+          altText: featuredAltText,
+          caption: featuredCaption
+        }];
         
         if (galleryPhotos.length > 0) {
           console.log(`    📷 Uploading ${galleryPhotos.length} gallery images...`);
@@ -633,6 +829,12 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
                 caption: caption
               });
               
+              // Process tags on gallery images
+              if (photo.tags && photo.tags.length > 0) {
+                const catSlug = category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
+                processPhotoTags(photo, asset, catSlug, populationContext.taggedImages, projectSlug);
+              }
+              
               stats.images++;
               stats.galleryImages++;
             }
@@ -650,6 +852,12 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
           });
           stats.sectionsCreated += projectSections.length;
           console.log(`    ✓ Added ${projectSections.length} content sections, ${galleryImages.length} gallery images`);
+          
+          // Update context with actual sections including gallery for Pass 2
+          const projectContext = populationContext.projects.get(projectId);
+          if (projectContext) {
+            projectContext.existingSections = projectSections;
+          }
         }
         
       } catch (error) {
@@ -664,6 +872,16 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
       });
       console.log(`  ✓ Category featured image set`);
     }
+  }
+  
+  // Pass 2: Apply layout enhancements
+  console.log('\n🎨 Applying layout enhancements...');
+  try {
+    await applyLayoutEnhancements(populationContext, apiCall);
+    console.log('✓ Layout enhancements applied');
+  } catch (error) {
+    console.error(`⚠️ Layout enhancement failed: ${error.message}`);
+    // Continue - base content is still valid
   }
   
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);

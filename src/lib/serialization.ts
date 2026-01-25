@@ -71,6 +71,10 @@ function validateSections(sections: unknown[]): Section[] {
       case 'category-grid':
       case 'project-grid':
         return typeof s.heading === 'string'
+      case 'project-card':
+        return typeof s.projectId === 'string'
+      case 'project-list':
+        return Array.isArray(s.projectIds)
       case 'layout-two-column':
         return Array.isArray(s.leftColumn) && Array.isArray(s.rightColumn)
       case 'layout-three-column':

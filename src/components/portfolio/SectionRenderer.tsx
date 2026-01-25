@@ -17,10 +17,12 @@ import type {
   LayoutTwoColumnSection,
   LayoutThreeColumnSection,
   LayoutSidebarSection,
+  ProjectListSection,
 } from '@/lib/content-schema'
 import { FeaturedCarouselDisplay } from './FeaturedCarouselDisplay'
 import { CategoryGridRenderer } from './CategoryGridRenderer'
 import { ProjectGridRenderer } from './ProjectGridRenderer'
+import { ProjectListRenderer } from './ProjectListRenderer'
 import { LayoutTwoColumnRenderer } from './layouts/LayoutTwoColumnRenderer'
 import { LayoutThreeColumnRenderer } from './layouts/LayoutThreeColumnRenderer'
 import { LayoutSidebarRenderer } from './layouts/LayoutSidebarRenderer'
@@ -122,6 +124,8 @@ function SectionComponent({ section, portfolioSlug, categories, categorySlug, pr
         return null
       }
       return <ProjectGridRenderer section={section} projects={projects} categorySlug={categorySlug} portfolioSlug={portfolioSlug} />
+    case 'project-list':
+      return <ProjectListRenderer section={section as ProjectListSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
     case 'layout-two-column':
       return <LayoutTwoColumnRenderer section={section as LayoutTwoColumnSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
     case 'layout-three-column':

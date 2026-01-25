@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { ProjectDetail } from '@/components/portfolio/ProjectDetail'
 import { deserializeSections } from '@/lib/serialization'
-import { isHeroSection, isGallerySection } from '@/lib/content-schema'
+import { isHeroSection } from '@/lib/content-schema'
 import type { Metadata } from 'next'
 
 
@@ -93,24 +93,12 @@ export default async function ProjectPage({ params }: PageProps) {
   const heroSection = homePageSections.find(isHeroSection)
   const portfolioName = heroSection?.name || portfolio.name
 
-  // Parse project content to extract gallery images
+  // Parse project content - render ALL sections including galleries inline
   const projectSections = deserializeSections(project.publishedContent)
-  const gallerySection = projectSections.find(isGallerySection)
   
-  // Extract gallery images
-  const galleryImages = gallerySection?.images?.map((img, index) => ({
-    id: img.id || `img-${index}`,
-    imageUrl: img.imageUrl || '',
-    altText: img.altText || '',
-    caption: img.caption || '',
-  })).filter(img => img.imageUrl) || []
-
-  // Filter out gallery section from content (we'll render it separately)
-  const contentSections = projectSections.filter(s => s.type !== 'gallery')
-
-  // Serialize content back for SectionRenderer
-  const contentForRenderer = contentSections.length > 0 
-    ? JSON.stringify(contentSections) 
+  // Pass ALL sections to renderer (including galleries - they render inline now)
+  const contentForRenderer = projectSections.length > 0 
+    ? JSON.stringify(projectSections) 
     : null
 
   return (
@@ -132,7 +120,7 @@ export default async function ProjectPage({ params }: PageProps) {
         year: project.year,
         role: project.role,
         publishedContent: contentForRenderer,
-        galleryImages,
+        galleryImages: [],  // Galleries render inline via SectionRenderer now
       }}
     />
   )
