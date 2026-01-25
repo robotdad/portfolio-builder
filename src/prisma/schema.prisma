@@ -164,4 +164,12 @@ model ProjectGalleryImage {
   @@index([projectId, order])
 }
 
+model AllowedEmail {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  
+  @@index([email])
+}
+
 

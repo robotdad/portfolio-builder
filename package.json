@@ -19,6 +19,7 @@
     "test:populate:emma": "node scripts/populate-persona-api.js emma-rodriguez",
     "test:populate:julian": "node scripts/populate-persona-api.js julian-vane",
     "db:generate": "npx prisma generate",
+    "db:seed-admin": "npx tsx src/prisma/seed-admin.ts",
     "db:reset": "npx tsx src/scripts/reset-db.ts",
     "test:reset": "npm run db:reset",
     "test:setup": "npm run db:reset && npm run test:populate:sarah",
