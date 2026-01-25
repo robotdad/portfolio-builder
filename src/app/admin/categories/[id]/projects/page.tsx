@@ -389,7 +389,7 @@ export default function ProjectsPage() {
               { label: category?.name || 'Category' }
             ]
           }}
-          title="Projects"
+          title={`${category?.name || 'Category'} Projects`}
           actions={
             <div style={{ display: 'flex', gap: '12px' }}>
               <Link href={`/admin/categories/${categoryId}/edit`} className="btn btn-secondary">
