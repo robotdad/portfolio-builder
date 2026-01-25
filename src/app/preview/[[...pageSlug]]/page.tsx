@@ -188,6 +188,13 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
         caption: img.caption,
       }))
       
+      // Filter out gallery section from content (we'll render it separately via ProjectGallery)
+      // This matches the behavior of the published page
+      const contentSections = projectSections.filter(s => s.type !== 'gallery')
+      const contentForRenderer = contentSections.length > 0 
+        ? JSON.stringify(contentSections) 
+        : null
+      
       return (
         <div className="portfolio-page preview-mode" data-theme={theme}>
           <PreviewBanner />
@@ -198,27 +205,29 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
             categories={navCategories}
             theme={theme}
           />
-          <ProjectDetail
-            portfolio={{
-              name: portfolio.name,
-              publishedTheme: theme,
-            }}
-            category={{
-              id: category.id,
-              name: category.name,
-              slug: category.slug,
-            }}
-            project={{
-              id: project.id,
-              slug: project.slug,
-              title: project.title,
-              venue: project.venue,
-              year: project.year,
-              role: project.role,
-              publishedContent: contentToShow,
-              galleryImages,
-            }}
-          />
+          <main className="portfolio-main">
+            <ProjectDetail
+              portfolio={{
+                name: portfolio.name,
+                publishedTheme: theme,
+              }}
+              category={{
+                id: category.id,
+                name: category.name,
+                slug: category.slug,
+              }}
+              project={{
+                id: project.id,
+                slug: project.slug,
+                title: project.title,
+                venue: project.venue,
+                year: project.year,
+                role: project.role,
+                publishedContent: contentForRenderer,
+                galleryImages,
+              }}
+            />
+          </main>
         </div>
       )
     }
