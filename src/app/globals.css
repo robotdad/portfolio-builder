@@ -1633,6 +1633,7 @@ textarea:focus-visible {
 .image-upload-preview {
   position: relative;
   width: 100%;
+  aspect-ratio: 4 / 3;
   border-radius: var(--card-radius);
   overflow: hidden;
   background: var(--color-surface);
