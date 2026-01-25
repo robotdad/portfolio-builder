@@ -4,8 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
 import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
 import { CategoryLanding } from '@/components/portfolio/CategoryLanding'
-import { Navigation, type NavPage, type NavCategory } from '@/components/portfolio/Navigation'
-import { PublicFooter } from '@/components/portfolio/PublicFooter'
+
 import { deserializeSections } from '@/lib/serialization'
 import { isHeroSection, isGallerySection } from '@/lib/content-schema'
 import type { Metadata } from 'next'
@@ -174,46 +173,16 @@ async function renderCategoryPage(
   const heroSection = homePageSections.find(isHeroSection)
   const portfolioName = heroSection?.name || portfolio.name
 
-  const theme = (portfolio.publishedTheme || 'modern-minimal') as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
-
-  // Prepare navigation data
-  const navPages: NavPage[] = portfolio.pages
-    .filter(p => p.showInNav)
-    .map(p => ({
-      id: p.id,
-      title: p.title,
-      slug: p.slug,
-      isHomepage: p.isHomepage,
-      showInNav: p.showInNav,
-    }))
-
-  const navCategories: NavCategory[] = portfolio.categories.map(c => ({
-    id: c.id,
-    name: c.name,
-    slug: c.slug,
-  }))
-
   // If we have published content, use section-based rendering
+  // Note: Navigation and footer are provided by the layout
   if (sections.length > 0) {
     return (
-      <div className="portfolio-page" data-theme={theme}>
-        <Navigation
-          portfolioSlug=""
-          portfolioName={portfolio.name}
-          pages={navPages}
-          categories={navCategories}
-          theme={theme}
-        />
-        <main className="portfolio-main">
-          <SectionRenderer
-            sections={sections}
-            portfolioSlug=""
-            categorySlug={fullCategory.slug}
-            projects={fullCategory.projects}
-          />
-        </main>
-        <PublicFooter portfolioName={portfolio.name} />
-      </div>
+      <SectionRenderer
+        sections={sections}
+        portfolioSlug=""
+        categorySlug={fullCategory.slug}
+        projects={fullCategory.projects}
+      />
     )
   }
 
