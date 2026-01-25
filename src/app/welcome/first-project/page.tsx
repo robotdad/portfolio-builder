@@ -197,7 +197,7 @@ export default function FirstProjectPage() {
         }
       }
 
-      const response = await fetch('/api/onboarding/complete', {
+      const response = await fetch('/api/setup/onboarding', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

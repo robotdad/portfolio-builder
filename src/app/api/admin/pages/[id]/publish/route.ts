@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
 /**
- * POST /api/pages/[id]/publish
+ * POST /api/admin/pages/[id]/publish
  *
  * Publishes the page content and portfolio theme:
  * - Copies draftContent to publishedContent (if changed)

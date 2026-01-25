@@ -125,7 +125,7 @@ export default function SettingsPage() {
     setSaveError(false)
 
     try {
-      const res = await fetch('/api/portfolio', {
+      const res = await fetch('/api/admin/portfolio', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -191,7 +191,7 @@ export default function SettingsPage() {
       }
       
       // Then publish: copy draft → published
-      const response = await fetch('/api/portfolio/publish', {
+      const response = await fetch('/api/admin/portfolio/publish', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: currentPortfolio.id })

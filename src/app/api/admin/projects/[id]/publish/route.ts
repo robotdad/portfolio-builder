@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { ENTITY_ERRORS } from '@/lib/messages'
 
 /**
- * POST /api/projects/[id]/publish
+ * POST /api/admin/projects/[id]/publish
  *
  * Publishes the project content:
  * - Copies draftContent to publishedContent (if changed)

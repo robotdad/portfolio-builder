@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { apiSuccess, apiValidationError, apiInternalError, apiNotFound } from '@/lib/api'
 
 /**
- * GET /api/portfolio/category-page
+ * GET /api/admin/portfolio/category-page
  * 
  * Fetch category page content (draft and published)
  */
@@ -31,7 +31,7 @@ export async function GET() {
 }
 
 /**
- * PUT /api/portfolio/category-page
+ * PUT /api/admin/portfolio/category-page
  * 
  * Update category page draft content
  */

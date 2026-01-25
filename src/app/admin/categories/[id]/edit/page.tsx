@@ -89,7 +89,7 @@ export default function CategoryLandingEditorPage() {
     if (!category) return false
 
     try {
-      const res = await fetch(`/api/categories/${categoryId}`, {
+      const res = await fetch(`/api/admin/categories/${categoryId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -135,7 +135,7 @@ export default function CategoryLandingEditorPage() {
       // Save draft first to ensure we publish latest changes
       await saveDraft()
 
-      const res = await fetch(`/api/categories/${categoryId}/publish`, {
+      const res = await fetch(`/api/admin/categories/${categoryId}/publish`, {
         method: 'POST',
       })
 

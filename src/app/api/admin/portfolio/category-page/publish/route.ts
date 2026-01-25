@@ -3,13 +3,13 @@ import { prisma } from '@/lib/prisma'
 import { apiSuccess, apiValidationError, apiInternalError, apiNotFound } from '@/lib/api'
 
 /**
- * POST /api/portfolio/category-page/publish
+ * POST /api/admin/portfolio/category-page/publish
  * 
  * Publish category page draft content to live
  * - Copies draftContent → publishedContent
  * - Sets categoryPageLastPublishedAt to now()
  */
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     // Get the first portfolio (single-portfolio assumption)
     const portfolio = await prisma.portfolio.findFirst({

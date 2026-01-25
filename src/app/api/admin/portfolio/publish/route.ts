@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
 /**
- * POST /api/portfolio/publish
+ * POST /api/admin/portfolio/publish
  * 
  * Publishes portfolio settings by copying draft → published fields.
  * Updates:

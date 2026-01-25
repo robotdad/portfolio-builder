@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { reorderCategoriesSchema } from '@/lib/validations/category'
 
-// PUT /api/categories/reorder
+// PUT /api/admin/categories/reorder
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json()

@@ -34,7 +34,7 @@ export default function CategoryListEditorPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch('/api/portfolio/category-page')
+        const res = await fetch('/api/admin/portfolio/category-page')
         if (!res.ok) {
           throw new Error('Failed to load category page content')
         }
@@ -77,7 +77,7 @@ export default function CategoryListEditorPage() {
     if (!portfolio) return false
 
     try {
-      const res = await fetch('/api/portfolio/category-page', {
+      const res = await fetch('/api/admin/portfolio/category-page', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -123,7 +123,7 @@ export default function CategoryListEditorPage() {
       // Save draft first to ensure we publish latest changes
       await saveDraft()
 
-      const res = await fetch('/api/portfolio/category-page/publish', {
+      const res = await fetch('/api/admin/portfolio/category-page/publish', {
         method: 'POST',
       })
 

@@ -91,7 +91,7 @@ export default function PageEditorPage() {
     if (!page) return false
 
     try {
-      const res = await fetch(`/api/pages/${pageId}`, {
+      const res = await fetch(`/api/admin/pages/${pageId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -114,7 +114,7 @@ export default function PageEditorPage() {
         
         // Update Portfolio.profilePhotoId to match Hero section
         try {
-          await fetch('/api/portfolio', {
+          await fetch('/api/admin/portfolio', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -159,7 +159,7 @@ export default function PageEditorPage() {
       // Save draft first to ensure we publish latest changes
       await saveDraft()
 
-      const res = await fetch(`/api/pages/${pageId}/publish`, {
+      const res = await fetch(`/api/admin/pages/${pageId}/publish`, {
         method: 'POST',
       })
 

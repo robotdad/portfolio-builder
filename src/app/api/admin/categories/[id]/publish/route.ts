@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { apiSuccess, apiValidationError, apiInternalError, apiNotFound } from '@/lib/api'
 
 /**
- * POST /api/categories/[id]/publish
+ * POST /api/admin/categories/[id]/publish
  * 
  * Publish category landing page draft content to live
  * - Copies draftContent → publishedContent

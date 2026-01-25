@@ -155,7 +155,7 @@ export default function ProjectEditorPage() {
     if (!project) return false
 
     try {
-      const res = await fetch(`/api/projects/${projectId}`, {
+      const res = await fetch(`/api/admin/projects/${projectId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -207,7 +207,7 @@ export default function ProjectEditorPage() {
       // Save draft first to ensure we publish latest changes
       await saveDraft()
 
-      const res = await fetch(`/api/projects/${projectId}/publish`, {
+      const res = await fetch(`/api/admin/projects/${projectId}/publish`, {
         method: 'POST',
       })
 
@@ -347,7 +347,7 @@ export default function ProjectEditorPage() {
                     const formData = new FormData()
                     formData.append('file', file)
                     formData.append('portfolioId', project.category.portfolioId)
-                    const response = await fetch('/api/upload', {
+                    const response = await fetch('/api/admin/upload', {
                       method: 'POST',
                       body: formData,
                     })
