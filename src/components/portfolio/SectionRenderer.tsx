@@ -14,10 +14,16 @@ import type {
   FeaturedGridSection,
   GallerySection,
   GalleryImage,
+  LayoutTwoColumnSection,
+  LayoutThreeColumnSection,
+  LayoutSidebarSection,
 } from '@/lib/content-schema'
 import { FeaturedCarouselDisplay } from './FeaturedCarouselDisplay'
 import { CategoryGridRenderer } from './CategoryGridRenderer'
 import { ProjectGridRenderer } from './ProjectGridRenderer'
+import { LayoutTwoColumnRenderer } from './layouts/LayoutTwoColumnRenderer'
+import { LayoutThreeColumnRenderer } from './layouts/LayoutThreeColumnRenderer'
+import { LayoutSidebarRenderer } from './layouts/LayoutSidebarRenderer'
 
 // Type for categories with project count
 interface CategoryWithCount {
@@ -116,6 +122,12 @@ function SectionComponent({ section, portfolioSlug, categories, categorySlug, pr
         return null
       }
       return <ProjectGridRenderer section={section} projects={projects} categorySlug={categorySlug} portfolioSlug={portfolioSlug} />
+    case 'layout-two-column':
+      return <LayoutTwoColumnRenderer section={section as LayoutTwoColumnSection} portfolioSlug={portfolioSlug} />
+    case 'layout-three-column':
+      return <LayoutThreeColumnRenderer section={section as LayoutThreeColumnSection} portfolioSlug={portfolioSlug} />
+    case 'layout-sidebar':
+      return <LayoutSidebarRenderer section={section as LayoutSidebarSection} portfolioSlug={portfolioSlug} />
     default:
       return null
   }

@@ -7,9 +7,10 @@ import type { ReactNode } from 'react'
 interface SortableSectionProps {
   id: string
   children: ReactNode
+  data?: Record<string, unknown>
 }
 
-export function SortableSection({ id, children }: SortableSectionProps) {
+export function SortableSection({ id, children, data }: SortableSectionProps) {
   const {
     attributes,
     listeners,
@@ -17,7 +18,7 @@ export function SortableSection({ id, children }: SortableSectionProps) {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id })
+  } = useSortable({ id, data })
 
   const style = {
     transform: CSS.Transform.toString(transform),

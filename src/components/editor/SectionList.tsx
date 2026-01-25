@@ -29,8 +29,12 @@ import { FeaturedCarouselEditor } from './FeaturedCarouselEditor'
 import { GallerySectionEditor } from './GallerySectionEditor'
 import { CategoryGridEditor } from './CategoryGridEditor'
 import { ProjectGridEditor } from './ProjectGridEditor'
+import { LayoutTwoColumnEditor } from './layouts/LayoutTwoColumnEditor'
+import { LayoutThreeColumnEditor } from './layouts/LayoutThreeColumnEditor'
+import { LayoutSidebarEditor } from './layouts/LayoutSidebarEditor'
 import type { 
-  Section, 
+  Section,
+  ContentSection,
   TextSection as TextSectionType,
   ImageSection as ImageSectionType,
   HeroSection as HeroSectionType,
@@ -39,6 +43,9 @@ import type {
   GallerySection as GallerySectionType,
   CategoryGridSection as CategoryGridSectionType,
   ProjectGridSection as ProjectGridSectionType,
+  LayoutTwoColumnSection as LayoutTwoColumnSectionType,
+  LayoutThreeColumnSection as LayoutThreeColumnSectionType,
+  LayoutSidebarSection as LayoutSidebarSectionType,
 } from '@/lib/content-schema'
 
 interface SectionListProps {
@@ -115,6 +122,14 @@ export function SectionList({ sections, portfolioId, categoryId, projectId, onCh
     onChange(newSections)
   }
 
+  // Handle unwrapping a layout: replace it with its flattened content
+  const handleUnwrap = (index: number, flattenedSections: ContentSection[]) => {
+    const newSections = [...sections]
+    // Remove the layout at index and insert flattened sections in its place
+    newSections.splice(index, 1, ...flattenedSections)
+    onChange(newSections)
+  }
+
   const activeSection = activeId 
     ? sections.find((s) => s.id === activeId) 
     : null
@@ -156,6 +171,7 @@ export function SectionList({ sections, portfolioId, categoryId, projectId, onCh
                   projectId={projectId}
                   onChange={(s) => handleSectionChange(index, s)}
                   onDelete={() => handleSectionDelete(index)}
+                  onUnwrap={(flattenedSections) => handleUnwrap(index, flattenedSections)}
                   onSaveRequest={onSaveRequest}
                 />
               </SortableSection>
@@ -195,10 +211,11 @@ interface SectionEditorProps {
   projectId?: string
   onChange: (section: Section) => void
   onDelete: () => void
+  onUnwrap?: (flattenedSections: ContentSection[]) => void
   onSaveRequest?: () => void
 }
 
-function SectionEditor({ section, portfolioId, categoryId, projectId, onChange, onDelete, onSaveRequest }: SectionEditorProps) {
+function SectionEditor({ section, portfolioId, categoryId, projectId, onChange, onDelete, onUnwrap, onSaveRequest }: SectionEditorProps) {
   switch (section.type) {
     case 'text':
       return (
@@ -279,6 +296,45 @@ function SectionEditor({ section, portfolioId, categoryId, projectId, onChange, 
           categoryId={categoryId}
           onChange={onChange as (s: ProjectGridSectionType) => void}
           onDelete={onDelete}
+        />
+      )
+    case 'layout-two-column':
+      return (
+        <LayoutTwoColumnEditor
+          section={section as LayoutTwoColumnSectionType}
+          portfolioId={portfolioId}
+          categoryId={categoryId}
+          projectId={projectId}
+          onChange={onChange as (s: LayoutTwoColumnSectionType) => void}
+          onDelete={onDelete}
+          onUnwrap={onUnwrap}
+          onSaveRequest={onSaveRequest}
+        />
+      )
+    case 'layout-three-column':
+      return (
+        <LayoutThreeColumnEditor
+          section={section as LayoutThreeColumnSectionType}
+          portfolioId={portfolioId}
+          categoryId={categoryId}
+          projectId={projectId}
+          onChange={onChange as (s: LayoutThreeColumnSectionType) => void}
+          onDelete={onDelete}
+          onUnwrap={onUnwrap}
+          onSaveRequest={onSaveRequest}
+        />
+      )
+    case 'layout-sidebar':
+      return (
+        <LayoutSidebarEditor
+          section={section as LayoutSidebarSectionType}
+          portfolioId={portfolioId}
+          categoryId={categoryId}
+          projectId={projectId}
+          onChange={onChange as (s: LayoutSidebarSectionType) => void}
+          onDelete={onDelete}
+          onUnwrap={onUnwrap}
+          onSaveRequest={onSaveRequest}
         />
       )
     default:

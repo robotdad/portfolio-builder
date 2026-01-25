@@ -113,7 +113,57 @@ export interface ProjectGridSection extends BaseSection {
   layout: 'grid' | 'masonry' | 'list'
 }
 
-// Union type of all sections
+// ============================================
+// CONTENT SECTIONS (can go inside layouts)
+// Excludes: HeroSection (page-level only), FeaturedGridSection,
+// CategoryGridSection, ProjectGridSection (full-width by design)
+// ============================================
+export type ContentSection = 
+  | TextSection 
+  | ImageSection 
+  | GallerySection
+  | FeaturedCarouselSection
+
+// ============================================
+// LAYOUT SECTIONS
+// ============================================
+
+// Two-Column Layout
+export interface LayoutTwoColumnSection extends BaseSection {
+  type: 'layout-two-column'
+  ratio: '50-50' | '60-40' | '40-60' | '70-30' | '30-70'
+  gap: 'narrow' | 'default' | 'wide'
+  mobileStackOrder: 'left-first' | 'right-first'
+  leftColumn: ContentSection[]
+  rightColumn: ContentSection[]
+}
+
+// Three-Column Layout
+export interface LayoutThreeColumnSection extends BaseSection {
+  type: 'layout-three-column'
+  gap: 'narrow' | 'default' | 'wide'
+  mobileStackOrder: 'left-first' | 'right-first'
+  columns: [ContentSection[], ContentSection[], ContentSection[]]
+}
+
+// Sidebar + Main Layout
+export interface LayoutSidebarSection extends BaseSection {
+  type: 'layout-sidebar'
+  sidebarPosition: 'left' | 'right'
+  sidebarWidth: 240 | 280 | 320
+  gap: 'narrow' | 'default' | 'wide'
+  mobileStackOrder: 'sidebar-first' | 'main-first'
+  sidebar: ContentSection[]
+  main: ContentSection[]
+}
+
+// Union of all layout types
+export type LayoutSection = 
+  | LayoutTwoColumnSection 
+  | LayoutThreeColumnSection 
+  | LayoutSidebarSection
+
+// Union type of all sections (top-level)
 export type Section = 
   | TextSection 
   | ImageSection 
@@ -123,6 +173,7 @@ export type Section =
   | GallerySection
   | CategoryGridSection
   | ProjectGridSection
+  | LayoutSection
 
 // Page content structure
 export interface PageContent {
@@ -160,6 +211,27 @@ export function isCategoryGridSection(section: Section): section is CategoryGrid
 
 export function isProjectGridSection(section: Section): section is ProjectGridSection {
   return section.type === 'project-grid'
+}
+
+// Layout type guards
+export function isLayoutSection(section: Section): section is LayoutSection {
+  return section.type.startsWith('layout-')
+}
+
+export function isLayoutTwoColumnSection(section: Section): section is LayoutTwoColumnSection {
+  return section.type === 'layout-two-column'
+}
+
+export function isLayoutThreeColumnSection(section: Section): section is LayoutThreeColumnSection {
+  return section.type === 'layout-three-column'
+}
+
+export function isLayoutSidebarSection(section: Section): section is LayoutSidebarSection {
+  return section.type === 'layout-sidebar'
+}
+
+export function isContentSection(section: Section): section is ContentSection {
+  return !section.type.startsWith('layout-')
 }
 
 // Factory functions to create new sections
@@ -276,6 +348,42 @@ export function createProjectGridSection(): ProjectGridSection {
   }
 }
 
+// Layout factory functions
+export function createLayoutTwoColumnSection(): LayoutTwoColumnSection {
+  return {
+    id: generateId(),
+    type: 'layout-two-column',
+    ratio: '50-50',
+    gap: 'default',
+    mobileStackOrder: 'left-first',
+    leftColumn: [],
+    rightColumn: [],
+  }
+}
+
+export function createLayoutThreeColumnSection(): LayoutThreeColumnSection {
+  return {
+    id: generateId(),
+    type: 'layout-three-column',
+    gap: 'default',
+    mobileStackOrder: 'left-first',
+    columns: [[], [], []],
+  }
+}
+
+export function createLayoutSidebarSection(): LayoutSidebarSection {
+  return {
+    id: generateId(),
+    type: 'layout-sidebar',
+    sidebarPosition: 'left',
+    sidebarWidth: 280,
+    gap: 'default',
+    mobileStackOrder: 'main-first',
+    sidebar: [],
+    main: [],
+  }
+}
+
 // Simple ID generator
 function generateId(): string {
   return `section_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
@@ -330,6 +438,27 @@ export const sectionTypes = [
     label: 'Project Grid',
     description: 'Grid of projects in this category',
     icon: '🗂️',
+  },
+  {
+    type: 'layout-two-column' as const,
+    label: 'Two Columns',
+    description: 'Side-by-side content layout',
+    icon: '▐▐',
+    isLayout: true,
+  },
+  {
+    type: 'layout-three-column' as const,
+    label: 'Three Columns',
+    description: 'Three equal columns',
+    icon: '▐▐▐',
+    isLayout: true,
+  },
+  {
+    type: 'layout-sidebar' as const,
+    label: 'Sidebar + Main',
+    description: 'Fixed sidebar with main content',
+    icon: '▌█',
+    isLayout: true,
   },
 ] as const
 

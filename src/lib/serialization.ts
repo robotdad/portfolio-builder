@@ -68,6 +68,15 @@ function validateSections(sections: unknown[]): Section[] {
         return typeof s.heading === 'string' && Array.isArray(s.items)
       case 'gallery':
         return typeof s.heading === 'string' && Array.isArray(s.images)
+      case 'category-grid':
+      case 'project-grid':
+        return typeof s.heading === 'string'
+      case 'layout-two-column':
+        return Array.isArray(s.leftColumn) && Array.isArray(s.rightColumn)
+      case 'layout-three-column':
+        return Array.isArray(s.columns) && (s.columns as unknown[]).length === 3
+      case 'layout-sidebar':
+        return Array.isArray(s.sidebar) && Array.isArray(s.main)
       default:
         return false
     }

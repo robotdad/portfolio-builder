@@ -11,6 +11,9 @@ import {
   createFeaturedGridSection,
   createFeaturedCarouselSection,
   createGallerySection,
+  createLayoutTwoColumnSection,
+  createLayoutThreeColumnSection,
+  createLayoutSidebarSection,
   type Section,
   type SectionType,
 } from '@/lib/content-schema'
@@ -20,12 +23,15 @@ interface InlineAddButtonProps {
   hasHeroSection?: boolean
   /** Position index where section will be inserted */
   insertIndex: number
+  /** If true, filters out layout and full-width section types (for use inside layout columns) */
+  layoutContext?: boolean
 }
 
 export function InlineAddButton({
   onAdd,
   hasHeroSection = false,
   insertIndex: _insertIndex,
+  layoutContext = false,
 }: InlineAddButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -64,6 +70,15 @@ export function InlineAddButton({
       case 'gallery':
         section = createGallerySection()
         break
+      case 'layout-two-column':
+        section = createLayoutTwoColumnSection()
+        break
+      case 'layout-three-column':
+        section = createLayoutThreeColumnSection()
+        break
+      case 'layout-sidebar':
+        section = createLayoutSidebarSection()
+        break
       default:
         return
     }
@@ -73,9 +88,27 @@ export function InlineAddButton({
   }
 
   // Filter out hero if one already exists (only one hero per page)
-  const availableTypes = sectionTypes.filter(
-    (type) => !(type.type === 'hero' && hasHeroSection)
-  )
+  // When in layout context, also filter out layout types and full-width sections
+  const availableTypes = sectionTypes.filter((sectionType) => {
+    // Always filter out hero if one exists
+    if (sectionType.type === 'hero' && hasHeroSection) return false
+
+    // In layout context, only allow content sections (no layouts, no full-width)
+    if (layoutContext) {
+      // Filter out layout types (they have isLayout: true)
+      if ('isLayout' in sectionType && sectionType.isLayout) return false
+      // Filter out full-width section types (carousel is allowed in layouts)
+      if (
+        ['hero', 'featured-grid', 'category-grid', 'project-grid'].includes(
+          sectionType.type
+        )
+      ) {
+        return false
+      }
+    }
+
+    return true
+  })
 
   const menuItems = availableTypes.map((sectionType) => ({
     type: sectionType.type,
