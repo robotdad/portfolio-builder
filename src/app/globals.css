@@ -785,6 +785,7 @@ textarea:focus-visible {
 .layout-two-column {
   display: grid;
   gap: var(--layout-gutter-default);
+  align-items: start;
 }
 
 /* Ratio variants */
@@ -818,6 +819,7 @@ textarea:focus-visible {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--layout-gutter-default);
+  align-items: start;
 }
 
 .layout-three-column[data-gap="narrow"] { gap: var(--layout-gutter-narrow); }
@@ -852,6 +854,7 @@ textarea:focus-visible {
 .layout-sidebar {
   display: grid;
   gap: var(--layout-gutter-default);
+  align-items: start;
 }
 
 /* Left sidebar */
@@ -1205,6 +1208,13 @@ textarea:focus-visible {
   padding: var(--space-8) 0;
   text-align: center;
   border-top: 1px solid var(--color-border);
+}
+
+.portfolio-footer .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
 }
 
 .portfolio-footer p {
@@ -3090,6 +3100,13 @@ textarea:focus-visible {
   font-style: italic;
 }
 
+/* Captions in layout columns - left align for column context */
+.layout-column-content .image-caption,
+.layout-sidebar-content .image-caption,
+.layout-main-content .image-caption {
+  text-align: left;
+}
+
 /* Hero Section */
 .section-hero {
   text-align: center;
@@ -3198,6 +3215,7 @@ textarea:focus-visible {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-4);
+  justify-content: start;
 }
 
 @media (min-width: 768px) {
@@ -5292,7 +5310,7 @@ textarea:focus-visible {
 .project-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
+  gap: var(--space-3) var(--space-5);
   color: var(--color-text-secondary);
 }
 

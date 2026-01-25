@@ -80,14 +80,14 @@ export function ProjectListRenderer({
         .project-list {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: var(--space-5, 20px);
         }
 
         /* Mini-grid: 2 columns */
         .project-list--mini-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 12px;
+          gap: var(--space-4, 16px);
         }
 
         /* On very small screens, mini-grid falls back to single column */
