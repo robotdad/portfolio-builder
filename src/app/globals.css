@@ -5335,13 +5335,13 @@ textarea:focus-visible {
 .project-content {
   display: flex;
   flex-direction: column;
-  gap: var(--space-16); /* 64px - matches section spacing spec */
+  gap: var(--space-20); /* 80px - breathing room between content blocks */
   margin-bottom: var(--space-10);
 }
 
 @media (max-width: 767px) {
   .project-content {
-    gap: var(--space-12); /* 48px mobile */
+    gap: var(--space-14); /* 56px mobile */
   }
 }
 
