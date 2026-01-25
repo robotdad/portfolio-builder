@@ -890,6 +890,19 @@ textarea:focus-visible {
 .layout-column-content {
   position: relative;  /* Required for Next.js Image fill */
   min-height: 0;
+  /* Add vertical spacing between stacked content items */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6); /* 24px between items in columns */
+}
+
+/* Reset margins on first/last children in layout columns to prevent double-spacing */
+.layout-column-content > *:first-child {
+  margin-top: 0;
+}
+
+.layout-column-content > *:last-child {
+  margin-bottom: 0;
 }
 
 /* Sidebar layout content wrappers */
@@ -897,6 +910,21 @@ textarea:focus-visible {
 .layout-main-content {
   position: relative;
   min-height: 0;
+  /* Add vertical spacing between stacked content items */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6); /* 24px between items */
+}
+
+/* Reset margins on first/last children in sidebar layout columns */
+.layout-sidebar-content > *:first-child,
+.layout-main-content > *:first-child {
+  margin-top: 0;
+}
+
+.layout-sidebar-content > *:last-child,
+.layout-main-content > *:last-child {
+  margin-bottom: 0;
 }
 
 /* Compact gallery variant for layout columns - tighter grid */
@@ -5349,6 +5377,23 @@ textarea:focus-visible {
 /* Let flexbox gap handle spacing within project-content */
 .project-content > .section {
   margin-bottom: 0;
+}
+
+/* Ensure ALL section types (including layouts) have margins reset */
+.project-content > .section-layout,
+.project-content > .section-text,
+.project-content > .section-image,
+.project-content > .section-gallery,
+.project-content > .section-hero,
+.project-content > .section-featured-grid {
+  margin-bottom: 0;
+}
+
+/* Layout sections need visual containment similar to other sections */
+.section-layout {
+  max-width: var(--visual-content-max-width, 1200px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .project-gallery-section {
