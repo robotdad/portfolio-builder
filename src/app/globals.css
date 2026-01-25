@@ -5333,7 +5333,21 @@ textarea:focus-visible {
 }
 
 .project-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16); /* 64px - matches section spacing spec */
   margin-bottom: var(--space-10);
+}
+
+@media (max-width: 767px) {
+  .project-content {
+    gap: var(--space-12); /* 48px mobile */
+  }
+}
+
+/* Let flexbox gap handle spacing within project-content */
+.project-content > .section {
+  margin-bottom: 0;
 }
 
 .project-gallery-section {
