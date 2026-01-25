@@ -40,3 +40,6 @@ export { PublishButton } from './PublishButton'
 
 export { AdminEditorToolbar } from './AdminEditorToolbar'
 export type { AdminEditorToolbarProps } from './AdminEditorToolbar'
+
+// Session components
+export { UserSessionPanel } from './UserSessionPanel'

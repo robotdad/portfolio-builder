@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { NavigationTree } from './NavigationTree'
+import { UserSessionPanel } from './UserSessionPanel'
 
 // Close icon for the header
 const CloseIcon = () => (
@@ -31,6 +32,7 @@ export interface MobileNavProps {
  * Features:
  * - Header with "Menu" title and close button
  * - Uses NavigationTree for unified navigation content
+ * - UserSessionPanel at bottom for user info and sign-out
  * - Closes drawer on navigation via onNavigate prop
  * - 44px minimum height for touch targets
  */
@@ -53,6 +55,8 @@ export function MobileNav({ onClose }: MobileNavProps) {
         <div className="mobile-nav-content">
           <NavigationTree onNavigate={onClose} />
         </div>
+        
+        <UserSessionPanel variant="drawer" />
       </div>
       <style jsx>{`
         .mobile-nav {
