@@ -42,23 +42,25 @@ interface LayoutTwoColumnRendererProps {
 
 export function LayoutTwoColumnRenderer({ section, portfolioSlug, categorySlug, projects }: LayoutTwoColumnRendererProps) {
   return (
-    <div 
-      className="layout-two-column"
-      data-ratio={section.ratio}
-      data-gap={section.gap}
-      data-mobile-stack={section.mobileStackOrder}
-    >
-      <div className="layout-column-content">
-        {section.leftColumn.map((item) => (
-          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
-        ))}
+    <section className="section section-layout">
+      <div 
+        className="layout-two-column"
+        data-ratio={section.ratio}
+        data-gap={section.gap}
+        data-mobile-stack={section.mobileStackOrder}
+      >
+        <div className="layout-column-content">
+          {section.leftColumn.map((item) => (
+            <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
+          ))}
+        </div>
+        <div className="layout-column-content">
+          {section.rightColumn.map((item) => (
+            <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
+          ))}
+        </div>
       </div>
-      <div className="layout-column-content">
-        {section.rightColumn.map((item) => (
-          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
-        ))}
-      </div>
-    </div>
+    </section>
   )
 }
 

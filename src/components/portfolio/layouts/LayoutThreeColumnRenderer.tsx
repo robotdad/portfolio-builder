@@ -44,27 +44,29 @@ export function LayoutThreeColumnRenderer({ section, portfolioSlug, categorySlug
   const [leftColumn, centerColumn, rightColumn] = section.columns
 
   return (
-    <div 
-      className="layout-three-column"
-      data-gap={section.gap}
-      data-mobile-stack={section.mobileStackOrder}
-    >
-      <div className="layout-column-content">
-        {leftColumn.map((item) => (
-          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
-        ))}
+    <section className="section section-layout">
+      <div 
+        className="layout-three-column"
+        data-gap={section.gap}
+        data-mobile-stack={section.mobileStackOrder}
+      >
+        <div className="layout-column-content">
+          {leftColumn.map((item) => (
+            <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
+          ))}
+        </div>
+        <div className="layout-column-content">
+          {centerColumn.map((item) => (
+            <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
+          ))}
+        </div>
+        <div className="layout-column-content">
+          {rightColumn.map((item) => (
+            <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
+          ))}
+        </div>
       </div>
-      <div className="layout-column-content">
-        {centerColumn.map((item) => (
-          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
-        ))}
-      </div>
-      <div className="layout-column-content">
-        {rightColumn.map((item) => (
-          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
-        ))}
-      </div>
-    </div>
+    </section>
   )
 }
 

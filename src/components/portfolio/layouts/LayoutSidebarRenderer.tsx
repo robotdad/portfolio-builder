@@ -61,25 +61,27 @@ export function LayoutSidebarRenderer({ section, portfolioSlug, categorySlug, pr
   const isLeftSidebar = section.sidebarPosition === 'left'
 
   return (
-    <div 
-      className="layout-sidebar"
-      data-position={section.sidebarPosition}
-      data-width={section.sidebarWidth}
-      data-gap={section.gap}
-      data-mobile-stack={section.mobileStackOrder}
-    >
-      {isLeftSidebar ? (
-        <>
-          {sidebarContent}
-          {mainContent}
-        </>
-      ) : (
-        <>
-          {mainContent}
-          {sidebarContent}
-        </>
-      )}
-    </div>
+    <section className="section section-layout">
+      <div 
+        className="layout-sidebar"
+        data-position={section.sidebarPosition}
+        data-width={section.sidebarWidth}
+        data-gap={section.gap}
+        data-mobile-stack={section.mobileStackOrder}
+      >
+        {isLeftSidebar ? (
+          <>
+            {sidebarContent}
+            {mainContent}
+          </>
+        ) : (
+          <>
+            {mainContent}
+            {sidebarContent}
+          </>
+        )}
+      </div>
+    </section>
   )
 }
 
