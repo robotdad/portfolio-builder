@@ -177,8 +177,9 @@ export default function ProjectsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
-  // Error display
+  // Feedback display
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
   // Fetch category info (which includes portfolioId)
   useEffect(() => {
@@ -215,6 +216,12 @@ export default function ProjectsPage() {
   const showError = useCallback((message: string) => {
     setErrorMessage(message)
     setTimeout(() => setErrorMessage(null), 5000)
+  }, [])
+
+  // Show success with auto-dismiss
+  const showSuccess = useCallback((message: string) => {
+    setSuccessMessage(message)
+    setTimeout(() => setSuccessMessage(null), 3000)
   }, [])
 
   // Handle create project
@@ -258,10 +265,14 @@ export default function ProjectsPage() {
 
   // Handle reorder
   const handleReorder = (orderedIds: string[]) => {
-    reorderProjects(orderedIds).catch((err) => {
-      const message = err instanceof Error ? err.message : 'Failed to reorder projects'
-      showError(message)
-    })
+    reorderProjects(orderedIds)
+      .then(() => {
+        showSuccess('Order saved')
+      })
+      .catch((err) => {
+        const message = err instanceof Error ? err.message : 'Failed to reorder projects'
+        showError(message)
+      })
   }
 
   // Handle close modals
@@ -430,6 +441,17 @@ export default function ProjectsPage() {
         </div>
       )}
 
+      {/* Success Toast */}
+      {successMessage && (
+        <div className="success-toast" role="status">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+          <span>{successMessage}</span>
+        </div>
+      )}
+
       {/* Main Content */}
       <main className="page-content">
         <ProjectList
@@ -523,6 +545,26 @@ export default function ProjectsPage() {
           }
         }
 
+        /* Success Toast */
+        .success-toast {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          max-width: 600px;
+          margin: 16px auto;
+          padding: 12px 16px;
+          background: var(--admin-success-bg, #f0fdf4);
+          color: var(--admin-success, #16a34a);
+          border: 1px solid var(--admin-success-border, #bbf7d0);
+          border-radius: 8px;
+          font-size: 14px;
+          animation: slideIn 0.2s ease-out;
+        }
+
+        .success-toast span {
+          flex: 1;
+        }
+
         /* Main Content */
         .page-content {
           max-width: 1200px;
@@ -536,7 +578,8 @@ export default function ProjectsPage() {
             padding: 16px;
           }
 
-          .error-toast {
+          .error-toast,
+          .success-toast {
             margin: 12px 16px;
             flex-wrap: wrap;
           }
@@ -550,7 +593,8 @@ export default function ProjectsPage() {
 
         /* Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
-          .error-toast {
+          .error-toast,
+          .success-toast {
             animation: none;
           }
         }
