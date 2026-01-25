@@ -42,36 +42,35 @@ The portfolio uses Google OAuth 2.0 for admin authentication. This provides:
 
 Before creating credentials, you must configure the OAuth consent screen:
 
-1. In the left sidebar, go to **APIs & Services** > **OAuth consent screen**
+1. Go to [Google Auth Platform](https://console.cloud.google.com/auth/overview) in Google Cloud Console
 
-2. Select **External** user type (unless you have a Google Workspace organization)
+2. If you see "Google Auth Platform not configured yet", click **Get started**
 
-3. Click **Create**
-
-4. Fill in the required fields:
-
+3. **Step 1 - App Information**:
    | Field | Value |
    |-------|-------|
-   | App name | Your portfolio name |
-   | User support email | Your email |
-   | Developer contact email | Your email |
+   | App name | Your portfolio name (e.g., "PortfolioBuilder") |
+   | User support email | Your email (select from dropdown) |
+   
+   Click **Next**
 
-5. Click **Save and Continue**
+4. **Step 2 - Audience**:
+   - Select **External** (allows any Google account to sign in)
+   - Note: "Internal" is only available for Google Workspace organizations
+   
+   Click **Next**
 
-6. On the **Scopes** page, click **Add or Remove Scopes**
+5. **Step 3 - Contact Information**:
+   - Enter your email address for developer contact
+   
+   Click **Next**
 
-7. Add these scopes:
-   - `email`
-   - `profile`
-   - `openid`
+6. **Step 4 - Finish**:
+   - Review your settings
+   - Check the agreement checkbox
+   - Click **Create**
 
-8. Click **Save and Continue**
-
-9. On the **Test users** page (for External apps):
-   - Add email addresses that should have access during testing
-   - This is only needed while the app is in "Testing" status
-
-10. Click **Save and Continue**, then **Back to Dashboard**
+7. After creation, go to **Audience** in the left sidebar to configure test users (see below)
 
 ### Publishing Status
 
