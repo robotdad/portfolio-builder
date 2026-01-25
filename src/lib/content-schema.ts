@@ -108,9 +108,26 @@ export interface ProjectGridSection extends BaseSection {
   heading: string
   description: string
   projectIds: string[] | null // Explicit ordering, null = use all projects by Project.order
+  excludeProjectIds: string[] | null // Exclude these projects (for "show the rest" pattern)
   columns: 2 | 3 | 4
   showMetadata: boolean // Show year, venue, role
   layout: 'grid' | 'masonry' | 'list'
+}
+
+// Project Card Section - Single project embed for layout columns
+export interface ProjectCardSection extends BaseSection {
+  type: 'project-card'
+  projectId: string | null // Reference to Project id
+  showMetadata: boolean // year, venue, role
+  cardSize: 'compact' | 'standard' | 'large'
+}
+
+// Project List Section - 2-4 projects in a column
+export interface ProjectListSection extends BaseSection {
+  type: 'project-list'
+  projectIds: string[] // 1-4 max
+  layout: 'vertical' | 'mini-grid'
+  showMetadata: boolean
 }
 
 // ============================================
@@ -123,6 +140,8 @@ export type ContentSection =
   | ImageSection 
   | GallerySection
   | FeaturedCarouselSection
+  | ProjectCardSection
+  | ProjectListSection
 
 // ============================================
 // LAYOUT SECTIONS
@@ -173,6 +192,8 @@ export type Section =
   | GallerySection
   | CategoryGridSection
   | ProjectGridSection
+  | ProjectCardSection
+  | ProjectListSection
   | LayoutSection
 
 // Page content structure
@@ -211,6 +232,14 @@ export function isCategoryGridSection(section: Section): section is CategoryGrid
 
 export function isProjectGridSection(section: Section): section is ProjectGridSection {
   return section.type === 'project-grid'
+}
+
+export function isProjectCardSection(section: Section): section is ProjectCardSection {
+  return section.type === 'project-card'
+}
+
+export function isProjectListSection(section: Section): section is ProjectListSection {
+  return section.type === 'project-list'
 }
 
 // Layout type guards
@@ -342,9 +371,30 @@ export function createProjectGridSection(): ProjectGridSection {
     heading: 'Projects',
     description: '',
     projectIds: null, // null = auto-populate all projects in category
+    excludeProjectIds: null, // null = don't exclude any
     columns: 3,
     showMetadata: true,
     layout: 'grid',
+  }
+}
+
+export function createProjectCardSection(): ProjectCardSection {
+  return {
+    id: generateId(),
+    type: 'project-card',
+    projectId: null,
+    showMetadata: true,
+    cardSize: 'standard',
+  }
+}
+
+export function createProjectListSection(): ProjectListSection {
+  return {
+    id: generateId(),
+    type: 'project-list',
+    projectIds: [],
+    layout: 'vertical',
+    showMetadata: true,
   }
 }
 
@@ -438,6 +488,20 @@ export const sectionTypes = [
     label: 'Project Grid',
     description: 'Grid of projects in this category',
     icon: '🗂️',
+  },
+  {
+    type: 'project-card' as const,
+    label: 'Project Card',
+    description: 'Single project embed',
+    icon: '📋',
+    isContentSection: true,
+  },
+  {
+    type: 'project-list' as const,
+    label: 'Project List',
+    description: '2-4 projects in a list',
+    icon: '📑',
+    isContentSection: true,
   },
   {
     type: 'layout-two-column' as const,

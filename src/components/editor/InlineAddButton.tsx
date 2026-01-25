@@ -14,6 +14,8 @@ import {
   createLayoutTwoColumnSection,
   createLayoutThreeColumnSection,
   createLayoutSidebarSection,
+  createProjectCardSection,
+  createProjectListSection,
   type Section,
   type SectionType,
 } from '@/lib/content-schema'
@@ -78,6 +80,12 @@ export function InlineAddButton({
         break
       case 'layout-sidebar':
         section = createLayoutSidebarSection()
+        break
+      case 'project-card':
+        section = createProjectCardSection()
+        break
+      case 'project-list':
+        section = createProjectListSection()
         break
       default:
         return

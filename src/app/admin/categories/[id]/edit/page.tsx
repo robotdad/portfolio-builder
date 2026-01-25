@@ -262,6 +262,7 @@ export default function CategoryLandingEditorPage() {
               onAdd={handleAddSection}
               hasHeroSection={hasHeroSection}
               portfolioId={category.portfolioId}
+              context="category"
             />
           </div>
         </div>

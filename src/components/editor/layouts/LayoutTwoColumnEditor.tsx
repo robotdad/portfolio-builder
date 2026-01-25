@@ -39,7 +39,7 @@ export function LayoutTwoColumnEditor({
   onDelete,
   onUnwrap,
   portfolioId,
-  categoryId: _categoryId,
+  categoryId,
   projectId,
   onSaveRequest,
 }: LayoutTwoColumnEditorProps) {
@@ -266,6 +266,7 @@ export function LayoutTwoColumnEditor({
             columnLabel="Left Column"
             sections={section.leftColumn}
             portfolioId={portfolioId}
+            categoryId={categoryId}
             projectId={projectId}
             onSectionChange={handleLeftSectionChange}
             onSectionDelete={handleLeftSectionDelete}
@@ -277,6 +278,7 @@ export function LayoutTwoColumnEditor({
             columnLabel="Right Column"
             sections={section.rightColumn}
             portfolioId={portfolioId}
+            categoryId={categoryId}
             projectId={projectId}
             onSectionChange={handleRightSectionChange}
             onSectionDelete={handleRightSectionDelete}

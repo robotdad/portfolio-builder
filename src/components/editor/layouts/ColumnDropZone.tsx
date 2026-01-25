@@ -12,12 +12,16 @@ import { TextSection } from '../TextSection'
 import { ImageSectionEditor } from '../ImageSectionEditor'
 import { GallerySectionEditor } from '../GallerySectionEditor'
 import { FeaturedCarouselEditor } from '../FeaturedCarouselEditor'
+import { ProjectCardEditor } from '../ProjectCardEditor'
+import { ProjectListEditor } from '../ProjectListEditor'
 import type {
   ContentSection,
   TextSection as TextSectionType,
   ImageSection as ImageSectionType,
   GallerySection as GallerySectionType,
   FeaturedCarouselSection as FeaturedCarouselSectionType,
+  ProjectCardSection as ProjectCardSectionType,
+  ProjectListSection as ProjectListSectionType,
   Section,
 } from '@/lib/content-schema'
 
@@ -26,6 +30,7 @@ interface ColumnDropZoneProps {
   columnLabel: string
   sections: ContentSection[]
   portfolioId: string
+  categoryId?: string
   projectId?: string
   onSectionChange: (index: number, section: ContentSection) => void
   onSectionDelete: (index: number) => void
@@ -38,6 +43,7 @@ export function ColumnDropZone({
   columnLabel,
   sections,
   portfolioId,
+  categoryId,
   projectId,
   onSectionChange,
   onSectionDelete,
@@ -85,6 +91,24 @@ export function ColumnDropZone({
           <FeaturedCarouselEditor
             section={section as FeaturedCarouselSectionType}
             portfolioId={portfolioId}
+            onChange={(updated) => onSectionChange(index, updated)}
+            onDelete={() => onSectionDelete(index)}
+          />
+        )
+      case 'project-card':
+        return (
+          <ProjectCardEditor
+            section={section as ProjectCardSectionType}
+            categoryId={categoryId}
+            onChange={(updated) => onSectionChange(index, updated)}
+            onDelete={() => onSectionDelete(index)}
+          />
+        )
+      case 'project-list':
+        return (
+          <ProjectListEditor
+            section={section as ProjectListSectionType}
+            categoryId={categoryId}
             onChange={(updated) => onSectionChange(index, updated)}
             onDelete={() => onSectionDelete(index)}
           />

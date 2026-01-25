@@ -39,7 +39,7 @@ export function LayoutSidebarEditor({
   onDelete,
   onUnwrap,
   portfolioId,
-  categoryId: _categoryId,
+  categoryId,
   projectId,
   onSaveRequest,
 }: LayoutSidebarEditorProps) {
@@ -231,6 +231,7 @@ export function LayoutSidebarEditor({
         columnLabel="Sidebar"
         sections={section.sidebar}
         portfolioId={portfolioId}
+        categoryId={categoryId}
         projectId={projectId}
         onSectionChange={handleSidebarSectionChange}
         onSectionDelete={handleSidebarSectionDelete}
@@ -246,6 +247,7 @@ export function LayoutSidebarEditor({
         columnLabel="Main Content"
         sections={section.main}
         portfolioId={portfolioId}
+        categoryId={categoryId}
         projectId={projectId}
         onSectionChange={handleMainSectionChange}
         onSectionDelete={handleMainSectionDelete}

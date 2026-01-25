@@ -233,41 +233,82 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
     }
     
     // Category landing page - show all projects in category
-    const projectsWithImages = category.projects
-      .filter(p => p.draftContent || p.publishedContent) // Has any content
-      .map(project => {
-        // Prefer explicit featuredImage, fallback to gallery extraction
-        let featuredImageUrl: string | null = null
-        let featuredImageAlt: string = project.title
-        
-        if (project.featuredImage) {
-          featuredImageUrl = project.featuredImage.url
-          featuredImageAlt = project.featuredImage.altText || project.title
-        } else {
-          const contentToCheck = project.draftContent || project.publishedContent
-          if (contentToCheck) {
-            const projectSections = deserializeSections(contentToCheck)
-            const gallerySection = projectSections.find(isGallerySection)
-            const firstImage = gallerySection?.images?.[0]
-            if (firstImage) {
-              featuredImageUrl = firstImage.imageUrl
-              featuredImageAlt = firstImage.altText || project.title
-            }
+    // Filter to projects with content
+    const projectsWithContent = category.projects.filter(p => p.draftContent || p.publishedContent)
+    
+    // Deserialize sections from draft content
+    const categorySections = deserializeSections(category.draftContent || '')
+    
+    // If we have draft content sections, use section-based rendering
+    if (categorySections.length > 0) {
+      // Build projects in format expected by SectionRenderer (ProjectWithImage interface)
+      const projectsForRenderer = projectsWithContent.map(project => ({
+        id: project.id,
+        slug: project.slug,
+        title: project.title,
+        venue: project.venue,
+        year: project.year,
+        role: project.role,
+        order: project.order,
+        featuredImage: project.featuredImage,
+      }))
+      
+      return (
+        <div className="portfolio-page preview-mode" data-theme={theme}>
+          <PreviewBanner />
+          <Navigation
+            portfolioSlug="preview"
+            portfolioName={portfolio.name}
+            pages={navPages}
+            categories={navCategories}
+            theme={theme}
+          />
+          <main className="portfolio-main">
+            <SectionRenderer
+              sections={categorySections}
+              portfolioSlug="preview"
+              categorySlug={category.slug}
+              projects={projectsForRenderer}
+            />
+          </main>
+        </div>
+      )
+    }
+    
+    // Fallback to CategoryLanding when no sections exist
+    // Build projects with flattened image fields for CategoryLanding
+    const projectsWithImages = projectsWithContent.map(project => {
+      // Prefer explicit featuredImage, fallback to gallery extraction
+      let featuredImageUrl: string | null = null
+      let featuredImageAlt: string = project.title
+      
+      if (project.featuredImage) {
+        featuredImageUrl = project.featuredImage.url
+        featuredImageAlt = project.featuredImage.altText || project.title
+      } else {
+        const contentToCheck = project.draftContent || project.publishedContent
+        if (contentToCheck) {
+          const projectSections = deserializeSections(contentToCheck)
+          const gallerySection = projectSections.find(isGallerySection)
+          const firstImage = gallerySection?.images?.[0]
+          if (firstImage) {
+            featuredImageUrl = firstImage.imageUrl
+            featuredImageAlt = firstImage.altText || project.title
           }
         }
-        
-        return {
-          id: project.id,
-          slug: project.slug,
-          title: project.title,
-          venue: project.venue,
-          year: project.year,
-          order: project.order,
-          featuredImageUrl,
-          featuredImageAlt,
-        }
-      })
-    
+      }
+      
+      return {
+        id: project.id,
+        slug: project.slug,
+        title: project.title,
+        venue: project.venue,
+        year: project.year,
+        order: project.order,
+        featuredImageUrl,
+        featuredImageAlt,
+      }
+    })
     return (
       <div className="portfolio-page preview-mode" data-theme={theme}>
         <PreviewBanner />

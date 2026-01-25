@@ -123,11 +123,11 @@ function SectionComponent({ section, portfolioSlug, categories, categorySlug, pr
       }
       return <ProjectGridRenderer section={section} projects={projects} categorySlug={categorySlug} portfolioSlug={portfolioSlug} />
     case 'layout-two-column':
-      return <LayoutTwoColumnRenderer section={section as LayoutTwoColumnSection} portfolioSlug={portfolioSlug} />
+      return <LayoutTwoColumnRenderer section={section as LayoutTwoColumnSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
     case 'layout-three-column':
-      return <LayoutThreeColumnRenderer section={section as LayoutThreeColumnSection} portfolioSlug={portfolioSlug} />
+      return <LayoutThreeColumnRenderer section={section as LayoutThreeColumnSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
     case 'layout-sidebar':
-      return <LayoutSidebarRenderer section={section as LayoutSidebarSection} portfolioSlug={portfolioSlug} />
+      return <LayoutSidebarRenderer section={section as LayoutSidebarSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
     default:
       return null
   }

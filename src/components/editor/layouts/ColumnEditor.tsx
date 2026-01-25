@@ -24,11 +24,15 @@ import { InlineAddButton } from '../InlineAddButton'
 import { TextSection } from '../TextSection'
 import { ImageSectionEditor } from '../ImageSectionEditor'
 import { GallerySectionEditor } from '../GallerySectionEditor'
+import { ProjectCardEditor } from '../ProjectCardEditor'
+import { ProjectListEditor } from '../ProjectListEditor'
 import type {
   ContentSection,
   TextSection as TextSectionType,
   ImageSection as ImageSectionType,
   GallerySection as GallerySectionType,
+  ProjectCardSection as ProjectCardSectionType,
+  ProjectListSection as ProjectListSectionType,
   Section,
 } from '@/lib/content-schema'
 
@@ -47,7 +51,7 @@ export function ColumnEditor({
   sections,
   onChange,
   portfolioId,
-  categoryId: _categoryId,
+  categoryId,
   projectId,
   columnLabel,
   columnId,
@@ -153,6 +157,24 @@ export function ColumnEditor({
             onSaveRequest={onSaveRequest}
           />
         )
+      case 'project-card':
+        return (
+          <ProjectCardEditor
+            section={section as ProjectCardSectionType}
+            onChange={(updated) => handleSectionChange(index, updated)}
+            onDelete={() => handleSectionDelete(index)}
+            categoryId={categoryId}
+          />
+        )
+      case 'project-list':
+        return (
+          <ProjectListEditor
+            section={section as ProjectListSectionType}
+            onChange={(updated) => handleSectionChange(index, updated)}
+            onDelete={() => handleSectionDelete(index)}
+            categoryId={categoryId}
+          />
+        )
       default:
         return (
           <div className="section-editor section-editor-unknown">
@@ -231,6 +253,8 @@ export function ColumnEditor({
                     {activeSection.type === 'text' && 'Text'}
                     {activeSection.type === 'image' && 'Image'}
                     {activeSection.type === 'gallery' && 'Gallery'}
+                    {activeSection.type === 'project-card' && 'Project Card'}
+                    {activeSection.type === 'project-list' && 'Project List'}
                   </span>
                 </div>
               </div>

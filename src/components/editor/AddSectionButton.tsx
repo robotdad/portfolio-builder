@@ -39,9 +39,15 @@ interface AddSectionButtonProps {
   onAdd: (section: Section) => void
   hasHeroSection?: boolean
   portfolioId?: string // Optional - used to fetch default bio for profile cards
+  context?: 'page' | 'category' | 'category-list' // Editing context for filtering available sections
 }
 
-export function AddSectionButton({ onAdd, hasHeroSection = false, portfolioId }: AddSectionButtonProps) {
+export function AddSectionButton({ 
+  onAdd, 
+  hasHeroSection = false, 
+  portfolioId,
+  context = 'page'
+}: AddSectionButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -111,10 +117,19 @@ export function AddSectionButton({ onAdd, hasHeroSection = false, portfolioId }:
     setIsOpen(false)
   }
 
-  // Filter out hero if one already exists (only one hero per page)
-  const availableTypes = sectionTypes.filter(
-    (type) => !(type.type === 'hero' && hasHeroSection)
-  )
+  // Filter section types based on context and existing sections
+  const availableTypes = sectionTypes.filter((type) => {
+    // Only one hero per page
+    if (type.type === 'hero' && hasHeroSection) return false
+    
+    // category-grid doesn't make sense on category landing pages
+    if (type.type === 'category-grid' && context === 'category') return false
+    
+    // project-grid only makes sense on category landing pages
+    if (type.type === 'project-grid' && context !== 'category') return false
+    
+    return true
+  })
 
   // Compute icon class based on open state
   const iconClass = isOpen 

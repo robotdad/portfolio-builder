@@ -10,14 +10,37 @@ import type {
   ImageSection,
   GallerySection,
   FeaturedCarouselSection,
+  ProjectCardSection,
+  ProjectListSection,
 } from '@/lib/content-schema'
+import { ProjectCardRenderer } from '../ProjectCardRenderer'
+import { ProjectListRenderer } from '../ProjectListRenderer'
+
+// Type for projects with featured image (passed through from parent)
+interface ProjectWithImage {
+  id: string
+  title: string
+  slug: string
+  year: string | null
+  venue: string | null
+  role: string | null
+  order: number
+  featuredImage: {
+    id: string
+    url: string
+    thumbnailUrl: string
+    altText: string
+  } | null
+}
 
 interface LayoutTwoColumnRendererProps {
   section: LayoutTwoColumnSection
   portfolioSlug: string
+  categorySlug?: string
+  projects?: ProjectWithImage[]
 }
 
-export function LayoutTwoColumnRenderer({ section, portfolioSlug }: LayoutTwoColumnRendererProps) {
+export function LayoutTwoColumnRenderer({ section, portfolioSlug, categorySlug, projects }: LayoutTwoColumnRendererProps) {
   return (
     <div 
       className="layout-two-column"
@@ -27,12 +50,12 @@ export function LayoutTwoColumnRenderer({ section, portfolioSlug }: LayoutTwoCol
     >
       <div className="layout-column-content">
         {section.leftColumn.map((item) => (
-          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} />
+          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
         ))}
       </div>
       <div className="layout-column-content">
         {section.rightColumn.map((item) => (
-          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} />
+          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
         ))}
       </div>
     </div>
@@ -40,7 +63,7 @@ export function LayoutTwoColumnRenderer({ section, portfolioSlug }: LayoutTwoCol
 }
 
 // Inline content section renderer for layout columns
-function ContentSectionView({ section, portfolioSlug }: { section: ContentSection; portfolioSlug: string }) {
+function ContentSectionView({ section, portfolioSlug, categorySlug, projects }: { section: ContentSection; portfolioSlug: string; categorySlug?: string; projects?: ProjectWithImage[] }) {
   switch (section.type) {
     case 'text':
       return <TextContentView section={section as TextSection} />
@@ -50,6 +73,10 @@ function ContentSectionView({ section, portfolioSlug }: { section: ContentSectio
       return <GalleryContentView section={section as GallerySection} />
     case 'featured-carousel':
       return <FeaturedCarouselDisplay section={section as FeaturedCarouselSection} portfolioSlug={portfolioSlug} />
+    case 'project-card':
+      return <ProjectCardRenderer section={section as ProjectCardSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
+    case 'project-list':
+      return <ProjectListRenderer section={section as ProjectListSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
     default:
       return null
   }

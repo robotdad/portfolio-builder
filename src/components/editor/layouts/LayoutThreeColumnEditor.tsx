@@ -39,7 +39,7 @@ export function LayoutThreeColumnEditor({
   onDelete,
   onUnwrap,
   portfolioId,
-  categoryId: _categoryId,
+  categoryId,
   projectId,
   onSaveRequest,
 }: LayoutThreeColumnEditorProps) {
@@ -281,6 +281,7 @@ export function LayoutThreeColumnEditor({
             columnLabel="Column 1"
             sections={section.columns[0]}
             portfolioId={portfolioId}
+            categoryId={categoryId}
             projectId={projectId}
             onSectionChange={createSectionChangeHandler(0)}
             onSectionDelete={createSectionDeleteHandler(0)}
@@ -292,6 +293,7 @@ export function LayoutThreeColumnEditor({
             columnLabel="Column 2"
             sections={section.columns[1]}
             portfolioId={portfolioId}
+            categoryId={categoryId}
             projectId={projectId}
             onSectionChange={createSectionChangeHandler(1)}
             onSectionDelete={createSectionDeleteHandler(1)}
@@ -303,6 +305,7 @@ export function LayoutThreeColumnEditor({
             columnLabel="Column 3"
             sections={section.columns[2]}
             portfolioId={portfolioId}
+            categoryId={categoryId}
             projectId={projectId}
             onSectionChange={createSectionChangeHandler(2)}
             onSectionDelete={createSectionDeleteHandler(2)}

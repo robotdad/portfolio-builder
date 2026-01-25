@@ -10,14 +10,37 @@ import type {
   ImageSection,
   GallerySection,
   FeaturedCarouselSection,
+  ProjectCardSection,
+  ProjectListSection,
 } from '@/lib/content-schema'
+import { ProjectCardRenderer } from '../ProjectCardRenderer'
+import { ProjectListRenderer } from '../ProjectListRenderer'
+
+// Type for projects with featured image (passed through from parent)
+interface ProjectWithImage {
+  id: string
+  title: string
+  slug: string
+  year: string | null
+  venue: string | null
+  role: string | null
+  order: number
+  featuredImage: {
+    id: string
+    url: string
+    thumbnailUrl: string
+    altText: string
+  } | null
+}
 
 interface LayoutThreeColumnRendererProps {
   section: LayoutThreeColumnSection
   portfolioSlug: string
+  categorySlug?: string
+  projects?: ProjectWithImage[]
 }
 
-export function LayoutThreeColumnRenderer({ section, portfolioSlug }: LayoutThreeColumnRendererProps) {
+export function LayoutThreeColumnRenderer({ section, portfolioSlug, categorySlug, projects }: LayoutThreeColumnRendererProps) {
   const [leftColumn, centerColumn, rightColumn] = section.columns
 
   return (
@@ -28,17 +51,17 @@ export function LayoutThreeColumnRenderer({ section, portfolioSlug }: LayoutThre
     >
       <div className="layout-column-content">
         {leftColumn.map((item) => (
-          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} />
+          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
         ))}
       </div>
       <div className="layout-column-content">
         {centerColumn.map((item) => (
-          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} />
+          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
         ))}
       </div>
       <div className="layout-column-content">
         {rightColumn.map((item) => (
-          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} />
+          <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
         ))}
       </div>
     </div>
@@ -46,7 +69,7 @@ export function LayoutThreeColumnRenderer({ section, portfolioSlug }: LayoutThre
 }
 
 // Inline content section renderer for layout columns
-function ContentSectionView({ section, portfolioSlug }: { section: ContentSection; portfolioSlug: string }) {
+function ContentSectionView({ section, portfolioSlug, categorySlug, projects }: { section: ContentSection; portfolioSlug: string; categorySlug?: string; projects?: ProjectWithImage[] }) {
   switch (section.type) {
     case 'text':
       return <TextContentView section={section as TextSection} />
@@ -56,6 +79,10 @@ function ContentSectionView({ section, portfolioSlug }: { section: ContentSectio
       return <GalleryContentView section={section as GallerySection} />
     case 'featured-carousel':
       return <FeaturedCarouselDisplay section={section as FeaturedCarouselSection} portfolioSlug={portfolioSlug} />
+    case 'project-card':
+      return <ProjectCardRenderer section={section as ProjectCardSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
+    case 'project-list':
+      return <ProjectListRenderer section={section as ProjectListSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
     default:
       return null
   }

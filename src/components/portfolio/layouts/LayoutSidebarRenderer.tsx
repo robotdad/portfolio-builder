@@ -10,18 +10,41 @@ import type {
   ImageSection,
   GallerySection,
   FeaturedCarouselSection,
+  ProjectCardSection,
+  ProjectListSection,
 } from '@/lib/content-schema'
+import { ProjectCardRenderer } from '../ProjectCardRenderer'
+import { ProjectListRenderer } from '../ProjectListRenderer'
+
+// Type for projects with featured image (passed through from parent)
+interface ProjectWithImage {
+  id: string
+  title: string
+  slug: string
+  year: string | null
+  venue: string | null
+  role: string | null
+  order: number
+  featuredImage: {
+    id: string
+    url: string
+    thumbnailUrl: string
+    altText: string
+  } | null
+}
 
 interface LayoutSidebarRendererProps {
   section: LayoutSidebarSection
   portfolioSlug: string
+  categorySlug?: string
+  projects?: ProjectWithImage[]
 }
 
-export function LayoutSidebarRenderer({ section, portfolioSlug }: LayoutSidebarRendererProps) {
+export function LayoutSidebarRenderer({ section, portfolioSlug, categorySlug, projects }: LayoutSidebarRendererProps) {
   const sidebarContent = (
     <div className="layout-sidebar-content">
       {section.sidebar.map((item) => (
-        <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} />
+        <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
       ))}
     </div>
   )
@@ -29,7 +52,7 @@ export function LayoutSidebarRenderer({ section, portfolioSlug }: LayoutSidebarR
   const mainContent = (
     <div className="layout-main-content">
       {section.main.map((item) => (
-        <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} />
+        <ContentSectionView key={item.id} section={item} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
       ))}
     </div>
   )
@@ -61,7 +84,7 @@ export function LayoutSidebarRenderer({ section, portfolioSlug }: LayoutSidebarR
 }
 
 // Inline content section renderer for layout columns
-function ContentSectionView({ section, portfolioSlug }: { section: ContentSection; portfolioSlug: string }) {
+function ContentSectionView({ section, portfolioSlug, categorySlug, projects }: { section: ContentSection; portfolioSlug: string; categorySlug?: string; projects?: ProjectWithImage[] }) {
   switch (section.type) {
     case 'text':
       return <TextContentView section={section as TextSection} />
@@ -71,6 +94,10 @@ function ContentSectionView({ section, portfolioSlug }: { section: ContentSectio
       return <GalleryContentView section={section as GallerySection} />
     case 'featured-carousel':
       return <FeaturedCarouselDisplay section={section as FeaturedCarouselSection} portfolioSlug={portfolioSlug} />
+    case 'project-card':
+      return <ProjectCardRenderer section={section as ProjectCardSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
+    case 'project-list':
+      return <ProjectListRenderer section={section as ProjectListSection} portfolioSlug={portfolioSlug} categorySlug={categorySlug} projects={projects} />
     default:
       return null
   }
