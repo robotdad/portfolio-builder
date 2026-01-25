@@ -40,8 +40,8 @@ export function LayoutSidebarRenderer({ section, portfolioSlug }: LayoutSidebarR
   return (
     <div 
       className="layout-sidebar"
-      data-sidebar-position={section.sidebarPosition}
-      data-sidebar-width={section.sidebarWidth}
+      data-position={section.sidebarPosition}
+      data-width={section.sidebarWidth}
       data-gap={section.gap}
       data-mobile-stack={section.mobileStackOrder}
     >

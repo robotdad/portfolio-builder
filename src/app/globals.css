@@ -879,6 +879,35 @@ textarea:focus-visible {
 }
 
 /* ==========================================================================
+   LAYOUT SECTIONS - Column Content Containers (Public/Preview Pages)
+   ========================================================================== */
+
+/* Column content wrapper - ensures proper containment for nested content */
+.layout-column-content {
+  position: relative;  /* Required for Next.js Image fill */
+  min-height: 0;
+}
+
+/* Sidebar layout content wrappers */
+.layout-sidebar-content,
+.layout-main-content {
+  position: relative;
+  min-height: 0;
+}
+
+/* Compact gallery variant for layout columns - tighter grid */
+.gallery-grid-compact {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+
+.gallery-grid-compact .gallery-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+}
+
+/* ==========================================================================
    LAYOUT SECTIONS - Editor Styles
    ========================================================================== */
 
@@ -3187,6 +3216,7 @@ textarea:focus-visible {
 
 .gallery-item {
   margin: 0;
+  position: relative;  /* Required for Next.js Image fill */
 }
 
 .gallery-item-btn {
