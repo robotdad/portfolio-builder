@@ -20,7 +20,7 @@ config({ path: '.env.local', override: true });
 import { PrismaClient } from '@prisma/client';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 import path from 'path';
-import { getStorage } from '../lib/storage';
+import { getStorageAsync } from '../lib/storage';
 
 async function resetDatabase() {
   const dbPath = path.join(process.cwd(), 'src', 'prisma', 'dev.db');
@@ -30,22 +30,11 @@ async function resetDatabase() {
   try {
     console.log('🗑️  Resetting database...');
 
-    // Clean up storage files for all assets BEFORE deleting records
+    // Clean up ALL storage files (handles orphaned files from prior resets)
     console.log('  Cleaning up storage files...');
-    const assets = await prisma.asset.findMany({ select: { id: true } });
-    const storage = getStorage();
-    let cleanedCount = 0;
-    
-    for (const asset of assets) {
-      try {
-        await storage.deleteAssetFiles(asset.id);
-        cleanedCount++;
-      } catch {
-        // Log but continue - file may already be missing
-        console.warn(`    Warning: Could not delete files for asset ${asset.id}`);
-      }
-    }
-    console.log(`  ✓ Cleaned ${cleanedCount} asset file(s) from storage`);
+    const storage = await getStorageAsync();
+    const cleanedCount = await storage.deleteAllFiles();
+    console.log(`  ✓ Cleaned ${cleanedCount} file(s) from storage`);
 
     // Disable foreign key constraints temporarily
     await prisma.$executeRawUnsafe('PRAGMA foreign_keys = OFF;');

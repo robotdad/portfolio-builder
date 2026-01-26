@@ -67,7 +67,36 @@ async function deleteAssetFiles(assetId: string): Promise<void> {
   await rm(assetDir, { recursive: true, force: true })
 }
 
+/**
+ * Delete ALL files in the uploads directory (for full reset).
+ * Returns count of deleted asset directories.
+ */
+async function deleteAllFiles(): Promise<number> {
+  const uploadsDir = path.join(process.cwd(), UPLOADS_DIR)
+  
+  try {
+    const { readdir } = await import('fs/promises')
+    const entries = await readdir(uploadsDir, { withFileTypes: true })
+    const directories = entries.filter(e => e.isDirectory())
+    
+    await Promise.all(
+      directories.map(dir => 
+        rm(path.join(uploadsDir, dir.name), { recursive: true, force: true })
+      )
+    )
+    
+    return directories.length
+  } catch (err) {
+    // Directory doesn't exist - nothing to delete
+    if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
+      return 0
+    }
+    throw err
+  }
+}
+
 export const localStorageAdapter: StorageAdapter = {
   saveProcessedImages,
   deleteAssetFiles,
+  deleteAllFiles,
 }

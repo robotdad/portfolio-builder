@@ -105,7 +105,28 @@ async function deleteAssetFiles(assetId: string): Promise<void> {
   }
 }
 
+async function deleteAllFiles(): Promise<number> {
+  const { containerClient } = getAzureConfig()
+  const blobs: string[] = []
+
+  // List ALL blobs in the container
+  for await (const blob of containerClient.listBlobsFlat()) {
+    blobs.push(blob.name)
+  }
+
+  if (blobs.length > 0) {
+    await Promise.all(
+      blobs.map((blobName) =>
+        containerClient.getBlockBlobClient(blobName).deleteIfExists()
+      )
+    )
+  }
+
+  return blobs.length
+}
+
 export const azureStorageAdapter: StorageAdapter = {
   saveProcessedImages,
   deleteAssetFiles,
+  deleteAllFiles,
 }

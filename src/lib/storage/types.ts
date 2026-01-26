@@ -13,4 +13,6 @@ export interface StoredImageUrls {
 export interface StorageAdapter {
   saveProcessedImages(assetId: string, processed: ProcessedImage): Promise<StoredImageUrls>
   deleteAssetFiles(assetId: string): Promise<void>
+  /** Delete ALL files in storage (for full reset). Returns count of deleted files. */
+  deleteAllFiles(): Promise<number>
 }
