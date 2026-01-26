@@ -23,7 +23,10 @@
     "db:reset": "npx tsx src/scripts/reset-db.ts",
     "test:reset": "npm run db:reset",
     "test:setup": "npm run db:reset && npm run test:populate:sarah",
-    "generate-images": "node scripts/generate-persona-images.js"
+    "generate-images": "node scripts/generate-persona-images.js",
+    "auth:login": "node scripts/auth-login.js",
+    "auth:status": "node scripts/auth-login.js --status",
+    "auth:logout": "node scripts/auth-login.js --logout"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

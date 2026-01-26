@@ -7,6 +7,10 @@
  * Usage: node scripts/populate-persona-api.js [persona-id] [--no-reset]
  * Example: node scripts/populate-persona-api.js sarah-chen
  *          node scripts/populate-persona-api.js emma-rodriguez --no-reset
+ * 
+ * Authentication:
+ *   - Run `npm run auth:login` first if auth is enabled
+ *   - Or set AUTH_DISABLED=true for local development
  */
 
 import fs from 'fs';
@@ -18,7 +22,10 @@ import { execSync } from 'child_process';
 import { createTagContext, processPhotoTags } from './lib/tag-processor.js';
 import { applyLayoutEnhancements } from './lib/apply-layouts.js';
 
-const API_BASE = 'http://localhost:3000/api';
+// Auth support
+import { getAuthHeaders, requireAuth } from './lib/auth-helper.js';
+
+const API_BASE = process.env.API_BASE || 'http://localhost:3000/api';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, '..');
@@ -44,9 +51,13 @@ function generateId() {
 
 // Generic API call helper
 async function apiCall(method, endpoint, data = null) {
+  const authHeaders = getAuthHeaders();
   const opts = {
     method,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      ...authHeaders,
+    },
   };
   if (data) {
     opts.body = JSON.stringify(data);
@@ -82,9 +93,11 @@ async function uploadImage(imagePath, portfolioId, altText = '', caption = '') {
   if (altText) formData.append('altText', altText);
   if (caption) formData.append('caption', caption);
   
+  const authHeaders = getAuthHeaders();
   const response = await fetch(`${API_BASE}/admin/upload`, {
     method: 'POST',
     body: formData,
+    headers: authHeaders,
   });
   
   const json = await response.json();
@@ -433,6 +446,9 @@ async function resetDatabase() {
 async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = false) {
   console.log(`🎭 Enhanced Population for: ${personaId}`);
   console.log('============================================================\n');
+  
+  // Check authentication before proceeding
+  await requireAuth({ apiBase: API_BASE, verify: true });
   
   // Reset database unless --no-reset flag is passed
   if (!skipReset) {
