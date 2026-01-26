@@ -94,7 +94,7 @@ export function GallerySectionEditor({
         // Update order field in database for all database-backed images
         newImages.forEach((img, idx) => {
           if (!img.id.startsWith('section_')) {
-            fetch(`/api/projects/${projectId}/gallery/${img.id}`, {
+            fetch(`/api/admin/projects/${projectId}/gallery/${img.id}`, {
               method: 'PATCH',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ order: idx }),
@@ -166,7 +166,7 @@ export function GallerySectionEditor({
           // and use its ID for deep linking support
           if (projectId) {
             try {
-              const galleryResponse = await fetch(`/api/projects/${projectId}/gallery`, {
+              const galleryResponse = await fetch(`/api/admin/projects/${projectId}/gallery`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -279,7 +279,7 @@ export function GallerySectionEditor({
       // If this is a project gallery image (database record), delete it
       if (projectId && imageId && !imageId.startsWith('section_')) {
         try {
-          await fetch(`/api/projects/${projectId}/gallery/${imageId}`, { 
+          await fetch(`/api/admin/projects/${projectId}/gallery/${imageId}`, { 
             method: 'DELETE' 
           })
         } catch (err) {
@@ -318,7 +318,7 @@ export function GallerySectionEditor({
       
       // Sync to ProjectGalleryImage if this is a project and it's a database record
       if (projectId && imageId && !imageId.startsWith('section_') && (updates.altText !== undefined || updates.caption !== undefined)) {
-        fetch(`/api/projects/${projectId}/gallery/${imageId}`, {
+        fetch(`/api/admin/projects/${projectId}/gallery/${imageId}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

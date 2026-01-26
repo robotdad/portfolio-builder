@@ -136,7 +136,7 @@ export function usePages(portfolioId: string): UsePagesReturn {
     async (data: CreatePageData): Promise<Page> => {
       setError(null)
 
-      const response = await fetch('/api/pages', {
+      const response = await fetch('/api/admin/pages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -181,7 +181,7 @@ export function usePages(portfolioId: string): UsePagesReturn {
       )
 
       try {
-        const response = await fetch(`/api/pages/${id}`, {
+        const response = await fetch(`/api/admin/pages/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
@@ -228,7 +228,7 @@ export function usePages(portfolioId: string): UsePagesReturn {
       setPages((prev) => prev.filter((page) => page.id !== id))
 
       try {
-        const response = await fetch(`/api/pages/${id}`, {
+        const response = await fetch(`/api/admin/pages/${id}`, {
           method: 'DELETE',
         })
 
@@ -270,7 +270,7 @@ export function usePages(portfolioId: string): UsePagesReturn {
       setPages(reorderedPages)
 
       try {
-        const response = await fetch('/api/pages/reorder', {
+        const response = await fetch('/api/admin/pages/reorder', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ portfolioId, pageIds }),

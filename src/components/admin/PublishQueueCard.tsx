@@ -34,12 +34,12 @@ export function PublishQueueCard({ pages, projects, onPublishSuccess }: PublishQ
     try {
       // Publish all pages
       const pagePublishPromises = pages.map(page =>
-        fetch(`/api/pages/${page.id}/publish`, { method: 'POST' })
+        fetch(`/api/admin/pages/${page.id}/publish`, { method: 'POST' })
       )
 
       // Publish all projects
       const projectPublishPromises = projects.map(project =>
-        fetch(`/api/projects/${project.id}/publish`, { method: 'POST' })
+        fetch(`/api/admin/projects/${project.id}/publish`, { method: 'POST' })
       )
 
       // Execute all publish operations

@@ -82,7 +82,7 @@ async function uploadImage(imagePath, portfolioId, altText = '', caption = '') {
   if (altText) formData.append('altText', altText);
   if (caption) formData.append('caption', caption);
   
-  const response = await fetch(`${API_BASE}/upload`, {
+  const response = await fetch(`${API_BASE}/admin/upload`, {
     method: 'POST',
     body: formData,
   });
@@ -498,7 +498,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   
   if (!portfolioId) {
     const name = personaData.persona?.name || personaId;
-    portfolio = await apiCall('POST', '/portfolio', {
+    portfolio = await apiCall('POST', '/admin/portfolio', {
       name: `${name} Portfolio`,
       title: `${name} Portfolio`,
       draftTheme: 'modern-minimal',
@@ -547,7 +547,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
       stats.images++;
       stats.profileImages++;
       
-      await apiCall('PUT', '/portfolio', {
+      await apiCall('PUT', '/admin/portfolio', {
         id: portfolioId,
         bio: bio,
         profilePhotoId: profileAsset.id,
@@ -592,7 +592,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
       }]
     });
     
-    const homePage = await apiCall('POST', '/pages', {
+    const homePage = await apiCall('POST', '/admin/pages', {
       portfolioId: portfolioId,
       title: 'Home',
       slug: '',
@@ -627,7 +627,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
       }]
     });
     
-    await apiCall('POST', '/pages', {
+    await apiCall('POST', '/admin/pages', {
       portfolioId: portfolioId,
       title: 'About',
       slug: 'about',
@@ -674,7 +674,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
       categoryPayload.description = category.description;
     }
     
-    const created = await apiCall('POST', '/categories', categoryPayload);
+    const created = await apiCall('POST', '/admin/categories', categoryPayload);
     categoryId = created.data.id;
     const categorySlug = created.data.slug || category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
     categoryMap[category.name] = categoryId;
@@ -693,7 +693,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     const categorySections = buildCategorySections(category);
     if (categorySections.length > 0) {
       const contentJson = JSON.stringify({ sections: categorySections });
-      await apiCall('PUT', `/categories/${categoryId}`, {
+      await apiCall('PUT', `/admin/categories/${categoryId}`, {
         draftContent: contentJson,
         publishedContent: contentJson,
         order: category.order || 0
@@ -760,7 +760,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
           featuredImageId: featuredAsset.id
         };
         
-        const projectData = await apiCall('POST', '/projects', projectPayload);
+        const projectData = await apiCall('POST', '/admin/projects', projectPayload);
         const projectId = projectData.data.id;
         const categorySlug = category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
         const projectSlug = projectData.data.slug || project.slug || project.title.toLowerCase().replace(/\s+/g, '-');
@@ -814,7 +814,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
               
               const asset = await uploadImage(photoPath, portfolioId, altText, caption);
               
-              const galleryRecord = await apiCall('POST', `/projects/${projectId}/gallery`, {
+              const galleryRecord = await apiCall('POST', `/admin/projects/${projectId}/gallery`, {
                 assetId: asset.id,
                 altText: altText,
                 caption: caption,
@@ -845,7 +845,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         const projectSections = buildProjectSections(project, galleryImages);
         if (projectSections.length > 0) {
           const contentJson = JSON.stringify({ sections: projectSections });
-          await apiCall('PUT', `/projects/${projectId}`, {
+          await apiCall('PUT', `/admin/projects/${projectId}`, {
             draftContent: contentJson,
             publishedContent: contentJson,
             order: project.order || 0
@@ -867,7 +867,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     
     // Set category featured image
     if (categoryFeaturedImageId) {
-      await apiCall('PUT', `/categories/${categoryId}`, {
+      await apiCall('PUT', `/admin/categories/${categoryId}`, {
         featuredImageId: categoryFeaturedImageId
       });
       console.log(`  ✓ Category featured image set`);

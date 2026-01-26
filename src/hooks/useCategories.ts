@@ -140,7 +140,7 @@ export function useCategories(portfolioId: string): UseCategoriesReturn {
     async (data: CreateCategoryData): Promise<Category> => {
       setError(null)
 
-      const response = await fetch('/api/categories', {
+      const response = await fetch('/api/admin/categories', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -188,7 +188,7 @@ export function useCategories(portfolioId: string): UseCategoriesReturn {
       )
 
       try {
-        const response = await fetch(`/api/categories/${id}`, {
+        const response = await fetch(`/api/admin/categories/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
@@ -240,7 +240,7 @@ export function useCategories(portfolioId: string): UseCategoriesReturn {
       setCategories((prev) => prev.filter((cat) => cat.id !== id))
 
       try {
-        const response = await fetch(`/api/categories/${id}`, {
+        const response = await fetch(`/api/admin/categories/${id}`, {
           method: 'DELETE',
         })
 
@@ -283,7 +283,7 @@ export function useCategories(portfolioId: string): UseCategoriesReturn {
       setCategories(reorderedCategories)
 
       try {
-        const response = await fetch('/api/categories/reorder', {
+        const response = await fetch('/api/admin/categories/reorder', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ categoryIds }),

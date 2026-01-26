@@ -153,7 +153,7 @@ export function useProjects(categoryId: string): UseProjectsReturn {
     async (data: CreateProjectData): Promise<Project> => {
       setError(null)
 
-      const response = await fetch('/api/projects', {
+      const response = await fetch('/api/admin/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -199,7 +199,7 @@ export function useProjects(categoryId: string): UseProjectsReturn {
       )
 
       try {
-        const response = await fetch(`/api/projects/${id}`, {
+        const response = await fetch(`/api/admin/projects/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
@@ -246,7 +246,7 @@ export function useProjects(categoryId: string): UseProjectsReturn {
       setProjects((prev) => prev.filter((proj) => proj.id !== id))
 
       try {
-        const response = await fetch(`/api/projects/${id}`, {
+        const response = await fetch(`/api/admin/projects/${id}`, {
           method: 'DELETE',
         })
 
@@ -289,7 +289,7 @@ export function useProjects(categoryId: string): UseProjectsReturn {
       setProjects(reorderedProjects)
 
       try {
-        const response = await fetch('/api/projects/reorder', {
+        const response = await fetch('/api/admin/projects/reorder', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ projectIds }),

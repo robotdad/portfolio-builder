@@ -75,7 +75,7 @@ export function PageList({
       // Save reorder to server
       setIsReordering(true)
       try {
-        const response = await fetch('/api/pages/reorder', {
+        const response = await fetch('/api/admin/pages/reorder', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

@@ -37,7 +37,7 @@ export class PortfolioAPI {
   }
 
   async createCategory(data: { name: string; description?: string }) {
-    const res = await this.fetch('/api/categories', {
+    const res = await this.fetch('/api/admin/categories', {
       method: 'POST',
       body: JSON.stringify(data),
     })
@@ -64,7 +64,7 @@ export class PortfolioAPI {
     year?: number
     description?: string 
   }) {
-    const res = await this.fetch('/api/projects', {
+    const res = await this.fetch('/api/admin/projects', {
       method: 'POST',
       body: JSON.stringify(data),
     })
@@ -86,11 +86,11 @@ export class PortfolioAPI {
   }
 
   async deleteCategory(id: string) {
-    return this.fetch(`/api/categories/${id}`, { method: 'DELETE' })
+    return this.fetch(`/api/admin/categories/${id}`, { method: 'DELETE' })
   }
 
   async deleteProject(id: string) {
-    return this.fetch(`/api/projects/${id}`, { method: 'DELETE' })
+    return this.fetch(`/api/admin/projects/${id}`, { method: 'DELETE' })
   }
 }
 
