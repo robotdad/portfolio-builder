@@ -166,7 +166,7 @@ export function ImageSectionEditor({
   const handleRemoveImage = async () => {
     if (section.imageId) {
       try {
-        await fetch(`/api/upload/${section.imageId}`, { method: 'DELETE' })
+        await fetch(`/api/admin/upload/${section.imageId}`, { method: 'DELETE' })
       } catch (err) {
         console.error('Failed to delete image:', err)
       }
@@ -202,7 +202,7 @@ export function ImageSectionEditor({
     if (!section.imageId) return
 
     try {
-      await fetch(`/api/upload/${section.imageId}`, {
+      await fetch(`/api/admin/upload/${section.imageId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ altText: section.altText }),

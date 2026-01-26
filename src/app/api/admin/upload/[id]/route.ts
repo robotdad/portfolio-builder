@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { rm } from 'fs/promises'
-import path from 'path'
+import { getStorage } from '@/lib/storage'
 
 // CUID format: 25 alphanumeric characters (e.g., "clrk8z1234567abcdefghij")
 const VALID_ID_PATTERN = /^[a-z0-9]{20,30}$/i
@@ -94,20 +93,9 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       )
     }
 
-    // Construct path with additional safety check
-    const uploadsDir = path.resolve(process.cwd(), 'public/uploads')
-    const assetDir = path.resolve(uploadsDir, id)
-    
-    // Ensure resolved path is still within uploads directory (defense in depth)
-    if (!assetDir.startsWith(uploadsDir)) {
-      return NextResponse.json(
-        { message: 'Invalid asset path' },
-        { status: 400 }
-      )
-    }
-    
+    // Delete asset files from storage (local or Azure)
     try {
-      await rm(assetDir, { recursive: true, force: true })
+      await getStorage().deleteAssetFiles(id)
     } catch (fileError) {
       // Log but don't fail if files don't exist
       console.warn('Could not delete asset files:', fileError)

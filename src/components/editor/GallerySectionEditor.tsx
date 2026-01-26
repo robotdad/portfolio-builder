@@ -290,7 +290,7 @@ export function GallerySectionEditor({
       // Also delete the asset if present
       if (image?.imageId) {
         try {
-          await fetch(`/api/upload/${image.imageId}`, { method: 'DELETE' })
+          await fetch(`/api/admin/upload/${image.imageId}`, { method: 'DELETE' })
         } catch (err) {
           console.error('Failed to delete asset:', err)
         }
@@ -330,7 +330,7 @@ export function GallerySectionEditor({
       
       // Also sync alt text to the asset
       if (image?.imageId && updates.altText !== undefined) {
-        fetch(`/api/upload/${image.imageId}`, {
+        fetch(`/api/admin/upload/${image.imageId}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

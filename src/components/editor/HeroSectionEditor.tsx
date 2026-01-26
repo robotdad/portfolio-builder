@@ -131,7 +131,7 @@ export function HeroSectionEditor({
   const handleRemoveImage = async () => {
     if (section.profileImageId) {
       try {
-        await fetch(`/api/upload/${section.profileImageId}`, { method: 'DELETE' })
+        await fetch(`/api/admin/upload/${section.profileImageId}`, { method: 'DELETE' })
       } catch (err) {
         console.error('Failed to delete image:', err)
       }

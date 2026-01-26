@@ -228,7 +228,7 @@ function FeaturedItemEditor({
   const handleRemoveImage = async () => {
     if (item.imageId) {
       try {
-        await fetch(`/api/upload/${item.imageId}`, { method: 'DELETE' })
+        await fetch(`/api/admin/upload/${item.imageId}`, { method: 'DELETE' })
       } catch (err) {
         console.error('Failed to delete image:', err)
       }
