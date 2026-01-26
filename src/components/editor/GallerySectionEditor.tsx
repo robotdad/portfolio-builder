@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
+import { adminFetch } from '@/lib/api/client'
 import {
   DndContext,
   closestCenter,
@@ -146,7 +147,7 @@ export function GallerySectionEditor({
           formData.append('portfolioId', portfolioId)
           formData.append('altText', '')
 
-          const response = await fetch('/api/upload', {
+          const response = await adminFetch('/api/admin/upload', {
             method: 'POST',
             body: formData,
           })

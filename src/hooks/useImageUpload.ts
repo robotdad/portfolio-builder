@@ -9,6 +9,7 @@
  */
 import { useState, useRef, useCallback } from 'react'
 import { useToast } from '@/components/shared/Toast'
+import { adminFetch } from '@/lib/api/client'
 
 // ============================================================================
 // Types
@@ -183,7 +184,7 @@ export function useImageUpload({
       formData.append('context', context)
 
       // Perform the actual upload
-      const response = await fetch('/api/upload', {
+      const response = await adminFetch('/api/admin/upload', {
         method: 'POST',
         body: formData,
       })

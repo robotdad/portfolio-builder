@@ -417,6 +417,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setToasts((prev) => prev.filter((toast) => toast.id !== id))
   }, [])
 
+  // Register for standalone toast access
+  useEffect(() => {
+    registerToastProvider(showToast)
+    return () => unregisterToastProvider()
+  }, [showToast])
+
   const contextValue: ToastContextValue = {
     showToast,
     dismissToast,
@@ -428,6 +434,38 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
     </ToastContext.Provider>
   )
+}
+
+// ============================================================================
+// Standalone Toast (for use outside React components)
+// ============================================================================
+
+type StandaloneToastFn = ((toast: Omit<ToastProps, 'id' | 'onDismiss'>) => string) | null
+
+let registeredShowToast: StandaloneToastFn = null
+
+export function registerToastProvider(showToast: (toast: Omit<ToastProps, 'id' | 'onDismiss'>) => string): void {
+  registeredShowToast = showToast
+}
+
+export function unregisterToastProvider(): void {
+  registeredShowToast = null
+}
+
+/**
+ * Show a toast from outside React component tree.
+ * Requires ToastProvider to be mounted.
+ */
+export function showToastStandalone(toast: {
+  message: string
+  type: 'success' | 'error'
+  duration?: number
+}): void {
+  if (!registeredShowToast) {
+    console.error('[Toast] Provider not mounted. Toast message:', toast.message)
+    return
+  }
+  registeredShowToast(toast)
 }
 
 // ============================================================================

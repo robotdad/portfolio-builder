@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react'
 import Image from 'next/image'
+import { adminFetch } from '@/lib/api/client'
 
 interface Asset {
   id: string
@@ -108,7 +109,7 @@ export function ImageUpload({
       formData.append('portfolioId', portfolioId)
       formData.append('altText', altText)
 
-      const response = await fetch('/api/upload', {
+      const response = await adminFetch('/api/admin/upload', {
         method: 'POST',
         body: formData,
       })

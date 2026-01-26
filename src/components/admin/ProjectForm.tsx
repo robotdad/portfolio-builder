@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useId, useCallback } from 'react'
+import { adminFetch } from '@/lib/api/client'
 import { FeaturedImagePicker, type FeaturedImage } from './FeaturedImagePicker'
 import { GalleryImageGrid, type GalleryImage } from './GalleryImageGrid'
 import { ImagePicker } from '@/components/shared/ImagePicker'
@@ -245,7 +246,7 @@ export function ProjectForm({
     formData.append('file', file)
     formData.append('categoryId', categoryId)
 
-    const response = await fetch('/api/upload', {
+    const response = await adminFetch('/api/admin/upload', {
       method: 'POST',
       body: formData,
     })
