@@ -15,9 +15,10 @@ echo "Preparing deployment package..."
 cp -r .next/static .next/standalone/.next/static
 cp -r public .next/standalone/public
 
-# Copy Prisma schema (needed for migrations on server)
+# Copy Prisma files (needed for migrations on server)
 mkdir -p .next/standalone/prisma
 cp src/prisma/schema.prisma .next/standalone/prisma/
+cp prisma.config.ts .next/standalone/
 
 # Create zip from standalone folder
 echo "Creating deploy.zip..."
