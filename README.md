@@ -23,7 +23,7 @@ This is a single-user portfolio application built with Next.js. It provides:
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
-- **Database**: SQLite via Prisma
+- **Database**: PostgreSQL via Prisma
 - **Styling**: Tailwind CSS 4
 - **Rich Text**: Tiptap editor
 - **Images**: Sharp.js for processing
@@ -34,6 +34,41 @@ This is a single-user portfolio application built with Next.js. It provides:
 
 - Node.js 18+ 
 - npm or yarn
+- PostgreSQL 14+ (native or Docker)
+
+### Database Setup
+
+#### Option 1: Native PostgreSQL (Recommended)
+
+If you have PostgreSQL installed locally (e.g., via Homebrew):
+
+```bash
+# Create the database
+createdb portfolio
+
+# Or with psql
+psql -c "CREATE DATABASE portfolio;"
+```
+
+The default connection string assumes:
+- Host: localhost
+- Port: 5432
+- User: postgres
+- Password: postgres
+- Database: portfolio
+
+Update your `.env` file if your setup differs.
+
+#### Option 2: Docker PostgreSQL
+
+If you prefer Docker:
+
+```bash
+# Start PostgreSQL container
+docker compose up -d
+
+# Wait a few seconds for PostgreSQL to initialize
+```
 
 ### Installation
 
@@ -45,8 +80,15 @@ cd portfolio-builder
 # Install dependencies
 npm install
 
+# Copy environment file and configure
+cp .env.example .env
+# Edit .env with your database connection string if needed
+
 # Generate Prisma client
 npm run db:generate
+
+# Push schema to database
+npx prisma db push
 
 # Start the development server
 npm run dev
@@ -86,6 +128,8 @@ Run all commands from the project root:
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
 | `npm run format` | Format code with Prettier |
+| `npm run db:generate` | Generate Prisma client |
+| `npm run db:reset` | Reset database (truncate all tables) |
 
 ## Environment Variables
 
@@ -97,7 +141,7 @@ cp .env.example .env
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DATABASE_URL` | SQLite database path | `file:./src/prisma/dev.db` |
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://postgres:postgres@localhost:5432/portfolio` |
 
 ## Documentation
 
@@ -120,7 +164,7 @@ See `test-assets/README.md` for available test personas and their content.
 
 *Documentation coming soon.*
 
-This application is designed for single-user deployment. It uses SQLite for simplicity but can be adapted for PostgreSQL or other databases supported by Prisma.
+This application is designed for single-user deployment. It uses PostgreSQL as the database, which is well-supported by all major cloud providers including Azure, AWS, and Heroku.
 
 ## Contributing
 

@@ -12,7 +12,7 @@
  *
  * How it works:
  * 1. Check if a PrismaClient already exists on globalThis
- * 2. If not, create one with the better-sqlite3 adapter
+ * 2. If not, create one with the PostgreSQL adapter
  * 3. In development, store it on globalThis for reuse
  * 4. In production, each cold start creates a fresh client (no global caching needed)
  *
@@ -23,18 +23,16 @@
  * const users = await prisma.user.findMany()
  */
 import { PrismaClient } from '@prisma/client'
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
-import path from 'path'
+import { PrismaPg } from '@prisma/adapter-pg'
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
 function createPrismaClient() {
-  // Resolve database path relative to current working directory
-  // Project runs from root, database is at src/prisma/dev.db
-  const dbPath = path.join(process.cwd(), 'src', 'prisma', 'dev.db')
-  const adapter = new PrismaBetterSqlite3({ url: `file:${dbPath}` })
+  const connectionString =
+    process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@localhost:5432/portfolio'
+  const adapter = new PrismaPg({ connectionString })
   return new PrismaClient({ adapter })
 }
 

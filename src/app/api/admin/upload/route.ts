@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { processImage } from '@/lib/image-processor'
-import { getStorage } from '@/lib/storage'
+import { getStorageAsync } from '@/lib/storage'
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 const MAX_SIZE = 10 * 1024 * 1024 // 10MB
@@ -117,8 +117,9 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    // Save files to disk using asset ID
-    const urls = await getStorage().saveProcessedImages(asset.id, processed)
+    // Save files to storage using asset ID
+    const storage = await getStorageAsync()
+    const urls = await storage.saveProcessedImages(asset.id, processed)
 
     // Update asset with actual URLs
     const updatedAsset = await prisma.asset.update({

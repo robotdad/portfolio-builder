@@ -1,16 +1,15 @@
 /**
  * Seed script for Category and Project models
- * 
+ *
  * Run with: npx tsx prisma/seed-categories.ts
  */
 
 import { PrismaClient } from '@prisma/client'
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
-import path from 'path'
+import { PrismaPg } from '@prisma/adapter-pg'
 
-// Use same adapter pattern as lib/prisma.ts
-const dbPath = path.join(process.cwd(), 'prisma', 'dev.db')
-const adapter = new PrismaBetterSqlite3({ url: `file:${dbPath}` })
+const connectionString =
+  process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@localhost:5432/portfolio'
+const adapter = new PrismaPg({ connectionString })
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
@@ -18,7 +17,7 @@ async function main() {
 
   // Get the first portfolio (or create one if none exists)
   let portfolio = await prisma.portfolio.findFirst()
-  
+
   if (!portfolio) {
     console.log('Creating test portfolio...')
     portfolio = await prisma.portfolio.create({
@@ -63,13 +62,16 @@ async function main() {
   ]
 
   // Sample projects for each category
-  const projectsByCategory: Record<string, Array<{
-    title: string
-    slug: string
-    year: string
-    venue?: string
-    isFeatured: boolean
-  }>> = {
+  const projectsByCategory: Record<
+    string,
+    Array<{
+      title: string
+      slug: string
+      year: string
+      venue?: string
+      isFeatured: boolean
+    }>
+  > = {
     theatre: [
       {
         title: 'Hamlet',

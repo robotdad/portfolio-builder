@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { Suspense, useEffect, useState, useRef } from 'react'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 
@@ -33,7 +33,7 @@ function Spinner() {
   )
 }
 
-export default function CLILoginPage() {
+function CLILoginContent() {
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callback')
   const [error, setError] = useState<string | null>(null)
@@ -94,6 +94,50 @@ export default function CLILoginPage() {
   }, [callbackUrl])
 
   return (
+    <>
+      {phase === 'error' ? (
+        <>
+          <p className="auth-error" style={{ color: '#dc2626', marginBottom: '1rem' }}>
+            {error}
+          </p>
+          <p className="auth-subtitle">
+            Return to your terminal and try again.
+          </p>
+        </>
+      ) : phase === 'checking' ? (
+        <>
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '1.5rem 0' }}>
+            <Spinner />
+          </div>
+          <p className="auth-subtitle">
+            Checking authentication...
+          </p>
+        </>
+      ) : phase === 'authenticating' ? (
+        <>
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '1.5rem 0' }}>
+            <Spinner />
+          </div>
+          <p className="auth-subtitle">
+            Redirecting to Google sign-in...
+          </p>
+        </>
+      ) : (
+        <>
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '1.5rem 0' }}>
+            <Spinner />
+          </div>
+          <p className="auth-subtitle">
+            Authenticated! Returning to CLI...
+          </p>
+        </>
+      )}
+    </>
+  )
+}
+
+export default function CLILoginPage() {
+  return (
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-icon">
@@ -102,43 +146,16 @@ export default function CLILoginPage() {
         
         <h1 className="auth-title">CLI Authentication</h1>
         
-        {phase === 'error' ? (
-          <>
-            <p className="auth-error" style={{ color: '#dc2626', marginBottom: '1rem' }}>
-              {error}
-            </p>
-            <p className="auth-subtitle">
-              Return to your terminal and try again.
-            </p>
-          </>
-        ) : phase === 'checking' ? (
+        <Suspense fallback={
           <>
             <div style={{ display: 'flex', justifyContent: 'center', margin: '1.5rem 0' }}>
               <Spinner />
             </div>
-            <p className="auth-subtitle">
-              Checking authentication...
-            </p>
+            <p className="auth-subtitle">Loading...</p>
           </>
-        ) : phase === 'authenticating' ? (
-          <>
-            <div style={{ display: 'flex', justifyContent: 'center', margin: '1.5rem 0' }}>
-              <Spinner />
-            </div>
-            <p className="auth-subtitle">
-              Redirecting to Google sign-in...
-            </p>
-          </>
-        ) : (
-          <>
-            <div style={{ display: 'flex', justifyContent: 'center', margin: '1.5rem 0' }}>
-              <Spinner />
-            </div>
-            <p className="auth-subtitle">
-              Authenticated! Returning to CLI...
-            </p>
-          </>
-        )}
+        }>
+          <CLILoginContent />
+        </Suspense>
         
         <p className="auth-disclaimer">
           This will authorize your terminal to access the Portfolio API
