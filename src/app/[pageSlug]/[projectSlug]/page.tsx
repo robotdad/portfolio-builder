@@ -68,7 +68,7 @@ export default async function ProjectPage({ params }: PageProps) {
   }
 
   // Find the category
-  const category = portfolio.categories.find(c => c.slug === categorySlug)
+  const category = portfolio.categories.find((c: { slug: string; id: string }) => c.slug === categorySlug)
   
   if (!category) {
     notFound()
@@ -88,7 +88,7 @@ export default async function ProjectPage({ params }: PageProps) {
   }
 
   // Get homepage for name extraction
-  const homePage = portfolio.pages.find(p => p.isHomepage) || portfolio.pages[0]
+  const homePage = portfolio.pages.find((p: { isHomepage: boolean }) => p.isHomepage) || portfolio.pages[0]
   const homePageSections = deserializeSections(homePage?.publishedContent)
   const heroSection = homePageSections.find(isHeroSection)
   const portfolioName = heroSection?.name || portfolio.name

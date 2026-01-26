@@ -63,7 +63,7 @@ export default async function PublicPortfolioLayout({
   }
 
   // Prepare navigation data
-  const navPages: NavPage[] = portfolio.pages.map((p) => ({
+  const navPages: NavPage[] = portfolio.pages.map((p: { id: string; title: string; slug: string; isHomepage: boolean; showInNav: boolean }) => ({
     id: p.id,
     title: p.title,
     slug: p.slug,
@@ -71,7 +71,7 @@ export default async function PublicPortfolioLayout({
     showInNav: p.showInNav,
   }))
 
-  const navCategories: NavCategory[] = portfolio.categories.map((c) => ({
+  const navCategories: NavCategory[] = portfolio.categories.map((c: { id: string; name: string; slug: string }) => ({
     id: c.id,
     name: c.name,
     slug: c.slug,
