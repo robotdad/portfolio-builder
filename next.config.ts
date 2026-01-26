@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Standalone output for Azure deployment (~50MB instead of 370MB)
+  output: 'standalone',
+  
   // Security headers for all routes
   async headers() {
     return [
