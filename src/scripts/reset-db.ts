@@ -11,6 +11,12 @@
  * Usage: tsx scripts/reset-db.ts
  */
 
+// Load environment variables (Next.js does this automatically, but tsx scripts don't)
+// Load .env first, then .env.local with override to match Next.js precedence
+import { config } from 'dotenv';
+config({ path: '.env' });
+config({ path: '.env.local', override: true });
+
 import { PrismaClient } from '@prisma/client';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 import path from 'path';
