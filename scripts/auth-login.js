@@ -29,7 +29,9 @@ const __dirname = path.dirname(__filename);
 const AUTH_FILE = path.join(os.homedir(), '.portfolio-auth');
 const CALLBACK_PORT = 3847; // Random-ish port for callback
 const APP_PORT = process.env.PORT || 3000;
-const APP_BASE = process.env.API_BASE || `http://localhost:${APP_PORT}`;
+// APP_BASE is the site root (not /api) - strip trailing slash and /api suffix if present
+const rawBase = process.env.APP_BASE || process.env.API_BASE || `http://localhost:${APP_PORT}`;
+const APP_BASE = rawBase.replace(/\/+$/, '').replace(/\/api$/, '');
 
 // ANSI colors for terminal output
 const colors = {

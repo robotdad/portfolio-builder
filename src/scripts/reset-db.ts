@@ -9,10 +9,12 @@
  */
 
 // Load environment variables (Next.js does this automatically, but tsx scripts don't)
-// Load .env first, then .env.local with override to match Next.js precedence
+// Only load if not already set (allows dotenv-cli to inject production vars)
 import { config } from 'dotenv'
-config({ path: '.env' })
-config({ path: '.env.local', override: true })
+if (!process.env.DATABASE_URL) {
+  config({ path: '.env' })
+  config({ path: '.env.local', override: true })
+}
 
 import { PrismaClient } from '@prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
