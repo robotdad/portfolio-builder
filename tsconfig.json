@@ -40,6 +40,8 @@
   ],
   "exclude": [
     "node_modules",
-    "src/node_modules"
+    "src/node_modules",
+    "src/scripts",
+    "src/prisma/seed-admin.ts"
   ]
 }
