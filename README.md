@@ -121,6 +121,8 @@ portfolio/
 
 Run all commands from the project root:
 
+### Development
+
 | Command | Description |
 |---------|-------------|
 | `npm run dev` | Start development server |
@@ -128,8 +130,34 @@ Run all commands from the project root:
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
 | `npm run format` | Format code with Prettier |
+
+### Database
+
+| Command | Description |
+|---------|-------------|
 | `npm run db:generate` | Generate Prisma client |
-| `npm run db:reset` | Reset database (truncate all tables) |
+| `npm run db:reset` | Reset local database (truncate all tables) |
+| `npm run db:seed-admin <email>` | Add an allowed admin email |
+| `npm run db:migrate:prod` | Run migrations on production |
+| `npm run db:reset:prod` | Reset production database |
+| `npm run db:seed-admin:prod <email>` | Add admin email to production |
+
+### Testing
+
+| Command | Description |
+|---------|-------------|
+| `npm run test:e2e` | Run Playwright end-to-end tests |
+| `npm run test:e2e:ui` | Run tests with Playwright UI |
+| `npm run test:populate:sarah` | Populate with Sarah Chen test persona |
+| `npm run test:populate:sarah:prod` | Populate production with test persona |
+
+### Authentication (for scripts)
+
+| Command | Description |
+|---------|-------------|
+| `npm run auth:login` | Authenticate for production scripts |
+| `npm run auth:status` | Check authentication status |
+| `npm run auth:logout` | Clear stored credentials |
 
 ## Environment Variables
 
@@ -162,9 +190,20 @@ See `test-assets/README.md` for available test personas and their content.
 
 ## Deployment
 
-*Documentation coming soon.*
+This application is designed for single-user deployment on Azure App Service.
 
-This application is designed for single-user deployment. It uses PostgreSQL as the database, which is well-supported by all major cloud providers including Azure, AWS, and Heroku.
+**Quick overview:**
+- Azure App Service with Node.js 22
+- Azure PostgreSQL Flexible Server
+- Azure Blob Storage for images
+- Google OAuth for authentication
+- Git-based deployment (`git push azure main`)
+
+See the [Deployment Guide](docs/DEPLOYMENT.md) for complete instructions including:
+- Infrastructure setup (CLI and Portal methods)
+- Environment variable configuration
+- Custom domain and SSL setup
+- Production scripts for database management
 
 ## Contributing
 

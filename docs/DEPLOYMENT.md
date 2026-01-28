@@ -1,13 +1,14 @@
 # Deployment Guide
 
-This guide covers deploying the portfolio application to Azure App Service with custom domain support.
+This guide covers deploying the portfolio application to Azure App Service.
 
 ## Overview
 
-This application is designed for single-user deployment. It uses:
-- **SQLite** for local development
-- **Azure SQL Database (Serverless)** for production
-- **Azure Blob Storage** for image hosting in production
+The application uses:
+- **PostgreSQL** for both local development and production
+- **Azure App Service** with git-based deployment
+- **Azure PostgreSQL Flexible Server** for the database
+- **Azure Blob Storage** for image hosting
 - **Google OAuth** for admin authentication
 
 ## Prerequisites
@@ -15,334 +16,405 @@ This application is designed for single-user deployment. It uses:
 Before deploying, ensure you have:
 
 - [ ] Azure account with active subscription ([Create free account](https://azure.microsoft.com/free/))
+- [ ] Azure CLI installed and logged in (`az login`)
 - [ ] Google OAuth credentials configured ([Setup Guide](./GOOGLE-OAUTH-SETUP.md))
-- [ ] Azure Blob Storage configured ([Azure Setup Guide](./AZURE_SETUP.md))
-- [ ] Azure SQL Database configured ([Database Setup](#azure-sql-database-setup))
+- [ ] Custom domain configured (optional) ([Domain Setup Guide](./DOMAIN_SETUP.md))
 
-## Azure SQL Database Setup
+---
 
-### Why Azure SQL Instead of SQLite?
+## Azure Infrastructure Setup
 
-Azure App Service uses an SMB-mounted network share for its file system. SQLite requires exclusive file locks that network file systems cannot reliably provide, leading to data corruption. Azure SQL Database provides proper concurrency handling.
+### Option 1: Simplified Setup (Recommended)
 
-### Create Azure SQL Database (Serverless)
-
-#### Azure Portal Method
-
-1. Go to [Azure Portal](https://portal.azure.com)
-2. Click **Create a resource** → **SQL Database**
-3. Configure the basics:
-
-   | Setting | Value |
-   |---------|-------|
-   | **Subscription** | Your subscription |
-   | **Resource Group** | Use same as storage account (e.g., `portfolio-rg`) |
-   | **Database name** | `portfolio` |
-   | **Server** | Create new (see below) |
-
-4. **Create new server**:
-   | Setting | Value |
-   |---------|-------|
-   | **Server name** | Globally unique (e.g., `portfolio-sql-server`) |
-   | **Location** | Same as App Service |
-   | **Authentication** | SQL authentication |
-   | **Admin login** | Choose a username |
-   | **Password** | Strong password |
-
-5. **Compute + storage**: Click **Configure database**
-   - Select **Serverless** compute tier
-   - Set min vCores: 0.5
-   - Set max vCores: 1
-   - Enable **Auto-pause** (saves money when idle)
-   - Storage: 5 GB (minimum)
-
-6. Click **Review + create** → **Create**
-
-#### Azure CLI Method
+This creates a straightforward deployment without VNet complexity:
 
 ```bash
-# Create SQL Server
-az sql server create \
-  --name portfolio-sql-server \
-  --resource-group portfolio-rg \
-  --location eastus \
-  --admin-user sqladmin \
-  --admin-password 'YourStrongPassword!'
+# Variables - customize these
+RESOURCE_GROUP="portfolio-rg"
+LOCATION="centralus"
+APP_NAME="your-portfolio"
+DB_SERVER_NAME="your-portfolio-db"
+DB_NAME="portfolio"
+DB_ADMIN="portfolioadmin"
+DB_PASSWORD="YourSecurePassword123!"  # Use a strong password
+STORAGE_NAME="yourportfoliostore"     # Must be globally unique, lowercase
 
-# Create serverless database
-az sql db create \
-  --name portfolio \
-  --resource-group portfolio-rg \
-  --server portfolio-sql-server \
-  --compute-model Serverless \
-  --edition GeneralPurpose \
-  --family Gen5 \
-  --min-capacity 0.5 \
-  --max-capacity 1 \
-  --auto-pause-delay 60
+# Create resource group
+az group create --name $RESOURCE_GROUP --location $LOCATION
 
-# Allow Azure services to access
-az sql server firewall-rule create \
-  --name AllowAzureServices \
-  --resource-group portfolio-rg \
-  --server portfolio-sql-server \
-  --start-ip-address 0.0.0.0 \
-  --end-ip-address 0.0.0.0
-```
+# Create PostgreSQL Flexible Server (public access with firewall)
+az postgres flexible-server create \
+  --resource-group $RESOURCE_GROUP \
+  --name $DB_SERVER_NAME \
+  --location $LOCATION \
+  --admin-user $DB_ADMIN \
+  --admin-password "$DB_PASSWORD" \
+  --sku-name Standard_B1ms \
+  --tier Burstable \
+  --storage-size 32 \
+  --version 16 \
+  --public-access 0.0.0.0
 
-### Get Connection String
+# Create the database
+az postgres flexible-server db create \
+  --resource-group $RESOURCE_GROUP \
+  --server-name $DB_SERVER_NAME \
+  --database-name $DB_NAME
 
-1. Open your SQL Database in Azure Portal
-2. Go to **Settings** → **Connection strings**
-3. Copy the **ADO.NET** connection string
-4. Replace `{your_password}` with your actual password
-
-**Format for Prisma:**
-```
-sqlserver://portfolio-sql-server.database.windows.net:1433;database=portfolio;user=sqladmin;password=YourPassword;encrypt=true;trustServerCertificate=false
-```
-
-## Azure App Service Deployment
-
-### Step 1: Create App Service
-
-#### Azure Portal Method
-
-1. Go to [Azure Portal](https://portal.azure.com)
-2. Click **Create a resource** → **Web App**
-3. Configure the basics:
-
-   | Setting | Value |
-   |---------|-------|
-   | **Subscription** | Your subscription |
-   | **Resource Group** | Use same as storage account (e.g., `portfolio-rg`) |
-   | **Name** | Globally unique (e.g., `sasha-portfolio`) - becomes `sasha-portfolio.azurewebsites.net` |
-   | **Publish** | Code |
-   | **Runtime stack** | Node 20 LTS |
-   | **Operating System** | Linux |
-   | **Region** | Same as storage account |
-
-4. **App Service Plan**: Create new or use existing
-   - For testing: Free F1 tier
-   - For production: Basic B1 or higher (needed for custom domains)
-
-5. Click **Review + create** → **Create**
-
-#### Azure CLI Method
-
-```bash
-# Create App Service plan
+# Create App Service Plan
 az appservice plan create \
-  --name portfolio-plan \
-  --resource-group portfolio-rg \
+  --name "${APP_NAME}-plan" \
+  --resource-group $RESOURCE_GROUP \
   --sku B1 \
   --is-linux
 
 # Create Web App
 az webapp create \
-  --name sasha-portfolio \
-  --resource-group portfolio-rg \
-  --plan portfolio-plan \
-  --runtime "NODE:20-lts"
+  --name $APP_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --plan "${APP_NAME}-plan" \
+  --runtime "NODE:22-lts"
+
+# Create Storage Account
+az storage account create \
+  --name $STORAGE_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --location $LOCATION \
+  --sku Standard_LRS \
+  --kind StorageV2 \
+  --allow-blob-public-access true
+
+# Create blob container
+az storage container create \
+  --name portfolio-images \
+  --account-name $STORAGE_NAME \
+  --public-access blob \
+  --auth-mode login
+
+# Get storage connection string
+STORAGE_CONN=$(az storage account show-connection-string \
+  --name $STORAGE_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --output tsv)
+
+# Configure App Service settings
+az webapp config appsettings set \
+  --resource-group $RESOURCE_GROUP \
+  --name $APP_NAME \
+  --settings \
+    DATABASE_URL="postgresql://${DB_ADMIN}:${DB_PASSWORD}@${DB_SERVER_NAME}.postgres.database.azure.com:5432/${DB_NAME}?sslmode=require" \
+    AZURE_STORAGE_CONNECTION_STRING="$STORAGE_CONN" \
+    AZURE_STORAGE_CONTAINER_NAME="portfolio-images" \
+    GOOGLE_CLIENT_ID="your-google-client-id" \
+    GOOGLE_CLIENT_SECRET="your-google-client-secret" \
+    AUTH_SECRET="$(openssl rand -base64 32)" \
+    NEXTAUTH_URL="https://${APP_NAME}.azurewebsites.net" \
+    NODE_ENV="production" \
+    SCM_DO_BUILD_DURING_DEPLOYMENT="true"
+
+# Set startup command
+az webapp config set \
+  --resource-group $RESOURCE_GROUP \
+  --name $APP_NAME \
+  --startup-file "npm run start:azure"
+
+# Configure local git deployment
+az webapp deployment source config-local-git \
+  --name $APP_NAME \
+  --resource-group $RESOURCE_GROUP
+
+# Get deployment URL
+DEPLOY_URL=$(az webapp deployment source config-local-git \
+  --name $APP_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --query url --output tsv)
+
+echo "Add git remote: git remote add azure $DEPLOY_URL"
 ```
 
-### Step 2: Build and Deploy Manually
+### Option 2: Azure Portal
 
-This application uses manual deployment (no CI/CD).
+See [Azure Portal Setup](#azure-portal-setup) at the end of this document.
 
-#### Build Locally
+---
 
-```bash
-# Install dependencies
-npm install
+## Deployment Workflow
 
-# Build the application
-npm run build
-```
+### Initial Setup
 
-#### Deploy via ZIP
-
-1. Create a deployment package:
+1. **Add the Azure git remote:**
    ```bash
-   # Create zip of necessary files
-   zip -r deploy.zip .next package.json package-lock.json public prisma node_modules
+   git remote add azure <deployment-url-from-setup>
    ```
 
-2. Deploy via Azure CLI:
+2. **Create local production environment file:**
+   
+   Create `.env.production.local` (gitignored) with production secrets:
    ```bash
-   az webapp deployment source config-zip \
-     --name sasha-portfolio \
+   # Production secrets (DO NOT COMMIT)
+   DATABASE_URL="postgresql://user:pass@server.postgres.database.azure.com:5432/portfolio?sslmode=require"
+   AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=...;AccountKey=...;EndpointSuffix=core.windows.net"
+   AZURE_STORAGE_CONTAINER_NAME="portfolio-images"
+   API_BASE="https://your-app.azurewebsites.net/api"
+   ```
+
+3. **Run database migrations:**
+   ```bash
+   npm run db:migrate:prod
+   ```
+
+4. **Add your admin email:**
+   ```bash
+   npm run db:seed-admin:prod your-email@gmail.com
+   ```
+
+5. **Deploy the application:**
+   ```bash
+   npm run build                    # Verify it builds locally first!
+   git push azure main              # Deploy to Azure (takes 15-20 min)
+   ```
+
+### Subsequent Deployments
+
+```bash
+npm run build                       # Always verify local build
+git add -A && git commit -m "description"
+git push azure main                 # Deploy
+```
+
+After deployment, restart the app to pick up changes:
+```bash
+az webapp restart --resource-group portfolio-rg --name your-app
+```
+
+---
+
+## Production Scripts
+
+The project includes `:prod` variants of scripts that run against production using `.env.production.local`:
+
+| Script | Description |
+|--------|-------------|
+| `npm run db:migrate:prod` | Run Prisma migrations on production database |
+| `npm run db:seed-admin:prod <email>` | Add an allowed email to production |
+| `npm run db:reset:prod` | Reset production database (preserves AllowedEmail table) |
+| `npm run test:populate:sarah:prod` | Populate production with test persona |
+
+### Authentication for Scripts
+
+Some scripts require authentication against the production site:
+
+```bash
+# One-time login (stores session cookie locally)
+APP_BASE=https://your-app.azurewebsites.net npm run auth:login
+
+# Check auth status
+npm run auth:status
+
+# Log out
+npm run auth:logout
+```
+
+---
+
+## Environment Variables
+
+### Required for Production
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@server.postgres.database.azure.com:5432/db?sslmode=require` |
+| `GOOGLE_CLIENT_ID` | Google OAuth client ID | `123456.apps.googleusercontent.com` |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret | `GOCSPX-xxxxx` |
+| `AUTH_SECRET` | Session encryption key (32 bytes) | Generate with `openssl rand -base64 32` |
+| `NEXTAUTH_URL` | Full URL of your site | `https://your-app.azurewebsites.net` |
+| `AZURE_STORAGE_CONNECTION_STRING` | Azure Blob Storage connection | From Azure Portal |
+| `AZURE_STORAGE_CONTAINER_NAME` | Blob container name | `portfolio-images` |
+
+### Optional
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NODE_ENV` | Environment mode | `production` |
+| `SCM_DO_BUILD_DURING_DEPLOYMENT` | Enable Oryx build | `true` |
+
+---
+
+## Custom Domain & SSL
+
+### Add Custom Domain
+
+1. **Configure DNS** (at your registrar, e.g., Namecheap):
+   - Add CNAME: `www` → `your-app.azurewebsites.net`
+   - Or for apex domain, add A record pointing to App Service IP
+
+2. **Add domain in Azure:**
+   ```bash
+   az webapp config hostname add \
      --resource-group portfolio-rg \
-     --src deploy.zip
+     --webapp-name your-app \
+     --hostname your-domain.com
    ```
 
-#### Alternative: Deploy via FTP/FTPS
-
-1. In Azure Portal, go to your App Service
-2. Go to **Deployment** → **Deployment Center**
-3. Select **FTPS credentials** tab
-4. Use an FTP client to upload:
-   - `.next/` folder
-   - `package.json` and `package-lock.json`
-   - `public/` folder
-   - `prisma/` folder
-   - `node_modules/` folder
-
-### Step 3: Configure Environment Variables
-
-1. Go to **Settings** → **Configuration** → **Application settings**
-2. Click **+ New application setting** for each variable
-3. Add all required variables (see [Environment Variables Checklist](#environment-variables-checklist))
-4. Click **Save** and confirm restart
-
-> **Important**: Don't forget to set `NEXTAUTH_URL` to your Azure URL initially, then update after adding custom domain.
-
-### Step 4: Configure Startup Command
-
-1. Go to **Settings** → **Configuration** → **General settings**
-2. Set **Startup Command**:
-   ```
-   npm run start
-   ```
-3. Click **Save**
-
-### Step 5: Run Database Migrations
-
-After first deployment, initialize the database:
-
-```bash
-# SSH into App Service (Azure Portal → Development Tools → SSH)
-cd /home/site/wwwroot
-npx prisma migrate deploy
-```
-
-Or run from local machine with production DATABASE_URL:
-```bash
-DATABASE_URL="your-azure-sql-connection-string" npx prisma migrate deploy
-```
-
-### Step 6: Verify Deployment
-
-1. Go to **Overview** and click the **URL** (e.g., `https://sasha-portfolio.azurewebsites.net`)
-2. Verify the site loads correctly
-3. Test admin login at `/admin`
-4. Test image upload functionality
-
-### Step 7: Add Custom Domain
-
-For custom domain setup with Namecheap or other DNS providers, see the [Domain Setup Guide](./DOMAIN_SETUP.md).
-
-## Environment Variables Checklist
-
-All environment variables needed for production deployment:
-
-### Database
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `DATABASE_URL` | Yes | Azure SQL connection string (see format above) |
-
-### Authentication
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `AUTH_SECRET` | Yes | Random 32-byte string for session encryption |
-| `GOOGLE_CLIENT_ID` | Yes | Google OAuth client ID |
-| `GOOGLE_CLIENT_SECRET` | Yes | Google OAuth client secret |
-| `NEXTAUTH_URL` | Yes | Full URL of your site (e.g., `https://sasha-portfolio.azurewebsites.net`) |
-
-### Storage
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `AZURE_STORAGE_CONNECTION_STRING` | Yes* | Azure storage connection string |
-| `AZURE_STORAGE_ACCOUNT_NAME` | Alt* | Storage account name (if not using connection string) |
-| `AZURE_STORAGE_ACCOUNT_KEY` | Alt* | Storage account key (if not using connection string) |
-| `AZURE_STORAGE_CONTAINER_NAME` | No | Container name (default: `portfolio-images`) |
-
-*Use either connection string OR account name + key
-
-### Example Configuration
-
-```bash
-# Database (Azure SQL)
-DATABASE_URL=sqlserver://portfolio-sql-server.database.windows.net:1433;database=portfolio;user=sqladmin;password=xxx;encrypt=true
-
-# Authentication
-AUTH_SECRET=your-32-byte-random-string-here
-GOOGLE_CLIENT_ID=123456789.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=GOCSPX-xxxxx
-NEXTAUTH_URL=https://sasha-portfolio.azurewebsites.net
-
-# Storage
-AZURE_STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=portfoliostorage;AccountKey=xxx;EndpointSuffix=core.windows.net
-```
-
-## Post-Deployment Steps
-
-### 1. Update Google OAuth Redirect URIs
-
-Add your production URL to Google Cloud Console:
-
-1. Go to [Google Cloud Console Credentials](https://console.cloud.google.com/apis/credentials)
-2. Edit your OAuth 2.0 Client ID
-3. Add to **Authorized redirect URIs**:
-   ```
-   https://sasha-portfolio.azurewebsites.net/api/auth/callback/google
-   ```
-4. If using custom domain, also add:
-   ```
-   https://portfolio.sashagoodner.com/api/auth/callback/google
+3. **Create free managed SSL certificate:**
+   ```bash
+   az webapp config ssl create \
+     --resource-group portfolio-rg \
+     --name your-app \
+     --hostname your-domain.com
+   
+   # Get the certificate thumbprint
+   THUMBPRINT=$(az webapp config ssl list \
+     --resource-group portfolio-rg \
+     --query "[?name=='your-domain.com'].thumbprint" -o tsv)
+   
+   # Bind the certificate
+   az webapp config ssl bind \
+     --resource-group portfolio-rg \
+     --name your-app \
+     --certificate-thumbprint $THUMBPRINT \
+     --ssl-type SNI
    ```
 
-### 2. Test Full Workflow
+4. **Update NEXTAUTH_URL:**
+   ```bash
+   az webapp config appsettings set \
+     --resource-group portfolio-rg \
+     --name your-app \
+     --settings NEXTAUTH_URL="https://your-domain.com"
+   ```
 
-- [ ] Site loads at production URL
-- [ ] Can log in as admin
-- [ ] Can upload images (stored in Azure Blob Storage)
-- [ ] Can delete images
-- [ ] Images display correctly with public URLs
+5. **Update Google OAuth redirect URIs** in Google Cloud Console:
+   - Add: `https://your-domain.com/api/auth/callback/google`
+
+See [Domain Setup Guide](./DOMAIN_SETUP.md) for detailed instructions.
+
+---
 
 ## Troubleshooting
+
+### Common Issues
 
 | Issue | Cause | Solution |
 |-------|-------|----------|
 | 500 error on startup | Missing environment variables | Check all required vars are set |
-| OAuth redirect error | NEXTAUTH_URL mismatch | Ensure NEXTAUTH_URL matches actual URL |
-| Images not uploading | Storage not configured | Check Azure storage variables |
-| Images not displaying | Container not public | Set container access to "Blob" |
-| Build fails | Node version mismatch | Ensure Node 20 LTS is selected |
-| Database connection fails | Firewall rules | Add App Service IP to SQL firewall |
-| Database timeout | Serverless cold start | First request takes ~10s to wake database |
+| Database connection fails | Firewall or credentials | Verify DATABASE_URL and firewall rules |
+| OAuth "Bad Request" | Missing `trustHost` in NextAuth | Already fixed in codebase |
+| Images not uploading | Storage not configured | Check AZURE_STORAGE_* variables |
+| Build fails remotely | TypeScript errors | Run `npm run build` locally first |
+| Site shows old data after reset | App caching | Restart app: `az webapp restart ...` |
 
 ### View Logs
 
 ```bash
 # Stream live logs
-az webapp log tail --name sasha-portfolio --resource-group portfolio-rg
+az webapp log tail --resource-group portfolio-rg --name your-app
 
-# Or in Portal: Monitoring → Log stream
+# Download log files
+az webapp log download --resource-group portfolio-rg --name your-app
 ```
 
-### Database Cold Start
-
-Azure SQL Serverless auto-pauses after 1 hour of inactivity. The first request after pause takes ~10 seconds while the database wakes up. This is normal and expected for cost savings.
-
-## Local Development
-
-Local development continues to use SQLite - no Azure SQL needed:
+### Check App Settings
 
 ```bash
-# Uses SQLite automatically
-npm run dev
+az webapp config appsettings list \
+  --resource-group portfolio-rg \
+  --name your-app \
+  --output table
 ```
 
-The application detects the environment and uses the appropriate database:
-- `DATABASE_URL` starts with `file:` → SQLite
-- `DATABASE_URL` starts with `sqlserver:` → Azure SQL
+### Restart App
+
+```bash
+az webapp restart --resource-group portfolio-rg --name your-app
+```
+
+---
+
+## File Structure for Deployment
+
+These files are relevant to deployment:
+
+```
+portfolio/
+├── .env.example              # Template for environment variables
+├── .env.production.local     # Production secrets (gitignored)
+├── server.js                 # Custom server for Azure
+├── package.json              # Includes start:azure script
+└── src/
+    └── prisma/
+        ├── schema.prisma     # Database schema
+        └── migrations/       # PostgreSQL migrations
+```
+
+---
+
+## Architecture Notes
+
+### Why PostgreSQL (not SQLite)?
+
+Azure App Service uses network-mounted storage that doesn't support SQLite's file locking properly. PostgreSQL provides reliable concurrent access.
+
+### Why Public PostgreSQL (not VNet)?
+
+Private VNet adds enterprise-grade complexity:
+- Can't run migrations from local machine
+- Requires complex network configuration
+- Overkill for a personal portfolio site
+
+Public PostgreSQL with firewall rules provides adequate security for this use case.
+
+### Why Git Deployment (not ZIP)?
+
+Git-based deployment with Oryx builder:
+- Handles `npm install` and `npm run build` automatically
+- Caches node_modules between deployments
+- Provides consistent, repeatable builds
+- Shows build output in deployment logs
+
+---
 
 ## Related Documentation
 
 - [Azure Blob Storage Setup](./AZURE_SETUP.md) - Configure image storage
-- [Domain Configuration](./DOMAIN_SETUP.md) - Set up custom domain with Namecheap
+- [Domain Configuration](./DOMAIN_SETUP.md) - Set up custom domain
 - [Google OAuth Setup](./GOOGLE-OAUTH-SETUP.md) - Configure authentication
+- [Architecture Overview](./ARCHITECTURE.md) - System design details
+
+---
+
+## Azure Portal Setup
+
+If you prefer the Azure Portal over CLI:
+
+### 1. Create Resource Group
+- Go to [Azure Portal](https://portal.azure.com)
+- Create a resource → Resource group
+- Name: `portfolio-rg`, Region: your choice
+
+### 2. Create PostgreSQL Flexible Server
+- Create a resource → Azure Database for PostgreSQL Flexible Server
+- Server name: `your-portfolio-db`
+- Compute: Burstable B1ms
+- Storage: 32 GB
+- Authentication: PostgreSQL authentication only
+- **Networking: Public access** with "Allow public access from any Azure service"
+
+### 3. Create Storage Account
+- Create a resource → Storage account
+- Name: globally unique, lowercase
+- Performance: Standard
+- Redundancy: LRS
+- After creation: Create container `portfolio-images` with Blob public access
+
+### 4. Create App Service
+- Create a resource → Web App
+- Runtime: Node 22 LTS
+- OS: Linux
+- Plan: B1 or higher (needed for custom domains)
+- After creation: Configure → Application settings → Add all environment variables
+
+### 5. Configure Deployment
+- Deployment Center → Local Git
+- Copy the Git Clone URL
+- Add as remote: `git remote add azure <url>`
