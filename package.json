@@ -27,7 +27,8 @@
     "generate-images": "node scripts/generate-persona-images.js",
     "auth:login": "node scripts/auth-login.js",
     "auth:status": "node scripts/auth-login.js --status",
-    "auth:logout": "node scripts/auth-login.js --logout"
+    "auth:logout": "node scripts/auth-login.js --logout",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.26.0",
@@ -66,7 +67,6 @@
     "eslint-config-prettier": "^10.1.8",
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
-    "prisma": "^7.2.0",
     "tsx": "^4.21.0",
     "typescript": "5.9.3"
   }
