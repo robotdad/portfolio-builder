@@ -1,9 +1,15 @@
 import { defineConfig } from "prisma/config";
+import fs from "fs";
+
+// Detect environment: Azure deploys to /prisma, local dev uses /src/prisma
+const isAzure = fs.existsSync("prisma/schema.prisma") && !fs.existsSync("src/prisma/schema.prisma");
+const schemaPath = isAzure ? "prisma/schema.prisma" : "src/prisma/schema.prisma";
+const migrationsPath = isAzure ? "prisma/migrations" : "src/prisma/migrations";
 
 export default defineConfig({
-  schema: "src/prisma/schema.prisma",
+  schema: schemaPath,
   migrations: {
-    path: "src/prisma/migrations",
+    path: migrationsPath,
   },
   datasource: {
     // Azure SSH sessions use APPSETTING_ prefix, regular runtime uses DATABASE_URL
