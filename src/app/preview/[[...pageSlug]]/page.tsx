@@ -178,21 +178,12 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
         notFound()
       }
       
-      // Extract gallery images from content and map to expected format
+      // Parse project content - render ALL sections including galleries inline
       const projectSections = deserializeSections(contentToShow)
-      const gallerySection = projectSections.find(isGallerySection)
-      const galleryImages = (gallerySection?.images || []).map(img => ({
-        id: img.id,
-        imageUrl: img.imageUrl || '',
-        altText: img.altText,
-        caption: img.caption,
-      }))
       
-      // Filter out gallery section from content (we'll render it separately via ProjectGallery)
-      // This matches the behavior of the published page
-      const contentSections = projectSections.filter(s => s.type !== 'gallery')
-      const contentForRenderer = contentSections.length > 0 
-        ? JSON.stringify(contentSections) 
+      // Pass ALL sections to renderer (including galleries - they render inline now)
+      const contentForRenderer = projectSections.length > 0 
+        ? JSON.stringify(projectSections) 
         : null
       
       return (
@@ -224,7 +215,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
                 year: project.year,
                 role: project.role,
                 publishedContent: contentForRenderer,
-                galleryImages,
+                galleryImages: [],  // Galleries render inline via SectionRenderer now
               }}
             />
           </main>
