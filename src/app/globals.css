@@ -3000,6 +3000,19 @@ textarea:focus-visible {
   cursor: pointer;
 }
 
+/* Dynamic aspect ratio classes for CSS Grid layout */
+.image-card--portrait {
+  grid-row: span 2;
+}
+
+.image-card--landscape {
+  grid-row: span 1;
+}
+
+.image-card--square {
+  grid-row: span 1;
+}
+
 .image-card-image-wrapper {
   aspect-ratio: 4/3;
   overflow: hidden;
@@ -5121,6 +5134,19 @@ textarea:focus-visible {
   overflow: hidden;
   background: var(--color-surface);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+/* Dynamic aspect ratio classes for CSS Grid layout */
+.project-card--portrait {
+  grid-row: span 2;
+}
+
+.project-card--landscape {
+  grid-row: span 1;
+}
+
+.project-card--square {
+  grid-row: span 1;
 }
 
 .project-card:hover {

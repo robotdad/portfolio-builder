@@ -53,6 +53,8 @@ export default async function CategoriesPage() {
                 url: true,
                 thumbnailUrl: true,
                 altText: true,
+                width: true,
+                height: true,
               },
             },
             _count: {
@@ -106,6 +108,8 @@ export default async function CategoriesPage() {
       order: category.order,
       featuredImageUrl: category.featuredImage?.url || null,
       featuredImageAlt: category.featuredImage?.altText || category.name,
+      featuredImageWidth: category.featuredImage?.width,
+      featuredImageHeight: category.featuredImage?.height,
     }))
 
     return (

@@ -71,6 +71,8 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
               url: true,
               thumbnailUrl: true,
               altText: true,
+              width: true,
+              height: true,
             },
           },
           projects: {
@@ -82,6 +84,8 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
                   url: true,
                   thumbnailUrl: true,
                   altText: true,
+                  width: true,
+                  height: true,
                 },
               },
             },
@@ -272,10 +276,14 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
       // Prefer explicit featuredImage, fallback to gallery extraction
       let featuredImageUrl: string | null = null
       let featuredImageAlt: string = project.title
+      let featuredImageWidth: number | undefined = undefined
+      let featuredImageHeight: number | undefined = undefined
       
       if (project.featuredImage) {
         featuredImageUrl = project.featuredImage.url
         featuredImageAlt = project.featuredImage.altText || project.title
+        featuredImageWidth = project.featuredImage.width
+        featuredImageHeight = project.featuredImage.height
       } else {
         const contentToCheck = project.draftContent || project.publishedContent
         if (contentToCheck) {
@@ -298,6 +306,8 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
         order: project.order,
         featuredImageUrl,
         featuredImageAlt,
+        featuredImageWidth,
+        featuredImageHeight,
       }
     })
     return (
@@ -350,10 +360,14 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
       .map(p => {
         let featuredImageUrl: string | null = null
         let featuredImageAlt: string = p.title
+        let featuredImageWidth: number | undefined = undefined
+        let featuredImageHeight: number | undefined = undefined
         
         if (p.featuredImage) {
           featuredImageUrl = p.featuredImage.url
           featuredImageAlt = p.featuredImage.altText || p.title
+          featuredImageWidth = p.featuredImage.width
+          featuredImageHeight = p.featuredImage.height
         } else {
           const contentToCheck = p.draftContent || p.publishedContent
           if (contentToCheck) {
@@ -376,6 +390,8 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
           order: p.order,
           featuredImageUrl,
           featuredImageAlt,
+          featuredImageWidth,
+          featuredImageHeight,
           categorySlug: c.slug,
           categoryName: c.name,
         }

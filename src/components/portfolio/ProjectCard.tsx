@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { Card, CardImage, CardBody, CardTitle, CardDescription } from '@/components/ui'
+import { getAspectRatioClass } from '@/lib/image-helpers'
 
 interface ProjectCardProps {
   project: {
@@ -11,6 +12,8 @@ interface ProjectCardProps {
     year?: string | null
     featuredImageUrl?: string | null
     featuredImageAlt?: string
+    featuredImageWidth?: number
+    featuredImageHeight?: number
   }
   categorySlug: string
   portfolioSlug: string
@@ -38,6 +41,11 @@ export function ProjectCard({
   const basePath = portfolioSlug ? `/${portfolioSlug}` : ''
   const href = `${basePath}/${categorySlug}/${project.slug}`
   
+  // Calculate aspect ratio class for grid layout
+  const aspectClass = project.featuredImageWidth && project.featuredImageHeight
+    ? getAspectRatioClass(project.featuredImageWidth, project.featuredImageHeight)
+    : 'square' // Default to square if dimensions unknown
+  
   // Overlay content for desktop hover
   const overlayContent = (
     <div className="project-overlay">
@@ -53,12 +61,16 @@ export function ProjectCard({
   
   return (
     <>
-      <Link href={href} className={`project-card-link ${className}`} data-testid={`project-card-${project.slug}`}>
+      <Link 
+        href={href} 
+        className={`project-card-link project-card--${aspectClass} ${className}`} 
+        data-testid={`project-card-${project.slug}`}
+      >
         <Card variant="interactive" className="project-card">
           <CardImage
             src={project.featuredImageUrl || undefined}
             alt={project.featuredImageAlt || project.title}
-            aspectRatio="16/9"
+            aspectRatio="3/4"
             hoverOverlay={overlayContent}
             className="project-card__image"
           />

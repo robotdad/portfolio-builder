@@ -4,6 +4,17 @@ const nextConfig: NextConfig = {
   // Standalone output for Azure deployment (~50MB instead of 370MB)
   output: 'standalone',
   
+  // Image optimization configuration for Azure Blob Storage
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'portfoliodevstore2026.blob.core.windows.net',
+        pathname: '/portfolio-images/**',
+      },
+    ],
+  },
+  
   // Security headers for all routes
   async headers() {
     return [

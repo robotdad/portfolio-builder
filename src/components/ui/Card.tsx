@@ -137,7 +137,7 @@ export interface CardImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>
   /** Image source - can be a URL string or Blob for optimistic previews */
   src?: string | Blob
   /** Aspect ratio - defaults to 16:9 (project standard) */
-  aspectRatio?: '16/9' | '4/3' | '3/2' | '1/1'
+  aspectRatio?: '16/9' | '4/3' | '3/2' | '1/1' | '3/4'
   /** Show overlay on hover */
   hoverOverlay?: ReactNode
 }
@@ -163,6 +163,7 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
       '4/3': '75%',
       '3/2': '66.67%',
       '1/1': '100%',
+      '3/4': '133.33%', // Portrait: height is 1.33x width
     }
 
     return (
@@ -213,12 +214,12 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            /* object-fit controlled by inline style for flexibility */
             transition: transform var(--transition-base, 200ms) ease;
           }
 
           .card--interactive:hover .card-image__img {
-            transform: scale(1.03);
+            transform: scale(1.02);
           }
 
           .card-image__placeholder {

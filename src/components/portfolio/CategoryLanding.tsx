@@ -14,6 +14,8 @@ interface CategoryProject {
   order: number
   featuredImageUrl?: string | null
   featuredImageAlt?: string
+  featuredImageWidth?: number
+  featuredImageHeight?: number
 }
 
 interface Category {
@@ -85,6 +87,8 @@ export function CategoryLanding({
                 year: project.year,
                 featuredImageUrl: project.featuredImageUrl,
                 featuredImageAlt: project.featuredImageAlt,
+                featuredImageWidth: project.featuredImageWidth,
+                featuredImageHeight: project.featuredImageHeight,
               }}
               categorySlug={category.slug}
               portfolioSlug={portfolioSlug}

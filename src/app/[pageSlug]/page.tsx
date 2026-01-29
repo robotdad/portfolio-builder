@@ -20,6 +20,8 @@ interface ProjectWithFeaturedImage extends Project {
     url: string
     thumbnailUrl: string
     altText: string
+    width: number
+    height: number
   } | null
 }
 
@@ -141,6 +143,8 @@ async function renderCategoryPage(
           url: true,
           thumbnailUrl: true,
           altText: true,
+          width: true,
+          height: true,
         },
       },
       projects: {
@@ -153,6 +157,8 @@ async function renderCategoryPage(
               url: true,
               thumbnailUrl: true,
               altText: true,
+              width: true,
+              height: true,
             },
           },
         },
@@ -191,10 +197,14 @@ async function renderCategoryPage(
     // Prefer explicit featuredImage, fallback to first gallery image
     let featuredImageUrl: string | null = null
     let featuredImageAlt: string = project.title
+    let featuredImageWidth: number | undefined = undefined
+    let featuredImageHeight: number | undefined = undefined
     
     if (project.featuredImage) {
       featuredImageUrl = project.featuredImage.url
       featuredImageAlt = project.featuredImage.altText || project.title
+      featuredImageWidth = project.featuredImage.width
+      featuredImageHeight = project.featuredImage.height
     } else {
       // Fallback: extract from gallery section in publishedContent
       const projectSections = deserializeSections(project.publishedContent)
@@ -215,6 +225,8 @@ async function renderCategoryPage(
       order: project.order,
       featuredImageUrl,
       featuredImageAlt,
+      featuredImageWidth,
+      featuredImageHeight,
     }
   })
 

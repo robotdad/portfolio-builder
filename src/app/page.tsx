@@ -85,6 +85,8 @@ export default async function Home() {
                     url: true,
                     thumbnailUrl: true,
                     altText: true,
+                    width: true,
+                    height: true,
                   },
                 },
               },
@@ -120,10 +122,14 @@ export default async function Home() {
       // Prefer explicit featuredImage, fallback to first gallery image
       let featuredImageUrl: string | null = null
       let featuredImageAlt: string = project.title
+      let featuredImageWidth: number | undefined = undefined
+      let featuredImageHeight: number | undefined = undefined
       
       if (project.featuredImage) {
         featuredImageUrl = project.featuredImage.url
         featuredImageAlt = project.featuredImage.altText || project.title
+        featuredImageWidth = project.featuredImage.width
+        featuredImageHeight = project.featuredImage.height
       } else {
         // Fallback: extract from gallery section in publishedContent
         const projectSections = deserializeSections(project.publishedContent)
@@ -144,6 +150,8 @@ export default async function Home() {
         order: project.order,
         featuredImageUrl,
         featuredImageAlt,
+        featuredImageWidth,
+        featuredImageHeight,
         categorySlug: category.slug,
         categoryName: category.name,
       }

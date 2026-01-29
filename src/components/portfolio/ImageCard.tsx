@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Card, CardImage } from '@/components/ui'
+import { getAspectRatioClass } from '@/lib/image-helpers'
 
 interface ImageCardProps {
   imageUrl: string | null
@@ -10,6 +11,8 @@ interface ImageCardProps {
   category: string
   link?: string
   altText?: string
+  width?: number
+  height?: number
 }
 
 /**
@@ -26,8 +29,15 @@ export function ImageCard({
   category, 
   link,
   altText,
+  width,
+  height,
 }: ImageCardProps) {
   const [showInfo, setShowInfo] = useState(false)
+
+  // Calculate aspect ratio class for grid layout
+  const aspectClass = width && height
+    ? getAspectRatioClass(width, height)
+    : 'square' // Default to square if dimensions unknown
 
   // Toggle overlay on touch for mobile
   const handleTouchStart = () => {
@@ -75,13 +85,13 @@ export function ImageCard({
   const cardContent = (
     <Card 
       variant="interactive"
-      className={showInfo ? 'image-card--show-info' : ''}
+      className={`image-card image-card--${aspectClass} ${showInfo ? 'image-card--show-info' : ''}`}
       onTouchStart={handleTouchStart}
     >
       <CardImage
         src={imageUrl || undefined}
         alt={altText || title || 'Portfolio work'}
-        aspectRatio="16/9"
+        aspectRatio="3/4"
         hoverOverlay={overlayContent}
       />
 
