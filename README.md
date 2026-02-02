@@ -23,10 +23,11 @@ This is a single-user portfolio application built with Next.js. It provides:
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
-- **Database**: PostgreSQL via Prisma
+- **Database**: SQLite via Prisma
 - **Styling**: Tailwind CSS 4
 - **Rich Text**: Tiptap editor
 - **Images**: Sharp.js for processing
+- **Storage**: Local filesystem or Azure Blob Storage
 
 ## Quick Start
 
@@ -34,41 +35,6 @@ This is a single-user portfolio application built with Next.js. It provides:
 
 - Node.js 18+ 
 - npm or yarn
-- PostgreSQL 14+ (native or Docker)
-
-### Database Setup
-
-#### Option 1: Native PostgreSQL (Recommended)
-
-If you have PostgreSQL installed locally (e.g., via Homebrew):
-
-```bash
-# Create the database
-createdb portfolio
-
-# Or with psql
-psql -c "CREATE DATABASE portfolio;"
-```
-
-The default connection string assumes:
-- Host: localhost
-- Port: 5432
-- User: postgres
-- Password: postgres
-- Database: portfolio
-
-Update your `.env` file if your setup differs.
-
-#### Option 2: Docker PostgreSQL
-
-If you prefer Docker:
-
-```bash
-# Start PostgreSQL container
-docker compose up -d
-
-# Wait a few seconds for PostgreSQL to initialize
-```
 
 ### Installation
 
@@ -80,15 +46,17 @@ cd portfolio-builder
 # Install dependencies
 npm install
 
-# Copy environment file and configure
-cp .env.example .env
-# Edit .env with your database connection string if needed
+# Copy environment file
+cp .env.example .env.local
 
 # Generate Prisma client
 npm run db:generate
 
-# Push schema to database
-npx prisma db push
+# Create database and run migrations
+npm run db:setup
+
+# Add your email to admin allowlist (REQUIRED for login)
+npm run db:seed-admin your-email@gmail.com
 
 # Start the development server
 npm run dev
@@ -98,10 +66,33 @@ The app will be available at `http://localhost:3000`.
 
 ### First Run
 
-1. Navigate to `http://localhost:3000` — you'll be redirected to the welcome flow
-2. Create your portfolio with a name and choose a theme
-3. Add your first project with images
-4. Visit the admin dashboard at `/admin` to continue building
+1. Navigate to `http://localhost:3000`
+2. Sign in with Google using the email you added to the allowlist
+3. Create your portfolio with a name and choose a theme
+4. Add your first project with images
+5. Visit the admin dashboard at `/admin` to continue building
+
+### Optional: Populate with Test Data
+
+For a fully-populated portfolio to explore:
+
+**Terminal 1 - Start server:**
+```bash
+npm run dev
+```
+
+**Terminal 2 - Populate data:**
+```bash
+# Option A: Disable auth for easier local dev
+# Edit .env.local and add: AUTH_DISABLED=true
+npm run test:populate:sarah
+
+# Option B: Authenticate first
+npm run auth:login  # Opens browser to sign in
+npm run test:populate:sarah
+```
+
+This creates a complete portfolio for costume designer Sarah Chen with categories, projects, and images.
 
 ## Project Structure
 
@@ -195,20 +186,16 @@ See `test-assets/README.md` for available test personas and their content.
 
 ## Deployment
 
-This application is designed for single-user deployment on Azure App Service.
+This application is designed for single-user deployment on Azure using .NET Aspire.
 
 **Quick overview:**
-- Azure App Service with Node.js 22
-- Azure PostgreSQL Flexible Server
-- Azure Blob Storage for images
+- Azure Container Apps with Docker
+- SQLite database (volume-mounted)
+- Azure Blob Storage for images (optional)
 - Google OAuth for authentication
-- Git-based deployment (`git push azure main`)
+- .NET Aspire for orchestration and observability
 
-See the [Deployment Guide](docs/DEPLOYMENT.md) for complete instructions including:
-- Infrastructure setup (CLI and Portal methods)
-- Environment variable configuration
-- Custom domain and SSL setup
-- Production scripts for database management
+See the [Migration Plan](ai_working/2026-02-01/ASPIRE-MIGRATION-PLAN.md) for the Aspire deployment strategy.
 
 ## Contributing
 
