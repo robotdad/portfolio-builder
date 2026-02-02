@@ -112,6 +112,7 @@ export function ProjectGallery({
               src={image.imageUrl}
               alt={image.altText || 'Gallery image'}
               fill
+              unoptimized
               sizes="(max-width: 768px) 100vw, 50vw"
               className="project-gallery-image"
               loading="lazy"

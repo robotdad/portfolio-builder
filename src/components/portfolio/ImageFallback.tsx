@@ -94,6 +94,7 @@ export function ImageWithFallback({
       <Image
         src={src}
         alt={alt}
+        unoptimized
         className={className}
         onError={handleError}
         onLoad={handleLoad}
