@@ -276,9 +276,10 @@ async function login() {
 const args = process.argv.slice(2);
 
 if (args.includes('--status') || args.includes('-s')) {
-  showStatus();
+  showStatus().then(() => process.exit(0));
 } else if (args.includes('--logout') || args.includes('-l')) {
   handleLogout();
+  process.exit(0);
 } else if (args.includes('--help') || args.includes('-h')) {
   console.log(`
 Portfolio Auth CLI
@@ -297,8 +298,10 @@ Files:
   ${AUTH_FILE}    Stored credentials
 `);
 } else {
-  login().catch((err) => {
-    console.error(colors.red(`\nLogin failed: ${err.message}`));
-    process.exit(1);
-  });
+  login()
+    .then(() => process.exit(0))
+    .catch((err) => {
+      console.error(colors.red(`\nLogin failed: ${err.message}`));
+      process.exit(1);
+    });
 }

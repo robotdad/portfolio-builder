@@ -4,12 +4,19 @@
  * Run with: npx tsx prisma/seed-categories.ts
  */
 
-import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
+// Load environment variables (Next.js does this automatically, but tsx scripts don't)
+// Only load if not already set (allows dotenv-cli to inject production vars)
+import { config } from 'dotenv'
+if (!process.env.DATABASE_URL) {
+  config({ path: '.env' })
+  config({ path: '.env.local', override: true })
+}
 
-const connectionString =
-  process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@localhost:5432/portfolio'
-const adapter = new PrismaPg({ connectionString })
+import { PrismaClient } from '@prisma/client'
+import { PrismaLibSql } from '@prisma/adapter-libsql'
+
+const databaseUrl = process.env.DATABASE_URL ?? 'file:./dev.db'
+const adapter = new PrismaLibSql({ url: databaseUrl })
 const prisma = new PrismaClient({ adapter })
 
 async function main() {

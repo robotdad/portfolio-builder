@@ -136,7 +136,8 @@ Run all commands from the project root:
 | Command | Description |
 |---------|-------------|
 | `npm run db:generate` | Generate Prisma client |
-| `npm run db:reset` | Reset local database (truncate all tables) |
+| `npm run db:setup` | Create database and run migrations (initial setup) |
+| `npm run db:reset` | Reset local database (clear all tables) |
 | `npm run db:seed-admin <email>` | Add an allowed admin email |
 | `npm run db:migrate:prod` | Run migrations on production |
 | `npm run db:reset:prod` | Reset production database |
@@ -148,8 +149,11 @@ Run all commands from the project root:
 |---------|-------------|
 | `npm run test:e2e` | Run Playwright end-to-end tests |
 | `npm run test:e2e:ui` | Run tests with Playwright UI |
-| `npm run test:populate:sarah` | Populate with Sarah Chen test persona |
+| `npm run test:setup` | Setup DB + populate with Sarah Chen (requires server running) |
+| `npm run test:populate:sarah` | Populate with Sarah Chen test persona (requires server running) |
 | `npm run test:populate:sarah:prod` | Populate production with test persona |
+
+**Note:** Population scripts make API calls to the running server. Start `npm run dev` first, then run populate scripts in a separate terminal.
 
 ### Authentication (for scripts)
 
@@ -169,7 +173,8 @@ cp .env.example .env
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://postgres:postgres@localhost:5432/portfolio` |
+| `DATABASE_URL` | SQLite database file path | `file:./dev.db` |
+| `AUTH_DISABLED` | Disable authentication for local dev | `false` (auth enabled) |
 
 ## Documentation
 
