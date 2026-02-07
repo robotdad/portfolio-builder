@@ -294,14 +294,16 @@ async function loadApiKey() {
   const envPath = path.join(PROJECT_ROOT, '.env');
   try {
     const envContent = await fs.readFile(envPath, 'utf-8');
-    const match = envContent.match(/GEMINI_API_KEY[=:]?\s*["']?([^"'\n]+)["']?/);
-    if (match) {
-      return match[1].trim().replace(/^["']|["']$/g, '');
+    for (const key of ['GEMINI_API_KEY', 'GOOGLE_API_KEY']) {
+      const match = envContent.match(new RegExp(`${key}[=:]?\\s*["']?([^"'\\n]+)["']?`));
+      if (match) {
+        return match[1].trim().replace(/^["']|["']$/g, '');
+      }
     }
   } catch {
-    throw new Error('Could not read .env - make sure GEMINI_API_KEY is set');
+    throw new Error('Could not read .env - make sure GEMINI_API_KEY or GOOGLE_API_KEY is set');
   }
-  throw new Error('GEMINI_API_KEY not found in .env');
+  throw new Error('Neither GEMINI_API_KEY nor GOOGLE_API_KEY found in .env');
 }
 
 // ---------------------------------------------------------------------------
