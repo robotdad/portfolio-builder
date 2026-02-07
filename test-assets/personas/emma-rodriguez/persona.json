@@ -95,7 +95,7 @@
           "photos": [
             {
               "file": "categories/period-epic/the-winter-palace/costume-bible-overview.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Master Costume Bible",
               "description": "The comprehensive costume bible showing character breakdowns across all 127 speaking roles",
               "tags": [],
@@ -103,7 +103,7 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/imperial-gown-multiples.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Empress Gown Multiples",
               "description": "Six identical copies of the Empress's ivory ballroom gown in various states of preservation",
               "tags": [
@@ -121,7 +121,7 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/destruction-tracking-board.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Destruction Continuity Board",
               "description": "The tracking board showing exact damage states for each principal costume through the massacre sequence",
               "tags": [],
@@ -171,7 +171,7 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/ballroom-sequence-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_wide",
               "title": "Ballroom Sequence - Production Still",
               "description": "Professional production photograph of the ballroom sequence showing full costume scope",
               "tags": [
@@ -188,7 +188,7 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/aftermath-continuity.jpg",
-              "imageType": "production_film",
+              "imageType": "production_wide",
               "title": "Post-Massacre Continuity",
               "description": "Production still showing maintained continuity in destroyed costumes",
               "tags": [
@@ -203,7 +203,7 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/wrap-day-team.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Department Wrap Photo",
               "description": "The full 45-person costume department on the final day of principal photography",
               "tags": [],
@@ -251,7 +251,7 @@
             },
             {
               "file": "categories/period-epic/letters-from-saigon/humidity-damaged-costumes.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Climate Damage Documentation",
               "description": "Documentation of humidity damage to period costumes requiring replacement",
               "tags": [],
@@ -286,7 +286,7 @@
             },
             {
               "file": "categories/period-epic/letters-from-saigon/saigon-street-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_wide",
               "title": "Saigon Street Scene - Production",
               "description": "Production still of recreated 1967 Saigon street with full period costumes",
               "tags": [
@@ -408,7 +408,7 @@
             },
             {
               "file": "categories/action-stunt/freefall/collapse-sequence-prep.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Collapse Sequence Preparation",
               "description": "Costume team preparing multiples for the building collapse sequence",
               "tags": [],
@@ -424,7 +424,7 @@
             },
             {
               "file": "categories/action-stunt/freefall/action-sequence-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Collapse Sequence - Production",
               "description": "Production still from the building collapse sequence",
               "tags": [
@@ -471,7 +471,7 @@
           "photos": [
             {
               "file": "categories/action-stunt/the-matadors-shadow/traje-de-luces-hero.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Hero Traje de Luces",
               "description": "The principal hero suit of lights in royal blue and gold",
               "tags": [
@@ -482,7 +482,7 @@
             },
             {
               "file": "categories/action-stunt/the-matadors-shadow/embroidery-detail.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Traditional Embroidery Detail",
               "description": "Close-up of hand-embroidered gold work by Seville artisans",
               "tags": [],
@@ -506,7 +506,7 @@
             },
             {
               "file": "categories/action-stunt/the-matadors-shadow/blood-treatment-test.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Blood Resistance Testing",
               "description": "Testing blood-resistant treatment on embroidered fabric samples",
               "tags": [],
@@ -514,7 +514,7 @@
             },
             {
               "file": "categories/action-stunt/the-matadors-shadow/arena-sequence-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Arena Sequence - Production",
               "description": "Production still from the climactic bullfighting arena sequence",
               "tags": [
@@ -632,7 +632,7 @@
             },
             {
               "file": "categories/contemporary-drama/the-quiet-leaving/family-dinner-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_wide",
               "title": "Family Dinner - Production",
               "description": "Production still from the emotionally charged family dinner sequence",
               "tags": [
@@ -649,7 +649,7 @@
             },
             {
               "file": "categories/contemporary-drama/the-quiet-leaving/sunday-morning-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_wide",
               "title": "Sunday Morning - Production",
               "description": "Production still showing full costume transformation by film's end",
               "tags": [
@@ -722,7 +722,7 @@
             },
             {
               "file": "categories/contemporary-drama/midnight-pastoral/harvest-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_landscape",
               "title": "Harvest Sequence - Production",
               "description": "Production still from autumn harvest sequence showing authentic work wear",
               "tags": [
@@ -799,7 +799,7 @@
             },
             {
               "file": "categories/international-location/the-crossing/layer-system-diagram.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Layering System Documentation",
               "description": "Technical documentation of the layering system keeping actors warm",
               "tags": [],
@@ -815,7 +815,7 @@
             },
             {
               "file": "categories/international-location/the-crossing/heated-maintenance-tent.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Heated Maintenance Tent",
               "description": "The heated tent system for costume maintenance on arctic location",
               "tags": [],
@@ -840,7 +840,7 @@
             },
             {
               "file": "categories/international-location/the-crossing/ice-rescue-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_wide",
               "title": "Ice Rescue Sequence - Production",
               "description": "Production still from the ice rescue sequence in actual arctic conditions",
               "tags": [
@@ -911,7 +911,7 @@
             },
             {
               "file": "categories/international-location/the-long-road/journey-map.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Costume Journey Map",
               "description": "Map tracking costume evolution across the 2,000-mile narrative journey",
               "tags": [
@@ -929,7 +929,7 @@
             },
             {
               "file": "categories/international-location/the-long-road/greece-arrival-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_landscape",
               "title": "Greece Arrival - Production",
               "description": "Production still from the Greece arrival sequence",
               "tags": [

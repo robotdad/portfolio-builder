@@ -103,7 +103,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/color-progression-board.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Color Progression Mood Board",
               "description": "Mood board showing color journey from burgundy to black with fabric swatches",
               "tags": [
@@ -113,7 +113,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/fabric-swatches-laid-out.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Fabric Selection for Queen's Gown",
               "description": "Burgundy silk velvet and gold metallic thread swatches arranged on table",
               "tags": [],
@@ -129,7 +129,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/workshop-construction.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Workshop Construction in Progress",
               "description": "Behind-the-scenes photo Sarah took of workshop during gown construction",
               "tags": [],
@@ -145,7 +145,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/queen-gown-fitting.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "First Fitting - Queen's Gown",
               "description": "Close-up of burgundy gown fit on actress during fitting",
               "tags": [],
@@ -153,7 +153,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/gown-detail-fitting.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Embroidery Detail During Fitting",
               "description": "Close-up of gold curse symbol embroidery during fitting check",
               "tags": [],
@@ -171,7 +171,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/queen-gown-finished.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Queen's Gown - Phase One Complete",
               "description": "Finished burgundy velvet gown on dress form before delivery",
               "tags": [],
@@ -179,7 +179,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Queen Morwen - Production Photo",
               "description": "Professional production photograph of actress in Queen's burgundy gown",
               "tags": [
@@ -205,7 +205,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/military-fabric-selection.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Military Coat Fabric Selection",
               "description": "Navy wool swatches and brass button samples for Officer's coat",
               "tags": [],
@@ -213,7 +213,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/construction-workshop-atmosphere.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Workshop Build Session",
               "description": "Sarah's photo of workshop during Officer's coat construction",
               "tags": [],
@@ -221,7 +221,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/officer-coat-fitting.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Officer's Coat Fitting",
               "description": "Close-up of navy military coat fit on actor during fitting",
               "tags": [],
@@ -229,7 +229,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/officer-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Captain Aldric - Production Photo",
               "description": "Professional production photo of actor in Officer's coat during performance",
               "tags": [
@@ -261,7 +261,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/full-cast-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_wide",
               "title": "Full Cast - Production Photo",
               "description": "Professional ensemble cast photo showing complete design range",
               "tags": [
@@ -308,7 +308,7 @@
           "photos": [
             {
               "file": "categories/theater-production/neon-babel/cyberpunk-concept-board.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Cyberpunk Concept Board",
               "description": "Mood board with cyberpunk references, fabric samples, and LED component ideas",
               "tags": [
@@ -318,7 +318,7 @@
             },
             {
               "file": "categories/theater-production/neon-babel/reflective-fabrics.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Reflective Material Testing",
               "description": "Collection of reflective and UV-reactive fabrics being tested",
               "tags": [],
@@ -326,7 +326,7 @@
             },
             {
               "file": "categories/theater-production/neon-babel/led-integration-test.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "LED Component Testing",
               "description": "LED strips and battery packs being tested for costume integration",
               "tags": [],
@@ -350,7 +350,7 @@
             },
             {
               "file": "categories/theater-production/neon-babel/modular-pieces-array.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Modular Costume Pieces",
               "description": "Array of modular garment pieces that reconfigure throughout show",
               "tags": [],
@@ -358,7 +358,7 @@
             },
             {
               "file": "categories/theater-production/neon-babel/fitting-base-layer.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Base Layer Fitting",
               "description": "Close-up of black base layer garment fit during fitting",
               "tags": [],
@@ -392,7 +392,7 @@
             },
             {
               "file": "categories/theater-production/neon-babel/led-costume-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "LED Jacket Complete",
               "description": "Finished cyberpunk jacket on form showing LED integration",
               "tags": [],
@@ -400,7 +400,7 @@
             },
             {
               "file": "categories/theater-production/neon-babel/production-uv-lighting.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Production - UV Lighting Moment",
               "description": "Professional production photo showing costume under UV lighting",
               "tags": [
@@ -415,7 +415,7 @@
             },
             {
               "file": "categories/theater-production/neon-babel/production-led-moment.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Production - LED Costume Active",
               "description": "Professional production photo of LED-embedded costume illuminated",
               "tags": [
@@ -481,7 +481,7 @@
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/grey-suiting-fabric.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Corporate Costume Fabrics",
               "description": "Grey and beige suiting fabrics selected for opening costumes",
               "tags": [],
@@ -489,7 +489,7 @@
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/jewel-tone-fabrics.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Awakening - Jewel Tone Selection",
               "description": "Emerald and sapphire fabric swatches for Nora's middle-act costumes",
               "tags": [],
@@ -513,7 +513,7 @@
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/nora-suit-fitting.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Corporate Suit Fitting",
               "description": "Close-up of grey suit fit on actress during fitting",
               "tags": [],
@@ -529,7 +529,7 @@
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/fitting-emerald-dress.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Emerald Dress Fitting",
               "description": "Close-up of emerald dress fit during fitting session",
               "tags": [],
@@ -545,7 +545,7 @@
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/final-dress-fitting.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Final Costume Fitting",
               "description": "Close-up of coral liberation dress fit during fitting",
               "tags": [],
@@ -561,7 +561,7 @@
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/nora-corporate-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Nora - Act I Corporate Costume",
               "description": "Professional production photo of actress in grey suit during opening scene",
               "tags": [],
@@ -574,7 +574,7 @@
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/nora-liberation-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Nora - Final Scene Liberation",
               "description": "Professional production photo of actress in coral dress during final scene",
               "tags": [
@@ -652,7 +652,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/1920s-research-board.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "1920s Research and References",
               "description": "Mood board with 1920s period references and class distinction images",
               "tags": [],
@@ -668,7 +668,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/pale-blue-silk-swatches.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Aristocrat Fabric Selection",
               "description": "Pale blue and grey silk fabric swatches for aristocratic costumes",
               "tags": [],
@@ -684,7 +684,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/earth-tone-fabrics.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Artist Fabric Selection",
               "description": "Earth tone cotton and linen swatches for artist's costumes",
               "tags": [],
@@ -692,7 +692,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/shared-color-swatches.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Intimacy Color Palette",
               "description": "Warm amber and rose fabric swatches for intimate scenes shared by both characters",
               "tags": [],
@@ -716,7 +716,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/aristocrat-dress-fitting.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Aristocrat Dress Fitting",
               "description": "Close-up of pale blue dress fit on actress during fitting",
               "tags": [],
@@ -732,7 +732,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/artist-fitting.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Artist Costume Fitting",
               "description": "Close-up of bohemian layers fit on actress during fitting",
               "tags": [],
@@ -757,7 +757,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/period-gown-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Aristocrat's Evening Gown Complete",
               "description": "Finished pale blue silk evening gown on dress form",
               "tags": [
@@ -767,7 +767,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/period-gown-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Aristocrat - On Set",
               "description": "Professional on-set photo of actress in pale blue gown during filming",
               "tags": [
@@ -784,7 +784,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/artist-costume-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Artist's Costume Complete",
               "description": "Finished earth-tone bohemian layered costume on dress form",
               "tags": [],
@@ -792,7 +792,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/artist-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Artist - On Set",
               "description": "Professional on-set photo of actress in bohemian costume during filming",
               "tags": [
@@ -806,7 +806,7 @@
             },
             {
               "file": "categories/film-production/the-last-correspondence/intimate-scene-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_landscape",
               "title": "Intimate Scene - Shared Warmth",
               "description": "Professional production photo showing both characters in warm shared color palette",
               "tags": [
@@ -867,7 +867,7 @@
             },
             {
               "file": "categories/film-production/velvet-and-ash/monochrome-fabric-board.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Monochrome Luxury Fabrics",
               "description": "Black, white, and grey luxury fabric swatches for protagonist's wardrobe",
               "tags": [],
@@ -931,7 +931,7 @@
             },
             {
               "file": "categories/film-production/velvet-and-ash/fitting-pristine-look.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Fitting - Opening Costume",
               "description": "Close-up of pristine black suit fit on actress during fitting",
               "tags": [],
@@ -948,7 +948,7 @@
             },
             {
               "file": "categories/film-production/velvet-and-ash/pristine-costume-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Opening Look Complete",
               "description": "Finished pristine black suit and white blouse on form",
               "tags": [],
@@ -956,7 +956,7 @@
             },
             {
               "file": "categories/film-production/velvet-and-ash/velvet-coat-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Black Velvet Coat Complete",
               "description": "Finished dramatic black velvet coat on form",
               "tags": [
@@ -966,7 +966,7 @@
             },
             {
               "file": "categories/film-production/velvet-and-ash/pristine-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Opening Scene - Pristine Control",
               "description": "Professional production photo of actress in opening costume",
               "tags": [],
@@ -979,7 +979,7 @@
             },
             {
               "file": "categories/film-production/velvet-and-ash/mid-descent-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Mid-Film - Fracture Beginning",
               "description": "Professional production photo showing subtle dishevelment",
               "tags": [],
@@ -991,7 +991,7 @@
             },
             {
               "file": "categories/film-production/velvet-and-ash/final-descent-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Final Scene - Complete Unraveling",
               "description": "Professional production photo showing complete psychological breakdown through costume",
               "tags": [
@@ -1058,7 +1058,7 @@
             },
             {
               "file": "categories/film-production/paper-tigers/power-suit-fabrics.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Old Guard Corporate Fabrics",
               "description": "Luxury suiting fabrics for traditional power dressing",
               "tags": [],
@@ -1066,7 +1066,7 @@
             },
             {
               "file": "categories/film-production/paper-tigers/tech-casual-fabrics.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "New Tech Elevated Casual Fabrics",
               "description": "Expensive casual fabrics for tech character wardrobes",
               "tags": [],
@@ -1098,7 +1098,7 @@
             },
             {
               "file": "categories/film-production/paper-tigers/ceo-fitting-pristine.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "CEO Fitting - Pristine Opening",
               "description": "Close-up of white power suit fit on actress during fitting",
               "tags": [],
@@ -1123,7 +1123,7 @@
             },
             {
               "file": "categories/film-production/paper-tigers/ceo-pristine-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "CEO - Opening Scene Perfection",
               "description": "Professional production photo of actress in pristine white power suit",
               "tags": [],
@@ -1135,7 +1135,7 @@
             },
             {
               "file": "categories/film-production/paper-tigers/ceo-descent-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "CEO - Paranoid Descent",
               "description": "Professional production photo showing CEO's costume dishevelment",
               "tags": [
@@ -1151,7 +1151,7 @@
             },
             {
               "file": "categories/film-production/paper-tigers/tech-casual-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Tech Disruptor - On Set",
               "description": "Professional production photo of tech antagonist in elevated casual wear",
               "tags": [
@@ -1223,7 +1223,7 @@
             },
             {
               "file": "categories/television-production/the-architects-daughter/episode-arc-chart.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "8-Episode Costume Arc Chart",
               "description": "Visual chart mapping costume choices across all 8 episodes",
               "tags": [
@@ -1241,7 +1241,7 @@
             },
             {
               "file": "categories/television-production/the-architects-daughter/corporate-fabrics.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Corporate Wardrobe Fabrics",
               "description": "Monochrome professional fabric swatches for early episodes",
               "tags": [],
@@ -1257,7 +1257,7 @@
             },
             {
               "file": "categories/television-production/the-architects-daughter/warm-tone-fabrics.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Personal Palette Introduction",
               "description": "Warm-toned fabrics for character's personal style emergence",
               "tags": [],
@@ -1291,7 +1291,7 @@
             },
             {
               "file": "categories/television-production/the-architects-daughter/fitting-corporate-look.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Fitting - Early Season Look",
               "description": "Close-up fitting of corporate blazer and white blouse",
               "tags": [],
@@ -1299,7 +1299,7 @@
             },
             {
               "file": "categories/television-production/the-architects-daughter/fitting-personal-style.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Fitting - Later Season Look",
               "description": "Close-up fitting of relaxed personal style costume",
               "tags": [],
@@ -1316,7 +1316,7 @@
             },
             {
               "file": "categories/television-production/the-architects-daughter/episode-1-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Episode 1 - Corporate Armor",
               "description": "Professional production still from opening episode showing corporate styling",
               "tags": [],
@@ -1329,7 +1329,7 @@
             },
             {
               "file": "categories/television-production/the-architects-daughter/episode-4-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Episode 4 - Transition Styling",
               "description": "Professional production still showing mid-season styling evolution",
               "tags": [],
@@ -1358,7 +1358,7 @@
             },
             {
               "file": "categories/television-production/the-architects-daughter/finale-gown-fitting.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Finale Gown Fitting",
               "description": "Close-up of amber gown fit during fitting session",
               "tags": [],
@@ -1366,7 +1366,7 @@
             },
             {
               "file": "categories/television-production/the-architects-daughter/finale-gown-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Finale Gown Complete",
               "description": "Finished amber evening gown on dress form",
               "tags": [
@@ -1376,7 +1376,7 @@
             },
             {
               "file": "categories/television-production/the-architects-daughter/finale-gown-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Finale - Confident Arrival",
               "description": "Professional production photo from finale showing character's complete transformation",
               "tags": [
@@ -1443,7 +1443,7 @@
             },
             {
               "file": "categories/television-production/beneath-the-surface/coastal-palette-fabrics.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Coastal Scientist Palette",
               "description": "Bright blue, white, and aqua fabric swatches for early episodes",
               "tags": [],
@@ -1493,7 +1493,7 @@
             },
             {
               "file": "categories/television-production/beneath-the-surface/fitting-bright-look.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Fitting - Early Season Optimism",
               "description": "Close-up fitting of bright blue field jacket and casual wear",
               "tags": [],
@@ -1501,7 +1501,7 @@
             },
             {
               "file": "categories/television-production/beneath-the-surface/fitting-dark-look.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Fitting - Later Season Paranoia",
               "description": "Close-up fitting of dark layered investigator outfit",
               "tags": [],
@@ -1518,7 +1518,7 @@
             },
             {
               "file": "categories/television-production/beneath-the-surface/episode-1-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Episode 1 - Bright Optimism",
               "description": "Professional production still showing bright coastal scientist wardrobe",
               "tags": [],
@@ -1531,7 +1531,7 @@
             },
             {
               "file": "categories/television-production/beneath-the-surface/episode-3-lab-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Episode 3 - Lab Scene",
               "description": "Professional production still of actress in lab coat and coastal casual",
               "tags": [],
@@ -1544,7 +1544,7 @@
             },
             {
               "file": "categories/television-production/beneath-the-surface/episode-4-transition-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Episode 4 - Color Transition",
               "description": "Professional production still showing shift toward darker wardrobe",
               "tags": [],
@@ -1557,7 +1557,7 @@
             },
             {
               "file": "categories/television-production/beneath-the-surface/episode-6-dark-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Episode 6 - Paranoid Investigator",
               "description": "Professional production still showing dark protective final wardrobe",
               "tags": [
@@ -1617,7 +1617,7 @@
           "photos": [
             {
               "file": "categories/fashion-design/urban-armor/concept-board.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Urban Armor Concept Board",
               "description": "Mood board with protection theme, military references, and soft/hard contrasts",
               "tags": [
@@ -1627,7 +1627,7 @@
             },
             {
               "file": "categories/fashion-design/urban-armor/collection-sketches.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Collection Design Sketches",
               "description": "Six fashion illustrations for complete Urban Armor collection",
               "tags": [],
@@ -1683,7 +1683,7 @@
             },
             {
               "file": "categories/fashion-design/urban-armor/fitting-session.jpg",
-              "imageType": "detail_closeup",
+              "imageType": "detail_portrait",
               "title": "Collection Fitting",
               "description": "Close-up of structured jacket fit on model during fitting",
               "tags": [],
@@ -1708,7 +1708,7 @@
             },
             {
               "file": "categories/fashion-design/urban-armor/hero-jacket-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Hero Jacket Complete",
               "description": "Finished structured black jacket on dress form",
               "tags": [
@@ -1718,7 +1718,7 @@
             },
             {
               "file": "categories/fashion-design/urban-armor/collection-hero-shot.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_landscape",
               "title": "Urban Armor Collection",
               "description": "Professional styled photo of collection's hero pieces",
               "tags": [

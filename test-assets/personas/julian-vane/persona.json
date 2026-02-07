@@ -95,7 +95,7 @@
           "photos": [
             {
               "file": "categories/menswear-tailoring/bespoke-morning-coat/featured.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Completed Morning Coat",
               "altText": "Navy wool morning coat on professional dress form showing peak lapels and tailored silhouette",
               "description": "Finished morning coat on dress form, showcasing the precise lapel roll, shoulder line, and overall silhouette achieved through traditional construction methods.",
@@ -122,7 +122,7 @@
             },
             {
               "file": "categories/menswear-tailoring/bespoke-morning-coat/pattern-layout.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Pattern Pieces Laid Out",
               "description": "Morning coat pattern pieces arranged on cutting table",
               "tags": [],
@@ -130,7 +130,7 @@
             },
             {
               "file": "categories/menswear-tailoring/bespoke-morning-coat/navy-wool-cut-pieces.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Navy Wool Cut and Ready",
               "description": "Cut navy wool pieces for morning coat arranged on table",
               "tags": [],
@@ -194,7 +194,7 @@
             },
             {
               "file": "categories/menswear-tailoring/bespoke-morning-coat/fitting-shoulder.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Fitting - Shoulder Check",
               "description": "Close-up of morning coat shoulder and upper back fit on actor during fitting",
               "tags": [],
@@ -202,7 +202,7 @@
             },
             {
               "file": "categories/menswear-tailoring/bespoke-morning-coat/lapel-fit-check.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Lapel Roll Check",
               "description": "Detail of peak lapel roll during fitting session",
               "tags": [],
@@ -247,7 +247,7 @@
           "photos": [
             {
               "file": "categories/menswear-tailoring/the-diplomats-suit/featured.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Three-Piece Suit Complete",
               "description": "Finished three-piece charcoal suit on dress form showing jacket, waistcoat, and trousers.",
               "tags": [
@@ -258,7 +258,7 @@
             },
             {
               "file": "categories/menswear-tailoring/the-diplomats-suit/suit-pattern-layout.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Suit Pattern Layout",
               "description": "Pattern pieces for three-piece suit laid out on cutting table",
               "tags": [],
@@ -266,7 +266,7 @@
             },
             {
               "file": "categories/menswear-tailoring/the-diplomats-suit/charcoal-wool-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Charcoal Wool Cut Pieces",
               "description": "Cut charcoal wool pieces for suit arranged on table",
               "tags": [],
@@ -300,7 +300,7 @@
             },
             {
               "file": "categories/menswear-tailoring/the-diplomats-suit/jacket-fitting.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Jacket Fit Check",
               "description": "Close-up of charcoal suit jacket fit on actor during fitting",
               "tags": [],
@@ -308,7 +308,7 @@
             },
             {
               "file": "categories/menswear-tailoring/the-diplomats-suit/waistcoat-fitting.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Waistcoat Fit Detail",
               "description": "Close-up of waistcoat fit during fitting session",
               "tags": [],
@@ -316,7 +316,7 @@
             },
             {
               "file": "categories/menswear-tailoring/the-diplomats-suit/trouser-fitting.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Trouser Fit Check",
               "description": "Close-up of charcoal trousers fit during fitting session",
               "tags": [],
@@ -388,7 +388,7 @@
           "photos": [
             {
               "file": "categories/theater-production/the-obsidian-crown/queen-pattern-draft.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Queen's Gown - Pattern Drafting",
               "description": "First pattern draft for Queen Morwen's burgundy gown laid out on cutting table",
               "tags": [],
@@ -396,7 +396,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/burgundy-velvet-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Burgundy Velvet Cut Pieces",
               "description": "Cut burgundy silk velvet pieces arranged on table after cutting from pattern",
               "tags": [],
@@ -422,7 +422,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/queen-bodice-fitting.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "First Fitting - Bodice",
               "description": "Close-up of burgundy velvet gown bodice fit on actress during fitting session",
               "tags": [],
@@ -430,7 +430,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/bodice-fit-detail.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Bodice Side Seam Fit",
               "description": "Detail of bodice side seam fit during fitting session",
               "tags": [],
@@ -446,7 +446,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/deterioration-samples.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Distressing Test Samples",
               "description": "Fabric swatches showing progressive distressing effects from burgundy to darkened state",
               "tags": [],
@@ -454,7 +454,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/queen-gown-finished.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Queen's Gown Complete",
               "description": "Finished burgundy velvet gown on dress form ready for delivery",
               "tags": [
@@ -464,7 +464,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Queen Morwen - Production Photo",
               "description": "Professional production photograph of actress in Queen's burgundy gown during performance",
               "tags": [
@@ -482,7 +482,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/officer-coat-pattern.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Officer's Coat - Pattern Layout",
               "description": "Pattern pieces for Officer's navy wool coat arranged on cutting table",
               "tags": [],
@@ -490,7 +490,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/navy-wool-cut-pieces.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Navy Wool Cut and Ready",
               "description": "Cut navy wool pieces for Officer's coat arranged on table",
               "tags": [],
@@ -522,7 +522,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/coat-fitting-check.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Coat Fitting - Shoulder Check",
               "description": "Close-up of navy coat shoulder fit on actor during fitting",
               "tags": [],
@@ -530,7 +530,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/sleeve-fit-check.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Sleeve Set Check",
               "description": "Detail of coat sleeve armscye fit during fitting session",
               "tags": [],
@@ -546,7 +546,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/officer-coat-finished.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Officer's Coat Complete",
               "description": "Completed navy wool Officer's coat on dress form with all details finished",
               "tags": [],
@@ -554,7 +554,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/officer-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Officer's Coat - Production",
               "description": "Professional production photo of actor in navy Officer's coat during performance",
               "tags": [
@@ -569,7 +569,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/ensemble-distressing-samples.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Ensemble Deterioration Work",
               "description": "Multiple courtier costume pieces showing progressive deterioration effects",
               "tags": [],
@@ -594,7 +594,7 @@
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/full-cast-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_wide",
               "title": "Full Cast - Production Photo",
               "description": "Professional ensemble cast photo showing range of costumes built",
               "tags": [
@@ -634,7 +634,7 @@
           "photos": [
             {
               "file": "categories/theater-production/much-ado-miami/beatrice-dress-pattern.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Beatrice's Dress Pattern",
               "description": "Pattern for 1960s mod shift dress laid out on cutting table",
               "tags": [],
@@ -642,7 +642,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/coral-linen-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Coral Linen Pieces Cut",
               "description": "Cut bright coral linen pieces arranged after pattern cutting",
               "tags": [],
@@ -650,7 +650,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/trim-pieces-arranged.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Geometric Trim Layout",
               "description": "White and navy trim pieces arranged on coral dress bodice",
               "tags": [],
@@ -674,7 +674,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/beatrice-dress-fitting.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Dress Fit Check",
               "description": "Close-up of coral dress fit on actress during fitting session",
               "tags": [],
@@ -682,7 +682,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/neckline-trim-fit.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Neckline Trim Fit Detail",
               "description": "Detail of geometric neckline trim fit during fitting",
               "tags": [],
@@ -698,7 +698,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/beatrice-dress-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Beatrice's Dress Complete",
               "description": "Finished coral mod dress on dress form ready for delivery",
               "tags": [
@@ -708,7 +708,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/beatrice-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Beatrice - Production Photo",
               "description": "Professional production photo of actress in coral dress during outdoor performance",
               "tags": [
@@ -726,7 +726,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/benedick-suit-pattern.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Benedick's Suit Pattern",
               "description": "Pattern layout for 1960s men's linen suit",
               "tags": [],
@@ -734,7 +734,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/cream-linen-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Cream Linen Cut Pieces",
               "description": "Cut cream-colored linen pieces for suit jacket arranged on table",
               "tags": [],
@@ -758,7 +758,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/jacket-fitting-check.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Suit Jacket Fit",
               "description": "Close-up of cream linen jacket fit on actor during fitting",
               "tags": [],
@@ -766,7 +766,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/trouser-fitting.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Trouser Fit Check",
               "description": "Close-up of cream linen trousers fit at waist during fitting",
               "tags": [],
@@ -782,7 +782,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/benedick-suit-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Benedick's Suit Complete",
               "description": "Finished cream linen suit on dress form, 1960s tropical styling",
               "tags": [],
@@ -790,7 +790,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/benedick-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Benedick - Production Photo",
               "description": "Professional production photo of actor in cream linen suit during performance",
               "tags": [
@@ -805,7 +805,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/ensemble-fabrics-laid-out.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Ensemble Print Fabrics",
               "description": "Collection of tropical print fabrics for ensemble laid out for reference",
               "tags": [],
@@ -846,7 +846,7 @@
             },
             {
               "file": "categories/theater-production/much-ado-miami/full-cast-production.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_wide",
               "title": "Full Cast - Production Photo",
               "description": "Professional ensemble cast photo showing vibrant 1960s Miami costumes",
               "tags": [
@@ -891,7 +891,7 @@
           "photos": [
             {
               "file": "categories/theater-production/the-negative-space/reversible-coat-pattern.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Reversible Coat Pattern",
               "description": "Pattern for reversible coat showing both exterior and interior construction",
               "tags": [],
@@ -899,7 +899,7 @@
             },
             {
               "file": "categories/theater-production/the-negative-space/grey-black-fabrics.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Reversible Fabric Layers",
               "description": "Grey wool and black cotton fabrics cut and ready for reversible construction",
               "tags": [],
@@ -941,7 +941,7 @@
             },
             {
               "file": "categories/theater-production/the-negative-space/modular-pieces-arranged.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Modular Ensemble Pieces",
               "description": "Collection of modular garment pieces that reconfigure throughout performance",
               "tags": [],
@@ -949,7 +949,7 @@
             },
             {
               "file": "categories/theater-production/the-negative-space/coat-fitting-grey-side.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Fitting - Grey Exterior",
               "description": "Close-up of reversible coat grey side during fitting",
               "tags": [],
@@ -957,7 +957,7 @@
             },
             {
               "file": "categories/theater-production/the-negative-space/coat-fitting-black-side.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Fitting - Black Interior Revealed",
               "description": "Close-up of reversible coat black side during fitting check",
               "tags": [],
@@ -965,7 +965,7 @@
             },
             {
               "file": "categories/theater-production/the-negative-space/coat-complete-grey.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Reversible Coat - Grey Side",
               "description": "Finished reversible coat on form showing grey exterior",
               "tags": [],
@@ -973,7 +973,7 @@
             },
             {
               "file": "categories/theater-production/the-negative-space/coat-complete-black.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Reversible Coat - Black Side",
               "description": "Same coat on form reversed to show black interior",
               "tags": [],
@@ -990,7 +990,7 @@
             },
             {
               "file": "categories/theater-production/the-negative-space/production-grey-moment.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_portrait",
               "title": "Production - Grey Coat Scene",
               "description": "Professional production photo showing coat in grey configuration during performance",
               "tags": [],
@@ -1003,7 +1003,7 @@
             },
             {
               "file": "categories/theater-production/the-negative-space/production-transformation.jpg",
-              "imageType": "production_stage",
+              "imageType": "production_landscape",
               "title": "Production - Coat Transformation",
               "description": "Professional production photo capturing moment of coat reversal during performance",
               "tags": [
@@ -1059,7 +1059,7 @@
           "photos": [
             {
               "file": "categories/film-production/the-crimson-inheritance/lead-dress-pattern.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Lead Dress Pattern Draft",
               "description": "Pattern for 1880s day dress with fitted bodice and bustle skirt",
               "tags": [],
@@ -1067,7 +1067,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/burgundy-silk-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Burgundy Silk Cut Pieces",
               "description": "Cut burgundy silk taffeta pieces arranged after pattern cutting",
               "tags": [],
@@ -1091,7 +1091,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/buttonhole-macro.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Buttonhole Detail",
               "description": "Single finished hand-sewn buttonhole showing period technique",
               "tags": [],
@@ -1107,7 +1107,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/bustle-pad-built.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Bustle Pad Structure",
               "description": "Completed wire and padding structure for 1880s bustle",
               "tags": [],
@@ -1115,7 +1115,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/dress-bodice-fitting.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "First Fitting - Bodice Fit",
               "description": "Close-up of burgundy bodice fit on actress during fitting session",
               "tags": [],
@@ -1123,7 +1123,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/sleeve-fit.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Sleeve Fitting Detail",
               "description": "Close-up of tight 1880s sleeve fit during fitting session",
               "tags": [],
@@ -1171,7 +1171,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/lead-gown-finished.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_landscape",
               "title": "Lead Dress Complete",
               "description": "Finished burgundy silk 1880s day dress on dress form",
               "tags": [
@@ -1181,7 +1181,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/lead-gown-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Lead Character - On Set",
               "description": "Professional on-set photo of actress in burgundy dress during filming",
               "tags": [
@@ -1198,7 +1198,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/male-suit-pattern.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Male Lead Suit Pattern",
               "description": "Pattern for 1880s three-piece formal suit laid out",
               "tags": [],
@@ -1206,7 +1206,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/charcoal-wool-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Charcoal Wool Cut Pieces",
               "description": "Cut charcoal wool pieces for formal suit arranged on table",
               "tags": [],
@@ -1230,7 +1230,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/tailcoat-fitting.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Tailcoat Fitting Check",
               "description": "Close-up of tailcoat fit on actor during fitting session",
               "tags": [],
@@ -1254,7 +1254,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/male-suit-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Male Lead Suit Complete",
               "description": "Finished charcoal three-piece Victorian suit on dress form",
               "tags": [],
@@ -1262,7 +1262,7 @@
             },
             {
               "file": "categories/film-production/the-crimson-inheritance/male-lead-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Male Lead - On Set",
               "description": "Professional on-set photo of actor in formal Victorian suit during filming",
               "tags": [
@@ -1323,7 +1323,7 @@
           "photos": [
             {
               "file": "categories/film-production/shadows-and-smoke/overcoat-pattern-layout.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Detective's Overcoat Pattern",
               "description": "Pattern for 1940s double-breasted overcoat laid out on table",
               "tags": [],
@@ -1331,7 +1331,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/charcoal-wool-melton-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Charcoal Melton Wool Cut",
               "description": "Cut pieces of heavy charcoal melton wool for overcoat arranged on table",
               "tags": [],
@@ -1373,7 +1373,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/overcoat-fitting-shoulder.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Overcoat Fitting - Shoulder Drape",
               "description": "Close-up of overcoat shoulder fit on actor during fitting",
               "tags": [],
@@ -1397,7 +1397,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/overcoat-finished.jpg",
-              "imageType": "production_film",
+              "imageType": "production_wide",
               "title": "Detective's Overcoat Complete",
               "description": "Finished double-breasted overcoat on form, iconic noir silhouette",
               "tags": [
@@ -1407,7 +1407,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/detective-overcoat-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Detective - On Set",
               "description": "Professional on-set photo of lead actor in signature overcoat during filming",
               "tags": [
@@ -1424,7 +1424,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/evening-gown-pattern.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Bias-Cut Gown Pattern",
               "description": "Pattern for bias-cut evening gown laid out showing dramatic true-bias draping",
               "tags": [],
@@ -1432,7 +1432,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/silver-satin-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Silver Satin Cut on Bias",
               "description": "Cut pieces of silver-grey satin arranged showing bias grain direction",
               "tags": [],
@@ -1448,7 +1448,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/gown-fitting-drape.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Evening Gown Fitting - Drape Check",
               "description": "Close-up of bias-cut gown drape on actress during fitting",
               "tags": [],
@@ -1464,7 +1464,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/evening-gown-complete.jpg",
-              "imageType": "production_film",
+              "imageType": "production_landscape",
               "title": "Evening Gown Complete",
               "description": "Finished silver satin bias-cut evening gown on dress form",
               "tags": [],
@@ -1472,7 +1472,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/femme-fatale-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Femme Fatale - On Set",
               "description": "Professional on-set photo of actress in silver evening gown during filming",
               "tags": [
@@ -1487,7 +1487,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/gangster-suit-pattern.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Gangster Suit Pattern",
               "description": "Pattern for 1940s wide-shouldered three-piece suit",
               "tags": [],
@@ -1495,7 +1495,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/pinstripe-fabric-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Pinstripe Wool Cut",
               "description": "Cut navy pinstripe wool pieces for gangster suit arranged on table",
               "tags": [],
@@ -1519,7 +1519,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/suit-fitting-shoulders.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Suit Fitting - Shoulder Check",
               "description": "Close-up of wide-shouldered suit jacket fit on actor during fitting",
               "tags": [],
@@ -1535,7 +1535,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/suit-complete-hero.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Hero Suit Complete",
               "description": "Finished navy pinstripe gangster suit on dress form",
               "tags": [],
@@ -1551,7 +1551,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/gangster-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_wide",
               "title": "Gangster - On Set",
               "description": "Professional on-set photo of actor in navy pinstripe suit during filming",
               "tags": [
@@ -1573,7 +1573,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/detective-coat-complete.jpg",
-              "imageType": "production_film",
+              "imageType": "production_wide",
               "title": "Detective's Overcoat Complete",
               "description": "Finished charcoal double-breasted overcoat on dress form",
               "tags": [
@@ -1583,7 +1583,7 @@
             },
             {
               "file": "categories/film-production/shadows-and-smoke/detective-coat-production.jpg",
-              "imageType": "production_film",
+              "imageType": "production_portrait",
               "title": "Detective - Signature Coat Scene",
               "description": "Professional on-set photo of detective in iconic overcoat",
               "tags": [
@@ -1641,7 +1641,7 @@
           "photos": [
             {
               "file": "categories/specialty-techniques/leatherwork/armor-pattern-layout.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Armor Vest Pattern",
               "description": "Pattern for articulated leather armor vest laid out on table",
               "tags": [],
@@ -1649,7 +1649,7 @@
             },
             {
               "file": "categories/specialty-techniques/leatherwork/leather-pieces-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Leather Armor Pieces Cut",
               "description": "Cut thick brown leather pieces arranged after pattern cutting",
               "tags": [],
@@ -1693,7 +1693,7 @@
             },
             {
               "file": "categories/specialty-techniques/leatherwork/weathering-applied.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Leather Weathering Complete",
               "description": "Leather pieces with applied dye and weathering effects",
               "tags": [],
@@ -1709,7 +1709,7 @@
             },
             {
               "file": "categories/specialty-techniques/leatherwork/armor-vest-complete.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Leather Armor Vest Complete",
               "description": "Finished articulated leather armor vest with brass hardware",
               "tags": [
@@ -1746,7 +1746,7 @@
           "photos": [
             {
               "file": "categories/specialty-techniques/corsetry/corset-pattern-laid-out.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Victorian Corset Pattern",
               "description": "Pattern for 1880s corset with complex paneling laid out",
               "tags": [],
@@ -1754,7 +1754,7 @@
             },
             {
               "file": "categories/specialty-techniques/corsetry/coutil-pieces-cut.jpg",
-              "imageType": "bts_phone",
+              "imageType": "bts_phone_landscape",
               "title": "Coutil Foundation Cut",
               "description": "Cut coutil fabric pieces for corset foundation arranged on table",
               "tags": [],
@@ -1814,7 +1814,7 @@
             },
             {
               "file": "categories/specialty-techniques/corsetry/corset-on-actress-fit.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Corset Fitting Check",
               "description": "Close-up of fitted corset on actress during fitting session",
               "tags": [],
@@ -1822,7 +1822,7 @@
             },
             {
               "file": "categories/specialty-techniques/corsetry/finished-corset.jpg",
-              "imageType": "studio_documentation",
+              "imageType": "studio_portrait",
               "title": "Victorian Corset Complete",
               "description": "Finished ivory silk corset with brass grommets and perfect period silhouette",
               "tags": [

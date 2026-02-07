@@ -35,17 +35,29 @@ const PERSONAS_DIR = path.join(PROJECT_ROOT, 'test-assets', 'personas');
 // social/shared images were 4:5 or 1:1.
 //
 // The imageType field on each photo in persona.json is the single source of
-// truth for aspect ratio. This table maps each type to its ratio:
+// truth for aspect ratio. The type name indicates orientation and camera type.
 //
-//   imageType              Ratio   When used
-//   ─────────────────────  ──────  ─────────────────────────────────────────
-//   bts_phone              3:4     Behind-the-scenes phone documentation
-//   candid_identity        3:4     Coworker's phone snap of the persona
-//   production_stage       3:2     DSLR production stills (theater/opera)
-//   production_film        16:9    Cinematic on-set stills (film/TV)
-//   detail_closeup         3:4     Tight shots of texture, stitching, detail
-//   studio_documentation   3:4     Clean studio photos of garments on forms
-//   sketch_scan            3:4     Scanned artwork, sketches, renderings
+//   Phone shots (smartphone aesthetic, casual):
+//     bts_phone              3:4    Portrait phone — standard BTS documentation
+//     bts_phone_landscape    4:3    Landscape phone — overhead tables, wide workspace
+//
+//   Production stills (DSLR / professional):
+//     production_wide        16:9   Wide — full stage, cinematic establishing shots
+//     production_landscape   3:2    Landscape DSLR — standard pro production still
+//     production_portrait    2:3    Portrait DSLR — single performer, character shot
+//
+//   Studio documentation (controlled lighting, clean):
+//     studio_portrait        3:4    Portrait — garment on form, standing display
+//     studio_landscape       4:3    Landscape — flat lay, table arrangement
+//
+//   Detail (tight crop):
+//     detail_square          1:1    Square — texture, stitching, embroidery detail
+//     detail_portrait        4:5    Portrait — Instagram-style detail crop
+//
+//   Other:
+//     candid_identity        3:4    Coworker's phone snap of the persona at work
+//     sketch                 3:4    Phone photo of a sketch or rendering
+//     sketch_landscape       4:3    Phone photo of a landscape sketch or spread
 //
 // To change the ratio for a type, edit IMAGE_TYPE_DEFAULTS below.
 // To give a single photo a different ratio than its type, add an explicit
@@ -58,13 +70,27 @@ const PERSONAS_DIR = path.join(PROJECT_ROOT, 'test-assets', 'personas');
  * Edit this table to change ratios globally for a type.
  */
 const IMAGE_TYPE_DEFAULTS = {
-  bts_phone:              { aspectRatio: '3:4',  label: 'Behind-the-scenes phone' },
-  production_stage:       { aspectRatio: '3:2',  label: 'Stage production' },
-  production_film:        { aspectRatio: '16:9', label: 'Film/TV production' },
-  detail_closeup:         { aspectRatio: '3:4',  label: 'Detail close-up' },
+  // Phone shots
+  bts_phone:              { aspectRatio: '3:4',  label: 'BTS phone portrait' },
+  bts_phone_landscape:    { aspectRatio: '4:3',  label: 'BTS phone landscape' },
+
+  // Production stills (DSLR)
+  production_wide:        { aspectRatio: '16:9', label: 'Production wide' },
+  production_landscape:   { aspectRatio: '3:2',  label: 'Production landscape' },
+  production_portrait:    { aspectRatio: '2:3',  label: 'Production portrait' },
+
+  // Studio documentation
+  studio_portrait:        { aspectRatio: '3:4',  label: 'Studio portrait' },
+  studio_landscape:       { aspectRatio: '4:3',  label: 'Studio landscape' },
+
+  // Detail
+  detail_square:          { aspectRatio: '1:1',  label: 'Detail square' },
+  detail_portrait:        { aspectRatio: '4:5',  label: 'Detail portrait' },
+
+  // Other
   candid_identity:        { aspectRatio: '3:4',  label: 'Candid identity' },
-  studio_documentation:   { aspectRatio: '3:4',  label: 'Studio documentation' },
-  sketch_scan:            { aspectRatio: '3:4',  label: 'Sketch/scan' },
+  sketch:                 { aspectRatio: '3:4',  label: 'Sketch portrait' },
+  sketch_landscape:       { aspectRatio: '4:3',  label: 'Sketch landscape' },
 };
 
 const FALLBACK_ASPECT_RATIO = '3:4';
@@ -93,7 +119,8 @@ function resolveAspectRatio(image, imageType) {
 
 /**
  * Infer imageType from prompt text for backward compatibility.
- * Existing persona JSONs embed type hints in the prompt itself.
+ * Persona JSONs should have explicit imageType on every photo, but this
+ * handles any that don't.
  */
 function inferImageType(image) {
   if (image.imageType) return image.imageType;
@@ -104,33 +131,47 @@ function inferImageType(image) {
   // Phone / BTS markers
   if (p.includes('iphone') || p.includes('smartphone') || p.includes('phone photo')) {
     if (image.isIdentity) return 'candid_identity';
+    // Landscape hints for phone shots
+    if (p.includes('from above') || p.includes('overhead') || p.includes('table') ||
+        p.includes('laid out') || p.includes('flat lay') || p.includes('mood board on')) {
+      return 'bts_phone_landscape';
+    }
     return 'bts_phone';
   }
 
   // Production photography markers
   if (p.includes('production photography') || p.includes('performance shot')) {
-    if (p.includes('film') || p.includes('cinema') || p.includes('noir') || p.includes('on set')) {
-      return 'production_film';
+    if (p.includes('wide') || p.includes('ensemble') || p.includes('full cast') ||
+        p.includes('full stage')) {
+      return 'production_wide';
     }
-    return 'production_stage';
+    if (p.includes('actor in') || p.includes('actress in') || p.includes('performer') ||
+        p.includes('solo') || p.includes('portrait')) {
+      return 'production_portrait';
+    }
+    return 'production_landscape';
   }
 
   // Studio / documentation
   if (p.includes('professional documentation') || p.includes('studio photography') ||
       p.includes('professional costume photography')) {
-    return 'studio_documentation';
+    if (p.includes('flat lay') || p.includes('laid out') || p.includes('from above') ||
+        p.includes('table')) {
+      return 'studio_landscape';
+    }
+    return 'studio_portrait';
   }
 
   // Detail / close-up
-  if (p.includes('close-up') || p.includes('closeup') || p.includes('detail') ||
-      p.includes('macro') || p.includes('texture')) {
-    return 'detail_closeup';
+  if (p.includes('close-up') || p.includes('closeup') || p.includes('macro') ||
+      p.includes('texture detail')) {
+    return 'detail_square';
   }
 
-  // Sketch / scan
+  // Sketch
   if (p.includes('sketch') || p.includes('rendering') || p.includes('illustration') ||
       p.includes('watercolor')) {
-    return 'sketch_scan';
+    return 'sketch';
   }
 
   return null;
@@ -150,18 +191,24 @@ function inferImageType(image) {
  * framing. Describe scene contents exhaustively so there's no room for
  * Gemini to hallucinate unwanted objects.
  */
+// Phone-style anti-artifact suffix shared by all phone/casual types
+const PHONE_SUFFIX =
+  `\n\nPHOTO STYLE: Authentic smartphone documentation photo. The entire frame contains only ` +
+  `the described subject and its immediate surroundings. No phones, cameras, hands, fingers, ` +
+  `UI overlays, timestamps, or watermarks exist in this image.`;
+
+const PHONE_PREAMBLE =
+  `Casual behind-the-scenes documentation photograph with smartphone camera characteristics. ` +
+  `First-person perspective showing only the subject — captured from the photographer's point of view ` +
+  `with no devices, hands, screens, or camera equipment visible anywhere in the frame. ` +
+  `Natural ambient lighting, subtle digital noise in shadow areas, phone-camera dynamic range ` +
+  `with slightly overexposed highlights. Candid composition that is slightly imperfect and off-center, ` +
+  `as if quickly snapped during work. 26mm wide-angle equivalent focal length.\n\nSUBJECT: `;
+
 const PROMPT_WRAPPERS = {
-  bts_phone: {
-    preamble: `Casual behind-the-scenes documentation photograph with smartphone camera characteristics. ` +
-      `First-person perspective showing only the subject — captured from the photographer's point of view ` +
-      `with no devices, hands, screens, or camera equipment visible anywhere in the frame. ` +
-      `Natural ambient lighting, subtle digital noise in shadow areas, phone-camera dynamic range ` +
-      `with slightly overexposed highlights. Candid composition that is slightly imperfect and off-center, ` +
-      `as if quickly snapped during work. 26mm wide-angle equivalent focal length.\n\nSUBJECT: `,
-    suffix: `\n\nPHOTO STYLE: Authentic smartphone documentation photo. The entire frame contains only ` +
-      `the described subject and its immediate surroundings. No phones, cameras, hands, fingers, ` +
-      `UI overlays, timestamps, or watermarks exist in this image.`
-  },
+  // Phone shots — share the same aesthetic, just different orientation
+  bts_phone:           { preamble: PHONE_PREAMBLE, suffix: PHONE_SUFFIX },
+  bts_phone_landscape: { preamble: PHONE_PREAMBLE, suffix: PHONE_SUFFIX },
 
   candid_identity: {
     preamble: `Candid behind-the-scenes photograph with smartphone camera look. ` +
@@ -174,41 +221,67 @@ const PROMPT_WRAPPERS = {
       `No UI overlays, no timestamps.`
   },
 
-  production_stage: {
-    preamble: `Professional theatrical production photography. ` +
+  // Production stills — DSLR aesthetic, orientation varies
+  production_wide: {
+    preamble: `Professional production photography, wide composition. ` +
+      `Captured with a DSLR, dramatic lighting, high-quality production still.\n\nSCENE: `,
+    suffix: ''
+  },
+  production_landscape: {
+    preamble: `Professional production photography. ` +
       `Captured with a DSLR from the audience or wings during performance. ` +
       `Dramatic stage lighting, high-quality production still.\n\nSCENE: `,
     suffix: ''
   },
-
-  production_film: {
-    preamble: `Professional film unit photography on set. ` +
-      `Cinematic lighting, shallow depth of field, widescreen composition. ` +
-      `High-quality on-set still photography.\n\nSCENE: `,
+  production_portrait: {
+    preamble: `Professional production photography, vertical portrait composition. ` +
+      `Captured with a DSLR, dramatic lighting, shallow depth of field, ` +
+      `high-quality character or performer portrait.\n\nSCENE: `,
     suffix: ''
   },
 
-  detail_closeup: {
-    preamble: `Tightly cropped documentation close-up photograph. ` +
-      `First-person perspective showing only the subject detail — ` +
-      `the entire frame is filled with the described subject. ` +
+  // Studio documentation
+  studio_portrait: {
+    preamble: `Professional studio documentation photograph, vertical composition. ` +
+      `Clean backdrop, even lighting, accurate color representation. ` +
+      `Garment or object fills the frame with professional presentation.\n\nSUBJECT: `,
+    suffix: ''
+  },
+  studio_landscape: {
+    preamble: `Professional studio documentation photograph, horizontal composition. ` +
+      `Clean backdrop, even lighting, accurate color representation. ` +
+      `Objects arranged across the frame.\n\nSUBJECT: `,
+    suffix: ''
+  },
+
+  // Detail
+  detail_square: {
+    preamble: `Tightly cropped documentation close-up photograph, square composition. ` +
+      `First-person perspective — the entire frame is filled with the described detail. ` +
+      `Clean, well-lit detail documentation.\n\nSUBJECT: `,
+    suffix: `\n\nPHOTO STYLE: Clean detail documentation. The frame contains only the described ` +
+      `subject. No hands, fingers, phones, or tools visible unless specifically described.`
+  },
+  detail_portrait: {
+    preamble: `Tightly cropped documentation close-up photograph, vertical composition. ` +
+      `First-person perspective — the entire frame is filled with the described detail. ` +
       `Clean, well-lit detail documentation.\n\nSUBJECT: `,
     suffix: `\n\nPHOTO STYLE: Clean detail documentation. The frame contains only the described ` +
       `subject. No hands, fingers, phones, or tools visible unless specifically described.`
   },
 
-  studio_documentation: {
-    preamble: `Professional studio documentation photograph. ` +
-      `Clean backdrop, even lighting, accurate color representation. ` +
-      `Garment or object fills the frame with professional presentation.\n\nSUBJECT: `,
-    suffix: ''
+  // Sketches (phone photos of artwork)
+  sketch: {
+    preamble: `Casual smartphone photograph of artwork or sketch. ` +
+      `First-person perspective, natural lighting, the artwork fills the frame. ` +
+      `Slight phone-camera characteristics.\n\nARTWORK: `,
+    suffix: PHONE_SUFFIX
   },
-
-  sketch_scan: {
-    preamble: `High-resolution scan or photograph of artwork. ` +
-      `Clean, flat, evenly lit. The artwork fills the frame edge to edge.\n\nARTWORK: `,
-    suffix: `\n\nPHOTO STYLE: Clean reproduction. Only the artwork is visible in the frame. ` +
-      `No hands, fingers, phones, or surfaces visible.`
+  sketch_landscape: {
+    preamble: `Casual smartphone photograph of artwork or sketch, landscape orientation. ` +
+      `First-person perspective, natural lighting, the artwork fills the frame. ` +
+      `Slight phone-camera characteristics.\n\nARTWORK: `,
+    suffix: PHONE_SUFFIX
   }
 };
 
@@ -272,7 +345,8 @@ function buildWrappedPrompt(rawPrompt, imageType) {
       .trim();
 
     // Only add phone suffix for phone-type images
-    if (type === 'bts_phone' || type === 'candid_identity' || type === 'detail_closeup' || type === 'sketch_scan') {
+    if (type.startsWith('bts_phone') || type === 'candid_identity' ||
+        type.startsWith('detail_') || type.startsWith('sketch')) {
       return rewritten + LEGACY_PHONE_SUFFIX;
     }
     return rewritten;
