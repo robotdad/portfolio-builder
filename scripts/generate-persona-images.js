@@ -3,26 +3,18 @@
 /**
  * Generate images for personas using Gemini API
  * 
- * Supports both legacy and enhanced persona formats:
- * - Legacy: Reads persona.json, outputs to flat images/
- * - Enhanced: Reads persona-enhanced.json, outputs to organized images/profile/ and images/categories/
+ * Reads persona.json for each persona, generates profile and project images
+ * via Gemini image generation, organized into images/profile/ and images/categories/.
  * 
- * Image types and aspect ratios:
- *   Each photo entry can specify `imageType` and `aspectRatio` for realistic output.
- *   If omitted, the script infers sensible defaults from prompt text analysis.
- * 
- *   Supported imageTypes: bts_phone, production_stage, production_film,
- *     detail_closeup, candid_identity, studio_documentation, sketch_scan
- * 
- *   Supported aspectRatios (Gemini API): 1:1, 2:3, 3:2, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9, 21:9
+ * Each photo entry in persona.json should have an `imageType` field that determines
+ * the Gemini aspect ratio and prompt wrapping style. See IMAGE_TYPE_DEFAULTS below.
  * 
  * Usage:
- *   node scripts/generate-persona-images.js julian-vane              # Legacy format
- *   node scripts/generate-persona-images.js julian-vane --enhanced   # Enhanced format, all images
- *   node scripts/generate-persona-images.js julian-vane --enhanced --profile-only    # Profile images only
- *   node scripts/generate-persona-images.js julian-vane --enhanced --category=menswear-tailoring  # One category
- *   node scripts/generate-persona-images.js julian-vane --enhanced --project=bespoke-morning-coat # One project
- *   node scripts/generate-persona-images.js all --enhanced           # All personas, enhanced
+ *   node scripts/generate-persona-images.js sarah-chen                              # One persona
+ *   node scripts/generate-persona-images.js all                                     # All personas
+ *   node scripts/generate-persona-images.js sarah-chen --profile-only               # Profile images only
+ *   node scripts/generate-persona-images.js sarah-chen --category=theater-production # One category
+ *   node scripts/generate-persona-images.js sarah-chen --project=the-obsidian-crown  # One project
  */
 
 import { GoogleGenAI } from '@google/genai';
@@ -406,16 +398,15 @@ STYLE: 85mm lens, sharp focus, professional studio lighting, realistic textures,
 }
 
 // ---------------------------------------------------------------------------
-// Enhanced format persona generation
+// Persona generation
 // ---------------------------------------------------------------------------
 
-async function generateEnhancedPersona(ai, personaId, options = {}) {
+async function generatePersona(ai, personaId, options = {}) {
   console.log(`\n${'='.repeat(60)}`);
-  console.log(`Generating Images (Enhanced): ${personaId}`);
+  console.log(`Generating Images: ${personaId}`);
   console.log(`${'='.repeat(60)}`);
 
-  // Load persona-enhanced.json
-  const personaPath = path.join(PERSONAS_DIR, personaId, 'persona-enhanced.json');
+  const personaPath = path.join(PERSONAS_DIR, personaId, 'persona.json');
   let personaData;
   try {
     const content = await fs.readFile(personaPath, 'utf-8');
@@ -633,91 +624,6 @@ async function generateEnhancedPersona(ai, personaId, options = {}) {
 }
 
 // ---------------------------------------------------------------------------
-// Legacy format persona generation
-// ---------------------------------------------------------------------------
-
-async function generateLegacyPersona(ai, personaId) {
-  console.log(`\n${'='.repeat(60)}`);
-  console.log(`Generating Images (Legacy): ${personaId}`);
-  console.log(`${'='.repeat(60)}`);
-
-  // Load persona.json
-  const personaPath = path.join(PERSONAS_DIR, personaId, 'persona.json');
-  let personaData;
-  try {
-    const content = await fs.readFile(personaPath, 'utf-8');
-    personaData = JSON.parse(content);
-  } catch (e) {
-    throw new Error(`Could not load ${personaPath}: ${e.message}`);
-  }
-
-  console.log(`   Name: ${personaData.persona.name}`);
-  console.log(`   Role: ${personaData.persona.role}`);
-  console.log(`   Images: ${personaData.profile.images.length}`);
-
-  const outputDir = path.join(PERSONAS_DIR, personaId, 'images');
-  await fs.mkdir(outputDir, { recursive: true });
-
-  let headshotBase64 = null;
-  const profileImages = personaData.profile.images;
-
-  for (let i = 0; i < profileImages.length; i++) {
-    const image = profileImages[i];
-    const imageType = inferImageType(image);
-    const aspectRatio = resolveAspectRatio(image, imageType);
-
-    console.log(`\n[${i + 1}/${profileImages.length}] ${image.file}`);
-    console.log(`   Type: ${image.type || 'unknown'} | imageType: ${imageType || 'auto'} | ratio: ${aspectRatio}`);
-
-    if (!image.prompt) {
-      console.log(`   -- No prompt defined, skipping`);
-      continue;
-    }
-
-    try {
-      const isHeadshot = image.type === 'headshot_primary';
-      const needsIdentity = image.isIdentity && !isHeadshot;
-
-      let imageBase64;
-      
-      if (isHeadshot) {
-        console.log(`   ** Generating master headshot (anchor)...`);
-        imageBase64 = await generateImage(ai, image.prompt, {
-          isAnchorGeneration: true,
-          aspectRatio: image.aspectRatio || '3:4'
-        });
-        headshotBase64 = imageBase64;
-      } else if (needsIdentity && headshotBase64) {
-        console.log(`   -> Using headshot for identity consistency...`);
-        imageBase64 = await generateImage(ai, image.prompt, {
-          referenceImageB64: headshotBase64,
-          aspectRatio,
-          imageType
-        });
-      } else {
-        console.log(`   >> Generating scene image...`);
-        imageBase64 = await generateImage(ai, image.prompt, {
-          aspectRatio,
-          imageType
-        });
-      }
-
-      // Save as JPG
-      const finalOutputPath = path.join(outputDir, image.file);
-      const buffer = Buffer.from(imageBase64, 'base64');
-      await fs.writeFile(finalOutputPath, buffer);
-
-      console.log(`   OK Saved: ${finalOutputPath}`);
-    } catch (error) {
-      console.error(`   FAIL: ${error.message}`);
-    }
-  }
-
-  console.log(`\nCompleted: ${personaData.persona.name}`);
-  console.log(`   Output: ${outputDir}`);
-}
-
-// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -730,7 +636,6 @@ async function main() {
 
   const args = process.argv.slice(2);
   const personaArg = args[0] || 'julian-vane';
-  const isEnhanced = args.includes('--enhanced');
   
   // Parse filter options
   const profileOnly = args.includes('--profile-only');
@@ -742,7 +647,6 @@ async function main() {
 
   let personaIds = [];
   if (personaArg === 'all') {
-    // Discover all persona directories
     const entries = await fs.readdir(PERSONAS_DIR, { withFileTypes: true });
     personaIds = entries
       .filter(e => e.isDirectory())
@@ -752,7 +656,6 @@ async function main() {
     personaIds = [personaArg];
   }
 
-  console.log(`Mode: ${isEnhanced ? 'Enhanced' : 'Legacy'}`);
   console.log(`Generating for: ${personaIds.join(', ')}\n`);
 
   const options = {
@@ -763,11 +666,7 @@ async function main() {
 
   for (const personaId of personaIds) {
     try {
-      if (isEnhanced) {
-        await generateEnhancedPersona(ai, personaId, options);
-      } else {
-        await generateLegacyPersona(ai, personaId);
-      }
+      await generatePersona(ai, personaId, options);
     } catch (error) {
       console.error(`\nFailed for ${personaId}: ${error.message}`);
     }
