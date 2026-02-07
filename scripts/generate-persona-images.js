@@ -291,19 +291,28 @@ function buildWrappedPrompt(rawPrompt, imageType) {
 // ---------------------------------------------------------------------------
 
 async function loadApiKey() {
+  const keys = ['GEMINI_API_KEY', 'GOOGLE_API_KEY'];
+
+  // 1. Check environment variables
+  for (const key of keys) {
+    if (process.env[key]) return process.env[key];
+  }
+
+  // 2. Check .env file
   const envPath = path.join(PROJECT_ROOT, '.env');
   try {
     const envContent = await fs.readFile(envPath, 'utf-8');
-    for (const key of ['GEMINI_API_KEY', 'GOOGLE_API_KEY']) {
+    for (const key of keys) {
       const match = envContent.match(new RegExp(`${key}[=:]?\\s*["']?([^"'\\n]+)["']?`));
       if (match) {
         return match[1].trim().replace(/^["']|["']$/g, '');
       }
     }
   } catch {
-    throw new Error('Could not read .env - make sure GEMINI_API_KEY or GOOGLE_API_KEY is set');
+    // No .env file, that's fine if env var was set
   }
-  throw new Error('Neither GEMINI_API_KEY nor GOOGLE_API_KEY found in .env');
+
+  throw new Error('Set GEMINI_API_KEY or GOOGLE_API_KEY in environment or .env');
 }
 
 // ---------------------------------------------------------------------------
