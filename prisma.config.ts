@@ -12,7 +12,7 @@ export default defineConfig({
     path: migrationsPath,
   },
   datasource: {
-    // SQLite database - local file for development, can be volume-mounted in containers
-    url: process.env.DATABASE_URL ?? "file:./dev.db",
+    // Azure SSH sessions use APPSETTING_ prefix, regular runtime uses DATABASE_URL
+    url: process.env.DATABASE_URL ?? process.env.APPSETTING_DATABASE_URL ?? "postgresql://postgres:postgres@localhost:5432/portfolio",
   },
 });

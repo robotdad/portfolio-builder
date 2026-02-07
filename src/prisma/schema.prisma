@@ -6,14 +6,14 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Portfolio {
   id String @id @default(cuid())
   name String
   title String?
-  bio String?
+  bio String? @db.Text
   draftTheme String @default("modern-minimal")
   publishedTheme String @default("modern-minimal")
   draftTemplate String @default("featured-grid")
@@ -21,8 +21,8 @@ model Portfolio {
   lastPublishedAt DateTime?
   
   // Category list page content (section-based)
-  categoryPageDraftContent String?
-  categoryPagePublishedContent String?
+  categoryPageDraftContent String? @db.Text
+  categoryPagePublishedContent String? @db.Text
   categoryPageLastPublishedAt DateTime?
   
   createdAt DateTime @default(now())
@@ -47,8 +47,8 @@ model Page {
   isHomepage Boolean @default(false)
   showInNav Boolean @default(true)
   
-  draftContent String?
-  publishedContent String?
+  draftContent String? @db.Text
+  publishedContent String? @db.Text
   lastPublishedAt DateTime?
   
   createdAt DateTime @default(now())
@@ -78,7 +78,7 @@ model Asset {
   width Int
   height Int
   altText String @default("")
-  caption String?
+  caption String? @db.Text
   
   createdAt DateTime @default(now())
   
@@ -96,15 +96,15 @@ model Category {
   
   name String
   slug String
-  description String?
+  description String? @db.Text
   order Int @default(0)
   
   featuredImageId String?
   featuredImage Asset? @relation("CategoryFeaturedImage", fields: [featuredImageId], references: [id], onDelete: SetNull)
   
   // Category landing page content (section-based)
-  draftContent String?
-  publishedContent String?
+  draftContent String? @db.Text
+  publishedContent String? @db.Text
   lastPublishedAt DateTime?
   
   projects Project[]
@@ -125,8 +125,8 @@ model Project {
   slug String
 
   // Section-based content (like Pages)
-  draftContent String?
-  publishedContent String?
+  draftContent String? @db.Text
+  publishedContent String? @db.Text
   lastPublishedAt DateTime?
 
   // Metadata (in sidebar, not sections)
@@ -157,7 +157,7 @@ model ProjectGalleryImage {
   asset     Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
   order     Int      @default(0)
   altText   String   @default("")
-  caption   String?
+  caption   String?  @db.Text
   createdAt DateTime @default(now())
 
   @@unique([projectId, assetId])

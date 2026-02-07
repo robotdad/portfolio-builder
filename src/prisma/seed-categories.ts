@@ -13,14 +13,15 @@ if (!process.env.DATABASE_URL) {
 }
 
 import { PrismaClient } from '@prisma/client'
-import { PrismaLibSql } from '@prisma/adapter-libsql'
+import { PrismaPg } from '@prisma/adapter-pg'
 
-const databaseUrl = process.env.DATABASE_URL ?? 'file:./dev.db'
-const adapter = new PrismaLibSql({ url: databaseUrl })
+const connectionString =
+  process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@localhost:5432/portfolio'
+const adapter = new PrismaPg({ connectionString })
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
-  console.log('🌱 Seeding categories and projects...')
+  console.log('Seeding categories and projects...')
 
   // Get the first portfolio (or create one if none exists)
   let portfolio = await prisma.portfolio.findFirst()
@@ -88,7 +89,7 @@ async function main() {
         isFeatured: true,
       },
       {
-        title: 'Les Misérables',
+        title: 'Les Miserables',
         slug: 'les-miserables',
         year: '2022',
         venue: 'Broadway Productions',
@@ -152,7 +153,7 @@ async function main() {
         order: cat.order,
       },
     })
-    console.log(`  ✓ Category: ${category.name}`)
+    console.log(`  Category: ${category.name}`)
 
     // Create projects for this category
     const projects = projectsByCategory[cat.slug] || []
@@ -179,7 +180,7 @@ async function main() {
           isFeatured: proj.isFeatured,
         },
       })
-      console.log(`    ✓ Created project: ${proj.title}${proj.isFeatured ? ' ⭐' : ''}`)
+      console.log(`    Created project: ${proj.title}${proj.isFeatured ? ' (featured)' : ''}`)
     }
   }
 
@@ -192,16 +193,16 @@ async function main() {
     where: { category: { portfolioId: portfolio.id }, isFeatured: true },
   })
 
-  console.log('\n📊 Summary:')
+  console.log('\nSummary:')
   console.log(`   Categories: ${categoryCount}`)
   console.log(`   Projects: ${projectCount}`)
   console.log(`   Featured: ${featuredCount}`)
-  console.log('\n✅ Seeding complete!')
+  console.log('\nSeeding complete!')
 }
 
 main()
   .catch((e) => {
-    console.error('❌ Seeding failed:', e)
+    console.error('Seeding failed:', e)
     process.exit(1)
   })
   .finally(async () => {

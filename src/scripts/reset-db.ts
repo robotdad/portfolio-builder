@@ -17,25 +17,25 @@ if (!process.env.DATABASE_URL) {
 }
 
 import { PrismaClient } from '@prisma/client'
-import { PrismaLibSql } from '@prisma/adapter-libsql'
+import { PrismaPg } from '@prisma/adapter-pg'
 import { getStorageAsync } from '../lib/storage'
 
 async function resetDatabase() {
-  const databaseUrl = process.env.DATABASE_URL ?? 'file:./dev.db'
-  const adapter = new PrismaLibSql({ url: databaseUrl })
+  const connectionString =
+    process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@localhost:5432/portfolio'
+  const adapter = new PrismaPg({ connectionString })
   const prisma = new PrismaClient({ adapter })
 
   try {
-    console.log('🗑️  Resetting database...')
+    console.log('Resetting database...')
 
     // Clean up ALL storage files (handles orphaned files from prior resets)
     console.log('  Cleaning up storage files...')
     const storage = await getStorageAsync()
     const cleanedCount = await storage.deleteAllFiles()
-    console.log(`  ✓ Cleaned ${cleanedCount} file(s) from storage`)
+    console.log(`  Cleaned ${cleanedCount} file(s) from storage`)
 
-    // Delete all records from tables in the correct order (respecting foreign keys)
-    // SQLite doesn't support TRUNCATE, so we use DELETE
+    // Truncate all tables in the correct order (respecting foreign keys)
     const tables = [
       'ProjectGalleryImage',
       'Project',
@@ -47,13 +47,13 @@ async function resetDatabase() {
     ]
 
     for (const table of tables) {
-      await prisma.$executeRawUnsafe(`DELETE FROM "${table}";`)
-      console.log(`  ✓ Cleared ${table}`)
+      await prisma.$executeRawUnsafe(`TRUNCATE TABLE "${table}" CASCADE;`)
+      console.log(`  Cleared ${table}`)
     }
 
-    console.log('✅ Database reset complete!')
+    console.log('Database reset complete!')
   } catch (error) {
-    console.error('❌ Reset failed:', error)
+    console.error('Reset failed:', error)
     process.exit(1)
   } finally {
     await prisma.$disconnect()

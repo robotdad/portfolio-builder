@@ -12,7 +12,7 @@
  *
  * How it works:
  * 1. Check if a PrismaClient already exists on globalThis
- * 2. If not, create one with the SQLite adapter (libsql)
+ * 2. If not, create one with the PostgreSQL adapter
  * 3. In development, store it on globalThis for reuse
  * 4. In production, each cold start creates a fresh client (no global caching needed)
  *
@@ -23,15 +23,16 @@
  * const users = await prisma.user.findMany()
  */
 import { PrismaClient } from '@prisma/client'
-import { PrismaLibSql } from '@prisma/adapter-libsql'
+import { PrismaPg } from '@prisma/adapter-pg'
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
 function createPrismaClient() {
-  const databaseUrl = process.env.DATABASE_URL ?? 'file:./dev.db'
-  const adapter = new PrismaLibSql({ url: databaseUrl })
+  const connectionString =
+    process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@localhost:5432/portfolio'
+  const adapter = new PrismaPg({ connectionString })
   return new PrismaClient({ adapter })
 }
 

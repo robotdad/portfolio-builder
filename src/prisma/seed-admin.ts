@@ -14,10 +14,11 @@ if (!process.env.DATABASE_URL) {
 }
 
 import { PrismaClient } from '@prisma/client'
-import { PrismaLibSql } from '@prisma/adapter-libsql'
+import { PrismaPg } from '@prisma/adapter-pg'
 
-const databaseUrl = process.env.DATABASE_URL ?? 'file:./dev.db'
-const adapter = new PrismaLibSql({ url: databaseUrl })
+const connectionString =
+  process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@localhost:5432/portfolio'
+const adapter = new PrismaPg({ connectionString })
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
@@ -38,7 +39,7 @@ async function main() {
       create: { email: normalizedEmail },
     })
 
-    console.log(`✓ Admin email added: ${result.email}`)
+    console.log(`Admin email added: ${result.email}`)
     console.log(`  ID: ${result.id}`)
     console.log(`  Created: ${result.createdAt.toISOString()}`)
   } catch (error) {
