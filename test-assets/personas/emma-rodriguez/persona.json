@@ -11,6 +11,7 @@
     "images": [
       {
         "file": "profile/headshot-primary.jpg",
+        "aspectRatio": "3:4",
         "type": "headshot_primary",
         "title": "Professional Headshot",
         "description": "Studio portrait - character reference for all identity-based images",
@@ -18,6 +19,8 @@
       },
       {
         "file": "profile/selfie-wardrobe-trailer.jpg",
+        "imageType": "candid_identity",
+        "aspectRatio": "3:4",
         "type": "selfie",
         "title": "Wardrobe Trailer Selfie",
         "description": "Casual selfie inside the wardrobe trailer during production",
@@ -26,6 +29,8 @@
       },
       {
         "file": "profile/candid-video-village.jpg",
+        "imageType": "candid_identity",
+        "aspectRatio": "3:4",
         "type": "candid",
         "title": "At Video Village",
         "description": "Candid shot of Emma watching monitors at video village during filming",
@@ -34,6 +39,8 @@
       },
       {
         "file": "profile/on-job-action.jpg",
+        "imageType": "candid_identity",
+        "aspectRatio": "3:4",
         "type": "on_job",
         "title": "On-Set Costume Check",
         "description": "Emma adjusting costume on actor moments before cameras roll",
@@ -92,6 +99,8 @@
           "photos": [
             {
               "file": "categories/period-epic/the-winter-palace/costume-bible-overview.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Master Costume Bible",
               "description": "The comprehensive costume bible showing character breakdowns across all 127 speaking roles",
               "tags": [],
@@ -99,13 +108,19 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/imperial-gown-multiples.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Empress Gown Multiples",
               "description": "Six identical copies of the Empress's ivory ballroom gown in various states of preservation",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "prompt": "iPhone 14 Pro photo of six identical ivory silk ballroom gowns on dress forms arranged in row, progressive states from pristine to blood-stained and torn, imperial Russian styling with gold embroidery, costume multiples for film production, wardrobe department workspace, fluorescent lighting"
             },
             {
               "file": "categories/period-epic/the-winter-palace/extras-holding-area.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Extras Costume Staging",
               "description": "200+ extras in full imperial court costume waiting in the holding area before the ballroom sequence",
               "tags": [],
@@ -113,6 +128,8 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/destruction-tracking-board.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Destruction Continuity Board",
               "description": "The tracking board showing exact damage states for each principal costume through the massacre sequence",
               "tags": [],
@@ -120,6 +137,8 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/military-uniform-rack.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Imperial Guard Uniforms",
               "description": "Rack of Imperial Russian military uniforms organized by character and scene",
               "tags": [],
@@ -127,6 +146,8 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/on-set-emma-adjustment.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "On-Set Costume Adjustment",
               "description": "Emma making final adjustments to lead actress's gown before filming",
               "tags": [],
@@ -135,6 +156,8 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/blood-application-station.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "1:1",
               "title": "Blood Effects Station",
               "description": "The dedicated station for applying and tracking blood effects on costumes",
               "tags": [],
@@ -142,6 +165,8 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/emma-video-village.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Monitoring at Video Village",
               "description": "Emma reviewing costume continuity on set monitors during the ballroom sequence",
               "tags": [],
@@ -150,6 +175,8 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/quick-change-booth.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Quick Change Station",
               "description": "The rigged quick-change booth allowing 90-second costume changes between setups",
               "tags": [],
@@ -157,9 +184,15 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/ballroom-sequence-production.jpg",
+              "imageType": "production_film",
+              "aspectRatio": "3:2",
               "title": "Ballroom Sequence - Production Still",
               "description": "Professional production photograph of the ballroom sequence showing full costume scope",
-              "tags": ["featured", "home_carousel", "category_carousel"],
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
               "imageMetadata": {
                 "photographer": "Unit Photography - Alexei Petrov",
                 "scene": "Imperial Ball - before the massacre",
@@ -169,9 +202,13 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/aftermath-continuity.jpg",
+              "imageType": "production_film",
+              "aspectRatio": "16:9",
               "title": "Post-Massacre Continuity",
               "description": "Production still showing maintained continuity in destroyed costumes",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "imageMetadata": {
                 "photographer": "Unit Photography - Alexei Petrov",
                 "scene": "Ballroom aftermath",
@@ -181,6 +218,8 @@
             },
             {
               "file": "categories/period-epic/the-winter-palace/wrap-day-team.jpg",
+              "imageType": "studio_documentation",
+              "aspectRatio": "3:4",
               "title": "Department Wrap Photo",
               "description": "The full 45-person costume department on the final day of principal photography",
               "tags": [],
@@ -220,6 +259,8 @@
           "photos": [
             {
               "file": "categories/period-epic/letters-from-saigon/vietnamese-costume-research.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Vietnamese Costume Research",
               "description": "Research board with 1960s Vietnamese civilian costume references",
               "tags": [],
@@ -227,6 +268,8 @@
             },
             {
               "file": "categories/period-epic/letters-from-saigon/humidity-damaged-costumes.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Climate Damage Documentation",
               "description": "Documentation of humidity damage to period costumes requiring replacement",
               "tags": [],
@@ -234,13 +277,19 @@
             },
             {
               "file": "categories/period-epic/letters-from-saigon/military-press-uniforms.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Press Corps Uniforms",
               "description": "Period-accurate 1967 press corps and military uniforms prepared for scene",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "prompt": "iPhone 14 Pro photo of costume rack with 1960s military press corps uniforms, khaki fatigues with press badges, vintage cameras and equipment nearby, period-accurate military insignia, wardrobe truck interior"
             },
             {
               "file": "categories/period-epic/letters-from-saigon/ao-dai-collection.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Ao Dai Collection",
               "description": "Collection of period-accurate ao dai sourced from Vietnamese textile experts",
               "tags": [],
@@ -248,6 +297,8 @@
             },
             {
               "file": "categories/period-epic/letters-from-saigon/emma-location-fitting.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Location Fitting Session",
               "description": "Emma conducting fitting in improvised location wardrobe space",
               "tags": [],
@@ -256,9 +307,14 @@
             },
             {
               "file": "categories/period-epic/letters-from-saigon/saigon-street-production.jpg",
+              "imageType": "production_film",
+              "aspectRatio": "16:9",
               "title": "Saigon Street Scene - Production",
               "description": "Production still of recreated 1967 Saigon street with full period costumes",
-              "tags": ["featured", "category_carousel"],
+              "tags": [
+                "featured",
+                "category_carousel"
+              ],
               "imageMetadata": {
                 "photographer": "Unit Photography - Mai Tran",
                 "scene": "Saigon street market, 1967",
@@ -319,20 +375,32 @@
           "photos": [
             {
               "file": "categories/action-stunt/freefall/hero-costume-multiples.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "9:16",
               "title": "Hero Costume Multiples Array",
               "description": "48 of the 127 hero costume multiples arranged by damage state",
-              "tags": ["featured", "home_carousel", "category_carousel"],
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
               "prompt": "iPhone 14 Pro photo of massive array of identical tactical costumes on dress forms, arranged in progression from pristine to heavily damaged, same black tactical jacket and pants in various destruction states, industrial wardrobe warehouse space, dramatic lighting showing scale"
             },
             {
               "file": "categories/action-stunt/freefall/damage-state-reference.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "9:16",
               "title": "Damage State Reference Board",
               "description": "The master reference showing 23 defined damage states for continuity matching",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "prompt": "iPhone 14 Pro photo of large reference board showing 23 photographs of same costume in progressive damage states, numbered and labeled, corresponding fabric samples and dust/dirt samples attached, meticulous continuity documentation"
             },
             {
               "file": "categories/action-stunt/freefall/damage-application-kit.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Rapid Damage Application Kit",
               "description": "The portable kit allowing recreation of any damage state in under 20 minutes",
               "tags": [],
@@ -340,6 +408,8 @@
             },
             {
               "file": "categories/action-stunt/freefall/stunt-double-matching.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Stunt Double Costume Match",
               "description": "Principal actor and stunt double in matched costumes for verification",
               "tags": [],
@@ -347,6 +417,8 @@
             },
             {
               "file": "categories/action-stunt/freefall/emma-tracking-system.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Digital Tracking Review",
               "description": "Emma reviewing the damage tracking system between setups",
               "tags": [],
@@ -355,6 +427,8 @@
             },
             {
               "file": "categories/action-stunt/freefall/burn-damage-application.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Burn Damage Application",
               "description": "Specialty technician applying controlled burn damage to costume multiple",
               "tags": [],
@@ -362,6 +436,8 @@
             },
             {
               "file": "categories/action-stunt/freefall/collapse-sequence-prep.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Collapse Sequence Preparation",
               "description": "Costume team preparing multiples for the building collapse sequence",
               "tags": [],
@@ -369,6 +445,8 @@
             },
             {
               "file": "categories/action-stunt/freefall/continuity-photo-station.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "8-Angle Documentation Station",
               "description": "The documentation station capturing costume states from 8 angles after each setup",
               "tags": [],
@@ -376,9 +454,13 @@
             },
             {
               "file": "categories/action-stunt/freefall/action-sequence-production.jpg",
+              "imageType": "production_film",
+              "aspectRatio": "16:9",
               "title": "Collapse Sequence - Production",
               "description": "Production still from the building collapse sequence",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "imageMetadata": {
                 "photographer": "Unit Photography - James Chen",
                 "scene": "Building collapse - Floor 27",
@@ -420,13 +502,20 @@
           "photos": [
             {
               "file": "categories/action-stunt/the-matadors-shadow/traje-de-luces-hero.jpg",
+              "imageType": "studio_documentation",
+              "aspectRatio": "3:4",
               "title": "Hero Traje de Luces",
               "description": "The principal hero suit of lights in royal blue and gold",
-              "tags": ["featured", "category_carousel"],
+              "tags": [
+                "featured",
+                "category_carousel"
+              ],
               "prompt": "Professional documentation photo of magnificent traje de luces (matador suit of lights) on dress form, royal blue silk with elaborate gold embroidery and sequins, traditional Spanish bullfighting costume, museum-quality presentation, soft studio lighting showing intricate detail"
             },
             {
               "file": "categories/action-stunt/the-matadors-shadow/embroidery-detail.jpg",
+              "imageType": "detail_closeup",
+              "aspectRatio": "3:4",
               "title": "Traditional Embroidery Detail",
               "description": "Close-up of hand-embroidered gold work by Seville artisans",
               "tags": [],
@@ -434,6 +523,8 @@
             },
             {
               "file": "categories/action-stunt/the-matadors-shadow/stunt-vs-hero-comparison.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "9:16",
               "title": "Hero vs Stunt Suit Comparison",
               "description": "Side-by-side comparison of hero suit and reinforced stunt version",
               "tags": [],
@@ -441,6 +532,8 @@
             },
             {
               "file": "categories/action-stunt/the-matadors-shadow/seville-workshop.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "9:16",
               "title": "Seville Family Workshop",
               "description": "Working with traditional costumers in their Seville workshop",
               "tags": [],
@@ -448,6 +541,8 @@
             },
             {
               "file": "categories/action-stunt/the-matadors-shadow/blood-treatment-test.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Blood Resistance Testing",
               "description": "Testing blood-resistant treatment on embroidered fabric samples",
               "tags": [],
@@ -455,9 +550,13 @@
             },
             {
               "file": "categories/action-stunt/the-matadors-shadow/arena-sequence-production.jpg",
+              "imageType": "production_film",
+              "aspectRatio": "16:9",
               "title": "Arena Sequence - Production",
               "description": "Production still from the climactic bullfighting arena sequence",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "imageMetadata": {
                 "photographer": "Unit Photography - Carlos Mendez",
                 "scene": "Final arena confrontation",
@@ -519,13 +618,19 @@
           "photos": [
             {
               "file": "categories/contemporary-drama/the-quiet-leaving/character-entropy-map.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Character Entropy Maps",
               "description": "Detailed costume breakdown showing each character's emotional unraveling through wardrobe",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "prompt": "iPhone 14 Pro photo of design board showing character costume progression, photos of same outfit in various states of disarray, handwritten notes about emotional beats, timeline markers, intimate drama costume planning"
             },
             {
               "file": "categories/contemporary-drama/the-quiet-leaving/arrival-costumes-rack.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Arrival Costumes",
               "description": "The three siblings' carefully chosen arrival outfits representing their public selves",
               "tags": [],
@@ -533,6 +638,8 @@
             },
             {
               "file": "categories/contemporary-drama/the-quiet-leaving/borrowed-items-tracking.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Borrowed Items Log",
               "description": "Tracking board showing which clothing items characters borrow from each other and when",
               "tags": [],
@@ -540,6 +647,8 @@
             },
             {
               "file": "categories/contemporary-drama/the-quiet-leaving/emma-actor-discussion.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Actor Collaboration Session",
               "description": "Emma discussing costume-character relationship with lead actress",
               "tags": [],
@@ -548,6 +657,8 @@
             },
             {
               "file": "categories/contemporary-drama/the-quiet-leaving/continuity-notebook.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Scene-by-Scene Continuity Notebook",
               "description": "Detailed notebook tracking costume states for every scene",
               "tags": [],
@@ -555,6 +666,8 @@
             },
             {
               "file": "categories/contemporary-drama/the-quiet-leaving/rumpled-transition.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Controlled Rumpling",
               "description": "Same blouse in pressed and rumpled states for emotional progression",
               "tags": [],
@@ -562,9 +675,15 @@
             },
             {
               "file": "categories/contemporary-drama/the-quiet-leaving/family-dinner-production.jpg",
+              "imageType": "production_film",
+              "aspectRatio": "16:9",
               "title": "Family Dinner - Production",
               "description": "Production still from the emotionally charged family dinner sequence",
-              "tags": ["featured", "home_carousel", "category_carousel"],
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
               "imageMetadata": {
                 "photographer": "Unit Photography - Sarah Kim",
                 "scene": "Friday dinner - tensions surface",
@@ -574,9 +693,13 @@
             },
             {
               "file": "categories/contemporary-drama/the-quiet-leaving/sunday-morning-production.jpg",
+              "imageType": "production_film",
+              "aspectRatio": "16:9",
               "title": "Sunday Morning - Production",
               "description": "Production still showing full costume transformation by film's end",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "imageMetadata": {
                 "photographer": "Unit Photography - Sarah Kim",
                 "scene": "Sunday morning - before departure",
@@ -618,6 +741,8 @@
           "photos": [
             {
               "file": "categories/contemporary-drama/midnight-pastoral/thrift-store-sourcing.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Rural Thrift Store Sourcing",
               "description": "Sourcing authentic work clothes from Nebraska thrift stores",
               "tags": [],
@@ -625,13 +750,19 @@
             },
             {
               "file": "categories/contemporary-drama/midnight-pastoral/real-wear-documentation.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Wear Pattern Documentation",
               "description": "Documenting authentic wear patterns on farm-worked costumes",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "prompt": "iPhone 14 Pro photo of worn work shirt laid flat with measurement markers, documenting authentic sweat stains and wear patterns at stress points, costume department research documentation"
             },
             {
               "file": "categories/contemporary-drama/midnight-pastoral/seasonal-storage.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Seasonal Storage System",
               "description": "Costume storage system maintaining states between seasonal shoots",
               "tags": [],
@@ -639,9 +770,14 @@
             },
             {
               "file": "categories/contemporary-drama/midnight-pastoral/harvest-production.jpg",
+              "imageType": "production_film",
+              "aspectRatio": "16:9",
               "title": "Harvest Sequence - Production",
               "description": "Production still from autumn harvest sequence showing authentic work wear",
-              "tags": ["featured", "category_carousel"],
+              "tags": [
+                "featured",
+                "category_carousel"
+              ],
               "imageMetadata": {
                 "photographer": "Unit Photography - Local crew",
                 "scene": "Autumn harvest",
@@ -702,13 +838,19 @@
           "photos": [
             {
               "file": "categories/international-location/the-crossing/arctic-survival-gear.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Arctic Survival Costume Array",
               "description": "Full range of survival costumes engineered for -30°C filming",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "prompt": "iPhone 14 Pro photo of arctic survival costumes on rack, heavy parkas and insulated layers in research station colors, actual cold weather gear adapted for film, technical outdoor clothing, wardrobe staging area"
             },
             {
               "file": "categories/international-location/the-crossing/layer-system-diagram.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Layering System Documentation",
               "description": "Technical documentation of the layering system keeping actors warm",
               "tags": [],
@@ -716,6 +858,8 @@
             },
             {
               "file": "categories/international-location/the-crossing/snow-continuity-kit.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "1:1",
               "title": "Snow Continuity Kit",
               "description": "Portable kit for matching snow accumulation between takes",
               "tags": [],
@@ -723,6 +867,8 @@
             },
             {
               "file": "categories/international-location/the-crossing/heated-maintenance-tent.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Heated Maintenance Tent",
               "description": "The heated tent system for costume maintenance on arctic location",
               "tags": [],
@@ -730,6 +876,8 @@
             },
             {
               "file": "categories/international-location/the-crossing/emma-arctic-location.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "1:1",
               "title": "Arctic Location Supervision",
               "description": "Emma supervising costume continuity in blizzard conditions",
               "tags": [],
@@ -738,6 +886,8 @@
             },
             {
               "file": "categories/international-location/the-crossing/frozen-costume-comparison.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Frozen vs Thawed Comparison",
               "description": "Documentation of how costumes behave differently when frozen",
               "tags": [],
@@ -745,9 +895,15 @@
             },
             {
               "file": "categories/international-location/the-crossing/ice-rescue-production.jpg",
+              "imageType": "production_film",
+              "aspectRatio": "3:2",
               "title": "Ice Rescue Sequence - Production",
               "description": "Production still from the ice rescue sequence in actual arctic conditions",
-              "tags": ["featured", "home_carousel", "category_carousel"],
+              "tags": [
+                "featured",
+                "home_carousel",
+                "category_carousel"
+              ],
               "imageMetadata": {
                 "photographer": "Unit Photography - Lars Eriksson",
                 "scene": "Ice rescue - Day 3 of survival",
@@ -757,9 +913,13 @@
             },
             {
               "file": "categories/international-location/the-crossing/base-camp-costumes.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Base Camp Costume Station",
               "description": "The main costume station at arctic base camp",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "prompt": "iPhone 14 Pro photo of film base camp costume station in arctic setting, heated containers with costume racks visible through doors, organized extreme location production, Norwegian winter landscape in background"
             }
           ]
@@ -800,6 +960,8 @@
           "photos": [
             {
               "file": "categories/international-location/the-long-road/cultural-consultation.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "3:4",
               "title": "Cultural Consultation Session",
               "description": "Working with Syrian cultural consultants on costume authenticity",
               "tags": [],
@@ -807,13 +969,19 @@
             },
             {
               "file": "categories/international-location/the-long-road/journey-map.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "4:3",
               "title": "Costume Journey Map",
               "description": "Map tracking costume evolution across the 2,000-mile narrative journey",
-              "tags": ["category_carousel"],
+              "tags": [
+                "category_carousel"
+              ],
               "prompt": "iPhone 14 Pro photo of large journey map on wall, route from Jordan through Greece to Germany marked, costume evolution notes at key points, wear progression documentation, production planning"
             },
             {
               "file": "categories/international-location/the-long-road/donation-center-sourcing.jpg",
+              "imageType": "bts_phone",
+              "aspectRatio": "1:1",
               "title": "Community Sourcing",
               "description": "Sourcing authentic costumes from refugee donation center with community permission",
               "tags": [],
@@ -821,9 +989,14 @@
             },
             {
               "file": "categories/international-location/the-long-road/greece-arrival-production.jpg",
+              "imageType": "production_film",
+              "aspectRatio": "16:9",
               "title": "Greece Arrival - Production",
               "description": "Production still from the Greece arrival sequence",
-              "tags": ["featured", "category_carousel"],
+              "tags": [
+                "featured",
+                "category_carousel"
+              ],
               "imageMetadata": {
                 "photographer": "Unit Photography - International crew",
                 "scene": "Arrival on Greek shore",
