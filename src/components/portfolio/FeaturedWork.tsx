@@ -11,6 +11,8 @@ interface FeaturedProject {
   year: string | null
   featuredImageUrl: string | null
   featuredImageAlt?: string
+  featuredImageWidth?: number
+  featuredImageHeight?: number
   categorySlug: string
   categoryName: string
 }
@@ -60,6 +62,8 @@ export function FeaturedWork({
               year: project.year,
               featuredImageUrl: project.featuredImageUrl,
               featuredImageAlt: project.featuredImageAlt || project.title,
+              featuredImageWidth: project.featuredImageWidth,
+              featuredImageHeight: project.featuredImageHeight,
             }}
             categorySlug={project.categorySlug}
             portfolioSlug={portfolioSlug}

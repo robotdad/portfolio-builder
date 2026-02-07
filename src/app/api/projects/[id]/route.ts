@@ -27,6 +27,8 @@ export async function GET(
             url: true,
             thumbnailUrl: true,
             altText: true,
+            width: true,
+            height: true,
           },
         },
       },

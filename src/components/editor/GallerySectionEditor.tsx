@@ -202,6 +202,8 @@ export function GallerySectionEditor({
             imageUrl: asset.url,
             altText: asset.altText || '',
             caption: '',
+            width: asset.width ?? undefined,
+            height: asset.height ?? undefined,
           }
 
           newImages.push(galleryImage)

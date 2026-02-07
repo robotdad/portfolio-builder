@@ -33,6 +33,8 @@ export interface ImageSection extends BaseSection {
   imageUrl: string | null
   altText: string
   caption: string
+  width?: number  // Asset dimensions for orientation-aware display
+  height?: number
 }
 
 // Hero Section - Name, title, bio, and optional profile image
@@ -55,6 +57,8 @@ export interface FeaturedWorkItem {
   title: string
   category: string
   link: string
+  width?: number  // Asset dimensions for orientation-aware display
+  height?: number
 }
 
 // Featured Grid Section - Grid of featured work
@@ -80,6 +84,8 @@ export interface GalleryImage {
   imageUrl: string | null
   altText: string
   caption: string
+  width?: number  // Asset dimensions for orientation-aware display
+  height?: number
 }
 
 // Gallery Section - Multiple images in a responsive grid

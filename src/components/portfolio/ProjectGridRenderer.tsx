@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Card, CardImage, CardBody, CardTitle, CardDescription } from '@/components/ui'
 import { EmptyState } from './EmptyState'
+import { getOrientationAwareRatio } from '@/lib/image-helpers'
 import type { ProjectGridSection } from '@/lib/content-schema'
 
 /**
@@ -21,6 +22,8 @@ export interface Project {
     url: string
     thumbnailUrl: string
     altText: string | null
+    width?: number
+    height?: number
   } | null
 }
 
@@ -238,6 +241,11 @@ function ProjectGridItem({
     </div>
   )
 
+  // Pick orientation-aware ratio for list layout too
+  const listDisplayRatio = project.featuredImage?.width && project.featuredImage?.height
+    ? getOrientationAwareRatio(project.featuredImage.width, project.featuredImage.height)
+    : '3/2'
+
   // List layout uses horizontal card on desktop
   if (layout === 'list') {
     return (
@@ -250,7 +258,7 @@ function ProjectGridItem({
                   <CardImage
                     src={project.featuredImage.url}
                     alt={project.featuredImage.altText || project.title}
-                    aspectRatio="16/9"
+                    aspectRatio={listDisplayRatio}
                   />
                 </div>
               )}
@@ -302,6 +310,11 @@ function ProjectGridItem({
     )
   }
 
+  // Pick orientation-aware ratio when image dimensions are available
+  const displayRatio = project.featuredImage?.width && project.featuredImage?.height
+    ? getOrientationAwareRatio(project.featuredImage.width, project.featuredImage.height)
+    : '3/2' // Neutral default
+
   // Grid and masonry layouts use vertical cards with hover overlay
   return (
     <>
@@ -310,7 +323,7 @@ function ProjectGridItem({
           <CardImage
             src={project.featuredImage?.url || undefined}
             alt={project.featuredImage?.altText || project.title}
-            aspectRatio="16/9"
+            aspectRatio={displayRatio}
             hoverOverlay={overlayContent}
             className="project-grid-image"
           />

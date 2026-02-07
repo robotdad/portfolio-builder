@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Card, CardImage, CardBody, CardTitle, CardDescription } from '@/components/ui'
-import { getAspectRatioClass } from '@/lib/image-helpers'
+import { getAspectRatioClass, getOrientationAwareRatio } from '@/lib/image-helpers'
 
 interface ProjectCardProps {
   project: {
@@ -45,6 +45,11 @@ export function ProjectCard({
   const aspectClass = project.featuredImageWidth && project.featuredImageHeight
     ? getAspectRatioClass(project.featuredImageWidth, project.featuredImageHeight)
     : 'square' // Default to square if dimensions unknown
+
+  // Pick the closest aspect ratio preset based on actual image dimensions
+  const displayRatio = project.featuredImageWidth && project.featuredImageHeight
+    ? getOrientationAwareRatio(project.featuredImageWidth, project.featuredImageHeight)
+    : '4/3' // Safe default when dimensions unknown
   
   // Overlay content for desktop hover
   const overlayContent = (
@@ -70,7 +75,7 @@ export function ProjectCard({
           <CardImage
             src={project.featuredImageUrl || undefined}
             alt={project.featuredImageAlt || project.title}
-            aspectRatio="3/4"
+            aspectRatio={displayRatio}
             hoverOverlay={overlayContent}
             className="project-card__image"
           />

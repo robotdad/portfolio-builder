@@ -17,6 +17,8 @@ interface FeaturedProject {
   year: string | null
   featuredImageUrl: string | null
   featuredImageAlt?: string
+  featuredImageWidth?: number
+  featuredImageHeight?: number
   categorySlug: string
   categoryName: string
 }

@@ -39,6 +39,8 @@ interface CategoryWithCount {
     url: string
     thumbnailUrl: string
     altText: string
+    width?: number
+    height?: number
   } | null
   _count: {
     projects: number
@@ -59,6 +61,8 @@ interface ProjectWithImage {
     url: string
     thumbnailUrl: string
     altText: string
+    width?: number
+    height?: number
   } | null
 }
 
@@ -155,10 +159,17 @@ function TextSectionView({ section }: { section: TextSection }) {
 function ImageSectionView({ section }: { section: ImageSection }) {
   if (!section.imageUrl) return null
   
+  // Use natural aspect ratio when image dimensions are available in the section,
+  // otherwise fall back to 3/2 (a moderate default that works for both orientations)
+  const sectionWithDims = section as ImageSection & { width?: number; height?: number }
+  const aspectRatio = sectionWithDims.width && sectionWithDims.height
+    ? `${sectionWithDims.width} / ${sectionWithDims.height}`
+    : '3 / 2'
+  
   return (
     <section className="section section-image">
       <figure className="image-figure">
-        <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9' }}>
+        <div style={{ position: 'relative', width: '100%', aspectRatio }}>
           <Image 
             src={section.imageUrl} 
             alt={section.altText || ''} 
@@ -258,6 +269,8 @@ function FeaturedGridView({ section }: { section: FeaturedGridSection }) {
             category={item.category}
             link={item.link}
             altText={item.title}
+            width={item.width}
+            height={item.height}
           />
         ))}
       </div>
@@ -319,12 +332,18 @@ function GallerySectionView({ section }: { section: GallerySection }) {
       )}
       
       <div className="gallery-grid">
-        {visibleImages.map((image, index) => (
+        {visibleImages.map((image, index) => {
+          // Use natural aspect ratio when dimensions are available
+          const imageAspect = image.width && image.height
+            ? { aspectRatio: `${image.width} / ${image.height}` }
+            : undefined
+          return (
           <figure key={image.id} className="gallery-item">
             <button
               type="button"
               onClick={() => handleImageClick(index)}
               className="gallery-item-btn"
+              style={imageAspect}
               aria-label={`View ${image.altText || 'image'} in lightbox`}
             >
               <Image
@@ -342,7 +361,8 @@ function GallerySectionView({ section }: { section: GallerySection }) {
               </figcaption>
             )}
           </figure>
-        ))}
+          )
+        })}
       </div>
       
       {hasMore && (

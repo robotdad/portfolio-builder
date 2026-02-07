@@ -210,7 +210,9 @@ function buildProjectSections(project, galleryImages) {
     imageId: img.imageId || img.assetId || null,
     imageUrl: img.imageUrl || img.url || null,
     altText: img.altText || fallbackAlt,
-    caption: img.caption || ''
+    caption: img.caption || '',
+    width: img.width,
+    height: img.height
   });
   
   // Helper to create text section for use in columns
@@ -297,7 +299,9 @@ function buildProjectSections(project, galleryImages) {
       imageId: img.imageId || img.assetId || null,
       imageUrl: img.imageUrl || img.url || null,
       altText: img.altText || 'Process image',
-      caption: img.caption || ''
+      caption: img.caption || '',
+      width: img.width,
+      height: img.height
     });
   }
   if (processImages.length > 0) {
@@ -384,7 +388,9 @@ function buildProjectSections(project, galleryImages) {
       imageId: img.imageId || img.assetId || null,
       imageUrl: img.imageUrl || img.url || null,
       altText: img.altText || '',
-      caption: img.caption || ''
+      caption: img.caption || '',
+      width: img.width,
+      height: img.height
     }));
     
     sections.push({
@@ -816,7 +822,9 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
           imageId: featuredAsset.id,
           imageUrl: featuredAsset.url,
           altText: featuredAltText,
-          caption: featuredCaption
+          caption: featuredCaption,
+          width: featuredAsset.width,
+          height: featuredAsset.height
         }];
         
         if (galleryPhotos.length > 0) {
@@ -842,7 +850,9 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
                 imageId: asset.id,
                 imageUrl: asset.url,
                 altText: altText,
-                caption: caption
+                caption: caption,
+                width: asset.width,
+                height: asset.height
               });
               
               // Process tags on gallery images

@@ -104,6 +104,17 @@ logs/
 !tsconfig.json
 skills/
 
+# Photos
+photos/
+
+# Test asset images
+test-assets/**/*.png
+test-assets/**/*.jpg
+test-assets/**/*.jpeg
+test-assets/**/*.gif
+test-assets/**/*.webp
+test-assets/**/*.svg
+
 # AI working area - ignore all images (screenshots, reference images, etc.)
 ai_working/**/*.png
 ai_working/**/*.jpg

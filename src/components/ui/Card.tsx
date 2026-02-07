@@ -136,8 +136,8 @@ Card.displayName = 'Card'
 export interface CardImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
   /** Image source - can be a URL string or Blob for optimistic previews */
   src?: string | Blob
-  /** Aspect ratio - defaults to 16:9 (project standard) */
-  aspectRatio?: '16/9' | '4/3' | '3/2' | '1/1' | '3/4'
+  /** Aspect ratio preset. Defaults to '16/9'. Use getOrientationAwareRatio() to select based on image dimensions. */
+  aspectRatio?: '16/9' | '3/2' | '4/3' | '1/1' | '4/5' | '3/4' | '2/3'
   /** Show overlay on hover */
   hoverOverlay?: ReactNode
 }
@@ -158,12 +158,15 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
     ref
   ) => {
     // Calculate padding percentage for aspect ratio
-    const paddingMap = {
+    // Expanded palette: landscape through portrait presets
+    const paddingMap: Record<string, string> = {
       '16/9': '56.25%',
-      '4/3': '75%',
       '3/2': '66.67%',
+      '4/3': '75%',
       '1/1': '100%',
-      '3/4': '133.33%', // Portrait: height is 1.33x width
+      '4/5': '125%',     // Mild portrait (Instagram format)
+      '3/4': '133.33%',  // Standard portrait
+      '2/3': '150%',     // Tall portrait
     }
 
     return (

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Card, CardImage } from '@/components/ui'
-import { getAspectRatioClass } from '@/lib/image-helpers'
+import { getAspectRatioClass, getOrientationAwareRatio } from '@/lib/image-helpers'
 
 interface ImageCardProps {
   imageUrl: string | null
@@ -38,6 +38,11 @@ export function ImageCard({
   const aspectClass = width && height
     ? getAspectRatioClass(width, height)
     : 'square' // Default to square if dimensions unknown
+
+  // Pick the closest aspect ratio preset based on actual image dimensions
+  const displayRatio = width && height
+    ? getOrientationAwareRatio(width, height)
+    : '4/3' // Safe default when dimensions unknown
 
   // Toggle overlay on touch for mobile
   const handleTouchStart = () => {
@@ -91,7 +96,7 @@ export function ImageCard({
       <CardImage
         src={imageUrl || undefined}
         alt={altText || title || 'Portfolio work'}
-        aspectRatio="3/4"
+        aspectRatio={displayRatio}
         hoverOverlay={overlayContent}
       />
 

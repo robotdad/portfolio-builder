@@ -116,6 +116,8 @@ export async function PUT(
             url: true,
             thumbnailUrl: true,
             altText: true,
+            width: true,
+            height: true,
           },
         },
       },

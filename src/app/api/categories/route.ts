@@ -24,6 +24,8 @@ export async function GET(request: NextRequest) {
             url: true,
             thumbnailUrl: true,
             altText: true,
+            width: true,
+            height: true,
           },
         },
         _count: {

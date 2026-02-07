@@ -130,7 +130,7 @@ export function ProjectCardRenderer({
           
           .project-card__image {
             position: relative;
-            aspect-ratio: 4 / 3;
+            aspect-ratio: 3 / 2;
             border-radius: var(--radius-md, 8px);
             overflow: hidden;
             background: var(--color-bg-secondary, #f3f4f6);
@@ -195,7 +195,7 @@ export function ProjectCardRenderer({
           
           .project-card__image {
             position: relative;
-            aspect-ratio: 4 / 3;
+            aspect-ratio: 3 / 2;
             border-radius: var(--radius-md, 8px);
             overflow: hidden;
             background: var(--color-bg-secondary, #f3f4f6);
@@ -296,7 +296,7 @@ export function ProjectCardRenderer({
         
         .project-card__image {
           position: relative;
-          aspect-ratio: 4 / 3;
+          aspect-ratio: 3 / 2;
           border-radius: var(--radius-md, 8px);
           overflow: hidden;
           background: var(--color-bg-secondary, #f3f4f6);

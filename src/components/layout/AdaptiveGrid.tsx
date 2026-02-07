@@ -17,6 +17,11 @@ interface AdaptiveGridProps {
  * Smart grid that adjusts columns based on BOTH viewport width AND item count.
  * Prevents tiny cards when there are few items on ultra-wide displays.
  * 
+ * Uses auto row heights so cards with different aspect ratios (portrait,
+ * landscape, square) can coexist without forcing a single row height.
+ * Dense packing fills gaps when portrait (tall) and landscape (short) items
+ * create holes in the grid.
+ * 
  * Algorithm:
  * 1. Calculate natural columns from viewport / idealCardWidth
  * 2. Apply item-count-based cap to prevent over-subdivision
@@ -37,7 +42,6 @@ export function AdaptiveGrid({
 }: AdaptiveGridProps) {
   const gridRef = useRef<HTMLDivElement>(null)
   const [maxColumns, setMaxColumns] = useState<number>(6)
-  const [rowHeight, setRowHeight] = useState<number>(240) // Default fallback
   
   useEffect(() => {
     const calculateLayout = () => {
@@ -64,17 +68,6 @@ export function AdaptiveGrid({
       const columns = Math.max(1, finalColumns) // Ensure at least 1 column
       
       setMaxColumns(columns)
-      
-      // Calculate responsive row height based on column width
-      // Cards use 3:4 aspect ratio (width:height), portrait spans 2 rows
-      // Row height = column width × (2/3) ensures portrait cards maintain 3:4 ratio
-      // Cap at 400px to prevent excessively tall cards in single-column layouts
-      const gap = 24 // var(--space-6)
-      const columnWidth = (containerWidth - (gap * (columns - 1))) / columns
-      const calculatedRowHeight = Math.round(columnWidth * (2 / 3))
-      const cappedRowHeight = Math.min(calculatedRowHeight, 400) // Cap at 400px max
-      
-      setRowHeight(cappedRowHeight)
     }
     
     calculateLayout()
@@ -96,7 +89,9 @@ export function AdaptiveGrid({
         display: 'grid',
         gap: 'var(--space-6, 24px)',
         gridTemplateColumns: `repeat(${maxColumns}, 1fr)`,
-        gridAutoRows: `${rowHeight}px`
+        gridAutoRows: 'auto',
+        gridAutoFlow: 'dense',
+        alignItems: 'start',
       } as CSSProperties}
     >
       {children}

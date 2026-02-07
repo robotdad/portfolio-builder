@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Card, CardImage, CardBody, CardTitle, CardDescription } from '@/components/ui'
 import { EmptyState } from './EmptyState'
 import { AdaptiveGrid } from '@/components/layout/AdaptiveGrid'
+import { getOrientationAwareRatio } from '@/lib/image-helpers'
 import type { CategoryGridSection } from '@/lib/content-schema'
 
 /**
@@ -20,6 +21,8 @@ export interface Category {
     url: string
     thumbnailUrl: string
     altText: string
+    width?: number
+    height?: number
   } | null
   _count: {
     projects: number
@@ -80,7 +83,12 @@ export function CategoryGridRenderer({
           idealCardWidth={450}
           maxCardWidth={600}
         >
-          {filteredCategories.map(category => (
+          {filteredCategories.map(category => {
+            // Use orientation-aware ratio when image dimensions are available
+            const displayRatio = category.featuredImage?.width && category.featuredImage?.height
+              ? getOrientationAwareRatio(category.featuredImage.width, category.featuredImage.height)
+              : '3/2' // Neutral default
+            return (
             <Link
               key={category.id}
               href={`${basePath}/${category.slug}`}
@@ -91,7 +99,7 @@ export function CategoryGridRenderer({
                   <CardImage
                     src={category.featuredImage.url}
                     alt={category.featuredImage.altText || category.name}
-                    aspectRatio="16/9"
+                    aspectRatio={displayRatio}
                   />
                 )}
                 
@@ -110,7 +118,8 @@ export function CategoryGridRenderer({
                 </CardBody>
               </Card>
             </Link>
-          ))}
+          )
+          })}
         </AdaptiveGrid>
       ) : (
         <EmptyState

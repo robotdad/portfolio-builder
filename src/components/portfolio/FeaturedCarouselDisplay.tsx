@@ -18,6 +18,8 @@ export function FeaturedCarouselDisplay({ section, portfolioSlug }: Props) {
     year: null,
     featuredImageUrl: item.imageUrl || null,
     featuredImageAlt: item.title,
+    featuredImageWidth: item.width,
+    featuredImageHeight: item.height,
     categorySlug: item.category || 'work',
     categoryName: item.category || 'Work',
   }))

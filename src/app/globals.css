@@ -3000,17 +3000,15 @@ textarea:focus-visible {
   cursor: pointer;
 }
 
-/* Dynamic aspect ratio classes for CSS Grid layout */
-.image-card--portrait {
-  grid-row: span 2;
-}
-
-.image-card--landscape {
-  grid-row: span 1;
-}
-
+/* Dynamic aspect ratio classes for CSS Grid layout
+   With auto row heights (AdaptiveGrid), grid-row spanning is no longer
+   needed since each card determines its own height via its aspect ratio.
+   These classes are kept for backward compatibility but span is removed
+   to avoid creating gaps in the dense-packed grid. */
+.image-card--portrait,
+.image-card--landscape,
 .image-card--square {
-  grid-row: span 1;
+  /* No grid-row span - cards size naturally via their aspect ratio */
 }
 
 .image-card-image-wrapper {
@@ -5290,7 +5288,7 @@ textarea:focus-visible {
 
 .project-gallery-item {
   position: relative;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 3 / 2; /* Fallback when image dimensions unavailable; inline style overrides with actual ratio */
   overflow: hidden;
   border-radius: var(--radius-lg);
   background: var(--color-surface);
