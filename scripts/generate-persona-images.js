@@ -42,51 +42,28 @@ const PERSONAS_DIR = path.join(PROJECT_ROOT, 'test-assets', 'personas');
 // overwhelmingly 3:4 portrait, production stills were 3:2 landscape, and
 // social/shared images were 4:5 or 1:1.
 //
-// Image types and their default aspect ratios:
+// The imageType field on each photo in persona.json is the single source of
+// truth for aspect ratio. This table maps each type to its ratio:
 //
-//   imageType              Default   When used
-//   ─────────────────────  ───────   ─────────────────────────────────────────
-//   bts_phone              3:4       Behind-the-scenes phone documentation
-//   candid_identity        3:4       Coworker's phone snap of the persona
-//   production_stage       3:2       DSLR production stills (theater/opera)
-//   production_film        16:9      Cinematic on-set stills (film/TV)
-//   detail_closeup         3:4       Tight shots of texture, stitching, detail
-//   studio_documentation   3:4       Clean studio photos of garments on forms
-//   sketch_scan            3:4       Scanned artwork, sketches, renderings
+//   imageType              Ratio   When used
+//   ─────────────────────  ──────  ─────────────────────────────────────────
+//   bts_phone              3:4     Behind-the-scenes phone documentation
+//   candid_identity        3:4     Coworker's phone snap of the persona
+//   production_stage       3:2     DSLR production stills (theater/opera)
+//   production_film        16:9    Cinematic on-set stills (film/TV)
+//   detail_closeup         3:4     Tight shots of texture, stitching, detail
+//   studio_documentation   3:4     Clean studio photos of garments on forms
+//   sketch_scan            3:4     Scanned artwork, sketches, renderings
 //
-// Each photo doesn't just get the default — the script varies based on the
-// prompt content to create realistic variety:
-//
-//   bts_phone (largest group):
-//     - Overhead/table shots ("from above", "laid out") → 4:3 landscape
-//     - Full-length person/dress form → 3:4 or 9:16 tall
-//     - General mix → ~60% 3:4, 15% 4:3, 10% 9:16, 10% 1:1, 5% 4:5
-//
-//   production_stage:
-//     - Ensemble/wide shots → 3:2 or 16:9 landscape
-//     - Single performer → 2:3 portrait
-//     - General mix → ~50% 3:2, 25% 2:3, 25% 16:9
-//
-//   production_film:
-//     - Character portraits → 16:9, 2:3, or 3:2
-//     - General → ~60% 16:9, 30% 3:2, 10% 2:3
-//
-//   detail_closeup:
-//     - ~40% 1:1, 30% 3:4, 20% 4:5, 10% 4:3
+// To change the ratio for a type, edit IMAGE_TYPE_DEFAULTS below.
+// To give a single photo a different ratio than its type, add an explicit
+// aspectRatio field to that photo entry in the persona JSON (override).
 //
 // ---------------------------------------------------------------------------
 
-const VALID_ASPECT_RATIOS = [
-  '1:1', '2:3', '3:2', '3:4', '4:3', '4:5', '5:4', '9:16', '16:9', '21:9'
-];
-
 /**
- * Default aspect ratio for each image type.
- * Based on analysis of real portfolio images (Sasha Goodner reference data):
- *   - Phone BTS shots are overwhelmingly 3:4 portrait (standard iPhone)
- *   - Stage production stills are 3:2 landscape (DSLR) or 2:3 portrait
- *   - Film/TV production stills tend toward 16:9 (cinematic)
- *   - Detail close-ups are 3:4 portrait or 1:1 square
+ * Aspect ratio for each image type — the single source of truth.
+ * Edit this table to change ratios globally for a type.
  */
 const IMAGE_TYPE_DEFAULTS = {
   bts_phone:              { aspectRatio: '3:4',  label: 'Behind-the-scenes phone' },
@@ -98,27 +75,25 @@ const IMAGE_TYPE_DEFAULTS = {
   sketch_scan:            { aspectRatio: '3:4',  label: 'Sketch/scan' },
 };
 
-// Fallback when neither imageType nor aspectRatio is specified
 const FALLBACK_ASPECT_RATIO = '3:4';
+
+const VALID_ASPECT_RATIOS = [
+  '1:1', '2:3', '3:2', '3:4', '4:3', '4:5', '5:4', '9:16', '16:9', '21:9'
+];
 
 /**
  * Resolve the aspect ratio for a photo entry.
- * Priority: explicit aspectRatio > imageType default > prompt-based inference > fallback
+ * Priority: explicit aspectRatio override on photo > imageType lookup > fallback
  */
-function resolveAspectRatio(image) {
-  // 1. Explicit aspectRatio on the photo entry
+function resolveAspectRatio(image, imageType) {
+  // 1. Explicit per-photo override (rare, for one-offs)
   if (image.aspectRatio && VALID_ASPECT_RATIOS.includes(image.aspectRatio)) {
     return image.aspectRatio;
   }
 
-  // 2. Default from imageType
-  if (image.imageType && IMAGE_TYPE_DEFAULTS[image.imageType]) {
-    return IMAGE_TYPE_DEFAULTS[image.imageType].aspectRatio;
-  }
-
-  // 3. Infer from prompt text (backward compatibility with existing personas)
-  if (image.prompt) {
-    return inferAspectRatioFromPrompt(image.prompt);
+  // 2. Look up from imageType (normal path)
+  if (imageType && IMAGE_TYPE_DEFAULTS[imageType]) {
+    return IMAGE_TYPE_DEFAULTS[imageType].aspectRatio;
   }
 
   return FALLBACK_ASPECT_RATIO;
@@ -167,43 +142,6 @@ function inferImageType(image) {
   }
 
   return null;
-}
-
-/**
- * Infer aspect ratio from prompt text when no explicit metadata exists.
- * Maps detected image type to its default ratio.
- */
-function inferAspectRatioFromPrompt(prompt) {
-  const p = prompt.toLowerCase();
-
-  // Phone / BTS -> portrait 3:4
-  if (p.includes('iphone') || p.includes('smartphone') || p.includes('phone photo')) {
-    return '3:4';
-  }
-
-  // Film production -> cinematic 16:9
-  if ((p.includes('film') || p.includes('cinema') || p.includes('noir')) &&
-      p.includes('production photography')) {
-    return '16:9';
-  }
-
-  // Stage production -> landscape 3:2
-  if (p.includes('theatrical production photography') || p.includes('stage') ||
-      p.includes('performance shot')) {
-    return '3:2';
-  }
-
-  // Studio documentation -> portrait 3:4
-  if (p.includes('professional documentation') || p.includes('professional costume photography')) {
-    return '3:4';
-  }
-
-  // Detail close-up
-  if (p.includes('close-up') || p.includes('detail shot') || p.includes('macro')) {
-    return '1:1';
-  }
-
-  return FALLBACK_ASPECT_RATIO;
 }
 
 // ---------------------------------------------------------------------------
@@ -512,7 +450,7 @@ async function generateEnhancedPersona(ai, personaId, options = {}) {
     for (let i = 0; i < personaData.profile.images.length; i++) {
       const image = personaData.profile.images[i];
       const imageType = inferImageType(image);
-      const aspectRatio = resolveAspectRatio(image);
+      const aspectRatio = resolveAspectRatio(image, imageType);
       
       console.log(`\n[${i + 1}/${personaData.profile.images.length}] ${image.file}`);
       console.log(`   Type: ${image.type || 'unknown'} | imageType: ${imageType || 'auto'} | ratio: ${aspectRatio}`);
@@ -631,7 +569,7 @@ async function generateEnhancedPersona(ai, personaId, options = {}) {
       for (let i = 0; i < projectPhotos.length; i++) {
         const image = projectPhotos[i];
         const imageType = inferImageType(image);
-        const aspectRatio = resolveAspectRatio(image);
+        const aspectRatio = resolveAspectRatio(image, imageType);
         
         console.log(`\n  [${i + 1}/${projectPhotos.length}] ${path.basename(image.file)}`);
         console.log(`     imageType: ${imageType || 'auto'} | ratio: ${aspectRatio}`);
@@ -726,7 +664,7 @@ async function generateLegacyPersona(ai, personaId) {
   for (let i = 0; i < profileImages.length; i++) {
     const image = profileImages[i];
     const imageType = inferImageType(image);
-    const aspectRatio = resolveAspectRatio(image);
+    const aspectRatio = resolveAspectRatio(image, imageType);
 
     console.log(`\n[${i + 1}/${profileImages.length}] ${image.file}`);
     console.log(`   Type: ${image.type || 'unknown'} | imageType: ${imageType || 'auto'} | ratio: ${aspectRatio}`);
