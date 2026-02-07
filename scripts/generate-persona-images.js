@@ -36,6 +36,44 @@ const PERSONAS_DIR = path.join(PROJECT_ROOT, 'test-assets', 'personas');
 
 // ---------------------------------------------------------------------------
 // Aspect ratio + image type system
+//
+// Derived from analysis of real portfolio images (Sasha Goodner, UNCSA costume
+// technician). Her actual photos showed zero 4:3 images — phone shots were
+// overwhelmingly 3:4 portrait, production stills were 3:2 landscape, and
+// social/shared images were 4:5 or 1:1.
+//
+// Image types and their default aspect ratios:
+//
+//   imageType              Default   When used
+//   ─────────────────────  ───────   ─────────────────────────────────────────
+//   bts_phone              3:4       Behind-the-scenes phone documentation
+//   candid_identity        3:4       Coworker's phone snap of the persona
+//   production_stage       3:2       DSLR production stills (theater/opera)
+//   production_film        16:9      Cinematic on-set stills (film/TV)
+//   detail_closeup         3:4       Tight shots of texture, stitching, detail
+//   studio_documentation   3:4       Clean studio photos of garments on forms
+//   sketch_scan            3:4       Scanned artwork, sketches, renderings
+//
+// Each photo doesn't just get the default — the script varies based on the
+// prompt content to create realistic variety:
+//
+//   bts_phone (largest group):
+//     - Overhead/table shots ("from above", "laid out") → 4:3 landscape
+//     - Full-length person/dress form → 3:4 or 9:16 tall
+//     - General mix → ~60% 3:4, 15% 4:3, 10% 9:16, 10% 1:1, 5% 4:5
+//
+//   production_stage:
+//     - Ensemble/wide shots → 3:2 or 16:9 landscape
+//     - Single performer → 2:3 portrait
+//     - General mix → ~50% 3:2, 25% 2:3, 25% 16:9
+//
+//   production_film:
+//     - Character portraits → 16:9, 2:3, or 3:2
+//     - General → ~60% 16:9, 30% 3:2, 10% 2:3
+//
+//   detail_closeup:
+//     - ~40% 1:1, 30% 3:4, 20% 4:5, 10% 4:3
+//
 // ---------------------------------------------------------------------------
 
 const VALID_ASPECT_RATIOS = [
