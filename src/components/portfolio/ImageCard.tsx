@@ -75,6 +75,7 @@ export function ImageCard({
           letter-spacing: 0.1em;
           opacity: 0.9;
           margin-bottom: var(--space-2, 8px);
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
         }
 
         .image-card-title {
@@ -82,6 +83,7 @@ export function ImageCard({
           font-size: var(--font-size-lg, 1.125rem);
           font-weight: 600;
           line-height: 1.3;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
       `}</style>
     </div>

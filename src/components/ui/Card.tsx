@@ -248,7 +248,12 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba(0, 0, 0, 0.5);
+            background: linear-gradient(
+              to top,
+              rgba(0, 0, 0, 0.7) 0%,
+              rgba(0, 0, 0, 0.4) 50%,
+              rgba(0, 0, 0, 0.25) 100%
+            );
             opacity: 0;
             transition: opacity var(--transition-fast, 150ms) ease;
           }
@@ -261,7 +266,12 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
           @media (hover: none) {
             .card-image__overlay {
               opacity: 1;
-              background-color: rgba(0, 0, 0, 0.3);
+              background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.65) 0%,
+                rgba(0, 0, 0, 0.35) 50%,
+                rgba(0, 0, 0, 0.2) 100%
+              );
             }
           }
         `}</style>

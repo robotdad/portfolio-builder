@@ -110,6 +110,7 @@ export function ProjectCard({
           margin: 0;
           font-size: var(--font-size-lg, 1.125rem);
           font-weight: 600;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
         
         .project-overlay__venue,
@@ -117,6 +118,7 @@ export function ProjectCard({
           margin: var(--space-1, 4px) 0 0;
           font-size: var(--font-size-sm, 0.875rem);
           opacity: 0.9;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
         }
         
         /* Desktop: hide mobile info section */
