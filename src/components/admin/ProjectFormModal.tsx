@@ -245,11 +245,11 @@ export function ProjectFormModal({
 
         @keyframes backdropEnter {
           from { background: rgba(0, 0, 0, 0); }
-          to { background: rgba(0, 0, 0, 0.5); }
+          to { background: var(--overlay-bg); }
         }
 
         @keyframes backdropExit {
-          from { background: rgba(0, 0, 0, 0.5); }
+          from { background: var(--overlay-bg); }
           to { background: rgba(0, 0, 0, 0); }
         }
 

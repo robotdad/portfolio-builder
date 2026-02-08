@@ -106,7 +106,7 @@ function BottomSheetItem({
 
         .bottom-sheet-item--disabled {
           cursor: not-allowed;
-          opacity: 0.5;
+          opacity: var(--disabled-opacity);
         }
 
         .bottom-sheet-item__icon {
@@ -313,7 +313,7 @@ function BottomSheet({
         .bottom-sheet-backdrop {
           position: fixed;
           inset: 0;
-          background: hsla(0, 0%, 0%, 0.4);
+          background: var(--overlay-bg);
           z-index: var(--z-modal-backdrop, 400);
         }
 

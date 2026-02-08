@@ -254,7 +254,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
           /* Disabled state */
           .btn:disabled {
-            opacity: 0.5;
+            opacity: var(--disabled-opacity);
             cursor: not-allowed;
           }
 

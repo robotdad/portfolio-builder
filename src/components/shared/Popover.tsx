@@ -113,7 +113,7 @@ function PopoverItem({
         }
 
         .popover-item--disabled {
-          opacity: 0.5;
+          opacity: var(--disabled-opacity);
           cursor: not-allowed;
         }
 
