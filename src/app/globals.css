@@ -5350,9 +5350,12 @@ textarea:focus-visible {
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
-/* Dynamic aspect ratio classes for CSS Grid layout */
+/* Dynamic aspect ratio classes for CSS Grid layout.
+   With auto row heights (AdaptiveGrid) and capped portrait ratios (4:5 max),
+   grid-row spanning is unnecessary - each card sizes naturally via its
+   aspect ratio. Removed span 2 from portrait to avoid gaps in dense-packed grid. */
 .project-card--portrait {
-  grid-row: span 2;
+  grid-row: span 1;
 }
 
 .project-card--landscape {
