@@ -246,13 +246,13 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
             position: absolute;
             inset: 0;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
             background: linear-gradient(
               to top,
-              rgba(0, 0, 0, 0.7) 0%,
-              rgba(0, 0, 0, 0.4) 50%,
-              rgba(0, 0, 0, 0.25) 100%
+              rgba(0, 0, 0, 0.85) 0%,
+              rgba(0, 0, 0, 0.6) 40%,
+              rgba(0, 0, 0, 0.2) 100%
             );
             opacity: 0;
             transition: opacity var(--transition-fast, 150ms) ease;
@@ -268,9 +268,9 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
               opacity: 1;
               background: linear-gradient(
                 to top,
-                rgba(0, 0, 0, 0.65) 0%,
-                rgba(0, 0, 0, 0.35) 50%,
-                rgba(0, 0, 0, 0.2) 100%
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.5) 40%,
+                rgba(0, 0, 0, 0.15) 100%
               );
             }
           }

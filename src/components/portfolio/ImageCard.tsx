@@ -65,17 +65,22 @@ export function ImageCard({
           align-items: center;
           justify-content: center;
           text-align: center;
-          padding: var(--space-4, 16px);
+          padding: var(--space-3, 12px) var(--space-4, 16px);
+          margin: 0 var(--space-3, 12px) var(--space-3, 12px);
+          width: calc(100% - var(--space-3, 12px) * 2);
           color: white;
+          background: rgba(0, 0, 0, 0.55);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          border-radius: 8px;
         }
 
         .image-card-category {
           font-size: var(--font-size-xs, 0.75rem);
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          opacity: 0.9;
           margin-bottom: var(--space-2, 8px);
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), 0 0 8px rgba(0, 0, 0, 0.3);
         }
 
         .image-card-title {
@@ -83,7 +88,7 @@ export function ImageCard({
           font-size: var(--font-size-lg, 1.125rem);
           font-weight: 600;
           line-height: 1.3;
-          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.4);
         }
       `}</style>
     </div>

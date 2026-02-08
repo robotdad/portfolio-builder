@@ -103,22 +103,29 @@ export function ProjectCard({
         .project-overlay {
           text-align: center;
           color: white;
-          padding: var(--space-4, 16px);
+          padding: var(--space-3, 12px) var(--space-4, 16px);
+          margin: 0 var(--space-3, 12px) var(--space-3, 12px);
+          width: calc(100% - var(--space-3, 12px) * 2);
+          background: rgba(0, 0, 0, 0.55);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          border-radius: 8px;
         }
         
         .project-overlay__title {
           margin: 0;
           font-size: var(--font-size-lg, 1.125rem);
           font-weight: 600;
-          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+          color: white;
+          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.4);
         }
         
         .project-overlay__venue,
         .project-overlay__year {
           margin: var(--space-1, 4px) 0 0;
           font-size: var(--font-size-sm, 0.875rem);
-          opacity: 0.9;
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+          color: white;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), 0 0 8px rgba(0, 0, 0, 0.3);
         }
         
         /* Desktop: hide mobile info section */
