@@ -399,6 +399,13 @@
   --color-skeleton: hsl(40, 20%, 88%);
   --color-skeleton-highlight: hsl(40, 20%, 93%);
 
+  /* Shadows - Warm-tinted to match cream palette */
+  --shadow-sm:   0 1px 2px 0 hsl(30 15% 20% / 0.06);
+  --shadow-base: 0 1px 3px 0 hsl(30 15% 20% / 0.08), 0 1px 2px -1px hsl(30 15% 20% / 0.06);
+  --shadow-md:   0 4px 6px -1px hsl(30 15% 20% / 0.08), 0 2px 4px -2px hsl(30 15% 20% / 0.06);
+  --shadow-lg:   0 10px 15px -3px hsl(30 15% 20% / 0.08), 0 4px 6px -4px hsl(30 15% 20% / 0.05);
+  --shadow-xl:   0 20px 25px -5px hsl(30 15% 20% / 0.1), 0 8px 10px -6px hsl(30 15% 20% / 0.06);
+
   /* Component tokens */
   --button-radius: var(--radius-sm);
   --card-radius: var(--radius-base);
@@ -452,6 +459,13 @@
   /* Skeleton/Loading */
   --color-skeleton: hsl(0, 0%, 15%);
   --color-skeleton-highlight: hsl(0, 0%, 20%);
+
+  /* Shadows - Stronger opacity + edge light for dark background depth */
+  --shadow-sm:   0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 0 0 1px rgb(255 255 255 / 0.04);
+  --shadow-md:   0 4px 8px -1px rgb(0 0 0 / 0.5), 0 0 0 1px rgb(255 255 255 / 0.05);
+  --shadow-lg:   0 10px 20px -3px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(255 255 255 / 0.06);
+  --shadow-xl:   0 20px 30px -5px rgb(0 0 0 / 0.7), 0 0 0 1px rgb(255 255 255 / 0.07);
 
   /* Component tokens */
   --button-radius: var(--radius-none);

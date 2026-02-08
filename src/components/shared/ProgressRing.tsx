@@ -51,7 +51,7 @@ export function ProgressRing({
           cy={center}
           r={radius}
           fill="none"
-          stroke="hsla(0, 0%, 100%, 0.2)"
+          stroke="var(--color-border, hsla(0, 0%, 100%, 0.2))"
           strokeWidth={strokeWidth}
         />
         
@@ -125,7 +125,7 @@ export function ProgressRing({
           transform: translate(-50%, -50%);
           font-size: ${size * 0.22}px;
           font-weight: 500;
-          color: white;
+          color: var(--color-text-primary, white);
           line-height: 1;
         }
       `}</style>
