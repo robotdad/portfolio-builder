@@ -48,12 +48,12 @@ export function ProjectCard({
 
   // Pick the closest aspect ratio preset based on actual image dimensions,
   // but cap extreme portrait ratios to prevent cards taller than the viewport.
-  // Portrait images still display as portrait (4:5) but won't extend to 3:4 or 2:3
-  // which creates cards that hide all text below the image.
+  // Only the most extreme ratio (2:3) is capped to 3:4; normal portrait (3:4)
+  // is preserved to respect the photographer's composition.
   const rawRatio = project.featuredImageWidth && project.featuredImageHeight
     ? getOrientationAwareRatio(project.featuredImageWidth, project.featuredImageHeight)
     : '4/3' // Safe default when dimensions unknown
-  const portraitCaps: Partial<Record<AspectRatioPreset, AspectRatioPreset>> = { '3/4': '4/5', '2/3': '4/5' }
+  const portraitCaps: Partial<Record<AspectRatioPreset, AspectRatioPreset>> = { '2/3': '3/4' }
   const displayRatio = portraitCaps[rawRatio] ?? rawRatio
   
   // Overlay content for desktop hover
@@ -101,8 +101,6 @@ export function ProjectCard({
           text-decoration: none;
           color: inherit;
           max-width: 600px;
-          max-height: 80vh;
-          overflow: hidden;
         }
       `}</style>
       

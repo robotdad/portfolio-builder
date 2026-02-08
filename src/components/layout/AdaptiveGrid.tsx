@@ -45,8 +45,19 @@ export function AdaptiveGrid({
   className = ''
 }: AdaptiveGridProps) {
   const gridRef = useRef<HTMLDivElement>(null)
-  // null = SSR/pre-hydration state, uses CSS auto-fill fallback
-  const [maxColumns, setMaxColumns] = useState<number | null>(null)
+  // Derive initial column count from item count to minimize layout shift.
+  // This matches the item-count cap logic in calculateLayout without needing
+  // container width (unknown at SSR time). The useEffect refines it post-hydration
+  // when actual container width is available.
+  const getItemCap = (count: number): number => {
+    if (count === 1) return 3
+    if (count === 2) return 2
+    if (count === 3) return 3
+    if (count <= 6) return 4
+    if (count <= 12) return 5
+    return 6
+  }
+  const [maxColumns, setMaxColumns] = useState<number>(() => getItemCap(items.length))
   
   useEffect(() => {
     const calculateLayout = () => {
@@ -77,19 +88,19 @@ export function AdaptiveGrid({
     
     calculateLayout()
     
-    // Recalculate on window resize
-    window.addEventListener('resize', calculateLayout)
-    return () => window.removeEventListener('resize', calculateLayout)
+    // Use ResizeObserver on the grid container instead of window resize.
+    // More precise (fires on container size change, not every window event)
+    // and avoids unnecessary recalculations during mobile scroll (URL bar collapse).
+    const observer = new ResizeObserver(calculateLayout)
+    if (gridRef.current) {
+      observer.observe(gridRef.current)
+    }
+    return () => observer.disconnect()
   }, [items.length, idealCardWidth])
   
-  // SSR-safe: auto-fill before JS hydration prevents overflow at any viewport.
-  // Uses idealCardWidth as the track minimum to approximate the JS-calculated
-  // column count, minimizing layout shift on hydration. min() with 100% ensures
-  // single-column layout on viewports narrower than idealCardWidth.
-  // After hydration: explicit column count with maxCardWidth cap.
-  const gridTemplateColumns = maxColumns !== null
-    ? `repeat(${maxColumns}, minmax(0, ${maxCardWidth}px))`
-    : `repeat(auto-fill, minmax(min(${idealCardWidth}px, 100%), 1fr))`
+  // Initial column count is derived from item count (SSR-safe, no container width needed).
+  // Post-hydration, the ResizeObserver refines this based on actual container width.
+  const gridTemplateColumns = `repeat(${maxColumns}, minmax(0, ${maxCardWidth}px))`
   
   return (
     <div 
@@ -99,7 +110,7 @@ export function AdaptiveGrid({
         '--min-card-width': `${minCardWidth}px`,
         '--ideal-card-width': `${idealCardWidth}px`,
         '--max-card-width': `${maxCardWidth}px`,
-        '--max-columns': maxColumns ?? 'auto',
+        '--max-columns': maxColumns,
         display: 'grid',
         gap: 'var(--space-6, 24px)',
         gridTemplateColumns,

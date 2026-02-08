@@ -86,8 +86,7 @@ function CarouselSlide({
             alt={project.featuredImageAlt || project.title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
-            className="carousel-slide-image"
-            style={isPortrait ? { objectPosition: 'top center' } : undefined}
+            className={`carousel-slide-image${isPortrait ? ' carousel-slide-image--portrait' : ''}`}
             priority={isActive}
           />
         ) : (

@@ -5826,6 +5826,18 @@ textarea:focus-visible {
   object-position: center;
 }
 
+/* Portrait images: bias upward on mobile (gentle crop in 4:3),
+   top-align on desktop (severe crop in 16:9 needs it) */
+.carousel-slide-image--portrait {
+  object-position: center 25%;
+}
+
+@media (min-width: 640px) {
+  .carousel-slide-image--portrait {
+    object-position: top center;
+  }
+}
+
 /* Placeholder for missing images */
 .carousel-slide-placeholder {
   display: flex;
