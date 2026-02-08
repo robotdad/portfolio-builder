@@ -100,6 +100,9 @@ export function ProjectCard({
           display: block;
           text-decoration: none;
           color: inherit;
+          max-width: 600px;
+          max-height: 80vh;
+          overflow: hidden;
         }
       `}</style>
       

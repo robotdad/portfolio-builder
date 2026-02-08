@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, CSSProperties } from 'react'
 
 interface AdaptiveGridProps {
-  items: any[]
+  items: unknown[]
   children: React.ReactNode
   minCardWidth?: number
   idealCardWidth?: number
@@ -88,10 +88,11 @@ export function AdaptiveGrid({
         '--max-columns': maxColumns,
         display: 'grid',
         gap: 'var(--space-6, 24px)',
-        gridTemplateColumns: `repeat(${maxColumns}, 1fr)`,
+        gridTemplateColumns: `repeat(${maxColumns}, minmax(0, ${maxCardWidth}px))`,
         gridAutoRows: 'auto',
         gridAutoFlow: 'dense',
         alignItems: 'start',
+        justifyContent: 'center',
       } as CSSProperties}
     >
       {children}
