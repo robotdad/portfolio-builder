@@ -306,6 +306,28 @@
   --heading-tracking: -0.02em;
   --body-tracking: 0;
   
+  /* Interactive Surface States */
+  --color-surface-hover: hsl(210, 15%, 94%);
+  --color-surface-active: hsl(210, 15%, 91%);
+  --color-surface-dim: hsl(210, 12%, 92%);
+
+  /* Interactive Border States */
+  --color-border-hover: hsl(0, 0%, 75%);
+  --color-border-subtle: hsl(0, 0%, 93%);
+
+  /* Semantic States */
+  --color-error: hsl(0, 72%, 51%);
+  --color-error-hover: hsl(0, 72%, 44%);
+  --color-success: hsl(142, 71%, 45%);
+  --color-warning: hsl(38, 92%, 50%);
+
+  /* Accent Contrast */
+  --color-accent-contrast: hsl(0, 0%, 100%);
+
+  /* Skeleton/Loading */
+  --color-skeleton: hsl(210, 12%, 91%);
+  --color-skeleton-highlight: hsl(210, 12%, 96%);
+
   /* Component tokens */
   --button-radius: var(--radius-md);
   --card-radius: var(--radius-lg);
@@ -355,6 +377,28 @@
   --heading-tracking: 0.01em;
   --body-tracking: 0.01em;
   
+  /* Interactive Surface States */
+  --color-surface-hover: hsl(40, 25%, 90%);
+  --color-surface-active: hsl(40, 25%, 87%);
+  --color-surface-dim: hsl(40, 20%, 91%);
+
+  /* Interactive Border States */
+  --color-border-hover: hsl(40, 10%, 72%);
+  --color-border-subtle: hsl(40, 15%, 91%);
+
+  /* Semantic States */
+  --color-error: hsl(0, 65%, 48%);
+  --color-error-hover: hsl(0, 65%, 41%);
+  --color-success: hsl(142, 55%, 42%);
+  --color-warning: hsl(38, 80%, 48%);
+
+  /* Accent Contrast */
+  --color-accent-contrast: hsl(0, 0%, 100%);
+
+  /* Skeleton/Loading */
+  --color-skeleton: hsl(40, 20%, 88%);
+  --color-skeleton-highlight: hsl(40, 20%, 93%);
+
   /* Component tokens */
   --button-radius: var(--radius-sm);
   --card-radius: var(--radius-base);
@@ -387,6 +431,28 @@
   --heading-tracking: -0.03em;
   --body-tracking: 0;
   
+  /* Interactive Surface States */
+  --color-surface-hover: hsl(0, 0%, 14%);
+  --color-surface-active: hsl(0, 0%, 18%);
+  --color-surface-dim: hsl(0, 0%, 8%);
+
+  /* Interactive Border States */
+  --color-border-hover: hsl(0, 0%, 30%);
+  --color-border-subtle: hsl(0, 0%, 15%);
+
+  /* Semantic States */
+  --color-error: hsl(0, 85%, 60%);
+  --color-error-hover: hsl(0, 85%, 53%);
+  --color-success: hsl(142, 80%, 55%);
+  --color-warning: hsl(38, 95%, 55%);
+
+  /* Accent Contrast */
+  --color-accent-contrast: hsl(0, 0%, 100%);
+
+  /* Skeleton/Loading */
+  --color-skeleton: hsl(0, 0%, 15%);
+  --color-skeleton-highlight: hsl(0, 0%, 20%);
+
   /* Component tokens */
   --button-radius: var(--radius-none);
   --card-radius: var(--radius-none);
