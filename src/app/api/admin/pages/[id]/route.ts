@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { VALIDATION_ERRORS, ENTITY_ERRORS } from '@/lib/messages'
+import { apiSuccess } from '@/lib/api'
 
 // PUT - Update a page (saves to draftContent)
 export async function PUT(
@@ -96,7 +97,7 @@ export async function PUT(
       },
     })
 
-    return NextResponse.json(page)
+    return apiSuccess(page)
   } catch (error) {
     console.error('Failed to update page:', error)
     return NextResponse.json(

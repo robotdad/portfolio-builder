@@ -156,7 +156,8 @@ export function usePages(portfolioId: string): UsePagesReturn {
         throw new Error(errorMessage)
       }
 
-      const newPage: Page = await response.json()
+      const result = await response.json()
+      const newPage: Page = result.data ?? result
 
       if (isMountedRef.current) {
         setPages((prev) => [...prev, newPage].sort((a, b) => a.navOrder - b.navOrder))
@@ -192,7 +193,8 @@ export function usePages(portfolioId: string): UsePagesReturn {
           throw new Error(result.message || 'Failed to update page')
         }
 
-        const updatedPage: Page = await response.json()
+        const result = await response.json()
+        const updatedPage: Page = result.data ?? result
 
         if (isMountedRef.current) {
           setPages((prev) =>

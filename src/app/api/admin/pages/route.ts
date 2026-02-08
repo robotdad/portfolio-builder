@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { VALIDATION_ERRORS, ENTITY_ERRORS } from '@/lib/messages'
+import { apiCreated } from '@/lib/api'
 
 // POST - Create a new page
 export async function POST(request: NextRequest) {
@@ -86,7 +87,7 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    return NextResponse.json(page, { status: 201 })
+    return apiCreated(page)
   } catch (error) {
     console.error('Failed to create page:', error)
     return NextResponse.json(
