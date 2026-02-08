@@ -10,7 +10,6 @@ import {
   getStrategy, 
   shouldEnhanceCategory,
   buildCategoryLayoutSections,
-  buildProjectLayoutSections
 } from './layout-strategies.js';
 
 import { 
@@ -121,8 +120,8 @@ async function enhanceHomePage(context, strategy, apiCall) {
     const carouselSection = buildCarouselSection({
       heading: strategy.homePage.carouselHeading || 'Featured Work',
       images: homeCarouselImages.map(img => ({
-        imageId: img.id,
-        imageUrl: img.url,
+        imageId: img.imageId || img.id,
+        imageUrl: img.imageUrl || img.url,
         title: img.title || img.altText || '',
         category: img.categorySlug || '',
         link: img.projectSlug || ''  // Just the slug, component adds category

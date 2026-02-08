@@ -49,8 +49,8 @@ export function processPhotoTags(photoMeta, uploadedAsset, categorySlug, context
   
   // Build asset info for context
   const assetInfo = {
-    id: uploadedAsset.id,
-    url: uploadedAsset.url,
+    imageId: uploadedAsset.id,
+    imageUrl: uploadedAsset.url,
     altText: uploadedAsset.altText || photoMeta.title || '',
     caption: uploadedAsset.caption || photoMeta.description || '',
     title: photoMeta.title || '',

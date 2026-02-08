@@ -322,7 +322,13 @@ function sarahHomepage(context) {
   });
 
   // 2. Featured carousel
-  const carouselItems = context.taggedImages?.homeCarousel || [];
+  const carouselItems = (context.taggedImages?.homeCarousel || []).map(img => ({
+    imageId: img.imageId || img.id || null,
+    imageUrl: img.imageUrl || img.url || null,
+    title: img.title || '',
+    category: img.categorySlug || '',
+    link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+  }));
   if (carouselItems.length > 0) {
     sections.push(
       buildCarouselSection({
@@ -734,7 +740,13 @@ function julianHomepage(context) {
   });
 
   // 2. Carousel — recent work
-  const carouselItems = context.taggedImages?.homeCarousel || [];
+  const carouselItems = (context.taggedImages?.homeCarousel || []).map(img => ({
+    imageId: img.imageId || img.id || null,
+    imageUrl: img.imageUrl || img.url || null,
+    title: img.title || '',
+    category: img.categorySlug || '',
+    link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+  }));
   sections.push(
     buildCarouselSection({
       heading: 'Recent Work',
@@ -1198,7 +1210,13 @@ function emmaHomepage(context) {
   });
 
   // 2. Featured carousel — production highlights
-  const carouselItems = context.taggedImages?.homeCarousel || [];
+  const carouselItems = (context.taggedImages?.homeCarousel || []).map(img => ({
+    imageId: img.imageId || img.id || null,
+    imageUrl: img.imageUrl || img.url || null,
+    title: img.title || '',
+    category: img.categorySlug || '',
+    link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+  }));
   if (carouselItems.length > 0) {
     sections.push(
       buildCarouselSection({
@@ -1439,7 +1457,13 @@ function emmaCategoryPage(category, categoryIndex, context) {
 
     // 2. Two-column 70-30 — carousel + approach text
     const carouselImages =
-      context.taggedImages?.categoryCarousels?.get(category.slug) || [];
+      (context.taggedImages?.categoryCarousels?.get(category.slug) || []).map(img => ({
+        imageId: img.imageId || img.id || null,
+        imageUrl: img.imageUrl || img.url || null,
+        title: img.title || '',
+        category: img.categorySlug || '',
+        link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+      }));
     sections.push(
       buildTwoColumnLayout({
         ratio: '70-30',
