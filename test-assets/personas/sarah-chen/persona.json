@@ -4,8 +4,10 @@
     "name": "Sarah Chen",
     "role": "Costume Designer",
     "location": "Portland, OR",
-    "bio": "Award-nominated costume designer specializing in visual storytelling through fabric, color, and silhouette. Known for emotionally resonant design choices that support character development and narrative arcs. 8 years designing for theater, film, and television.",
-    "yearsActive": "2016-present"
+    "bio": "I design costumes that become characters unto themselves\u2014fabric, silhouette, and color converging to tell stories that words alone cannot. From Portland's indie theater scene to Sundance premieres and streaming television, my work lives at the intersection of narrative and craft, finding the emotional truth of a character in every seam, every color choice, every deliberate thread.",
+    "yearsActive": "2016-present",
+    "theme": "bold-editorial",
+    "template": "clean-minimal"
   },
   "profile": {
     "images": [
@@ -54,16 +56,16 @@
       "order": 1,
       "featuredPhoto": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
       "categoryContent": {
-        "headline": "Designing Stories for the Stage",
-        "introduction": "Theater design is about visual storytelling. Every color choice, every texture, every silhouette contributes to the audience's understanding of character and narrative. I design with the director's vision in mind, translating abstract concepts into costumes that actors can inhabit and audiences can read.",
-        "approach": "My process begins with research and conversation - understanding the director's vision, the play's themes, and each character's journey. I sketch ideas, create mood boards, and source fabrics that tell the story through color and texture."
+        "headline": "Where Fabric Meets the Footlights",
+        "introduction": "There is nothing quite like designing for the stage\u2014where every costume must speak to the back row and whisper to the front. Theater is where I learned that clothing isn't decoration; it's dramaturgy. I design costumes that carry the weight of a character's journey, that shift and darken and transform as the story demands, becoming a visual language the audience reads without ever knowing they're reading it.",
+        "approach": "I start every project in conversation\u2014with the director, with the text, with the world of the play. I sketch obsessively, pin swatches to mood boards until the color story feels inevitable, and build each costume as though it were a character making its own entrance. My workshop becomes a laboratory where fabric choices are tested not just for look, but for how they move under light and in the actor's body."
       },
       "projects": [
         {
           "id": "the-obsidian-crown",
           "title": "The Obsidian Crown",
           "slug": "the-obsidian-crown",
-          "description": "Original dark fantasy tragedy exploring power and moral corruption through visual design. I created a color language where each character's costume palette darkened in proportion to their moral descent - from rich burgundies and golds representing innocence to charcoal and midnight black representing corruption. Designed 28 principal costumes and 50+ ensemble pieces with progressive deterioration as a visual metaphor for psychological unraveling.",
+          "description": "What happens when a queen's soul darkens, and her wardrobe follows? For this original dark fantasy tragedy, I created a color language of moral descent\u2014rich burgundies and golds giving way to blood reds, then charcoal, then midnight black\u2014mapping each character's corruption onto their costumes. Twenty-eight principal costumes and fifty-plus ensemble pieces, each designed to deteriorate in lockstep with the story's psychological unraveling, so the audience could watch virtue drain from the stage one hem at a time.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -77,8 +79,8 @@
             "scale": "28 principal costumes, 50+ ensemble"
           },
           "projectContent": {
-            "challenge": "The director wanted costume to be an active participant in storytelling - characters' moral journeys needed to be visible in their clothing. This meant designing not just costumes, but costume transformations across five acts.",
-            "approach": "I developed a 'moral spectrum' color theory: warm burgundies and golds (innocence/nobility) progressing through blood reds and deep purples (temptation/conflict) to charcoal and black (corruption/death). Each principal character had a mapped color journey. Worked with my construction team to develop layered distressing techniques that could be repeated across costume phases.",
+            "challenge": "Director Marcus Winters wanted the costumes to be active participants in the storytelling\u2014not background, but a visual narrator. Every character needed a mapped moral journey you could read through their clothes, which meant designing not just single costumes but entire costume transformations across five acts.",
+            "approach": "I developed what I call a 'moral spectrum'\u2014warm burgundies and golds for innocence, blood reds and deep purples for temptation, charcoal and midnight for corruption. Each principal had a charted color journey. My construction team and I developed layered distressing techniques that could be precisely repeated across costume phases, so the deterioration felt organic rather than designed.",
             "outcome": "Nominated for Portland Area Theatre Alliance Best Costume Design, 2024. Eight of twelve reviews specifically mentioned the costume work as integral to the production's emotional impact. The progressive darkening technique has been requested by two other directors for upcoming productions."
           },
           "techniques": [
@@ -280,7 +282,7 @@
           "id": "neon-babel",
           "title": "Neon Babel",
           "slug": "neon-babel",
-          "description": "Contemporary experimental theater piece set in a near-future underground club exploring language, identity, and connection. Designed costumes blending cyberpunk aesthetics with streetwear functionality - LED-embedded garments, reflective materials, and modular pieces that transformed throughout the 90-minute performance. Collaborated closely with lighting designer to create costumes that reacted to and amplified the lighting design.",
+          "description": "A love letter to the underground\u2014this experimental piece dropped six characters into a near-future club where language fractures and identity is fluid. I designed costumes that lived and breathed with the lighting: LED-embedded garments, reflective surfaces, and modular streetwear pieces that the actors reconfigured throughout the ninety-minute performance. The costumes didn't just exist in the light\u2014they became it.",
           "isFeatured": true,
           "order": 2,
           "projectDetails": {
@@ -294,9 +296,9 @@
             "scale": "6 principal costumes with transformation elements"
           },
           "projectContent": {
-            "challenge": "Creating costumes that would glow and react under UV and LED stage lighting while maintaining the gritty streetwear aesthetic. Every fabric choice had to be tested under multiple lighting conditions. LED integration needed to be safe, battery-powered, and allow costume changes.",
-            "approach": "I sourced reflective and UV-reactive materials typically used in sportswear and safety gear, then deconstructed them into fashion silhouettes. Collaborated with an electronics artist for safe LED integration. Built modular layers that actors could add or remove to transform characters.",
-            "outcome": "The costumes became a character in the production - critics noted they 'pulsed with the rhythm of the underground'. The LED integration technique has been adopted by the theater for future experimental work."
+            "challenge": "The vision was costumes that would glow, pulse, and react under UV and LED stage lighting while still feeling like something you'd actually see in an underground club. Every fabric had to be tested under multiple lighting conditions, and the LED integration needed to be safe, battery-powered, and actor-proof for quick costume changes.",
+            "approach": "I raided the worlds of sportswear and safety gear for reflective and UV-reactive materials, then deconstructed them into fashion-forward silhouettes. I collaborated with an electronics artist to safely embed LED strips into seam lines. Every costume was modular\u2014layers that actors could add, subtract, and recombine to transform their characters in real time.",
+            "outcome": "The costumes became a character in the production\u2014critics noted they 'pulsed with the rhythm of the underground'. The LED integration technique has been adopted by the theater for future experimental work."
           },
           "techniques": [
             "UV-reactive and reflective material sourcing",
@@ -435,7 +437,7 @@
           "id": "a-dolls-house-reimagined",
           "title": "A Doll's House: Reimagined",
           "slug": "a-dolls-house-reimagined",
-          "description": "Contemporary adaptation of Ibsen's classic set in present-day corporate America. Designed costume progression for Nora from conformist professional wear (structured blazers, muted colors) to liberated personal style (flowing fabrics, bold colors). Used fashion as visual metaphor for Nora's psychological journey from constraint to freedom. Designed 8 principal costumes with Nora requiring 5 distinct looks tracking her evolution.",
+          "description": "Ibsen's Nora, reborn in the glass towers of corporate America. The question was deceptively simple: how do you make a woman's liberation visible? I answered it through fashion\u2014tracing Nora's arc from the suffocating perfection of grey corporate suiting through the first brave sparks of jewel tones to the flowing, vibrant coral of a woman who has finally chosen herself. Five distinct looks for one character's revolution.",
           "isFeatured": false,
           "order": 3,
           "projectDetails": {
@@ -449,8 +451,8 @@
             "scale": "8 principal costumes, 12 ensemble"
           },
           "projectContent": {
-            "challenge": "Making Ibsen's 1879 themes resonate for contemporary audiences through costume. Nora's journey from doll-wife to independent woman needed to be visible in her clothing choices without being heavy-handed.",
-            "approach": "I designed Nora's arc through fashion language: restrictive corporate suiting in greys and beiges (conformity) progressing through jewel tones (awakening) to flowing personal style in vibrant colors (liberation). Each costume represented a stage of her psychological development.",
+            "challenge": "The challenge was subtlety. Nora's journey from doll-wife to independent woman needed to be legible in her clothing without ever feeling like a costume trick. The audience should feel the shift before they could name it.",
+            "approach": "I designed Nora's arc as a fashion story: restrictive corporate tailoring in greys and beiges for the woman the world expects, jewel tones breaking through as she begins to wake, and finally a flowing coral dress with an entirely different silhouette for the woman she becomes. Each costume was a chapter in her psychological development.",
             "outcome": "The audience reported being able to track Nora's journey through costume alone. Reviews praised the 'visual poetry' of the costume progression. The design approach has been requested as a case study for a university theater design program."
           },
           "techniques": [
@@ -600,16 +602,16 @@
       "order": 2,
       "featuredPhoto": "categories/film-production/the-last-correspondence/period-gown-production.jpg",
       "categoryContent": {
-        "headline": "Designing for the Camera",
-        "introduction": "Film costume design is about creating character through clothing that reads perfectly in close-up. Every fabric choice, every color decision must support the cinematographer's vision while serving the character's journey. My designs are built to withstand the scrutiny of the big screen.",
-        "approach": "I work closely with directors and cinematographers from pre-production, understanding the color palette, the lighting approach, and how costume will integrate with production design. My sketches become roadmaps for character development through visual storytelling."
+        "headline": "Dressing the Frame",
+        "introduction": "Film asks something different of a costume\u2014it demands intimacy. The camera sees every fiber, every button, every wrinkle that tells a story. I design for the close-up and the wide shot simultaneously, building wardrobes that hold up under the unforgiving scrutiny of the lens while carrying the emotional architecture of a character's inner life.",
+        "approach": "I embed myself in pre-production, sitting with the director and cinematographer until I understand not just the story, but the light\u2014how color will shift under their palette, how texture will read in their shadows. My designs become maps of a character's psychology, where a single undone button or a shift from cool greys to warm amber can say more than a page of dialogue."
       },
       "projects": [
         {
           "id": "the-last-correspondence",
           "title": "The Last Correspondence",
           "slug": "the-last-correspondence",
-          "description": "Romantic period drama set in 1920s England following two women's forbidden relationship told through discovered letters. Designed costumes that showed class distinction, evolving intimacy, and the tension between public conformity and private desire. Lead design on both protagonists - aristocratic lady in structured formal wear and working-class artist in bohemian layers. Color palette evolved from separated cool tones to shared warm intimacy.",
+          "description": "Two women in 1920s England, a forbidden love told through discovered letters\u2014and through the clothes that concealed and revealed them. I designed two distinct visual vocabularies that gradually, almost imperceptibly, converged: the aristocrat's structured pastels meeting the artist's earthy bohemian layers in a shared palette of warm amber and rose as their intimacy deepened. The costume design became the film's secret love language.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -623,8 +625,8 @@
             "scale": "12 principal costumes, 30+ supporting and background"
           },
           "projectContent": {
-            "challenge": "Designing subtle visual language for forbidden love in a repressive era. Costumes needed to show both characters' public facades and hint at their hidden emotional lives. Color theory became crucial - cold blues and greys for public scenes, warm amber and rose for private intimate moments.",
-            "approach": "I created two distinct design vocabularies that gradually converged. The aristocrat's costumes: structured, pastel, controlled. The artist's costumes: layered, earth tones, bohemian. As their relationship deepened, I brought warmer shared colors into both wardrobes - subtle visual intimacy.",
+            "challenge": "How do you dress a forbidden love in an era of repression? The costumes needed to maintain both women's public facades while hinting at the emotional lives they couldn't show. Color became my most powerful tool\u2014cold blues and greys for the world's gaze, warm amber and rose for stolen private moments.",
+            "approach": "I built two distinct design worlds and slowly collapsed the distance between them. The aristocrat: structured, pastel, controlled. The artist: layered, earth-toned, free. As their relationship deepened, warm shared colors began appearing in both wardrobes\u2014a visual intimacy the audience could sense before they understood why.",
             "outcome": "Film premiered at Sundance 2024 to critical acclaim. Costume design specifically noted in Variety review as 'speaking volumes through silhouette and color'. The color progression technique is now used in film school curricula as an example of visual storytelling through costume."
           },
           "techniques": [
@@ -825,7 +827,7 @@
           "id": "velvet-and-ash",
           "title": "Velvet and Ash",
           "slug": "velvet-and-ash",
-          "description": "Noir psychological thriller set in contemporary New York following a gallery owner's descent into obsession. Designed costumes tracking character's psychological unraveling through increasingly chaotic styling - from pristine minimalist fashion to disheveled luxury. Collaborated with cinematographer on high-contrast black and white aesthetic. Lead design for protagonist's 8 costume transformations plus supporting cast of art world characters.",
+          "description": "A gallery owner's mind unravels, and her wardrobe tells the story. This noir psychological thriller, shot in a stark high-contrast style, challenged me to design a descent you could measure in wrinkles, in unbuttoned collars, in the slow destruction of once-perfect minimalism. The same black velvet and white silk that signaled control in act one read as devastation by act three\u2014all through styling alone.",
           "isFeatured": true,
           "order": 2,
           "projectDetails": {
@@ -839,8 +841,8 @@
             "scale": "10 principal costumes, 40+ supporting and extras"
           },
           "projectContent": {
-            "challenge": "Designing for a film shot in high-contrast black and white style despite being captured in color. Every fabric had to be tested for how it would read in the cinematographer's stark lighting. Character's descent needed to be visible in progressive costume dishevelment.",
-            "approach": "Started with minimalist monochrome fashion - clean lines, luxurious fabrics, perfect styling. Each subsequent costume introduced subtle chaos: an unbuttoned collar, a missing earring, rumpled silk. By the final act, the same expensive fabrics read as destroyed through styling alone.",
+            "challenge": "Every fabric choice had to work in the cinematographer's high-contrast, near-black-and-white lighting while supporting a character whose psychological descent needed to be visible through progressive costume dishevelment. The clothes themselves didn't change\u2014the way she wore them did.",
+            "approach": "I started pristine: minimalist monochrome, clean lines, luxurious fabrics, not a thread out of place. Then, costume by costume, I introduced subtle chaos\u2014an unbuttoned collar, a missing earring, rumpled silk where once there was a knife-edge crease. By the final act, the same expensive pieces read as ruins.",
             "outcome": "Selected for Toronto International Film Festival 2023. Cinematographer credited costume design as integral to the film's visual strategy. The 'progressive dishevelment' technique generated significant discussion in film design communities."
           },
           "techniques": [
@@ -1012,7 +1014,7 @@
           "id": "paper-tigers",
           "title": "Paper Tigers",
           "slug": "paper-tigers",
-          "description": "Corporate espionage thriller set in contemporary Silicon Valley tech world. Designed costumes that used fashion-as-armor concept - characters dressed in power suits and tech-casual as uniforms revealing allegiances. Created distinct visual languages for old-guard corporate (traditional suiting) versus new-tech disruptors (elevated streetwear). Lead design for CEO character whose costume devolved from perfect control to paranoid dishevelment as her empire crumbled.",
+          "description": "Silicon Valley is a costume drama\u2014people just don't realize it. For this corporate espionage thriller, I designed two warring fashion tribes: the Old Guard in sharp power suiting and the New Tech in elevated, deliberately casual streetwear. Each side's clothing was armor and allegiance badge all at once. At the center, a CEO whose pristine white power suit slowly devolved into paranoid disarray as her empire crumbled around her.",
           "isFeatured": false,
           "order": 3,
           "projectDetails": {
@@ -1026,8 +1028,8 @@
             "scale": "14 principal costumes, 50+ supporting cast in corporate/tech wardrobes"
           },
           "projectContent": {
-            "challenge": "Making contemporary corporate and tech fashion visually distinct enough to signal allegiances and power dynamics. Traditional power suits versus tech-bro hoodies needed to feel equally valid but opposing.",
-            "approach": "Created two fashion vocabularies: Old Guard (structured suiting, traditional luxury brands, power dressing) versus New Tech (elevated streetwear, normcore with expensive details, calculated casual). Color coding by allegiance. CEO's wardrobe devolved from pristine to chaotic as her control slipped.",
+            "challenge": "The trick was making contemporary corporate and tech fashion visually distinct enough to function as tribal signifiers. Power suits versus expensive hoodies needed to feel like opposing uniforms, each carrying its own authority and menace.",
+            "approach": "I created two complete fashion vocabularies: Old Guard\u2014structured suiting, traditional luxury, power-dressing precision\u2014versus New Tech\u2014calculated casualness, normcore with absurdly expensive details, hoodies that cost more than blazers. Then I color-coded by allegiance and mapped the CEO's wardrobe from immaculate control to paranoid chaos.",
             "outcome": "Tech press praised the 'accurate portrayal of Silicon Valley fashion politics'. The costume-coded allegiances helped audiences track complex corporate maneuvering. Film screened at SXSW 2024."
           },
           "techniques": [
@@ -1175,16 +1177,16 @@
       "order": 3,
       "featuredPhoto": "categories/television-production/the-architects-daughter/finale-gown-production.jpg",
       "categoryContent": {
-        "headline": "Designing Character Evolution for Television",
-        "introduction": "Television costume design is unique - characters live in their wardrobes for 6, 8, 10 episodes or more. I design not just costumes, but complete wardrobes that can mix, evolve, and tell long-form stories. Every piece must work across multiple episodes while showing character growth.",
-        "approach": "I create wardrobe bibles for each character - color palettes, silhouette guidelines, and signature pieces. Then I map costume choices to character arcs across the season, planning visual evolution that audiences might not consciously notice but emotionally feel."
+        "headline": "The Long Arc of a Wardrobe",
+        "introduction": "Television is a marathon, not a sprint. Characters live in their clothes for weeks, months, entire seasons\u2014and audiences develop an intimate, almost subconscious relationship with what they wear. I design wardrobes that breathe and evolve, where a blazer worn buttoned-up in the pilot and thrown open over a band tee by episode six tells a story of transformation no exposition could match.",
+        "approach": "I build wardrobe bibles\u2014living documents that map every character's color palette, silhouette vocabulary, and signature pieces against their emotional arc across the season. Then I design capsule systems: core pieces that can be mixed, restyled, and layered to create dozens of distinct looks that feel both fresh and deeply familiar, tracking growth the audience feels before they consciously see it."
       },
       "projects": [
         {
           "id": "the-architects-daughter",
           "title": "The Architect's Daughter",
           "slug": "the-architects-daughter",
-          "description": "Eight-episode limited series following a young architect navigating her famous father's legacy while developing her own design voice. Designed complete wardrobe showing evolution from rigid corporate minimalism to confident personal style. Created visual distinction between her 'professional armor' and her 'creative self' through silhouette and color, with gradual integration as she found her voice. Designed 45+ costume combinations across 8 episodes.",
+          "description": "How does a young woman shed her father's shadow and find her own voice? Over eight episodes, I answered that question through her closet. Starting with a rigid capsule wardrobe of corporate black, white, and navy\u2014the uniform of someone performing professionalism\u2014I gradually introduced pieces in rust, forest green, and warm neutrals that felt unmistakably hers. The same navy blazer, buttoned to the throat in episode one, hung open over a band tee by episode six. Forty-five costume combinations tracking one woman's quiet revolution.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -1197,8 +1199,8 @@
             "scale": "Principal character wardrobe (45+ pieces), 6 supporting character wardrobes, 200+ background"
           },
           "projectContent": {
-            "challenge": "Creating a wardrobe that could mix and match across 8 episodes while showing clear visual evolution. The character needed signature pieces that audiences would recognize, but styling had to evolve from rigid to relaxed. Every combination needed to work for camera and support her emotional arc.",
-            "approach": "Built a capsule wardrobe system: 15 core pieces in corporate palette (black, white, grey, navy) for early episodes, gradually introducing personal pieces in rust, forest green, and warm neutrals. Same blazer styled buttoned-up in Episode 1, worn open over band t-shirt in Episode 6. Visual loosening tracked emotional growth.",
+            "challenge": "The wardrobe needed to feel like a real person's closet\u2014mixable, repeatable across eight episodes\u2014while carrying a clear visual evolution from rigid corporate armor to relaxed personal confidence. Every combination had to work for camera and support her emotional arc without ever feeling like a costume.",
+            "approach": "I built a capsule wardrobe system: fifteen core pieces in corporate neutrals for the early episodes, then gradually introduced personal pieces in warmer, bolder tones. The magic was in the restyling\u2014the same blazer, the same trousers, worn differently as she grew. I mapped every combination against her emotional arc episode by episode, so the visual loosening tracked her inner transformation.",
             "outcome": "Audience engagement analytics showed viewers specifically commenting on 'watching her style evolve' as part of character development. Fashion press coverage. The wardrobe bible approach has been requested by two other streaming shows."
           },
           "techniques": [
@@ -1398,7 +1400,7 @@
           "id": "beneath-the-surface",
           "title": "Beneath the Surface",
           "slug": "beneath-the-surface",
-          "description": "Six-episode psychological mystery series following a marine biologist uncovering dark secrets in a coastal research facility. Designed costumes reflecting character's dual lives - professional scientist by day, obsessive investigator by night. Created visual progression from bright optimistic coastal colors to darker paranoid palette. Wardrobe included technical outdoor gear, lab wear, and after-hours investigation clothes that became increasingly dark and protective.",
+          "description": "A marine biologist arrives at a coastal research station in bright blues and cheerful whites. Six episodes later, she's wrapped in dark layers, a woman transformed by what she's uncovered. For this psychological mystery, I designed two overlapping wardrobes for the same character\u2014the optimistic scientist and the paranoid investigator\u2014and tracked their collision across the season, as the sunshine palette was steadily consumed by shadow.",
           "isFeatured": false,
           "order": 2,
           "projectDetails": {
@@ -1411,8 +1413,8 @@
             "scale": "Lead character wardrobe (40+ pieces), 5 supporting wardrobes, 150+ background"
           },
           "projectContent": {
-            "challenge": "Creating dual costume vocabularies for the same character - professional credibility as scientist versus paranoid obsessive investigator. Needed wardrobe that could transition from bright coastal optimism to dark thriller aesthetic across 6 episodes while maintaining character continuity.",
-            "approach": "Built two overlapping wardrobes: Technical Scientist (bright blues, whites, practical outdoor gear, lab coats) and Night Investigator (navy, black, layered protective clothing). Started with cheerful bright palette in Episode 1, gradually introducing darker pieces until by Episode 6 even daytime scenes featured darker, more protective clothing.",
+            "challenge": "One character, two lives, one wardrobe. I needed to create a dual costume vocabulary\u2014professional scientist by day, obsessive investigator by night\u2014that could believably exist in the same closet while shifting the entire visual temperature of the series from bright coastal optimism to dark paranoid thriller.",
+            "approach": "I built two overlapping systems: the Scientist wardrobe in bright blues, whites, and aqua technical gear, and the Investigator wardrobe in navy, black, and layered protective clothing. In the early episodes, we only saw the bright version. Gradually, the darker pieces crept in\u2014first only at night, then into the daytime scenes\u2014until by the finale, even the lab coat couldn't keep the shadows out.",
             "outcome": "Series became sleeper hit with strong audience engagement. Viewers specifically noted 'watching her wardrobe darken' as part of the psychological tension. Cinematographer praised costume design for supporting the visual shift from bright coastal thriller to dark paranoid mystery."
           },
           "techniques": [
@@ -1583,16 +1585,16 @@
       "order": 4,
       "featuredPhoto": "categories/fashion-design/urban-armor/collection-hero-shot.jpg",
       "categoryContent": {
-        "headline": "Fashion as Artistic Expression",
-        "introduction": "Fashion design allows me to explore ideas without narrative constraints. These collections are where I experiment with silhouette, push material boundaries, and develop design concepts that often influence my theatrical work.",
-        "approach": "Each collection starts with a conceptual theme - protection, transformation, memory. I translate abstract ideas into wearable forms, focusing on how garments make the wearer feel and how design communicates beyond words."
+        "headline": "Design Unbound",
+        "introduction": "Fashion is where I go to think out loud. Freed from script and story, these collections are pure creative exploration\u2014ideas about protection, transformation, and identity given form in fabric and structure. This is my laboratory, the place where I push material boundaries and chase silhouettes that often find their way back into my narrative work, transformed.",
+        "approach": "Each collection begins with an obsession\u2014a concept that won't let go. I build it outward from there: researching, sketching, draping fabric on forms until the idea finds its shape. I pair materials that shouldn't work together\u2014military canvas against silk charmeuse, heavy brass hardware against gossamer lining\u2014because the tension between opposites is where the most interesting design lives."
       },
       "projects": [
         {
           "id": "urban-armor",
           "title": "Urban Armor",
           "slug": "urban-armor",
-          "description": "Six-piece capsule collection exploring protection and vulnerability through fashion. Designed structured outerwear with soft interior linings - hard shell/soft interior metaphor. Deconstructed military details reimagined for urban streetwear. Showcased at Portland Fashion Week 2024. Each piece featured protective exterior (structured shoulders, hardware, utility details) with unexpected soft elements (silk linings, delicate embroidery on interior).",
+          "description": "We all wear armor\u2014mine just happens to have sculptural shoulders and silk linings. This six-piece capsule collection explored the tension between the hard shells we present to the world and the softness we hide underneath. Deconstructed military details reimagined as urban streetwear, with every piece carrying a secret: beneath the heavy canvas and brass hardware, silk charmeuse and delicate embroidery that only the wearer would know. Showcased at Portland Fashion Week 2024.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -1603,8 +1605,8 @@
             "scale": "6-piece capsule collection"
           },
           "projectContent": {
-            "challenge": "Translating conceptual theme of 'armor' into wearable fashion without being costume-y. How to make protective structures feel contemporary and desirable rather than theatrical?",
-            "approach": "Deconstructed military tailoring - epaulettes became sculptural shoulders, utility pockets became design details, harsh hardware contrasted with silk linings. Each piece worked as everyday wear while carrying conceptual weight.",
+            "challenge": "How do you translate 'armor' into fashion without it reading as costume? The concept needed to feel wearable and contemporary\u2014something you'd actually put on your body\u2014while carrying genuine emotional weight about protection and vulnerability.",
+            "approach": "I deconstructed military tailoring and rebuilt it for the street. Epaulettes became sculptural shoulders. Utility pockets became design features. Heavy brass hardware sat next to hidden silk linings. Every piece worked as everyday wear while carrying its conceptual secret\u2014the contrast between the face we show the world and what we keep close to the skin.",
             "outcome": "Collection showed at Portland Fashion Week to positive reception. Three pieces were commissioned for private purchase. The 'hard shell/soft interior' concept has influenced my theatrical work on characters presenting protective facades."
           },
           "techniques": [

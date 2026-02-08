@@ -20,7 +20,16 @@ import { execSync } from 'child_process';
 
 // Layout enhancement modules
 import { createTagContext, processPhotoTags } from './lib/tag-processor.js';
-import { applyLayoutEnhancements } from './lib/apply-layouts.js';
+// Note: applyLayoutEnhancements is no longer used - replaced by per-persona layouts
+// import { applyLayoutEnhancements } from './lib/apply-layouts.js';
+
+// Per-persona layout dispatch
+import {
+  buildPersonaProjectPage,
+  buildPersonaHomepage,
+  buildPersonaAboutPage,
+  buildPersonaCategoryPage,
+} from './lib/persona-layouts.js';
 
 // Auth support
 import { getAuthHeaders, requireAuth } from './lib/auth-helper.js';
@@ -520,13 +529,15 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   
   if (!portfolioId) {
     const name = personaData.persona?.name || personaId;
+    const theme = personaData.persona?.theme || 'modern-minimal';
+    const template = personaData.persona?.template || 'featured-grid';
     portfolio = await apiCall('POST', '/admin/portfolio', {
       name: `${name} Portfolio`,
       title: `${name} Portfolio`,
-      draftTheme: 'modern-minimal',
-      publishedTheme: 'modern-minimal',
-      draftTemplate: 'featured-grid',
-      publishedTemplate: 'featured-grid',
+      draftTheme: theme,
+      publishedTheme: theme,
+      draftTemplate: template,
+      publishedTemplate: template,
     });
     portfolioId = portfolio.data.id;
     console.log(`✓ Portfolio created: ${portfolioId}`);
@@ -578,6 +589,11 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     }
   }
   
+  // Track persona data in context for per-persona layout builders
+  populationContext.persona = persona;
+  populationContext.profileAssetId = profileAssetId;
+  populationContext.profileAssetUrl = profileAssetUrl;
+
   // Upload additional profile images (selfies, candids, etc.)
   for (const profileImg of profileImages.slice(1)) {
     const imgPath = findImagePath(personaDir, profileImg);
@@ -635,21 +651,10 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   
   const aboutExists = existingPages.some(p => p.slug === 'about');
   if (bio && !aboutExists) {
-    const aboutContent = JSON.stringify({
-      sections: [{
-        id: generateId(),
-        type: 'hero',
-        name: persona.name || personaId,
-        title: `About ${persona.name || personaId}`,
-        bio: bio,
-        profileImageId: profileAssetId,
-        profileImageUrl: profileAssetUrl,
-        showResumeLink: false,
-        resumeUrl: ''
-      }]
-    });
+    const aboutSections = buildPersonaAboutPage(personaId, populationContext);
+    const aboutContent = JSON.stringify({ sections: aboutSections });
     
-    await apiCall('POST', '/admin/pages', {
+    const aboutPage = await apiCall('POST', '/admin/pages', {
       portfolioId: portfolioId,
       title: 'About',
       slug: 'about',
@@ -659,8 +664,12 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
       draftContent: aboutContent,
       publishedContent: aboutContent
     });
-    console.log('  ✓ About page created');
+    populationContext.pages.about = { id: aboutPage.data.id, slug: 'about' };
+    stats.sectionsCreated += aboutSections.length;
+    console.log(`  ✓ About page created (${aboutSections.length} sections)`);
   } else if (aboutExists) {
+    const existingAbout = existingPages.find(p => p.slug === 'about');
+    if (existingAbout) populationContext.pages.about = { id: existingAbout.id, slug: 'about' };
     console.log('  ✓ About page already exists');
   }
 
@@ -867,8 +876,8 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
           }
         }
         
-        // Build and save rich project content
-        const projectSections = buildProjectSections(project, galleryImages);
+        // Build and save rich project content (per-persona layout)
+        const projectSections = buildPersonaProjectPage(personaId, project, galleryImages, populationContext);
         if (projectSections.length > 0) {
           const contentJson = JSON.stringify({ sections: projectSections });
           await apiCall('PUT', `/admin/projects/${projectId}`, {
@@ -900,15 +909,51 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     }
   }
   
-  // Pass 2: Apply layout enhancements
-  console.log('\n🎨 Applying layout enhancements...');
+  // Pass 2: Per-persona page finalization (homepage + category pages)
+  // Now that all projects and categories exist, build rich per-persona layouts
+  console.log('\n🎨 Finalizing per-persona page layouts...');
+  
+  // 2a: Update homepage with per-persona layout
   try {
-    await applyLayoutEnhancements(populationContext, apiCall);
-    console.log('✓ Layout enhancements applied');
+    const homeSections = buildPersonaHomepage(personaId, populationContext);
+    const homeContent = JSON.stringify({ sections: homeSections });
+    const homePageId = populationContext.pages.home?.id;
+    if (homePageId) {
+      await apiCall('PUT', `/admin/pages/${homePageId}`, {
+        draftContent: homeContent,
+        publishedContent: homeContent
+      });
+      stats.sectionsCreated += homeSections.length;
+      console.log(`  ✓ Homepage updated (${homeSections.length} sections)`);
+    }
   } catch (error) {
-    console.error(`⚠️ Layout enhancement failed: ${error.message}`);
-    // Continue - base content is still valid
+    console.error(`  ⚠️ Homepage layout failed: ${error.message}`);
   }
+  
+  // 2b: Update category pages with per-persona layouts
+  let catIdx = 0;
+  for (const category of personaData.categories || []) {
+    try {
+      const categorySlug = category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
+      const categoryContext = populationContext.categories.get(categorySlug);
+      if (categoryContext) {
+        const catSections = buildPersonaCategoryPage(personaId, category, catIdx, populationContext);
+        const catContent = JSON.stringify({ sections: catSections });
+        await apiCall('PUT', `/admin/categories/${categoryContext.id}`, {
+          draftContent: catContent,
+          publishedContent: catContent
+        });
+        stats.sectionsCreated += catSections.length;
+        console.log(`  ✓ ${category.name} landing updated (${catSections.length} sections)`);
+      }
+    } catch (error) {
+      console.error(`  ⚠️ Category ${category.name} layout failed: ${error.message}`);
+    }
+    catIdx++;
+  }
+  
+  // Note: Legacy applyLayoutEnhancements() is no longer called.
+  // Per-persona layouts above provide comprehensive coverage of all section types.
   
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
   

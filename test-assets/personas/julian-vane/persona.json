@@ -4,8 +4,10 @@
     "name": "Julian Vane",
     "role": "Professional First Hand",
     "location": "London, UK",
-    "bio": "Master tailor specializing in period construction and bespoke theatrical costume fabrication. Known for impeccable hand-stitching, traditional Savile Row techniques, and structural engineering for performance durability. 12 years building costumes for West End theater and major film productions.",
-    "yearsActive": "2012-present"
+    "bio": "Trained on Savile Row and honed through fifteen years of bespoke construction, period costuming, and couture finishing, I build garments where every stitch serves the story. My work spans West End theatre, prestige television, and private commissions\u2014each piece constructed with the same commitment to hand-tailored precision.",
+    "yearsActive": "2012-present",
+    "theme": "classic-elegant",
+    "template": "featured-grid"
   },
   "profile": {
     "images": [
@@ -54,16 +56,16 @@
       "order": 1,
       "featuredPhoto": "categories/menswear-tailoring/bespoke-morning-coat/featured.jpg",
       "categoryContent": {
-        "headline": "Traditional Tailoring for Stage and Screen",
-        "introduction": "Menswear tailoring demands precision, patience, and deep knowledge of structural construction. Every jacket I build receives hours of hand pad-stitching, carefully engineered canvas layers, and multiple fittings to achieve both period-accurate silhouettes and modern performance durability.",
-        "approach": "I follow traditional Savile Row methods: hand-drafted patterns, horsehair canvas interfacing, pad-stitched lapels, and hand-sewn buttonholes. Each garment is built to last 100+ performances while maintaining crisp lines and perfect drape."
+        "headline": "The Art of Individual Construction",
+        "introduction": "Bespoke tailoring begins where measurement ends\u2014in the understanding of how cloth moves over a body in motion. Every jacket in this collection received a full canvas build: hand-drafted patterns, horsehair interfacing, and hours of pad-stitching to shape lapels that roll rather than fold. The difference between adequate and exceptional lives in the fittings, the hand work, and the patience to let the garment tell you what it needs.",
+        "approach": "I work in the Savile Row tradition: hand-drafted patterns cut to individual measurements, horsehair canvas interfacing shaped through pad-stitching, and hand-sewn buttonholes finished with gimp thread. Each garment passes through multiple fittings where the cloth is read on the body and adjustments are made to balance, drape, and ease. The materials dictate the method\u2014fine worsted demands different handling than heavy melton\u2014and the construction honours that relationship."
       },
       "projects": [
         {
           "id": "bespoke-morning-coat",
           "title": "Bespoke Morning Coat",
           "slug": "bespoke-morning-coat",
-          "description": "Traditional formal morning coat requiring exacting Savile Row construction standards. Built for a period drama production demanding authentic Victorian tailoring techniques. The coat featured hand-stitched peak lapels with perfect roll, internal canvas architecture for shoulder structure, and hand-sewn buttonholes. Construction time: 80 hours over 4 weeks.",
+          "description": "Full canvas morning coat in navy wool suiting, constructed to Savile Row standards for a Victorian period drama. The build centred on achieving authentic peak lapel roll through twelve hours of hand pad-stitching over horsehair canvas, supported by a complete chest piece and shoulder architecture. Hand-sewn buttonholes with gimp thread reinforcement, traditional sleeve setting with hand-felled armscye, and steam-pressed shaping throughout. Eighty hours of construction across four weeks and six fittings.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -75,9 +77,9 @@
             "scale": "Single bespoke garment, 6 fittings"
           },
           "projectContent": {
-            "challenge": "Achieving authentic Victorian silhouette while ensuring durability for 40+ performances. The morning coat's distinctive peak lapels required extensive hand pad-stitching to achieve proper roll without collapse during wear.",
-            "approach": "Hand-drafted pattern from historical references, traditional canvas construction with horsehair interlining, 12 hours of pad-stitching on lapels and fronts, hand-sewn buttonholes, and steam-pressed shaping.",
-            "outcome": "The coat maintained its crisp silhouette through the entire run, with the director specifically noting the authenticity of movement and drape during performance."
+            "challenge": "The central technical challenge was the peak lapel: achieving an authentic Victorian roll that would hold its shape through forty-plus performances without collapsing under the heat and movement of stage work. This required building the lapel over horsehair canvas with precisely graduated pad-stitching\u2014tighter at the break line, looser toward the edge\u2014then setting the roll through repeated steam pressing and shaping on the form.",
+            "approach": "Hand-drafted pattern from historical references and period tailoring manuals. Full horsehair canvas construction with interlining throughout the chest and fronts. Twelve hours of graduated pad-stitching across both lapels, hand-felled collar, and hand-sewn buttonholes with gimp thread. The shoulder was built with a natural horsehair pad and hand-set sleeve head, attached with a traditional eased sleeve cap. Final silhouette achieved through careful steam pressing over a tailor's ham and repeated shaping on the form.",
+            "outcome": "The coat maintained its crisp silhouette through the entire run. The director specifically noted the authenticity of movement and drape during performance\u2014the cutaway front swung naturally through blocking, and the lapel roll held its line from the first dress rehearsal through closing night."
           },
           "techniques": [
             "Hand pad-stitching for lapel architecture",
@@ -222,7 +224,7 @@
           "id": "the-diplomats-suit",
           "title": "The Diplomat's Suit",
           "slug": "the-diplomats-suit",
-          "description": "Three-piece charcoal suit built for lead character in contemporary political drama. Required modern fit with traditional construction methods for camera-ready appearance and durability across 60+ filming days. Full canvas construction with hand-finished details throughout. This project led to an unexpected commission - a real diplomat who visited the production was so impressed with the construction quality that he commissioned a personal suit using the same techniques.",
+          "description": "Three-piece charcoal suit in fine worsted wool, built with full canvas construction for a contemporary political drama. The jacket required camera-ready finishing capable of withstanding sixty-plus filming days without visible wear: pick-stitched edges, hand-finished collar, hand-sewn waistcoat buttonholes, and meticulous pressing throughout. The worsted was selected for its recovery and how it held a line under the production's flat, even lighting design.",
           "isFeatured": false,
           "order": 2,
           "projectDetails": {
@@ -234,8 +236,8 @@
             "scale": "Three-piece suit plus backup pieces"
           },
           "projectContent": {
-            "challenge": "Building a modern suit that would read perfectly on camera in close-up while maintaining traditional construction integrity. The production required the suit to look sharp across 60+ filming days with no visible wear.",
-            "outcome": "The suit's construction quality caught the attention of a visiting diplomat who later commissioned a personal three-piece suit. The film's costume designer credited the tailoring as 'invisible perfection' - exactly what camera-ready work demands."
+            "challenge": "The construction challenge was dual: achieving traditional Savile Row quality that would read as quietly authoritative in close-up, while engineering the suit to maintain its line across sixty-plus filming days. Close-up cinematography demanded pick-stitched edges, a perfectly rolled collar, and invisible finishing at every point the camera might rest.",
+            "outcome": "The suit's construction quality caught the attention of a visiting diplomat who commissioned a personal three-piece suit using identical techniques. The film's costume designer credited the tailoring as 'invisible perfection'\u2014precisely the standard that camera-ready construction demands."
           },
           "techniques": [
             "Full canvas construction",
@@ -358,16 +360,16 @@
       "order": 2,
       "featuredPhoto": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
       "categoryContent": {
-        "headline": "Building Costumes for the Stage",
-        "introduction": "Theater construction demands both historical accuracy and extreme durability. Each costume must withstand 40+ performances while maintaining its silhouette and details under harsh stage lighting and intense physical movement.",
-        "approach": "I document every build from first pattern draft through opening night. My phone captures the construction details - the patterns laid out, the fabric cut and ready, the garment taking shape on the form. Production photographers capture the finished work under lights."
+        "headline": "Costumes That Perform",
+        "introduction": "A stage garment carries demands no other form of tailoring requires. It must read from the back row under harsh lighting, survive forty or more performances of intense physical work, and maintain its silhouette through sweat, quick changes, and repeated pressing. Building for theatre means engineering durability into every seam without sacrificing the period line or the drape that tells the audience who this character is.",
+        "approach": "Theatre construction begins with the script and the designer's vision, but the build is governed by practical reality: reinforced stress points, modular construction for quick changes, and finishing that withstands nightly wear. I select fabrics for how they read under stage lighting as much as for period accuracy, and I build internal structures\u2014canvas, boning, strategic interfacing\u2014that preserve the silhouette through the run. Every garment is documented from first pattern draft through opening night."
       },
       "projects": [
         {
           "id": "the-obsidian-crown",
           "title": "The Obsidian Crown",
           "slug": "the-obsidian-crown",
-          "description": "Dark fantasy tragedy requiring costume deterioration effects across the run. Built 28 principal costumes and 50+ ensemble pieces. Lead construction on Queen's gown with progressive darkening effects, Officer's coat with hidden armor structure, and multiple courtier ensembles with distressed embroidery.",
+          "description": "Twenty-eight principal costumes and fifty-plus ensemble pieces for a dark fantasy tragedy requiring progressive deterioration effects across the run. Lead construction on the Queen's gown: burgundy silk velvet over structured horsehair canvas bodice with spiral steel boning, gold metallic thread embroidery engineered to fray convincingly through performance. The Officer's navy wool coat required full canvas military construction with concealed rigid armour structure beneath the fashion fabric. Ensemble courtier pieces incorporated modular snap-fastener systems for fifteen-second quick changes and hand-embroidered surface work designed for deliberate, controlled fraying.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -613,7 +615,7 @@
           "id": "much-ado-miami",
           "title": "Much Ado About Nothing: 1960s Miami",
           "slug": "much-ado-miami",
-          "description": "Contemporary reimagining of Shakespeare's comedy set in 1960s Miami. Built 18 principal costumes requiring period-accurate 1960s silhouettes with tropical color palette and lightweight fabrics for outdoor summer performances. Lead construction on Beatrice's mod shift dress with geometric trim and Benedick's linen suit.",
+          "description": "Eighteen principal costumes for a 1960s Miami reimagining of Shakespeare's comedy, built for outdoor summer performance. Lead construction on Beatrice's coral linen mod shift dress with precision-applied geometric trim at the neckline, and Benedick's cream linen suit requiring adapted lightweight canvas construction for tropical-weight fabric. Every garment was engineered for weather resistance\u2014sealed seams, colourfast finishing, and fabric selections that would recover from humidity and occasional rain without losing their period silhouette.",
           "isFeatured": true,
           "order": 2,
           "projectDetails": {
@@ -865,7 +867,7 @@
           "id": "the-negative-space",
           "title": "The Negative Space",
           "slug": "the-negative-space",
-          "description": "Contemporary experimental black box production exploring grief and memory through minimalist costume design. Built 6 principal costumes with transformation elements allowing actors to shift between past and present. Lead construction on reversible coat revealing inner emotional state, deconstructed shirt with exposed seam work as design element, and modular ensemble pieces that reconfigured throughout the 90-minute one-act.",
+          "description": "Six principal costumes for an experimental black box production exploring grief through physical transformation. The centrepiece was a fully reversible wool-and-cotton coat engineered for silent on-stage reversal: grey wool exterior to black cotton interior, with concealed snap systems allowing the actor to transform the garment in performance without leaving the stage. A deconstructed white shirt used exposed French seams and visible dart work as deliberate design elements. Modular ensemble pieces reconfigured throughout the ninety-minute one-act, each transformation mechanism designed for silence and speed.",
           "isFeatured": false,
           "order": 3,
           "projectDetails": {
@@ -877,9 +879,9 @@
             "scale": "6 principal costumes, multiple configuration options"
           },
           "projectContent": {
-            "challenge": "Building costumes that could physically transform during performance without quick-change booths. Each garment needed to function in multiple configurations while maintaining the minimalist aesthetic. Exposed construction elements became design features rather than hidden work.",
-            "approach": "Deconstructed tailoring where seams, darts, and internal structure became visible design elements. Reversible construction techniques. Modular pieces that could be worn multiple ways. Everything needed to transform silently on stage.",
-            "outcome": "The costumes became active participants in the storytelling. Critics noted the 'haunting minimalism' of the costume work. The reversible coat technique has since been adopted by other designers for similar experimental work."
+            "challenge": "Every garment needed to physically transform during performance without quick-change booths or backstage exits. The reversible coat required both sides to read as finished garments\u2014not a coat turned inside-out, but two distinct coats sharing a single construction. Exposed seam work had to appear intentional and precise, not unfinished. Every transformation mechanism had to operate silently under intimate black box acoustics.",
+            "approach": "The reversible coat was constructed as two complete garments sharing interlocked seam allowances, with concealed snap systems at strategic points allowing the actor to reverse the piece in a single fluid motion. The deconstructed shirt used French seams executed on the exterior with the same precision they would receive hidden inside a finished garment\u2014the exposed construction had to demonstrate mastery, not absence of finish. Modular pieces were engineered with magnetic closures and hook systems tested through weeks of rehearsal collaboration.",
+            "outcome": "The costumes became active participants in the storytelling. Critics noted the 'haunting minimalism' of the costume work. The reversible coat technique has since been adopted by other designers for similar experimental productions."
           },
           "techniques": [
             "Reversible garment construction",
@@ -1029,16 +1031,16 @@
       "order": 3,
       "featuredPhoto": "categories/film-production/the-crimson-inheritance/lead-gown-production.jpg",
       "categoryContent": {
-        "headline": "Building for the Camera",
-        "introduction": "Film construction demands invisible perfection. Every seam, every button, every stitch must be flawless because the camera sees everything. Continuity across weeks of shooting means meticulous documentation and sometimes building multiple identical copies of the same garment.",
-        "approach": "I photograph every stage of construction - not just for my records, but because the continuity department needs documentation. My phone documents the build stages; the unit photographer captures the work on set under lights."
+        "headline": "Building History into Fabric",
+        "introduction": "Period construction for camera demands a deeper fidelity than the audience ever consciously registers. Every seam technique, every interlining, every buttonhole must be accurate to the era, because the lens magnifies any anachronism. Building for film means marrying historical research with the practical requirements of continuity across months of shooting and the occasional demand for identical stunt duplicates.",
+        "approach": "I begin with primary source research\u2014surviving garments, period tailoring manuals, photographic archives\u2014then draft patterns using the construction methods of the era itself. Fabrics are selected for both historical accuracy and how they behave under the production's lighting design. Where a theatre build prioritises durability, film construction prioritises invisible perfection: every detail must withstand the close-up. Duplicate builds are matched stitch for stitch to maintain continuity across shooting days."
       },
       "projects": [
         {
           "id": "the-crimson-inheritance",
           "title": "The Crimson Inheritance",
           "slug": "the-crimson-inheritance",
-          "description": "Period mystery drama set in 1880s England exploring family secrets and inheritance disputes. Six-month shoot requiring historically accurate Victorian construction. Built 12 principal character costumes with multiple copies for stunts and continuity. Lead construction on female lead's burgundy silk day dress with 30+ buttonholes and male lead's formal three-piece suit.",
+          "description": "Twelve principal character costumes with forty-plus duplicates for a six-month period mystery shoot set in 1880s England. Lead construction on the female lead's burgundy silk taffeta day dress: fitted bodice with spiral steel boning channels, princess seam construction, thirty-plus hand-sewn buttonholes, and a wire-framed bustle pad supporting authentic 1880s skirt draping. The male lead's charcoal wool tailcoat required full horsehair canvas construction with hand pad-stitched lapels, hand-set sleeve heads, and a matching waistcoat with welt pockets and silk back. Stunt duplicates were matched stitch for stitch against hero garments for continuity across months of shooting.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -1297,7 +1299,7 @@
           "id": "shadows-and-smoke",
           "title": "Shadows and Smoke",
           "slug": "shadows-and-smoke",
-          "description": "Neo-noir crime thriller set in 1940s Los Angeles with contemporary edge. Eight-month shoot requiring period film noir construction with modern cinematic finishing. Built 15 principal costumes emphasizing sharp tailoring, dramatic silhouettes, and high-contrast fabric choices for black-and-white aesthetic despite color filming. Lead construction on detective's signature double-breasted overcoat, femme fatale's bias-cut evening gowns, and gangster three-piece suits.",
+          "description": "Fifteen principal costumes for a neo-noir crime thriller set in 1940s Los Angeles, built for dramatic silhouette under high-contrast lighting. Lead construction on the detective's signature double-breasted overcoat in heavy charcoal melton wool: structured canvas shoulders for the exaggerated 1940s line, wide peaked lapels pad-stitched for permanent roll, and a belted waist engineered for movement and drape on camera. The femme fatale's silver-grey silk satin evening gown required true bias-cut construction for period-accurate fluid drape. Three identical copies of the hero overcoat were built for stunt work, continuity, and backup, each matched to the original's exact measurements and wear characteristics.",
           "isFeatured": true,
           "order": 2,
           "projectDetails": {
@@ -1309,9 +1311,9 @@
             "scale": "15 principal costumes, 30+ duplicates for stunts and continuity"
           },
           "projectContent": {
-            "challenge": "Creating costumes that would read dramatically in the director's high-contrast lighting style. Every fabric choice had to consider how it would appear under harsh key lighting and deep shadows. The detective's overcoat needed to move beautifully for the noir aesthetic while surviving stunt work.",
-            "approach": "Heavy emphasis on silhouette and drape over surface decoration. Structured shoulders, crisp lapels, perfect pressing. Fabrics chosen for how they absorbed or reflected light. Built three identical copies of the detective's hero coat for stunts, continuity, and backup.",
-            "outcome": "The costume work became integral to the film's visual style. The director specifically lit scenes to showcase the coat's movement. Film festival reviews noted the 'impeccable period tailoring' as enhancing the noir atmosphere."
+            "challenge": "Every fabric choice had to consider behaviour under the director's high-contrast lighting design\u2014how charcoal melton absorbed key light, how silk satin caught and scattered it, how pinstripe wool read from different camera distances. The detective's overcoat needed to move beautifully for the noir aesthetic\u2014that particular weight and swing of heavy wool in motion\u2014while surviving stunt sequences across eight months of production.",
+            "approach": "Construction prioritised silhouette and drape over surface decoration. The overcoat's shoulders were built with extended canvas pads to achieve the 1940s breadth, the lapels pad-stitched with silk thread for a roll that would read dramatically in side lighting. Fabrics were selected through camera tests, choosing weights and weaves for their light absorption and movement properties. The bias-cut gown was constructed on the true bias with French seams throughout, allowing the silk satin to find its own drape line. Three identical hero coats were built in sequence, each pressed and aged to match.",
+            "outcome": "The costume work became integral to the film's visual style. The director specifically lit scenes to showcase the overcoat's movement and drape. Film festival reviews noted the 'impeccable period tailoring' as a defining element of the noir atmosphere."
           },
           "techniques": [
             "1940s period tailoring techniques",
@@ -1619,16 +1621,16 @@
       "order": 3,
       "featuredPhoto": "categories/specialty-techniques/leatherwork/armor-vest-complete.jpg",
       "categoryContent": {
-        "headline": "Mastering Specialized Construction",
-        "introduction": "Theatrical costume construction demands expertise beyond traditional tailoring. Leatherwork requires different tools, different stitching techniques, different finishing. Corsetry demands precision engineering for both historical accuracy and performer comfort. Each specialty technique is a craft unto itself.",
-        "approach": "I document these techniques extensively - the tools, the materials, the finished elements. These builds often span multiple projects, showing technique development across different applications."
+        "headline": "The Invisible Art of Perfect Finishing",
+        "introduction": "The techniques in this collection sit at the boundary between tailoring and fine craft\u2014leatherwork, corsetry, structural fabrication. Each discipline carries its own traditions, its own tool vocabulary, and its own standards of precision. Hand-set grommets, hand-tooled leather, spiral steel boning channels stitched to the millimetre: these are the finishing arts that elevate a constructed garment into something that endures.",
+        "approach": "Specialty construction demands respect for materials that behave nothing like cloth. Vegetable-tanned leather must be cut, shaped, and finished with entirely different tools and instincts than wool or silk. Corsetry is structural engineering as much as sewing\u2014boning placement, channel precision, and grommet spacing determine whether a foundation garment supports or restricts. I approach each discipline as an apprentice to the material, letting its properties guide the construction rather than imposing textile assumptions upon it."
       },
       "projects": [
         {
           "id": "leatherwork",
           "title": "Leatherwork",
           "slug": "leatherwork",
-          "description": "Leather construction techniques across multiple projects: armor pieces, period accessories, and structural costume elements. Working with vegetable-tanned leather, brass hardware, hand-tooling, and weathering effects. This showcase includes work from post-apocalyptic armor to historical leather doublets.",
+          "description": "Cross-project showcase of leather construction techniques: vegetable-tanned hide shaped into articulated armour, period doublets, and structural costume elements. The armour vest demonstrates wet-forming over carved patterns, hand-tooling with swivel knife and stamping tools, and brass rivet construction for articulated shoulder guards. Edges are burnished by hand to a polished finish, hardware is set with reinforced saddle-stitching, and weathering is built through layered dye application and controlled abrasion. Work shown spans post-apocalyptic stage armour through historical Elizabethan leather doublets.",
           "isFeatured": true,
           "order": 1,
           "techniques": [
@@ -1733,7 +1735,7 @@
           "id": "corsetry",
           "title": "Corsetry",
           "slug": "corsetry",
-          "description": "Period corsetry construction for theater and film. Building historically accurate foundation garments with modern comfort considerations for 8+ hour performance wear. Techniques include spiral steel boning, hand-set grommets, and traditional coutil construction. Work shown spans Victorian, Edwardian, and Regency periods.",
+          "description": "Period corsetry for theatre and film spanning Victorian, Edwardian, and Regency silhouettes, constructed with traditional materials and methods adapted for modern performance demands. Foundation garments are built on heavy coutil with precisely stitched boning channels accepting spiral steel bones, hand-set brass grommets for lacing, and silk satin fashion exteriors finished over the structural layer. Comfort engineering for eight-plus hours of wear\u2014graduated boning density, strategic channel placement, and careful fitting\u2014distinguishes performance corsetry from purely historical reproduction.",
           "isFeatured": false,
           "order": 2,
           "techniques": [

@@ -4,8 +4,10 @@
     "name": "Emma Rodriguez",
     "role": "Film Costume Supervisor",
     "location": "Los Angeles, CA",
-    "bio": "Veteran film costume supervisor with 20+ years managing wardrobe departments on productions ranging from intimate indie dramas to $150M blockbusters. Specialist in continuity management, stunt multiples coordination, and large-scale period productions. Known for calm leadership under pressure and meticulous organizational systems that keep complex shoots running smoothly.",
-    "yearsActive": "2003-present"
+    "bio": "With over two decades supervising wardrobe departments on major studio productions, I bring systematic precision to the art of costume. My work spans period epics, action tentpoles, intimate dramas, and international co-productions—managing teams of 45+, budgets exceeding $4M, and inventories of thousands of individual costumes. From $150M studio blockbusters to award-winning independents, I build the organizational infrastructure that allows costume departments to deliver at any scale.",
+    "yearsActive": "2003-present",
+    "theme": "modern-minimal",
+    "template": "featured-grid"
   },
   "profile": {
     "images": [
@@ -54,16 +56,16 @@
       "order": 1,
       "featuredPhoto": "categories/period-epic/the-winter-palace/ballroom-sequence-production.jpg",
       "categoryContent": {
-        "headline": "Managing History at Scale",
-        "introduction": "Period epics are the ultimate test of costume supervision. Every extra in a crowd scene needs period-accurate clothing. Every hero costume needs multiples for coverage. Every fabric choice must survive the scrutiny of 4K cameras. I build systems that scale from intimate two-shots to thousand-extra crowd scenes.",
-        "approach": "My approach combines rigorous pre-production planning with flexible on-set problem-solving. I create comprehensive costume plots mapping every character through every scene, establish clear workflows for costume changes, and build relationships with local resources for international shoots."
+        "headline": "Managing Wardrobe at Feature Film Scale",
+        "introduction": "Period productions represent the most demanding scale challenges in costume supervision. On The Winter Palace, my department managed 2,400 individual costumes across a 45-person crew, dressing crowd scenes of 200+ extras in historically verified garments. This is work measured in thousands of costumes, million-dollar budgets, and absolute precision in period accuracy.",
+        "approach": "I implement structured departmental workflows—dedicated stations for fitting, alterations, aging, and repair—that allow a large team to operate efficiently across parallel workstreams. Comprehensive costume plots map every character through every scene before a single garment is cut. For international shoots, I establish local vendor relationships months in advance and coordinate multi-language crews through standardized tracking systems."
       },
       "projects": [
         {
           "id": "the-winter-palace",
           "title": "The Winter Palace",
           "slug": "the-winter-palace",
-          "description": "Epic historical drama spanning the final years of the Romanov dynasty, from the opulence of imperial Russia through the chaos of revolution. Supervised a costume department of 45 people managing 2,400 individual costumes across 14 weeks of principal photography. The production required seamless transitions between lavish court scenes with 200+ extras and intimate family moments, all while maintaining strict historical accuracy verified by academic consultants.",
+          "description": "A $4.2M costume department operation spanning 14 weeks of principal photography across Prague and St. Petersburg. Managed a 45-person department and an inventory of 2,400 individual costumes serving 127 speaking roles and crowd scenes of 200+ extras. The production required seamless transitions between lavish imperial court scenes and intimate family sequences, all verified against academic historical standards. The ballroom massacre sequence—180 extras in full formal wear, costumes progressively destroyed over three days—demanded a dedicated continuity infrastructure to track exact damage states across 847 VFX shots.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -77,8 +79,8 @@
             "scale": "2,400 costumes, 45 department crew, 200+ extras in major sequences"
           },
           "projectContent": {
-            "challenge": "Managing the transition between imperial opulence and revolutionary destruction - often within the same shooting day. The ballroom massacre sequence required 180 extras in full formal wear, then the same costumes progressively destroyed over three days of filming while maintaining exact continuity.",
-            "approach": "I established a 'costume factory' workflow with dedicated stations for fitting, alterations, aging/distressing, and repair. Created a color-coded tagging system tracking each costume's damage state through the massacre sequence. Pre-built destruction templates so we could replicate specific tears and blood patterns across multiples.",
+            "challenge": "Managing the transition between imperial opulence and revolutionary destruction—often within the same shooting day. The ballroom massacre sequence required 180 extras in full formal wear, then the same costumes progressively destroyed over three days of filming while maintaining exact continuity.",
+            "approach": "Established a departmental 'costume factory' workflow with dedicated stations for fitting, alterations, aging/distressing, and repair. Implemented a color-coded tagging system tracking each costume's damage state through the massacre sequence. Pre-built destruction templates enabled the team to replicate specific tears and blood patterns across multiples on a reliable schedule.",
             "outcome": "Zero continuity errors across 847 VFX shots. The ballroom sequence received specific praise from the studio for its seamless costume continuity. Department came in under budget despite scope increases. Currently in post-production for 2025 release."
           },
           "techniques": [
@@ -215,7 +217,7 @@
           "id": "letters-from-saigon",
           "title": "Letters from Saigon",
           "slug": "letters-from-saigon",
-          "description": "Intimate war drama following an American journalist and Vietnamese translator in 1967 Saigon. Supervised costume department through challenging location shoot in Vietnam and Thailand, managing both period American military and civilian Vietnamese wardrobes while navigating tropical climate conditions that destroyed fabrics daily.",
+          "description": "An $1.8M costume department supporting 340 costumes across an 8-week international shoot in Vietnam and Thailand. Led an 18-person crew through extreme tropical conditions that destroyed period fabrics within days—vintage cotton rotted, dyes bled, and humidity caused permanent damage. Managed both period American military and civilian Vietnamese wardrobes while maintaining 1967-era accuracy verified by cultural consultants. Developed rapid-rotation and on-site treatment protocols that kept production on schedule despite losing 40% of costumes to climate damage.",
           "isFeatured": true,
           "order": 2,
           "projectDetails": {
@@ -229,9 +231,9 @@
             "scale": "340 costumes, 18 department crew"
           },
           "projectContent": {
-            "challenge": "Tropical humidity destroyed period fabrics within days - vintage cotton rotted, dyes bled, and sweat stains became permanent. We needed to maintain 1967-accurate costumes through monsoon conditions while keeping actors comfortable in 95°F heat.",
-            "approach": "Developed a rapid rotation system with triple the normal multiples. Established on-site treatment protocols using period-appropriate fabric stabilizers. Created breathable hidden underlayers for actor comfort. Built relationships with local Vietnamese textile experts for emergency sourcing.",
-            "outcome": "Completed production on schedule despite losing 40% of costumes to climate damage - all replaced without delays. Film premiered at Toronto International Film Festival 2023. Costume work praised for authenticity by Vietnamese cultural consultants."
+            "challenge": "Tropical humidity destroyed period fabrics within days—vintage cotton rotted, dyes bled, and sweat stains became permanent. The department needed to maintain 1967-accurate costumes through monsoon conditions while keeping actors functional in 95°F heat.",
+            "approach": "Implemented a rapid rotation system with triple the normal multiples. Established on-site treatment protocols using period-appropriate fabric stabilizers and built breathable hidden underlayers for actor comfort. Developed relationships with local Vietnamese textile experts for emergency sourcing, ensuring the supply chain could absorb a 40% attrition rate without production delays.",
+            "outcome": "Completed production on schedule despite losing 40% of costumes to climate damage—all replaced without delays. Film premiered at Toronto International Film Festival 2023. Costume work praised for authenticity by Vietnamese cultural consultants."
           },
           "techniques": [
             "Tropical climate costume preservation",
@@ -312,16 +314,16 @@
       "order": 2,
       "featuredPhoto": "categories/action-stunt/freefall/hero-costume-multiples.jpg",
       "categoryContent": {
-        "headline": "Precision Under Pressure",
-        "introduction": "Action films destroy costumes. A single stunt can consume five identical hero costumes in one morning. My job is building systems that keep the camera rolling - having the right costume in the right damage state ready the moment it's needed.",
-        "approach": "I work backwards from the stunt coordinator's breakdown, calculating multiples needed for each gag. Every hero costume gets a destruction budget. I build relationships with specialty fabricators who can replicate costumes overnight when we burn through reserves."
+        "headline": "Precision Logistics for High-Destruction Production",
+        "introduction": "Action productions consume costumes at an extraordinary rate—a single stunt sequence can require dozens of identical hero costumes, each tracked through specific damage states for exact continuity matching. On Freefall, my department managed 127 hero costume multiples across 47 hidden cut points. This is precision logistics at industrial scale, where a missing tear or mismatched dust pattern can cost a production hours.",
+        "approach": "I work from the stunt coordinator's breakdown to calculate multiples requirements, then build a full destruction budget for every hero costume. My teams use proprietary damage-state tracking systems—photographing costumes from multiple angles after every setup—and maintain rapid-application kits that can recreate any specific damage state within minutes. I staff dedicated continuity sub-teams on high-destruction shoots and maintain fabricator relationships for overnight replication when reserves run low."
       },
       "projects": [
         {
           "id": "freefall",
           "title": "Freefall",
           "slug": "freefall",
-          "description": "High-octane heist thriller following a team of thieves through a 40-story building collapse. Managed an unprecedented 127 multiples of the hero costume alone - each tracked through specific damage states as the character survives increasingly catastrophic destruction. The film's signature 'single continuous shot' actually comprised 47 hidden cuts requiring exact costume matching.",
+          "description": "A $3.1M costume department budget covering 127 hero costume multiples—an unprecedented volume—across 16 weeks of principal photography. Managed a 28-person department coordinating four stunt doubles per principal actor through the film's signature 40-minute 'continuous shot,' which actually comprised 47 hidden cuts filmed over 6 weeks. Each cut point required exact matching of progressive dust, tears, burns, and blood across every costume. Built a proprietary damage-tracking system and dedicated four-person continuity team that eliminated visible costume breaks across the entire sequence.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -335,9 +337,9 @@
             "scale": "127 hero costume multiples, 28 department crew, 4 stunt doubles per principal"
           },
           "projectContent": {
-            "challenge": "The director wanted continuous costume degradation across what appears to be a single 40-minute sequence. In reality, this was 47 separate setups filmed over 6 weeks, requiring exact matching of progressive dust, tears, burns, and blood across every cut point.",
-            "approach": "Created a proprietary damage tracking system photographing each costume state from 8 angles after every setup. Built 'damage application kits' allowing us to recreate any specific state within 20 minutes. Maintained a dedicated team of four whose only job was costume damage continuity.",
-            "outcome": "The 'continuous shot' sequence received widespread acclaim with zero visible costume continuity breaks. VFX team credited our tracking system for reducing their paint-out work by 60%. Film grossed $340M worldwide."
+            "challenge": "The director required continuous costume degradation across what appears to be a single 40-minute sequence. In reality, this was 47 separate setups filmed over 6 weeks, requiring exact matching of progressive dust, tears, burns, and blood across every cut point.",
+            "approach": "Developed a proprietary damage tracking system photographing each costume state from 8 angles after every setup. Built standardized 'damage application kits' enabling the team to recreate any specific state within 20 minutes. Assigned a dedicated four-person sub-team whose sole responsibility was costume damage continuity across the sequence.",
+            "outcome": "The 'continuous shot' sequence received widespread acclaim with zero visible costume continuity breaks. VFX team credited the tracking system for reducing their paint-out work by 60%. Film grossed $340M worldwide."
           },
           "techniques": [
             "High-volume multiples management",
@@ -443,7 +445,7 @@
           "id": "the-matadors-shadow",
           "title": "The Matador's Shadow",
           "slug": "the-matadors-shadow",
-          "description": "Crime thriller set in the world of Spanish bullfighting, requiring authentic traje de luces (suits of lights) for elaborate arena sequences while managing blood effects and stunt work. Coordinated with Spanish bullfighting costumers for cultural authenticity while adapting traditional garments for film stunt requirements.",
+          "description": "A $2.4M costume department managing 380 total costumes including 18 traditional traje de luces (suits of lights), each valued at $15,000–$50,000 and requiring months to create traditionally. Delivered all 18 suits within a 5-week prep window by partnering with three generations of a Seville bullfighting costume family. Coordinated a 22-person department across Madrid and Seville, adapting culturally significant garments—never designed for film stunt work—into both camera-ready hero versions and reinforced stunt-safe duplicates with blood-resistant treatments.",
           "isFeatured": false,
           "order": 2,
           "projectDetails": {
@@ -457,8 +459,8 @@
             "scale": "18 traje de luces, 380 total costumes, 22 department crew"
           },
           "projectContent": {
-            "challenge": "Traditional traje de luces cost $15,000-50,000 each and take months to create. We needed 18 for principal photography, plus multiples for stunts, with only 5 weeks prep. The garments are extremely fragile - not designed for film stunt work.",
-            "approach": "Partnered with three generations of a Seville bullfighting costume family who created 'hero' suits for close-ups and taught us to build 'stunt' versions with reinforced structures and breakaway elements. Developed blood-resistant treatments that didn't affect the gold embroidery's camera appearance.",
+            "challenge": "Traditional traje de luces cost $15,000–$50,000 each and take months to create. The production required 18 for principal photography, plus multiples for stunts, with only 5 weeks prep. The garments are extremely fragile—not designed for film stunt work.",
+            "approach": "Partnered with three generations of a Seville bullfighting costume family who created 'hero' suits for close-ups and trained the department to build reinforced 'stunt' versions with breakaway elements. Developed blood-resistant treatments verified not to affect the gold embroidery's on-camera appearance. Established handling protocols for the fragile hero garments that prevented any damage during production.",
             "outcome": "Delivered all 18 suits on schedule. Zero cultural authenticity complaints from Spanish consultants. The arena sequences received praise from Spanish film critics for their accuracy. Lead actor trained with actual matadors while in full costume."
           },
           "techniques": [
@@ -539,16 +541,16 @@
       "order": 3,
       "featuredPhoto": "categories/contemporary-drama/the-quiet-leaving/family-dinner-production.jpg",
       "categoryContent": {
-        "headline": "The Invisible Art",
-        "introduction": "In contemporary drama, the best costume work is invisible. Audiences shouldn't notice the costumes - they should feel the character. My job is maintaining that illusion across months of out-of-sequence shooting while supporting the subtle evolution the designer has crafted.",
-        "approach": "I create detailed costume timelines mapping each character's wardrobe against their emotional journey. I work with actors to establish consistent physical relationships with their clothes - how they fidget with sleeves, whether shirts stay tucked. These details matter when scenes are shot months apart."
+        "headline": "Sustaining Character Continuity Across Narrative Arcs",
+        "introduction": "Character-driven productions demand a different kind of precision. Every wardrobe choice carries emotional weight, and maintaining the designer's intended arc across weeks or months of non-linear shooting requires meticulous documentation and deep collaboration with actors and directors. The discipline here is in the details—a sleeve rolled at exactly the right point, a shirt untucked at precisely the right scene.",
+        "approach": "I build detailed costume timelines mapping each character's wardrobe against their emotional journey, then document the specific physical relationships between actors and their clothes—how they fidget with cuffs, whether collars stay buttoned, when formality breaks down. These behavioral records ensure continuity when scenes are shot weeks apart. Close coordination with designers and actors maintains the integrity of arcs that audiences feel but never consciously see."
       },
       "projects": [
         {
           "id": "the-quiet-leaving",
           "title": "The Quiet Leaving",
           "slug": "the-quiet-leaving",
-          "description": "Intimate family drama following three adult siblings over a single weekend as they gather to move their mother into assisted living. The film tracks subtle costume deterioration as emotional walls crumble - carefully pressed clothes becoming rumpled, deliberate outfit choices giving way to borrowed sweatshirts. Shot entirely in sequence over 18 days in a single location.",
+          "description": "A focused $380K costume department supporting 42 costumes for 4 principal actors across 18 days of sequential shooting. The production's central challenge was tracking deliberate costume deterioration as emotional walls crumble—carefully pressed clothes becoming rumpled, deliberate outfit choices giving way to borrowed sweatshirts—while ensuring every transition read as organic rather than designed. Built detailed entropy maps and borrowed-item tracking systems that maintained precise control over subtle wardrobe progressions throughout the shoot.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -562,8 +564,8 @@
             "scale": "42 costumes, 6 department crew, 4 principal actors"
           },
           "projectContent": {
-            "challenge": "The director wanted costume to reflect emotional unraveling without ever feeling like 'costume design.' Each character arrives in armor - their 'public self' clothes - and gradually reveals their real selves. This had to feel organic, not designed.",
-            "approach": "Worked with the designer to create detailed 'entropy maps' for each character. Established specific rules: when does Sarah untuck her blouse? At what point does Michael's tie come off? Tracked 'borrowed items' as characters literally take on pieces of each other through the weekend.",
+            "challenge": "The director required costume to reflect emotional unraveling without ever feeling like 'costume design.' Each character arrives in armor—their 'public self' clothes—and gradually reveals their real selves. Every transition had to feel organic, not constructed.",
+            "approach": "Collaborated with the designer to create detailed 'entropy maps' for each character, establishing specific rules governing when and how formality breaks down. Tracked 'borrowed items' as characters literally take on pieces of each other through the weekend, maintaining a cross-character exchange log that ensured every garment swap was consistent and intentional across the shooting schedule.",
             "outcome": "Film premiered at Sundance 2024, sold to A24 for distribution. Multiple reviews noted the 'lived-in reality' of the costumes without identifying them as 'designed.' The director specifically thanked the costume department for 'understanding the assignment.'"
           },
           "techniques": [
@@ -668,7 +670,7 @@
           "id": "midnight-pastoral",
           "title": "Midnight Pastoral",
           "slug": "midnight-pastoral",
-          "description": "Rural American drama following a farming family through a year of crisis. The film required authentic working-class wardrobes that showed real wear patterns - not 'movie distressed' but genuinely worn by bodies doing physical labor. Shot over 14 months to capture actual seasonal changes.",
+          "description": "A $290K costume department operating across 14 months of seasonal shoots in rural Nebraska. Managed 89 costumes with a 4-person crew under a production mandate that rejected all conventional film aging techniques in favor of genuine wear patterns—not 'movie distressed' but authentically worn by bodies doing physical labor. Maintained continuity across four seasonal shooting blocks, requiring long-term storage protocols and precise documentation of real wear patterns developed by actors doing actual farm work during prep.",
           "isFeatured": false,
           "order": 2,
           "projectDetails": {
@@ -682,9 +684,9 @@
             "scale": "89 costumes, 4 department crew"
           },
           "projectContent": {
-            "challenge": "The director rejected all 'movie aging' - he wanted costumes that had actually been worn by farming bodies. We needed wardrobes that showed real sweat patterns, genuine sun fade, authentic wear at stress points. And we had to maintain continuity across 14 months of seasonal shoots.",
-            "approach": "Sourced all costumes from actual rural thrift stores and farm auctions. Had actors wear their hero costumes during prep weeks while doing actual farm work. Documented real wear patterns and replicated them across multiples. Created seasonal storage protocols to maintain costume states between shoots.",
-            "outcome": "Film received Special Jury Prize at Sundance for authenticity. Rural audiences specifically praised the costume work as 'finally getting it right.' The 'real wear' approach has influenced my work on subsequent productions."
+            "challenge": "The director rejected all conventional film aging—he required costumes that had actually been worn by farming bodies. The department needed wardrobes showing real sweat patterns, genuine sun fade, and authentic wear at stress points, maintained in continuity across 14 months of seasonal shoots.",
+            "approach": "Sourced all costumes from actual rural thrift stores and farm auctions. Had actors wear their hero costumes during prep weeks while doing real farm work, then documented the resulting wear patterns and replicated them across multiples. Built seasonal storage protocols with climate-controlled conditions to maintain exact costume states between shooting blocks months apart.",
+            "outcome": "Film received Special Jury Prize at Sundance for authenticity. Rural audiences specifically praised the costume work as 'finally getting it right.' The 'real wear' methodology has informed my approach on subsequent productions."
           },
           "techniques": [
             "Authentic sourcing from rural communities",
@@ -748,16 +750,16 @@
       "order": 4,
       "featuredPhoto": "categories/international-location/the-crossing/ice-rescue-production.jpg",
       "categoryContent": {
-        "headline": "Logistics as Artistry",
-        "introduction": "Remote location work strips away every safety net. There's no overnight shipping to a Norwegian fjord. No emergency fabric store in the Moroccan desert. Success depends on meticulous preparation and creative problem-solving when that preparation inevitably meets reality.",
-        "approach": "I over-prepare obsessively - triple the multiples, backup supplies for the backups, relationships with local resources established months in advance. Then I stay flexible when the location throws something unexpected. The best location supervisors are part logistics coordinator, part diplomat, part MacGyver."
+        "headline": "The Infrastructure Behind Remote Production",
+        "introduction": "Remote international locations strip away every logistical safety net. There is no overnight shipping to a Norwegian fjord, no emergency fabric store in the Moroccan desert. Delivering production standards in these environments requires the systems and advance preparation that make large-scale work possible when conventional supply chains do not exist.",
+        "approach": "My methodology centers on systematic over-preparation: triple the standard multiples, redundant supply chains, and local vendor relationships established months before the crew arrives. I build location-specific infrastructure—heated maintenance tents for Arctic shoots, climate-resistant storage for tropical work—and train rotating international crews in standardized continuity systems that maintain consistency across countries and languages."
       },
       "projects": [
         {
           "id": "the-crossing",
           "title": "The Crossing",
           "slug": "the-crossing",
-          "description": "Arctic survival thriller following a research team stranded after their station is destroyed. Shot above the Arctic Circle in Norway during actual winter conditions, requiring costumes that kept actors genuinely warm at -30°C while maintaining visual continuity through blizzard conditions that changed costume appearances between takes.",
+          "description": "A $1.9M costume department managing 156 costumes through 11 weeks of principal photography above the Arctic Circle at temperatures reaching -30°C. Led a 14-person crew under extreme cold-weather protocols where costumes had to function as genuine survival gear while maintaining cinematic continuity through blizzard conditions that altered costume appearance between takes. Partnered with Norwegian Arctic survival experts and engineered heated maintenance infrastructure on location to keep the department operational in conditions that freeze fabric stiff and change costume silhouettes hour to hour.",
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -772,7 +774,7 @@
           },
           "projectContent": {
             "challenge": "Actual Arctic conditions meant costumes had to function as real survival gear while looking cinematic. Snow accumulation changed costume appearance between takes. Frozen fabric behaved differently than room-temperature fabric. Actors needed to be genuinely warm while appearing progressively hypothermic.",
-            "approach": "Partnered with Norwegian Arctic survival experts to select base layers. Developed quick-dry outer shells that could be reset between takes. Created 'snow continuity kits' with spray bottles and brushes to match accumulation. Built heated costume maintenance tents on location.",
+            "approach": "Partnered with Norwegian Arctic survival experts to engineer base layer systems. Developed quick-dry outer shells that could be reset between takes and created standardized 'snow continuity kits' with spray bottles and brushes to match accumulation patterns. Built heated costume maintenance tents on location, establishing a controlled environment where the department could operate at full capacity regardless of exterior conditions.",
             "outcome": "Zero cold-related actor injuries across 11 weeks in extreme conditions. Costume continuity maintained through 23 blizzard shooting days. Film acquired by Netflix for worldwide distribution."
           },
           "techniques": [
@@ -871,7 +873,7 @@
           "id": "the-long-road",
           "title": "The Long Road",
           "slug": "the-long-road",
-          "description": "Epic drama following refugees across three countries, shot on location in Jordan, Greece, and Germany over 6 months. Required managing culturally sensitive costumes across multiple nations, coordinating with local communities for authentic wardrobes, and maintaining continuity across a 2,000-mile narrative journey.",
+          "description": "A $2.1M costume department managing 420 costumes across 24 weeks of principal photography in three countries—Jordan, Greece, and Germany. Coordinated rotating international crews through standardized systems, rebuilding departmental workflows at each location while maintaining continuity across a 2,000-mile narrative journey. Required deep cultural consultation with refugee advocacy organizations and community-engaged sourcing to ensure authentic, dignified representation throughout.",
           "isFeatured": false,
           "order": 2,
           "projectDetails": {
@@ -885,8 +887,8 @@
             "scale": "420 costumes, international crew rotating by country"
           },
           "projectContent": {
-            "challenge": "Authentic representation of refugee experience required deep cultural consultation. Costumes needed to show realistic wear patterns across a months-long journey while respecting the dignity of real refugee communities. Different crew in each country meant rebuilding workflows three times.",
-            "approach": "Partnered with refugee advocacy organizations for cultural consultation. Sourced many costumes from actual refugee donation centers with community permission. Created detailed 'journey maps' tracking each costume's logical wear through the narrative. Trained three separate local crews in our continuity systems.",
+            "challenge": "Authentic representation of refugee experience required deep cultural consultation. Costumes needed to show realistic wear patterns across a months-long journey while respecting the dignity of real refugee communities. A different crew in each country meant rebuilding departmental workflows three times while maintaining unbroken continuity.",
+            "approach": "Partnered with refugee advocacy organizations for cultural consultation and sourced many costumes from actual refugee donation centers with community permission. Created detailed 'journey maps' tracking each costume's logical wear through the narrative. Developed standardized continuity systems and trained three separate local crews in identical protocols, ensuring consistent execution across all locations.",
             "outcome": "Film praised by refugee advocacy groups for authentic, dignified representation. Won European Film Award for Best Costume Design. The community-sourcing approach has become a model for similar productions."
           },
           "techniques": [
