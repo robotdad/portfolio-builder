@@ -3320,7 +3320,7 @@ textarea:focus-visible {
 
 /* Image Section */
 .section-image {
-  max-width: 900px;
+  max-width: var(--visual-content-max-width);
   margin-left: auto;
   margin-right: auto;
 }
@@ -3333,6 +3333,19 @@ textarea:focus-visible {
   width: 100%;
   height: auto;
   border-radius: var(--radius-lg);
+}
+
+/* Portrait images: constrain height, natural width, centered */
+.image-portrait-container {
+  display: flex;
+  justify-content: center;
+}
+
+.section-image-img--portrait {
+  max-height: 85vh;
+  width: auto;
+  height: auto;
+  max-width: 100%;
 }
 
 .image-caption {

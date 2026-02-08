@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { sanitizeHtml } from '@/lib/sanitize'
+import { getAspectRatioClass } from '@/lib/image-helpers'
 import { ImageCard } from './ImageCard'
 import { Lightbox } from './Lightbox'
 import { EmptyState } from './EmptyState'
@@ -162,23 +163,47 @@ function ImageSectionView({ section }: { section: ImageSection }) {
   // Use natural aspect ratio when image dimensions are available in the section,
   // otherwise fall back to 3/2 (a moderate default that works for both orientations)
   const sectionWithDims = section as ImageSection & { width?: number; height?: number }
-  const aspectRatio = sectionWithDims.width && sectionWithDims.height
+  const hasNaturalDims = !!(sectionWithDims.width && sectionWithDims.height)
+  const aspectRatio = hasNaturalDims
     ? `${sectionWithDims.width} / ${sectionWithDims.height}`
     : '3 / 2'
   
+  // Portrait images need a fundamentally different container strategy:
+  // constrain by height (85vh) and let width be natural, centered.
+  // Landscape/square images use full-width containers with natural aspect ratio.
+  const orientation = hasNaturalDims
+    ? getAspectRatioClass(sectionWithDims.width!, sectionWithDims.height!)
+    : 'landscape'
+  const isPortrait = orientation === 'portrait'
+  
   return (
-    <section className="section section-image">
+    <section className={`section section-image section-image--${orientation}`}>
       <figure className="image-figure">
-        <div style={{ position: 'relative', width: '100%', aspectRatio }}>
-          <Image 
-            src={section.imageUrl} 
-            alt={section.altText || ''} 
-            className="section-image-img"
-            fill
-            unoptimized
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
+        {isPortrait && hasNaturalDims ? (
+          // Portrait: constrain height to viewport, let width follow aspect ratio, center
+          <div className="image-portrait-container">
+            <Image 
+              src={section.imageUrl} 
+              alt={section.altText || ''} 
+              className="section-image-img section-image-img--portrait"
+              width={sectionWithDims.width!}
+              height={sectionWithDims.height!}
+              unoptimized
+            />
+          </div>
+        ) : (
+          // Landscape/square: full width with natural aspect ratio
+          <div style={{ position: 'relative', width: '100%', aspectRatio }}>
+            <Image 
+              src={section.imageUrl} 
+              alt={section.altText || ''} 
+              className="section-image-img"
+              fill
+              unoptimized
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+        )}
         {section.caption && (
           <figcaption className="image-caption">
             {section.caption}
