@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { Navigation, type NavPage, type NavCategory } from '@/components/portfolio/Navigation'
 import { PublicFooter } from '@/components/portfolio/PublicFooter'
+import { ScrollToTop } from '@/components/portfolio/ScrollToTop'
 
 // ============================================================================
 // Types
@@ -81,6 +82,7 @@ export default async function PublicPortfolioLayout({
 
   return (
     <div className="portfolio-page" data-theme={theme}>
+      <ScrollToTop />
       <Navigation
         portfolioSlug=""
         portfolioName={portfolio.name}
