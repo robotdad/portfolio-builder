@@ -12,7 +12,7 @@ export function FeaturedCarouselDisplay({ section, portfolioSlug }: Props) {
   // Transform section.items to the FeaturedProject[] format expected by FeaturedCarousel
   const projects = section.items.map(item => ({
     id: item.id,
-    slug: item.link?.replace(/^\/[^/]+\/[^/]+\//, '') || item.id, // Extract project slug from link
+    slug: item.link?.split('/').filter(Boolean).pop() || item.id, // Extract project slug from link
     title: item.title,
     venue: null,
     year: null,
