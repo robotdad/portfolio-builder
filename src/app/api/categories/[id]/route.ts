@@ -22,6 +22,24 @@ export async function GET(
             height: true,
           },
         },
+        children: {
+          include: {
+            featuredImage: {
+              select: {
+                id: true,
+                url: true,
+                thumbnailUrl: true,
+                altText: true,
+                width: true,
+                height: true,
+              },
+            },
+            _count: {
+              select: { projects: true },
+            },
+          },
+          orderBy: { order: 'asc' },
+        },
         projects: {
           orderBy: { order: 'asc' },
         },

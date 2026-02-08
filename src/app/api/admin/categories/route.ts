@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { portfolioId, name, description, featuredImageId } = validation.data
+    const { portfolioId, name, description, featuredImageId, parentId } = validation.data
 
     // Verify portfolio exists
     const portfolio = await prisma.portfolio.findUnique({
@@ -29,6 +29,35 @@ export async function POST(request: NextRequest) {
         { error: ENTITY_ERRORS.PORTFOLIO_NOT_FOUND.message, code: 'NOT_FOUND', success: false },
         { status: 404 }
       )
+    }
+
+    // Validate parentId depth (max 1 level of nesting)
+    if (parentId) {
+      const parent = await prisma.category.findUnique({
+        where: { id: parentId },
+        select: { id: true, parentId: true, portfolioId: true },
+      })
+
+      if (!parent) {
+        return NextResponse.json(
+          { error: 'Parent category not found', code: 'NOT_FOUND', success: false },
+          { status: 404 }
+        )
+      }
+
+      if (parent.portfolioId !== portfolioId) {
+        return NextResponse.json(
+          { error: 'Parent category must belong to the same portfolio', code: 'VALIDATION_ERROR', success: false },
+          { status: 400 }
+        )
+      }
+
+      if (parent.parentId !== null) {
+        return NextResponse.json(
+          { error: 'Subcategories cannot be nested more than one level deep', code: 'VALIDATION_ERROR', success: false },
+          { status: 400 }
+        )
+      }
     }
 
     // Generate unique slug
@@ -45,9 +74,9 @@ export async function POST(request: NextRequest) {
       counter++
     }
 
-    // Get max order
+    // Get max order (scoped to same parent level)
     const maxOrder = await prisma.category.aggregate({
-      where: { portfolioId },
+      where: { portfolioId, parentId: parentId ?? null },
       _max: { order: true },
     })
     const order = (maxOrder._max.order ?? -1) + 1
@@ -60,6 +89,7 @@ export async function POST(request: NextRequest) {
         description,
         order,
         featuredImageId,
+        parentId: parentId ?? null,
       },
       include: {
         featuredImage: {
@@ -71,6 +101,9 @@ export async function POST(request: NextRequest) {
             width: true,
             height: true,
           },
+        },
+        children: {
+          orderBy: { order: 'asc' },
         },
       },
     })

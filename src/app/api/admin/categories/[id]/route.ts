@@ -32,7 +32,7 @@ export async function PUT(
       )
     }
 
-    const { name, description, order, featuredImageId, draftContent } = validation.data
+    const { name, description, order, featuredImageId, parentId, draftContent } = validation.data
     const updateData: Record<string, unknown> = {}
 
     if (name !== undefined) {
@@ -57,6 +57,61 @@ export async function PUT(
       updateData.slug = slug
     }
 
+    // Validate parentId depth (max 1 level of nesting)
+    if (parentId !== undefined) {
+      if (parentId === null) {
+        // Moving to top-level
+        updateData.parentId = null
+      } else {
+        // Can't set self as parent
+        if (parentId === id) {
+          return NextResponse.json(
+            { error: 'A category cannot be its own parent', code: 'VALIDATION_ERROR', success: false },
+            { status: 400 }
+          )
+        }
+
+        const parent = await prisma.category.findUnique({
+          where: { id: parentId },
+          select: { id: true, parentId: true, portfolioId: true },
+        })
+
+        if (!parent) {
+          return NextResponse.json(
+            { error: 'Parent category not found', code: 'NOT_FOUND', success: false },
+            { status: 404 }
+          )
+        }
+
+        if (parent.portfolioId !== existing.portfolioId) {
+          return NextResponse.json(
+            { error: 'Parent category must belong to the same portfolio', code: 'VALIDATION_ERROR', success: false },
+            { status: 400 }
+          )
+        }
+
+        if (parent.parentId !== null) {
+          return NextResponse.json(
+            { error: 'Subcategories cannot be nested more than one level deep', code: 'VALIDATION_ERROR', success: false },
+            { status: 400 }
+          )
+        }
+
+        // Can't make a parent into a child if it has children
+        const childCount = await prisma.category.count({
+          where: { parentId: id },
+        })
+        if (childCount > 0) {
+          return NextResponse.json(
+            { error: 'Cannot nest a category that has subcategories', code: 'VALIDATION_ERROR', success: false },
+            { status: 400 }
+          )
+        }
+
+        updateData.parentId = parentId
+      }
+    }
+
     if (description !== undefined) updateData.description = description
     if (order !== undefined) updateData.order = order
     if (featuredImageId !== undefined) updateData.featuredImageId = featuredImageId
@@ -75,6 +130,9 @@ export async function PUT(
             width: true,
             height: true,
           },
+        },
+        children: {
+          orderBy: { order: 'asc' },
         },
       },
     })

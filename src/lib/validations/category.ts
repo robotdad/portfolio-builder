@@ -5,6 +5,7 @@ export const createCategorySchema = z.object({
   name: z.string().min(1, 'Name is required').max(100, 'Name must be 100 characters or less'),
   description: z.string().max(500, 'Description must be 500 characters or less').optional(),
   featuredImageId: z.string().optional(),
+  parentId: z.string().nullable().optional(),
 })
 
 export const updateCategorySchema = z.object({
@@ -12,6 +13,7 @@ export const updateCategorySchema = z.object({
   description: z.string().max(500, 'Description must be 500 characters or less').nullable().optional(),
   order: z.number().int().min(0).optional(),
   featuredImageId: z.string().nullable().optional(),
+  parentId: z.string().nullable().optional(),
   draftContent: z.string().nullable().optional(), // JSON serialized Section[]
   publishedContent: z.string().nullable().optional(), // JSON serialized Section[]
 })

@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const portfolioId = searchParams.get('portfolioId')
     const includeProjects = searchParams.get('includeProjects') === 'true'
+    const parentId = searchParams.get('parentId')
 
     if (!portfolioId) {
       return NextResponse.json(
@@ -15,8 +16,18 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    // Build where clause with optional parentId filter
+    const where: Record<string, unknown> = { portfolioId }
+    if (parentId === 'null' || parentId === '') {
+      // Explicitly request top-level categories
+      where.parentId = null
+    } else if (parentId) {
+      // Request children of a specific parent
+      where.parentId = parentId
+    }
+
     const categories = await prisma.category.findMany({
-      where: { portfolioId },
+      where,
       include: {
         featuredImage: {
           select: {
@@ -27,6 +38,24 @@ export async function GET(request: NextRequest) {
             width: true,
             height: true,
           },
+        },
+        children: {
+          include: {
+            featuredImage: {
+              select: {
+                id: true,
+                url: true,
+                thumbnailUrl: true,
+                altText: true,
+                width: true,
+                height: true,
+              },
+            },
+            _count: {
+              select: { projects: true },
+            },
+          },
+          orderBy: { order: 'asc' },
         },
         _count: {
           select: { projects: true },
