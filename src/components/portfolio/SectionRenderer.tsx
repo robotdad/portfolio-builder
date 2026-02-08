@@ -380,9 +380,9 @@ function GallerySectionView({ section }: { section: GallerySection }) {
                 style={{ objectFit: 'cover' }}
               />
             </button>
-            {image.caption && (
+            {(image.caption || image.altText) && (
               <figcaption className="gallery-item-caption">
-                {image.caption}
+                {image.caption || image.altText}
               </figcaption>
             )}
           </figure>

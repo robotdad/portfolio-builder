@@ -3469,22 +3469,28 @@ textarea:focus-visible {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-4);
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--space-5);
   justify-content: start;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .gallery-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-5);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
   }
 }
 
 @media (min-width: 1024px) {
   .gallery-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+  }
+}
+
+@media (min-width: 1280px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -3502,7 +3508,7 @@ textarea:focus-visible {
   cursor: pointer;
   border-radius: var(--radius-md);
   overflow: hidden;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 3;
 }
 
 .gallery-item-btn:focus-visible {
@@ -3522,10 +3528,10 @@ textarea:focus-visible {
 }
 
 .gallery-item-caption {
-  margin-top: var(--space-2);
-  font-size: var(--font-size-sm);
+  margin-top: var(--space-3);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
   color: var(--color-text-secondary);
-  text-align: center;
 }
 
 /* Load More Button */
@@ -4513,7 +4519,7 @@ textarea:focus-visible {
   }
   
   .gallery-grid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -4527,7 +4533,7 @@ textarea:focus-visible {
   
   .gallery-grid,
   .project-gallery {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
