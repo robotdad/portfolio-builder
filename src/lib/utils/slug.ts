@@ -5,6 +5,7 @@ export function generateSlug(input: string): string {
   return input
     .toLowerCase()
     .trim()
+    .replace(/&/g, ' and ') // Convert & to 'and' before stripping
     .replace(/[^a-z0-9\s-]/g, '') // Remove special chars
     .replace(/\s+/g, '-') // Spaces to hyphens
     .replace(/-+/g, '-') // Collapse multiple hyphens
