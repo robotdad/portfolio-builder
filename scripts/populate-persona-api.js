@@ -636,7 +636,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         id: generateId(),
         type: 'hero',
         name: persona.name || personaId,
-        title: `${persona.name || personaId} Portfolio`,
+        title: persona.role || '',
         bio: '',
         profileImageId: profileAssetId,
         profileImageUrl: profileAssetUrl,
