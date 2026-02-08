@@ -201,15 +201,19 @@ export function buildTextSection({ heading = '', body, formatAsHtml = false }) {
  * @param {string|null} options.imageUrl - Image URL
  * @param {string} [options.caption=''] - Image caption
  * @param {string} [options.altText=''] - Alt text for accessibility
+ * @param {number} [options.width] - Image width in pixels
+ * @param {number} [options.height] - Image height in pixels
  * @returns {Object} ImageSection
  */
 export function buildImageSection({ 
   imageId, 
   imageUrl, 
   caption = '', 
-  altText = '' 
+  altText = '',
+  width,
+  height
 }) {
-  return {
+  const section = {
     id: generateSectionId(),
     type: 'image',
     imageId: imageId || null,
@@ -217,6 +221,11 @@ export function buildImageSection({
     caption,
     altText
   };
+  if (width != null && height != null) {
+    section.width = width;
+    section.height = height;
+  }
+  return section;
 }
 
 /**
