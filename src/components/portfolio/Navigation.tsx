@@ -59,6 +59,8 @@ import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Search } from 'lucide-react'
+import { IconButton } from '@/components/ui/IconButton'
+import { MailIcon } from '@/components/shared/icons'
 import { SearchOverlay } from '@/components/search/SearchOverlay'
 
 export interface NavPage {
@@ -304,18 +306,26 @@ export function Navigation({
             </li>
           ))}
           
-          {/* Search */}
+          {/* Icon actions */}
           <li role="none">
-            <button
-              type="button"
-              onClick={() => setIsSearchOpen(true)}
-              className="portfolio-nav-link portfolio-nav-link--icon"
+            <IconButton
+              icon={<MailIcon />}
+              aria-label="Send email"
+              variant="ghost"
+              size="md"
+              onClick={() => window.location.href = 'mailto:'}
               role="menuitem"
-              aria-label="Search"
-              title="Search"
-            >
-              <Search className="w-5 h-5" />
-            </button>
+            />
+          </li>
+          <li role="none">
+            <IconButton
+              icon={<Search />}
+              aria-label="Search portfolio"
+              variant="ghost"
+              size="md"
+              onClick={() => setIsSearchOpen(true)}
+              role="menuitem"
+            />
           </li>
         </ul>
       </div>
@@ -415,8 +425,19 @@ export function Navigation({
                 </>
               )}
               
-              {/* Search */}
+              {/* Actions */}
               <li className="portfolio-nav-menu-divider" role="separator" />
+              <li role="none">
+                <a
+                  href="mailto:"
+                  className="portfolio-nav-menu-link"
+                  role="menuitem"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <MailIcon size={20} className="inline-block mr-2" />
+                  Email
+                </a>
+              </li>
               <li role="none">
                 <button
                   type="button"

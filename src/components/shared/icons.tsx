@@ -5,13 +5,19 @@
  * All icons are 16x16 or 20x20 by default and use currentColor.
  */
 
+interface IconProps {
+  size?: number
+  className?: string
+}
+
 // ============================================================================
 // Navigation Icons
 // ============================================================================
 
-export function ChevronDownIcon({ size = 20 }: { size?: number }) {
+export function ChevronDownIcon({ size = 20, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -27,9 +33,10 @@ export function ChevronDownIcon({ size = 20 }: { size?: number }) {
   )
 }
 
-export function ChevronUpIcon({ size = 20 }: { size?: number }) {
+export function ChevronUpIcon({ size = 20, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -45,9 +52,10 @@ export function ChevronUpIcon({ size = 20 }: { size?: number }) {
   )
 }
 
-export function ChevronLeftIcon({ size = 24 }: { size?: number }) {
+export function ChevronLeftIcon({ size = 24, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -63,9 +71,10 @@ export function ChevronLeftIcon({ size = 24 }: { size?: number }) {
   )
 }
 
-export function ChevronRightIcon({ size = 24 }: { size?: number }) {
+export function ChevronRightIcon({ size = 24, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -85,9 +94,10 @@ export function ChevronRightIcon({ size = 24 }: { size?: number }) {
 // Metadata Icons
 // ============================================================================
 
-export function CalendarIcon({ size = 16 }: { size?: number }) {
+export function CalendarIcon({ size = 16, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -106,9 +116,10 @@ export function CalendarIcon({ size = 16 }: { size?: number }) {
   )
 }
 
-export function MapPinIcon({ size = 16 }: { size?: number }) {
+export function MapPinIcon({ size = 16, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -125,9 +136,10 @@ export function MapPinIcon({ size = 16 }: { size?: number }) {
   )
 }
 
-export function UserIcon({ size = 16 }: { size?: number }) {
+export function UserIcon({ size = 16, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -144,9 +156,10 @@ export function UserIcon({ size = 16 }: { size?: number }) {
   )
 }
 
-export function StarIcon({ size = 16 }: { size?: number }) {
+export function StarIcon({ size = 16, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -162,9 +175,10 @@ export function StarIcon({ size = 16 }: { size?: number }) {
   )
 }
 
-export function FolderIcon({ size = 16 }: { size?: number }) {
+export function FolderIcon({ size = 16, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -184,7 +198,7 @@ export function FolderIcon({ size = 16 }: { size?: number }) {
 // Media Icons
 // ============================================================================
 
-export function CameraIcon({ size = 24, className }: { size?: number; className?: string }) {
+export function CameraIcon({ size = 24, className }: IconProps) {
   return (
     <svg
       className={className}
@@ -204,9 +218,10 @@ export function CameraIcon({ size = 24, className }: { size?: number; className?
   )
 }
 
-export function GalleryIcon({ size = 20 }: { size?: number }) {
+export function GalleryIcon({ size = 20, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -224,9 +239,10 @@ export function GalleryIcon({ size = 20 }: { size?: number }) {
   )
 }
 
-export function PauseIcon({ size = 20 }: { size?: number }) {
+export function PauseIcon({ size = 20, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -239,9 +255,10 @@ export function PauseIcon({ size = 20 }: { size?: number }) {
   )
 }
 
-export function PlayIcon({ size = 20 }: { size?: number }) {
+export function PlayIcon({ size = 20, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"
@@ -254,12 +271,37 @@ export function PlayIcon({ size = 20 }: { size?: number }) {
 }
 
 // ============================================================================
+// Communication Icons
+// ============================================================================
+
+export function MailIcon({ size = 24, className }: IconProps) {
+  return (
+    <svg
+      className={className}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  )
+}
+
+// ============================================================================
 // Action Icons
 // ============================================================================
 
-export function PlusIcon({ size = 24 }: { size?: number }) {
+export function PlusIcon({ size = 24, className }: IconProps) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       viewBox="0 0 24 24"

@@ -100,6 +100,22 @@
   --nav-max-width: 1200px;         /* Navigation (initially same as content) */
   --visual-content-max-width: 1200px;  /* Grids, galleries, carousels */
   --text-content-max-width: 900px;     /* Text sections for readability */
+
+  /* --------------------------------------------------------------------------
+     ICON SIZE SCALE
+     -------------------------------------------------------------------------- */
+  --icon-size-xs: 14px;   /* tiny indicators */
+  --icon-size-sm: 16px;   /* metadata icons */
+  --icon-size-md: 20px;   /* default - buttons, nav, toolbar */
+  --icon-size-lg: 24px;   /* prominent actions, empty states */
+  --icon-size-xl: 32px;   /* decorative, onboarding */
+
+  /* --------------------------------------------------------------------------
+     ICON BUTTON BASE TOKENS
+     -------------------------------------------------------------------------- */
+  --icon-btn-icon-sm: 16px;
+  --icon-btn-icon-md: 20px;
+  --icon-btn-icon-lg: 24px;
 }
 
 /* --------------------------------------------------------------------------
@@ -328,6 +344,20 @@
   --color-skeleton: hsl(210, 12%, 91%);
   --color-skeleton-highlight: hsl(210, 12%, 96%);
 
+  /* Icon Button - Subtle blue tint on hover */
+  --icon-btn-color: var(--color-text-secondary);
+  --icon-btn-hover-color: var(--color-text-primary);
+  --icon-btn-active-color: var(--color-accent);
+  --icon-btn-bg: transparent;
+  --icon-btn-hover-bg: hsla(220, 90%, 56%, 0.08);
+  --icon-btn-active-bg: hsla(220, 90%, 56%, 0.12);
+  --icon-btn-subtle-bg: hsla(210, 15%, 50%, 0.06);
+  --icon-btn-subtle-hover-bg: hsla(220, 90%, 56%, 0.10);
+  --icon-btn-border: var(--color-border);
+  --icon-btn-hover-border: hsla(220, 90%, 56%, 0.3);
+  --icon-btn-radius: var(--button-radius);
+  --icon-btn-transition: 150ms ease;
+
   /* Component tokens */
   --button-radius: var(--radius-md);
   --card-radius: var(--radius-lg);
@@ -399,6 +429,20 @@
   --color-skeleton: hsl(40, 20%, 88%);
   --color-skeleton-highlight: hsl(40, 20%, 93%);
 
+  /* Icon Button - Color shifts to terracotta on hover */
+  --icon-btn-color: var(--color-text-secondary);
+  --icon-btn-hover-color: var(--color-accent);
+  --icon-btn-active-color: var(--color-accent-hover);
+  --icon-btn-bg: transparent;
+  --icon-btn-hover-bg: hsla(25, 60%, 45%, 0.06);
+  --icon-btn-active-bg: hsla(25, 60%, 45%, 0.10);
+  --icon-btn-subtle-bg: hsla(40, 30%, 50%, 0.06);
+  --icon-btn-subtle-hover-bg: hsla(25, 60%, 45%, 0.08);
+  --icon-btn-border: var(--color-border);
+  --icon-btn-hover-border: hsla(25, 60%, 45%, 0.3);
+  --icon-btn-radius: var(--button-radius);
+  --icon-btn-transition: 200ms ease;
+
   /* Shadows - Warm-tinted to match cream palette */
   --shadow-sm:   0 1px 2px 0 hsl(30 15% 20% / 0.06);
   --shadow-base: 0 1px 3px 0 hsl(30 15% 20% / 0.08), 0 1px 2px -1px hsl(30 15% 20% / 0.06);
@@ -459,6 +503,20 @@
   /* Skeleton/Loading */
   --color-skeleton: hsl(0, 0%, 15%);
   --color-skeleton-highlight: hsl(0, 0%, 20%);
+
+  /* Icon Button - Hot pink snap on hover */
+  --icon-btn-color: var(--color-text-secondary);
+  --icon-btn-hover-color: var(--color-accent);
+  --icon-btn-active-color: hsl(340, 85%, 65%);
+  --icon-btn-bg: transparent;
+  --icon-btn-hover-bg: hsla(340, 85%, 55%, 0.12);
+  --icon-btn-active-bg: hsla(340, 85%, 55%, 0.18);
+  --icon-btn-subtle-bg: hsla(0, 0%, 100%, 0.06);
+  --icon-btn-subtle-hover-bg: hsla(340, 85%, 55%, 0.10);
+  --icon-btn-border: var(--color-border);
+  --icon-btn-hover-border: hsla(340, 85%, 55%, 0.5);
+  --icon-btn-radius: var(--button-radius);
+  --icon-btn-transition: 100ms ease;
 
   /* Shadows - Stronger opacity + edge light for dark background depth */
   --shadow-sm:   0 1px 2px 0 rgb(0 0 0 / 0.3);
