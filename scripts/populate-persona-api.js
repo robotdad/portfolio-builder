@@ -488,7 +488,9 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     images: 0, 
     galleryImages: 0,
     profileImages: 0,
-    sectionsCreated: 0
+    sectionsCreated: 0,
+    tags: 0,
+    tagAssignments: 0
   };
   const startTime = Date.now();
 
@@ -591,8 +593,10 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   
   // Track persona data in context for per-persona layout builders
   populationContext.persona = persona;
+  populationContext.personaData = personaData;
   populationContext.profileAssetId = profileAssetId;
   populationContext.profileAssetUrl = profileAssetUrl;
+  populationContext.additionalProfileImages = [];
 
   // Upload additional profile images (selfies, candids, etc.)
   for (const profileImg of profileImages.slice(1)) {
@@ -600,9 +604,18 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     if (imgPath) {
       const altText = profileImg.title || profileImg.description || '';
       const caption = buildCaption(profileImg);
-      await uploadImage(imgPath, portfolioId, altText, caption);
+      const asset = await uploadImage(imgPath, portfolioId, altText, caption);
       stats.images++;
       stats.profileImages++;
+      // Track additional profile image assets for about page layouts
+      populationContext.additionalProfileImages.push({
+        id: asset.id,
+        url: asset.url,
+        altText,
+        caption,
+        type: profileImg.type || '',
+        title: profileImg.title || '',
+      });
       console.log(`  ✓ Uploaded: ${profileImg.title || path.basename(profileImg.file)}`);
     }
   }
@@ -726,9 +739,9 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
       const contentJson = JSON.stringify({ sections: categorySections });
       await apiCall('PUT', `/admin/categories/${categoryId}`, {
         draftContent: contentJson,
-        publishedContent: contentJson,
         order: category.order || 0
       });
+      await apiCall('POST', `/admin/categories/${categoryId}/publish`);
       stats.sectionsCreated += categorySections.length;
       console.log(`  ✓ ${category.name} (${categorySections.length} sections)`);
     } else {
@@ -739,6 +752,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   // Step 5: Process projects with rich metadata
   console.log('\n📝 Creating projects with rich content...');
   
+  const projectTagsMap = new Map();
   for (const category of personaData.categories || []) {
     const categoryId = categoryMap[category.name];
     console.log(`\n📁 ${category.name}`);
@@ -806,6 +820,11 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
           featuredImageId: featuredAsset.id,
           existingSections: buildProjectSections(project, [])  // Gallery filled later
         });
+        
+        // Track project tags for post-creation tag assignment
+        if (project.tags && project.tags.length > 0) {
+          projectTagsMap.set(projectId, project.tags);
+        }
         
         // Add project ID to category's project list
         const categoryContext = populationContext.categories.get(categorySlug);
@@ -909,6 +928,58 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     }
   }
   
+  // Step 6: Create tags and assign to projects
+  if (projectTagsMap.size > 0) {
+    console.log('\n🏷️  Creating tags and assigning to projects...');
+    
+    // Collect all unique tags from project tag data
+    const uniqueTags = new Map();
+    for (const tags of projectTagsMap.values()) {
+      for (const tag of tags) {
+        const key = `${tag.type}:${tag.value}`;
+        if (!uniqueTags.has(key)) {
+          uniqueTags.set(key, tag);
+        }
+      }
+    }
+    
+    // Create each tag via API
+    const tagIdMap = new Map();
+    for (const [key, tag] of uniqueTags) {
+      try {
+        const created = await apiCall('POST', '/admin/tags', {
+          portfolioId,
+          type: tag.type,
+          value: tag.value,
+        });
+        tagIdMap.set(key, created.data.id);
+      } catch (error) {
+        console.error(`    ✗ Failed to create tag ${key}: ${error.message}`);
+      }
+    }
+    console.log(`  ✓ Created ${tagIdMap.size} tags`);
+    
+    // Assign tags to each project
+    let assignedCount = 0;
+    for (const [projectId, tags] of projectTagsMap) {
+      const tagIds = tags
+        .map(t => tagIdMap.get(`${t.type}:${t.value}`))
+        .filter(Boolean);
+      
+      if (tagIds.length > 0) {
+        try {
+          await apiCall('PUT', `/admin/projects/${projectId}/tags`, { tagIds });
+          assignedCount++;
+        } catch (error) {
+          console.error(`    ✗ Failed to assign tags to project ${projectId}: ${error.message}`);
+        }
+      }
+    }
+    console.log(`  ✓ Assigned tags to ${assignedCount} projects`);
+    stats.tags = tagIdMap.size;
+    stats.tagAssignments = assignedCount;
+  }
+  
   // Pass 2: Per-persona page finalization (homepage + category pages)
   // Now that all projects and categories exist, build rich per-persona layouts
   console.log('\n🎨 Finalizing per-persona page layouts...');
@@ -921,16 +992,35 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     if (homePageId) {
       await apiCall('PUT', `/admin/pages/${homePageId}`, {
         draftContent: homeContent,
-        publishedContent: homeContent
       });
+      // Publish so the public site renders updated content
+      await apiCall('POST', `/admin/pages/${homePageId}/publish`);
       stats.sectionsCreated += homeSections.length;
-      console.log(`  ✓ Homepage updated (${homeSections.length} sections)`);
+      console.log(`  ✓ Homepage updated & published (${homeSections.length} sections)`);
     }
   } catch (error) {
     console.error(`  ⚠️ Homepage layout failed: ${error.message}`);
   }
   
-  // 2b: Update category pages with per-persona layouts
+  // 2b: Rebuild about page with per-persona layout (now has access to all uploaded images)
+  try {
+    const aboutPageId = populationContext.pages.about?.id;
+    if (aboutPageId) {
+      const aboutSections = buildPersonaAboutPage(personaId, populationContext);
+      const aboutContent = JSON.stringify({ sections: aboutSections });
+      await apiCall('PUT', `/admin/pages/${aboutPageId}`, {
+        draftContent: aboutContent,
+      });
+      // Publish so the public site renders updated content
+      await apiCall('POST', `/admin/pages/${aboutPageId}/publish`);
+      stats.sectionsCreated += aboutSections.length;
+      console.log(`  ✓ About page updated & published (${aboutSections.length} sections)`);
+    }
+  } catch (error) {
+    console.error(`  ⚠️ About page layout failed: ${error.message}`);
+  }
+  
+  // 2c: Update category pages with per-persona layouts
   let catIdx = 0;
   for (const category of personaData.categories || []) {
     try {
@@ -940,9 +1030,9 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         const catSections = buildPersonaCategoryPage(personaId, category, catIdx, populationContext);
         const catContent = JSON.stringify({ sections: catSections });
         await apiCall('PUT', `/admin/categories/${categoryContext.id}`, {
-          draftContent: catContent,
-          publishedContent: catContent
+          draftContent: catContent
         });
+        await apiCall('POST', `/admin/categories/${categoryContext.id}/publish`);
         stats.sectionsCreated += catSections.length;
         console.log(`  ✓ ${category.name} landing updated (${catSections.length} sections)`);
       }
@@ -964,6 +1054,8 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   console.log(`Categories:          ${stats.categories}`);
   console.log(`Projects:            ${stats.projects}`);
   console.log(`Content Sections:    ${stats.sectionsCreated}`);
+  console.log(`Tags:                ${stats.tags}`);
+  console.log(`Tag Assignments:     ${stats.tagAssignments}`);
   console.log(`Total Images:        ${stats.images}`);
   console.log(`  - Profile:         ${stats.profileImages}`);
   console.log(`  - Featured:        ${stats.projects}`);
