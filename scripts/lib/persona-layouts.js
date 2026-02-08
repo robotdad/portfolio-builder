@@ -201,6 +201,106 @@ function galleryImagesPayload(imgs) {
 }
 
 // ============================================
+// Genre-Adaptive Template Configuration
+// ============================================
+
+/**
+ * Genre archetypes influence template parameters within each persona's
+ * base aesthetic. A project's category determines its genre, which adjusts
+ * pacing (gap sizing), gallery presentation, and narrative emphasis.
+ *
+ * Three archetypes:
+ *   spectacle — Action/fast-paced: tight gaps, grid gallery, metrics-forward
+ *   research  — Period/craft-rich: wide gaps, carousel gallery, process-focused
+ *   intimate  — Contemporary/understated: default gaps, curated gallery, character-focused
+ */
+const GENRE_SPECTACLE = 'spectacle';
+const GENRE_RESEARCH = 'research';
+const GENRE_INTIMATE = 'intimate';
+
+const GENRE_MAP = {
+  sarah: {
+    'theater-production': GENRE_RESEARCH,
+    'film-production': GENRE_INTIMATE,
+    'television-production': GENRE_INTIMATE,
+    'fashion-design': GENRE_SPECTACLE,
+  },
+  julian: {
+    'menswear-tailoring': GENRE_RESEARCH,
+    'theater-production': GENRE_INTIMATE,
+    'film-production': GENRE_SPECTACLE,
+    'specialty-techniques': GENRE_RESEARCH,
+  },
+  emma: {
+    'action-stunt': GENRE_SPECTACLE,
+    'period-epic': GENRE_RESEARCH,
+    'contemporary-drama': GENRE_INTIMATE,
+    'international-location': GENRE_SPECTACLE,
+  },
+};
+
+const GENRE_DEFAULTS = {
+  [GENRE_SPECTACLE]: {
+    type: GENRE_SPECTACLE,
+    gap: 'narrow',
+    galleryStyle: 'grid',
+    galleryHeading: 'Production Scale',
+  },
+  [GENRE_RESEARCH]: {
+    type: GENRE_RESEARCH,
+    gap: 'wide',
+    galleryStyle: 'carousel',
+    galleryHeading: 'Process & Construction',
+  },
+  [GENRE_INTIMATE]: {
+    type: GENRE_INTIMATE,
+    gap: 'default',
+    galleryStyle: 'grid',
+    galleryHeading: 'Behind the Scenes',
+  },
+};
+
+/**
+ * Get genre configuration for a project based on persona and category.
+ */
+function getGenreConfig(personaKey, categorySlug) {
+  const personaMap = GENRE_MAP[personaKey];
+  const genreType = personaMap?.[categorySlug] || GENRE_INTIMATE;
+  return GENRE_DEFAULTS[genreType];
+}
+
+/**
+ * Map gallery image items to carousel format.
+ */
+function carouselImagesPayload(imgs) {
+  return (imgs || []).map(img => ({
+    imageId: img.imageId,
+    imageUrl: img.imageUrl,
+    title: img.altText || img.caption || '',
+    category: '',
+    link: '',
+  }));
+}
+
+/**
+ * Build the final gallery section using genre-appropriate style.
+ * Spectacle/intimate → grid gallery. Research → carousel for progression.
+ */
+function buildGenreGallery(genre, imgs) {
+  if (!imgs || imgs.length === 0) return null;
+  if (genre.galleryStyle === 'carousel') {
+    return buildCarouselSection({
+      heading: genre.galleryHeading,
+      images: carouselImagesPayload(imgs),
+    });
+  }
+  return buildGallerySection({
+    heading: genre.galleryHeading,
+    images: galleryImagesPayload(imgs),
+  });
+}
+
+// ============================================
 // SARAH CHEN — "Editorial Precision"
 // Sidebar-forward, narrow gaps
 // ============================================
@@ -415,15 +515,16 @@ function sarahProjectPage(project, galleryImages, context) {
   const orderIndex = project.order != null ? project.order : 0;
   const isEven = orderIndex % 2 === 0;
   const { getNext, getNextN, remaining } = createImageConsumer(galleryImages);
+  const genre = getGenreConfig('sarah', project.categorySlug);
 
   if (isEven) {
-    return sarahTemplateA(project, getNext, getNextN, remaining, context);
+    return sarahTemplateA(project, getNext, getNextN, remaining, context, genre);
   }
-  return sarahTemplateB(project, getNext, getNextN, remaining, context);
+  return sarahTemplateB(project, getNext, getNextN, remaining, context, genre);
 }
 
-/** Sarah Template A — "Editorial Feature" (even order indices) */
-function sarahTemplateA(project, getNext, getNextN, remaining, context) {
+/** Sarah Template A — "Editorial Feature" (even order, genre-adaptive) */
+function sarahTemplateA(project, getNext, getNextN, remaining, context, genre) {
   const h = getHeadings(project);
   const sections = [];
 
@@ -460,7 +561,7 @@ function sarahTemplateA(project, getNext, getNextN, remaining, context) {
   sections.push(
     buildTwoColumnLayout({
       ratio: '40-60',
-      gap: 'narrow',
+      gap: genre.gap,
       mobileStackOrder: 'right-first',
       leftColumn: [
         buildTextSection({
@@ -480,7 +581,7 @@ function sarahTemplateA(project, getNext, getNextN, remaining, context) {
   sections.push(
     buildTwoColumnLayout({
       ratio: '60-40',
-      gap: 'narrow',
+      gap: genre.gap,
       mobileStackOrder: 'left-first',
       leftColumn: outcomeImg ? [outcomeImg] : [],
       rightColumn: [
@@ -507,19 +608,16 @@ function sarahTemplateA(project, getNext, getNextN, remaining, context) {
     );
   }
 
-  // 7. Gallery — all remaining images in one consolidated gallery
+  // 7. Gallery — genre-adaptive style
   const restImgs = remaining();
-  if (restImgs.length > 0) {
-    sections.push(
-      buildGallerySection({ heading: 'Process & Details', images: galleryImagesPayload(restImgs) })
-    );
-  }
+  const gallerySection = buildGenreGallery(genre, restImgs);
+  if (gallerySection) sections.push(gallerySection);
 
   return sections;
 }
 
-/** Sarah Template B — "Condensed Feature" (odd order indices) */
-function sarahTemplateB(project, getNext, getNextN, remaining, context) {
+/** Sarah Template B — "Condensed Feature" (odd order, genre-adaptive) */
+function sarahTemplateB(project, getNext, getNextN, remaining, context, genre) {
   const h = getHeadings(project);
   const sections = [];
 
@@ -551,7 +649,7 @@ function sarahTemplateB(project, getNext, getNextN, remaining, context) {
   sections.push(
     buildTwoColumnLayout({
       ratio: '40-60',
-      gap: 'narrow',
+      gap: genre.gap,
       mobileStackOrder: 'right-first',
       leftColumn: narrativeImg ? [narrativeImg] : [],
       rightColumn: [
@@ -575,7 +673,7 @@ function sarahTemplateB(project, getNext, getNextN, remaining, context) {
   sections.push(
     buildTwoColumnLayout({
       ratio: '60-40',
-      gap: 'narrow',
+      gap: genre.gap,
       mobileStackOrder: 'left-first',
       leftColumn: [
         buildTextSection({
@@ -606,13 +704,10 @@ function sarahTemplateB(project, getNext, getNextN, remaining, context) {
     );
   }
 
-  // 7. Gallery — all remaining images
+  // 7. Gallery — genre-adaptive style
   const restImgs = remaining();
-  if (restImgs.length > 0) {
-    sections.push(
-      buildGallerySection({ heading: '', images: galleryImagesPayload(restImgs) })
-    );
-  }
+  const gallerySection = buildGenreGallery(genre, restImgs);
+  if (gallerySection) sections.push(gallerySection);
 
   return sections;
 }
@@ -859,15 +954,16 @@ function julianProjectPage(project, galleryImages, context) {
   const orderIndex = project.order != null ? project.order : 0;
   const isEven = orderIndex % 2 === 0;
   const { getNext, getNextN, remaining } = createImageConsumer(galleryImages);
+  const genre = getGenreConfig('julian', project.categorySlug);
 
   if (isEven) {
-    return julianTemplateA(project, getNext, getNextN, remaining, context);
+    return julianTemplateA(project, getNext, getNextN, remaining, context, genre);
   }
-  return julianTemplateB(project, getNext, getNextN, remaining, context);
+  return julianTemplateB(project, getNext, getNextN, remaining, context, genre);
 }
 
-/** Julian Template A (even order indices) */
-function julianTemplateA(project, getNext, getNextN, remaining, context) {
+/** Julian Template A (even order, genre-adaptive) */
+function julianTemplateA(project, getNext, getNextN, remaining, context, genre) {
   const h = getHeadings(project);
   const sections = [];
 
@@ -914,7 +1010,7 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
   sections.push(
     buildTwoColumnLayout({
       ratio: '40-60',
-      gap: 'default',
+      gap: genre.gap,
       mobileStackOrder: 'right-first',
       leftColumn: narrativeImg ? [narrativeImg] : [],
       rightColumn: [
@@ -934,7 +1030,7 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
   sections.push(
     buildTwoColumnLayout({
       ratio: '60-40',
-      gap: 'default',
+      gap: genre.gap,
       mobileStackOrder: 'left-first',
       leftColumn: [
         buildTextSection({
@@ -961,19 +1057,16 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
     );
   }
 
-  // 7. Gallery — all remaining images
+  // 7. Gallery — genre-adaptive style
   const restImgs = remaining();
-  if (restImgs.length > 0) {
-    sections.push(
-      buildGallerySection({ heading: 'Process & Details', images: galleryImagesPayload(restImgs) })
-    );
-  }
+  const gallerySection = buildGenreGallery(genre, restImgs);
+  if (gallerySection) sections.push(gallerySection);
 
   return sections;
 }
 
-/** Julian Template B (odd order indices) */
-function julianTemplateB(project, getNext, getNextN, remaining, context) {
+/** Julian Template B (odd order, genre-adaptive) */
+function julianTemplateB(project, getNext, getNextN, remaining, context, genre) {
   const h = getHeadings(project);
   const sections = [];
 
@@ -1004,7 +1097,7 @@ function julianTemplateB(project, getNext, getNextN, remaining, context) {
   sections.push(
     buildTwoColumnLayout({
       ratio: '40-60',
-      gap: 'default',
+      gap: genre.gap,
       mobileStackOrder: 'right-first',
       leftColumn: narrativeImg ? [narrativeImg] : [],
       rightColumn: [
@@ -1039,7 +1132,7 @@ function julianTemplateB(project, getNext, getNextN, remaining, context) {
   sections.push(
     buildTwoColumnLayout({
       ratio: '60-40',
-      gap: 'wide',
+      gap: genre.gap,
       mobileStackOrder: 'left-first',
       leftColumn: [
         buildTextSection({
@@ -1075,13 +1168,10 @@ function julianTemplateB(project, getNext, getNextN, remaining, context) {
     );
   }
 
-  // 7. Gallery — all remaining images
+  // 7. Gallery — genre-adaptive style
   const restImgs = remaining();
-  if (restImgs.length > 0) {
-    sections.push(
-      buildGallerySection({ heading: '', images: galleryImagesPayload(restImgs) })
-    );
-  }
+  const gallerySection = buildGenreGallery(genre, restImgs);
+  if (gallerySection) sections.push(gallerySection);
 
   return sections;
 }
@@ -1416,15 +1506,16 @@ function emmaProjectPage(project, galleryImages, context) {
   const orderIndex = project.order != null ? project.order : 0;
   const isEven = orderIndex % 2 === 0;
   const { getNext, getNextN, remaining } = createImageConsumer(galleryImages);
+  const genre = getGenreConfig('emma', project.categorySlug);
 
   if (isEven) {
-    return emmaTemplateA(project, getNext, getNextN, remaining, context);
+    return emmaTemplateA(project, getNext, getNextN, remaining, context, genre);
   }
-  return emmaTemplateB(project, getNext, getNextN, remaining, context);
+  return emmaTemplateB(project, getNext, getNextN, remaining, context, genre);
 }
 
-/** Emma Template A (even order indices) */
-function emmaTemplateA(project, getNext, getNextN, remaining, context) {
+/** Emma Template A (even order, genre-adaptive) */
+function emmaTemplateA(project, getNext, getNextN, remaining, context, genre) {
   const h = getHeadings(project);
   const sections = [];
 
@@ -1432,35 +1523,98 @@ function emmaTemplateA(project, getNext, getNextN, remaining, context) {
   const heroImg = imageFromGallery(getNext());
   if (heroImg) sections.push(heroImg);
 
-  // 2. Two-column 70-30 — overview + production credits
-  sections.push(
-    buildTwoColumnLayout({
-      ratio: '70-30',
-      gap: 'wide',
-      mobileStackOrder: 'left-first',
-      leftColumn: [
-        buildTextSection({
-          body:
-            '<h1>' + project.title + '</h1>' +
-            formatAsHtml(project.description),
-        }),
-      ],
-      rightColumn: [
-        buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
-      ],
-    })
-  );
+  // 2. Title/description + details — genre-adaptive layout
+  if (genre.type === GENRE_SPECTACLE) {
+    // Spectacle: prominent metrics sidebar
+    sections.push(
+      buildSidebarLayout({
+        sidebarPosition: 'left',
+        sidebarWidth: 340,
+        gap: 'narrow',
+        mobileStackOrder: 'main-first',
+        sidebar: [
+          buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
+        ],
+        main: [
+          buildTextSection({
+            body:
+              '<h1>' + project.title + '</h1>' +
+              formatAsHtml(project.description),
+          }),
+        ],
+      })
+    );
+  } else if (genre.type === GENRE_INTIMATE) {
+    // Intimate: balanced, character-focused
+    sections.push(
+      buildTwoColumnLayout({
+        ratio: '60-40',
+        gap: 'default',
+        mobileStackOrder: 'left-first',
+        leftColumn: [
+          buildTextSection({
+            body:
+              '<h1>' + project.title + '</h1>' +
+              formatAsHtml(project.description),
+          }),
+        ],
+        rightColumn: [
+          buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
+        ],
+      })
+    );
+  } else {
+    // Research: generous layout, lead with beauty
+    sections.push(
+      buildTwoColumnLayout({
+        ratio: '70-30',
+        gap: 'wide',
+        mobileStackOrder: 'left-first',
+        leftColumn: [
+          buildTextSection({
+            body:
+              '<h1>' + project.title + '</h1>' +
+              formatAsHtml(project.description),
+          }),
+        ],
+        rightColumn: [
+          buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
+        ],
+      })
+    );
+  }
 
-  // 3. Full-width image — cinematic visual break
-  const breakImg = imageFromGallery(getNext());
-  if (breakImg) sections.push(breakImg);
+  // 3. Visual break — genre-adaptive
+  if (genre.type === GENRE_SPECTACLE) {
+    // Spectacle: skip the break, consume the image for faster pace
+    getNext();
+  } else if (genre.type === GENRE_INTIMATE) {
+    // Intimate: paired images side-by-side
+    const pairA = imageFromGallery(getNext());
+    const pairB = imageFromGallery(getNext());
+    if (pairA || pairB) {
+      sections.push(
+        buildTwoColumnLayout({
+          ratio: '50-50',
+          gap: 'default',
+          mobileStackOrder: 'left-first',
+          leftColumn: pairA ? [pairA] : [],
+          rightColumn: pairB ? [pairB] : [],
+        })
+      );
+    }
+  } else {
+    // Research: full-width beauty shot
+    const breakImg = imageFromGallery(getNext());
+    if (breakImg) sections.push(breakImg);
+  }
 
   // 4. Two-column 40-60 — challenge+approach narrative + image
   const narrativeImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
       ratio: '40-60',
-      gap: 'wide',
+      gap: genre.gap,
       mobileStackOrder: 'right-first',
       leftColumn: [
         buildTextSection({
@@ -1480,7 +1634,7 @@ function emmaTemplateA(project, getNext, getNextN, remaining, context) {
   sections.push(
     buildTwoColumnLayout({
       ratio: '60-40',
-      gap: 'wide',
+      gap: genre.gap,
       mobileStackOrder: 'left-first',
       leftColumn: outcomeImg ? [outcomeImg] : [],
       rightColumn: [
@@ -1510,19 +1664,16 @@ function emmaTemplateA(project, getNext, getNextN, remaining, context) {
     );
   }
 
-  // 7. Gallery — all production stills and details in one gallery
+  // 7. Gallery — genre-adaptive style
   const restImgs = remaining();
-  if (restImgs.length > 0) {
-    sections.push(
-      buildGallerySection({ heading: 'Production Stills', images: galleryImagesPayload(restImgs) })
-    );
-  }
+  const gallerySection = buildGenreGallery(genre, restImgs);
+  if (gallerySection) sections.push(gallerySection);
 
   return sections;
 }
 
-/** Emma Template B (odd order indices) */
-function emmaTemplateB(project, getNext, getNextN, remaining, context) {
+/** Emma Template B (odd order, genre-adaptive) */
+function emmaTemplateB(project, getNext, getNextN, remaining, context, genre) {
   const h = getHeadings(project);
   const sections = [];
 
@@ -1530,34 +1681,80 @@ function emmaTemplateB(project, getNext, getNextN, remaining, context) {
   const heroImg = imageFromGallery(getNext());
   if (heroImg) sections.push(heroImg);
 
-  // 2. Sidebar — production facts sidebar + overview/challenge main
-  sections.push(
-    buildSidebarLayout({
-      sidebarPosition: 'right',
-      sidebarWidth: 320,
-      gap: 'wide',
-      mobileStackOrder: 'main-first',
-      sidebar: [
-        buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
-      ],
-      main: [
-        buildTextSection({
-          body:
-            '<h1>' + project.title + '</h1>' +
-            formatAsHtml(project.description) +
-            '<h2>' + h.challenge + '</h2>' +
-            formatAsHtml(project.projectContent?.challenge || ''),
-        }),
-      ],
-    })
-  );
+  // 2. Overview — genre-adaptive layout
+  if (genre.type === GENRE_SPECTACLE) {
+    // Spectacle: prominent metrics sidebar on left
+    sections.push(
+      buildSidebarLayout({
+        sidebarPosition: 'left',
+        sidebarWidth: 360,
+        gap: 'narrow',
+        mobileStackOrder: 'main-first',
+        sidebar: [
+          buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
+        ],
+        main: [
+          buildTextSection({
+            body:
+              '<h1>' + project.title + '</h1>' +
+              formatAsHtml(project.description) +
+              '<h2>' + h.challenge + '</h2>' +
+              formatAsHtml(project.projectContent?.challenge || ''),
+          }),
+        ],
+      })
+    );
+  } else if (genre.type === GENRE_INTIMATE) {
+    // Intimate: balanced two-column, no sidebar
+    sections.push(
+      buildTwoColumnLayout({
+        ratio: '60-40',
+        gap: 'default',
+        mobileStackOrder: 'left-first',
+        leftColumn: [
+          buildTextSection({
+            body:
+              '<h1>' + project.title + '</h1>' +
+              formatAsHtml(project.description) +
+              '<h2>' + h.challenge + '</h2>' +
+              formatAsHtml(project.projectContent?.challenge || ''),
+          }),
+        ],
+        rightColumn: [
+          buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
+        ],
+      })
+    );
+  } else {
+    // Research: generous sidebar for details
+    sections.push(
+      buildSidebarLayout({
+        sidebarPosition: 'right',
+        sidebarWidth: 320,
+        gap: 'wide',
+        mobileStackOrder: 'main-first',
+        sidebar: [
+          buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
+        ],
+        main: [
+          buildTextSection({
+            body:
+              '<h1>' + project.title + '</h1>' +
+              formatAsHtml(project.description) +
+              '<h2>' + h.challenge + '</h2>' +
+              formatAsHtml(project.projectContent?.challenge || ''),
+          }),
+        ],
+      })
+    );
+  }
 
   // 3. Two-column 60-40 — image + approach/techniques
   const approachImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
       ratio: '60-40',
-      gap: 'wide',
+      gap: genre.gap,
       mobileStackOrder: 'left-first',
       leftColumn: approachImg ? [approachImg] : [],
       rightColumn: [
@@ -1571,16 +1768,34 @@ function emmaTemplateB(project, getNext, getNextN, remaining, context) {
     })
   );
 
-  // 4. Full-width image — cinematic break
-  const breakImg = imageFromGallery(getNext());
-  if (breakImg) sections.push(breakImg);
+  // 4. Visual break — genre-adaptive
+  if (genre.type === GENRE_SPECTACLE) {
+    getNext();
+  } else if (genre.type === GENRE_INTIMATE) {
+    const pairA = imageFromGallery(getNext());
+    const pairB = imageFromGallery(getNext());
+    if (pairA || pairB) {
+      sections.push(
+        buildTwoColumnLayout({
+          ratio: '50-50',
+          gap: 'default',
+          mobileStackOrder: 'left-first',
+          leftColumn: pairA ? [pairA] : [],
+          rightColumn: pairB ? [pairB] : [],
+        })
+      );
+    }
+  } else {
+    const breakImg = imageFromGallery(getNext());
+    if (breakImg) sections.push(breakImg);
+  }
 
   // 5. Two-column 40-60 — outcome + image
   const outcomeImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
       ratio: '40-60',
-      gap: 'wide',
+      gap: genre.gap,
       mobileStackOrder: 'right-first',
       leftColumn: [
         buildTextSection({
@@ -1606,13 +1821,10 @@ function emmaTemplateB(project, getNext, getNextN, remaining, context) {
     );
   }
 
-  // 7. Gallery — all remaining images
+  // 7. Gallery — genre-adaptive style
   const restImgs = remaining();
-  if (restImgs.length > 0) {
-    sections.push(
-      buildGallerySection({ heading: '', images: galleryImagesPayload(restImgs) })
-    );
-  }
+  const gallerySection = buildGenreGallery(genre, restImgs);
+  if (gallerySection) sections.push(gallerySection);
 
   return sections;
 }
