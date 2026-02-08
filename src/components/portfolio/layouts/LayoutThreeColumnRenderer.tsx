@@ -102,9 +102,12 @@ function TextContentView({ section }: { section: TextSection }) {
 
 function ImageContentView({ section }: { section: ImageSection }) {
   if (!section.imageUrl) return null
+  const aspectRatio = section.width && section.height
+    ? `${section.width} / ${section.height}`
+    : '3 / 2'
   return (
     <figure className="image-figure">
-      <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9' }}>
+      <div style={{ position: 'relative', width: '100%', aspectRatio }}>
         <Image 
           src={section.imageUrl} 
           alt={section.altText || ''} 
@@ -127,7 +130,11 @@ function GalleryContentView({ section }: { section: GallerySection }) {
   return (
     <div className="gallery-grid gallery-grid-compact">
       {validImages.slice(0, 6).map((image) => (
-        <figure key={image.id} className="gallery-item">
+        <figure
+          key={image.id}
+          className="gallery-item"
+          style={image.width && image.height ? { aspectRatio: `${image.width} / ${image.height}` } : undefined}
+        >
           <Image
             src={image.imageUrl || ''}
             alt={image.altText || 'Gallery image'}
