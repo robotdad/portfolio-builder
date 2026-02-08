@@ -6,7 +6,13 @@ import { apiSuccess, apiCreated, apiValidationError, apiInternalError } from '@/
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, title, bio, theme } = body
+    const { name, title, bio, theme, draftTheme, publishedTheme, draftTemplate, publishedTemplate } = body
+
+    // Resolve theme/template: prefer explicit draft/published fields, fall back to single field, then default
+    const resolvedDraftTheme = draftTheme || theme || 'modern-minimal'
+    const resolvedPublishedTheme = publishedTheme || theme || 'modern-minimal'
+    const resolvedDraftTemplate = draftTemplate || 'featured-grid'
+    const resolvedPublishedTemplate = publishedTemplate || 'featured-grid'
 
     // Create initial hero section content
     const initialContent = JSON.stringify({
@@ -29,8 +35,10 @@ export async function POST(request: NextRequest) {
         name: name || '',
         title: title || '',
         bio: bio || '',
-        draftTheme: theme || 'modern-minimal',
-        publishedTheme: theme || 'modern-minimal',
+        draftTheme: resolvedDraftTheme,
+        publishedTheme: resolvedPublishedTheme,
+        draftTemplate: resolvedDraftTemplate,
+        publishedTemplate: resolvedPublishedTemplate,
         pages: {
           create: {
             title: 'Home',
