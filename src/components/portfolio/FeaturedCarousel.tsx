@@ -54,6 +54,12 @@ function CarouselSlide({
   const basePath = portfolioSlug ? `/${portfolioSlug}` : ''
   const href = `${basePath}/${project.categorySlug}/${project.slug}`
 
+  // Detect portrait images to adjust cropping - show top of subject instead of center
+  const isPortrait =
+    project.featuredImageWidth &&
+    project.featuredImageHeight &&
+    project.featuredImageHeight > project.featuredImageWidth
+
   // Determine CSS classes based on state
   let stateClass = ''
   if (isActive) {
@@ -81,6 +87,7 @@ function CarouselSlide({
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
             className="carousel-slide-image"
+            style={isPortrait ? { objectPosition: 'top center' } : undefined}
             priority={isActive}
           />
         ) : (
