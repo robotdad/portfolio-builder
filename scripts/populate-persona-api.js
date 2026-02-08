@@ -836,7 +836,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         
         // Process tags on featured image
         if (featuredPhoto.tags && featuredPhoto.tags.length > 0) {
-          processPhotoTags(featuredPhoto, featuredAsset, categorySlug, populationContext.taggedImages, projectSlug);
+          processPhotoTags(featuredPhoto, featuredAsset, categorySlug, populationContext.taggedImages, projectSlug, project.title);
         }
         
         console.log(`    ✓ Created (${details.year || '2024'}, ${details.venue || 'venue'})`);
@@ -888,7 +888,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
               // Process tags on gallery images
               if (photo.tags && photo.tags.length > 0) {
                 const catSlug = category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
-                processPhotoTags(photo, asset, catSlug, populationContext.taggedImages, projectSlug);
+                processPhotoTags(photo, asset, catSlug, populationContext.taggedImages, projectSlug, project.title);
               }
               
               stats.images++;

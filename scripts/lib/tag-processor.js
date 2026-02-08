@@ -39,8 +39,9 @@ export function createTagContext() {
  * @param {string} categorySlug - Slug of the category this photo belongs to
  * @param {Object} context - Tag context to update (from createTagContext)
  * @param {string} [projectSlug] - Slug of the project this photo belongs to (optional)
+ * @param {string} [projectTitle] - Title of the parent project (used for carousel slide titles)
  */
-export function processPhotoTags(photoMeta, uploadedAsset, categorySlug, context, projectSlug = null) {
+export function processPhotoTags(photoMeta, uploadedAsset, categorySlug, context, projectSlug = null, projectTitle = null) {
   const tags = photoMeta?.tags || [];
   
   if (!tags.length || !uploadedAsset) {
@@ -48,12 +49,14 @@ export function processPhotoTags(photoMeta, uploadedAsset, categorySlug, context
   }
   
   // Build asset info for context
+  // Use projectTitle for the title field so carousel slides show the project name,
+  // not the individual photo's alt text (e.g. "The Great Gatsby" instead of "Breeches Front")
   const assetInfo = {
     imageId: uploadedAsset.id,
     imageUrl: uploadedAsset.url,
     altText: uploadedAsset.altText || photoMeta.title || '',
     caption: uploadedAsset.caption || photoMeta.description || '',
-    title: photoMeta.title || '',
+    title: projectTitle || photoMeta.title || '',
     categorySlug: categorySlug,
     projectSlug: projectSlug,
     width: uploadedAsset.width,
