@@ -197,6 +197,8 @@ function galleryImagesPayload(imgs) {
     imageUrl: img.imageUrl,
     altText: img.altText || '',
     caption: img.caption || '',
+    width: img.width,
+    height: img.height,
   }));
 }
 
@@ -279,6 +281,8 @@ function carouselImagesPayload(imgs) {
     title: img.altText || img.caption || '',
     category: '',
     link: '',
+    width: img.width,
+    height: img.height,
   }));
 }
 
@@ -328,6 +332,8 @@ function sarahHomepage(context) {
     title: img.title || '',
     category: img.categorySlug || '',
     link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+    width: img.width,
+    height: img.height,
   }));
   if (carouselItems.length > 0) {
     sections.push(
@@ -746,6 +752,8 @@ function julianHomepage(context) {
     title: img.title || '',
     category: img.categorySlug || '',
     link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+    width: img.width,
+    height: img.height,
   }));
   sections.push(
     buildCarouselSection({
@@ -1216,6 +1224,8 @@ function emmaHomepage(context) {
     title: img.title || '',
     category: img.categorySlug || '',
     link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+    width: img.width,
+    height: img.height,
   }));
   if (carouselItems.length > 0) {
     sections.push(
@@ -1420,6 +1430,8 @@ function emmaAboutPage(context) {
     imageUrl: img.url,
     altText: img.altText || img.title || 'On set',
     caption: img.caption || img.title || '',
+    width: img.width,
+    height: img.height,
   }));
   // Include primary profile image in gallery if we have it
   if (profileAssetId && profileAssetUrl) {
@@ -1463,6 +1475,8 @@ function emmaCategoryPage(category, categoryIndex, context) {
         title: img.title || '',
         category: img.categorySlug || '',
         link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+        width: img.width,
+        height: img.height,
       }));
     sections.push(
       buildTwoColumnLayout({

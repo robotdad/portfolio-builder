@@ -55,7 +55,9 @@ export function processPhotoTags(photoMeta, uploadedAsset, categorySlug, context
     caption: uploadedAsset.caption || photoMeta.description || '',
     title: photoMeta.title || '',
     categorySlug: categorySlug,
-    projectSlug: projectSlug
+    projectSlug: projectSlug,
+    width: uploadedAsset.width,
+    height: uploadedAsset.height,
   };
   
   // Process each tag

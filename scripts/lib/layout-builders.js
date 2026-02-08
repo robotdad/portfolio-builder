@@ -236,13 +236,20 @@ export function buildImageSection({
  * @returns {Object} GallerySection
  */
 export function buildGallerySection({ heading = '', images }) {
-  const galleryImages = (images || []).map(img => ({
-    id: generateSectionId(),
-    imageId: img.imageId || null,
-    imageUrl: img.imageUrl || null,
-    altText: img.altText || '',
-    caption: img.caption || ''
-  }));
+  const galleryImages = (images || []).map(img => {
+    const item = {
+      id: generateSectionId(),
+      imageId: img.imageId || null,
+      imageUrl: img.imageUrl || null,
+      altText: img.altText || '',
+      caption: img.caption || ''
+    };
+    if (img.width != null && img.height != null) {
+      item.width = img.width;
+      item.height = img.height;
+    }
+    return item;
+  });
   
   return {
     id: generateSectionId(),
@@ -267,14 +274,21 @@ export function buildCarouselSection({
   autoRotate = true, 
   interval = 5000 
 }) {
-  const items = (images || []).map(img => ({
-    id: generateSectionId(),
-    imageId: img.imageId || null,
-    imageUrl: img.imageUrl || null,
-    title: img.title || '',
-    category: img.category || '',
-    link: img.link || ''
-  }));
+  const items = (images || []).map(img => {
+    const item = {
+      id: generateSectionId(),
+      imageId: img.imageId || null,
+      imageUrl: img.imageUrl || null,
+      title: img.title || '',
+      category: img.category || '',
+      link: img.link || ''
+    };
+    if (img.width != null && img.height != null) {
+      item.width = img.width;
+      item.height = img.height;
+    }
+    return item;
+  });
   
   return {
     id: generateSectionId(),

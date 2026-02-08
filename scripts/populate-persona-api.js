@@ -615,6 +615,8 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         caption,
         type: profileImg.type || '',
         title: profileImg.title || '',
+        width: asset.width,
+        height: asset.height,
       });
       console.log(`  ✓ Uploaded: ${profileImg.title || path.basename(profileImg.file)}`);
     }
