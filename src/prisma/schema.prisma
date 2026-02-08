@@ -14,6 +14,7 @@ model Portfolio {
   name String
   title String?
   bio String? @db.Text
+  contactEmail String?
   draftTheme String @default("modern-minimal")
   publishedTheme String @default("modern-minimal")
   draftTemplate String @default("featured-grid")

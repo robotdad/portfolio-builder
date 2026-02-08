@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json()
-    const { id, name, title, bio, theme, template, profilePhotoId } = body
+    const { id, name, title, bio, contactEmail, theme, template, profilePhotoId } = body
 
     // Validate required fields - only id is always required
     if (!id) {
@@ -92,6 +92,7 @@ export async function PUT(request: NextRequest) {
     if (name !== undefined) updateData.name = name
     if (title !== undefined) updateData.title = title
     if (bio !== undefined) updateData.bio = bio
+    if (contactEmail !== undefined) updateData.contactEmail = contactEmail
     if (theme !== undefined) updateData.draftTheme = theme
     if (template !== undefined) updateData.draftTemplate = template
     

@@ -82,6 +82,7 @@ interface NavigationProps {
   portfolioName: string
   pages: NavPage[]
   categories?: NavCategory[]
+  contactEmail?: string
   theme: 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 }
 
@@ -92,6 +93,7 @@ export function Navigation({
   portfolioName, 
   pages, 
   categories = [],
+  contactEmail,
   theme 
 }: NavigationProps) {
   const pathname = usePathname()
@@ -307,16 +309,18 @@ export function Navigation({
           ))}
           
           {/* Icon actions */}
-          <li role="none">
-            <IconButton
-              icon={<MailIcon />}
-              aria-label="Send email"
-              variant="ghost"
-              size="md"
-              onClick={() => window.location.href = 'mailto:'}
-              role="menuitem"
-            />
-          </li>
+          {contactEmail && (
+            <li role="none">
+              <IconButton
+                icon={<MailIcon />}
+                aria-label="Send email"
+                variant="ghost"
+                size="md"
+                onClick={() => window.location.href = `mailto:${contactEmail}`}
+                role="menuitem"
+              />
+            </li>
+          )}
           <li role="none">
             <IconButton
               icon={<Search />}
@@ -427,17 +431,19 @@ export function Navigation({
               
               {/* Actions */}
               <li className="portfolio-nav-menu-divider" role="separator" />
-              <li role="none">
-                <a
-                  href="mailto:"
-                  className="portfolio-nav-menu-link"
-                  role="menuitem"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <MailIcon size={20} className="inline-block mr-2" />
-                  Email
-                </a>
-              </li>
+              {contactEmail && (
+                <li role="none">
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="portfolio-nav-menu-link"
+                    role="menuitem"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <MailIcon size={20} className="inline-block mr-2" />
+                    Email
+                  </a>
+                </li>
+              )}
               <li role="none">
                 <button
                   type="button"

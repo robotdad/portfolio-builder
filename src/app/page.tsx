@@ -188,6 +188,7 @@ export default async function Home() {
         portfolioName={name}
         pages={navPages}
         categories={navCategories}
+        contactEmail={portfolio.contactEmail ?? undefined}
         theme={theme}
       />
       <main className="portfolio-main">

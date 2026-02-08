@@ -119,6 +119,7 @@ export default async function CategoriesPage() {
           portfolioName={portfolio.name}
           pages={navPages}
           categories={navCategories}
+          contactEmail={portfolio.contactEmail ?? undefined}
           theme={theme}
         />
         <main className="portfolio-main">
@@ -150,6 +151,7 @@ export default async function CategoriesPage() {
         portfolioName={portfolio.name}
         pages={navPages}
         categories={navCategories}
+        contactEmail={portfolio.contactEmail ?? undefined}
         theme={theme}
       />
       <main className="portfolio-main">

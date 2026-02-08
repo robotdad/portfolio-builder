@@ -585,6 +585,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
       await apiCall('PUT', '/admin/portfolio', {
         id: portfolioId,
         bio: bio,
+        contactEmail: persona.email || null,
         profilePhotoId: profileAsset.id,
       });
       console.log('✓ Profile configured with bio');

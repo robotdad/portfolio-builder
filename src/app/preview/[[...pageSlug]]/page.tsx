@@ -143,6 +143,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
           portfolioName={portfolio.name}
           pages={navPages}
           categories={navCategories}
+          contactEmail={portfolio.contactEmail ?? undefined}
           theme={theme}
         />
         <main className="portfolio-main">
@@ -198,6 +199,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
             portfolioName={portfolio.name}
             pages={navPages}
             categories={navCategories}
+            contactEmail={portfolio.contactEmail ?? undefined}
             theme={theme}
           />
           <main className="portfolio-main">
@@ -256,6 +258,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
             portfolioName={portfolio.name}
             pages={navPages}
             categories={navCategories}
+            contactEmail={portfolio.contactEmail ?? undefined}
             theme={theme}
           />
           <main className="portfolio-main">
@@ -412,6 +415,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
           portfolioName={name}
           pages={navPages}
           categories={navCategories}
+          contactEmail={portfolio.contactEmail ?? undefined}
           theme={theme}
         />
         <main className="portfolio-main">
@@ -436,6 +440,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
           portfolioName={name}
           pages={navPages}
           categories={navCategories}
+          contactEmail={portfolio.contactEmail ?? undefined}
           theme={theme}
         />
       )}

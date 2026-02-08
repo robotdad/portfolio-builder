@@ -24,6 +24,7 @@ async function getPortfolioForLayout() {
     select: {
       id: true,
       name: true,
+      contactEmail: true,
       publishedTheme: true,
       pages: {
         where: { showInNav: true, publishedContent: { not: null } },
@@ -88,6 +89,7 @@ export default async function PublicPortfolioLayout({
         portfolioName={portfolio.name}
         pages={navPages}
         categories={navCategories}
+        contactEmail={portfolio.contactEmail ?? undefined}
         theme={theme}
       />
       <main className="portfolio-main">
