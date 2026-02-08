@@ -8,6 +8,7 @@
  *   Sarah Chen   – "Editorial Precision"  → sidebar-forward, narrow gaps
  *   Julian Vane  – "Structured Craftsman" → three-column mastery, default/wide gaps
  *   Emma Rodriguez – "Cinematic Scope"    → extreme ratios, wide gaps
+ *   Sasha Goodner  – "Process Gallery"    → gallery-forward, balanced gaps
  */
 
 import {
@@ -238,6 +239,14 @@ const GENRE_MAP = {
     'period-epic': GENRE_RESEARCH,
     'contemporary-drama': GENRE_INTIMATE,
     'international-location': GENRE_SPECTACLE,
+  },
+  sasha: {
+    'professional-work': GENRE_SPECTACLE,
+    'uncsa-productions': GENRE_RESEARCH,
+    'finished-garments': GENRE_RESEARCH,
+    'draping-and-patterning': GENRE_RESEARCH,
+    'personal-work': GENRE_INTIMATE,
+    'millinery': GENRE_RESEARCH,
   },
 };
 
@@ -1874,6 +1883,439 @@ function emmaTemplateB(project, getNext, getNextN, remaining, context, genre) {
 }
 
 // ============================================
+// SASHA GOODNER — "Process Gallery"
+// Gallery-forward, balanced gaps, image-heavy
+// Adapts to Sasha's data shape: rich descriptions
+// and abundant photos, but no projectContent
+// (challenge/approach/outcome), techniques, or
+// recognition fields.
+// ============================================
+
+function sashaHomepage(context) {
+  const { persona, profileAssetId, profileAssetUrl } = context;
+  const sections = [];
+
+  // 1. Hero — with resume link and role as title
+  const hasResume = !!(persona.resumeUrl);
+  sections.push({
+    id: generateSectionId(),
+    type: 'hero',
+    name: persona.name,
+    title: persona.role || 'Draper & Costume Technician',
+    bio: persona.bio || '',
+    profileImageId: profileAssetId,
+    profileImageUrl: profileAssetUrl,
+    showResumeLink: hasResume,
+    resumeUrl: persona.resumeUrl || '',
+  });
+
+  // 2. Featured carousel — craft highlights
+  const carouselItems = (context.taggedImages?.homeCarousel || []).map(img => ({
+    imageId: img.imageId || img.id || null,
+    imageUrl: img.imageUrl || img.url || null,
+    title: img.title || '',
+    category: img.categorySlug || '',
+    link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+    width: img.width,
+    height: img.height,
+  }));
+  if (carouselItems.length > 0) {
+    sections.push(
+      buildCarouselSection({
+        heading: 'Featured Work',
+        images: carouselItems,
+        autoRotate: true,
+        interval: 5000,
+      })
+    );
+  }
+
+  // 3. Category grid — 3 columns to showcase 6 craft disciplines
+  sections.push({
+    id: generateSectionId(),
+    type: 'category-grid',
+    heading: 'Craft Disciplines',
+    description: '',
+    categoryIds: null,
+    columns: 3,
+    showDescription: true,
+    showProjectCount: true,
+  });
+
+  // 4. Project grid — 2 columns for larger image presence
+  sections.push({
+    id: generateSectionId(),
+    type: 'project-grid',
+    heading: 'Recent Work',
+    description: '',
+    projectIds: null,
+    columns: 2,
+    showMetadata: true,
+    layout: 'grid',
+  });
+
+  return sections;
+}
+
+function sashaAboutPage(context) {
+  const { persona, profileAssetId, profileAssetUrl } = context;
+  const sections = [];
+
+  // 1. Hero
+  const hasResume = !!(persona.resumeUrl);
+  sections.push({
+    id: generateSectionId(),
+    type: 'hero',
+    name: persona.name,
+    title: `About ${persona.name}`,
+    bio: persona.bio,
+    profileImageId: profileAssetId,
+    profileImageUrl: profileAssetUrl,
+    showResumeLink: hasResume,
+    resumeUrl: persona.resumeUrl || '',
+  });
+
+  // 2. Two-column 50-50 — craft philosophy + profile image (balanced, hands-on)
+  sections.push(
+    buildTwoColumnLayout({
+      ratio: '50-50',
+      gap: 'default',
+      mobileStackOrder: 'left-first',
+      leftColumn: [
+        buildTextSection({
+          body:
+            '<h2>Craft Philosophy</h2>' +
+            formatAsHtml(
+              'I approach draping as problem-solving in three dimensions. Every body is different, every fabric behaves differently, and every design demands its own construction logic. My work lives at the intersection of precision patterning and hands-on experimentation\u2014building garments that move, breathe, and perform under the demands of the stage.'
+            ),
+        }),
+      ],
+      rightColumn: [
+        buildImageSection({
+          imageId: profileAssetId,
+          imageUrl: profileAssetUrl,
+          altText: `${persona.name} at work`,
+        }),
+      ],
+    })
+  );
+
+  // 3. Three-column — core craft areas
+  sections.push(
+    buildThreeColumnLayout({
+      gap: 'default',
+      mobileStackOrder: 'left-first',
+      columns: [
+        [
+          buildTextSection({
+            body: '<h2>Draping & Patterning</h2><p>Speed drapes, half-scale work, and precision flat patterning. Trained at UNCSA under rigorous academic standards, refined through professional production deadlines.</p>',
+          }),
+        ],
+        [
+          buildTextSection({
+            body: '<h2>Construction & Tailoring</h2><p>From corsetry to contemporary tailoring, I build garments that withstand eight-show weeks. Every seam, every finishing detail serves both the performer and the design.</p>',
+          }),
+        ],
+        [
+          buildTextSection({
+            body: '<h2>Millinery</h2><p>Hat construction from blocked felt to wired structures. Millinery demands its own engineering\u2014balancing visual impact with wearability and sight lines on stage.</p>',
+          }),
+        ],
+      ],
+    })
+  );
+
+  // 4. Two-column 40-60 — image + training/background
+  sections.push(
+    buildTwoColumnLayout({
+      ratio: '40-60',
+      gap: 'default',
+      mobileStackOrder: 'right-first',
+      leftColumn: [
+        buildImageSection({ imageId: null, imageUrl: null, altText: 'Studio workspace' }),
+      ],
+      rightColumn: [
+        buildTextSection({
+          body:
+            '<h2>Training & Experience</h2>' +
+            formatAsHtml(
+              'BFA from the University of North Carolina School of the Arts, where I trained in draping, flat patterning, tailoring, and millinery. Professional work at Bethany Joy Costumes in New York built my production speed and collaborative instincts. Summer stock seasons at Ohio Light Opera taught me to build fast without cutting corners\u2014fourteen shows in eleven weeks leaves no room for anything but clean, efficient construction.'
+            ),
+        }),
+      ],
+    })
+  );
+
+  // 5. Gallery — studio & process
+  sections.push(buildGallerySection({ heading: 'Studio & Process', images: [] }));
+
+  return sections;
+}
+
+function sashaCategoryPage(category, categoryIndex, context) {
+  const sections = [];
+  const catProjectIds = getProjectIdsForCategory(context, category.slug);
+
+  if (categoryIndex <= 2) {
+    // Variant A (indices 0, 1, 2 — Sasha has 6 categories, extend variant A coverage)
+
+    // 1. Text — headline + introduction
+    sections.push(
+      buildTextSection({
+        body: formatAsHtml(
+          (category.categoryContent?.headline || '') +
+            '. ' +
+            (category.categoryContent?.introduction || '')
+        ),
+      })
+    );
+
+    // 2. Two-column 50-50 — approach text + featured projects (balanced, craft-focused)
+    sections.push(
+      buildTwoColumnLayout({
+        ratio: '50-50',
+        gap: 'default',
+        mobileStackOrder: 'left-first',
+        leftColumn: [
+          buildTextSection({
+            body:
+              '<h2>My Approach</h2>' +
+              formatAsHtml(category.categoryContent?.approach || ''),
+          }),
+        ],
+        rightColumn: [
+          buildProjectListSection({
+            projectIds: catProjectIds.slice(0, 3),
+            layout: 'mini-grid',
+            showMetadata: true,
+          }),
+        ],
+      })
+    );
+
+    // 3. Project grid — masonry for visual richness
+    sections.push({
+      id: generateSectionId(),
+      type: 'project-grid',
+      heading: 'All Work',
+      projectIds: null,
+      columns: 2,
+      showMetadata: true,
+      layout: 'masonry',
+    });
+  } else {
+    // Variant B (indices 3, 4, 5)
+
+    // 1. Text — headline + introduction
+    sections.push(
+      buildTextSection({
+        body: formatAsHtml(
+          (category.categoryContent?.headline || '') +
+            '. ' +
+            (category.categoryContent?.introduction || '')
+        ),
+      })
+    );
+
+    // 2. Project grid
+    sections.push({
+      id: generateSectionId(),
+      type: 'project-grid',
+      heading: '',
+      projectIds: null,
+      columns: 3,
+      showMetadata: true,
+      layout: 'grid',
+    });
+
+    // 3. Category grid — explore other disciplines
+    sections.push({
+      id: generateSectionId(),
+      type: 'category-grid',
+      heading: 'Explore Other Disciplines',
+      categoryIds: null,
+      columns: 3,
+      showDescription: false,
+      showProjectCount: false,
+    });
+  }
+
+  return sections;
+}
+
+function sashaProjectPage(project, galleryImages, context) {
+  const orderIndex = project.order != null ? project.order : 0;
+  const isEven = orderIndex % 2 === 0;
+  const { getNext, getNextN, remaining } = createImageConsumer(galleryImages);
+  const genre = getGenreConfig('sasha', project.categorySlug);
+
+  if (isEven) {
+    return sashaTemplateA(project, getNext, getNextN, remaining, context, genre);
+  }
+  return sashaTemplateB(project, getNext, getNextN, remaining, context, genre);
+}
+
+/** Sasha Template A — "Process Documentation" (even order, genre-adaptive) */
+function sashaTemplateA(project, getNext, getNextN, remaining, context, genre) {
+  const sections = [];
+
+  // 1. Hero image (full-width)
+  const heroImg = imageFromGallery(getNext());
+  if (heroImg) sections.push(heroImg);
+
+  // 2. Two-column 50-50 — title+description + project details (balanced, utilitarian)
+  sections.push(
+    buildTwoColumnLayout({
+      ratio: '50-50',
+      gap: 'default',
+      mobileStackOrder: 'left-first',
+      leftColumn: [
+        buildTextSection({
+          body:
+            '<h1>' + project.title + '</h1>' +
+            formatAsHtml(project.description),
+        }),
+      ],
+      rightColumn: [
+        buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
+      ],
+    })
+  );
+
+  // 3. Two-column 50-50 — two images side-by-side (process comparison pair)
+  const pairA = imageFromGallery(getNext());
+  const pairB = imageFromGallery(getNext());
+  if (pairA || pairB) {
+    sections.push(
+      buildTwoColumnLayout({
+        ratio: '50-50',
+        gap: 'narrow',
+        mobileStackOrder: 'left-first',
+        leftColumn: pairA ? [pairA] : [],
+        rightColumn: pairB ? [pairB] : [],
+      })
+    );
+  }
+
+  // 4. Full-width image — beauty shot of finished piece
+  const beautyImg = imageFromGallery(getNext());
+  if (beautyImg) sections.push(beautyImg);
+
+  // 5. Three-column — three process stage images (Sasha's signature layout)
+  const triImgs = getNextN(3);
+  if (triImgs.length > 0) {
+    const triColumns = triImgs.map(img => {
+      const section = imageFromGallery(img);
+      return section ? [section] : [];
+    });
+    while (triColumns.length < 3) triColumns.push([]);
+    sections.push(
+      buildThreeColumnLayout({
+        gap: 'narrow',
+        mobileStackOrder: 'left-first',
+        columns: triColumns,
+      })
+    );
+  }
+
+  // 6. Related project card (if available)
+  const relatedIds = getRelatedProjectIds(
+    context,
+    project.id || '',
+    project.categorySlug || '',
+    1
+  );
+  if (relatedIds.length > 0) {
+    sections.push(
+      buildProjectCardSection({ projectId: relatedIds[0], cardSize: 'large', showMetadata: true })
+    );
+  }
+
+  // 7. Gallery — genre-adaptive style for remaining images
+  const restImgs = remaining();
+  const gallerySection = buildGenreGallery(genre, restImgs);
+  if (gallerySection) sections.push(gallerySection);
+
+  return sections;
+}
+
+/** Sasha Template B — "Craft Showcase" (odd order, genre-adaptive) */
+function sashaTemplateB(project, getNext, getNextN, remaining, context, genre) {
+  const sections = [];
+
+  // 1. Hero image (full-width)
+  const heroImg = imageFromGallery(getNext());
+  if (heroImg) sections.push(heroImg);
+
+  // 2. Sidebar — details sidebar + title/description main
+  sections.push(
+    buildSidebarLayout({
+      sidebarPosition: 'right',
+      sidebarWidth: 280,
+      gap: 'default',
+      mobileStackOrder: 'main-first',
+      sidebar: [
+        buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
+      ],
+      main: [
+        buildTextSection({
+          body:
+            '<h1>' + project.title + '</h1>' +
+            formatAsHtml(project.description),
+        }),
+      ],
+    })
+  );
+
+  // 3. Full-width image — process or finished piece
+  const breakImg = imageFromGallery(getNext());
+  if (breakImg) sections.push(breakImg);
+
+  // 4. Two-column 50-50 — two process images side-by-side
+  const pairA = imageFromGallery(getNext());
+  const pairB = imageFromGallery(getNext());
+  if (pairA || pairB) {
+    sections.push(
+      buildTwoColumnLayout({
+        ratio: '50-50',
+        gap: 'narrow',
+        mobileStackOrder: 'left-first',
+        leftColumn: pairA ? [pairA] : [],
+        rightColumn: pairB ? [pairB] : [],
+      })
+    );
+  }
+
+  // 5. Full-width image — second beauty shot
+  const beautyImg = imageFromGallery(getNext());
+  if (beautyImg) sections.push(beautyImg);
+
+  // 6. Related project list (if available, up to 2)
+  const relatedIds = getRelatedProjectIds(
+    context,
+    project.id || '',
+    project.categorySlug || '',
+    2
+  );
+  if (relatedIds.length > 0) {
+    sections.push(
+      buildProjectListSection({
+        projectIds: relatedIds.slice(0, 2),
+        layout: 'vertical',
+        showMetadata: true,
+      })
+    );
+  }
+
+  // 7. Gallery — genre-adaptive style for remaining images
+  const restImgs = remaining();
+  const gallerySection = buildGenreGallery(genre, restImgs);
+  if (gallerySection) sections.push(gallerySection);
+
+  return sections;
+}
+
+// ============================================
 // Public API — Persona Dispatch
 // ============================================
 
@@ -1894,6 +2336,9 @@ export function buildPersonaProjectPage(personaId, project, galleryImages, conte
   if (personaId.includes('emma')) {
     return emmaProjectPage(project, galleryImages, context);
   }
+  if (personaId.includes('sasha')) {
+    return sashaProjectPage(project, galleryImages, context);
+  }
   // Default to Sarah's layout
   return sarahProjectPage(project, galleryImages, context);
 }
@@ -1912,6 +2357,9 @@ export function buildPersonaHomepage(personaId, context) {
   if (personaId.includes('emma')) {
     return emmaHomepage(context);
   }
+  if (personaId.includes('sasha')) {
+    return sashaHomepage(context);
+  }
   return sarahHomepage(context);
 }
 
@@ -1928,6 +2376,9 @@ export function buildPersonaAboutPage(personaId, context) {
   }
   if (personaId.includes('emma')) {
     return emmaAboutPage(context);
+  }
+  if (personaId.includes('sasha')) {
+    return sashaAboutPage(context);
   }
   return sarahAboutPage(context);
 }
@@ -1947,6 +2398,9 @@ export function buildPersonaCategoryPage(personaId, category, categoryIndex, con
   }
   if (personaId.includes('emma')) {
     return emmaCategoryPage(category, categoryIndex, context);
+  }
+  if (personaId.includes('sasha')) {
+    return sashaCategoryPage(category, categoryIndex, context);
   }
   return sarahCategoryPage(category, categoryIndex, context);
 }
