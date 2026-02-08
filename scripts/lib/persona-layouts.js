@@ -314,6 +314,7 @@ function sarahHomepage(context) {
   const sections = [];
 
   // 1. Hero
+  const hasResume = !!(persona.resumeUrl);
   sections.push({
     id: generateSectionId(),
     type: 'hero',
@@ -322,7 +323,8 @@ function sarahHomepage(context) {
     bio: '',
     profileImageId: profileAssetId,
     profileImageUrl: profileAssetUrl,
-    showResumeLink: true,
+    showResumeLink: hasResume,
+    resumeUrl: persona.resumeUrl || '',
   });
 
   // 2. Featured carousel
@@ -1206,6 +1208,7 @@ function emmaHomepage(context) {
   const sections = [];
 
   // 1. Hero — use role as title, bio as introduction (not redundant name)
+  const hasResume = !!(persona.resumeUrl);
   sections.push({
     id: generateSectionId(),
     type: 'hero',
@@ -1214,7 +1217,8 @@ function emmaHomepage(context) {
     bio: persona.bio || '',
     profileImageId: profileAssetId,
     profileImageUrl: profileAssetUrl,
-    showResumeLink: true,
+    showResumeLink: hasResume,
+    resumeUrl: persona.resumeUrl || '',
   });
 
   // 2. Featured carousel — production highlights
@@ -1300,6 +1304,7 @@ function emmaAboutPage(context) {
   const aboutImg2 = onJobImg || (additionalProfileImages || [])[1] || null;
 
   // 1. Hero
+  const hasResume = !!(persona.resumeUrl);
   sections.push({
     id: generateSectionId(),
     type: 'hero',
@@ -1308,7 +1313,8 @@ function emmaAboutPage(context) {
     bio: persona.bio,
     profileImageId: profileAssetId,
     profileImageUrl: profileAssetUrl,
-    showResumeLink: true,
+    showResumeLink: hasResume,
+    resumeUrl: persona.resumeUrl || '',
   });
 
   // 2. Two-column 70-30 — career overview + on-set image

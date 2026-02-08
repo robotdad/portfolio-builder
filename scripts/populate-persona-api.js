@@ -641,8 +641,8 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         bio: '',
         profileImageId: profileAssetId,
         profileImageUrl: profileAssetUrl,
-        showResumeLink: false,
-        resumeUrl: ''
+        showResumeLink: !!(persona.resumeUrl),
+        resumeUrl: persona.resumeUrl || ''
       }]
     });
     
