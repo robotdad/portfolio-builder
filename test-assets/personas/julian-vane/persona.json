@@ -66,6 +66,11 @@
           "title": "Bespoke Morning Coat",
           "slug": "bespoke-morning-coat",
           "description": "Full canvas morning coat in navy wool suiting, constructed to Savile Row standards for a Victorian period drama. The build centred on achieving authentic peak lapel roll through twelve hours of hand pad-stitching over horsehair canvas, supported by a complete chest piece and shoulder architecture. Hand-sewn buttonholes with gimp thread reinforcement, traditional sleeve setting with hand-felled armscye, and steam-pressed shaping throughout. Eighty hours of construction across four weeks and six fittings.",
+          "headings": {
+            "challenge": "The Lapel Problem",
+            "approach": "The Hand Work",
+            "outcome": "The Finished Garment"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -225,6 +230,11 @@
           "title": "The Diplomat's Suit",
           "slug": "the-diplomats-suit",
           "description": "Three-piece charcoal suit in fine worsted wool, built with full canvas construction for a contemporary political drama. The jacket required camera-ready finishing capable of withstanding sixty-plus filming days without visible wear: pick-stitched edges, hand-finished collar, hand-sewn waistcoat buttonholes, and meticulous pressing throughout. The worsted was selected for its recovery and how it held a line under the production's flat, even lighting design.",
+          "headings": {
+            "challenge": "The Standard Required",
+            "approach": "The Construction",
+            "outcome": "Invisible Perfection"
+          },
           "isFeatured": false,
           "order": 2,
           "projectDetails": {
@@ -370,6 +380,11 @@
           "title": "The Obsidian Crown",
           "slug": "the-obsidian-crown",
           "description": "Twenty-eight principal costumes and fifty-plus ensemble pieces for a dark fantasy tragedy requiring progressive deterioration effects across the run. Lead construction on the Queen's gown: burgundy silk velvet over structured horsehair canvas bodice with spiral steel boning, gold metallic thread embroidery engineered to fray convincingly through performance. The Officer's navy wool coat required full canvas military construction with concealed rigid armour structure beneath the fashion fabric. Ensemble courtier pieces incorporated modular snap-fastener systems for fifteen-second quick changes and hand-embroidered surface work designed for deliberate, controlled fraying.",
+          "headings": {
+            "challenge": "The Commission",
+            "approach": "The Build",
+            "outcome": "Under the Lights"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -616,6 +631,11 @@
           "title": "Much Ado About Nothing: 1960s Miami",
           "slug": "much-ado-miami",
           "description": "Eighteen principal costumes for a 1960s Miami reimagining of Shakespeare's comedy, built for outdoor summer performance. Lead construction on Beatrice's coral linen mod shift dress with precision-applied geometric trim at the neckline, and Benedick's cream linen suit requiring adapted lightweight canvas construction for tropical-weight fabric. Every garment was engineered for weather resistance\u2014sealed seams, colourfast finishing, and fabric selections that would recover from humidity and occasional rain without losing their period silhouette.",
+          "headings": {
+            "challenge": "The Conditions",
+            "approach": "Cloth and Climate",
+            "outcome": "Under Open Sky"
+          },
           "isFeatured": true,
           "order": 2,
           "projectDetails": {
@@ -868,6 +888,11 @@
           "title": "The Negative Space",
           "slug": "the-negative-space",
           "description": "Six principal costumes for an experimental black box production exploring grief through physical transformation. The centrepiece was a fully reversible wool-and-cotton coat engineered for silent on-stage reversal: grey wool exterior to black cotton interior, with concealed snap systems allowing the actor to transform the garment in performance without leaving the stage. A deconstructed white shirt used exposed French seams and visible dart work as deliberate design elements. Modular ensemble pieces reconfigured throughout the ninety-minute one-act, each transformation mechanism designed for silence and speed.",
+          "headings": {
+            "challenge": "The Constraint",
+            "approach": "The Engineering",
+            "outcome": "The Transformation"
+          },
           "isFeatured": false,
           "order": 3,
           "projectDetails": {
@@ -955,7 +980,7 @@
               "title": "Fitting - Grey Exterior",
               "description": "Close-up of reversible coat grey side during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of grey wool side of reversible coat on actor during fitting, focus on coat shoulder and drape, actor's head cropped from frame, checking fit of exterior configuration, static fitting documentation, natural workshop lighting."
+              "prompt": "Close-up iPhone 14 Pro photo of grey wool side of reversible coat on actor during fitting, focus on coat shoulder and drape, actor's head cropped from frame, checking fit of exterior configuration, static fitting documentation, natural workshop lighting. No hands of the costume fitter."
             },
             {
               "file": "categories/theater-production/the-negative-space/coat-fitting-black-side.jpg",
@@ -1041,6 +1066,11 @@
           "title": "The Crimson Inheritance",
           "slug": "the-crimson-inheritance",
           "description": "Twelve principal character costumes with forty-plus duplicates for a six-month period mystery shoot set in 1880s England. Lead construction on the female lead's burgundy silk taffeta day dress: fitted bodice with spiral steel boning channels, princess seam construction, thirty-plus hand-sewn buttonholes, and a wire-framed bustle pad supporting authentic 1880s skirt draping. The male lead's charcoal wool tailcoat required full horsehair canvas construction with hand pad-stitched lapels, hand-set sleeve heads, and a matching waistcoat with welt pockets and silk back. Stunt duplicates were matched stitch for stitch against hero garments for continuity across months of shooting.",
+          "headings": {
+            "challenge": "The Period Standard",
+            "approach": "The Making",
+            "outcome": "Under the Lens"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -1300,6 +1330,11 @@
           "title": "Shadows and Smoke",
           "slug": "shadows-and-smoke",
           "description": "Fifteen principal costumes for a neo-noir crime thriller set in 1940s Los Angeles, built for dramatic silhouette under high-contrast lighting. Lead construction on the detective's signature double-breasted overcoat in heavy charcoal melton wool: structured canvas shoulders for the exaggerated 1940s line, wide peaked lapels pad-stitched for permanent roll, and a belted waist engineered for movement and drape on camera. The femme fatale's silver-grey silk satin evening gown required true bias-cut construction for period-accurate fluid drape. Three identical copies of the hero overcoat were built for stunt work, continuity, and backup, each matched to the original's exact measurements and wear characteristics.",
+          "headings": {
+            "challenge": "Cloth and Light",
+            "approach": "Silhouette and Drape",
+            "outcome": "The Final Frame"
+          },
           "isFeatured": true,
           "order": 2,
           "projectDetails": {
@@ -1525,7 +1560,7 @@
               "title": "Suit Fitting - Shoulder Check",
               "description": "Close-up of wide-shouldered suit jacket fit on actor during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of navy pinstripe suit jacket with exaggerated wide shoulders on actor during fitting, focus on shoulder and upper back area, actor's head cropped from frame, checking dramatic 1940s silhouette, static fitting documentation, natural workshop lighting."
+              "prompt": "iPhone 14 Pro photo of navy pinstripe suit jacket with exaggerated wide shoulders on actor during fitting, focus on shoulder and upper back area, actor's head cropped from frame, checking dramatic 1940s silhouette, static fitting documentation, natural workshop lighting."
             },
             {
               "file": "categories/film-production/shadows-and-smoke/waistcoat-detail.jpg",
@@ -1631,6 +1666,11 @@
           "title": "Leatherwork",
           "slug": "leatherwork",
           "description": "Cross-project showcase of leather construction techniques: vegetable-tanned hide shaped into articulated armour, period doublets, and structural costume elements. The armour vest demonstrates wet-forming over carved patterns, hand-tooling with swivel knife and stamping tools, and brass rivet construction for articulated shoulder guards. Edges are burnished by hand to a polished finish, hardware is set with reinforced saddle-stitching, and weathering is built through layered dye application and controlled abrasion. Work shown spans post-apocalyptic stage armour through historical Elizabethan leather doublets.",
+          "headings": {
+            "challenge": "A Different Discipline",
+            "approach": "The Craft",
+            "outcome": "The Finished Piece"
+          },
           "isFeatured": true,
           "order": 1,
           "techniques": [
@@ -1736,6 +1776,11 @@
           "title": "Corsetry",
           "slug": "corsetry",
           "description": "Period corsetry for theatre and film spanning Victorian, Edwardian, and Regency silhouettes, constructed with traditional materials and methods adapted for modern performance demands. Foundation garments are built on heavy coutil with precisely stitched boning channels accepting spiral steel bones, hand-set brass grommets for lacing, and silk satin fashion exteriors finished over the structural layer. Comfort engineering for eight-plus hours of wear\u2014graduated boning density, strategic channel placement, and careful fitting\u2014distinguishes performance corsetry from purely historical reproduction.",
+          "headings": {
+            "challenge": "The Foundation",
+            "approach": "The Structure",
+            "outcome": "The Finished Form"
+          },
           "isFeatured": false,
           "order": 2,
           "techniques": [

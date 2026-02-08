@@ -66,6 +66,11 @@
           "title": "The Obsidian Crown",
           "slug": "the-obsidian-crown",
           "description": "What happens when a queen's soul darkens, and her wardrobe follows? For this original dark fantasy tragedy, I created a color language of moral descent\u2014rich burgundies and golds giving way to blood reds, then charcoal, then midnight black\u2014mapping each character's corruption onto their costumes. Twenty-eight principal costumes and fifty-plus ensemble pieces, each designed to deteriorate in lockstep with the story's psychological unraveling, so the audience could watch virtue drain from the stage one hem at a time.",
+          "headings": {
+            "challenge": "Clothing as Narrator",
+            "approach": "Mapping the Moral Spectrum",
+            "outcome": "What the Critics Saw"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -283,6 +288,11 @@
           "title": "Neon Babel",
           "slug": "neon-babel",
           "description": "A love letter to the underground\u2014this experimental piece dropped six characters into a near-future club where language fractures and identity is fluid. I designed costumes that lived and breathed with the lighting: LED-embedded garments, reflective surfaces, and modular streetwear pieces that the actors reconfigured throughout the ninety-minute performance. The costumes didn't just exist in the light\u2014they became it.",
+          "headings": {
+            "challenge": "Light That Breathes",
+            "approach": "Wiring the Underground",
+            "outcome": "Pulsing with the Rhythm"
+          },
           "isFeatured": true,
           "order": 2,
           "projectDetails": {
@@ -438,6 +448,11 @@
           "title": "A Doll's House: Reimagined",
           "slug": "a-dolls-house-reimagined",
           "description": "Ibsen's Nora, reborn in the glass towers of corporate America. The question was deceptively simple: how do you make a woman's liberation visible? I answered it through fashion\u2014tracing Nora's arc from the suffocating perfection of grey corporate suiting through the first brave sparks of jewel tones to the flowing, vibrant coral of a woman who has finally chosen herself. Five distinct looks for one character's revolution.",
+          "headings": {
+            "challenge": "The Art of Subtlety",
+            "approach": "From Grey to Coral",
+            "outcome": "A Revolution You Could See"
+          },
           "isFeatured": false,
           "order": 3,
           "projectDetails": {
@@ -612,6 +627,11 @@
           "title": "The Last Correspondence",
           "slug": "the-last-correspondence",
           "description": "Two women in 1920s England, a forbidden love told through discovered letters\u2014and through the clothes that concealed and revealed them. I designed two distinct visual vocabularies that gradually, almost imperceptibly, converged: the aristocrat's structured pastels meeting the artist's earthy bohemian layers in a shared palette of warm amber and rose as their intimacy deepened. The costume design became the film's secret love language.",
+          "headings": {
+            "challenge": "Dressing the Forbidden",
+            "approach": "Two Worlds Converging",
+            "outcome": "A Secret Love Language"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -828,6 +848,11 @@
           "title": "Velvet and Ash",
           "slug": "velvet-and-ash",
           "description": "A gallery owner's mind unravels, and her wardrobe tells the story. This noir psychological thriller, shot in a stark high-contrast style, challenged me to design a descent you could measure in wrinkles, in unbuttoned collars, in the slow destruction of once-perfect minimalism. The same black velvet and white silk that signaled control in act one read as devastation by act three\u2014all through styling alone.",
+          "headings": {
+            "challenge": "Fabric Under Scrutiny",
+            "approach": "The Slow Undoing",
+            "outcome": "Elegant Devastation"
+          },
           "isFeatured": true,
           "order": 2,
           "projectDetails": {
@@ -1015,6 +1040,11 @@
           "title": "Paper Tigers",
           "slug": "paper-tigers",
           "description": "Silicon Valley is a costume drama\u2014people just don't realize it. For this corporate espionage thriller, I designed two warring fashion tribes: the Old Guard in sharp power suiting and the New Tech in elevated, deliberately casual streetwear. Each side's clothing was armor and allegiance badge all at once. At the center, a CEO whose pristine white power suit slowly devolved into paranoid disarray as her empire crumbled around her.",
+          "headings": {
+            "challenge": "Fashion as Warfare",
+            "approach": "Coding the Tribes",
+            "outcome": "The Valley Noticed"
+          },
           "isFeatured": false,
           "order": 3,
           "projectDetails": {
@@ -1187,6 +1217,11 @@
           "title": "The Architect's Daughter",
           "slug": "the-architects-daughter",
           "description": "How does a young woman shed her father's shadow and find her own voice? Over eight episodes, I answered that question through her closet. Starting with a rigid capsule wardrobe of corporate black, white, and navy\u2014the uniform of someone performing professionalism\u2014I gradually introduced pieces in rust, forest green, and warm neutrals that felt unmistakably hers. The same navy blazer, buttoned to the throat in episode one, hung open over a band tee by episode six. Forty-five costume combinations tracking one woman's quiet revolution.",
+          "headings": {
+            "challenge": "A Closet with an Arc",
+            "approach": "Fifteen Pieces, Eight Episodes",
+            "outcome": "They Watched Her Change"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -1401,6 +1436,11 @@
           "title": "Beneath the Surface",
           "slug": "beneath-the-surface",
           "description": "A marine biologist arrives at a coastal research station in bright blues and cheerful whites. Six episodes later, she's wrapped in dark layers, a woman transformed by what she's uncovered. For this psychological mystery, I designed two overlapping wardrobes for the same character\u2014the optimistic scientist and the paranoid investigator\u2014and tracked their collision across the season, as the sunshine palette was steadily consumed by shadow.",
+          "headings": {
+            "challenge": "Two Lives, One Closet",
+            "approach": "Sunshine Into Shadow",
+            "outcome": "The Darkening They Felt"
+          },
           "isFeatured": false,
           "order": 2,
           "projectDetails": {
@@ -1595,6 +1635,11 @@
           "title": "Urban Armor",
           "slug": "urban-armor",
           "description": "We all wear armor\u2014mine just happens to have sculptural shoulders and silk linings. This six-piece capsule collection explored the tension between the hard shells we present to the world and the softness we hide underneath. Deconstructed military details reimagined as urban streetwear, with every piece carrying a secret: beneath the heavy canvas and brass hardware, silk charmeuse and delicate embroidery that only the wearer would know. Showcased at Portland Fashion Week 2024.",
+          "headings": {
+            "challenge": "Armor Without Costume",
+            "approach": "Deconstructing the Shield",
+            "outcome": "The Secret Underneath"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {

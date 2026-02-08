@@ -49,6 +49,19 @@ function formatAsHtml(text) {
 }
 
 /**
+ * Extract project headings with fallback to generic defaults.
+ * Projects can supply a `headings` object with `challenge`, `approach`, `outcome` keys
+ * for voice-appropriate section headings instead of the generic defaults.
+ */
+function getHeadings(project) {
+  return {
+    challenge: project.headings?.challenge || 'The Challenge',
+    approach: project.headings?.approach || 'The Approach',
+    outcome: project.headings?.outcome || 'The Outcome',
+  };
+}
+
+/**
  * Build an HTML block from projectDetails fields.
  * Renders each present field as <p><strong>Label:</strong> Value</p>.
  */
@@ -405,6 +418,7 @@ function sarahProjectPage(project, galleryImages, context) {
 
 /** Sarah Template A — "Editorial Feature" (even order indices) */
 function sarahTemplateA(project, getNext, getNextN, remaining, context) {
+  const h = getHeadings(project);
   const sections = [];
 
   // 1. Hero image (full-width)
@@ -445,9 +459,9 @@ function sarahTemplateA(project, getNext, getNextN, remaining, context) {
       leftColumn: [
         buildTextSection({
           body:
-            '<h2>The Challenge</h2>' +
+            '<h2>' + h.challenge + '</h2>' +
             formatAsHtml(project.projectContent?.challenge || '') +
-            '<h2>The Approach</h2>' +
+            '<h2>' + h.approach + '</h2>' +
             formatAsHtml(project.projectContent?.approach || ''),
         }),
       ],
@@ -466,7 +480,7 @@ function sarahTemplateA(project, getNext, getNextN, remaining, context) {
       rightColumn: [
         buildTextSection({
           body:
-            '<h2>The Outcome</h2>' +
+            '<h2>' + h.outcome + '</h2>' +
             formatAsHtml(project.projectContent?.outcome || '') +
             buildTechniquesHtml(project.techniques, []),
         }),
@@ -500,6 +514,7 @@ function sarahTemplateA(project, getNext, getNextN, remaining, context) {
 
 /** Sarah Template B — "Condensed Feature" (odd order indices) */
 function sarahTemplateB(project, getNext, getNextN, remaining, context) {
+  const h = getHeadings(project);
   const sections = [];
 
   // 1. Hero image (full-width)
@@ -536,9 +551,9 @@ function sarahTemplateB(project, getNext, getNextN, remaining, context) {
       rightColumn: [
         buildTextSection({
           body:
-            '<h2>The Challenge</h2>' +
+            '<h2>' + h.challenge + '</h2>' +
             formatAsHtml(project.projectContent?.challenge || '') +
-            '<h2>The Approach</h2>' +
+            '<h2>' + h.approach + '</h2>' +
             formatAsHtml(project.projectContent?.approach || ''),
         }),
       ],
@@ -559,7 +574,7 @@ function sarahTemplateB(project, getNext, getNextN, remaining, context) {
       leftColumn: [
         buildTextSection({
           body:
-            '<h2>The Outcome</h2>' +
+            '<h2>' + h.outcome + '</h2>' +
             formatAsHtml(project.projectContent?.outcome || '') +
             buildTechniquesHtml(project.techniques, []),
         }),
@@ -847,6 +862,7 @@ function julianProjectPage(project, galleryImages, context) {
 
 /** Julian Template A (even order indices) */
 function julianTemplateA(project, getNext, getNextN, remaining, context) {
+  const h = getHeadings(project);
   const sections = [];
 
   // 1. Hero image (full-width)
@@ -898,9 +914,9 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
       rightColumn: [
         buildTextSection({
           body:
-            '<h2>The Challenge</h2>' +
+            '<h2>' + h.challenge + '</h2>' +
             formatAsHtml(project.projectContent?.challenge || '') +
-            '<h2>The Approach</h2>' +
+            '<h2>' + h.approach + '</h2>' +
             formatAsHtml(project.projectContent?.approach || ''),
         }),
       ],
@@ -917,7 +933,7 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
       leftColumn: [
         buildTextSection({
           body:
-            '<h2>The Outcome</h2>' +
+            '<h2>' + h.outcome + '</h2>' +
             formatAsHtml(project.projectContent?.outcome || '') +
             buildTechniquesHtml(project.techniques, project.recognition),
         }),
@@ -952,6 +968,7 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
 
 /** Julian Template B (odd order indices) */
 function julianTemplateB(project, getNext, getNextN, remaining, context) {
+  const h = getHeadings(project);
   const sections = [];
 
   // 1. Hero image (full-width)
@@ -987,9 +1004,9 @@ function julianTemplateB(project, getNext, getNextN, remaining, context) {
       rightColumn: [
         buildTextSection({
           body:
-            '<h2>The Challenge</h2>' +
+            '<h2>' + h.challenge + '</h2>' +
             formatAsHtml(project.projectContent?.challenge || '') +
-            '<h2>The Approach</h2>' +
+            '<h2>' + h.approach + '</h2>' +
             formatAsHtml(project.projectContent?.approach || ''),
         }),
       ],
@@ -1021,7 +1038,7 @@ function julianTemplateB(project, getNext, getNextN, remaining, context) {
       leftColumn: [
         buildTextSection({
           body:
-            '<h2>The Outcome</h2>' +
+            '<h2>' + h.outcome + '</h2>' +
             formatAsHtml(project.projectContent?.outcome || '') +
             (project.recognition && project.recognition.length > 0
               ? '<h3>Recognition</h3><ul>' +
@@ -1352,6 +1369,7 @@ function emmaProjectPage(project, galleryImages, context) {
 
 /** Emma Template A (even order indices) */
 function emmaTemplateA(project, getNext, getNextN, remaining, context) {
+  const h = getHeadings(project);
   const sections = [];
 
   // 1. Hero image (full-width)
@@ -1391,9 +1409,9 @@ function emmaTemplateA(project, getNext, getNextN, remaining, context) {
       leftColumn: [
         buildTextSection({
           body:
-            '<h2>The Challenge</h2>' +
+            '<h2>' + h.challenge + '</h2>' +
             formatAsHtml(project.projectContent?.challenge || '') +
-            '<h2>The Approach</h2>' +
+            '<h2>' + h.approach + '</h2>' +
             formatAsHtml(project.projectContent?.approach || ''),
         }),
       ],
@@ -1412,7 +1430,7 @@ function emmaTemplateA(project, getNext, getNextN, remaining, context) {
       rightColumn: [
         buildTextSection({
           body:
-            '<h2>The Outcome</h2>' +
+            '<h2>' + h.outcome + '</h2>' +
             formatAsHtml(project.projectContent?.outcome || ''),
         }),
       ],
@@ -1449,6 +1467,7 @@ function emmaTemplateA(project, getNext, getNextN, remaining, context) {
 
 /** Emma Template B (odd order indices) */
 function emmaTemplateB(project, getNext, getNextN, remaining, context) {
+  const h = getHeadings(project);
   const sections = [];
 
   // 1. Hero image (full-width)
@@ -1470,7 +1489,7 @@ function emmaTemplateB(project, getNext, getNextN, remaining, context) {
           body:
             '<h1>' + project.title + '</h1>' +
             formatAsHtml(project.description) +
-            '<h2>The Challenge</h2>' +
+            '<h2>' + h.challenge + '</h2>' +
             formatAsHtml(project.projectContent?.challenge || ''),
         }),
       ],
@@ -1488,7 +1507,7 @@ function emmaTemplateB(project, getNext, getNextN, remaining, context) {
       rightColumn: [
         buildTextSection({
           body:
-            '<h2>The Approach</h2>' +
+            '<h2>' + h.approach + '</h2>' +
             formatAsHtml(project.projectContent?.approach || '') +
             buildTechniquesHtml(project.techniques, []),
         }),
@@ -1510,7 +1529,7 @@ function emmaTemplateB(project, getNext, getNextN, remaining, context) {
       leftColumn: [
         buildTextSection({
           body:
-            '<h2>The Outcome</h2>' +
+            '<h2>' + h.outcome + '</h2>' +
             formatAsHtml(project.projectContent?.outcome || ''),
         }),
       ],

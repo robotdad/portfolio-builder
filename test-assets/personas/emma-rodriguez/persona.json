@@ -66,6 +66,11 @@
           "title": "The Winter Palace",
           "slug": "the-winter-palace",
           "description": "A $4.2M costume department operation spanning 14 weeks of principal photography across Prague and St. Petersburg. Managed a 45-person department and an inventory of 2,400 individual costumes serving 127 speaking roles and crowd scenes of 200+ extras. The production required seamless transitions between lavish imperial court scenes and intimate family sequences, all verified against academic historical standards. The ballroom massacre sequence—180 extras in full formal wear, costumes progressively destroyed over three days—demanded a dedicated continuity infrastructure to track exact damage states across 847 VFX shots.",
+          "headings": {
+            "challenge": "Opulence Into Destruction",
+            "approach": "Building the Costume Factory",
+            "outcome": "847 Shots, Zero Breaks"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -218,6 +223,11 @@
           "title": "Letters from Saigon",
           "slug": "letters-from-saigon",
           "description": "An $1.8M costume department supporting 340 costumes across an 8-week international shoot in Vietnam and Thailand. Led an 18-person crew through extreme tropical conditions that destroyed period fabrics within days—vintage cotton rotted, dyes bled, and humidity caused permanent damage. Managed both period American military and civilian Vietnamese wardrobes while maintaining 1967-era accuracy verified by cultural consultants. Developed rapid-rotation and on-site treatment protocols that kept production on schedule despite losing 40% of costumes to climate damage.",
+          "headings": {
+            "challenge": "When the Jungle Eats Wardrobe",
+            "approach": "Outrunning the Humidity",
+            "outcome": "40% Attrition, Zero Delays"
+          },
           "isFeatured": true,
           "order": 2,
           "projectDetails": {
@@ -389,6 +399,11 @@
           "title": "Freefall",
           "slug": "freefall",
           "description": "A $3.1M costume department budget covering 127 hero costume multiples—an unprecedented volume—across 16 weeks of principal photography. Managed a 28-person department coordinating four stunt doubles per principal actor through the film's signature 40-minute 'continuous shot,' which actually comprised 47 hidden cuts filmed over 6 weeks. Each cut point required exact matching of progressive dust, tears, burns, and blood across every costume. Built a proprietary damage-tracking system and dedicated four-person continuity team that eliminated visible costume breaks across the entire sequence.",
+          "headings": {
+            "challenge": "What 47 Hidden Cuts Demands",
+            "approach": "Tracking Destruction by the Angle",
+            "outcome": "Zero Breaks, $340M Worldwide"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -511,6 +526,11 @@
           "title": "The Matador's Shadow",
           "slug": "the-matadors-shadow",
           "description": "A $2.4M costume department managing 380 total costumes including 18 traditional traje de luces (suits of lights), each valued at $15,000–$50,000 and requiring months to create traditionally. Delivered all 18 suits within a 5-week prep window by partnering with three generations of a Seville bullfighting costume family. Coordinated a 22-person department across Madrid and Seville, adapting culturally significant garments—never designed for film stunt work—into both camera-ready hero versions and reinforced stunt-safe duplicates with blood-resistant treatments.",
+          "headings": {
+            "challenge": "$50K Suits Meet Stunt Work",
+            "approach": "Three Generations of Craft",
+            "outcome": "18 Suits, Zero Compromises"
+          },
           "isFeatured": false,
           "order": 2,
           "projectDetails": {
@@ -690,6 +710,11 @@
           "title": "The Quiet Leaving",
           "slug": "the-quiet-leaving",
           "description": "A focused $380K costume department supporting 42 costumes for 4 principal actors across 18 days of sequential shooting. The production's central challenge was tracking deliberate costume deterioration as emotional walls crumble—carefully pressed clothes becoming rumpled, deliberate outfit choices giving way to borrowed sweatshirts—while ensuring every transition read as organic rather than designed. Built detailed entropy maps and borrowed-item tracking systems that maintained precise control over subtle wardrobe progressions throughout the shoot.",
+          "headings": {
+            "challenge": "The Invisible Costume",
+            "approach": "Mapping the Unraveling",
+            "outcome": "When Nobody Notices, It Worked"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -810,6 +835,11 @@
           "title": "Midnight Pastoral",
           "slug": "midnight-pastoral",
           "description": "A $290K costume department operating across 14 months of seasonal shoots in rural Nebraska. Managed 89 costumes with a 4-person crew under a production mandate that rejected all conventional film aging techniques in favor of genuine wear patterns—not 'movie distressed' but authentically worn by bodies doing physical labor. Maintained continuity across four seasonal shooting blocks, requiring long-term storage protocols and precise documentation of real wear patterns developed by actors doing actual farm work during prep.",
+          "headings": {
+            "challenge": "No Faking It",
+            "approach": "Worn In, Not Broken Down",
+            "outcome": "Finally Getting It Right"
+          },
           "isFeatured": false,
           "order": 2,
           "projectDetails": {
@@ -973,6 +1003,11 @@
           "title": "The Crossing",
           "slug": "the-crossing",
           "description": "A $1.9M costume department managing 156 costumes through 11 weeks of principal photography above the Arctic Circle at temperatures reaching -30°C. Led a 14-person crew under extreme cold-weather protocols where costumes had to function as genuine survival gear while maintaining cinematic continuity through blizzard conditions that altered costume appearance between takes. Partnered with Norwegian Arctic survival experts and engineered heated maintenance infrastructure on location to keep the department operational in conditions that freeze fabric stiff and change costume silhouettes hour to hour.",
+          "headings": {
+            "challenge": "Dressing for Negative Thirty",
+            "approach": "Engineering Against the Arctic",
+            "outcome": "23 Blizzards, Zero Lost Days"
+          },
           "isFeatured": true,
           "order": 1,
           "projectDetails": {
@@ -1087,6 +1122,11 @@
           "title": "The Long Road",
           "slug": "the-long-road",
           "description": "A $2.1M costume department managing 420 costumes across 24 weeks of principal photography in three countries—Jordan, Greece, and Germany. Coordinated rotating international crews through standardized systems, rebuilding departmental workflows at each location while maintaining continuity across a 2,000-mile narrative journey. Required deep cultural consultation with refugee advocacy organizations and community-engaged sourcing to ensure authentic, dignified representation throughout.",
+          "headings": {
+            "challenge": "Dignity Across 2,000 Miles",
+            "approach": "Community First, Camera Second",
+            "outcome": "The Model Others Follow"
+          },
           "isFeatured": false,
           "order": 2,
           "projectDetails": {
