@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Card, CardImage, CardBody, CardTitle, CardDescription } from '@/components/ui'
-import { getAspectRatioClass, getOrientationAwareRatio } from '@/lib/image-helpers'
+import { getAspectRatioClass, getOrientationAwareRatio, type AspectRatioPreset } from '@/lib/image-helpers'
 
 interface ProjectCardProps {
   project: {
@@ -46,10 +46,15 @@ export function ProjectCard({
     ? getAspectRatioClass(project.featuredImageWidth, project.featuredImageHeight)
     : 'square' // Default to square if dimensions unknown
 
-  // Pick the closest aspect ratio preset based on actual image dimensions
-  const displayRatio = project.featuredImageWidth && project.featuredImageHeight
+  // Pick the closest aspect ratio preset based on actual image dimensions,
+  // but cap extreme portrait ratios to prevent cards taller than the viewport.
+  // Portrait images still display as portrait (4:5) but won't extend to 3:4 or 2:3
+  // which creates cards that hide all text below the image.
+  const rawRatio = project.featuredImageWidth && project.featuredImageHeight
     ? getOrientationAwareRatio(project.featuredImageWidth, project.featuredImageHeight)
     : '4/3' // Safe default when dimensions unknown
+  const portraitCaps: Partial<Record<AspectRatioPreset, AspectRatioPreset>> = { '3/4': '4/5', '2/3': '4/5' }
+  const displayRatio = portraitCaps[rawRatio] ?? rawRatio
   
   // Overlay content for desktop hover
   const overlayContent = (
