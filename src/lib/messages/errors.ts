@@ -179,6 +179,12 @@ export const ENTITY_ERRORS = {
     message: 'Section not found',
     recovery: 'This section may have been removed. Refresh the page to see the latest content.'
   },
+  
+  // Tag
+  TAG_NOT_FOUND: {
+    message: 'Tag not found',
+    recovery: 'This tag may have been deleted. Return to the tags list.'
+  },
 } as const
 
 // ----------------------------------------------------------------------------
