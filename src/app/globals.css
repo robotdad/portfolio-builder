@@ -3527,6 +3527,12 @@ textarea:focus-visible {
   transform: scale(1.05);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item-img {
+    transition: none;
+  }
+}
+
 .gallery-item-caption {
   margin-top: var(--space-3);
   font-size: var(--font-size-base);
@@ -4547,7 +4553,7 @@ textarea:focus-visible {
   
   .gallery-grid,
   .project-gallery {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 

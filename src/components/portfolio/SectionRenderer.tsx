@@ -362,6 +362,12 @@ function GallerySectionView({ section }: { section: GallerySection }) {
           const imageAspect = image.width && image.height
             ? { aspectRatio: `${image.width} / ${image.height}` }
             : undefined
+          // When altText is shown as a visible caption, use generic alt to avoid
+          // screen readers announcing the same text twice
+          const showingAltAsCaption = !image.caption && !!image.altText
+          const effectiveAlt = showingAltAsCaption
+            ? 'Gallery image'
+            : (image.altText || 'Gallery image')
           return (
           <figure key={image.id} className="gallery-item">
             <button
@@ -373,10 +379,11 @@ function GallerySectionView({ section }: { section: GallerySection }) {
             >
               <Image
                 src={image.imageUrl || ''}
-                alt={image.altText || 'Gallery image'}
+                alt={effectiveAlt}
                 className="gallery-item-img"
                 fill
                 unoptimized
+                sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
                 style={{ objectFit: 'cover' }}
               />
             </button>

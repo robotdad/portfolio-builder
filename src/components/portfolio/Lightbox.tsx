@@ -273,9 +273,9 @@ export function Lightbox({
       </div>
 
       {/* Caption */}
-      {currentImage.caption && (
+      {(currentImage.caption || currentImage.altText) && (
         <div className="lightbox-caption">
-          {currentImage.caption}
+          {currentImage.caption || currentImage.altText}
         </div>
       )}
     </div>
