@@ -49,6 +49,12 @@ const ToastContext = createContext<ToastContextValue | null>(null)
 
 const DEFAULT_DURATION = 5000
 
+/** Read a transition token's duration in ms from the current theme */
+function getTransitionMs(token: string, fallback: number): number {
+  if (typeof window === 'undefined') return fallback
+  return parseInt(getComputedStyle(document.documentElement).getPropertyValue(token), 10) || fallback
+}
+
 function Toast({ id, message, type, action, duration = DEFAULT_DURATION, onDismiss }: ToastProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [progress, setProgress] = useState(100)
@@ -70,8 +76,8 @@ function Toast({ id, message, type, action, duration = DEFAULT_DURATION, onDismi
   // Dismiss handler - defined before useEffect that references it
   const handleDismiss = useCallback(() => {
     setIsVisible(false)
-    // Wait for exit animation before removing
-    setTimeout(() => onDismiss(id), prefersReducedMotion ? 0 : 250)
+    // Wait for exit animation before removing (synced with --transition-base token)
+    setTimeout(() => onDismiss(id), prefersReducedMotion ? 0 : getTransitionMs('--transition-base', 250))
   }, [id, onDismiss, prefersReducedMotion])
 
   // Progress bar animation
@@ -229,7 +235,7 @@ function Toast({ id, message, type, action, duration = DEFAULT_DURATION, onDismi
           max-width: 420px;
           opacity: 0;
           transform: translateY(16px);
-          transition: opacity 250ms ease-out, transform 250ms ease-out;
+          transition: opacity var(--transition-base), transform var(--transition-base);
           overflow: hidden;
         }
 
@@ -272,7 +278,7 @@ function Toast({ id, message, type, action, duration = DEFAULT_DURATION, onDismi
           color: var(--toast-accent);
           cursor: pointer;
           border-radius: 4px;
-          transition: background-color 150ms ease;
+          transition: background-color var(--transition-fast);
         }
 
         .toast__action:hover {
@@ -295,7 +301,7 @@ function Toast({ id, message, type, action, duration = DEFAULT_DURATION, onDismi
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: color 150ms ease, background-color 150ms ease;
+          transition: color var(--transition-fast), background-color var(--transition-fast);
         }
 
         .toast__dismiss:hover {

@@ -88,7 +88,7 @@ function BottomSheetItem({
           border-radius: var(--radius-lg, 8px);
           text-align: left;
           cursor: pointer;
-          transition: background-color 150ms ease;
+          transition: background-color var(--transition-fast);
         }
 
         .bottom-sheet-item:hover:not(:disabled) {
@@ -142,6 +142,16 @@ function BottomSheetItem({
       `}</style>
     </button>
   )
+}
+
+// ============================================================================
+// Helpers
+// ============================================================================
+
+/** Read a transition token's duration in ms from the current theme */
+function getTransitionMs(token: string, fallback: number): number {
+  if (typeof window === 'undefined') return fallback
+  return parseInt(getComputedStyle(document.documentElement).getPropertyValue(token), 10) || fallback
 }
 
 // ============================================================================
@@ -244,11 +254,11 @@ function BottomSheet({
   // Handle close with animation - set closing state in event handler (not effect)
   const handleClose = useCallback(() => {
     setIsClosing(true)
-    // Wait for animation to complete
+    // Wait for animation to complete (synced with --transition-base token)
     setTimeout(() => {
       setIsClosing(false)
       onClose()
-    }, 250)
+    }, getTransitionMs('--transition-base', 250))
   }, [onClose])
 
   // Handle backdrop click
@@ -308,11 +318,11 @@ function BottomSheet({
         }
 
         .bottom-sheet-backdrop--entering {
-          animation: backdropEnter 250ms ease-out forwards;
+          animation: backdropEnter var(--transition-base) forwards;
         }
 
         .bottom-sheet-backdrop--closing {
-          animation: backdropExit 250ms ease-out forwards;
+          animation: backdropExit var(--transition-base) forwards;
         }
 
         @keyframes backdropEnter {
@@ -349,11 +359,11 @@ function BottomSheet({
         }
 
         .bottom-sheet--entering {
-          animation: sheetEnter 250ms ease-out forwards;
+          animation: sheetEnter var(--transition-base) forwards;
         }
 
         .bottom-sheet--closing {
-          animation: sheetExit 250ms ease-out forwards;
+          animation: sheetExit var(--transition-base) forwards;
         }
 
         @keyframes sheetEnter {
@@ -422,7 +432,7 @@ function BottomSheet({
           font-weight: var(--font-weight-semibold, 600);
           color: var(--color-text-primary, #1f2937);
           cursor: pointer;
-          transition: background-color 150ms ease;
+          transition: background-color var(--transition-fast);
         }
 
         .bottom-sheet__cancel:hover {

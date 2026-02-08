@@ -89,9 +89,9 @@
   /* --------------------------------------------------------------------------
      TRANSITIONS
      -------------------------------------------------------------------------- */
-  --transition-fast: 150ms ease;
-  --transition-base: 250ms ease;
-  --transition-slow: 350ms ease;
+  --transition-fast: 150ms ease-out;
+  --transition-base: 250ms ease-out;
+  --transition-slow: 350ms ease-out;
 
   /* --------------------------------------------------------------------------
      CONTAINER MAX-WIDTH (Tiered responsive system)
@@ -358,6 +358,11 @@
   --icon-btn-radius: var(--button-radius);
   --icon-btn-transition: 150ms ease;
 
+  /* Motion Personality - Clean and precise */
+  --transition-fast: 150ms ease-out;
+  --transition-base: 250ms ease-out;
+  --transition-slow: 350ms ease-out;
+
   /* Component tokens */
   --button-radius: var(--radius-md);
   --card-radius: var(--radius-lg);
@@ -443,6 +448,11 @@
   --icon-btn-radius: var(--button-radius);
   --icon-btn-transition: 200ms ease;
 
+  /* Motion Personality - Measured and graceful */
+  --transition-fast: 180ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 450ms ease;
+
   /* Shadows - Warm-tinted to match cream palette */
   --shadow-sm:   0 1px 2px 0 hsl(30 15% 20% / 0.06);
   --shadow-base: 0 1px 3px 0 hsl(30 15% 20% / 0.08), 0 1px 2px -1px hsl(30 15% 20% / 0.06);
@@ -517,6 +527,11 @@
   --icon-btn-hover-border: hsla(340, 85%, 55%, 0.5);
   --icon-btn-radius: var(--button-radius);
   --icon-btn-transition: 100ms ease;
+
+  /* Motion Personality - Snappy and decisive */
+  --transition-fast: 100ms ease-out;
+  --transition-base: 200ms ease-out;
+  --transition-slow: 300ms ease-out;
 
   /* Shadows - Stronger opacity + edge light for dark background depth */
   --shadow-sm:   0 1px 2px 0 rgb(0 0 0 / 0.3);

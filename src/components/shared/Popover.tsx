@@ -100,7 +100,7 @@ function PopoverItem({
           text-align: left;
           cursor: pointer;
           color: var(--color-text, #1f2937);
-          transition: background-color 150ms ease;
+          transition: background-color var(--transition-fast);
         }
 
         .popover-item:hover:not(:disabled) {
@@ -167,6 +167,16 @@ function PopoverDivider({}: PopoverDividerProps) {
       `}</style>
     </div>
   )
+}
+
+// ============================================================================
+// Helpers
+// ============================================================================
+
+/** Read a transition token's duration in ms from the current theme */
+function getTransitionMs(token: string, fallback: number): number {
+  if (typeof window === 'undefined') return fallback
+  return parseInt(getComputedStyle(document.documentElement).getPropertyValue(token), 10) || fallback
 }
 
 // ============================================================================
@@ -245,7 +255,7 @@ function Popover({
       setIsClosing(false)
       onClose()
       triggerRef.current?.focus()
-    }, 150)
+    }, getTransitionMs('--transition-fast', 150))
   }, [onClose, triggerRef])
 
   // Handle click outside
@@ -400,11 +410,11 @@ function Popover({
         }
 
         .popover--entering {
-          animation: popoverEnter 150ms ease-out forwards;
+          animation: popoverEnter var(--transition-fast) forwards;
         }
 
         .popover--closing {
-          animation: popoverExit 150ms ease-out forwards;
+          animation: popoverExit var(--transition-fast) forwards;
         }
 
         @keyframes popoverEnter {
