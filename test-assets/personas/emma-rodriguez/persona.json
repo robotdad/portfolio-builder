@@ -22,7 +22,7 @@
         "type": "selfie",
         "title": "Wardrobe Trailer Selfie",
         "description": "Casual selfie inside the wardrobe trailer during production",
-        "prompt": "iPhone front-facing camera selfie of 48-year-old Latina woman with silver-streaked brown bob, wearing headset and casual work clothes, warm tired smile after long day, inside film wardrobe trailer with costume racks and continuity photos visible behind her, fluorescent trailer lighting mixed with daylight from door. Clean final photograph - no camera UI, no shutter button, no interface overlays, no hands holding phone, no timestamps.",
+        "prompt": "Photo from front-phone-camera perspective at arm's length, slightly below eye level angled upward. 48-year-old Latina woman with silver-streaked brown bob, wearing headset and casual work clothes, warm tired smile after long day. Inside film wardrobe trailer with costume racks and continuity photos visible behind her. Fluorescent trailer lighting mixed with daylight from door. Close framing from mid-chest up, subject fills most of the frame. Minor wide-angle barrel distortion at frame edges, shallow depth of field with soft background blur, slight grain and softness characteristic of smartphone front-camera photography.",
         "isIdentity": true
       },
       {

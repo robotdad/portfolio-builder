@@ -29,11 +29,6 @@ const PERSONAS_DIR = path.join(PROJECT_ROOT, 'test-assets', 'personas');
 // ---------------------------------------------------------------------------
 // Aspect ratio + image type system
 //
-// Derived from analysis of real portfolio images (Sasha Goodner, UNCSA costume
-// technician). Her actual photos showed zero 4:3 images — phone shots were
-// overwhelmingly 3:4 portrait, production stills were 3:2 landscape, and
-// social/shared images were 4:5 or 1:1.
-//
 // The imageType field on each photo in persona.json is the single source of
 // truth for aspect ratio. The type name indicates orientation and camera type.
 //

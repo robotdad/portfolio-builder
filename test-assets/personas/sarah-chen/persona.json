@@ -22,7 +22,7 @@
         "type": "selfie",
         "title": "Design Studio Selfie",
         "description": "Casual selfie in design studio surrounded by sketches and fabric swatches",
-        "prompt": "iPhone front-facing camera selfie of Korean-American woman with shoulder-length black hair, warm friendly smile, casual black work clothes, in design studio with costume sketches pinned to corkboard and fabric swatches on work table behind her, natural window lighting, camera at chest level angled slightly upward. Clean final photograph - no camera UI, no shutter button, no interface overlays, no hands holding phone, no timestamps.",
+        "prompt": "Photo from front-phone-camera perspective at arm's length, slightly below eye level angled upward. Korean-American woman with shoulder-length black hair, warm friendly smile, casual black work clothes. Design studio behind her with costume sketches pinned to corkboard and fabric swatches on work table. Natural window lighting. Close framing from mid-chest up, subject fills most of the frame. Minor wide-angle barrel distortion at frame edges, shallow depth of field with soft background blur, slight grain and softness characteristic of smartphone front-camera photography.",
         "isIdentity": true
       },
       {
@@ -99,7 +99,7 @@
               "title": "Character Arc Sketches",
               "description": "Initial concept sketches showing Queen Morwen's five costume phases",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of design sketchbook page showing five costume sketches for character arc, pencil and watercolor renderings progressing from burgundy to black, annotations about moral descent visible, designer's working sketches, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of design sketchbook page showing five costume sketches for character arc, pencil and watercolor renderings progressing from burgundy to black, annotations about moral descent visible, designer's working sketches, natural studio lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/color-progression-board.jpg",
@@ -109,7 +109,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of mood board on studio wall, fabric swatches arranged in progression from rich burgundy through blood red to midnight black, color theory annotations, reference images pinned around swatches, visual progression chart for moral descent theme, design development documentation, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of mood board on studio wall, fabric swatches arranged in progression from rich burgundy through blood red to midnight black, color theory annotations, reference images pinned around swatches, visual progression chart for moral descent theme, design development documentation, natural studio lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/fabric-swatches-laid-out.jpg",
@@ -117,7 +117,7 @@
               "title": "Fabric Selection for Queen's Gown",
               "description": "Burgundy silk velvet and gold metallic thread swatches arranged on table",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with burgundy silk velvet fabric swatches, gold metallic embroidery thread spools, trim samples arranged for Queen's gown, fabric selection process, color and texture comparison, design development, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with burgundy silk velvet fabric swatches, gold metallic embroidery thread spools, trim samples arranged for Queen's gown, fabric selection process, color and texture comparison, design development, natural studio lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/embroidery-design-sketch.jpg",
@@ -125,7 +125,7 @@
               "title": "Curse Symbol Design",
               "description": "Sketches of curse symbol embroidery motifs for Queen's costume",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of sketchbook page showing hand-drawn embroidery motif designs, decorative curse symbols sketched in detail, annotations about symbolism and placement, gold pen highlights, designer's working drawings, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of sketchbook page showing hand-drawn embroidery motif designs, decorative curse symbols sketched in detail, annotations about symbolism and placement, gold pen highlights, designer's working drawings, natural lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/workshop-construction.jpg",
@@ -133,7 +133,7 @@
               "title": "Workshop Construction in Progress",
               "description": "Behind-the-scenes photo Sarah took of workshop during gown construction",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume workshop during construction, dress form with burgundy velvet gown in progress, draper working on bodice, fabric pieces on cutting table, active workshop environment, Sarah documenting her team's work, natural workshop lighting, atmospheric behind-the-scenes. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume workshop during construction, dress form with burgundy velvet gown in progress, draper working on bodice, fabric pieces on cutting table, active workshop environment, Sarah documenting her team's work, natural workshop lighting, atmospheric behind-the-scenes."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/embroidery-in-progress.jpg",
@@ -141,7 +141,7 @@
               "title": "Embroidery Work Session",
               "description": "Sarah's photo of embroiderer working on gold curse symbols",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of embroiderer's hands working on burgundy velvet fabric in embroidery hoop, gold metallic thread being stitched to create curse symbol, active work session captured by Sarah, workshop atmosphere, natural lighting, behind-the-scenes of detailed craft work. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of embroiderer's hands working on burgundy velvet fabric in embroidery hoop, gold metallic thread being stitched to create curse symbol, active work session captured by Sarah, workshop atmosphere, natural lighting, behind-the-scenes of detailed craft work."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/queen-gown-fitting.jpg",
@@ -149,7 +149,7 @@
               "title": "First Fitting - Queen's Gown",
               "description": "Close-up of burgundy gown fit on actress during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of burgundy velvet gown bodice on actress during fitting session, focus on bodice fit and embroidery detail, actress's head cropped from top of frame, checking how design translates to body, static fitting documentation, natural workshop lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of burgundy velvet gown bodice on actress during fitting session, focus on bodice fit and embroidery detail, actress's head cropped from top of frame, checking how design translates to body, static fitting documentation, natural workshop lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/gown-detail-fitting.jpg",
@@ -157,7 +157,7 @@
               "title": "Embroidery Detail During Fitting",
               "description": "Close-up of gold curse symbol embroidery during fitting check",
               "tags": [],
-              "prompt": "Extreme close-up iPhone 14 Pro photo of gold embroidered curse symbols on burgundy velvet bodice during actress fitting, focus on embroidery detail and how it sits on body, checking design execution in wear, static fitting detail, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Extreme close-up iPhone 14 Pro photo of gold embroidered curse symbols on burgundy velvet bodice during actress fitting, focus on embroidery detail and how it sits on body, checking design execution in wear, static fitting detail, natural lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/deterioration-costume-phases.jpg",
@@ -167,7 +167,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of five dress forms in a row showing Queen's costume in five progressive phases of deterioration, burgundy velvet to darkened black, visual representation of character arc through costume, design progression documentation, workshop setting, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of five dress forms in a row showing Queen's costume in five progressive phases of deterioration, burgundy velvet to darkened black, visual representation of character arc through costume, design progression documentation, workshop setting, natural lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/queen-gown-finished.jpg",
@@ -201,7 +201,7 @@
               "title": "Officer's Coat Design Sketch",
               "description": "Design rendering for Captain Aldric's navy military coat",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor and ink rendering of navy military coat for male character, period military styling with brass buttons, annotations about fabric and construction notes, designer's working sketch with color notes, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor and ink rendering of navy military coat for male character, period military styling with brass buttons, annotations about fabric and construction notes, designer's working sketch with color notes, natural studio lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/military-fabric-selection.jpg",
@@ -209,7 +209,7 @@
               "title": "Military Coat Fabric Selection",
               "description": "Navy wool swatches and brass button samples for Officer's coat",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with navy wool fabric swatches, brass military button samples arranged, trim and braid options, fabric selection for military coat design, material comparison, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with navy wool fabric swatches, brass military button samples arranged, trim and braid options, fabric selection for military coat design, material comparison, natural studio lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/construction-workshop-atmosphere.jpg",
@@ -217,7 +217,7 @@
               "title": "Workshop Build Session",
               "description": "Sarah's photo of workshop during Officer's coat construction",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume workshop during active construction session, tailor working at sewing machine on navy wool coat, cutting table with pattern pieces in background, busy workshop atmosphere captured by Sarah, natural workshop lighting, behind-the-scenes of build process. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume workshop during active construction session, tailor working at sewing machine on navy wool coat, cutting table with pattern pieces in background, busy workshop atmosphere captured by Sarah, natural workshop lighting, behind-the-scenes of build process."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/officer-coat-fitting.jpg",
@@ -225,7 +225,7 @@
               "title": "Officer's Coat Fitting",
               "description": "Close-up of navy military coat fit on actor during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of navy wool military coat on actor during fitting session, focus on coat shoulder and upper back fit, actor's head cropped from top of frame, checking design execution and silhouette, static fitting documentation, natural workshop lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of navy wool military coat on actor during fitting session, focus on coat shoulder and upper back fit, actor's head cropped from top of frame, checking design execution and silhouette, static fitting documentation, natural workshop lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/officer-production.jpg",
@@ -257,7 +257,7 @@
               "title": "Ensemble Costumes Ready",
               "description": "Costume rack with completed ensemble pieces showing color progression",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume rack backstage with multiple ensemble costumes hanging, showing color range from burgundy to dark charcoal, deterioration progression visible across garments, ready for performance, backstage documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume rack backstage with multiple ensemble costumes hanging, showing color range from burgundy to dark charcoal, deterioration progression visible across garments, ready for performance, backstage documentation, natural lighting."
             },
             {
               "file": "categories/theater-production/the-obsidian-crown/full-cast-production.jpg",
@@ -314,7 +314,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of large mood board on studio wall, cyberpunk aesthetic references with neon colors, reflective fabric swatches, LED component samples, streetwear inspiration images, design concept development, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of large mood board on studio wall, cyberpunk aesthetic references with neon colors, reflective fabric swatches, LED component samples, streetwear inspiration images, design concept development, natural studio lighting."
             },
             {
               "file": "categories/theater-production/neon-babel/reflective-fabrics.jpg",
@@ -322,7 +322,7 @@
               "title": "Reflective Material Testing",
               "description": "Collection of reflective and UV-reactive fabrics being tested",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of work table with multiple reflective fabric swatches laid out, silver reflective mesh, UV-reactive materials, neon accent fabrics, material testing for costume design, fabric exploration, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of work table with multiple reflective fabric swatches laid out, silver reflective mesh, UV-reactive materials, neon accent fabrics, material testing for costume design, fabric exploration, natural lighting."
             },
             {
               "file": "categories/theater-production/neon-babel/led-integration-test.jpg",
@@ -330,7 +330,7 @@
               "title": "LED Component Testing",
               "description": "LED strips and battery packs being tested for costume integration",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of work table with LED strip lights, small battery packs, and flexible LED components arranged for testing, electronics integration planning for costumes, design development for light-up garments, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of work table with LED strip lights, small battery packs, and flexible LED components arranged for testing, electronics integration planning for costumes, design development for light-up garments, workshop setting."
             },
             {
               "file": "categories/theater-production/neon-babel/jacket-sketch-led-placement.jpg",
@@ -338,7 +338,7 @@
               "title": "LED Placement Design",
               "description": "Costume sketch with annotations showing LED strip placement",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch showing cyberpunk jacket with LED strip placement marked, technical annotations about wiring and battery placement, designer's working technical drawing, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch showing cyberpunk jacket with LED strip placement marked, technical annotations about wiring and battery placement, designer's working technical drawing, natural studio lighting."
             },
             {
               "file": "categories/theater-production/neon-babel/jacket-construction-wip.jpg",
@@ -346,7 +346,7 @@
               "title": "Jacket with LED Integration",
               "description": "Black jacket on form showing LED strips integrated into design",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of black streetwear-style jacket on dress form with LED strips integrated along seams, reflective details visible, cyberpunk costume construction in progress on form, work-in-progress documentation, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of black streetwear-style jacket on dress form with LED strips integrated along seams, reflective details visible, cyberpunk costume construction in progress on form, work-in-progress documentation, workshop setting."
             },
             {
               "file": "categories/theater-production/neon-babel/modular-pieces-array.jpg",
@@ -354,7 +354,7 @@
               "title": "Modular Costume Pieces",
               "description": "Array of modular garment pieces that reconfigure throughout show",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of multiple modular costume pieces laid out on table, black base layers, reflective vests, LED-embedded panels, neon accent pieces, showing how pieces can be combined in different configurations, design system documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of multiple modular costume pieces laid out on table, black base layers, reflective vests, LED-embedded panels, neon accent pieces, showing how pieces can be combined in different configurations, design system documentation, natural lighting."
             },
             {
               "file": "categories/theater-production/neon-babel/fitting-base-layer.jpg",
@@ -362,7 +362,7 @@
               "title": "Base Layer Fitting",
               "description": "Close-up of black base layer garment fit during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of black base layer garment on actor during fitting, focus on fit and how it will layer with other pieces, actor's head cropped from frame, modular costume system fitting check, natural workshop lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of black base layer garment on actor during fitting, focus on fit and how it will layer with other pieces, actor's head cropped from frame, modular costume system fitting check, natural workshop lighting."
             },
             {
               "file": "categories/theater-production/neon-babel/uv-reactive-test.jpg",
@@ -370,7 +370,7 @@
               "title": "UV Reactive Material Test",
               "description": "Testing UV-reactive fabrics under different lighting",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of UV-reactive fabric samples under testing light showing how materials glow, different fabric responses to UV visible, material testing for lighting collaboration, workshop experiment, dim lighting showing UV glow. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of UV-reactive fabric samples under testing light showing how materials glow, different fabric responses to UV visible, material testing for lighting collaboration, workshop experiment, dim lighting showing UV glow."
             },
             {
               "file": "categories/theater-production/neon-babel/tech-rehearsal-lighting.jpg",
@@ -469,7 +469,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of design board with five costume sketches for character arc, fashion illustrations progressing from grey corporate suit to vibrant flowing dress, color progression from muted to bold, annotations about character psychology, designer's concept development, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of design board with five costume sketches for character arc, fashion illustrations progressing from grey corporate suit to vibrant flowing dress, color progression from muted to bold, annotations about character psychology, designer's concept development, natural studio lighting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/corporate-suit-sketch.jpg",
@@ -477,7 +477,7 @@
               "title": "Nora's Corporate Suit Design",
               "description": "Design rendering for Nora's restrictive opening costume",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor and ink rendering of grey corporate blazer and pencil skirt, restrictive silhouette, annotations about constraint and conformity, designer's working sketch, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor and ink rendering of grey corporate blazer and pencil skirt, restrictive silhouette, annotations about constraint and conformity, designer's working sketch, natural studio lighting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/grey-suiting-fabric.jpg",
@@ -485,7 +485,7 @@
               "title": "Corporate Costume Fabrics",
               "description": "Grey and beige suiting fabrics selected for opening costumes",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with grey and beige wool suiting fabric swatches, muted professional fabrics for corporate costumes, fabric selection for constraint theme, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with grey and beige wool suiting fabric swatches, muted professional fabrics for corporate costumes, fabric selection for constraint theme, natural studio lighting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/jewel-tone-fabrics.jpg",
@@ -493,7 +493,7 @@
               "title": "Awakening - Jewel Tone Selection",
               "description": "Emerald and sapphire fabric swatches for Nora's middle-act costumes",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of design table with rich jewel-tone fabric swatches, emerald green and sapphire blue silks, transition fabrics between constraint and freedom, color awakening in design progression, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of design table with rich jewel-tone fabric swatches, emerald green and sapphire blue silks, transition fabrics between constraint and freedom, color awakening in design progression, natural studio lighting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/liberation-dress-sketch.jpg",
@@ -501,7 +501,7 @@
               "title": "Final Liberation Dress Design",
               "description": "Design sketch for Nora's final costume - flowing and vibrant",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of flowing dress in vibrant coral-red, loose silhouette representing freedom, annotations about liberation and self-expression, designer's concept sketch for final costume, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of flowing dress in vibrant coral-red, loose silhouette representing freedom, annotations about liberation and self-expression, designer's concept sketch for final costume, natural studio lighting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/construction-blazer.jpg",
@@ -509,7 +509,7 @@
               "title": "Corporate Blazer Construction",
               "description": "Grey blazer on form during construction for opening costume",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of grey wool blazer on dress form in construction, restrictive corporate silhouette taking shape, contemporary tailoring, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of grey wool blazer on dress form in construction, restrictive corporate silhouette taking shape, contemporary tailoring, work-in-progress on form, workshop setting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/nora-suit-fitting.jpg",
@@ -517,7 +517,7 @@
               "title": "Corporate Suit Fitting",
               "description": "Close-up of grey suit fit on actress during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of grey corporate suit on actress during fitting, focus on blazer fit and restrictive silhouette, actress's head cropped from frame, checking design execution for constraint theme, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of grey corporate suit on actress during fitting, focus on blazer fit and restrictive silhouette, actress's head cropped from frame, checking design execution for constraint theme, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/emerald-dress-construction.jpg",
@@ -525,7 +525,7 @@
               "title": "Emerald Dress on Form",
               "description": "Emerald green dress on form during construction - middle act costume",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of emerald green silk dress on dress form in construction, jewel-tone costume for character's awakening phase, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of emerald green silk dress on dress form in construction, jewel-tone costume for character's awakening phase, work-in-progress on form, workshop setting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/fitting-emerald-dress.jpg",
@@ -533,7 +533,7 @@
               "title": "Emerald Dress Fitting",
               "description": "Close-up of emerald dress fit during fitting session",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of emerald green silk dress on actress during fitting, focus on dress bodice and color against skin, actress's head cropped from frame, checking mid-transformation costume, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of emerald green silk dress on actress during fitting, focus on dress bodice and color against skin, actress's head cropped from frame, checking mid-transformation costume, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/coral-dress-construction.jpg",
@@ -541,7 +541,7 @@
               "title": "Liberation Dress Construction",
               "description": "Vibrant coral flowing dress on form - final costume",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of vibrant coral-red flowing dress on dress form in construction, loose liberation silhouette, final transformation costume, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of vibrant coral-red flowing dress on dress form in construction, loose liberation silhouette, final transformation costume, work-in-progress on form, workshop setting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/final-dress-fitting.jpg",
@@ -549,7 +549,7 @@
               "title": "Final Costume Fitting",
               "description": "Close-up of coral liberation dress fit during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of vibrant coral flowing dress on actress during fitting, focus on how loose liberated silhouette contrasts with earlier costumes, actress's head cropped from frame, checking final transformation design, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of vibrant coral flowing dress on actress during fitting, focus on how loose liberated silhouette contrasts with earlier costumes, actress's head cropped from frame, checking final transformation design, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/costume-progression-rack.jpg",
@@ -557,7 +557,7 @@
               "title": "Nora's Complete Arc on Rack",
               "description": "All five of Nora's costumes hanging in sequence showing progression",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume rack with Nora's five costumes hanging in order, visual progression from grey corporate suit to vibrant coral dress, complete character arc visible in costume sequence, design documentation, backstage setting, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume rack with Nora's five costumes hanging in order, visual progression from grey corporate suit to vibrant coral dress, complete character arc visible in costume sequence, design documentation, backstage setting, natural lighting."
             },
             {
               "file": "categories/theater-production/a-dolls-house-reimagined/nora-corporate-production.jpg",
@@ -648,7 +648,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of large design board with costume sketches for both lead characters, watercolor renderings showing color progression from separated palettes to shared warm tones, character relationship tracked through visual design, annotations about intimacy and color theory, designer's concept development, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of large design board with costume sketches for both lead characters, watercolor renderings showing color progression from separated palettes to shared warm tones, character relationship tracked through visual design, annotations about intimacy and color theory, designer's concept development, natural studio lighting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/1920s-research-board.jpg",
@@ -656,7 +656,7 @@
               "title": "1920s Research and References",
               "description": "Mood board with 1920s period references and class distinction images",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of research mood board on studio wall, 1920s period photographs, fashion plates showing class distinctions, aristocratic and bohemian reference images, historical research for period accuracy, design development, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of research mood board on studio wall, 1920s period photographs, fashion plates showing class distinctions, aristocratic and bohemian reference images, historical research for period accuracy, design development, natural studio lighting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/aristocrat-dress-sketch.jpg",
@@ -664,7 +664,7 @@
               "title": "Aristocrat's Day Dress Design",
               "description": "Design rendering for aristocratic character's structured day dress",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of pale blue 1920s day dress with structured silhouette, aristocratic styling, annotations about fabric and construction, designer's working sketch with color notes, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of pale blue 1920s day dress with structured silhouette, aristocratic styling, annotations about fabric and construction, designer's working sketch with color notes, natural studio lighting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/pale-blue-silk-swatches.jpg",
@@ -672,7 +672,7 @@
               "title": "Aristocrat Fabric Selection",
               "description": "Pale blue and grey silk fabric swatches for aristocratic costumes",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with pale blue silk, grey wool, and cream lace fabric swatches arranged, cool color palette for aristocratic character, fabric selection for period costumes, texture and color comparison, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with pale blue silk, grey wool, and cream lace fabric swatches arranged, cool color palette for aristocratic character, fabric selection for period costumes, texture and color comparison, natural studio lighting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/artist-costume-sketch.jpg",
@@ -680,7 +680,7 @@
               "title": "Artist's Bohemian Layers Design",
               "description": "Design rendering for working-class artist character's layered look",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of layered bohemian costume with earth tones, loose artist's blouse over long skirt, 1920s working-class styling, annotations about freedom and creativity, designer's concept sketch, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of layered bohemian costume with earth tones, loose artist's blouse over long skirt, 1920s working-class styling, annotations about freedom and creativity, designer's concept sketch, natural studio lighting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/earth-tone-fabrics.jpg",
@@ -688,7 +688,7 @@
               "title": "Artist Fabric Selection",
               "description": "Earth tone cotton and linen swatches for artist's costumes",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with earth tone fabric swatches, warm browns, ochres, and olive linens and cottons, bohemian character palette, fabric selection for working-class artist, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with earth tone fabric swatches, warm browns, ochres, and olive linens and cottons, bohemian character palette, fabric selection for working-class artist, natural studio lighting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/shared-color-swatches.jpg",
@@ -696,7 +696,7 @@
               "title": "Intimacy Color Palette",
               "description": "Warm amber and rose fabric swatches for intimate scenes shared by both characters",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of design table with warm amber, rose, and soft gold fabric swatches, shared intimate color palette for both characters' later costumes, color convergence design strategy, fabric exploration, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of design table with warm amber, rose, and soft gold fabric swatches, shared intimate color palette for both characters' later costumes, color convergence design strategy, fabric exploration, natural studio lighting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/construction-workshop-aristocrat.jpg",
@@ -704,7 +704,7 @@
               "title": "Aristocrat Dress Construction",
               "description": "Workshop during construction of pale blue aristocratic dress",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume workshop, draper working on pale blue silk 1920s dress on dress form, structured silhouette construction in progress, active workshop environment captured by Sarah, natural workshop lighting, behind-the-scenes of build process. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume workshop, draper working on pale blue silk 1920s dress on dress form, structured silhouette construction in progress, active workshop environment captured by Sarah, natural workshop lighting, behind-the-scenes of build process."
             },
             {
               "file": "categories/film-production/the-last-correspondence/lace-detail-construction.jpg",
@@ -712,7 +712,7 @@
               "title": "Lace Application Detail",
               "description": "Detail of cream lace collar being attached to aristocrat's dress",
               "tags": [],
-              "prompt": "iPhone 14 Pro close-up photo of cream lace collar already attached to pale blue silk dress bodice, delicate lace detail work complete, period costume construction detail, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
+              "prompt": "iPhone 14 Pro close-up photo of cream lace collar already attached to pale blue silk dress bodice, delicate lace detail work complete, period costume construction detail, natural lighting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/aristocrat-dress-fitting.jpg",
@@ -720,7 +720,7 @@
               "title": "Aristocrat Dress Fitting",
               "description": "Close-up of pale blue dress fit on actress during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of pale blue silk 1920s dress on actress during fitting, focus on structured bodice and lace collar, actress's head cropped from frame, checking period silhouette and design execution, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of pale blue silk 1920s dress on actress during fitting, focus on structured bodice and lace collar, actress's head cropped from frame, checking period silhouette and design execution, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/artist-layers-construction.jpg",
@@ -728,7 +728,7 @@
               "title": "Artist's Layered Costume Construction",
               "description": "Bohemian layered costume on form showing earth-tone pieces",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of layered bohemian costume on dress form, earth-tone cotton blouse with long brown skirt, 1920s working-class artist styling, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of layered bohemian costume on dress form, earth-tone cotton blouse with long brown skirt, 1920s working-class artist styling, work-in-progress on form, workshop setting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/artist-fitting.jpg",
@@ -736,7 +736,7 @@
               "title": "Artist Costume Fitting",
               "description": "Close-up of bohemian layers fit on actress during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of earth-tone layered costume on actress during fitting, focus on how bohemian blouse and skirt layer, actress's head cropped from frame, checking working-class artist character design, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of earth-tone layered costume on actress during fitting, focus on how bohemian blouse and skirt layer, actress's head cropped from frame, checking working-class artist character design, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/intimate-scene-costume.jpg",
@@ -744,7 +744,7 @@
               "title": "Shared Warmth - Intimate Costume",
               "description": "Amber-toned dress on form for intimate scene",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of amber-toned silk dress on dress form, warm color from shared intimate palette, both characters eventually wear warm tones, design progression costume, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of amber-toned silk dress on dress form, warm color from shared intimate palette, both characters eventually wear warm tones, design progression costume, workshop setting."
             },
             {
               "file": "categories/film-production/the-last-correspondence/on-set-check.jpg",
@@ -863,7 +863,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of design board with eight fashion illustration sketches showing character's costume progression, minimalist black and white fashion gradually becoming more disheveled while maintaining luxury, annotations about psychological state, visual storytelling through styling, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of design board with eight fashion illustration sketches showing character's costume progression, minimalist black and white fashion gradually becoming more disheveled while maintaining luxury, annotations about psychological state, visual storytelling through styling, natural studio lighting."
             },
             {
               "file": "categories/film-production/velvet-and-ash/monochrome-fabric-board.jpg",
@@ -871,7 +871,7 @@
               "title": "Monochrome Luxury Fabrics",
               "description": "Black, white, and grey luxury fabric swatches for protagonist's wardrobe",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with monochrome fabric swatches, black silk velvet, white cashmere, charcoal wool, cream silk, luxury materials in neutral palette, fabric selection for psychological thriller, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with monochrome fabric swatches, black silk velvet, white cashmere, charcoal wool, cream silk, luxury materials in neutral palette, fabric selection for psychological thriller, natural studio lighting."
             },
             {
               "file": "categories/film-production/velvet-and-ash/pristine-look-sketch.jpg",
@@ -879,7 +879,7 @@
               "title": "Opening Look - Pristine Control",
               "description": "Design sketch for protagonist's first appearance - perfect minimalist styling",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, fashion illustration of minimalist black pantsuit with white silk blouse, pristine styling, annotations about control and perfection, opening costume design, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch, fashion illustration of minimalist black pantsuit with white silk blouse, pristine styling, annotations about control and perfection, opening costume design, natural studio lighting."
             },
             {
               "file": "categories/film-production/velvet-and-ash/black-suit-construction.jpg",
@@ -887,7 +887,7 @@
               "title": "Black Suit Construction",
               "description": "Pristine black suit on form during construction",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of minimalist black suit on dress form in construction, contemporary tailoring, perfect lines, luxury suiting for opening costume, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of minimalist black suit on dress form in construction, contemporary tailoring, perfect lines, luxury suiting for opening costume, work-in-progress on form, workshop setting."
             },
             {
               "file": "categories/film-production/velvet-and-ash/white-silk-blouse.jpg",
@@ -895,7 +895,7 @@
               "title": "White Silk Blouse Detail",
               "description": "Pristine white silk blouse on form showing perfect construction",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of white silk blouse on dress form, crisp minimalist styling, perfect pressing, luxury fabric, opening costume component, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of white silk blouse on dress form, crisp minimalist styling, perfect pressing, luxury fabric, opening costume component, natural lighting."
             },
             {
               "file": "categories/film-production/velvet-and-ash/mid-descent-styling.jpg",
@@ -903,7 +903,7 @@
               "title": "Mid-Descent Costume Styling",
               "description": "Same black suit re-styled to show early psychological fracture",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of black suit on dress form re-styled with subtle dishevelment, one button undone, collar slightly askew, same expensive pieces now reading differently through styling, psychological progression documentation, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of black suit on dress form re-styled with subtle dishevelment, one button undone, collar slightly askew, same expensive pieces now reading differently through styling, psychological progression documentation, workshop setting."
             },
             {
               "file": "categories/film-production/velvet-and-ash/velvet-coat-sketch.jpg",
@@ -911,7 +911,7 @@
               "title": "Black Velvet Coat Design",
               "description": "Design sketch for protagonist's signature black velvet coat",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, fashion illustration of dramatic black velvet coat with wide collar, luxury outerwear for character, annotations about texture and drama, designer's working sketch, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch, fashion illustration of dramatic black velvet coat with wide collar, luxury outerwear for character, annotations about texture and drama, designer's working sketch, natural studio lighting."
             },
             {
               "file": "categories/film-production/velvet-and-ash/velvet-coat-construction.jpg",
@@ -919,7 +919,7 @@
               "title": "Velvet Coat on Form",
               "description": "Black velvet coat on dress form during construction",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of dramatic black velvet coat on dress form in construction, rich fabric texture visible, luxury outerwear taking shape, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of dramatic black velvet coat on dress form in construction, rich fabric texture visible, luxury outerwear taking shape, work-in-progress on form, workshop setting."
             },
             {
               "file": "categories/film-production/velvet-and-ash/final-descent-styling.jpg",
@@ -927,7 +927,7 @@
               "title": "Final Descent Costume",
               "description": "Black velvet coat and disheveled layers showing complete psychological break",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of dress form with final descent costume, black velvet coat over disheveled black silk layers, intentionally chaotic styling, same luxury fabrics now reading as destruction, psychological breakdown visible through costume styling, workshop documentation. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of dress form with final descent costume, black velvet coat over disheveled black silk layers, intentionally chaotic styling, same luxury fabrics now reading as destruction, psychological breakdown visible through costume styling, workshop documentation."
             },
             {
               "file": "categories/film-production/velvet-and-ash/fitting-pristine-look.jpg",
@@ -935,7 +935,7 @@
               "title": "Fitting - Opening Costume",
               "description": "Close-up of pristine black suit fit on actress during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of minimalist black suit on actress during fitting, focus on perfect tailoring and crisp styling, actress's head cropped from frame, checking pristine opening look, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of minimalist black suit on actress during fitting, focus on perfect tailoring and crisp styling, actress's head cropped from frame, checking pristine opening look, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/film-production/velvet-and-ash/on-set-styling-check.jpg",
@@ -1044,7 +1044,7 @@
               "title": "Fashion Tribes Concept Sketches",
               "description": "Design sketches showing old-guard suiting versus new-tech casual styling",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of design sketches showing two distinct fashion vocabularies, traditional power suits next to elevated tech casual wear, visual allegiance coding through fashion, corporate espionage costume concept, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of design sketches showing two distinct fashion vocabularies, traditional power suits next to elevated tech casual wear, visual allegiance coding through fashion, corporate espionage costume concept, natural studio lighting."
             },
             {
               "file": "categories/film-production/paper-tigers/ceo-arc-sketches.jpg",
@@ -1054,7 +1054,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of design board with six fashion illustrations showing CEO character's visual arc, immaculate white power suit gradually becoming disheveled and chaotic, psychological descent visible through styling, character development design, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of design board with six fashion illustrations showing CEO character's visual arc, immaculate white power suit gradually becoming disheveled and chaotic, psychological descent visible through styling, character development design, natural studio lighting."
             },
             {
               "file": "categories/film-production/paper-tigers/power-suit-fabrics.jpg",
@@ -1062,7 +1062,7 @@
               "title": "Old Guard Corporate Fabrics",
               "description": "Luxury suiting fabrics for traditional power dressing",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with luxury suiting fabric swatches, crisp white wool, navy pinstripe, charcoal Italian wool, traditional corporate power dressing materials, fabric selection, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with luxury suiting fabric swatches, crisp white wool, navy pinstripe, charcoal Italian wool, traditional corporate power dressing materials, fabric selection, natural studio lighting."
             },
             {
               "file": "categories/film-production/paper-tigers/tech-casual-fabrics.jpg",
@@ -1070,7 +1070,7 @@
               "title": "New Tech Elevated Casual Fabrics",
               "description": "Expensive casual fabrics for tech character wardrobes",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with elevated casual fabric swatches, expensive grey jersey knits, high-end denim, cashmere blends, Japanese technical fabrics, tech-world fashion materials, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with elevated casual fabric swatches, expensive grey jersey knits, high-end denim, cashmere blends, Japanese technical fabrics, tech-world fashion materials, natural studio lighting."
             },
             {
               "file": "categories/film-production/paper-tigers/white-suit-sketch.jpg",
@@ -1078,7 +1078,7 @@
               "title": "CEO's Power Suit Design",
               "description": "Design rendering for CEO's pristine white power suit",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, fashion illustration of immaculate white power suit with sharp shoulders, CEO power dressing, annotations about control and perfection, designer's concept sketch, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch, fashion illustration of immaculate white power suit with sharp shoulders, CEO power dressing, annotations about control and perfection, designer's concept sketch, natural studio lighting."
             },
             {
               "file": "categories/film-production/paper-tigers/white-suit-construction.jpg",
@@ -1086,7 +1086,7 @@
               "title": "White Power Suit Construction",
               "description": "White wool suit on form during construction",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of white wool power suit on dress form in construction, structured blazer with sharp shoulders, contemporary corporate styling, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of white wool power suit on dress form in construction, structured blazer with sharp shoulders, contemporary corporate styling, work-in-progress on form, workshop setting."
             },
             {
               "file": "categories/film-production/paper-tigers/tech-casual-outfit.jpg",
@@ -1094,7 +1094,7 @@
               "title": "Tech Disruptor Costume",
               "description": "Elevated casual outfit on form for tech antagonist",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of elevated casual outfit on dress form, expensive grey hoodie with high-end denim, calculated casual tech-world fashion, contemporary styling, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of elevated casual outfit on dress form, expensive grey hoodie with high-end denim, calculated casual tech-world fashion, contemporary styling, workshop setting."
             },
             {
               "file": "categories/film-production/paper-tigers/ceo-fitting-pristine.jpg",
@@ -1102,7 +1102,7 @@
               "title": "CEO Fitting - Pristine Opening",
               "description": "Close-up of white power suit fit on actress during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of white wool power suit on actress during fitting, focus on immaculate tailoring and crisp styling, actress's head cropped from frame, checking pristine opening costume, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of white wool power suit on actress during fitting, focus on immaculate tailoring and crisp styling, actress's head cropped from frame, checking pristine opening costume, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/film-production/paper-tigers/ceo-disheveled-styling.jpg",
@@ -1110,7 +1110,7 @@
               "title": "CEO's Descent - Styling Evolution",
               "description": "Same white suit re-styled to show psychological fracture",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of white power suit on dress form re-styled with deliberate dishevelment, blazer askew, blouse untucked, same expensive pieces now reading as chaos, psychological progression styling, workshop documentation. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of white power suit on dress form re-styled with deliberate dishevelment, blazer askew, blouse untucked, same expensive pieces now reading as chaos, psychological progression styling, workshop documentation."
             },
             {
               "file": "categories/film-production/paper-tigers/on-set-styling-supervision.jpg",
@@ -1219,7 +1219,7 @@
               "title": "Character Wardrobe Bible",
               "description": "Cover page of comprehensive wardrobe planning document for lead character",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of wardrobe bible binder cover page, character name and episode breakdown visible, professional wardrobe planning document, design organization for TV series, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of wardrobe bible binder cover page, character name and episode breakdown visible, professional wardrobe planning document, design organization for TV series, natural studio lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/episode-arc-chart.jpg",
@@ -1229,7 +1229,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of large chart on studio wall showing costume planning across 8 episodes, color-coded costume choices for each episode, visual arc from corporate to personal style, episode-by-episode design planning, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of large chart on studio wall showing costume planning across 8 episodes, color-coded costume choices for each episode, visual arc from corporate to personal style, episode-by-episode design planning, natural studio lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/corporate-capsule-sketches.jpg",
@@ -1237,7 +1237,7 @@
               "title": "Corporate Capsule Wardrobe Sketches",
               "description": "Design sketches for core corporate pieces - early season wardrobe",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of fashion illustration sketches showing capsule wardrobe pieces, minimalist blazers, tailored trousers, structured dresses in black, white, grey, navy, corporate professional wardrobe design, annotations about mixing pieces, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of fashion illustration sketches showing capsule wardrobe pieces, minimalist blazers, tailored trousers, structured dresses in black, white, grey, navy, corporate professional wardrobe design, annotations about mixing pieces, natural studio lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/corporate-fabrics.jpg",
@@ -1245,7 +1245,7 @@
               "title": "Corporate Wardrobe Fabrics",
               "description": "Monochrome professional fabric swatches for early episodes",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with corporate fabric swatches, black wool suiting, white silk, grey linen, navy gabardine, professional capsule wardrobe materials, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with corporate fabric swatches, black wool suiting, white silk, grey linen, navy gabardine, professional capsule wardrobe materials, natural studio lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/personal-style-sketches.jpg",
@@ -1253,7 +1253,7 @@
               "title": "Personal Style Evolution Sketches",
               "description": "Design sketches showing introduction of personal style pieces",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of fashion illustration sketches showing personal style pieces, rust-colored blouses, forest green sweaters, relaxed silhouettes, warmer color palette for later episodes, character evolution design, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of fashion illustration sketches showing personal style pieces, rust-colored blouses, forest green sweaters, relaxed silhouettes, warmer color palette for later episodes, character evolution design, natural studio lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/warm-tone-fabrics.jpg",
@@ -1261,7 +1261,7 @@
               "title": "Personal Palette Introduction",
               "description": "Warm-toned fabrics for character's personal style emergence",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with warm-toned fabric swatches, rust silk, forest green wool, cream linen, warm neutrals, personal style palette emerging, fabric selection for character evolution, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with warm-toned fabric swatches, rust silk, forest green wool, cream linen, warm neutrals, personal style palette emerging, fabric selection for character evolution, natural studio lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/signature-blazer-construction.jpg",
@@ -1269,7 +1269,7 @@
               "title": "Signature Navy Blazer",
               "description": "Navy blazer on form - character's signature piece styled multiple ways",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of navy wool blazer on dress form, signature piece that appears across multiple episodes, contemporary tailoring, versatile wardrobe staple, construction complete, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of navy wool blazer on dress form, signature piece that appears across multiple episodes, contemporary tailoring, versatile wardrobe staple, construction complete, workshop setting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/styling-progression-samples.jpg",
@@ -1279,7 +1279,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of three dress forms showing same navy blazer styled three different ways, buttoned-up corporate in first, open over blouse in second, casual over band t-shirt in third, visual evolution through re-styling, design documentation, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of three dress forms showing same navy blazer styled three different ways, buttoned-up corporate in first, open over blouse in second, casual over band t-shirt in third, visual evolution through re-styling, design documentation, workshop setting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/wardrobe-rack-complete.jpg",
@@ -1287,7 +1287,7 @@
               "title": "Complete Wardrobe Collection",
               "description": "Full wardrobe rack with all 45 pieces for character",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume rack with complete character wardrobe hanging, 45+ pieces showing range from corporate to personal style, full TV wardrobe system, color progression visible across rack, backstage/workshop setting, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume rack with complete character wardrobe hanging, 45+ pieces showing range from corporate to personal style, full TV wardrobe system, color progression visible across rack, backstage/workshop setting, natural lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/fitting-corporate-look.jpg",
@@ -1295,7 +1295,7 @@
               "title": "Fitting - Early Season Look",
               "description": "Close-up fitting of corporate blazer and white blouse",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of navy blazer and white blouse on actress during fitting, focus on corporate styling and fit, actress's head cropped from frame, checking early season professional wardrobe, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of navy blazer and white blouse on actress during fitting, focus on corporate styling and fit, actress's head cropped from frame, checking early season professional wardrobe, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/fitting-personal-style.jpg",
@@ -1303,7 +1303,7 @@
               "title": "Fitting - Later Season Look",
               "description": "Close-up fitting of relaxed personal style costume",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of rust-colored silk blouse and relaxed trousers on actress during fitting, focus on personal style and relaxed fit, actress's head cropped from frame, checking later season evolution wardrobe, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of rust-colored silk blouse and relaxed trousers on actress during fitting, focus on personal style and relaxed fit, actress's head cropped from frame, checking later season evolution wardrobe, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/on-set-wardrobe-check.jpg",
@@ -1346,7 +1346,7 @@
               "title": "Finale Gown Design",
               "description": "Design sketch for character's finale gown - confident personal style",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of flowing evening gown in warm amber tone, confident personal style for finale, annotations about character's arrived confidence, designer's finale costume concept, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of flowing evening gown in warm amber tone, confident personal style for finale, annotations about character's arrived confidence, designer's finale costume concept, natural studio lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/amber-gown-construction.jpg",
@@ -1354,7 +1354,7 @@
               "title": "Finale Gown Construction",
               "description": "Warm amber gown on form during construction for finale episode",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of flowing amber-toned silk gown on dress form in construction, finale costume showing character's confident personal style, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of flowing amber-toned silk gown on dress form in construction, finale costume showing character's confident personal style, work-in-progress on form, workshop setting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/finale-gown-fitting.jpg",
@@ -1362,7 +1362,7 @@
               "title": "Finale Gown Fitting",
               "description": "Close-up of amber gown fit during fitting session",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of warm amber silk gown on actress during fitting, focus on flowing silhouette and confident styling, actress's head cropped from frame, checking finale costume design, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of warm amber silk gown on actress during fitting, focus on flowing silhouette and confident styling, actress's head cropped from frame, checking finale costume design, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/television-production/the-architects-daughter/finale-gown-complete.jpg",
@@ -1429,7 +1429,7 @@
               "title": "Dual Wardrobe Concept Sketches",
               "description": "Sketches showing scientist wardrobe versus investigator wardrobe for same character",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of design sketches showing two costume vocabularies, bright coastal scientist outfits next to dark investigator layers, dual character wardrobe concept, annotations about psychological modes, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of design sketches showing two costume vocabularies, bright coastal scientist outfits next to dark investigator layers, dual character wardrobe concept, annotations about psychological modes, natural studio lighting."
             },
             {
               "file": "categories/television-production/beneath-the-surface/episode-progression-chart.jpg",
@@ -1439,7 +1439,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of wall chart showing costume planning across 6 episodes, color swatches progressing from bright blues and whites to dark navy and black, visual mood shift planning, episode-by-episode design strategy, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of wall chart showing costume planning across 6 episodes, color swatches progressing from bright blues and whites to dark navy and black, visual mood shift planning, episode-by-episode design strategy, natural studio lighting."
             },
             {
               "file": "categories/television-production/beneath-the-surface/coastal-palette-fabrics.jpg",
@@ -1447,7 +1447,7 @@
               "title": "Coastal Scientist Palette",
               "description": "Bright blue, white, and aqua fabric swatches for early episodes",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with coastal color fabric swatches, bright blue cotton, white linen, aqua technical fabrics, optimistic early-season palette, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo from above of design table with coastal color fabric swatches, bright blue cotton, white linen, aqua technical fabrics, optimistic early-season palette, natural studio lighting."
             },
             {
               "file": "categories/television-production/beneath-the-surface/technical-gear-sketch.jpg",
@@ -1455,7 +1455,7 @@
               "title": "Technical Outdoor Gear Design",
               "description": "Sketch for marine biologist's field work costume with technical gear",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, illustration of technical outdoor gear for marine biologist character, waterproof jacket, field pants, practical coastal work outfit, annotations about functionality, designer's working sketch, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume design sketch, illustration of technical outdoor gear for marine biologist character, waterproof jacket, field pants, practical coastal work outfit, annotations about functionality, designer's working sketch, natural studio lighting."
             },
             {
               "file": "categories/television-production/beneath-the-surface/bright-field-jacket.jpg",
@@ -1463,7 +1463,7 @@
               "title": "Bright Field Jacket Construction",
               "description": "Bright blue technical jacket on form for early season field work",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of bright blue technical field jacket on dress form, waterproof outdoor gear for marine biologist character, optimistic early-season costume, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of bright blue technical field jacket on dress form, waterproof outdoor gear for marine biologist character, optimistic early-season costume, workshop setting."
             },
             {
               "file": "categories/television-production/beneath-the-surface/lab-coat-styling.jpg",
@@ -1471,7 +1471,7 @@
               "title": "Lab Coat with Personal Styling",
               "description": "White lab coat on form styled over bright coastal casual wear",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of white lab coat on dress form over bright blue shirt, professional scientist costume with personal style visible underneath, early-season wardrobe, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of white lab coat on dress form over bright blue shirt, professional scientist costume with personal style visible underneath, early-season wardrobe, workshop setting."
             },
             {
               "file": "categories/television-production/beneath-the-surface/dark-investigation-layers.jpg",
@@ -1479,7 +1479,7 @@
               "title": "Investigation Wardrobe - Dark Layers",
               "description": "Dark layered costume for night investigation scenes",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of layered dark costume on dress form, navy hoodie over black layers, protective investigator styling, paranoid later-season wardrobe, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of layered dark costume on dress form, navy hoodie over black layers, protective investigator styling, paranoid later-season wardrobe, workshop setting."
             },
             {
               "file": "categories/television-production/beneath-the-surface/wardrobe-evolution-rack.jpg",
@@ -1489,7 +1489,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of costume rack with character's wardrobe hanging in episode order, visible progression from bright blues and whites to dark navy and black, visual mood shift across series, TV wardrobe documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of costume rack with character's wardrobe hanging in episode order, visible progression from bright blues and whites to dark navy and black, visual mood shift across series, TV wardrobe documentation, natural lighting."
             },
             {
               "file": "categories/television-production/beneath-the-surface/fitting-bright-look.jpg",
@@ -1497,7 +1497,7 @@
               "title": "Fitting - Early Season Optimism",
               "description": "Close-up fitting of bright blue field jacket and casual wear",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of bright blue technical jacket and coastal casual wear on actress during fitting, focus on bright optimistic styling, actress's head cropped from frame, checking early-season wardrobe, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of bright blue technical jacket and coastal casual wear on actress during fitting, focus on bright optimistic styling, actress's head cropped from frame, checking early-season wardrobe, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/television-production/beneath-the-surface/fitting-dark-look.jpg",
@@ -1505,7 +1505,7 @@
               "title": "Fitting - Later Season Paranoia",
               "description": "Close-up fitting of dark layered investigator outfit",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of dark navy and black layered outfit on actress during fitting, focus on protective paranoid styling, actress's head cropped from frame, checking later-season dark wardrobe, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of dark navy and black layered outfit on actress during fitting, focus on protective paranoid styling, actress's head cropped from frame, checking later-season dark wardrobe, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/television-production/beneath-the-surface/on-location-coastal.jpg",
@@ -1623,7 +1623,7 @@
               "tags": [
                 "category_carousel"
               ],
-              "prompt": "iPhone 14 Pro photo of large concept mood board on studio wall, military reference images, armor concepts, soft fabric swatches contrasted with hardware samples, protection and vulnerability theme development, annotations about hard/soft metaphor, design concept exploration, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of large concept mood board on studio wall, military reference images, armor concepts, soft fabric swatches contrasted with hardware samples, protection and vulnerability theme development, annotations about hard/soft metaphor, design concept exploration, natural studio lighting."
             },
             {
               "file": "categories/fashion-design/urban-armor/collection-sketches.jpg",
@@ -1631,7 +1631,7 @@
               "title": "Collection Design Sketches",
               "description": "Six fashion illustrations for complete Urban Armor collection",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of six fashion illustration sketches laid out, structured jacket designs with military details, deconstructed tailoring, sculptural shoulders visible in drawings, complete collection concept, designer's working sketches, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of six fashion illustration sketches laid out, structured jacket designs with military details, deconstructed tailoring, sculptural shoulders visible in drawings, complete collection concept, designer's working sketches, natural studio lighting."
             },
             {
               "file": "categories/fashion-design/urban-armor/fabric-contrast-board.jpg",
@@ -1639,7 +1639,7 @@
               "title": "Hard/Soft Material Pairings",
               "description": "Fabric board showing utility fabrics paired with luxury linings",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of design board with fabric pairings, heavy canvas next to silk charmeuse, utility cotton next to cashmere, hard/soft material contrasts for collection theme, fabric exploration, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of design board with fabric pairings, heavy canvas next to silk charmeuse, utility cotton next to cashmere, hard/soft material contrasts for collection theme, fabric exploration, natural studio lighting."
             },
             {
               "file": "categories/fashion-design/urban-armor/structured-jacket-sketch.jpg",
@@ -1647,7 +1647,7 @@
               "title": "Hero Jacket Design",
               "description": "Detailed design rendering for collection's signature structured jacket",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of detailed costume design sketch, fashion illustration of structured black jacket with sculptural shoulders and utility details, technical annotations about construction, hero piece design, natural studio lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of detailed costume design sketch, fashion illustration of structured black jacket with sculptural shoulders and utility details, technical annotations about construction, hero piece design, natural studio lighting."
             },
             {
               "file": "categories/fashion-design/urban-armor/jacket-construction-wip.jpg",
@@ -1655,7 +1655,7 @@
               "title": "Hero Jacket Construction",
               "description": "Structured black jacket on form during construction showing interior silk",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of structured black jacket on dress form in construction, sculptural shoulders taking shape, interior soft grey silk lining partially visible, hard/soft contrast in progress, work-in-progress on form, workshop setting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of structured black jacket on dress form in construction, sculptural shoulders taking shape, interior soft grey silk lining partially visible, hard/soft contrast in progress, work-in-progress on form, workshop setting."
             },
             {
               "file": "categories/fashion-design/urban-armor/shoulder-detail-construction.jpg",
@@ -1663,7 +1663,7 @@
               "title": "Sculptural Shoulder Detail",
               "description": "Close-up of structured shoulder construction with internal padding",
               "tags": [],
-              "prompt": "iPhone 14 Pro close-up photo of jacket shoulder construction on form, sculptural shoulder structure visible, padding and canvas work creating architectural shape, deconstructed military detail, construction detail, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
+              "prompt": "iPhone 14 Pro close-up photo of jacket shoulder construction on form, sculptural shoulder structure visible, padding and canvas work creating architectural shape, deconstructed military detail, construction detail, natural lighting."
             },
             {
               "file": "categories/fashion-design/urban-armor/hardware-detail.jpg",
@@ -1671,7 +1671,7 @@
               "title": "Hardware as Design Detail",
               "description": "Heavy brass hardware and D-rings used as decorative elements",
               "tags": [],
-              "prompt": "iPhone 14 Pro close-up photo of heavy brass D-rings and hardware attached to black utility fabric, military-inspired hardware as fashion jewelry, detail work complete, construction detail, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. Clean documentation photograph."
+              "prompt": "iPhone 14 Pro close-up photo of heavy brass D-rings and hardware attached to black utility fabric, military-inspired hardware as fashion jewelry, detail work complete, construction detail, natural lighting."
             },
             {
               "file": "categories/fashion-design/urban-armor/silk-lining-detail.jpg",
@@ -1679,7 +1679,7 @@
               "title": "Interior Silk Lining",
               "description": "Soft grey silk lining contrasting with harsh exterior",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of jacket interior showing soft grey silk lining, contrast with structured exterior, hard shell/soft interior theme visible, construction detail, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of jacket interior showing soft grey silk lining, contrast with structured exterior, hard shell/soft interior theme visible, construction detail, natural lighting."
             },
             {
               "file": "categories/fashion-design/urban-armor/fitting-session.jpg",
@@ -1687,7 +1687,7 @@
               "title": "Collection Fitting",
               "description": "Close-up of structured jacket fit on model during fitting",
               "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of structured black jacket on model during fitting, focus on sculptural shoulder and jacket fit, model's head cropped from frame, checking fashion silhouette, static fitting documentation, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "Close-up iPhone 14 Pro photo of structured black jacket on model during fitting, focus on sculptural shoulder and jacket fit, model's head cropped from frame, checking fashion silhouette, static fitting documentation, natural lighting."
             },
             {
               "file": "categories/fashion-design/urban-armor/backstage-fashion-week.jpg",
@@ -1704,7 +1704,7 @@
               "title": "Complete Collection Ready",
               "description": "All six pieces of Urban Armor collection on rack ready for show",
               "tags": [],
-              "prompt": "iPhone 14 Pro photo of garment rack with complete six-piece Urban Armor collection hanging, structured jackets and pieces visible, cohesive collection ready for presentation, backstage fashion week setting, natural lighting. No visible phone, camera, hands holding phone, or timestamp overlays in frame. HEIC format quality, clean documentation photograph."
+              "prompt": "iPhone 14 Pro photo of garment rack with complete six-piece Urban Armor collection hanging, structured jackets and pieces visible, cohesive collection ready for presentation, backstage fashion week setting, natural lighting."
             },
             {
               "file": "categories/fashion-design/urban-armor/hero-jacket-complete.jpg",
