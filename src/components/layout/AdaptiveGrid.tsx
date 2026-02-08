@@ -22,8 +22,12 @@ interface AdaptiveGridProps {
  * Dense packing fills gaps when portrait (tall) and landscape (short) items
  * create holes in the grid.
  * 
- * Algorithm:
- * 1. Calculate natural columns from viewport / idealCardWidth
+ * SSR-safe: Uses CSS auto-fill for the initial render to prevent overflow
+ * at any viewport width. After hydration, switches to JS-calculated explicit
+ * column counts with item-count-aware capping.
+ * 
+ * Algorithm (post-hydration):
+ * 1. Calculate natural columns from container width / idealCardWidth
  * 2. Apply item-count-based cap to prevent over-subdivision
  * 3. Respect global max of 6 columns
  * 
@@ -41,7 +45,8 @@ export function AdaptiveGrid({
   className = ''
 }: AdaptiveGridProps) {
   const gridRef = useRef<HTMLDivElement>(null)
-  const [maxColumns, setMaxColumns] = useState<number>(6)
+  // null = SSR/pre-hydration state, uses CSS auto-fill fallback
+  const [maxColumns, setMaxColumns] = useState<number | null>(null)
   
   useEffect(() => {
     const calculateLayout = () => {
@@ -50,7 +55,7 @@ export function AdaptiveGrid({
       const containerWidth = gridRef.current.offsetWidth
       const itemCount = items.length
       
-      // Natural columns based on viewport and ideal card width
+      // Natural columns based on container width and ideal card width
       const naturalCols = Math.floor(containerWidth / idealCardWidth)
       
       // Item-count-based cap to prevent over-subdivision
@@ -77,6 +82,15 @@ export function AdaptiveGrid({
     return () => window.removeEventListener('resize', calculateLayout)
   }, [items.length, idealCardWidth])
   
+  // SSR-safe: auto-fill before JS hydration prevents overflow at any viewport.
+  // Uses idealCardWidth as the track minimum to approximate the JS-calculated
+  // column count, minimizing layout shift on hydration. min() with 100% ensures
+  // single-column layout on viewports narrower than idealCardWidth.
+  // After hydration: explicit column count with maxCardWidth cap.
+  const gridTemplateColumns = maxColumns !== null
+    ? `repeat(${maxColumns}, minmax(0, ${maxCardWidth}px))`
+    : `repeat(auto-fill, minmax(min(${idealCardWidth}px, 100%), 1fr))`
+  
   return (
     <div 
       ref={gridRef}
@@ -85,10 +99,10 @@ export function AdaptiveGrid({
         '--min-card-width': `${minCardWidth}px`,
         '--ideal-card-width': `${idealCardWidth}px`,
         '--max-card-width': `${maxCardWidth}px`,
-        '--max-columns': maxColumns,
+        '--max-columns': maxColumns ?? 'auto',
         display: 'grid',
         gap: 'var(--space-6, 24px)',
-        gridTemplateColumns: `repeat(${maxColumns}, minmax(0, ${maxCardWidth}px))`,
+        gridTemplateColumns,
         gridAutoRows: 'auto',
         gridAutoFlow: 'dense',
         alignItems: 'start',
