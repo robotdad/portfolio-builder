@@ -299,21 +299,27 @@ function sarahAboutPage(context) {
     })
   );
 
-  // 3. Two-column — training + recognition
+  // 3. Three-column — training + recognition + process (wide gap for breathing room)
   sections.push(
-    buildTwoColumnLayout({
-      ratio: '50-50',
-      gap: 'narrow',
+    buildThreeColumnLayout({
+      gap: 'wide',
       mobileStackOrder: 'left-first',
-      leftColumn: [
-        buildTextSection({
-          body: '<h2>Training & Background</h2><p>MFA Costume Design, CalArts. Apprenticed in Portland\'s vibrant theater community before expanding into television and editorial work.</p>',
-        }),
-      ],
-      rightColumn: [
-        buildTextSection({
-          body: '<h2>Recognition</h2><p>Regional theater awards, streaming platform features, and fashion week presentations have marked the journey so far.</p>',
-        }),
+      columns: [
+        [
+          buildTextSection({
+            body: '<h2>Training & Background</h2><p>MFA Costume Design, CalArts. Apprenticed in Portland\'s vibrant theater community before expanding into television and editorial work.</p>',
+          }),
+        ],
+        [
+          buildTextSection({
+            body: '<h2>Recognition</h2><p>Regional theater awards, streaming platform features, and fashion week presentations have marked the journey so far.</p>',
+          }),
+        ],
+        [
+          buildTextSection({
+            body: '<h2>Process</h2><p>Research-driven and detail-obsessed. Every project begins with deep character study, fabric exploration, and close collaboration with directors to align costume language with narrative intent.</p>',
+          }),
+        ],
       ],
     })
   );
@@ -1101,7 +1107,20 @@ function emmaHomepage(context) {
     showResumeLink: true,
   });
 
-  // 2. Category grid — show descriptions so visitors understand specializations
+  // 2. Featured carousel — production highlights
+  const carouselItems = context.taggedImages?.homeCarousel || [];
+  if (carouselItems.length > 0) {
+    sections.push(
+      buildCarouselSection({
+        heading: 'Featured Productions',
+        images: carouselItems,
+        autoRotate: true,
+        interval: 6000,
+      })
+    );
+  }
+
+  // 3. Category grid — show descriptions so visitors understand specializations
   sections.push({
     id: generateSectionId(),
     type: 'category-grid',
@@ -1112,7 +1131,7 @@ function emmaHomepage(context) {
     showProjectCount: true,
   });
 
-  // 3. Project grid — complete filmography as list
+  // 4. Project grid — complete filmography as list
   sections.push({
     id: generateSectionId(),
     type: 'project-grid',
@@ -1250,7 +1269,44 @@ function emmaAboutPage(context) {
     })
   );
 
-  // 5. Gallery — on set (populated from profile images)
+  // 5. Three-column — three facets of craft (narrow gap for dense reference)
+  sections.push(
+    buildThreeColumnLayout({
+      gap: 'narrow',
+      mobileStackOrder: 'left-first',
+      columns: [
+        [
+          buildTextSection({
+            body:
+              '<h2>Period Research</h2>' +
+              formatAsHtml(
+                'Every era has its own textile vocabulary. I work from archival sources, museum collections, and firsthand material analysis to ensure authenticity that holds up on camera.'
+              ),
+          }),
+        ],
+        [
+          buildTextSection({
+            body:
+              '<h2>Character Building</h2>' +
+              formatAsHtml(
+                'Costumes reveal who a character is before they speak. Color palettes, silhouettes, and fabric textures are chosen to externalize internal arcs and relationships.'
+              ),
+          }),
+        ],
+        [
+          buildTextSection({
+            body:
+              '<h2>On-Set Adaptation</h2>' +
+              formatAsHtml(
+                'Film sets are unpredictable. I build flexibility into every design\u2014quick-change systems, weather contingencies, and stunt-safe duplicates that maintain visual continuity.'
+              ),
+          }),
+        ],
+      ],
+    })
+  );
+
+  // 6. Gallery — on set (populated from profile images)
   const galleryImages = (additionalProfileImages || []).map(img => ({
     imageId: img.id,
     imageUrl: img.url,
