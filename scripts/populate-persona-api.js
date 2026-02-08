@@ -1024,8 +1024,10 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   let catIdx = 0;
   for (const category of personaData.categories || []) {
     try {
-      const categorySlug = category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
-      const categoryContext = populationContext.categories.get(categorySlug);
+      // Match the slug resolution used in Step 4 (line 723) — prefer API-returned slug
+      // which is stored as the map key in populationContext.categories
+      const categoryContext = populationContext.categories.get(category.slug)
+        || [...populationContext.categories.values()].find(c => c.name === category.name);
       if (categoryContext) {
         const catSections = buildPersonaCategoryPage(personaId, category, catIdx, populationContext);
         const catContent = JSON.stringify({ sections: catSections });

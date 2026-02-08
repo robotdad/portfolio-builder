@@ -301,6 +301,71 @@
                 "note": "60 extras in period Vietnamese and American costumes"
               },
               "prompt": "Professional film production photography, recreated 1967 Saigon street scene, Vietnamese civilians in period ao dai and casual wear mixed with American military and press, bustling market atmosphere, warm humid lighting, period vehicles, authentic period drama"
+            },
+            {
+              "file": "categories/period-epic/letters-from-saigon/fabric-treatment-station.jpg",
+              "imageType": "bts_phone_landscape",
+              "title": "Fabric Treatment Station",
+              "description": "The on-site treatment workspace where period fabrics are stabilized against tropical humidity damage",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume treatment workstation in tropical location, spray bottles of fabric stabilizer, treated and untreated fabric samples hanging to compare, portable fans and dehumidifier, reference charts for treatment schedules, humid production workspace in Vietnam"
+            },
+            {
+              "file": "categories/period-epic/letters-from-saigon/breathable-underlayer-detail.jpg",
+              "imageType": "detail_portrait",
+              "title": "Hidden Underlayer System",
+              "description": "Close-up of the breathable underlayer system hidden beneath period costumes for actor comfort in 95-degree heat",
+              "tags": [],
+              "prompt": "Close-up photo of costume interior showing hidden breathable mesh underlayer beneath 1960s period cotton shirt, moisture-wicking modern fabric concealed under authentic exterior, clever costume engineering for tropical heat, detail documentation"
+            },
+            {
+              "file": "categories/period-epic/letters-from-saigon/local-textile-collaboration.jpg",
+              "imageType": "bts_phone",
+              "title": "Vietnamese Textile Expert Consultation",
+              "description": "Working with local Vietnamese textile experts for emergency fabric sourcing",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of Vietnamese textile expert showing period-appropriate fabrics to film costume team, traditional textile market in Ho Chi Minh City, rolls of cotton and silk, collaborative sourcing session, authentic local craftsmanship"
+            },
+            {
+              "file": "categories/period-epic/letters-from-saigon/rapid-rotation-rack.jpg",
+              "imageType": "bts_phone",
+              "title": "Triple Multiples Rotation",
+              "description": "Three copies of the same period costume in rotation - one on actor, one drying, one in reserve",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of costume rack showing three identical 1960s Vietnamese civilian outfits labeled A B C with rotation schedule, one damp from wear, one freshly treated, one in reserve, systematic rotation system for tropical film production"
+            },
+            {
+              "file": "categories/period-epic/letters-from-saigon/costume-attrition-board.jpg",
+              "imageType": "bts_phone_landscape",
+              "title": "Attrition Rate Tracking",
+              "description": "Board tracking the 40% costume attrition rate from humidity damage and replacement sourcing status",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of production tracking board showing costume inventory with red marks for damaged-beyond-repair items, replacement sourcing status, attrition rate calculations, systematic loss management documentation, production office wall"
+            },
+            {
+              "file": "categories/period-epic/letters-from-saigon/monsoon-shoot-bts.jpg",
+              "imageType": "bts_phone",
+              "title": "Monsoon Day Preparations",
+              "description": "Costume department preparing for filming during monsoon conditions",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume department team covering costume racks with plastic sheeting as tropical rain begins on Vietnam film location, urgency of protecting period costumes, crew in rain gear, production vehicles and jungle location visible, humid monsoon atmosphere"
+            },
+            {
+              "file": "categories/period-epic/letters-from-saigon/evening-market-production.jpg",
+              "imageType": "production_portrait",
+              "title": "Evening Market - Production",
+              "description": "Production still from evening market sequence showing period Vietnamese civilian costumes",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit Photography - Mai Tran",
+                "scene": "Evening market - Saigon 1967",
+                "note": "Vietnamese civilian costumes in practical evening light"
+              },
+              "prompt": "Professional film production photography, 1967 Saigon evening market scene, Vietnamese woman in period ao dai under warm lantern light, market stalls and period atmosphere, intimate human moment amid historical setting, cinematic warm tones"
             }
           ]
         }
@@ -528,6 +593,80 @@
                 "note": "Hero traje de luces under arena lighting"
               },
               "prompt": "Professional film production photography, actor in royal blue and gold traje de luces in bullfighting arena, dramatic afternoon Spanish sun, dust in air, authentic plaza de toros setting, cinematic tension, high-end production value"
+            },
+            {
+              "file": "categories/action-stunt/the-matadors-shadow/emma-seville-fitting.jpg",
+              "imageType": "bts_phone",
+              "title": "Fitting with Lead Actor",
+              "description": "Emma conducting fitting of hero traje de luces on lead actor in Seville",
+              "tags": [],
+              "prompt": "Candid photo of 48-year-old Latina woman with silver-streaked brown bob carefully adjusting royal blue and gold matador jacket on actor, Seville costume workshop environment, traditional tools and mirrors visible, respectful handling of culturally significant garment, shot by production photographer",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/action-stunt/the-matadors-shadow/full-collection-display.jpg",
+              "imageType": "bts_phone_landscape",
+              "title": "Complete Traje de Luces Collection",
+              "description": "All 18 suits of lights displayed together - the full scope of the production's matador costume inventory",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of 18 traje de luces displayed on dress forms in large room, spectacular array of matador suits in various colors - royal blue, emerald green, black, burgundy, white - all with gold and silver embroidery, breathtaking scope of traditional Spanish craftsmanship assembled for film production"
+            },
+            {
+              "file": "categories/action-stunt/the-matadors-shadow/breakaway-element-detail.jpg",
+              "imageType": "detail_square",
+              "title": "Stunt Reinforcement Detail",
+              "description": "Close-up showing hidden stunt reinforcement and breakaway elements in the stunt version",
+              "tags": [],
+              "prompt": "Extreme close-up iPhone 14 Pro photo of matador costume interior showing hidden reinforcement panels and breakaway snap closures beneath ornate exterior, stunt-safe modifications invisible from outside, clever costume engineering for film action sequences"
+            },
+            {
+              "file": "categories/action-stunt/the-matadors-shadow/actor-matador-training.jpg",
+              "imageType": "bts_phone",
+              "title": "Actor Training in Costume",
+              "description": "Lead actor training with professional matadors while wearing the stunt version of the traje de luces",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of actor in gold-embroidered matador suit practicing cape work with retired professional matador in Spanish training ring, dust in afternoon light, real bullfighting technique being taught, stunt-reinforced costume allowing full movement"
+            },
+            {
+              "file": "categories/action-stunt/the-matadors-shadow/handling-protocol.jpg",
+              "imageType": "bts_phone",
+              "title": "Hero Garment Handling Protocol",
+              "description": "Costume crew following strict handling protocols for the fragile $50,000 hero garments",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of two costume crew members carefully transferring hero traje de luces using white cotton gloves and padded hanger, handling protocol documentation visible on wall behind them, treating film costume with museum-level care, wardrobe department"
+            },
+            {
+              "file": "categories/action-stunt/the-matadors-shadow/capote-fabric-detail.jpg",
+              "imageType": "detail_portrait",
+              "title": "Capote and Muleta Detail",
+              "description": "Close-up of the traditional cape fabrics - magenta and yellow capote de brega and red muleta",
+              "tags": [],
+              "prompt": "Close-up photo of traditional bullfighting capes draped over wooden rail, magenta and yellow capote de brega fabric and deep red muleta, rich saturated colors, heavy traditional fabric weight visible in drape, Spanish bullfighting tradition, warm natural light"
+            },
+            {
+              "file": "categories/action-stunt/the-matadors-shadow/color-variation-lineup.jpg",
+              "imageType": "studio_landscape",
+              "title": "Suit Color Variations",
+              "description": "Selection of traje de luces showing the range of colors used across different characters and scenes",
+              "tags": [],
+              "prompt": "Professional documentation photo of five traje de luces on dress forms in row, showing color range from royal blue through emerald green to black and burgundy, each with distinct gold or silver embroidery patterns, Spanish bullfighting costume artistry, neutral studio background"
+            },
+            {
+              "file": "categories/action-stunt/the-matadors-shadow/plaza-rehearsal-production.jpg",
+              "imageType": "production_wide",
+              "title": "Plaza Rehearsal - Production",
+              "description": "Production still from rehearsal in the actual plaza de toros before principal photography",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit Photography - Carlos Mendez",
+                "scene": "Technical rehearsal in plaza de toros",
+                "note": "Stunt suits used for rehearsal, hero suits reserved for cameras"
+              },
+              "prompt": "Professional film production photography, wide shot of actual Spanish plaza de toros during film rehearsal, matador figure in traje de luces in center of empty arena, crew and equipment visible at edges, dramatic scale of circular arena, golden afternoon Spanish light, cinematic grandeur"
             }
           ]
         }
@@ -737,6 +876,80 @@
                 "note": "Costumes worn during actual farm work in prep"
               },
               "prompt": "Professional film production photography, rural farming family during harvest, authentic worn work clothes with real sweat and dirt, golden autumn Nebraska light, genuine working-class American aesthetic, documentary-style intimacy"
+            },
+            {
+              "file": "categories/contemporary-drama/midnight-pastoral/farm-auction-haul.jpg",
+              "imageType": "bts_phone_landscape",
+              "title": "Farm Auction Sourcing",
+              "description": "Costume haul from a Nebraska farm auction - authentic work clothes with decades of real wear",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of pile of work clothes on tailgate of pickup truck at rural farm auction, faded Carhartt jackets, worn denim overalls, sun-bleached flannel shirts, dusty boots, Nebraska farmland visible in background, authentic rural American atmosphere, golden afternoon light"
+            },
+            {
+              "file": "categories/contemporary-drama/midnight-pastoral/actor-farmwork-prep.jpg",
+              "imageType": "bts_phone",
+              "title": "Actor Prep - Real Farm Work",
+              "description": "Lead actor wearing hero costume during actual farm work in prep weeks to develop authentic wear patterns",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of actor in work clothes doing actual farm labor, mending fence posts in rural Nebraska field, genuine sweat stains forming on shirt, costume developing real wear patterns through physical work, documentary-style behind-the-scenes film production"
+            },
+            {
+              "file": "categories/contemporary-drama/midnight-pastoral/wear-comparison-detail.jpg",
+              "imageType": "bts_phone_landscape",
+              "title": "Real vs Movie-Aged Comparison",
+              "description": "Side-by-side comparison showing the difference between genuine wear patterns and conventional film aging techniques",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of two identical flannel shirts laid flat side by side, one with genuine farm-work wear patterns showing natural sweat salt lines and stress-point thinning, one with conventional film aging that looks painted on, clear documentation comparison, costume department workspace"
+            },
+            {
+              "file": "categories/contemporary-drama/midnight-pastoral/sun-fade-detail.jpg",
+              "imageType": "detail_portrait",
+              "title": "Authentic Sun Fade Pattern",
+              "description": "Close-up of genuine sun fading on work shirt shoulders from months of outdoor wear",
+              "tags": [],
+              "prompt": "Close-up photo of worn work shirt shoulder area showing authentic sun fading gradient, fabric lighter where sun hits and darker under collar and arms, genuine UV bleaching pattern impossible to replicate artificially, shallow depth of field, natural light"
+            },
+            {
+              "file": "categories/contemporary-drama/midnight-pastoral/stress-point-closeup.jpg",
+              "imageType": "detail_square",
+              "title": "Stress Point Wear Documentation",
+              "description": "Documenting authentic fabric wear at knee and elbow stress points",
+              "tags": [],
+              "prompt": "Extreme close-up iPhone 14 Pro photo of worn denim knee area showing authentic fabric thinning, natural crease patterns from actual kneeling, thread fraying at stress points, genuine working garment wear documentation, macro photography detail"
+            },
+            {
+              "file": "categories/contemporary-drama/midnight-pastoral/emma-barn-fitting.jpg",
+              "imageType": "bts_phone",
+              "title": "Barn Location Fitting",
+              "description": "Emma checking costume fit against the actual farm environment during prep",
+              "tags": [],
+              "prompt": "Candid photo of 48-year-old Latina woman with silver-streaked brown bob checking fit of work clothes on actor inside Nebraska barn, natural light through barn doors, hay bales and equipment visible, rural film location atmosphere, shot by director",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/contemporary-drama/midnight-pastoral/seasonal-continuity-board.jpg",
+              "imageType": "bts_phone_landscape",
+              "title": "Seasonal Continuity Board",
+              "description": "Documentation board tracking the same costumes across four seasonal shooting blocks over 14 months",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of large continuity board divided into four seasonal sections - spring summer fall winter, same costumes photographed in each season showing progressive authentic wear, dates and shooting block notes, long-term production costume management documentation"
+            },
+            {
+              "file": "categories/contemporary-drama/midnight-pastoral/winter-morning-production.jpg",
+              "imageType": "production_wide",
+              "title": "Winter Morning - Production",
+              "description": "Production still from winter shooting block showing costumes in cold-weather context",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit Photography - Local crew",
+                "scene": "Winter morning chores",
+                "note": "Same costumes now showing 10 months of genuine wear"
+              },
+              "prompt": "Professional film production photography, rural farmer in heavily worn work clothes doing morning chores in Nebraska winter, breath visible in cold air, frosted fields, authentic worn Carhartt jacket and layered flannel, quiet documentary intimacy, soft winter dawn light"
             }
           ]
         }
@@ -944,6 +1157,85 @@
                 "note": "Costumes showing journey wear, community-sourced authenticity"
               },
               "prompt": "Professional film production photography, refugees arriving on Greek shore, authentic worn clothing showing journey hardship, golden Mediterranean light, dignified powerful imagery, European art cinema aesthetic"
+            },
+            {
+              "file": "categories/international-location/the-long-road/wear-progression-lineup.jpg",
+              "imageType": "bts_phone_landscape",
+              "title": "Journey Wear Progression",
+              "description": "The same costume documented at each stage of the narrative journey - Jordan departure through Germany arrival",
+              "tags": [
+                "category_carousel"
+              ],
+              "prompt": "iPhone 14 Pro photo of five versions of same outfit laid out on table in sequence showing progressive wear, from relatively clean at left to heavily worn and repaired at right, journey progression documentation, notes indicating which country/scene each state represents, costume department workspace"
+            },
+            {
+              "file": "categories/international-location/the-long-road/emma-jordan-set.jpg",
+              "imageType": "bts_phone",
+              "title": "On Location - Jordan",
+              "description": "Emma supervising costume preparation at the Jordan location",
+              "tags": [],
+              "prompt": "Candid photo of 48-year-old Latina woman with silver-streaked brown bob reviewing costumes on rack in hot outdoor location, Jordanian desert landscape visible, head scarf for sun protection, working with local crew members, international film production atmosphere, shot by behind-the-scenes photographer",
+              "isIdentity": true
+            },
+            {
+              "file": "categories/international-location/the-long-road/continuity-system-binder.jpg",
+              "imageType": "bts_phone",
+              "title": "Standardized Continuity System",
+              "description": "The continuity binder designed to work identically across three different country crews",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of comprehensive costume continuity binder open on table, tabbed sections visible with photos and notes in multiple languages, standardized system designed for international crew handoffs, color-coded character sections, production office environment"
+            },
+            {
+              "file": "categories/international-location/the-long-road/local-crew-training.jpg",
+              "imageType": "bts_phone_landscape",
+              "title": "Local Crew Training - Greece",
+              "description": "Training the Greek costume crew in the standardized continuity protocols",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume training session, small group of Greek crew members learning continuity system from reference boards and binders, costume samples on table, collaborative atmosphere, Greek production office with Mediterranean light through windows"
+            },
+            {
+              "file": "categories/international-location/the-long-road/journey-costume-multiples.jpg",
+              "imageType": "bts_phone",
+              "title": "Journey Stage Multiples",
+              "description": "Multiple copies of key costumes prepared at different wear states for each country's shoot",
+              "tags": [],
+              "prompt": "iPhone 14 Pro photo of costume rack with multiple copies of same jacket and pants at different stages of wear, labeled by country and scene number, organized journey-based multiples system, wardrobe department organization"
+            },
+            {
+              "file": "categories/international-location/the-long-road/authentic-wear-detail.jpg",
+              "imageType": "detail_portrait",
+              "title": "Journey Wear Detail",
+              "description": "Close-up of authentic wear patterns on community-sourced clothing showing real life history",
+              "tags": [],
+              "prompt": "Close-up photo of worn jacket sleeve and cuff showing authentic patching and repair, hand-stitched mend with mismatched thread, genuine wear from real use not film aging, dignity in the craftsmanship of repair, shallow depth of field, natural light"
+            },
+            {
+              "file": "categories/international-location/the-long-road/jordan-departure-production.jpg",
+              "imageType": "production_wide",
+              "title": "Jordan Departure - Production",
+              "description": "Production still from the Jordan departure sequence at the start of the journey",
+              "tags": [
+                "category_carousel"
+              ],
+              "imageMetadata": {
+                "photographer": "Unit Photography - International crew",
+                "scene": "Departure from Jordan - beginning of journey",
+                "note": "Costumes in earliest wear state, community-sourced authenticity"
+              },
+              "prompt": "Professional film production photography, family departing with belongings in Jordanian desert town, authentic clothing in relatively good condition at start of journey, warm golden desert light, dignified composition, European art cinema aesthetic"
+            },
+            {
+              "file": "categories/international-location/the-long-road/germany-arrival-production.jpg",
+              "imageType": "production_portrait",
+              "title": "Germany Arrival - Production",
+              "description": "Production still from the Germany arrival showing full journey wear on costumes",
+              "tags": [],
+              "imageMetadata": {
+                "photographer": "Unit Photography - International crew",
+                "scene": "Arrival in Germany - end of journey",
+                "note": "Same costumes now showing months of journey wear, community-sourced"
+              },
+              "prompt": "Professional film production photography, refugees arriving in German city, same clothing now heavily worn and repaired from months of travel, cold European light contrasting with warm desert origins, exhaustion and resilience visible, dignified powerful European cinema"
             }
           ]
         }
