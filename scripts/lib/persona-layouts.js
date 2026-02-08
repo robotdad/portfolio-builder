@@ -407,7 +407,7 @@ function sarahProjectPage(project, galleryImages, context) {
 function sarahTemplateA(project, getNext, getNextN, remaining, context) {
   const sections = [];
 
-  // 1. Hero image
+  // 1. Hero image (full-width)
   const heroImg = imageFromGallery(getNext());
   if (heroImg) sections.push(heroImg);
 
@@ -431,69 +431,50 @@ function sarahTemplateA(project, getNext, getNextN, remaining, context) {
     })
   );
 
-  // 3. Two-column — challenge + image
-  const challengeImg = imageFromGallery(getNext());
-  sections.push(
-    buildTwoColumnLayout({
-      ratio: '60-40',
-      gap: 'narrow',
-      mobileStackOrder: 'left-first',
-      leftColumn: [
-        buildTextSection({
-          body:
-            '<h2>The Challenge</h2>' +
-            formatAsHtml(project.projectContent?.challenge || ''),
-        }),
-      ],
-      rightColumn: challengeImg ? [challengeImg] : [],
-    })
-  );
+  // 3. Full-width image — visual break
+  const breakImg = imageFromGallery(getNext());
+  if (breakImg) sections.push(breakImg);
 
-  // 4. Gallery — process (3 images)
-  const processImgs = getNextN(3);
-  sections.push(
-    buildGallerySection({ heading: 'Process', images: galleryImagesPayload(processImgs) })
-  );
-
-  // 5. Sidebar — techniques sidebar + approach main
-  sections.push(
-    buildSidebarLayout({
-      sidebarPosition: 'right',
-      sidebarWidth: 240,
-      gap: 'narrow',
-      mobileStackOrder: 'main-first',
-      sidebar: [
-        buildTextSection({ body: buildTechniquesHtml(project.techniques, []) }),
-      ],
-      main: [
-        buildTextSection({
-          body:
-            '<h2>The Approach</h2>' +
-            formatAsHtml(project.projectContent?.approach || ''),
-        }),
-      ],
-    })
-  );
-
-  // 6. Two-column — image + outcome
-  const outcomeImg = imageFromGallery(getNext());
+  // 4. Two-column 40-60 — challenge+approach narrative + image
+  const narrativeImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
       ratio: '40-60',
       gap: 'narrow',
       mobileStackOrder: 'right-first',
+      leftColumn: [
+        buildTextSection({
+          body:
+            '<h2>The Challenge</h2>' +
+            formatAsHtml(project.projectContent?.challenge || '') +
+            '<h2>The Approach</h2>' +
+            formatAsHtml(project.projectContent?.approach || ''),
+        }),
+      ],
+      rightColumn: narrativeImg ? [narrativeImg] : [],
+    })
+  );
+
+  // 5. Two-column 60-40 — image + outcome/techniques
+  const outcomeImg = imageFromGallery(getNext());
+  sections.push(
+    buildTwoColumnLayout({
+      ratio: '60-40',
+      gap: 'narrow',
+      mobileStackOrder: 'left-first',
       leftColumn: outcomeImg ? [outcomeImg] : [],
       rightColumn: [
         buildTextSection({
           body:
             '<h2>The Outcome</h2>' +
-            formatAsHtml(project.projectContent?.outcome || ''),
+            formatAsHtml(project.projectContent?.outcome || '') +
+            buildTechniquesHtml(project.techniques, []),
         }),
       ],
     })
   );
 
-  // 7. Related project card (if available)
+  // 6. Related project card (if available)
   const relatedIds = getRelatedProjectIds(
     context,
     project.id || '',
@@ -506,11 +487,11 @@ function sarahTemplateA(project, getNext, getNextN, remaining, context) {
     );
   }
 
-  // 8. Gallery — details (remaining images)
-  const detailImgs = remaining();
-  if (detailImgs.length > 0) {
+  // 7. Gallery — all remaining images in one consolidated gallery
+  const restImgs = remaining();
+  if (restImgs.length > 0) {
     sections.push(
-      buildGallerySection({ heading: 'Details', images: galleryImagesPayload(detailImgs) })
+      buildGallerySection({ heading: 'Process & Details', images: galleryImagesPayload(restImgs) })
     );
   }
 
@@ -521,14 +502,14 @@ function sarahTemplateA(project, getNext, getNextN, remaining, context) {
 function sarahTemplateB(project, getNext, getNextN, remaining, context) {
   const sections = [];
 
-  // 1. Hero image
+  // 1. Hero image (full-width)
   const heroImg = imageFromGallery(getNext());
   if (heroImg) sections.push(heroImg);
 
-  // 2. Two-column — title/description + details
+  // 2. Two-column 60-40 — title/description + details
   sections.push(
     buildTwoColumnLayout({
-      ratio: '70-30',
+      ratio: '60-40',
       gap: 'narrow',
       mobileStackOrder: 'left-first',
       leftColumn: [
@@ -544,41 +525,46 @@ function sarahTemplateB(project, getNext, getNextN, remaining, context) {
     })
   );
 
-  // 3. Gallery — the work (4 images)
-  const workImgs = getNextN(4);
+  // 3. Two-column 40-60 — image + challenge/approach narrative
+  const narrativeImg = imageFromGallery(getNext());
   sections.push(
-    buildGallerySection({ heading: 'The Work', images: galleryImagesPayload(workImgs) })
-  );
-
-  // 4. Sidebar — image sidebar + approach/techniques main
-  const sidebarImg = imageFromGallery(getNext());
-  sections.push(
-    buildSidebarLayout({
-      sidebarPosition: 'left',
-      sidebarWidth: 280,
-      gap: 'default',
-      mobileStackOrder: 'sidebar-first',
-      sidebar: sidebarImg ? [sidebarImg] : [],
-      main: [
+    buildTwoColumnLayout({
+      ratio: '40-60',
+      gap: 'narrow',
+      mobileStackOrder: 'right-first',
+      leftColumn: narrativeImg ? [narrativeImg] : [],
+      rightColumn: [
         buildTextSection({
           body:
-            '<h2>Approach & Technique</h2>' +
-            formatAsHtml(
-              (project.projectContent?.approach || '') +
-                ' ' +
-                (project.techniques || []).join('. ')
-            ),
+            '<h2>The Challenge</h2>' +
+            formatAsHtml(project.projectContent?.challenge || '') +
+            '<h2>The Approach</h2>' +
+            formatAsHtml(project.projectContent?.approach || ''),
         }),
       ],
     })
   );
 
-  // 5. Outcome text
+  // 4. Full-width image — visual break
+  const breakImg = imageFromGallery(getNext());
+  if (breakImg) sections.push(breakImg);
+
+  // 5. Two-column 60-40 — outcome+techniques + image
+  const outcomeImg = imageFromGallery(getNext());
   sections.push(
-    buildTextSection({
-      body:
-        '<h2>The Outcome</h2>' +
-        formatAsHtml(project.projectContent?.outcome || ''),
+    buildTwoColumnLayout({
+      ratio: '60-40',
+      gap: 'narrow',
+      mobileStackOrder: 'left-first',
+      leftColumn: [
+        buildTextSection({
+          body:
+            '<h2>The Outcome</h2>' +
+            formatAsHtml(project.projectContent?.outcome || '') +
+            buildTechniquesHtml(project.techniques, []),
+        }),
+      ],
+      rightColumn: outcomeImg ? [outcomeImg] : [],
     })
   );
 
@@ -599,7 +585,7 @@ function sarahTemplateB(project, getNext, getNextN, remaining, context) {
     );
   }
 
-  // 7. Gallery — remaining images
+  // 7. Gallery — all remaining images
   const restImgs = remaining();
   if (restImgs.length > 0) {
     sections.push(
@@ -863,11 +849,11 @@ function julianProjectPage(project, galleryImages, context) {
 function julianTemplateA(project, getNext, getNextN, remaining, context) {
   const sections = [];
 
-  // 1. Hero image
+  // 1. Hero image (full-width)
   const heroImg = imageFromGallery(getNext());
   if (heroImg) sections.push(heroImg);
 
-  // 2. Two-column — title/description + details
+  // 2. Two-column 60-40 — title/description + details
   sections.push(
     buildTwoColumnLayout({
       ratio: '60-40',
@@ -886,13 +872,12 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
     })
   );
 
-  // 3. Three-column — 3 images
+  // 3. Three-column — 3 images (Julian's signature layout)
   const triImgs = getNextN(3);
   const triColumns = triImgs.map(img => {
     const section = imageFromGallery(img);
     return section ? [section] : [];
   });
-  // Pad to 3 columns
   while (triColumns.length < 3) triColumns.push([]);
   sections.push(
     buildThreeColumnLayout({
@@ -902,22 +887,19 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
     })
   );
 
-  // 4. Two-column — challenge + approach
+  // 4. Two-column 40-60 — image + challenge/approach narrative
+  const narrativeImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
-      ratio: '50-50',
+      ratio: '40-60',
       gap: 'default',
-      mobileStackOrder: 'left-first',
-      leftColumn: [
-        buildTextSection({
-          body:
-            '<h2>The Challenge</h2>' +
-            formatAsHtml(project.projectContent?.challenge || ''),
-        }),
-      ],
+      mobileStackOrder: 'right-first',
+      leftColumn: narrativeImg ? [narrativeImg] : [],
       rightColumn: [
         buildTextSection({
           body:
+            '<h2>The Challenge</h2>' +
+            formatAsHtml(project.projectContent?.challenge || '') +
             '<h2>The Approach</h2>' +
             formatAsHtml(project.projectContent?.approach || ''),
         }),
@@ -925,43 +907,26 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
     })
   );
 
-  // 5. Gallery — construction process (4 images)
-  const processImgs = getNextN(4);
-  sections.push(
-    buildGallerySection({
-      heading: 'Construction Process',
-      images: galleryImagesPayload(processImgs),
-    })
-  );
-
-  // 6. Two-column — image + outcome
+  // 5. Two-column 60-40 — outcome+techniques + image
   const outcomeImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
-      ratio: '40-60',
+      ratio: '60-40',
       gap: 'default',
-      mobileStackOrder: 'right-first',
-      leftColumn: outcomeImg ? [outcomeImg] : [],
-      rightColumn: [
+      mobileStackOrder: 'left-first',
+      leftColumn: [
         buildTextSection({
           body:
             '<h2>The Outcome</h2>' +
-            formatAsHtml(project.projectContent?.outcome || ''),
+            formatAsHtml(project.projectContent?.outcome || '') +
+            buildTechniquesHtml(project.techniques, project.recognition),
         }),
       ],
+      rightColumn: outcomeImg ? [outcomeImg] : [],
     })
   );
 
-  // 7. Techniques & materials text
-  sections.push(
-    buildTextSection({
-      body:
-        '<h2>Techniques & Materials</h2>' +
-        buildTechniquesHtml(project.techniques, project.recognition),
-    })
-  );
-
-  // 8. Related project card (if available)
+  // 6. Related project card (if available)
   const relatedIds = getRelatedProjectIds(
     context,
     project.id || '',
@@ -974,11 +939,11 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
     );
   }
 
-  // 9. Gallery — remaining
+  // 7. Gallery — all remaining images
   const restImgs = remaining();
   if (restImgs.length > 0) {
     sections.push(
-      buildGallerySection({ heading: '', images: galleryImagesPayload(restImgs) })
+      buildGallerySection({ heading: 'Process & Details', images: galleryImagesPayload(restImgs) })
     );
   }
 
@@ -989,11 +954,11 @@ function julianTemplateA(project, getNext, getNextN, remaining, context) {
 function julianTemplateB(project, getNext, getNextN, remaining, context) {
   const sections = [];
 
-  // 1. Hero image
+  // 1. Hero image (full-width)
   const heroImg = imageFromGallery(getNext());
   if (heroImg) sections.push(heroImg);
 
-  // 2. Two-column — overview + image
+  // 2. Two-column 50-50 — overview + image
   const overviewImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
@@ -1011,53 +976,43 @@ function julianTemplateB(project, getNext, getNextN, remaining, context) {
     })
   );
 
-  // 3. Three-column — challenge, approach, techniques
+  // 3. Two-column 40-60 — image + challenge/approach narrative
+  const narrativeImg = imageFromGallery(getNext());
   sections.push(
-    buildThreeColumnLayout({
+    buildTwoColumnLayout({
+      ratio: '40-60',
       gap: 'default',
       mobileStackOrder: 'right-first',
-      columns: [
-        [
-          buildTextSection({
-            body:
-              '<h2>The Challenge</h2>' +
-              formatAsHtml(project.projectContent?.challenge || ''),
-          }),
-        ],
-        [
-          buildTextSection({
-            body:
-              '<h2>The Approach</h2>' +
-              formatAsHtml(project.projectContent?.approach || ''),
-          }),
-        ],
-        [
-          buildTextSection({
-            body:
-              '<h2>Techniques</h2>' +
-              buildTechniquesHtml(project.techniques, []),
-          }),
-        ],
+      leftColumn: narrativeImg ? [narrativeImg] : [],
+      rightColumn: [
+        buildTextSection({
+          body:
+            '<h2>The Challenge</h2>' +
+            formatAsHtml(project.projectContent?.challenge || '') +
+            '<h2>The Approach</h2>' +
+            formatAsHtml(project.projectContent?.approach || ''),
+        }),
       ],
     })
   );
 
-  // 4. Gallery — process & results (4 images)
-  const processImgs = getNextN(4);
+  // 4. Three-column — 3 images (Julian's signature layout)
+  const triImgs = getNextN(3);
+  const triColumns = triImgs.map(img => {
+    const section = imageFromGallery(img);
+    return section ? [section] : [];
+  });
+  while (triColumns.length < 3) triColumns.push([]);
   sections.push(
-    buildGallerySection({
-      heading: 'Process & Results',
-      images: galleryImagesPayload(processImgs),
+    buildThreeColumnLayout({
+      gap: 'default',
+      mobileStackOrder: 'left-first',
+      columns: triColumns,
     })
   );
 
-  // 5. Two-column — outcome + related card
-  const relatedIds = getRelatedProjectIds(
-    context,
-    project.id || '',
-    project.categorySlug || '',
-    2
-  );
+  // 5. Two-column 60-40 — outcome+recognition+techniques + image
+  const outcomeImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
       ratio: '60-40',
@@ -1072,28 +1027,32 @@ function julianTemplateB(project, getNext, getNextN, remaining, context) {
               ? '<h3>Recognition</h3><ul>' +
                 project.recognition.map(r => `<li>${r}</li>`).join('') +
                 '</ul>'
-              : ''),
+              : '') +
+            buildTechniquesHtml(project.techniques, []),
         }),
       ],
-      rightColumn:
-        relatedIds.length > 0
-          ? [buildProjectCardSection({ projectId: relatedIds[0], cardSize: 'compact', showMetadata: true })]
-          : [buildTextSection({ body: '' })],
+      rightColumn: outcomeImg ? [outcomeImg] : [],
     })
   );
 
-  // 6. Related project list (if 2+ related)
-  if (relatedIds.length >= 2) {
+  // 6. Related project list (if available)
+  const relatedIds = getRelatedProjectIds(
+    context,
+    project.id || '',
+    project.categorySlug || '',
+    2
+  );
+  if (relatedIds.length > 0) {
     sections.push(
       buildProjectListSection({
         projectIds: relatedIds.slice(0, 2),
         layout: 'vertical',
-        showMetadata: false,
+        showMetadata: true,
       })
     );
   }
 
-  // 7. Gallery — remaining
+  // 7. Gallery — all remaining images
   const restImgs = remaining();
   if (restImgs.length > 0) {
     sections.push(
@@ -1113,69 +1072,92 @@ function emmaHomepage(context) {
   const { persona, profileAssetId, profileAssetUrl } = context;
   const sections = [];
 
-  // 1. Hero
+  // 1. Hero — use role as title, bio as introduction (not redundant name)
   sections.push({
     id: generateSectionId(),
     type: 'hero',
     name: persona.name,
-    title: `${persona.name} Portfolio`,
-    bio: '',
+    title: persona.role || 'Film Costume Supervisor',
+    bio: persona.bio || '',
     profileImageId: profileAssetId,
     profileImageUrl: profileAssetUrl,
     showResumeLink: true,
   });
 
-  // 2. Featured grid (inline)
-  sections.push({
-    id: generateSectionId(),
-    type: 'featured-grid',
-    heading: 'Selected Productions',
-    items: [],
-  });
-
-  // 3. Category grid (inline)
+  // 2. Category grid — show descriptions so visitors understand specializations
   sections.push({
     id: generateSectionId(),
     type: 'category-grid',
-    heading: '',
+    heading: 'Specializations',
     categoryIds: null,
     columns: 2,
-    showDescription: false,
+    showDescription: true,
     showProjectCount: true,
   });
 
-  // 4. Project grid (inline) — complete filmography
+  // 3. Project grid — complete filmography as list
   sections.push({
     id: generateSectionId(),
     type: 'project-grid',
     heading: 'Complete Filmography',
     description: '',
     projectIds: null,
-    columns: 4,
+    columns: 3,
     showMetadata: true,
-    layout: 'list',
+    layout: 'grid',
   });
 
   return sections;
 }
 
 function emmaAboutPage(context) {
-  const { persona, profileAssetId, profileAssetUrl } = context;
+  const { persona, profileAssetId, profileAssetUrl, personaData, additionalProfileImages } = context;
   const sections = [];
+
+  // Collect real credits and recognition from persona data
+  const categories = personaData?.categories || [];
+  const allProjects = categories.flatMap(cat => cat.projects || []);
+
+  const creditsHtml = allProjects.map(p => {
+    const details = p.projectDetails || {};
+    return `<li><strong>${p.title}</strong> (${details.year || ''}) &mdash; ${details.role || 'Costume Supervisor'}, ${details.production || ''}</li>`;
+  }).join('\n');
+
+  const recognitionEntries = allProjects.flatMap(p =>
+    (p.recognition || []).map(r => `<li>${r} &mdash; <em>${p.title}</em></li>`)
+  );
+  const awardsHtml = recognitionEntries.length > 0
+    ? recognitionEntries.join('\n')
+    : '<li>Multiple festival selections and industry commendations</li>';
+
+  // Aggregate unique techniques across all projects
+  const allTechniques = [...new Set(allProjects.flatMap(p => p.techniques || []))];
+  const techniquesHtml = allTechniques.slice(0, 12).map(t => `<li>${t}</li>`).join('\n');
+
+  // Find additional profile images for the about page two-column sections
+  const candidImg = (additionalProfileImages || []).find(img =>
+    img.type === 'candid' || img.title?.toLowerCase().includes('candid') || img.title?.toLowerCase().includes('video village')
+  );
+  const onJobImg = (additionalProfileImages || []).find(img =>
+    img.type === 'on_job' || img.title?.toLowerCase().includes('on-job') || img.title?.toLowerCase().includes('action')
+  );
+  // Fallback: use any available additional images
+  const aboutImg1 = candidImg || (additionalProfileImages || [])[0] || null;
+  const aboutImg2 = onJobImg || (additionalProfileImages || [])[1] || null;
 
   // 1. Hero
   sections.push({
     id: generateSectionId(),
     type: 'hero',
     name: persona.name,
-    title: `About ${persona.name}`,
+    title: persona.role || 'Film Costume Supervisor',
     bio: persona.bio,
     profileImageId: profileAssetId,
     profileImageUrl: profileAssetUrl,
     showResumeLink: true,
   });
 
-  // 2. Two-column 70-30 — career overview + image
+  // 2. Two-column 70-30 — career overview + on-set image
   sections.push(
     buildTwoColumnLayout({
       ratio: '70-30',
@@ -1186,12 +1168,16 @@ function emmaAboutPage(context) {
           body:
             '<h2>Career Overview</h2>' +
             formatAsHtml(
-              'From independent shorts to studio tentpoles, my work in costume design is driven by the conviction that what characters wear shapes how audiences feel. Every production is a world to build, one garment at a time.'
+              'From independent shorts to studio tentpoles, my work in costume supervision is driven by the conviction that what characters wear shapes how audiences feel. Over two decades of managing wardrobe departments across four continents, I have coordinated teams of up to 45 people, managed budgets exceeding four million dollars, and supervised thousands of costumes per production. Every production is a world to build, one garment at a time.'
             ),
         }),
       ],
       rightColumn: [
-        buildImageSection({ imageId: null, imageUrl: null, altText: 'Emma on set' }),
+        buildImageSection({
+          imageId: aboutImg1?.id || null,
+          imageUrl: aboutImg1?.url || null,
+          altText: aboutImg1?.altText || 'Emma reviewing continuity at video village',
+        }),
       ],
     })
   );
@@ -1203,21 +1189,27 @@ function emmaAboutPage(context) {
       gap: 'wide',
       mobileStackOrder: 'right-first',
       leftColumn: [
-        buildImageSection({ imageId: null, imageUrl: null, altText: 'Costume design process' }),
+        buildImageSection({
+          imageId: aboutImg2?.id || null,
+          imageUrl: aboutImg2?.url || null,
+          altText: aboutImg2?.altText || 'Emma adjusting costume on set',
+        }),
       ],
       rightColumn: [
         buildTextSection({
           body:
             '<h2>Methodology</h2>' +
             formatAsHtml(
-              'I begin with the script and let the characters speak. Research follows—historical, cultural, psychological. Then the sketches, the fabric pulls, the fittings. Collaboration with directors and cinematographers ensures the costumes live within the visual world of the film.'
-            ),
+              'I begin with the script and let the characters speak. Research follows\u2014historical, cultural, psychological. Then the sketches, the fabric pulls, the fittings. Collaboration with directors and cinematographers ensures the costumes live within the visual world of the film.'
+            ) +
+            '<h3>Core Specializations</h3>' +
+            '<ul>' + techniquesHtml + '</ul>',
         }),
       ],
     })
   );
 
-  // 4. Sidebar — awards sidebar + key credits main
+  // 4. Sidebar — awards sidebar + key credits main (with REAL data)
   sections.push(
     buildSidebarLayout({
       sidebarPosition: 'right',
@@ -1227,22 +1219,40 @@ function emmaAboutPage(context) {
       sidebar: [
         buildTextSection({
           body:
-            '<h2>Awards & Nominations</h2>' +
-            '<p>Recognition from industry peers and critics, including festival selections and guild nominations.</p>',
+            '<h2>Awards & Recognition</h2>' +
+            '<ul>' + awardsHtml + '</ul>',
         }),
       ],
       main: [
         buildTextSection({
           body:
             '<h2>Key Credits</h2>' +
-            '<p>A filmography spanning indie darlings, prestige television, and studio features. Each project a new world, a new set of rules, a new collaboration.</p>',
+            '<ul>' + creditsHtml + '</ul>',
         }),
       ],
     })
   );
 
-  // 5. Gallery — on set (empty)
-  sections.push(buildGallerySection({ heading: 'On Set', images: [] }));
+  // 5. Gallery — on set (populated from profile images)
+  const galleryImages = (additionalProfileImages || []).map(img => ({
+    imageId: img.id,
+    imageUrl: img.url,
+    altText: img.altText || img.title || 'On set',
+    caption: img.caption || img.title || '',
+  }));
+  // Include primary profile image in gallery if we have it
+  if (profileAssetId && profileAssetUrl) {
+    galleryImages.unshift({
+      imageId: profileAssetId,
+      imageUrl: profileAssetUrl,
+      altText: `${persona.name} - professional headshot`,
+      caption: persona.name,
+    });
+  }
+  sections.push(buildGallerySection({
+    heading: 'On Set',
+    images: galleryImages.length > 0 ? galleryImages : [],
+  }));
 
   return sections;
 }
@@ -1290,15 +1300,15 @@ function emmaCategoryPage(category, categoryIndex, context) {
       })
     );
 
-    // 3. Project grid (inline)
+    // 3. Project grid — use grid layout with 2 columns for visual presence
     sections.push({
       id: generateSectionId(),
       type: 'project-grid',
       heading: '',
       projectIds: null,
-      columns: 4,
+      columns: 2,
       showMetadata: true,
-      layout: 'list',
+      layout: 'grid',
     });
   } else {
     // Variant B (indices 2, 3)
@@ -1344,7 +1354,7 @@ function emmaProjectPage(project, galleryImages, context) {
 function emmaTemplateA(project, getNext, getNextN, remaining, context) {
   const sections = [];
 
-  // 1. Hero image
+  // 1. Hero image (full-width)
   const heroImg = imageFromGallery(getNext());
   if (heroImg) sections.push(heroImg);
 
@@ -1367,61 +1377,49 @@ function emmaTemplateA(project, getNext, getNextN, remaining, context) {
     })
   );
 
-  // 3. Two-column 30-70 — image + challenge
-  const challengeImg = imageFromGallery(getNext());
+  // 3. Full-width image — cinematic visual break
+  const breakImg = imageFromGallery(getNext());
+  if (breakImg) sections.push(breakImg);
+
+  // 4. Two-column 40-60 — challenge+approach narrative + image
+  const narrativeImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
-      ratio: '30-70',
+      ratio: '40-60',
       gap: 'wide',
       mobileStackOrder: 'right-first',
-      leftColumn: challengeImg ? [challengeImg] : [],
-      rightColumn: [
+      leftColumn: [
         buildTextSection({
           body:
             '<h2>The Challenge</h2>' +
-            formatAsHtml(project.projectContent?.challenge || ''),
+            formatAsHtml(project.projectContent?.challenge || '') +
+            '<h2>The Approach</h2>' +
+            formatAsHtml(project.projectContent?.approach || ''),
         }),
       ],
+      rightColumn: narrativeImg ? [narrativeImg] : [],
     })
   );
 
-  // 4. Gallery — production stills (4 images)
-  const stillImgs = getNextN(4);
-  sections.push(
-    buildGallerySection({
-      heading: 'Production Stills',
-      images: galleryImagesPayload(stillImgs),
-    })
-  );
-
-  // 5. Approach text (full-width)
-  sections.push(
-    buildTextSection({
-      body:
-        '<h2>The Approach</h2>' +
-        formatAsHtml(project.projectContent?.approach || ''),
-    })
-  );
-
-  // 6. Two-column 50-50 — outcome + image
+  // 5. Two-column 60-40 — image + outcome
   const outcomeImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
-      ratio: '50-50',
+      ratio: '60-40',
       gap: 'wide',
       mobileStackOrder: 'left-first',
-      leftColumn: [
+      leftColumn: outcomeImg ? [outcomeImg] : [],
+      rightColumn: [
         buildTextSection({
           body:
             '<h2>The Outcome</h2>' +
             formatAsHtml(project.projectContent?.outcome || ''),
         }),
       ],
-      rightColumn: outcomeImg ? [outcomeImg] : [],
     })
   );
 
-  // 7. Related project list (if available, up to 2)
+  // 6. Related project list (if available, up to 2)
   const relatedIds = getRelatedProjectIds(
     context,
     project.id || '',
@@ -1438,11 +1436,11 @@ function emmaTemplateA(project, getNext, getNextN, remaining, context) {
     );
   }
 
-  // 8. Gallery — remaining
+  // 7. Gallery — all production stills and details in one gallery
   const restImgs = remaining();
   if (restImgs.length > 0) {
     sections.push(
-      buildGallerySection({ heading: '', images: galleryImagesPayload(restImgs) })
+      buildGallerySection({ heading: 'Production Stills', images: galleryImagesPayload(restImgs) })
     );
   }
 
@@ -1453,7 +1451,7 @@ function emmaTemplateA(project, getNext, getNextN, remaining, context) {
 function emmaTemplateB(project, getNext, getNextN, remaining, context) {
   const sections = [];
 
-  // 1. Hero image
+  // 1. Hero image (full-width)
   const heroImg = imageFromGallery(getNext());
   if (heroImg) sections.push(heroImg);
 
@@ -1479,71 +1477,61 @@ function emmaTemplateB(project, getNext, getNextN, remaining, context) {
     })
   );
 
-  // 3. Two-column 30-70 — related card + gallery
-  const relatedIds = getRelatedProjectIds(
-    context,
-    project.id || '',
-    project.categorySlug || '',
-    1
-  );
-  const inlineGalleryImgs = getNextN(4);
+  // 3. Two-column 60-40 — image + approach/techniques
+  const approachImg = imageFromGallery(getNext());
   sections.push(
     buildTwoColumnLayout({
-      ratio: '30-70',
-      gap: 'default',
-      mobileStackOrder: 'right-first',
-      leftColumn:
-        relatedIds.length > 0
-          ? [buildProjectCardSection({ projectId: relatedIds[0], cardSize: 'compact', showMetadata: true })]
-          : [],
+      ratio: '60-40',
+      gap: 'wide',
+      mobileStackOrder: 'left-first',
+      leftColumn: approachImg ? [approachImg] : [],
       rightColumn: [
-        buildGallerySection({
-          heading: '',
-          images: galleryImagesPayload(inlineGalleryImgs),
-        }),
-      ],
-    })
-  );
-
-  // 4. Approach text (full-width)
-  sections.push(
-    buildTextSection({
-      body:
-        '<h2>The Approach</h2>' +
-        formatAsHtml(project.projectContent?.approach || ''),
-    })
-  );
-
-  // 5. Sidebar — techniques sidebar + outcome main
-  sections.push(
-    buildSidebarLayout({
-      sidebarPosition: 'left',
-      sidebarWidth: 240,
-      gap: 'default',
-      mobileStackOrder: 'sidebar-first',
-      sidebar: [
         buildTextSection({
-          body: buildTechniquesHtml(project.techniques, []),
+          body:
+            '<h2>The Approach</h2>' +
+            formatAsHtml(project.projectContent?.approach || '') +
+            buildTechniquesHtml(project.techniques, []),
         }),
       ],
-      main: [
+    })
+  );
+
+  // 4. Full-width image — cinematic break
+  const breakImg = imageFromGallery(getNext());
+  if (breakImg) sections.push(breakImg);
+
+  // 5. Two-column 40-60 — outcome + image
+  const outcomeImg = imageFromGallery(getNext());
+  sections.push(
+    buildTwoColumnLayout({
+      ratio: '40-60',
+      gap: 'wide',
+      mobileStackOrder: 'right-first',
+      leftColumn: [
         buildTextSection({
           body:
             '<h2>The Outcome</h2>' +
             formatAsHtml(project.projectContent?.outcome || ''),
         }),
       ],
+      rightColumn: outcomeImg ? [outcomeImg] : [],
     })
   );
 
-  // 6. Related project card (standard, if available)
+  // 6. Related project card (if available)
+  const relatedIds = getRelatedProjectIds(
+    context,
+    project.id || '',
+    project.categorySlug || '',
+    1
+  );
   if (relatedIds.length > 0) {
     sections.push(
       buildProjectCardSection({ projectId: relatedIds[0], cardSize: 'standard', showMetadata: true })
     );
   }
 
-  // 7. Gallery — remaining
+  // 7. Gallery — all remaining images
   const restImgs = remaining();
   if (restImgs.length > 0) {
     sections.push(
