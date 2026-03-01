@@ -23,7 +23,7 @@ This is a single-user portfolio application built with Next.js. It provides:
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
-- **Database**: SQLite via Prisma
+- **Database**: PostgreSQL via Prisma
 - **Styling**: Tailwind CSS 4
 - **Rich Text**: Tiptap editor
 - **Images**: Sharp.js for processing
@@ -33,8 +33,9 @@ This is a single-user portfolio application built with Next.js. It provides:
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
+- Docker Desktop (for local PostgreSQL)
 
 ### Installation
 
@@ -48,6 +49,9 @@ npm install
 
 # Copy environment file
 cp .env.example .env.local
+
+# Start the local PostgreSQL database (required before anything else)
+docker-compose up -d
 
 # Generate Prisma client
 npm run db:generate
@@ -83,11 +87,7 @@ npm run dev
 
 **Terminal 2 - Populate data:**
 ```bash
-# Option A: Disable auth for easier local dev
-# Edit .env.local and add: AUTH_DISABLED=true
-npm run test:populate:sarah
-
-# Option B: Authenticate first
+# Authenticate first (one-time, credentials are saved)
 npm run auth:login  # Opens browser to sign in
 npm run test:populate:sarah
 ```
@@ -144,7 +144,7 @@ Run all commands from the project root:
 | `npm run test:populate:sarah` | Populate with Sarah Chen test persona (requires server running) |
 | `npm run test:populate:sarah:prod` | Populate production with test persona |
 
-**Note:** Population scripts make API calls to the running server. Start `npm run dev` first, then run populate scripts in a separate terminal.
+**Note:** Population scripts make API calls to the running server. Make sure Docker is running (`docker-compose up -d`), start `npm run dev` first, then run populate scripts in a separate terminal.
 
 ### Authentication (for scripts)
 
@@ -164,7 +164,7 @@ cp .env.example .env
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DATABASE_URL` | SQLite database file path | `file:./dev.db` |
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://postgres:postgres@localhost:5432/portfolio` |
 | `AUTH_DISABLED` | Disable authentication for local dev | `false` (auth enabled) |
 
 ## Documentation
@@ -190,7 +190,7 @@ This application is designed for single-user deployment on Azure using .NET Aspi
 
 **Quick overview:**
 - Azure Container Apps with Docker
-- SQLite database (volume-mounted)
+- PostgreSQL database (Azure Database for PostgreSQL)
 - Azure Blob Storage for images (optional)
 - Google OAuth for authentication
 - .NET Aspire for orchestration and observability
