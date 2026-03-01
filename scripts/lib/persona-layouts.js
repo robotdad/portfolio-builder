@@ -263,7 +263,7 @@ const GENRE_MAP = {
     'international-location': GENRE_SPECTACLE,
   },
   sasha: {
-    'professional-work': GENRE_SPECTACLE,
+    'theatre-work': GENRE_SPECTACLE,
     'uncsa-productions': GENRE_RESEARCH,
     'finished-garments': GENRE_RESEARCH,
     'draping-and-patterning': GENRE_RESEARCH,
@@ -1925,8 +1925,8 @@ function sashaHomepage(context) {
     name: persona.name,
     title: persona.role || 'Draper & Costume Technician',
     bio: persona.bio || '',
-    profileImageId: profileAssetId,
-    profileImageUrl: profileAssetUrl,
+    profileImageId: null,
+    profileImageUrl: null,
     showResumeLink: hasResume,
     resumeUrl: persona.resumeUrl || '',
   });
@@ -2019,7 +2019,7 @@ function sashaCategoryPage(category, categoryIndex, context) {
   sections.push({
     id: generateSectionId(),
     type: 'project-grid',
-    heading: '',
+    heading: category.name || '',
     projectIds: null,
     columns: 3,
     showMetadata: true,

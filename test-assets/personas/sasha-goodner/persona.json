@@ -6,9 +6,7 @@
     "location": "Winston-Salem, North Carolina",
     "bio": "Sasha Goodner is a costume technician trained at the University of North Carolina School of the Arts. She has built costumes at Bethany Joy Costumes in New York for The Great Gatsby (Korea) and San Francisco Opera, draped eight productions at UNCSA, and worked summer stock at Ohio Light Opera.",
     "yearsActive": "2023-present",
-    "theme": "bold-editorial",
-    "email": "sasha@sashagoodner.com",
-    "resumeUrl": "https://sashagoodner.com/resume"
+    "theme": "bold-editorial"
   },
   "profile": {
     "images": [
@@ -76,10 +74,6 @@
     {
       "type": "production",
       "value": "Fairview"
-    },
-    {
-      "type": "production",
-      "value": "Fire Bird"
     },
     {
       "type": "production",
@@ -207,10 +201,6 @@
     },
     {
       "type": "technique",
-      "value": "knitwear"
-    },
-    {
-      "type": "technique",
       "value": "millinery"
     },
     {
@@ -240,16 +230,15 @@
   ],
   "categories": [
     {
-      "id": "professional-work",
-      "name": "Professional Work",
-      "slug": "professional-work",
-      "description": "Costume construction at professional shops and summer stock.",
+      "id": "theatre-work",
+      "name": "Theatre Work",
+      "slug": "theatre-work",
+      "description": "Costume construction for professional theatre productions.",
       "order": 1,
       "featuredPhoto": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/1.jpg",
       "categoryContent": {
-        "headline": "Professional Work",
-        "introduction": "Costume construction at professional shops and summer stock.",
-        "approach": "Professional costume construction at Bethany Joy Costumes in New York, building for Broadway, opera, and international productions, plus summer stock at Ohio Light Opera."
+        "headline": "Theatre Work",
+        "introduction": "Costume construction for professional theatre productions."
       },
       "projects": [
         {
@@ -290,7 +279,7 @@
           "photos": [
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/1.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": [
                 "home_carousel",
@@ -300,7 +289,7 @@
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/10.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": [
                 "category_carousel"
@@ -308,433 +297,433 @@
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/11.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/12.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/13.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/14.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/15.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/16.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/17.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/2.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/3.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/4.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/5.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/6.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/7.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/8.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/buchanan-butler/9.jpg",
-              "title": "Buchanan Butler/",
+              "title": "Buchanan Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/debutante/1.jpg",
-              "title": "Debutante/",
+              "title": "Debutante",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/debutante/2.jpg",
-              "title": "Debutante/",
+              "title": "Debutante",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/debutante/3.jpg",
-              "title": "Debutante/",
+              "title": "Debutante",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/debutante/4.jpg",
-              "title": "Debutante/",
+              "title": "Debutante",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/debutante/5.jpg",
-              "title": "Debutante/",
+              "title": "Debutante",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/debutante/6.jpg",
-              "title": "Debutante/",
+              "title": "Debutante",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/female-gildettes/1.jpg",
-              "title": "Female Gildettes/",
+              "title": "Female Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/female-gildettes/2.jpg",
-              "title": "Female Gildettes/",
+              "title": "Female Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/female-gildettes/3.jpg",
-              "title": "Female Gildettes/",
+              "title": "Female Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/female-gildettes/4.jpg",
-              "title": "Female Gildettes/",
+              "title": "Female Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/female-gildettes/5.jpg",
-              "title": "Female Gildettes/",
+              "title": "Female Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/female-gildettes/6.jpg",
-              "title": "Female Gildettes/",
+              "title": "Female Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/female-gildettes/7.jpg",
-              "title": "Female Gildettes/",
+              "title": "Female Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/gatsby-butler/1.jpg",
-              "title": "Gatsby Butler/",
+              "title": "Gatsby Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/gatsby-butler/2.jpg",
-              "title": "Gatsby Butler/",
+              "title": "Gatsby Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/gatsby-butler/3.jpg",
-              "title": "Gatsby Butler/",
+              "title": "Gatsby Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/gatsby-butler/4.jpg",
-              "title": "Gatsby Butler/",
+              "title": "Gatsby Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/gatsby-butler/5.jpg",
-              "title": "Gatsby Butler/",
+              "title": "Gatsby Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/gatsby-butler/6.jpg",
-              "title": "Gatsby Butler/",
+              "title": "Gatsby Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/gatsby-butler/7.jpg",
-              "title": "Gatsby Butler/",
+              "title": "Gatsby Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/gatsby-butler/8.jpg",
-              "title": "Gatsby Butler/",
+              "title": "Gatsby Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/gatsby-butler/9.jpg",
-              "title": "Gatsby Butler/",
+              "title": "Gatsby Butler",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/male-gildettes/1.jpg",
-              "title": "Male Gildettes/",
+              "title": "Male Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/male-gildettes/10.jpg",
-              "title": "Male Gildettes/",
+              "title": "Male Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/male-gildettes/2.jpg",
-              "title": "Male Gildettes/",
+              "title": "Male Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/male-gildettes/3.jpg",
-              "title": "Male Gildettes/",
+              "title": "Male Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/male-gildettes/4.jpg",
-              "title": "Male Gildettes/",
+              "title": "Male Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/male-gildettes/5.jpg",
-              "title": "Male Gildettes/",
+              "title": "Male Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/male-gildettes/6.jpg",
-              "title": "Male Gildettes/",
+              "title": "Male Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/male-gildettes/7.jpg",
-              "title": "Male Gildettes/",
+              "title": "Male Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/male-gildettes/8.jpg",
-              "title": "Male Gildettes/",
+              "title": "Male Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/male-gildettes/9.jpg",
-              "title": "Male Gildettes/",
+              "title": "Male Gildettes",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/mrs-mckee/1.jpg",
-              "title": "Mrs Mckee/",
+              "title": "Mrs Mckee",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/mrs-mckee/2.jpg",
-              "title": "Mrs Mckee/",
+              "title": "Mrs Mckee",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/mrs-mckee/3.jpg",
-              "title": "Mrs Mckee/",
+              "title": "Mrs Mckee",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/mrs-mckee/4.jpg",
-              "title": "Mrs Mckee/",
+              "title": "Mrs Mckee",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/mrs-mckee/5.jpg",
-              "title": "Mrs Mckee/",
+              "title": "Mrs Mckee",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/mrs-mckee/6.jpg",
-              "title": "Mrs Mckee/",
+              "title": "Mrs Mckee",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/mrs-mckee/7.jpg",
-              "title": "Mrs Mckee/",
+              "title": "Mrs Mckee",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/nurses/1.jpg",
-              "title": "Nurses/",
+              "title": "Nurses",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/nurses/2.jpg",
-              "title": "Nurses/",
+              "title": "Nurses",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/nurses/3.jpg",
-              "title": "Nurses/",
+              "title": "Nurses",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/nurses/4.jpg",
-              "title": "Nurses/",
+              "title": "Nurses",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/nurses/5.jpg",
-              "title": "Nurses/",
+              "title": "Nurses",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/nurses/6.jpg",
-              "title": "Nurses/",
+              "title": "Nurses",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/nurses/7.jpg",
-              "title": "Nurses/",
+              "title": "Nurses",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/1.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/10.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/11.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/2.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/3.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/4.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/5.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/6.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/7.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/8.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/bethany-joy/great-gatsby-korea/peacock-cocoon-coat/9.jpg",
-              "title": "Peacock Cocoon Coat/",
+              "title": "Peacock Cocoon Coat",
               "description": "",
               "tags": []
             }
@@ -1321,38 +1310,38 @@
           "photos": [
             {
               "file": "categories/theatre-work/ohio-light-opera/guys-and-dolls/448122304-927483809388349-5233158203267441365-n.jpg",
-              "title": "448122304 927483809388349 5233158203267441365 N",
+              "title": "",
               "description": "",
               "tags": [],
               "isFeatured": true
             },
             {
               "file": "categories/theatre-work/ohio-light-opera/guys-and-dolls/close-up-1.jpg",
-              "title": "Close Up",
+              "title": "Close Up 1",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/ohio-light-opera/guys-and-dolls/close-up-3.jpg",
-              "title": "Close Up",
+              "title": "Close Up 3",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/ohio-light-opera/guys-and-dolls/close-up-4.jpg",
-              "title": "Close Up",
+              "title": "Close Up 4",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/ohio-light-opera/guys-and-dolls/close-up-5.jpg",
-              "title": "Close Up",
+              "title": "Close Up 5",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/ohio-light-opera/guys-and-dolls/close-up-6.jpg",
-              "title": "Close Up",
+              "title": "Close Up 6",
               "description": "",
               "tags": []
             }
@@ -1396,26 +1385,26 @@
           "photos": [
             {
               "file": "categories/theatre-work/ohio-light-opera/additional/448427551-930788955724501-998637652358672265-n.jpg",
-              "title": "448427551 930788955724501 998637652358672265 N",
+              "title": "",
               "description": "",
               "tags": [],
               "isFeatured": true
             },
             {
               "file": "categories/theatre-work/ohio-light-opera/additional/448430151-932105212259542-4624677958594377613-n.jpg",
-              "title": "448430151 932105212259542 4624677958594377613 N",
+              "title": "",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/ohio-light-opera/additional/448432292-932105142259549-1328362718122008970-n.jpg",
-              "title": "448432292 932105142259549 1328362718122008970 N",
+              "title": "",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/ohio-light-opera/additional/448494737-932104265592970-4584753456449130787-n.jpg",
-              "title": "448494737 932104265592970 4584753456449130787 N",
+              "title": "",
               "description": "",
               "tags": []
             },
@@ -1444,8 +1433,7 @@
       "featuredPhoto": "categories/theatre-work/uncsa-productions/opera-scenes/breeches-front.jpg",
       "categoryContent": {
         "headline": "UNCSA Productions",
-        "introduction": "Draping and stitching work across productions at the University of North Carolina School of the Arts.",
-        "approach": "Production work spanning musical theatre, opera, Shakespeare, and Brecht. Assignments include draping, stitching, fitting, and alterations."
+        "introduction": "Draping and stitching work across productions at the University of North Carolina School of the Arts."
       },
       "projects": [
         {
@@ -1508,25 +1496,25 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/opera-scenes/dsc-0420.jpg",
-              "title": "Dsc",
+              "title": "Dsc 0420",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/opera-scenes/dsc-0619.jpg",
-              "title": "Dsc",
+              "title": "Dsc 0619",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/opera-scenes/dsc-0965.jpg",
-              "title": "Dsc",
+              "title": "Dsc 0965",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/opera-scenes/dsc-1136.jpg",
-              "title": "Dsc",
+              "title": "Dsc 1136",
               "description": "",
               "tags": []
             },
@@ -1624,7 +1612,7 @@
           "photos": [
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/250325-193119-9317.jpg",
-              "title": "250325 193119",
+              "title": "",
               "description": "",
               "tags": [],
               "isFeatured": true
@@ -1643,61 +1631,61 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/final-1.jpg",
-              "title": "Final",
+              "title": "Final 1",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/final-2.jpg",
-              "title": "Final",
+              "title": "Final 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/img-3481.jpg",
-              "title": "Img",
+              "title": "Img 3481",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/img-3482.jpg",
-              "title": "Img",
+              "title": "Img 3482",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/img-3483.jpg",
-              "title": "Img",
+              "title": "Img 3483",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/img-3646.jpg",
-              "title": "Img",
+              "title": "Img 3646",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/img-3647.jpg",
-              "title": "Img",
+              "title": "Img 3647",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/img-3648.jpg",
-              "title": "Img",
+              "title": "Img 3648",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/mock-up-back-1.jpg",
-              "title": "Mock Up Back",
+              "title": "Mock Up Back 1",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/great-comet/mock-up-front-1.jpg",
-              "title": "Mock Up Front",
+              "title": "Mock Up Front 1",
               "description": "",
               "tags": []
             },
@@ -1877,13 +1865,13 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/additional/bolero-side-2-2.jpg",
-              "title": "Bolero Side 2",
+              "title": "Bolero Side 2 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/additional/bolero-side-2.jpg",
-              "title": "Bolero Side",
+              "title": "Bolero Side 2",
               "description": "",
               "tags": []
             },
@@ -1913,13 +1901,13 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/additional/cartridge-pleated-skirt-progress-2.jpg",
-              "title": "Cartridge Pleated Skirt Progress",
+              "title": "Cartridge Pleated Skirt Progress 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/additional/cartridge-pleated-skirt-progress-3.jpg",
-              "title": "Cartridge Pleated Skirt Progress",
+              "title": "Cartridge Pleated Skirt Progress 3",
               "description": "",
               "tags": []
             },
@@ -1949,7 +1937,7 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/additional/hector-straps-2.jpg",
-              "title": "Hector Straps",
+              "title": "Hector Straps 2",
               "description": "",
               "tags": []
             },
@@ -1967,7 +1955,7 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/additional/spring-dance-2.jpg",
-              "title": "Spring Dance",
+              "title": "Spring Dance 2",
               "description": "",
               "tags": []
             }
@@ -2060,7 +2048,7 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/die-fledermaus/dsc-0236.jpg",
-              "title": "Dsc",
+              "title": "Dsc 0236",
               "description": "",
               "tags": []
             },
@@ -2140,20 +2128,20 @@
           "photos": [
             {
               "file": "categories/theatre-work/uncsa-productions/wild-party/img-4321.jpg",
-              "title": "Img",
+              "title": "Img 4321",
               "description": "",
               "tags": [],
               "isFeatured": true
             },
             {
               "file": "categories/theatre-work/uncsa-productions/wild-party/img-43212.jpg",
-              "title": "Img",
+              "title": "Img 43212",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/wild-party/img-4551.jpg",
-              "title": "Img",
+              "title": "Img 4551",
               "description": "",
               "tags": []
             },
@@ -2184,49 +2172,12 @@
           ]
         },
         {
-          "id": "wild-party-phil",
-          "title": "Wild Party — Phil/Felon",
-          "slug": "wild-party-phil",
-          "description": "Plus fours for Phil/Felon. Designer: Inga Domenick. First hand: Natalie Juran. Patterned with pants block, mock-up made, corrections applied. Plackets and fake buckles added for quick change.",
-          "isFeatured": false,
-          "order": 7,
-          "projectDetails": {
-            "role": "Draper",
-            "production": "The Wild Party",
-            "venue": "UNCSA",
-            "year": 2025
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "The Wild Party"
-            },
-            {
-              "type": "year",
-              "value": "2025"
-            },
-            {
-              "type": "technique",
-              "value": "flat-patterning"
-            }
-          ],
-          "photos": []
-        },
-        {
           "id": "fairview-suze",
           "title": "Fairview — Suze",
           "slug": "fairview-suze",
           "description": "Alterations on church suit for Suze. Designer: Aman Mundle. First hand: Natalie Juran. Suit bought 2-3 sizes too large. Everything taken in, arm sleeves changed, shoulder pads removed, new zippers.",
           "isFeatured": false,
-          "order": 8,
+          "order": 7,
           "projectDetails": {
             "role": "Draper",
             "production": "Fairview",
@@ -2289,7 +2240,7 @@
           "slug": "rover-wilmore",
           "description": "Doublet, breeches and cape for Wilmore. Designer: William Wharton. Draper: Audrey Pugh. Cut and sewed mock-up. For final, flatlined fabric, bag-lined, sewed together. Body slashes made of bias-cut strips.",
           "isFeatured": false,
-          "order": 9,
+          "order": 8,
           "projectDetails": {
             "role": "Stitcher",
             "production": "The Rover",
@@ -2321,26 +2272,26 @@
           "photos": [
             {
               "file": "categories/theatre-work/uncsa-productions/the-rover/copy-1.jpg",
-              "title": "Copy",
+              "title": "Copy 1",
               "description": "",
               "tags": [],
               "isFeatured": true
             },
             {
               "file": "categories/theatre-work/uncsa-productions/the-rover/copy-2.jpg",
-              "title": "Copy",
+              "title": "Copy 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/the-rover/copy-3.jpg",
-              "title": "Copy",
+              "title": "Copy 3",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/the-rover/copy-4.jpg",
-              "title": "Copy",
+              "title": "Copy 4",
               "description": "",
               "tags": []
             },
@@ -2352,7 +2303,7 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/the-rover/img-1418.jpg",
-              "title": "Img",
+              "title": "Img 1418",
               "description": "",
               "tags": []
             },
@@ -2364,19 +2315,19 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/the-rover/lucietta-close-up-1.jpg",
-              "title": "Lucietta Close Up",
+              "title": "Lucietta Close Up 1",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/the-rover/lucietta-close-up-2.jpg",
-              "title": "Lucietta Close Up",
+              "title": "Lucietta Close Up 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/the-rover/lucietta-close-up-3.jpg",
-              "title": "Lucietta Close Up",
+              "title": "Lucietta Close Up 3",
               "description": "",
               "tags": []
             },
@@ -2394,48 +2345,11 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/the-rover/wilmore-close-up-1.jpg",
-              "title": "Wilmore Close Up",
+              "title": "Wilmore Close Up 1",
               "description": "",
               "tags": []
             }
           ]
-        },
-        {
-          "id": "rover-alterations",
-          "title": "The Rover — Wilmore & Lucietta Alterations",
-          "slug": "rover-alterations",
-          "description": "Alterations for Wilmore and Lucietta. Ungathered and extended cuffs, added elastic loops and buttons for movement. Hemmed and leveled skirts, evened petticoat with opera tuck.",
-          "isFeatured": false,
-          "order": 10,
-          "projectDetails": {
-            "role": "Stitcher",
-            "production": "The Rover",
-            "venue": "UNCSA",
-            "year": 2024
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "The Rover"
-            },
-            {
-              "type": "year",
-              "value": "2024"
-            },
-            {
-              "type": "technique",
-              "value": "alterations"
-            }
-          ],
-          "photos": []
         },
         {
           "id": "twelfth-night-viola",
@@ -2443,7 +2357,7 @@
           "slug": "twelfth-night-viola",
           "description": "Jacket for Viola. Designer: Reagan Whiteley. Draper: Audrey Pugh. Cut and sewed mock-up. Helped finish jacket interior and applied prick-stitching to pockets.",
           "isFeatured": false,
-          "order": 11,
+          "order": 9,
           "projectDetails": {
             "role": "Stitcher",
             "production": "Twelfth Night",
@@ -2512,7 +2426,7 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/twelfth-night/sir-andrew-close-up-2.jpg",
-              "title": "Sir Andrew Close Up",
+              "title": "Sir Andrew Close Up 2",
               "description": "",
               "tags": []
             },
@@ -2525,86 +2439,12 @@
           ]
         },
         {
-          "id": "twelfth-night-alterations",
-          "title": "Twelfth Night — Viola & Aguecheek Alterations",
-          "slug": "twelfth-night-alterations",
-          "description": "Alterations on Viola’s pants and coat sleeves. Redid cuffs on Aguecheek, lengthened jacket sleeves, took in and raised hems.",
-          "isFeatured": false,
-          "order": 12,
-          "projectDetails": {
-            "role": "Stitcher",
-            "production": "Twelfth Night",
-            "venue": "UNCSA",
-            "year": 2024
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Twelfth Night"
-            },
-            {
-              "type": "year",
-              "value": "2024"
-            },
-            {
-              "type": "technique",
-              "value": "alterations"
-            }
-          ],
-          "photos": []
-        },
-        {
-          "id": "bolero-jacket",
-          "title": "UNCSA Stock — Bolero Jacket Reconstruction",
-          "slug": "bolero-jacket",
-          "description": "Reconstruction of a bolero jacket. Draper: Audrey Pugh. Took out lining, made new collar, reset sleeves, made new control sleeves.",
-          "isFeatured": false,
-          "order": 13,
-          "projectDetails": {
-            "role": "Stitcher",
-            "production": "UNCSA Stock",
-            "venue": "UNCSA",
-            "year": 2024
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "UNCSA Stock"
-            },
-            {
-              "type": "year",
-              "value": "2024"
-            },
-            {
-              "type": "technique",
-              "value": "alterations"
-            }
-          ],
-          "photos": []
-        },
-        {
           "id": "dangerous-corner",
           "title": "Dangerous Corner — Freda Caplan",
           "slug": "dangerous-corner",
           "description": "Dress for Freda Caplan. Designer: Sarah McElcheran. Draper: Molly Klem. Worked as stitcher on mockup and final. Did a lot of hand stitching including hem of skirt.",
           "isFeatured": false,
-          "order": 14,
+          "order": 10,
           "projectDetails": {
             "role": "Stitcher",
             "production": "Dangerous Corner",
@@ -2636,7 +2476,7 @@
           "photos": [
             {
               "file": "categories/theatre-work/uncsa-productions/dangerous-corner/dress-close-up-2.jpg",
-              "title": "Dress Close Up",
+              "title": "Dress Close Up 2",
               "description": "",
               "tags": [],
               "isFeatured": true
@@ -2649,13 +2489,13 @@
             },
             {
               "file": "categories/theatre-work/uncsa-productions/dangerous-corner/uncsa-dangerous-corner-3-21-2023-print-00517.jpg",
-              "title": "Uncsa Dangerous Corner 3 21 2023 Print",
+              "title": "Uncsa Dangerous Corner 3 21 2023 Print 00517",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/dangerous-corner/uncsa-dangerous-corner-3-21-2023-print-00878.jpg",
-              "title": "Uncsa Dangerous Corner 3 21 2023 Print",
+              "title": "Uncsa Dangerous Corner 3 21 2023 Print 00878",
               "description": "",
               "tags": []
             }
@@ -2667,7 +2507,7 @@
           "slug": "if-pretty-hurt",
           "description": "Jacket for Chorus. Designer: Marquita Horton. Draper: Quincy D'Allessio. Worked on ease pleats and sequin preparation and sewing.",
           "isFeatured": false,
-          "order": 15,
+          "order": 11,
           "projectDetails": {
             "role": "Stitcher",
             "production": "If Pretty Hurts, then Ugly Must Be a Muhfucka",
@@ -2695,26 +2535,26 @@
           "photos": [
             {
               "file": "categories/theatre-work/uncsa-productions/if-pretty-hurt/close-up-1.jpg",
-              "title": "Close Up",
+              "title": "Close Up 1",
               "description": "",
               "tags": [],
               "isFeatured": true
             },
             {
               "file": "categories/theatre-work/uncsa-productions/if-pretty-hurt/close-up-2.jpg",
-              "title": "Close Up",
+              "title": "Close Up 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/if-pretty-hurt/uncsa-if-pretty-hurts-2-14-2023-print-00859.jpg",
-              "title": "Uncsa If Pretty Hurts 2 14 2023 Print",
+              "title": "Uncsa If Pretty Hurts 2 14 2023 Print 00859",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/if-pretty-hurt/uncsa-if-pretty-hurts-2-14-2023-print-01010.jpg",
-              "title": "Uncsa If Pretty Hurts 2 14 2023 Print",
+              "title": "Uncsa If Pretty Hurts 2 14 2023 Print 01010",
               "description": "",
               "tags": []
             }
@@ -2726,7 +2566,7 @@
           "slug": "mother-courage",
           "description": "Alterations for multiple men in the show. Designer: Zoe Gilreath. Draper: Molly Klem. Took in pants, replaced zippers and buttons, added suspender buttons.",
           "isFeatured": false,
-          "order": 16,
+          "order": 12,
           "projectDetails": {
             "role": "Stitcher",
             "production": "Mother Courage and Her Children",
@@ -2758,56 +2598,56 @@
           "photos": [
             {
               "file": "categories/theatre-work/uncsa-productions/mother-courage/close-up-1.jpg",
-              "title": "Close Up",
+              "title": "Close Up 1",
               "description": "",
               "tags": [],
               "isFeatured": true
             },
             {
               "file": "categories/theatre-work/uncsa-productions/mother-courage/close-up-2.jpg",
-              "title": "Close Up",
+              "title": "Close Up 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/mother-courage/close-up-4.jpg",
-              "title": "Close Up",
+              "title": "Close Up 4",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/mother-courage/close-up-5.jpg",
-              "title": "Close Up",
+              "title": "Close Up 5",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/mother-courage/uncsa-mother-courage-3-28-2023-print-00231.jpg",
-              "title": "Uncsa Mother Courage 3 28 2023 Print",
+              "title": "Uncsa Mother Courage 3 28 2023 Print 00231",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/mother-courage/uncsa-mother-courage-3-28-2023-print-00311.jpg",
-              "title": "Uncsa Mother Courage 3 28 2023 Print",
+              "title": "Uncsa Mother Courage 3 28 2023 Print 00311",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/mother-courage/uncsa-mother-courage-3-28-2023-print-00391.jpg",
-              "title": "Uncsa Mother Courage 3 28 2023 Print",
+              "title": "Uncsa Mother Courage 3 28 2023 Print 00391",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/mother-courage/uncsa-mother-courage-3-28-2023-print-00516.jpg",
-              "title": "Uncsa Mother Courage 3 28 2023 Print",
+              "title": "Uncsa Mother Courage 3 28 2023 Print 00516",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/mother-courage/uncsa-mother-courage-3-28-2023-print-01026.jpg",
-              "title": "Uncsa Mother Courage 3 28 2023 Print",
+              "title": "Uncsa Mother Courage 3 28 2023 Print 01026",
               "description": "",
               "tags": []
             }
@@ -2819,7 +2659,7 @@
           "slug": "orlando-paladino",
           "description": "Patches on suits, pleated belt, chiffon strips for river souls. Some strips cut on bias, others on straight grain. Designer: Logan Benson. Draper: Ella Moffly.",
           "isFeatured": false,
-          "order": 17,
+          "order": 13,
           "projectDetails": {
             "role": "Stitcher",
             "production": "Orlando Paladino",
@@ -2851,57 +2691,24 @@
           "photos": [
             {
               "file": "categories/theatre-work/uncsa-productions/orlando-furioso/uncsawinteropera-020.jpg",
-              "title": "Uncsawinteropera",
+              "title": "Uncsawinteropera 020",
               "description": "",
               "tags": [],
               "isFeatured": true
             },
             {
               "file": "categories/theatre-work/uncsa-productions/orlando-furioso/uncsawinteropera-058.jpg",
-              "title": "Uncsawinteropera",
+              "title": "Uncsawinteropera 058",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theatre-work/uncsa-productions/orlando-furioso/uncsawinteropera-107.jpg",
-              "title": "Uncsawinteropera",
+              "title": "Uncsawinteropera 107",
               "description": "",
               "tags": []
             }
           ]
-        },
-        {
-          "id": "fire-bird",
-          "title": "Fire Bird — Dance Costume Shop",
-          "slug": "fire-bird",
-          "description": "Serged petals on skirts, put on waistbands and shoulder straps. Director of Shop: Marissa McCullough. Designer: Geoffrey Holder.",
-          "isFeatured": false,
-          "order": 18,
-          "projectDetails": {
-            "role": "Stitcher",
-            "production": "Fire Bird",
-            "venue": "UNCSA Dance Costume Shop",
-            "year": 2023
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Fire Bird"
-            },
-            {
-              "type": "year",
-              "value": "2023"
-            }
-          ],
-          "photos": []
         }
       ]
     },
@@ -2914,8 +2721,7 @@
       "featuredPhoto": "categories/theoretical-construction/finished-garments/tailoring/back-close-up.jpg",
       "categoryContent": {
         "headline": "Finished Garments",
-        "introduction": "Completed garments from tailoring and costume technology coursework at UNCSA.",
-        "approach": "Academic coursework demonstrating foundational and advanced construction techniques. From fully tailored jackets with hand pad-stitched lapels to period breeches and corsets."
+        "introduction": "Completed garments from tailoring and costume technology coursework at UNCSA."
       },
       "projects": [
         {
@@ -3060,13 +2866,13 @@
             },
             {
               "file": "categories/theoretical-construction/finished-garments/tailoring/side-final-1.jpg",
-              "title": "Side Final",
+              "title": "Side Final 1",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/finished-garments/tailoring/side-final-2.jpg",
-              "title": "Side Final",
+              "title": "Side Final 2",
               "description": "",
               "tags": []
             },
@@ -3085,53 +2891,12 @@
           ]
         },
         {
-          "id": "spencer",
-          "title": "Spencer",
-          "slug": "spencer",
-          "description": "Spencer jacket. Draper and stitcher.",
-          "isFeatured": false,
-          "order": 2,
-          "projectDetails": {
-            "role": "Draper & Stitcher",
-            "production": "Tailoring",
-            "venue": "UNCSA",
-            "year": 2026
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Tailoring"
-            },
-            {
-              "type": "year",
-              "value": "2026"
-            },
-            {
-              "type": "technique",
-              "value": "tailoring"
-            }
-          ],
-          "photos": []
-        },
-        {
           "id": "1911-corset",
           "title": "1911 Corset",
           "slug": "1911-corset",
           "description": "1911-style corset construction. Draper and stitcher.",
           "isFeatured": false,
-          "order": 3,
+          "order": 2,
           "projectDetails": {
             "role": "Draper & Stitcher",
             "production": "Costume Tech 3",
@@ -3167,7 +2932,7 @@
           "photos": [
             {
               "file": "categories/theoretical-construction/advanced-construction/1911-corset-back-2.jpg",
-              "title": "1911 Corset Back",
+              "title": "1911 Corset Back 2",
               "description": "",
               "tags": [],
               "isFeatured": true
@@ -3276,7 +3041,7 @@
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/fashion-front-2.jpeg",
-              "title": "Fashion Front",
+              "title": "Fashion Front 2",
               "description": "",
               "tags": []
             },
@@ -3300,7 +3065,7 @@
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/final-2.0.png",
-              "title": "Final 2.",
+              "title": "Final 2.0",
               "description": "",
               "tags": []
             },
@@ -3330,61 +3095,61 @@
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/img-0281.jpeg",
-              "title": "Img",
+              "title": "Img 0281",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/img-0282.jpeg",
-              "title": "Img",
+              "title": "Img 0282",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/img-0288.jpeg",
-              "title": "Img",
+              "title": "Img 0288",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/img-0290.jpeg",
-              "title": "Img",
+              "title": "Img 0290",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/img-0294.jpeg",
-              "title": "Img",
+              "title": "Img 0294",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/img-0300.jpeg",
-              "title": "Img",
+              "title": "Img 0300",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/img-0301.jpeg",
-              "title": "Img",
+              "title": "Img 0301",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/img-0307.jpeg",
-              "title": "Img",
+              "title": "Img 0307",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/img-0319.jpeg",
-              "title": "Img",
+              "title": "Img 0319",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/advanced-construction/img-0323.jpeg",
-              "title": "Img",
+              "title": "Img 0323",
               "description": "",
               "tags": []
             },
@@ -3427,131 +3192,12 @@
           ]
         },
         {
-          "id": "knitwear-body-mod",
-          "title": "Knitwear Foundation & Body Modification",
-          "slug": "knitwear-body-mod",
-          "description": "Knitwear foundations and body modification techniques. Draper and stitcher.",
-          "isFeatured": false,
-          "order": 4,
-          "projectDetails": {
-            "role": "Draper & Stitcher",
-            "production": "Costume Tech 3",
-            "venue": "UNCSA",
-            "year": 2025
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Costume Tech 3"
-            },
-            {
-              "type": "year",
-              "value": "2025"
-            },
-            {
-              "type": "technique",
-              "value": "knitwear"
-            }
-          ],
-          "photos": []
-        },
-        {
-          "id": "super-hero-fashion",
-          "title": "Super Hero Fashion",
-          "slug": "super-hero-fashion",
-          "description": "Super hero fashion construction. Draper and stitcher.",
-          "isFeatured": false,
-          "order": 5,
-          "projectDetails": {
-            "role": "Draper & Stitcher",
-            "production": "Costume Tech 3",
-            "venue": "UNCSA",
-            "year": 2025
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Costume Tech 3"
-            },
-            {
-              "type": "year",
-              "value": "2025"
-            }
-          ],
-          "photos": []
-        },
-        {
-          "id": "knitwear",
-          "title": "Knitwear",
-          "slug": "knitwear",
-          "description": "Knitwear construction techniques. Draper and stitcher.",
-          "isFeatured": false,
-          "order": 6,
-          "projectDetails": {
-            "role": "Draper & Stitcher",
-            "production": "Costume Tech 3",
-            "venue": "UNCSA",
-            "year": 2025
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Costume Tech 3"
-            },
-            {
-              "type": "year",
-              "value": "2025"
-            },
-            {
-              "type": "technique",
-              "value": "knitwear"
-            }
-          ],
-          "photos": []
-        },
-        {
           "id": "garment-recreation",
           "title": "Garment Recreation",
           "slug": "garment-recreation",
           "description": "Recreation of an existing garment through pattern analysis. Draper and stitcher.",
           "isFeatured": false,
-          "order": 7,
+          "order": 3,
           "projectDetails": {
             "role": "Draper & Stitcher",
             "production": "Advanced Patterning",
@@ -3684,13 +3330,13 @@
             },
             {
               "file": "categories/theoretical-construction/finished-garments/advanced-patterning/pleated-skirt-1.jpg",
-              "title": "Pleated Skirt",
+              "title": "Pleated Skirt 1",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/finished-garments/advanced-patterning/pleated-skirt-2.jpg",
-              "title": "Pleated Skirt",
+              "title": "Pleated Skirt 2",
               "description": "",
               "tags": []
             },
@@ -3768,7 +3414,7 @@
           "slug": "shirt-waist",
           "description": "Shirt waist construction. Draper and stitcher.",
           "isFeatured": false,
-          "order": 8,
+          "order": 4,
           "projectDetails": {
             "role": "Draper & Stitcher",
             "production": "Costume Tech 1",
@@ -3841,7 +3487,7 @@
           "slug": "breeches-and-vest",
           "description": "Period breeches and vest construction. Draper and stitcher.",
           "isFeatured": false,
-          "order": 9,
+          "order": 5,
           "projectDetails": {
             "role": "Draper & Stitcher",
             "production": "Costume Tech 2",
@@ -3914,7 +3560,7 @@
           "slug": "boned-bodice",
           "description": "Boned bodice with period construction techniques. Draper and stitcher.",
           "isFeatured": false,
-          "order": 10,
+          "order": 6,
           "projectDetails": {
             "role": "Draper & Stitcher",
             "production": "Costume Tech 2",
@@ -4005,7 +3651,7 @@
             },
             {
               "file": "categories/theoretical-construction/finished-garments/tech-2-a/embroidery-close-up-2.jpg",
-              "title": "Embroidery Close Up",
+              "title": "Embroidery Close Up 2",
               "description": "",
               "tags": []
             },
@@ -4058,84 +3704,6 @@
               "tags": []
             }
           ]
-        },
-        {
-          "id": "regency-corset",
-          "title": "Regency Corset",
-          "slug": "regency-corset",
-          "description": "Regency-era corset. Stitcher.",
-          "isFeatured": false,
-          "order": 11,
-          "projectDetails": {
-            "role": "Stitcher",
-            "production": "Costume Tech 2",
-            "venue": "UNCSA",
-            "year": 2024
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Costume Tech 2"
-            },
-            {
-              "type": "year",
-              "value": "2024"
-            },
-            {
-              "type": "technique",
-              "value": "corsetry"
-            }
-          ],
-          "photos": []
-        },
-        {
-          "id": "1950s-dress",
-          "title": "1950s Dress",
-          "slug": "1950s-dress",
-          "description": "1950s dress construction. Draper and stitcher.",
-          "isFeatured": false,
-          "order": 12,
-          "projectDetails": {
-            "role": "Draper & Stitcher",
-            "production": "Costume Tech 1",
-            "venue": "UNCSA",
-            "year": 2024
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Costume Tech 1"
-            },
-            {
-              "type": "year",
-              "value": "2024"
-            },
-            {
-              "type": "technique",
-              "value": "flat-patterning"
-            }
-          ],
-          "photos": []
         }
       ]
     },
@@ -4148,8 +3716,7 @@
       "featuredPhoto": "categories/theoretical-construction/draping-exercises/gavin-design/back-2.jpg",
       "categoryContent": {
         "headline": "Draping & Patterning",
-        "introduction": "Speed draping exercises, half-scale reproductions, and patterning coursework at UNCSA.",
-        "approach": "From three-hour speed drapes to half-scale period reproductions, these exercises build the pattern-making and draping fundamentals behind all construction work."
+        "introduction": "Speed draping exercises, half-scale reproductions, and patterning coursework at UNCSA."
       },
       "projects": [
         {
@@ -4190,7 +3757,7 @@
           "photos": [
             {
               "file": "categories/theoretical-construction/draping-exercises/gavin-design/back-2.jpg",
-              "title": "Back",
+              "title": "Back 2",
               "description": "",
               "tags": [
                 "home_carousel",
@@ -4214,7 +3781,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/gavin-design/front-2.jpg",
-              "title": "Front",
+              "title": "Front 2",
               "description": "",
               "tags": []
             },
@@ -4232,7 +3799,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/gavin-design/side-2.jpg",
-              "title": "Side",
+              "title": "Side 2",
               "description": "",
               "tags": []
             },
@@ -4430,7 +3997,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/bustle-gown/side-2.jpg",
-              "title": "Side",
+              "title": "Side 2",
               "description": "",
               "tags": []
             },
@@ -4486,14 +4053,14 @@
           "photos": [
             {
               "file": "categories/theoretical-construction/draping-exercises/1895-afternoon-dress/1890-back-2.jpg",
-              "title": "1890 Back",
+              "title": "1890 Back 2",
               "description": "",
               "tags": [],
               "isFeatured": true
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/1895-afternoon-dress/1890-back-3.jpg",
-              "title": "1890 Back",
+              "title": "1890 Back 3",
               "description": "",
               "tags": []
             },
@@ -4505,19 +4072,19 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/1895-afternoon-dress/1890-front-2.jpg",
-              "title": "1890 Front",
+              "title": "1890 Front 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/1895-afternoon-dress/1890-front-3.jpg",
-              "title": "1890 Front",
+              "title": "1890 Front 3",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/1895-afternoon-dress/1890-front-close-up-2.jpg",
-              "title": "1890 Front Close Up",
+              "title": "1890 Front Close Up 2",
               "description": "",
               "tags": []
             },
@@ -4535,7 +4102,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/1895-afternoon-dress/1890-side-2.jpg",
-              "title": "1890 Side",
+              "title": "1890 Side 2",
               "description": "",
               "tags": []
             },
@@ -4597,7 +4164,7 @@
           "photos": [
             {
               "file": "categories/theoretical-construction/draping-exercises/balenciaga-coat/20250905-230236000-ios.jpg",
-              "title": "20250905 230236000 Ios",
+              "title": "",
               "description": "",
               "tags": [],
               "isFeatured": true
@@ -4610,13 +4177,13 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/balenciaga-coat/front-2.jpg",
-              "title": "Front",
+              "title": "Front 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/balenciaga-coat/front-3.jpg",
-              "title": "Front",
+              "title": "Front 3",
               "description": "",
               "tags": []
             },
@@ -4628,7 +4195,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/balenciaga-coat/side-2.jpg",
-              "title": "Side",
+              "title": "Side 2",
               "description": "",
               "tags": []
             },
@@ -4641,57 +4208,12 @@
           ]
         },
         {
-          "id": "patterning-exercises",
-          "title": "Patterning Exercises",
-          "slug": "patterning-exercises",
-          "description": "Exercises in draping and flat patterning. Shawl collar and gathered-at-bust were draped. Pleated petal top and spiral bust shaping were flat-patterned.",
-          "isFeatured": false,
-          "order": 6,
-          "projectDetails": {
-            "role": "Draper & Stitcher",
-            "production": "Costume Tech 3",
-            "venue": "UNCSA",
-            "year": 2025
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Costume Tech 3"
-            },
-            {
-              "type": "year",
-              "value": "2025"
-            },
-            {
-              "type": "technique",
-              "value": "draping"
-            },
-            {
-              "type": "technique",
-              "value": "flat-patterning"
-            }
-          ],
-          "photos": []
-        },
-        {
           "id": "spence",
           "title": "Spencer Jacket (Speed Drape)",
           "slug": "spence",
           "description": "Speed draping exercise. Spencer jacket with construction detail work.",
           "isFeatured": false,
-          "order": 7,
+          "order": 6,
           "projectDetails": {
             "role": "Draper",
             "production": "Speed Draping",
@@ -4784,7 +4306,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/spence/front-2.jpg",
-              "title": "Front",
+              "title": "Front 2",
               "description": "",
               "tags": []
             },
@@ -4796,7 +4318,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/spence/front-final-2.jpg",
-              "title": "Front Final",
+              "title": "Front Final 2",
               "description": "",
               "tags": []
             },
@@ -4808,7 +4330,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/spence/front-progress-2.jpg",
-              "title": "Front Progress",
+              "title": "Front Progress 2",
               "description": "",
               "tags": []
             },
@@ -4832,7 +4354,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/spence/inside-2.jpg",
-              "title": "Inside",
+              "title": "Inside 2",
               "description": "",
               "tags": []
             },
@@ -4844,7 +4366,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/spence/lining-progress-2.jpg",
-              "title": "Lining Progress",
+              "title": "Lining Progress 2",
               "description": "",
               "tags": []
             },
@@ -4862,7 +4384,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/spence/mock-up-front-2.jpg",
-              "title": "Mock Up Front",
+              "title": "Mock Up Front 2",
               "description": "",
               "tags": []
             },
@@ -4898,7 +4420,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/spence/outside-front-final-2.jpg",
-              "title": "Outside Front Final",
+              "title": "Outside Front Final 2",
               "description": "",
               "tags": []
             },
@@ -4946,7 +4468,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/spence/side-2.jpg",
-              "title": "Side",
+              "title": "Side 2",
               "description": "",
               "tags": []
             },
@@ -4982,7 +4504,7 @@
             },
             {
               "file": "categories/theoretical-construction/draping-exercises/spence/sleeve-progress-2.jpg",
-              "title": "Sleeve Progress",
+              "title": "Sleeve Progress 2",
               "description": "",
               "tags": []
             },
@@ -5006,7 +4528,7 @@
           "slug": "striped-blouse",
           "description": "Half-scale striped blouse from reference through mockup to finished miniature.",
           "isFeatured": false,
-          "order": 8,
+          "order": 7,
           "projectDetails": {
             "role": "Draper & Stitcher",
             "production": "Speed Draping / Half Scales",
@@ -5055,13 +4577,13 @@
             },
             {
               "file": "categories/theoretical-construction/half-scales/striped-blouse/front-2.jpg",
-              "title": "Front",
+              "title": "Front 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/half-scales/striped-blouse/side-2.jpg",
-              "title": "Side",
+              "title": "Side 2",
               "description": "",
               "tags": []
             },
@@ -5073,31 +4595,31 @@
             },
             {
               "file": "categories/theoretical-construction/half-scales/striped-blouse/striped-blouse-final-2.jpg",
-              "title": "Striped Blouse Final",
+              "title": "Striped Blouse Final 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/half-scales/striped-blouse/striped-blouse-final-3.jpg",
-              "title": "Striped Blouse Final",
+              "title": "Striped Blouse Final 3",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/half-scales/striped-blouse/striped-blouse-final-4.jpg",
-              "title": "Striped Blouse Final",
+              "title": "Striped Blouse Final 4",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/half-scales/striped-blouse/striped-blouse-final-5.jpg",
-              "title": "Striped Blouse Final",
+              "title": "Striped Blouse Final 5",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/half-scales/striped-blouse/striped-blouse-final-6.jpg",
-              "title": "Striped Blouse Final",
+              "title": "Striped Blouse Final 6",
               "description": "",
               "tags": []
             },
@@ -5109,19 +4631,19 @@
             },
             {
               "file": "categories/theoretical-construction/half-scales/striped-blouse/striped-blouse-final-front-2.jpg",
-              "title": "Striped Blouse Final Front",
+              "title": "Striped Blouse Final Front 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/half-scales/striped-blouse/striped-blouse-final-side-2.jpg",
-              "title": "Striped Blouse Final Side",
+              "title": "Striped Blouse Final Side 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/half-scales/striped-blouse/striped-blouse-final-side-3.jpg",
-              "title": "Striped Blouse Final Side",
+              "title": "Striped Blouse Final Side 3",
               "description": "",
               "tags": []
             },
@@ -5181,7 +4703,7 @@
           "slug": "renaissance-sleeve",
           "description": "Half-scale renaissance sleeve mockup.",
           "isFeatured": false,
-          "order": 9,
+          "order": 8,
           "projectDetails": {
             "role": "Draper & Stitcher",
             "production": "Speed Draping / Half Scales",
@@ -5236,7 +4758,7 @@
             },
             {
               "file": "categories/theoretical-construction/half-scales/ren-faire/ren-2-f-2.jpg",
-              "title": "Ren 2 F",
+              "title": "Ren 2 F 2",
               "description": "",
               "tags": []
             },
@@ -5248,7 +4770,7 @@
             },
             {
               "file": "categories/theoretical-construction/half-scales/ren-faire/ren-2-side-2.jpg",
-              "title": "Ren 2 Side",
+              "title": "Ren 2 Side 2",
               "description": "",
               "tags": []
             },
@@ -5272,13 +4794,13 @@
             },
             {
               "file": "categories/theoretical-construction/half-scales/ren-faire/ren-side-1.jpg",
-              "title": "Ren Side",
+              "title": "Ren Side 1",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/theoretical-construction/half-scales/ren-faire/ren-side-2.jpg",
-              "title": "Ren Side",
+              "title": "Ren Side 2",
               "description": "",
               "tags": []
             },
@@ -5296,7 +4818,7 @@
           "slug": "pointed-sleeve",
           "description": "Half-scale pointed sleeve blouse mockup.",
           "isFeatured": false,
-          "order": 10,
+          "order": 9,
           "projectDetails": {
             "role": "Draper & Stitcher",
             "production": "Speed Draping / Half Scales",
@@ -5374,170 +4896,6 @@
               "tags": []
             }
           ]
-        },
-        {
-          "id": "half-scale-dress",
-          "title": "Dress (Half Scale)",
-          "slug": "half-scale-dress",
-          "description": "Half-scale dress construction.",
-          "isFeatured": false,
-          "order": 11,
-          "projectDetails": {
-            "role": "Draper & Stitcher",
-            "production": "Speed Draping / Half Scales",
-            "venue": "UNCSA",
-            "year": 2026
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Speed Draping / Half Scales"
-            },
-            {
-              "type": "year",
-              "value": "2026"
-            },
-            {
-              "type": "technique",
-              "value": "draping"
-            }
-          ],
-          "photos": []
-        },
-        {
-          "id": "trumpet-skirt",
-          "title": "Radial Projection Trumpet Skirt (Half Scale)",
-          "slug": "trumpet-skirt",
-          "description": "Half-scale trumpet skirt using radial projection technique.",
-          "isFeatured": false,
-          "order": 12,
-          "projectDetails": {
-            "role": "Draper & Stitcher",
-            "production": "Speed Draping / Half Scales",
-            "venue": "UNCSA",
-            "year": 2026
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Speed Draping / Half Scales"
-            },
-            {
-              "type": "year",
-              "value": "2026"
-            },
-            {
-              "type": "technique",
-              "value": "draping"
-            }
-          ],
-          "photos": []
-        },
-        {
-          "id": "ballet-petticoat",
-          "title": "Mid Ballet Petticoat (Half Scale)",
-          "slug": "ballet-petticoat",
-          "description": "Half-scale mid ballet petticoat.",
-          "isFeatured": false,
-          "order": 13,
-          "projectDetails": {
-            "role": "Draper & Stitcher",
-            "production": "Speed Draping / Half Scales",
-            "venue": "UNCSA",
-            "year": 2026
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Speed Draping / Half Scales"
-            },
-            {
-              "type": "year",
-              "value": "2026"
-            },
-            {
-              "type": "technique",
-              "value": "draping"
-            }
-          ],
-          "photos": []
-        },
-        {
-          "id": "20th-century-petticoat",
-          "title": "Mid 20th Century Petticoat (Half Scale)",
-          "slug": "20th-century-petticoat",
-          "description": "Half-scale mid 20th century petticoat.",
-          "isFeatured": false,
-          "order": 14,
-          "projectDetails": {
-            "role": "Draper & Stitcher",
-            "production": "Speed Draping / Half Scales",
-            "venue": "UNCSA",
-            "year": 2026
-          },
-          "tags": [
-            {
-              "type": "role",
-              "value": "Draper"
-            },
-            {
-              "type": "role",
-              "value": "Stitcher"
-            },
-            {
-              "type": "employer",
-              "value": "UNCSA"
-            },
-            {
-              "type": "production",
-              "value": "Speed Draping / Half Scales"
-            },
-            {
-              "type": "year",
-              "value": "2026"
-            },
-            {
-              "type": "technique",
-              "value": "draping"
-            }
-          ],
-          "photos": []
         }
       ]
     },
@@ -5550,8 +4908,7 @@
       "featuredPhoto": "categories/personal-work/personal-work/loose/malon-back.jpg",
       "categoryContent": {
         "headline": "Personal Work",
-        "introduction": "Independent garment projects outside of production and coursework.",
-        "approach": "Self-directed design and construction exploring personal aesthetics, cosplay, and original designs."
+        "introduction": "Independent garment projects outside of production and coursework."
       },
       "projects": [
         {
@@ -5621,7 +4978,7 @@
             },
             {
               "file": "categories/personal-work/personal-work/loose/maloncback-2.jpg",
-              "title": "Maloncback",
+              "title": "Maloncback 2",
               "description": "",
               "tags": []
             },
@@ -5719,7 +5076,7 @@
             },
             {
               "file": "categories/personal-work/personal-work/loose/peach-front-2.jpg",
-              "title": "Peach Front",
+              "title": "Peach Front 2",
               "description": "",
               "tags": []
             },
@@ -5763,7 +5120,7 @@
             },
             {
               "file": "categories/personal-work/personal-work/loose/april-front-2.jpg",
-              "title": "April Front",
+              "title": "April Front 2",
               "description": "",
               "tags": []
             },
@@ -5805,7 +5162,7 @@
             },
             {
               "file": "categories/personal-work/personal-work/loose/tmm-front-2.jpg",
-              "title": "Tmm Front",
+              "title": "Tmm Front 2",
               "description": "",
               "tags": []
             },
@@ -5917,13 +5274,13 @@
             },
             {
               "file": "categories/personal-work/personal-work/bcr-outfit/pocket-progess-3.5.jpg",
-              "title": "Pocket Progess 3.",
+              "title": "Pocket Progess 3.5",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/personal-work/personal-work/bcr-outfit/pocket-progress-3.jpg",
-              "title": "Pocket Progress",
+              "title": "Pocket Progress 3",
               "description": "",
               "tags": []
             },
@@ -5976,8 +5333,7 @@
       "featuredPhoto": "categories/crafts/millinery/pillbox/final-back.jpg",
       "categoryContent": {
         "headline": "Millinery",
-        "introduction": "Hat construction for coursework and productions.",
-        "approach": "Structured hats, pulled wool, and production millinery for UNCSA’s The Cherry Orchard and A Soldier’s Fugue."
+        "introduction": "Hat construction for coursework and productions."
       },
       "projects": [
         {
@@ -6054,7 +5410,7 @@
             },
             {
               "file": "categories/crafts/millinery/pillbox/pillbox-base-2.jpg",
-              "title": "Pillbox Base",
+              "title": "Pillbox Base 2",
               "description": "",
               "tags": []
             },
@@ -6072,7 +5428,7 @@
             },
             {
               "file": "categories/crafts/millinery/pillbox/pillbox-fashion-progress-2.jpg",
-              "title": "Pillbox Fashion Progress",
+              "title": "Pillbox Fashion Progress 2",
               "description": "",
               "tags": []
             },
@@ -6090,7 +5446,7 @@
             },
             {
               "file": "categories/crafts/millinery/pillbox/pillbox-front-top-2.jpg",
-              "title": "Pillbox Front Top",
+              "title": "Pillbox Front Top 2",
               "description": "",
               "tags": []
             },
@@ -6182,7 +5538,7 @@
           "photos": [
             {
               "file": "categories/crafts/millinery/loose/bias-tape-2.jpg",
-              "title": "Bias Tape",
+              "title": "Bias Tape 2",
               "description": "",
               "tags": [],
               "isFeatured": true
@@ -6225,7 +5581,7 @@
             },
             {
               "file": "categories/crafts/millinery/loose/ref-2.jpg",
-              "title": "Ref",
+              "title": "Ref 2",
               "description": "",
               "tags": []
             },
@@ -6249,7 +5605,7 @@
             },
             {
               "file": "categories/crafts/millinery/loose/wool-side-2.jpg",
-              "title": "Wool Side",
+              "title": "Wool Side 2",
               "description": "",
               "tags": []
             },
@@ -6306,37 +5662,37 @@
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/dsc05925.jpg",
-              "title": "Dsc05925",
+              "title": "",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/dsc05934.jpg",
-              "title": "Dsc05934",
+              "title": "",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/dsc05939.jpg",
-              "title": "Dsc05939",
+              "title": "",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/dsc05943.jpg",
-              "title": "Dsc05943",
+              "title": "",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/dsc05979.jpg",
-              "title": "Dsc05979",
+              "title": "",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/dsc06145.jpg",
-              "title": "Dsc06145",
+              "title": "",
               "description": "",
               "tags": []
             },
@@ -6360,31 +5716,31 @@
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/mock-2.jpg",
-              "title": "Mock",
+              "title": "Mock 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/mock-up-1.jpg",
-              "title": "Mock Up",
+              "title": "Mock Up 1",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/mock-up-3.jpg",
-              "title": "Mock Up",
+              "title": "Mock Up 3",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/original-cover-2.jpg",
-              "title": "Original Cover",
+              "title": "Original Cover 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/original-cover-3.jpg",
-              "title": "Original Cover",
+              "title": "Original Cover 3",
               "description": "",
               "tags": []
             },
@@ -6396,7 +5752,7 @@
             },
             {
               "file": "categories/crafts/millinery/elliot-helmet/traced-off-pattern-2.jpg",
-              "title": "Traced Off Pattern",
+              "title": "Traced Off Pattern 2",
               "description": "",
               "tags": []
             },
@@ -6446,236 +5802,236 @@
           "photos": [
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-1.jpg",
-              "title": "Anya Look",
+              "title": "Anya Look 1",
               "description": "",
               "tags": [],
               "isFeatured": true
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-3/anya-look-3.jpg",
-              "title": "Anya Look 3/Anya Look",
+              "title": "Anya Look 3",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-3/pink-hat-bow.jpg",
-              "title": "Anya Look 3/Pink Hat Bow",
+              "title": "Pink Hat Bow",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-3/pink-hat-deco-2.jpg",
-              "title": "Anya Look 3/Pink Hat Deco",
+              "title": "Pink Hat Deco 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-3/pink-hat-deco.jpg",
-              "title": "Anya Look 3/Pink Hat Deco",
+              "title": "Pink Hat Deco",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-3/pink-hat-inside.jpg",
-              "title": "Anya Look 3/Pink Hat Inside",
+              "title": "Pink Hat Inside",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-3/pink-hat-progress-brimm-2.jpg",
-              "title": "Anya Look 3/Pink Hat Progress Brimm",
+              "title": "Pink Hat Progress Brimm 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-3/pink-hat-progress-brimm.jpg",
-              "title": "Anya Look 3/Pink Hat Progress Brimm",
+              "title": "Pink Hat Progress Brimm",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-3/pink-hat.jpg",
-              "title": "Anya Look 3/Pink Hat",
+              "title": "Pink Hat",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-5/anya-look-5.jpg",
-              "title": "Anya Look 5/Anya Look",
+              "title": "Anya Look 5",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-5/hat-before-restoration-inside-close-up.jpg",
-              "title": "Anya Look 5/Hat Before Restoration Inside Close Up",
+              "title": "Hat Before Restoration Inside Close Up",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-5/hat-before-restoration-inside.jpg",
-              "title": "Anya Look 5/Hat Before Restoration Inside",
+              "title": "Hat Before Restoration Inside",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/anya-look-5/hat-before-restoration.jpg",
-              "title": "Anya Look 5/Hat Before Restoration",
+              "title": "Hat Before Restoration",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/charlotta-look-1/black-hat-new-bow.jpg",
-              "title": "Charlotta Look 1/Black Hat New Bow",
+              "title": "Black Hat New Bow",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/charlotta-look-1/black-hat-new-flower.jpg",
-              "title": "Charlotta Look 1/Black Hat New Flower",
+              "title": "Black Hat New Flower",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/charlotta-look-1/black-hat-progress.jpg",
-              "title": "Charlotta Look 1/Black Hat Progress",
+              "title": "Black Hat Progress",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/charlotta-look-1/blackhat-before-restoration-2.jpg",
-              "title": "Charlotta Look 1/Blackhat Before Restoration",
+              "title": "Blackhat Before Restoration 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/charlotta-look-1/blackhat-before-restoration-inside.jpg",
-              "title": "Charlotta Look 1/Blackhat Before Restoration Inside",
+              "title": "Blackhat Before Restoration Inside",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/charlotta-look-1/blackhat-before-restoration.jpg",
-              "title": "Charlotta Look 1/Blackhat Before Restoration",
+              "title": "Blackhat Before Restoration",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/charlotta-look-1/charlotta-look-1.jpg",
-              "title": "Charlotta Look 1/Charlotta Look",
+              "title": "Charlotta Look 1",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lybov-look-2.jpg",
-              "title": "Lybov Look",
+              "title": "Lybov Look 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lybov-look-4/lybov-look-.jpg",
-              "title": "Lybov Look 4/Lybov Look",
+              "title": "Lybov Look",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lybov-look-4/lybov-look-4-ref.jpg",
-              "title": "Lybov Look 4/Lybov Look 4 Ref",
+              "title": "Lybov Look 4 Ref",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lybov-look-4/lybov-look-4.jpg",
-              "title": "Lybov Look 4/Lybov Look",
+              "title": "Lybov Look 4",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lybov-look-4/lybov-progress-2.jpg",
-              "title": "Lybov Look 4/Lybov Progress",
+              "title": "Lybov Progress 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lybov-look-4/lybov-progress.jpg",
-              "title": "Lybov Look 4/Lybov Progress",
+              "title": "Lybov Progress",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/build-2.jpg",
-              "title": "Lyubov Estella Boone/Build",
+              "title": "Build 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/build-final-2.jpg",
-              "title": "Lyubov Estella Boone/Build Final",
+              "title": "Build Final 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/build-final-bacck.jpg",
-              "title": "Lyubov Estella Boone/Build Final Bacck",
+              "title": "Build Final Bacck",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/build-final-f.jpg",
-              "title": "Lyubov Estella Boone/Build Final F",
+              "title": "Build Final F",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/build-final-side-2.jpg",
-              "title": "Lyubov Estella Boone/Build Final Side",
+              "title": "Build Final Side 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/build-final-side.jpg",
-              "title": "Lyubov Estella Boone/Build Final Side",
+              "title": "Build Final Side",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/build-final.jpg",
-              "title": "Lyubov Estella Boone/Build Final",
+              "title": "Build Final",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/build-inside-2.jpg",
-              "title": "Lyubov Estella Boone/Build Inside",
+              "title": "Build Inside 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/build-inside.jpg",
-              "title": "Lyubov Estella Boone/Build Inside",
+              "title": "Build Inside",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/build.jpg",
-              "title": "Lyubov Estella Boone/Build",
+              "title": "Build",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/lyubov-estella-boone/ref.jpg",
-              "title": "Lyubov Estella Boone/Ref",
+              "title": "Ref",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/straw-hat-progress-2.jpg",
-              "title": "Straw Hat Progress",
+              "title": "Straw Hat Progress 2",
               "description": "",
               "tags": []
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/straw-hat-progress-3.jpg",
-              "title": "Straw Hat Progress",
+              "title": "Straw Hat Progress 3",
               "description": "",
               "tags": []
             },
@@ -6687,7 +6043,7 @@
             },
             {
               "file": "categories/crafts/millinery/cherry-orchard/varya-look-1.jpg",
-              "title": "Varya Look",
+              "title": "Varya Look 1",
               "description": "",
               "tags": []
             },

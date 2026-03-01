@@ -534,8 +534,8 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     const theme = personaData.persona?.theme || 'modern-minimal';
     const template = personaData.persona?.template || 'featured-grid';
     portfolio = await apiCall('POST', '/admin/portfolio', {
-      name: `${name} Portfolio`,
-      title: `${name} Portfolio`,
+      name: name,
+      title: name,
       draftTheme: theme,
       publishedTheme: theme,
       draftTemplate: template,
