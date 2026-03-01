@@ -151,6 +151,28 @@ export function getAllCategoryIds(context) {
 }
 
 // ============================================
+// Carousel Link Builder
+// ============================================
+
+/**
+ * Build a carousel item's link URL from tagged image metadata.
+ *
+ * The projectSlug stored in tag context comes from the API response, which may
+ * already include the category prefix (e.g. `/professional-work/the-great-gatsby-korea`)
+ * or even a leading slash. Prepending categorySlug again produces doubled paths like
+ * `/professional-work//professional-work/the-great-gatsby-korea`.
+ *
+ * This helper detects and handles both cases:
+ * - If projectSlug already starts with '/', it is a full path — use it directly.
+ * - Otherwise, build `/${categorySlug}/${projectSlug}` as before.
+ */
+function buildCarouselItemLink(img) {
+  if (!img.projectSlug) return '';
+  if (img.projectSlug.startsWith('/')) return img.projectSlug;
+  return img.categorySlug ? `/${img.categorySlug}/${img.projectSlug}` : `/${img.projectSlug}`;
+}
+
+// ============================================
 // Gallery Image Consumption Helpers
 // ============================================
 
@@ -342,7 +364,7 @@ function sarahHomepage(context) {
     imageUrl: img.imageUrl || img.url || null,
     title: img.title || '',
     category: img.categorySlug || '',
-    link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+    link: buildCarouselItemLink(img),
     width: img.width,
     height: img.height,
   }));
@@ -762,7 +784,7 @@ function julianHomepage(context) {
     imageUrl: img.imageUrl || img.url || null,
     title: img.title || '',
     category: img.categorySlug || '',
-    link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+    link: buildCarouselItemLink(img),
     width: img.width,
     height: img.height,
   }));
@@ -1236,7 +1258,7 @@ function emmaHomepage(context) {
     imageUrl: img.imageUrl || img.url || null,
     title: img.title || '',
     category: img.categorySlug || '',
-    link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+    link: buildCarouselItemLink(img),
     width: img.width,
     height: img.height,
   }));
@@ -1489,7 +1511,7 @@ function emmaCategoryPage(category, categoryIndex, context) {
         imageUrl: img.imageUrl || img.url || null,
         title: img.title || '',
         category: img.categorySlug || '',
-        link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+        link: buildCarouselItemLink(img),
         width: img.width,
         height: img.height,
       }));
@@ -1915,7 +1937,7 @@ function sashaHomepage(context) {
     imageUrl: img.imageUrl || img.url || null,
     title: img.title || '',
     category: img.categorySlug || '',
-    link: img.categorySlug && img.projectSlug ? `/${img.categorySlug}/${img.projectSlug}` : '',
+    link: buildCarouselItemLink(img),
     width: img.width,
     height: img.height,
   }));
@@ -1961,13 +1983,14 @@ function sashaAboutPage(context) {
   const { persona, profileAssetId, profileAssetUrl } = context;
   const sections = [];
 
-  // 1. Hero
+  // Hero only — bio text is her actual words from the original site.
+  // No fabricated "Craft Philosophy", "Training & Experience", or skill sections.
   const hasResume = !!(persona.resumeUrl);
   sections.push({
     id: generateSectionId(),
     type: 'hero',
     name: persona.name,
-    title: `About ${persona.name}`,
+    title: persona.role || 'Draper & Costume Technician',
     bio: persona.bio,
     profileImageId: profileAssetId,
     profileImageUrl: profileAssetUrl,
@@ -1975,170 +1998,33 @@ function sashaAboutPage(context) {
     resumeUrl: persona.resumeUrl || '',
   });
 
-  // 2. Two-column 50-50 — craft philosophy + profile image (balanced, hands-on)
-  sections.push(
-    buildTwoColumnLayout({
-      ratio: '50-50',
-      gap: 'default',
-      mobileStackOrder: 'left-first',
-      leftColumn: [
-        buildTextSection({
-          body:
-            '<h2>Craft Philosophy</h2>' +
-            formatAsHtml(
-              'I approach draping as problem-solving in three dimensions. Every body is different, every fabric behaves differently, and every design demands its own construction logic. My work lives at the intersection of precision patterning and hands-on experimentation\u2014building garments that move, breathe, and perform under the demands of the stage.'
-            ),
-        }),
-      ],
-      rightColumn: [
-        buildImageSection({
-          imageId: profileAssetId,
-          imageUrl: profileAssetUrl,
-          altText: `${persona.name} at work`,
-        }),
-      ],
-    })
-  );
-
-  // 3. Three-column — core craft areas
-  sections.push(
-    buildThreeColumnLayout({
-      gap: 'default',
-      mobileStackOrder: 'left-first',
-      columns: [
-        [
-          buildTextSection({
-            body: '<h2>Draping & Patterning</h2><p>Speed drapes, half-scale work, and precision flat patterning. Trained at UNCSA under rigorous academic standards, refined through professional production deadlines.</p>',
-          }),
-        ],
-        [
-          buildTextSection({
-            body: '<h2>Construction & Tailoring</h2><p>From corsetry to contemporary tailoring, I build garments that withstand eight-show weeks. Every seam, every finishing detail serves both the performer and the design.</p>',
-          }),
-        ],
-        [
-          buildTextSection({
-            body: '<h2>Millinery</h2><p>Hat construction from blocked felt to wired structures. Millinery demands its own engineering\u2014balancing visual impact with wearability and sight lines on stage.</p>',
-          }),
-        ],
-      ],
-    })
-  );
-
-  // 4. Two-column 40-60 — image + training/background
-  sections.push(
-    buildTwoColumnLayout({
-      ratio: '40-60',
-      gap: 'default',
-      mobileStackOrder: 'right-first',
-      leftColumn: [
-        buildImageSection({ imageId: null, imageUrl: null, altText: 'Studio workspace' }),
-      ],
-      rightColumn: [
-        buildTextSection({
-          body:
-            '<h2>Training & Experience</h2>' +
-            formatAsHtml(
-              'BFA from the University of North Carolina School of the Arts, where I trained in draping, flat patterning, tailoring, and millinery. Professional work at Bethany Joy Costumes in New York built my production speed and collaborative instincts. Summer stock seasons at Ohio Light Opera taught me to build fast without cutting corners\u2014fourteen shows in eleven weeks leaves no room for anything but clean, efficient construction.'
-            ),
-        }),
-      ],
-    })
-  );
-
-  // 5. Gallery — studio & process
-  sections.push(buildGallerySection({ heading: 'Studio & Process', images: [] }));
-
   return sections;
 }
 
 function sashaCategoryPage(category, categoryIndex, context) {
   const sections = [];
-  const catProjectIds = getProjectIdsForCategory(context, category.slug);
 
-  if (categoryIndex <= 2) {
-    // Variant A (indices 0, 1, 2 — Sasha has 6 categories, extend variant A coverage)
-
-    // 1. Text — headline + introduction
+  // Category description — factual, from persona.json only. No editorialising.
+  const descText = (category.categoryContent?.introduction || category.description || '').trim();
+  if (descText) {
     sections.push(
       buildTextSection({
-        body: formatAsHtml(
-          (category.categoryContent?.headline || '') +
-            '. ' +
-            (category.categoryContent?.introduction || '')
-        ),
+        body: formatAsHtml(descText),
       })
     );
-
-    // 2. Two-column 50-50 — approach text + featured projects (balanced, craft-focused)
-    sections.push(
-      buildTwoColumnLayout({
-        ratio: '50-50',
-        gap: 'default',
-        mobileStackOrder: 'left-first',
-        leftColumn: [
-          buildTextSection({
-            body:
-              '<h2>My Approach</h2>' +
-              formatAsHtml(category.categoryContent?.approach || ''),
-          }),
-        ],
-        rightColumn: [
-          buildProjectListSection({
-            projectIds: catProjectIds.slice(0, 3),
-            layout: 'mini-grid',
-            showMetadata: true,
-          }),
-        ],
-      })
-    );
-
-    // 3. Project grid — masonry for visual richness
-    sections.push({
-      id: generateSectionId(),
-      type: 'project-grid',
-      heading: 'All Work',
-      projectIds: null,
-      columns: 2,
-      showMetadata: true,
-      layout: 'masonry',
-    });
-  } else {
-    // Variant B (indices 3, 4, 5)
-
-    // 1. Text — headline + introduction
-    sections.push(
-      buildTextSection({
-        body: formatAsHtml(
-          (category.categoryContent?.headline || '') +
-            '. ' +
-            (category.categoryContent?.introduction || '')
-        ),
-      })
-    );
-
-    // 2. Project grid
-    sections.push({
-      id: generateSectionId(),
-      type: 'project-grid',
-      heading: '',
-      projectIds: null,
-      columns: 3,
-      showMetadata: true,
-      layout: 'grid',
-    });
-
-    // 3. Category grid — explore other disciplines
-    sections.push({
-      id: generateSectionId(),
-      type: 'category-grid',
-      heading: 'Explore Other Disciplines',
-      categoryIds: null,
-      columns: 3,
-      showDescription: false,
-      showProjectCount: false,
-    });
   }
+
+  // Project grid — all projects, uniform 3-column grid across all 6 categories.
+  // No "My Approach", no featured-vs-all split (that caused duplicate cards).
+  sections.push({
+    id: generateSectionId(),
+    type: 'project-grid',
+    heading: '',
+    projectIds: null,
+    columns: 3,
+    showMetadata: true,
+    layout: 'grid',
+  });
 
   return sections;
 }
@@ -2163,7 +2049,8 @@ function sashaTemplateA(project, getNext, getNextN, remaining, context, genre) {
   const heroImg = imageFromGallery(getNext());
   if (heroImg) sections.push(heroImg);
 
-  // 2. Two-column 50-50 — title+description + project details (balanced, utilitarian)
+  // 2. Two-column 50-50 — description + project details.
+  // Title is already rendered as H1 by the page template — omit it here.
   sections.push(
     buildTwoColumnLayout({
       ratio: '50-50',
@@ -2171,9 +2058,7 @@ function sashaTemplateA(project, getNext, getNextN, remaining, context, genre) {
       mobileStackOrder: 'left-first',
       leftColumn: [
         buildTextSection({
-          body:
-            '<h1>' + project.title + '</h1>' +
-            formatAsHtml(project.description),
+          body: formatAsHtml(project.description),
         }),
       ],
       rightColumn: [
@@ -2247,7 +2132,8 @@ function sashaTemplateB(project, getNext, getNextN, remaining, context, genre) {
   const heroImg = imageFromGallery(getNext());
   if (heroImg) sections.push(heroImg);
 
-  // 2. Sidebar — details sidebar + title/description main
+  // 2. Sidebar — details sidebar + description main.
+  // Title is already rendered as H1 by the page template — omit it here.
   sections.push(
     buildSidebarLayout({
       sidebarPosition: 'right',
@@ -2259,9 +2145,7 @@ function sashaTemplateB(project, getNext, getNextN, remaining, context, genre) {
       ],
       main: [
         buildTextSection({
-          body:
-            '<h1>' + project.title + '</h1>' +
-            formatAsHtml(project.description),
+          body: formatAsHtml(project.description),
         }),
       ],
     })
