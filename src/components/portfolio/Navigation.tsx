@@ -7,15 +7,17 @@
  *
  * ## Responsive Strategy
  *
- * - **Desktop:** Horizontal nav bar with logo, category links/dropdown, and page links.
- *   Categories appear as direct links when ≤5, or collapse into a dropdown when >5.
+ * - **Desktop:** Horizontal nav bar with logo, category links, and page links.
+ *   Categories appear as inline links. When viewport is too narrow to fit all
+ *   categories, overflowing categories collapse into a "More" dropdown.
  * - **Mobile:** Hamburger button triggers a slide-in drawer panel rendered via React
  *   Portal to ensure proper z-index stacking and full-viewport coverage.
  *
  * ## Key Features
  *
- * - **Adaptive category display:** Automatically switches between inline links and
- *   dropdown menu based on `CATEGORY_DROPDOWN_THRESHOLD` (5 categories)
+ * - **Progressive overflow:** Uses ResizeObserver to measure available space and
+ *   show as many category links inline as fit. Remaining categories appear in a
+ *   "More" dropdown that only shows when needed.
  * - **Active state detection:** Highlights current page/category based on URL path
  *   segments with `aria-current="page"` for screen readers
  * - **Theme variants:** Supports 'modern-minimal', 'classic-elegant', and
@@ -86,8 +88,6 @@ interface NavigationProps {
   theme: 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 }
 
-const CATEGORY_DROPDOWN_THRESHOLD = 5
-
 export function Navigation({ 
   portfolioSlug, 
   portfolioName, 
@@ -100,10 +100,13 @@ export function Navigation({
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [overflowIndex, setOverflowIndex] = useState(categories.length)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const dropdownButtonRef = useRef<HTMLButtonElement>(null)
+  const navListRef = useRef<HTMLUListElement>(null)
+  const measureRef = useRef<HTMLDivElement>(null)
 
   // Track when component is mounted for portal rendering using useSyncExternalStore
   const mounted = useSyncExternalStore(
@@ -127,8 +130,77 @@ export function Navigation({
   const pageSegmentIndex = isPreviewMode ? 1 : 0
   const currentCategorySlug = pathSegments[categorySegmentIndex] || ''
 
-  // Determine if we should show dropdown (>5 categories) or direct links
-  const showCategoryDropdown = categories.length > CATEGORY_DROPDOWN_THRESHOLD
+  // Progressive overflow: calculate how many categories fit inline
+  useEffect(() => {
+    const list = navListRef.current
+    const measure = measureRef.current
+    if (!list || !measure || categories.length === 0) return
+
+    const calculate = () => {
+      const measureItems = Array.from(
+        measure.querySelectorAll<HTMLElement>('[data-measure-cat]')
+      )
+      const moreBtnEl = measure.querySelector<HTMLElement>('[data-measure-more]')
+
+      if (measureItems.length === 0) return
+
+      const catWidths = measureItems.map(el => el.offsetWidth)
+      const moreWidth = moreBtnEl?.offsetWidth || 72
+
+      // Measure non-category items from the real nav list
+      const nonCatItems = Array.from(
+        list.querySelectorAll<HTMLElement>(':scope > [data-nav-page], :scope > [data-nav-action]')
+      )
+      const nonCatTotalWidth = nonCatItems.reduce((sum, el) => sum + el.offsetWidth, 0)
+      const numNonCat = nonCatItems.length
+
+      const style = getComputedStyle(list)
+      const gap = parseFloat(style.columnGap) || parseFloat(style.gap) || 0
+      const containerWidth = list.clientWidth
+
+      // Try fitting all categories without "More" button
+      const allCatWidth = catWidths.reduce((s, w) => s + w, 0)
+      const numAllItems = categories.length + numNonCat
+      const totalAll = allCatWidth + nonCatTotalWidth + Math.max(0, numAllItems - 1) * gap
+
+      if (totalAll <= containerWidth) {
+        setOverflowIndex(categories.length)
+        return
+      }
+
+      // Not all fit — find how many fit alongside a "More" button
+      for (let fitCount = categories.length - 1; fitCount >= 0; fitCount--) {
+        const visibleCatWidth = catWidths.slice(0, fitCount).reduce((s, w) => s + w, 0)
+        const numItems = fitCount + 1 + numNonCat
+        const total = visibleCatWidth + moreWidth + nonCatTotalWidth + Math.max(0, numItems - 1) * gap
+
+        if (total <= containerWidth) {
+          setOverflowIndex(fitCount)
+          return
+        }
+      }
+
+      // Nothing fits inline — all go in "More"
+      setOverflowIndex(0)
+    }
+
+    const observer = new ResizeObserver(calculate)
+    observer.observe(list)
+
+    // Initial calculation (async to avoid synchronous setState in effect body)
+    // + delayed recalculation for font loading
+    const raf = requestAnimationFrame(calculate)
+    const timer = setTimeout(calculate, 150)
+
+    return () => {
+      observer.disconnect()
+      cancelAnimationFrame(raf)
+      clearTimeout(timer)
+    }
+  }, [categories])
+
+  // Clamp overflow index to current category count (safety for prop changes)
+  const safeOverflowIndex = Math.min(overflowIndex, categories.length)
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -217,86 +289,95 @@ export function Navigation({
     return currentCategorySlug === category.slug
   }
 
-  // Check if any category is active (for dropdown trigger highlighting)
-  const isAnyCategoryActive = categories.some(c => isCategoryActive(c))
-
   return (
     <nav className={`portfolio-nav portfolio-nav--${theme}`} role="navigation" aria-label="Portfolio navigation" data-testid="portfolio-nav">
       {/* Desktop Navigation */}
       <div className="portfolio-nav-desktop">
+        {/* Hidden measurement container for progressive overflow */}
+        <div ref={measureRef} className="portfolio-nav-measure" aria-hidden="true">
+          {categories.map(cat => (
+            <span key={cat.id} className="portfolio-nav-link" data-measure-cat={cat.id}>
+              {cat.name}
+            </span>
+          ))}
+          <span className="portfolio-nav-link portfolio-nav-dropdown-trigger" data-measure-more="">
+            More
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M3 5l3 3 3-3" />
+            </svg>
+          </span>
+        </div>
+
         <Link href={basePath || '/'} className="portfolio-nav-logo" data-testid="portfolio-nav-logo">
           {portfolioName}
         </Link>
-        <ul className="portfolio-nav-list" role="menubar">
-          {/* Categories - either as dropdown or direct links */}
-          {categories.length > 0 && (
-            showCategoryDropdown ? (
-              // Dropdown for >5 categories
-              <li role="none" className="portfolio-nav-dropdown-container">
-                <button
-                  ref={dropdownButtonRef}
-                  type="button"
-                  className={`portfolio-nav-link portfolio-nav-dropdown-trigger ${isAnyCategoryActive ? 'portfolio-nav-link--active' : ''}`}
-                  onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
-                  aria-expanded={isCategoryDropdownOpen}
-                  aria-haspopup="true"
-                  role="menuitem"
+        <ul ref={navListRef} className="portfolio-nav-list" role="menubar">
+          {/* Visible categories — progressive overflow */}
+          {categories.slice(0, safeOverflowIndex).map(category => (
+            <li key={category.id} role="none">
+              <Link
+                href={getCategoryHref(category)}
+                className={`portfolio-nav-link ${isCategoryActive(category) ? 'portfolio-nav-link--active' : ''}`}
+                role="menuitem"
+                aria-current={isCategoryActive(category) ? 'page' : undefined}
+              >
+                {category.name}
+              </Link>
+            </li>
+          ))}
+
+          {/* "More" overflow dropdown — only when categories don't all fit */}
+          {safeOverflowIndex < categories.length && (
+            <li role="none" className="portfolio-nav-dropdown-container">
+              <button
+                ref={dropdownButtonRef}
+                type="button"
+                className={`portfolio-nav-link portfolio-nav-dropdown-trigger ${categories.slice(safeOverflowIndex).some(c => isCategoryActive(c)) ? 'portfolio-nav-link--active' : ''}`}
+                onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
+                aria-expanded={isCategoryDropdownOpen}
+                aria-haspopup="true"
+                role="menuitem"
+              >
+                More
+                <svg 
+                  className={`portfolio-nav-dropdown-icon ${isCategoryDropdownOpen ? 'portfolio-nav-dropdown-icon--open' : ''}`}
+                  width="12" 
+                  height="12" 
+                  viewBox="0 0 12 12" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2"
+                  aria-hidden="true"
                 >
-                  Work
-                  <svg 
-                    className={`portfolio-nav-dropdown-icon ${isCategoryDropdownOpen ? 'portfolio-nav-dropdown-icon--open' : ''}`}
-                    width="12" 
-                    height="12" 
-                    viewBox="0 0 12 12" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2"
-                    aria-hidden="true"
-                  >
-                    <path d="M3 5l3 3 3-3" />
-                  </svg>
-                </button>
-                {isCategoryDropdownOpen && (
-                  <div 
-                    ref={dropdownRef}
-                    className="portfolio-nav-dropdown"
-                    role="menu"
-                  >
-                    {categories.map(category => (
-                      <Link
-                        key={category.id}
-                        href={getCategoryHref(category)}
-                        className={`portfolio-nav-dropdown-item ${isCategoryActive(category) ? 'portfolio-nav-dropdown-item--active' : ''}`}
-                        role="menuitem"
-                        aria-current={isCategoryActive(category) ? 'page' : undefined}
-                        onClick={() => setIsCategoryDropdownOpen(false)}
-                      >
-                        {category.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </li>
-            ) : (
-              // Direct links for ≤5 categories
-              categories.map(category => (
-                <li key={category.id} role="none">
-                  <Link
-                    href={getCategoryHref(category)}
-                    className={`portfolio-nav-link ${isCategoryActive(category) ? 'portfolio-nav-link--active' : ''}`}
-                    role="menuitem"
-                    aria-current={isCategoryActive(category) ? 'page' : undefined}
-                  >
-                    {category.name}
-                  </Link>
-                </li>
-              ))
-            )
+                  <path d="M3 5l3 3 3-3" />
+                </svg>
+              </button>
+              {isCategoryDropdownOpen && (
+                <div 
+                  ref={dropdownRef}
+                  className="portfolio-nav-dropdown"
+                  role="menu"
+                >
+                  {categories.slice(safeOverflowIndex).map(category => (
+                    <Link
+                      key={category.id}
+                      href={getCategoryHref(category)}
+                      className={`portfolio-nav-dropdown-item ${isCategoryActive(category) ? 'portfolio-nav-dropdown-item--active' : ''}`}
+                      role="menuitem"
+                      aria-current={isCategoryActive(category) ? 'page' : undefined}
+                      onClick={() => setIsCategoryDropdownOpen(false)}
+                    >
+                      {category.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </li>
           )}
           
           {/* Other nav pages (About, Resume, etc.) */}
           {navPages.filter(p => !p.isHomepage).map(page => (
-            <li key={page.id} role="none">
+            <li key={page.id} role="none" data-nav-page="">
               <Link
                 href={getPageHref(page)}
                 className={`portfolio-nav-link ${isPageActive(page) ? 'portfolio-nav-link--active' : ''}`}
@@ -310,7 +391,7 @@ export function Navigation({
           
           {/* Icon actions */}
           {contactEmail && (
-            <li role="none">
+            <li role="none" data-nav-action="">
               <IconButton
                 icon={<MailIcon />}
                 aria-label="Send email"
@@ -321,7 +402,7 @@ export function Navigation({
               />
             </li>
           )}
-          <li role="none">
+          <li role="none" data-nav-action="">
             <IconButton
               icon={<Search />}
               aria-label="Search portfolio"
@@ -390,9 +471,7 @@ export function Navigation({
               {/* Categories */}
               {categories.length > 0 && (
                 <>
-                  <li className="portfolio-nav-menu-divider" role="separator">
-                    <span>Work</span>
-                  </li>
+                  <li className="portfolio-nav-menu-divider" role="separator" />
                   {categories.map(category => (
                     <li key={category.id} role="none">
                       <Link
