@@ -50,12 +50,12 @@ export function AdaptiveGrid({
   // container width (unknown at SSR time). The useEffect refines it post-hydration
   // when actual container width is available.
   const getItemCap = (count: number): number => {
-    if (count === 1) return 3
+    if (count === 1) return 1   // Full-width single image
     if (count === 2) return 2
     if (count === 3) return 3
-    if (count <= 6) return 4
-    if (count <= 12) return 5
-    return 6
+    if (count <= 4) return 2    // 2x2 grid, generous sizing
+    if (count <= 9) return 3    // 3-col gallery
+    return 4                     // Large galleries max at 4-col
   }
   const [maxColumns, setMaxColumns] = useState<number>(() => getItemCap(items.length))
   
@@ -70,14 +70,14 @@ export function AdaptiveGrid({
       const naturalCols = Math.floor(containerWidth / idealCardWidth)
       
       // Item-count-based cap to prevent over-subdivision
-      // Special case: single items use 3-column layout to avoid oversized cards
+      // Portfolio-optimized: favor larger images over more columns
       let itemCap: number
-      if (itemCount === 1) itemCap = 3         // Single item: size as if 3-column grid
+      if (itemCount === 1) itemCap = 1         // Full-width single image
       else if (itemCount === 2) itemCap = 2    // Two items: 2-column
       else if (itemCount === 3) itemCap = 3    // Three items: 3-column
-      else if (itemCount <= 6) itemCap = 4
-      else if (itemCount <= 12) itemCap = 5
-      else itemCap = 6
+      else if (itemCount <= 4) itemCap = 2     // 2x2 grid, generous sizing
+      else if (itemCount <= 9) itemCap = 3     // 3-col gallery
+      else itemCap = 4                          // Large galleries max at 4-col
       
       // Final column count: min of all constraints
       const finalColumns = Math.min(naturalCols, itemCap, 6)

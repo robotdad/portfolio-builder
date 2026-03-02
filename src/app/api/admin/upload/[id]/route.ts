@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { getStorage } from '@/lib/storage'
+import { getStorageAsync } from '@/lib/storage'
 
 // CUID format: 25 alphanumeric characters (e.g., "clrk8z1234567abcdefghij")
 const VALID_ID_PATTERN = /^[a-z0-9]{20,30}$/i
@@ -95,7 +95,8 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
     // Delete asset files from storage (local or Azure)
     try {
-      await getStorage().deleteAssetFiles(id)
+      const storage = await getStorageAsync()
+      await storage.deleteAssetFiles(id)
     } catch (fileError) {
       // Log but don't fail if files don't exist
       console.warn('Could not delete asset files:', fileError)

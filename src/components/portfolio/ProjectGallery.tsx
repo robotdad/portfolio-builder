@@ -104,9 +104,9 @@ export function ProjectGallery({
     <>
       <AdaptiveGrid
         items={validImages}
-        minCardWidth={250}
-        idealCardWidth={400}
-        maxCardWidth={550}
+        minCardWidth={300}
+        idealCardWidth={500}
+        maxCardWidth={700}
         className={className}
       >
         {validImages.map((image, index) => {

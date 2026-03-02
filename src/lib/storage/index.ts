@@ -1,5 +1,4 @@
 import type { StorageAdapter } from './types'
-import { localStorageAdapter } from './local'
 
 export type { StorageAdapter, StoredImageUrls } from './types'
 
@@ -12,53 +11,47 @@ function detectStorageMode(): 'local' | 'azure' {
 
 let storageMode: 'local' | 'azure' | null = null
 
-// Cached Azure adapter (loaded lazily)
-let azureAdapter: StorageAdapter | null = null
+// Cached adapter (loaded lazily via dynamic import)
+let cachedAdapter: StorageAdapter | null = null
 
+/**
+ * Get the storage adapter (sync). Requires prior initialization via getStorageAsync().
+ * All Next.js API routes should use getStorageAsync() directly.
+ */
 export function getStorage(): StorageAdapter {
-  const mode = detectStorageMode()
-
-  // Log storage mode on first call (helpful for debugging)
-  if (storageMode !== mode) {
-    storageMode = mode
-    console.log(`[Storage] Using ${mode} storage adapter`)
+  if (!cachedAdapter) {
+    throw new Error(
+      'Storage not initialized. Call await getStorageAsync() first.'
+    )
   }
-
-  if (mode === 'azure') {
-    if (!azureAdapter) {
-      // This will be set by getStorageAsync() - throw if not initialized
-      throw new Error(
-        'Azure storage not initialized. Call await getStorageAsync() first in standalone scripts.'
-      )
-    }
-    return azureAdapter
-  }
-
-  return localStorageAdapter
+  return cachedAdapter
 }
 
 /**
- * Async version of getStorage() that properly initializes Azure adapter.
- * Use this in standalone scripts (tsx). Next.js routes can use getStorage() directly
- * after calling this once at startup.
+ * Initialize and return the storage adapter.
+ * Both local and azure adapters are loaded via dynamic import to prevent
+ * Turbopack from statically analyzing filesystem path patterns in local.ts
+ * (which otherwise matches thousands of files in public/uploads/).
  */
 export async function getStorageAsync(): Promise<StorageAdapter> {
   const mode = detectStorageMode()
 
-  // Log storage mode on first call (helpful for debugging)
+  // Log storage mode on first call or mode change
   if (storageMode !== mode) {
     storageMode = mode
+    cachedAdapter = null
     console.log(`[Storage] Using ${mode} storage adapter`)
   }
 
-  if (mode === 'azure') {
-    if (!azureAdapter) {
-      // Dynamic import for ES modules compatibility
+  if (!cachedAdapter) {
+    if (mode === 'azure') {
       const { azureStorageAdapter } = await import('./azure')
-      azureAdapter = azureStorageAdapter
+      cachedAdapter = azureStorageAdapter
+    } else {
+      const { localStorageAdapter } = await import('./local')
+      cachedAdapter = localStorageAdapter
     }
-    return azureAdapter
   }
 
-  return localStorageAdapter
+  return cachedAdapter
 }

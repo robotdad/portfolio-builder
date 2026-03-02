@@ -1,9 +1,0 @@
-bundle:
-  name: portfolio
-  version: 0.1.0
-  description: Expert delegation bundle with TS web dev bundle
-
-# Include both exp-delegation and ts web dev bundle
-includes:
-  - bundle: git+https://github.com/microsoft/amplifier-foundation@main
-  - bundle: git+https://github.com/microsoft/amplifier-bundle-ts-dev@main

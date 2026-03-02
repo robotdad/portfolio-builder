@@ -98,7 +98,7 @@
      -------------------------------------------------------------------------- */
   --container-max-width: 1200px;  /* Base: tablets and small desktops */
   --nav-max-width: 1200px;         /* Navigation (initially same as content) */
-  --visual-content-max-width: 1200px;  /* Grids, galleries, carousels */
+  --visual-content-max-width: 1400px;  /* Grids, galleries, carousels - wider than text */
   --text-content-max-width: 900px;     /* Text sections for readability */
 
   /* --------------------------------------------------------------------------
@@ -3298,7 +3298,7 @@ textarea:focus-visible {
 
 /* Section base styles */
 .section {
-  margin-bottom: 64px; /* 64px desktop per spec */
+  margin-bottom: 48px; /* Tighter spacing - dark themes need less gap to avoid void effect */
 }
 
 .section:last-child {
@@ -3307,7 +3307,7 @@ textarea:focus-visible {
 
 @media (max-width: 767px) {
   .section {
-    margin-bottom: 48px; /* 48px mobile per spec */
+    margin-bottom: 32px;
   }
 }
 
@@ -3488,10 +3488,25 @@ textarea:focus-visible {
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1600px) {
   .gallery-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+/* Single-image galleries: span full width instead of sitting in 1/3 of a 3-col grid */
+.gallery-grid:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+.gallery-grid:has(> :only-child) .gallery-item-btn {
+  aspect-ratio: 16 / 9;
+  max-height: 65vh;
+}
+
+/* Two-image galleries: always 2 columns for balanced layout */
+.gallery-grid:has(> :nth-child(2)):not(:has(> :nth-child(3))) {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .gallery-item {
@@ -3545,6 +3560,21 @@ textarea:focus-visible {
   display: flex;
   justify-content: center;
   margin-top: var(--space-8);
+}
+
+/* Scroll-to-load sentinel (invisible trigger for IntersectionObserver) */
+.gallery-load-sentinel {
+  height: 1px;
+  visibility: hidden;
+}
+
+.gallery-loading-hint {
+  text-align: center;
+  padding: var(--space-6) 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 /* --------------------------------------------------------------------------
@@ -4419,7 +4449,7 @@ textarea:focus-visible {
   :root {
     --container-max-width: 1400px; /* Content sections */
     --nav-max-width: 1600px;        /* Nav extends wider */
-    --visual-content-max-width: 1400px;  /* Grids, galleries, carousels */
+    --visual-content-max-width: 1600px;  /* Grids, galleries, carousels - wider than text */
     --text-content-max-width: 900px;      /* Text sections for readability */
   }
   
@@ -4437,7 +4467,7 @@ textarea:focus-visible {
   :root {
     --container-max-width: 1600px; /* Content stays readable */
     --nav-max-width: 1800px;        /* Nav extends wider */
-    --visual-content-max-width: 1600px;  /* Grids, galleries, carousels */
+    --visual-content-max-width: 1800px;  /* Grids, galleries, carousels - wider than text */
     --text-content-max-width: 1000px;     /* Text sections for readability */
   }
   
@@ -5530,6 +5560,8 @@ textarea:focus-visible {
 
 .project-gallery-item {
   position: relative;
+  display: block;
+  width: 100%;
   aspect-ratio: 3 / 2; /* Fallback when image dimensions unavailable; inline style overrides with actual ratio */
   overflow: hidden;
   border-radius: var(--radius-lg);
@@ -5630,13 +5662,13 @@ textarea:focus-visible {
 .project-content {
   display: flex;
   flex-direction: column;
-  gap: var(--space-20); /* 80px - breathing room between content blocks */
+  gap: var(--space-12); /* 48px - tighter spacing on dark themes avoids void effect */
   margin-bottom: var(--space-10);
 }
 
 @media (max-width: 767px) {
   .project-content {
-    gap: var(--space-14); /* 56px mobile */
+    gap: var(--space-10); /* 40px mobile */
   }
 }
 

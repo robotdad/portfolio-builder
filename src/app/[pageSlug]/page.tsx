@@ -147,6 +147,21 @@ async function renderCategoryPage(
           height: true,
         },
       },
+      children: {
+        orderBy: { order: 'asc' },
+        include: {
+          featuredImage: {
+            select: {
+              id: true,
+              url: true,
+              altText: true,
+              width: true,
+              height: true,
+            },
+          },
+          _count: { select: { projects: true } },
+        },
+      },
       projects: {
         where: { publishedContent: { not: null } },
         orderBy: { order: 'asc' },
@@ -243,6 +258,13 @@ async function renderCategoryPage(
         description: fullCategory.description,
       }}
       projects={projectsWithImages}
+      subcategories={fullCategory.children.map(child => ({
+        id: child.id,
+        name: child.name,
+        slug: child.slug,
+        featuredImage: child.featuredImage,
+        projectCount: child._count.projects,
+      }))}
     />
   )
 }

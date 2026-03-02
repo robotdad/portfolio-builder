@@ -4,6 +4,12 @@ const nextConfig: NextConfig = {
   // Standalone output for Azure deployment (~50MB instead of 370MB)
   output: 'standalone',
   
+  // Exclude user-uploaded files from standalone output file tracing.
+  // These are runtime data, not build dependencies.
+  outputFileTracingExcludes: {
+    '*': ['./public/uploads/**'],
+  },
+  
   // Image optimization configuration for Azure Blob Storage
   images: {
     remotePatterns: [

@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import { sanitizeHtml } from '@/lib/sanitize'
 import { getAspectRatioClass } from '@/lib/image-helpers'
 import { ImageCard } from './ImageCard'
 import { Lightbox } from './Lightbox'
 import { EmptyState } from './EmptyState'
+import { AdaptiveGrid } from '@/components/layout/AdaptiveGrid'
 import type { 
   Section, 
   TextSection, 
@@ -309,11 +310,32 @@ const IMAGES_PER_PAGE = 20
 function GallerySectionView({ section }: { section: GallerySection }) {
   const [displayCount, setDisplayCount] = useState(IMAGES_PER_PAGE)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const sentinelRef = useRef<HTMLDivElement>(null)
   
   // Filter and map to ensure imageUrl is definitely a string for Lightbox
   const validImages = section.images
     .filter((img): img is GalleryImage & { imageUrl: string } => Boolean(img.imageUrl))
   
+  const loadMore = useCallback(() => {
+    setDisplayCount(prev => Math.min(prev + IMAGES_PER_PAGE, validImages.length))
+  }, [validImages.length])
+
+  // Scroll-to-load: IntersectionObserver watches a sentinel element
+  // and loads more images before the user reaches the bottom
+  useEffect(() => {
+    if (!sentinelRef.current || displayCount >= validImages.length) return
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) loadMore()
+      },
+      { rootMargin: '400px' }
+    )
+    
+    observer.observe(sentinelRef.current)
+    return () => observer.disconnect()
+  }, [displayCount, validImages.length, loadMore])
+
   // Show empty state for gallery sections with no images
   if (validImages.length === 0) {
     return (
@@ -333,10 +355,6 @@ function GallerySectionView({ section }: { section: GallerySection }) {
   const visibleImages = validImages.slice(0, displayCount)
   const hasMore = displayCount < validImages.length
   const remainingCount = validImages.length - displayCount
-  
-  const handleLoadMore = () => {
-    setDisplayCount((prev) => prev + IMAGES_PER_PAGE)
-  }
 
   const handleImageClick = (index: number) => {
     setLightboxIndex(index)
@@ -356,12 +374,13 @@ function GallerySectionView({ section }: { section: GallerySection }) {
         <h2 className="gallery-heading">{section.heading}</h2>
       )}
       
-      <div className="gallery-grid">
+      <AdaptiveGrid
+        items={visibleImages}
+        minCardWidth={300}
+        idealCardWidth={500}
+        maxCardWidth={700}
+      >
         {visibleImages.map((image, index) => {
-          // Use natural aspect ratio when dimensions are available
-          const imageAspect = image.width && image.height
-            ? { aspectRatio: `${image.width} / ${image.height}` }
-            : undefined
           // When altText is shown as a visible caption, use generic alt to avoid
           // screen readers announcing the same text twice
           const showingAltAsCaption = !image.caption && !!image.altText
@@ -373,18 +392,18 @@ function GallerySectionView({ section }: { section: GallerySection }) {
             <button
               type="button"
               onClick={() => handleImageClick(index)}
-              className="gallery-item-btn"
-              style={imageAspect}
+              className="project-gallery-item"
+              style={image.width && image.height ? { aspectRatio: `${image.width} / ${image.height}` } : undefined}
               aria-label={`View ${image.altText || 'image'} in lightbox`}
             >
               <Image
                 src={image.imageUrl || ''}
                 alt={effectiveAlt}
-                className="gallery-item-img"
+                className="project-gallery-image"
                 fill
                 unoptimized
-                sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
-                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                loading="lazy"
               />
             </button>
             {(image.caption || image.altText) && (
@@ -395,18 +414,15 @@ function GallerySectionView({ section }: { section: GallerySection }) {
           </figure>
           )
         })}
-      </div>
+      </AdaptiveGrid>
       
       {hasMore && (
-        <div className="gallery-load-more">
-          <button
-            type="button"
-            onClick={handleLoadMore}
-            className="btn btn-secondary"
-          >
-            Load More ({remainingCount} remaining)
-          </button>
-        </div>
+        <>
+          <div ref={sentinelRef} className="gallery-load-sentinel" aria-hidden="true" />
+          <div className="gallery-loading-hint">
+            <span>{remainingCount} more</span>
+          </div>
+        </>
       )}
 
       {lightboxIndex !== null && (

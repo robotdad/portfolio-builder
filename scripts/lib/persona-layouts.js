@@ -264,9 +264,13 @@ const GENRE_MAP = {
   },
   sasha: {
     'theatre-work': GENRE_SPECTACLE,
+    'bethany-joy': GENRE_SPECTACLE,
     'uncsa-productions': GENRE_RESEARCH,
+    'ohio-lights-opera': GENRE_SPECTACLE,
+    'theoretical-construction': GENRE_RESEARCH,
     'finished-garments': GENRE_RESEARCH,
-    'draping-and-patterning': GENRE_RESEARCH,
+    'half-scales': GENRE_RESEARCH,
+    'draping-exercises': GENRE_RESEARCH,
     'personal-work': GENRE_INTIMATE,
     'millinery': GENRE_RESEARCH,
   },
@@ -277,19 +281,19 @@ const GENRE_DEFAULTS = {
     type: GENRE_SPECTACLE,
     gap: 'narrow',
     galleryStyle: 'grid',
-    galleryHeading: 'Production Scale',
+    galleryHeading: '',
   },
   [GENRE_RESEARCH]: {
     type: GENRE_RESEARCH,
     gap: 'wide',
     galleryStyle: 'carousel',
-    galleryHeading: 'Process & Construction',
+    galleryHeading: '',
   },
   [GENRE_INTIMATE]: {
     type: GENRE_INTIMATE,
     gap: 'default',
     galleryStyle: 'grid',
-    galleryHeading: 'Behind the Scenes',
+    galleryHeading: '',
   },
 };
 
@@ -2030,171 +2034,98 @@ function sashaCategoryPage(category, categoryIndex, context) {
 }
 
 function sashaProjectPage(project, galleryImages, context) {
-  const orderIndex = project.order != null ? project.order : 0;
-  const isEven = orderIndex % 2 === 0;
-  const { getNext, getNextN, remaining } = createImageConsumer(galleryImages);
-  const genre = getGenreConfig('sasha', project.categorySlug);
-
-  if (isEven) {
-    return sashaTemplateA(project, getNext, getNextN, remaining, context, genre);
+  // Multi-section projects get a special layout
+  if (project.sections && project.sections.length > 0) {
+    return sashaMultiSectionPage(project, galleryImages, context);
   }
-  return sashaTemplateB(project, getNext, getNextN, remaining, context, genre);
+  
+  // Single-section projects use the standard gallery-forward layout
+  return sashaSingleProjectPage(project, galleryImages, context);
 }
 
-/** Sasha Template A — "Process Documentation" (even order, genre-adaptive) */
-function sashaTemplateA(project, getNext, getNextN, remaining, context, genre) {
+/** Sasha multi-section project page (e.g., Idomeneo, Wild Party, The Rover, Twelfth Night) */
+function sashaMultiSectionPage(project, galleryImages, context) {
   const sections = [];
+  const { remaining } = createImageConsumer(galleryImages);
 
-  // 1. Hero image (full-width)
-  const heroImg = imageFromGallery(getNext());
-  if (heroImg) sections.push(heroImg);
-
-  // 2. Two-column 50-50 — description + project details.
-  // Title is already rendered as H1 by the page template — omit it here.
-  sections.push(
-    buildTwoColumnLayout({
-      ratio: '50-50',
-      gap: 'default',
-      mobileStackOrder: 'left-first',
-      leftColumn: [
-        buildTextSection({
-          body: formatAsHtml(project.description),
-        }),
-      ],
-      rightColumn: [
-        buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
-      ],
-    })
-  );
-
-  // 3. Two-column 50-50 — two images side-by-side (process comparison pair)
-  const pairA = imageFromGallery(getNext());
-  const pairB = imageFromGallery(getNext());
-  if (pairA || pairB) {
+  // 1. Top-level description (all text at top, before any images)
+  if (project.description) {
     sections.push(
-      buildTwoColumnLayout({
-        ratio: '50-50',
-        gap: 'narrow',
-        mobileStackOrder: 'left-first',
-        leftColumn: pairA ? [pairA] : [],
-        rightColumn: pairB ? [pairB] : [],
-      })
+      buildTextSection({ body: formatAsHtml(project.description) })
     );
   }
 
-  // 4. Full-width image — beauty shot of finished piece
-  const beautyImg = imageFromGallery(getNext());
-  if (beautyImg) sections.push(beautyImg);
-
-  // 5. Three-column — three process stage images (Sasha's signature layout)
-  const triImgs = getNextN(3);
-  if (triImgs.length > 0) {
-    const triColumns = triImgs.map(img => {
-      const section = imageFromGallery(img);
-      return section ? [section] : [];
-    });
-    while (triColumns.length < 3) triColumns.push([]);
-    sections.push(
-      buildThreeColumnLayout({
-        gap: 'narrow',
-        mobileStackOrder: 'left-first',
-        columns: triColumns,
-      })
-    );
+  // 3. Each sub-section: heading + text + images
+  // Section images are tracked separately via sectionImageMap on the project
+  for (const subSection of project.sections) {
+    // Section heading
+    if (subSection.title) {
+      sections.push(
+        buildTextSection({ body: `<h2>${subSection.title}</h2>\n${formatAsHtml(subSection.description || '')}` })
+      );
+    }
+    // Section images come from the gallery in order
+    // (The populate script will have placed them sequentially)
+    // We don't know exact counts here, so the remaining gallery
+    // images flow naturally into the final gallery below.
   }
 
-  // 6. Related project card (if available)
-  const relatedIds = getRelatedProjectIds(
-    context,
-    project.id || '',
-    project.categorySlug || '',
-    1
-  );
-  if (relatedIds.length > 0) {
-    sections.push(
-      buildProjectCardSection({ projectId: relatedIds[0], cardSize: 'large', showMetadata: true })
-    );
-  }
-
-  // 7. Gallery — genre-adaptive style for remaining images
+  // 4. All remaining images in a gallery (2-column minimum)
   const restImgs = remaining();
-  const gallerySection = buildGenreGallery(genre, restImgs);
-  if (gallerySection) sections.push(gallerySection);
+  if (restImgs.length > 0) {
+    sections.push(
+      buildGallerySection({
+        heading: '',
+        images: galleryImagesPayload(restImgs),
+        columns: Math.max(2, Math.min(4, restImgs.length)),
+      })
+    );
+  }
 
   return sections;
 }
 
-/** Sasha Template B — "Craft Showcase" (odd order, genre-adaptive) */
-function sashaTemplateB(project, getNext, getNextN, remaining, context, genre) {
+/** Sasha single project page — text at top, then all images */
+function sashaSingleProjectPage(project, galleryImages, context) {
   const sections = [];
+  const { remaining } = createImageConsumer(galleryImages);
 
-  // 1. Hero image (full-width)
-  const heroImg = imageFromGallery(getNext());
-  if (heroImg) sections.push(heroImg);
-
-  // 2. Sidebar — details sidebar + description main.
-  // Title is already rendered as H1 by the page template — omit it here.
-  sections.push(
-    buildSidebarLayout({
-      sidebarPosition: 'right',
-      sidebarWidth: 280,
-      gap: 'default',
-      mobileStackOrder: 'main-first',
-      sidebar: [
-        buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
-      ],
-      main: [
-        buildTextSection({
-          body: formatAsHtml(project.description),
-        }),
-      ],
-    })
-  );
-
-  // 3. Full-width image — process or finished piece
-  const breakImg = imageFromGallery(getNext());
-  if (breakImg) sections.push(breakImg);
-
-  // 4. Two-column 50-50 — two process images side-by-side
-  const pairA = imageFromGallery(getNext());
-  const pairB = imageFromGallery(getNext());
-  if (pairA || pairB) {
+  // 1. All text at top — description + project details side by side (before any images)
+  const hasDescription = project.description;
+  const hasDetails = project.projectDetails && Object.keys(project.projectDetails).length > 0;
+  
+  if (hasDescription && hasDetails) {
     sections.push(
       buildTwoColumnLayout({
         ratio: '50-50',
-        gap: 'narrow',
+        gap: 'default',
         mobileStackOrder: 'left-first',
-        leftColumn: pairA ? [pairA] : [],
-        rightColumn: pairB ? [pairB] : [],
+        leftColumn: [
+          buildTextSection({ body: formatAsHtml(project.description) }),
+        ],
+        rightColumn: [
+          buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
+        ],
       })
     );
+  } else if (hasDescription) {
+    sections.push(buildTextSection({ body: formatAsHtml(project.description) }));
+  } else if (hasDetails) {
+    sections.push(buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }));
   }
 
-  // 5. Full-width image — second beauty shot
-  const beautyImg = imageFromGallery(getNext());
-  if (beautyImg) sections.push(beautyImg);
-
-  // 6. Related project list (if available, up to 2)
-  const relatedIds = getRelatedProjectIds(
-    context,
-    project.id || '',
-    project.categorySlug || '',
-    2
-  );
-  if (relatedIds.length > 0) {
-    sections.push(
-      buildProjectListSection({
-        projectIds: relatedIds.slice(0, 2),
-        layout: 'vertical',
-        showMetadata: true,
-      })
-    );
-  }
-
-  // 7. Gallery — genre-adaptive style for remaining images
+  // 3. All remaining images — at least 2 columns, never single column
   const restImgs = remaining();
-  const gallerySection = buildGenreGallery(genre, restImgs);
-  if (gallerySection) sections.push(gallerySection);
+  if (restImgs.length > 0) {
+    // Use gallery with minimum 2 columns
+    sections.push(
+      buildGallerySection({
+        heading: '',
+        images: galleryImagesPayload(restImgs),
+        columns: Math.max(2, Math.min(4, restImgs.length)),
+      })
+    );
+  }
 
   return sections;
 }

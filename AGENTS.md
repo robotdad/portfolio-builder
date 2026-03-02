@@ -8,14 +8,12 @@ Guidance for effective AI agent usage in this project.
 
 This project uses `bundle:portfolio` which includes:
 
-- **ts-dev** - TypeScript/React development agents
-- **design-intelligence** - UX and design review agents  
-- **lsp-typescript** - Code navigation and intelligence
+- **ts-dev** - TypeScript/React development agents and LSP code intelligence
+- **design-intelligence** - UX and design review agents
+- **browser-tester** - Live browser automation, visual documentation, and UI research
 
 **Additional skills** to load when needed:
-- `playwright` - Browser automation for UI testing
-- `image-vision` - Screenshot analysis for visual QA
-- `curl` - API testing
+- `curl` - API testing (for lightweight HTTP checks not needing a real browser)
 
 ---
 
@@ -24,7 +22,7 @@ This project uses `bundle:portfolio` which includes:
 | Task | Agent |
 |------|-------|
 | Understand codebase | `foundation:explorer` |
-| TypeScript/LSP tracing | `lsp-typescript:typescript-code-intel` |
+| TypeScript/LSP tracing | `ts-dev:typescript-code-intel` |
 | React patterns, hooks | `ts-dev:react-dev` |
 | ESLint, type issues | `ts-dev:ts-dev` |
 | Next.js (App Router, SSR) | `ts-dev:nextjs-dev` |
@@ -32,6 +30,9 @@ This project uses `bundle:portfolio` which includes:
 | Layout, navigation UX | `design-intelligence:layout-architect` |
 | Component design | `design-intelligence:component-designer` |
 | Error messages, copy | `design-intelligence:voice-strategist` |
+| Navigate/interact with live UI | `browser-tester:browser-operator` |
+| Screenshots, visual docs | `browser-tester:visual-documenter` |
+| Research sites / extract data | `browser-tester:browser-researcher` |
 | Implementation | `foundation:modular-builder` |
 | Debugging | `foundation:bug-hunter` |
 | Git operations | `foundation:git-ops` |
@@ -44,7 +45,7 @@ This project uses `bundle:portfolio` which includes:
 
 **Investigate before implementing:**
 - Use `foundation:explorer` to understand code structure FIRST
-- Use `lsp-typescript:typescript-code-intel` to trace data flows
+- Use `ts-dev:typescript-code-intel` to trace data flows
 - THEN use `foundation:modular-builder` with proper context
 
 **Delegate early:**
@@ -72,70 +73,63 @@ This project uses `bundle:portfolio` which includes:
 
 ---
 
-## Playwright Patterns
+## Browser Testing (browser-tester agents)
 
-### Timing Issues (Critical)
+Use browser-tester agents instead of manual Playwright scripts for all live UI work. These agents handle browser automation, screenshot capture, and research natively — no skill loading required.
 
-```javascript
-// ❌ WRONG: Arbitrary timeouts
-await page.waitForTimeout(3000);
+### Which Agent to Use
 
-// ❌ WRONG: Race conditions with setTimeout
-setTimeout(() => saveDraft(), 0); // Playwright won't wait
+| Need | Agent | Use For |
+|------|-------|---------|
+| Interact with live UI | `browser-tester:browser-operator` | Navigation, forms, clicks, data extraction, UX testing |
+| Visual documentation | `browser-tester:visual-documenter` | Screenshots, responsive testing, before/after comparisons |
+| Research / extract data | `browser-tester:browser-researcher` | Multi-page exploration, docs lookup, competitor research |
 
-// ✅ CORRECT: Wait for visible UI changes
-await expect(page.getByText('Saved')).toBeVisible();
+### When to Use browser-tester vs Other Tools
 
-// ✅ CORRECT: Wait for element state
-await page.getByRole('button', { name: 'Save' }).waitFor({ state: 'enabled' });
+| ✅ Use browser-tester | ❌ DON'T Use For |
+|----------------------|------------------|
+| UI exploration and interaction | Bulk data population (use API scripts) |
+| Form submissions, workflows | Simple GET requests (use `curl` skill) |
+| Image uploads from test-assets | Running Playwright test suite (`npm run test:e2e`) |
+| Screenshots for visual verification | |
+| Responsive/viewport testing | |
+
+### Delegation Examples
+
+```
+# Explore and document the UI
+delegate(agent="browser-tester:browser-operator",
+         instruction="Go to http://localhost:3000/admin, log in as test user, and describe the dashboard layout")
+
+# Capture screenshots for review
+delegate(agent="browser-tester:visual-documenter",
+         instruction="Screenshot the portfolio home page at desktop (1440px), tablet (768px), and mobile (375px)")
+
+# Research an external site
+delegate(agent="browser-tester:browser-researcher",
+         instruction="Go to https://vercel.com and extract how they structure their case study pages")
 ```
 
-### When to Use Playwright
+### Notes on Playwright Test Suite
 
-| ✅ DO Use For | ❌ DON'T Use For |
-|---------------|------------------|
-| UI exploration and interaction | Bulk data population (use API) |
-| Form submissions, workflows | Performance testing |
-| Image uploads from test-assets | Simple GET requests (use curl) |
-| Validating UI state | |
-| Screenshots for vision analysis | |
-
-### Selector Strategy
-
-- Use `data-testid` selectors - all interactive elements have them
-- See `src/tests/e2e/fixtures.ts` for centralized selector definitions
-- File inputs are often hidden - use `page.locator('input[type="file"]').setInputFiles(path)`
-
----
-
-## Image Vision Patterns
-
-### Effective Workflow
+The Playwright test suite (`npm run test:e2e`) is a separate thing — run it directly from the terminal, not via browser-tester agents:
 
 ```bash
-# 1. Capture with Playwright
-await page.screenshot({ path: 'ai_working/check.png' });
-
-# 2. Analyze with vision
-# Ask specific questions, not generic "describe this"
-
-# 3. Act on findings or verify with code
+npm run test:setup    # Reset DB + populate test data
+npm run test:e2e      # Run Playwright tests
+npm run test:e2e:ui   # Playwright UI mode
 ```
 
-### What Vision Is Good At
+**Key conventions for the test suite:**
+- All interactive elements have `data-testid` attributes
+- Selectors centralized in `src/tests/e2e/fixtures.ts`
+- Use API population for setup, Playwright for UI verification
+- **Never commit screenshots** — use `ai_working/screenshots/` (gitignored)
 
-- Layout issues (spacing, hierarchy, missing elements)
-- Color contrast problems
-- Obvious alignment issues (>10px)
-- Broken UI states
+### Visual Triage Rule
 
-### What Vision Struggles With
-
-- Font family differences at small sizes
-- Precise alignment (<5px)
-- Subtle typography variations
-
-**Rule:** Use vision for TRIAGE, verify findings with code inspection.
+Use browser-tester:visual-documenter for TRIAGE (layout issues, broken states, spacing). Verify precise findings with code inspection — vision can miss sub-5px alignment details and subtle font differences.
 
 ---
 
@@ -145,7 +139,7 @@ await page.screenshot({ path: 'ai_working/check.png' });
 
 ```
 1. User reports issue
-2. Delegate to lsp-typescript to trace data flow
+2. Delegate to ts-dev:typescript-code-intel to trace data flow
 3. LSP finds root cause with line numbers
 4. Delegate to modular-builder for fix
 ```
@@ -163,15 +157,15 @@ await page.screenshot({ path: 'ai_working/check.png' });
 
 ## Agent Composition Workflow
 
-Recommended sequence for admin interface work:
+Recommended sequence for UI/admin interface work:
 
 ```
 1. foundation:explorer      → Understand structure
-2. playwright + vision      → Explore UI, capture evidence  
+2. browser-tester:*         → Explore UI, capture evidence  
 3. design-intelligence:*    → Get UX feedback
-4. lsp-typescript           → Trace specific issues
+4. ts-dev:typescript-code-intel → Trace specific issues
 5. foundation:modular-builder → Implement fixes
-6. playwright + vision      → Verify fixes
+6. browser-tester:visual-documenter → Verify fixes
 7. foundation:git-ops       → Commit with proper messages
 ```
 
@@ -346,8 +340,8 @@ issue_manager(operation="close", params={issue_id: "...", reason: "Completed"})
 
 1. **Delegate early** - Use agents from turn 2-3 to preserve context
 2. **Investigate first** - LSP trace before guessing at fixes
-3. **Vision for triage** - Verify findings with code inspection
-4. **Fix async issues** - setTimeout breaks Playwright timing
+3. **Vision for triage** - Use browser-tester:visual-documenter; verify precise findings with code inspection
+4. **Fix async issues** - setTimeout breaks the Playwright test suite timing
 5. **Use test-assets** - Personas and images exist for testing
 6. **Organize artifacts** - Screenshots in ai_working/, not committed
 7. **Use issue_manager** - For complex multi-session work with dependencies

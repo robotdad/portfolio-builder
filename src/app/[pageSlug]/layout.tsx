@@ -38,6 +38,7 @@ async function getPortfolioForLayout() {
         },
       },
       categories: {
+        where: { parentId: null },
         orderBy: { order: 'asc' },
         select: {
           id: true,

@@ -20,8 +20,12 @@ const PLACEHOLDER_SIZE = 20
  * - Extracts original dimensions
  */
 export async function processImage(buffer: Buffer): Promise<ProcessedImage> {
-  const image = sharp(buffer)
-  const originalMetadata = await image.metadata()
+  // Auto-orient from EXIF data first (handles iPhone portrait photos etc.)
+  // This must happen before reading metadata or generating variants,
+  // otherwise dimensions are wrong and images display sideways.
+  const oriented = sharp(buffer).rotate()
+  const orientedBuffer = await oriented.toBuffer()
+  const originalMetadata = await sharp(orientedBuffer).metadata()
 
   if (!originalMetadata.width || !originalMetadata.height) {
     throw new Error('Unable to read image dimensions')
@@ -37,7 +41,7 @@ export async function processImage(buffer: Buffer): Promise<ProcessedImage> {
       // Don't upscale - use original if smaller
       const targetWidth = Math.min(width, originalWidth)
       
-      const resized = await sharp(buffer)
+      const resized = await sharp(orientedBuffer)
         .resize(targetWidth, null, {
           withoutEnlargement: true,
           fit: 'inside',
@@ -50,7 +54,7 @@ export async function processImage(buffer: Buffer): Promise<ProcessedImage> {
   )
 
   // Create blur placeholder (20px wide, base64 data URI)
-  const placeholderBuffer = await sharp(buffer)
+  const placeholderBuffer = await sharp(orientedBuffer)
     .resize(PLACEHOLDER_SIZE, null, {
       withoutEnlargement: true,
       fit: 'inside',

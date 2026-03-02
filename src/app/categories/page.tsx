@@ -45,6 +45,7 @@ export default async function CategoriesPage() {
           orderBy: { navOrder: 'asc' },
         },
         categories: {
+          where: { parentId: null },
           orderBy: { order: 'asc' },
           include: {
             featuredImage: {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { processImage } from '@/lib/image-processor';
-import { getStorage } from '@/lib/storage';
+import { getStorageAsync } from '@/lib/storage';
 
 // Valid themes for validation
 const VALID_THEMES = ['modern-minimal', 'classic-elegant', 'bold-editorial'] as const;
@@ -300,7 +300,8 @@ export async function POST(request: NextRequest) {
         profilePhotoAssetId = asset.id;
 
         // Save files to disk using asset ID
-        const urls = await getStorage().saveProcessedImages(asset.id, processedPhoto.processed);
+        const storage = await getStorageAsync();
+        const urls = await storage.saveProcessedImages(asset.id, processedPhoto.processed);
         profilePhotoUrl = urls.url;
 
         // Update asset with actual URLs
@@ -445,7 +446,8 @@ export async function POST(request: NextRequest) {
             },
           });
 
-          const urls = await getStorage().saveProcessedImages(asset.id, photo.processed);
+          const photoStorage = await getStorageAsync();
+          const urls = await photoStorage.saveProcessedImages(asset.id, photo.processed);
 
           await tx.asset.update({
             where: { id: asset.id },

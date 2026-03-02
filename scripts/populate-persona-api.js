@@ -700,55 +700,99 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   }
   
   for (const category of personaData.categories || []) {
-    let categoryId;
+    let parentCategoryId;
     
     // Check if category already exists (only relevant in --no-reset mode)
     const existing = existingCategoryByName[category.name];
     if (existing) {
-      categoryId = existing.id;
-      categoryMap[category.name] = categoryId;
+      parentCategoryId = existing.id;
+      categoryMap[category.name] = parentCategoryId;
       console.log(`  ✓ ${category.name} (existing)`);
-      continue; // Skip creation, use existing
-    }
-    
-    const categoryPayload = {
-      portfolioId: portfolioId,
-      name: category.name
-    };
-    
-    // Add description if available
-    if (category.description) {
-      categoryPayload.description = category.description;
-    }
-    
-    const created = await apiCall('POST', '/admin/categories', categoryPayload);
-    categoryId = created.data.id;
-    const categorySlug = created.data.slug || category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
-    categoryMap[category.name] = categoryId;
-    stats.categories++;
-    
-    // Track category for Pass 2
-    populationContext.categories.set(categorySlug, {
-      id: categoryId,
-      slug: categorySlug,
-      name: category.name,
-      projectIds: [],
-      existingSections: buildCategorySections(category)
-    });
-    
-    // Add category content sections
-    const categorySections = buildCategorySections(category);
-    if (categorySections.length > 0) {
-      const contentJson = JSON.stringify({ sections: categorySections });
-      await apiCall('PUT', `/admin/categories/${categoryId}`, {
-        draftContent: contentJson,
-        order: category.order || 0
-      });
-      await apiCall('POST', `/admin/categories/${categoryId}/publish`);
-      stats.sectionsCreated += categorySections.length;
-      console.log(`  ✓ ${category.name} (${categorySections.length} sections)`);
     } else {
+      const categoryPayload = {
+        portfolioId: portfolioId,
+        name: category.name
+      };
+      if (category.description) {
+        categoryPayload.description = category.description;
+      }
+      
+      const created = await apiCall('POST', '/admin/categories', categoryPayload);
+      parentCategoryId = created.data.id;
+      const categorySlug = created.data.slug || category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
+      categoryMap[category.name] = parentCategoryId;
+      stats.categories++;
+      
+      // Track category for Pass 2
+      populationContext.categories.set(categorySlug, {
+        id: parentCategoryId,
+        slug: categorySlug,
+        name: category.name,
+        projectIds: [],
+        existingSections: buildCategorySections(category)
+      });
+      
+      // Add category content sections
+      const categorySections = buildCategorySections(category);
+      if (categorySections.length > 0) {
+        const contentJson = JSON.stringify({ sections: categorySections });
+        await apiCall('PUT', `/admin/categories/${parentCategoryId}`, {
+          draftContent: contentJson,
+          order: category.order || 0
+        });
+        await apiCall('POST', `/admin/categories/${parentCategoryId}/publish`);
+        stats.sectionsCreated += categorySections.length;
+      }
       console.log(`  ✓ ${category.name}`);
+    }
+    
+    // Create subcategories if present
+    if (category.subcategories) {
+      for (const sub of category.subcategories) {
+        const subExisting = existingCategoryByName[sub.name];
+        if (subExisting) {
+          categoryMap[sub.name] = subExisting.id;
+          console.log(`    ✓ ${sub.name} (existing subcategory)`);
+          continue;
+        }
+        
+        const subPayload = {
+          portfolioId: portfolioId,
+          name: sub.name,
+          parentId: parentCategoryId
+        };
+        if (sub.description) {
+          subPayload.description = sub.description;
+        }
+        
+        const subCreated = await apiCall('POST', '/admin/categories', subPayload);
+        const subCategoryId = subCreated.data.id;
+        const subSlug = subCreated.data.slug || sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-');
+        categoryMap[sub.name] = subCategoryId;
+        stats.categories++;
+        
+        // Track subcategory for Pass 2
+        populationContext.categories.set(subSlug, {
+          id: subCategoryId,
+          slug: subSlug,
+          name: sub.name,
+          parentSlug: category.slug || category.name.toLowerCase().replace(/\s+/g, '-'),
+          projectIds: [],
+          existingSections: buildCategorySections(sub)
+        });
+        
+        const subSections = buildCategorySections(sub);
+        if (subSections.length > 0) {
+          const contentJson = JSON.stringify({ sections: subSections });
+          await apiCall('PUT', `/admin/categories/${subCategoryId}`, {
+            draftContent: contentJson,
+            order: sub.order || 0
+          });
+          await apiCall('POST', `/admin/categories/${subCategoryId}/publish`);
+          stats.sectionsCreated += subSections.length;
+        }
+        console.log(`    ✓ ${sub.name} (subcategory of ${category.name})`);
+      }
     }
   }
 
@@ -756,28 +800,70 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   console.log('\n📝 Creating projects with rich content...');
   
   const projectTagsMap = new Map();
-  for (const category of personaData.categories || []) {
-    const categoryId = categoryMap[category.name];
-    console.log(`\n📁 ${category.name}`);
+  
+  // Helper to get all project groups: [{categoryName, projects, categorySlug}]
+  function getProjectGroups(categories) {
+    const groups = [];
+    for (const category of categories) {
+      if (category.subcategories) {
+        for (const sub of category.subcategories) {
+          groups.push({
+            categoryName: sub.name,
+            categorySlug: sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-'),
+            projects: sub.projects || []
+          });
+        }
+      } else if (category.projects) {
+        groups.push({
+          categoryName: category.name,
+          categorySlug: category.slug || category.name.toLowerCase().replace(/\s+/g, '-'),
+          projects: category.projects
+        });
+      }
+    }
+    return groups;
+  }
+  
+  const projectGroups = getProjectGroups(personaData.categories || []);
+  
+  for (const group of projectGroups) {
+    const categoryId = categoryMap[group.categoryName];
+    if (!categoryId) {
+      console.log(`  ⚠️  No category ID for ${group.categoryName}, skipping`);
+      continue;
+    }
+    
+    console.log(`\n📁 ${group.categoryName}`);
     console.log('─'.repeat(60));
     
     let categoryFeaturedImageId = null;
     
-    for (const project of category.projects || []) {
+    for (const project of group.projects) {
       console.log(`\n  ${project.title}`);
       
       try {
+        // For multi-section projects, collect ALL photos from all sections + top-level
+        let allPhotos = [...(project.photos || [])];
+        if (project.sections) {
+          for (const section of project.sections) {
+            allPhotos = allPhotos.concat(section.photos || []);
+          }
+        }
+        
         // Find featured photo
-        const featuredPhoto = project.photos?.find(p => 
+        const featuredPhoto = allPhotos.find(p => 
           p.tags?.includes('featured') || p.isFeatured
-        ) || project.photos?.[0];
+        ) || allPhotos[0];
         
         if (!featuredPhoto) {
           console.log('    ⚠️  No photos, skipping');
           continue;
         }
         
-        const featuredPath = findImagePath(personaDir, featuredPhoto, category, project);
+        // Build a fake category object for findImagePath
+        const fakeCategoryForPath = { slug: group.categorySlug, name: group.categoryName };
+        
+        const featuredPath = findImagePath(personaDir, featuredPhoto, fakeCategoryForPath, project);
         if (!featuredPath) {
           console.log(`    ⚠️  Featured image not found: ${featuredPhoto.file}`);
           continue;
@@ -789,8 +875,8 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         const featuredAsset = await uploadImage(featuredPath, portfolioId, featuredAltText, featuredCaption);
         stats.images++;
         
-        // Check if this is the category featured image
-        if (category.featuredPhoto && featuredPhoto.file.includes(path.basename(category.featuredPhoto))) {
+        // Track category featured image
+        if (!categoryFeaturedImageId) {
           categoryFeaturedImageId = featuredAsset.id;
         }
         
@@ -810,7 +896,6 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         
         const projectData = await apiCall('POST', '/admin/projects', projectPayload);
         const projectId = projectData.data.id;
-        const categorySlug = category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
         const projectSlug = projectData.data.slug || project.slug || project.title.toLowerCase().replace(/\s+/g, '-');
         stats.projects++;
         
@@ -819,35 +904,33 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
           id: projectId,
           slug: projectSlug,
           title: project.title,
-          categorySlug: categorySlug,
+          categorySlug: group.categorySlug,
           featuredImageId: featuredAsset.id,
-          existingSections: buildProjectSections(project, [])  // Gallery filled later
+          existingSections: buildProjectSections(project, [])
         });
         
-        // Track project tags for post-creation tag assignment
+        // Track project tags
         if (project.tags && project.tags.length > 0) {
           projectTagsMap.set(projectId, project.tags);
         }
         
-        // Add project ID to category's project list
-        const categoryContext = populationContext.categories.get(categorySlug);
+        // Add project to category context
+        const categoryContext = populationContext.categories.get(group.categorySlug);
         if (categoryContext) {
           categoryContext.projectIds.push(projectId);
         }
         
         // Process tags on featured image
         if (featuredPhoto.tags && featuredPhoto.tags.length > 0) {
-          processPhotoTags(featuredPhoto, featuredAsset, categorySlug, populationContext.taggedImages, projectSlug, project.title);
+          processPhotoTags(featuredPhoto, featuredAsset, group.categorySlug, populationContext.taggedImages, projectSlug, project.title);
         }
         
         console.log(`    ✓ Created (${details.year || '2024'}, ${details.venue || 'venue'})`);
         
-        // Upload gallery images (excluding identity photos only - featured IS included)
-        const galleryPhotos = (project.photos || []).filter(p => 
-          p !== featuredPhoto && !p.isIdentity
-        );
+        // Upload gallery images (all photos except the featured one)
+        const galleryPhotos = allPhotos.filter(p => p !== featuredPhoto && !p.isIdentity);
         
-        // Start with featured image as hero (already uploaded above)
+        // Start with featured image as hero
         const galleryImages = [{
           id: `featured-${featuredAsset.id}`,
           imageId: featuredAsset.id,
@@ -862,7 +945,7 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
           console.log(`    📷 Uploading ${galleryPhotos.length} gallery images...`);
           
           for (const photo of galleryPhotos) {
-            const photoPath = findImagePath(personaDir, photo, category, project);
+            const photoPath = findImagePath(personaDir, photo, fakeCategoryForPath, project);
             if (photoPath) {
               const altText = photo.title || photo.description || '';
               const caption = buildCaption(photo);
@@ -886,10 +969,8 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
                 height: asset.height
               });
               
-              // Process tags on gallery images
               if (photo.tags && photo.tags.length > 0) {
-                const catSlug = category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
-                processPhotoTags(photo, asset, catSlug, populationContext.taggedImages, projectSlug, project.title);
+                processPhotoTags(photo, asset, group.categorySlug, populationContext.taggedImages, projectSlug, project.title);
               }
               
               stats.images++;
@@ -899,7 +980,9 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
         }
         
         // Build and save rich project content (per-persona layout)
-        const projectSections = buildPersonaProjectPage(personaId, project, galleryImages, populationContext);
+        // Pass the full project object (including sections) so layout can handle multi-section
+        const projectWithContext = { ...project, categorySlug: group.categorySlug };
+        const projectSections = buildPersonaProjectPage(personaId, projectWithContext, galleryImages, populationContext);
         if (projectSections.length > 0) {
           const contentJson = JSON.stringify({ sections: projectSections });
           await apiCall('PUT', `/admin/projects/${projectId}`, {
@@ -910,7 +993,6 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
           stats.sectionsCreated += projectSections.length;
           console.log(`    ✓ Added ${projectSections.length} content sections, ${galleryImages.length} gallery images`);
           
-          // Update context with actual sections including gallery for Pass 2
           const projectContext = populationContext.projects.get(projectId);
           if (projectContext) {
             projectContext.existingSections = projectSections;
@@ -1027,8 +1109,6 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
   let catIdx = 0;
   for (const category of personaData.categories || []) {
     try {
-      // Match the slug resolution used in Step 4 (line 723) — prefer API-returned slug
-      // which is stored as the map key in populationContext.categories
       const categoryContext = populationContext.categories.get(category.slug)
         || [...populationContext.categories.values()].find(c => c.name === category.name);
       if (categoryContext) {
@@ -1045,6 +1125,30 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
       console.error(`  ⚠️ Category ${category.name} layout failed: ${error.message}`);
     }
     catIdx++;
+    
+    // Also finalize subcategory pages
+    if (category.subcategories) {
+      for (const sub of category.subcategories) {
+        try {
+          const subSlug = sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-');
+          const subContext = populationContext.categories.get(subSlug)
+            || [...populationContext.categories.values()].find(c => c.name === sub.name);
+          if (subContext) {
+            const subSections = buildPersonaCategoryPage(personaId, sub, catIdx, populationContext);
+            const subContent = JSON.stringify({ sections: subSections });
+            await apiCall('PUT', `/admin/categories/${subContext.id}`, {
+              draftContent: subContent
+            });
+            await apiCall('POST', `/admin/categories/${subContext.id}/publish`);
+            stats.sectionsCreated += subSections.length;
+            console.log(`    ✓ ${sub.name} landing updated (${subSections.length} sections)`);
+          }
+        } catch (error) {
+          console.error(`    ⚠️ Subcategory ${sub.name} layout failed: ${error.message}`);
+        }
+        catIdx++;
+      }
+    }
   }
   
   // Note: Legacy applyLayoutEnhancements() is no longer called.
