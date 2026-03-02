@@ -75,6 +75,21 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
               height: true,
             },
           },
+          children: {
+            orderBy: { order: 'asc' },
+            include: {
+              featuredImage: {
+                select: {
+                  id: true,
+                  url: true,
+                  altText: true,
+                  width: true,
+                  height: true,
+                },
+              },
+              _count: { select: { projects: true } },
+            },
+          },
           projects: {
             orderBy: { order: 'asc' },
             include: {
@@ -110,11 +125,13 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
     showInNav: p.showInNav,
   }))
   
-  const navCategories = portfolio.categories.map(c => ({
-    id: c.id,
-    name: c.name,
-    slug: c.slug,
-  }))
+  const navCategories = portfolio.categories
+    .filter(c => c.parentId === null)
+    .map(c => ({
+      id: c.id,
+      name: c.name,
+      slug: c.slug,
+    }))
 
   // Check for category list page preview (/preview/categories)
   // Must come BEFORE category slug check to avoid conflicts with a category named "categories"
@@ -236,8 +253,11 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
     // Deserialize sections from draft content
     const categorySections = deserializeSections(category.draftContent || '')
     
-    // If we have draft content sections, use section-based rendering
-    if (categorySections.length > 0) {
+    // Parent categories with children always use CategoryLanding (subcategory tiles).
+    // SectionRenderer only applies to leaf categories with draft content.
+    const hasChildren = category.children.length > 0
+
+    if (!hasChildren && categorySections.length > 0) {
       // Build projects in format expected by SectionRenderer (ProjectWithImage interface)
       const projectsForRenderer = projectsWithContent.map(project => ({
         id: project.id,
@@ -328,6 +348,13 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
             description: category.description,
           }}
           projects={projectsWithImages}
+          subcategories={category.children.map(child => ({
+            id: child.id,
+            name: child.name,
+            slug: child.slug,
+            featuredImage: child.featuredImage,
+            projectCount: child._count.projects,
+          }))}
           portfolioSlug="preview"
         />
       </div>

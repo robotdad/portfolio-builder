@@ -194,9 +194,11 @@ async function renderCategoryPage(
   const heroSection = homePageSections.find(isHeroSection)
   const portfolioName = heroSection?.name || portfolio.name
 
-  // If we have published content, use section-based rendering
-  // Note: Navigation and footer are provided by the layout
-  if (sections.length > 0) {
+  // Parent categories with children always use CategoryLanding (subcategory tiles).
+  // SectionRenderer only applies to leaf categories with published content.
+  const hasChildren = fullCategory.children.length > 0
+
+  if (!hasChildren && sections.length > 0) {
     return (
       <SectionRenderer
         sections={sections}

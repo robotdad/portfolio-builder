@@ -173,11 +173,13 @@ export default async function Home() {
       showInNav: p.showInNav,
     }))
 
-  const navCategories: NavCategory[] = portfolio.categories.map(c => ({
-    id: c.id,
-    name: c.name,
-    slug: c.slug,
-  }))
+  const navCategories: NavCategory[] = portfolio.categories
+    .filter(c => c.parentId === null)
+    .map(c => ({
+      id: c.id,
+      name: c.name,
+      slug: c.slug,
+    }))
 
   const theme = (portfolio.publishedTheme || 'modern-minimal') as 'modern-minimal' | 'classic-elegant' | 'bold-editorial'
 
