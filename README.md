@@ -68,6 +68,20 @@ npm run dev
 
 The app will be available at `http://localhost:3000`.
 
+### Daily Development
+
+If you've already completed the initial setup and are returning to the project, you just need two steps:
+
+```bash
+# 1. Start the database (must be running before the dev server)
+docker-compose up -d
+
+# 2. Start the development server
+npm run dev
+```
+
+The dev server requires a running PostgreSQL instance. If you see database connection errors, check that Docker is running and the postgres container is up (`docker ps`).
+
 ### First Run
 
 1. Navigate to `http://localhost:3000`
