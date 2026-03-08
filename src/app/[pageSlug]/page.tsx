@@ -234,13 +234,13 @@ async function renderCategoryPage(
               <p className="category-description">{fullCategory.description}</p>
             )}
           </header>
+          <SectionRenderer
+            sections={cleanedSections}
+            portfolioSlug=""
+            categorySlug={fullCategory.slug}
+            projects={fullCategory.projects}
+          />
         </div>
-        <SectionRenderer
-          sections={cleanedSections}
-          portfolioSlug=""
-          categorySlug={fullCategory.slug}
-          projects={fullCategory.projects}
-        />
       </>
     )
   }
