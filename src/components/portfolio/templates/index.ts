@@ -36,12 +36,32 @@ export interface ProfilePhoto {
   altText?: string
 }
 
+export interface CategoryForTemplate {
+  id: string
+  name: string
+  slug: string
+  description: string | null
+  order: number
+  featuredImage: {
+    id: string
+    url: string
+    thumbnailUrl: string
+    altText: string
+    width?: number
+    height?: number
+  } | null
+  _count: {
+    projects: number
+  }
+}
+
 export interface TemplateProps {
   portfolio: {
     name: string
   }
   sections: Section[]
   featuredProjects: FeaturedProject[]
+  categories?: CategoryForTemplate[]
 }
 
 // Template metadata for UI

@@ -9,6 +9,7 @@ import {
   FeaturedGridTemplate, 
   CleanMinimalTemplate, 
   type TemplateId,
+  type CategoryForTemplate,
 } from '@/components/portfolio/templates'
 import type { Metadata } from 'next'
 
@@ -72,6 +73,19 @@ export default async function Home() {
         categories: {
           orderBy: { order: 'asc' },
           include: {
+            featuredImage: {
+              select: {
+                id: true,
+                url: true,
+                thumbnailUrl: true,
+                altText: true,
+                width: true,
+                height: true,
+              },
+            },
+            _count: {
+              select: { projects: true },
+            },
             projects: {
               where: {
                 isFeatured: true,
@@ -158,6 +172,26 @@ export default async function Home() {
     })
   ).sort((a, b) => a.order - b.order).slice(0, 6)
 
+  // Prepare root-level categories for category-grid sections
+  const templateCategories: CategoryForTemplate[] = portfolio.categories
+    .filter(c => c.parentId === null)
+    .map(c => ({
+      id: c.id,
+      name: c.name,
+      slug: c.slug,
+      description: c.description,
+      order: c.order,
+      featuredImage: c.featuredImage ? {
+        id: c.featuredImage.id,
+        url: c.featuredImage.url,
+        thumbnailUrl: c.featuredImage.thumbnailUrl,
+        altText: c.featuredImage.altText || c.name,
+        width: c.featuredImage.width ?? undefined,
+        height: c.featuredImage.height ?? undefined,
+      } : null,
+      _count: c._count,
+    }))
+
   // Select template based on portfolio's published template setting
   const templateId = (portfolio.publishedTemplate || 'featured-grid') as TemplateId
   const Template = TemplateComponents[templateId] || TemplateComponents['featured-grid']
@@ -200,6 +234,7 @@ export default async function Home() {
           }}
           sections={sections}
           featuredProjects={featuredProjects}
+          categories={templateCategories}
         />
       </main>
       <PublicFooter portfolioName={name} />

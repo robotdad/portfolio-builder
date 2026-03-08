@@ -6,9 +6,9 @@ import { ImageWithFallback } from '../ImageFallback'
 import type { TemplateProps } from './index'
 
 export function CleanMinimalTemplate({
-  portfolio,
   sections,
   featuredProjects,
+  categories,
 }: TemplateProps) {
   // Clean minimal shows 3-6 projects in a stacked layout
   const displayProjects = featuredProjects.slice(0, 6)
@@ -17,7 +17,7 @@ export function CleanMinimalTemplate({
     <>
         {/* Hero and other sections with expansive styling */}
         <div className="clean-minimal-hero-wrapper">
-          <SectionRenderer sections={sections} portfolioSlug="" />
+          <SectionRenderer sections={sections} portfolioSlug="" categories={categories} />
         </div>
 
         {/* Stacked featured projects */}

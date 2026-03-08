@@ -5,13 +5,13 @@ import { FeaturedWork } from '../FeaturedWork'
 import type { TemplateProps } from './index'
 
 export function FeaturedGridTemplate({
-  portfolio,
   sections,
   featuredProjects,
+  categories,
 }: TemplateProps) {
   return (
     <div className="container">
-      <SectionRenderer sections={sections} portfolioSlug="" />
+      <SectionRenderer sections={sections} portfolioSlug="" categories={categories} />
 
       {featuredProjects.length > 0 && (
         <FeaturedWork
