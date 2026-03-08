@@ -4717,6 +4717,9 @@ textarea:focus-visible {
 
 /* Modern Minimal Theme */
 .portfolio-nav--modern-minimal {
+  /* Wire nav-local aliases to the standard theme tokens inherited from [data-theme] */
+  --modern-text: var(--color-text-primary);
+  --modern-text-muted: var(--color-text-secondary);
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -4767,6 +4770,12 @@ textarea:focus-visible {
 
 /* Classic Elegant Theme */
 .portfolio-nav--classic-elegant {
+  /* Wire nav-local aliases to the standard theme tokens inherited from [data-theme] */
+  --classic-accent: var(--color-accent);
+  --classic-text: var(--color-text-primary);
+  --classic-text-muted: var(--color-text-secondary);
+  --classic-font-display: var(--font-family-display, 'Playfair Display', Georgia, serif);
+  --classic-bg: var(--color-bg);
   background: rgba(250, 249, 247, 0.95);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(139, 115, 85, 0.1);
@@ -4821,6 +4830,11 @@ textarea:focus-visible {
 
 /* Bold Editorial Theme */
 .portfolio-nav--bold-editorial {
+  /* Wire nav-local aliases to the standard theme tokens inherited from [data-theme] */
+  --bold-accent: var(--color-accent);
+  --bold-text: var(--color-text-primary);
+  --bold-font-display: var(--font-family-display, 'Sora', 'DM Sans', sans-serif);
+  --bold-bg: var(--color-bg);
   background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
