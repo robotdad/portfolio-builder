@@ -5374,7 +5374,7 @@ textarea:focus-visible {
 
 /* Breadcrumb Navigation */
 .breadcrumb {
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-3);
 }
 
 .breadcrumb-list {
@@ -5396,6 +5396,9 @@ textarea:focus-visible {
 .breadcrumb-link {
   color: var(--color-text-secondary);
   text-decoration: none;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   transition: color var(--transition-fast);
 }
 
@@ -5410,7 +5413,47 @@ textarea:focus-visible {
 
 .breadcrumb-separator {
   color: var(--color-text-secondary);
-  opacity: 0.5;
+  opacity: 0.4;
+  font-size: var(--font-size-xs);
+}
+
+/* Category Page Header — unified breadcrumb + title + description zone */
+.category-page-header {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-8);
+}
+
+.category-page-header .category-title {
+  font-size: var(--font-size-4xl, 2.25rem);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-primary);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.category-page-header .category-description {
+  margin: var(--space-2) 0 0 0;
+  font-size: var(--font-size-lg, 1.125rem);
+  font-family: var(--font-family-secondary);
+  color: var(--color-text-secondary);
+  max-width: 50ch;
+  line-height: 1.6;
+}
+
+@media (max-width: 767px) {
+  .category-page-header {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-6);
+  }
+
+  .category-page-header .category-title {
+    font-size: var(--font-size-3xl, 1.875rem);
+  }
+
+  .category-page-header .category-description {
+    font-size: var(--font-size-base, 1rem);
+  }
 }
 
 /* Project Card Component */

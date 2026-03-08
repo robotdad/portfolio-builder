@@ -203,22 +203,47 @@ async function renderCategoryPage(
   const hasChildren = fullCategory.children.length > 0
 
   if (!hasChildren && sections.length > 0) {
+    // Build a proper page header from category data instead of relying on section ordering.
+    // Filter out redundant text/heading sections so content doesn't render twice.
+    const cleanedSections = sections
+      .filter(s => {
+        // Remove text section that duplicates the category description
+        if (s.type === 'text' && 'content' in s) {
+          const stripped = (s as { content?: string }).content?.replace(/<[^>]*>/g, '').trim()
+          if (stripped === fullCategory.description?.trim()) return false
+        }
+        return true
+      })
+      .map(s => {
+        // Suppress project-grid heading that duplicates the category name
+        if (s.type === 'project-grid' && 'heading' in s) {
+          const pg = s as { heading?: string }
+          if (pg.heading === fullCategory.name) {
+            return { ...s, heading: '' }
+          }
+        }
+        return s
+      })
+
     return (
       <>
-        {fullCategory.parent && (
-          <div className="container">
-            <div style={{ paddingTop: 'var(--space-6, 24px)' }}>
+        <div className="container">
+          <header className="category-page-header">
+            {fullCategory.parent && (
               <Breadcrumb
                 items={[
                   { label: fullCategory.parent.name, href: `/${fullCategory.parent.slug}` },
-                  { label: fullCategory.name },
                 ]}
               />
-            </div>
-          </div>
-        )}
+            )}
+            <h1 className="category-title">{fullCategory.name}</h1>
+            {fullCategory.description && (
+              <p className="category-description">{fullCategory.description}</p>
+            )}
+          </header>
+        </div>
         <SectionRenderer
-          sections={sections}
+          sections={cleanedSections}
           portfolioSlug=""
           categorySlug={fullCategory.slug}
           projects={fullCategory.projects}
