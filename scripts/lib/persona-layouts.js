@@ -1956,19 +1956,7 @@ function sashaHomepage(context) {
     );
   }
 
-  // 3. Category grid — 3 columns to showcase 6 craft disciplines
-  sections.push({
-    id: generateSectionId(),
-    type: 'category-grid',
-    heading: 'Craft Disciplines',
-    description: '',
-    categoryIds: null,
-    columns: 3,
-    showDescription: true,
-    showProjectCount: true,
-  });
-
-  // 4. Project grid — 2 columns for larger image presence
+  // 3. Project grid — 2 columns for larger image presence
   sections.push({
     id: generateSectionId(),
     type: 'project-grid',
