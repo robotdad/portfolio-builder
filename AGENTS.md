@@ -111,6 +111,16 @@ delegate(agent="browser-tester:browser-researcher",
          instruction="Go to https://vercel.com and extract how they structure their case study pages")
 ```
 
+### Admin Authentication
+
+Admin pages at `/admin/*` require authentication. Browser agents should generate a session token using `AUTH_SECRET` from `.env.local` to access these pages programmatically — the same way the Playwright test suite authenticates.
+
+**Rules:**
+- **DO** read `AUTH_SECRET` from `.env.local` and use it to generate a valid session cookie
+- **DO** reuse an authenticated browser agent session via `session_id` for follow-up work instead of spawning fresh agents that have to re-authenticate
+- **NEVER** modify `.env.local` or any auth configuration (e.g. setting `AUTH_DISABLED=true`)
+- **NEVER** weaken, bypass, or disable authentication in code or environment
+
 ### Notes on Playwright Test Suite
 
 The Playwright test suite (`npm run test:e2e`) is a separate thing — run it directly from the terminal, not via browser-tester agents:
@@ -195,26 +205,46 @@ npm run test:e2e:ui       # Playwright UI mode
 
 **Location:** `ai_working/`
 
-This is the designated **temp workspace** for AI agent sessions. Use it for all intermediate artifacts:
+This is the **only** place for AI agent temporary work. Every session must use it.
 
-| Content | Example |
-|---------|---------|
-| Analysis docs | `UX-REVIEW-FINDINGS.md`, `CODE-REVIEW.md` |
-| Implementation specs | `AUTH-IMPLEMENTATION-PLAN.md` |
-| Session summaries | `SESSION_SUMMARY.md`, `population-summary.json` |
-| Temporary scripts | `verify-fixes.js`, `capture-screenshots.js` |
-| Screenshots | `screenshots/*.png` (gitignored) |
+### Date Folder Convention (Required)
 
-**Organization:** Always create a date folder for your work:
+**Always** create a date folder for your session's work using `YYYY-MM-DD` format:
+
 ```
-ai_working/2026-01-24/your-analysis.md
-ai_working/screenshots/your-capture.png
+ai_working/YYYY-MM-DD/your-analysis.md
+ai_working/YYYY-MM-DD/your-script.js
+ai_working/YYYY-MM-DD/screenshots/capture.png
 ```
 
-**Do NOT:**
-- Create random folders in the project root
-- Leave intermediate files outside `ai_working/`
-- Commit screenshots (they're gitignored)
+Multiple sessions on the same date share the date folder. Use descriptive filenames to avoid collisions.
+
+### What Goes Here
+
+| Content | Location |
+|---------|----------|
+| Analysis docs, specs, plans | `ai_working/YYYY-MM-DD/ANALYSIS.md` |
+| Session summaries | `ai_working/YYYY-MM-DD/SESSION_SUMMARY.md` |
+| Temporary scripts | `ai_working/YYYY-MM-DD/verify-fixes.js` |
+| Screenshots | `ai_working/YYYY-MM-DD/screenshots/` (gitignored) |
+| Recipe files | `ai_working/YYYY-MM-DD/my-recipe.yaml` |
+| Reference data, JSON exports | `ai_working/YYYY-MM-DD/data.json` |
+
+### What Is Gitignored
+
+Images and binary artifacts are automatically excluded everywhere under `ai_working/`:
+- All image formats (`.png`, `.jpg`, `.jpeg`, `.gif`, `.webp`, `.svg`)
+- All `screenshots*/` directories
+- Base64 encoded files (`.b64`, `.b64.txt`, `*_uri.txt`)
+
+Text artifacts (`.md`, `.yaml`, `.json`, `.js`, `.py`) are **tracked** and serve as useful session history.
+
+### Rules
+
+- **Always** use a date folder — never dump files in `ai_working/` root
+- **Never** create folders or leave files in the project root
+- **Never** leave intermediate artifacts outside `ai_working/`
+- **Never** commit screenshots — they are gitignored automatically
 
 See `ai_working/README.md` for full guidelines.
 

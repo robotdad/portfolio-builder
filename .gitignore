@@ -115,10 +115,14 @@ test-assets/**/*.gif
 test-assets/**/*.webp
 test-assets/**/*.svg
 
-# AI working area - ignore all images (screenshots, reference images, etc.)
+# AI working area - ignore images, screenshots, and binary artifacts
 ai_working/**/*.png
 ai_working/**/*.jpg
 ai_working/**/*.jpeg
 ai_working/**/*.gif
 ai_working/**/*.webp
-!ai_working/screenshots/.gitkeep
+ai_working/**/*.svg
+ai_working/**/screenshots*/
+ai_working/**/*.b64
+ai_working/**/*.b64.txt
+ai_working/**/*_uri.txt
