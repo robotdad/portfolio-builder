@@ -71,7 +71,7 @@ export function AboutSection({
           font-size: var(--font-size-2xl, 1.5rem);
           font-weight: var(--font-weight-semibold, 600);
           font-family: var(--font-family-primary, inherit);
-          color: var(--color-text-primary, #111827);
+          color: var(--color-accent);
           text-align: center;
           margin: 0 0 var(--space-8, 32px) 0;
         }
