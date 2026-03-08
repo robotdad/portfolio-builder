@@ -1,0 +1,7 @@
+node_modules
+.next
+.env*
+ai_working
+test-assets
+*.md
+.git
