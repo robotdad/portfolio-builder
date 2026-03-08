@@ -5716,6 +5716,7 @@ textarea:focus-visible {
   font-family: var(--font-family-secondary);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--color-accent);
   margin: 0;
 }
 
@@ -5723,8 +5724,8 @@ textarea:focus-visible {
 .project-year::after {
   content: "·";
   margin-left: var(--space-5);
-  color: var(--color-accent);
-  opacity: 0.6;
+  color: var(--color-text-secondary);
+  opacity: 0.5;
 }
 
 .project-meta > *:last-child::after {
