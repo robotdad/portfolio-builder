@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
 import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
 import { CategoryLanding } from '@/components/portfolio/CategoryLanding'
-import { Breadcrumb } from '@/components/portfolio/Breadcrumb'
+
 
 import { deserializeSections } from '@/lib/serialization'
 import { isHeroSection, isGallerySection } from '@/lib/content-schema'
@@ -229,13 +229,6 @@ async function renderCategoryPage(
       <>
         <div className="container">
           <header className="category-page-header">
-            {fullCategory.parent && (
-              <Breadcrumb
-                items={[
-                  { label: fullCategory.parent.name, href: `/${fullCategory.parent.slug}` },
-                ]}
-              />
-            )}
             <h1 className="category-title">{fullCategory.name}</h1>
             {fullCategory.description && (
               <p className="category-description">{fullCategory.description}</p>

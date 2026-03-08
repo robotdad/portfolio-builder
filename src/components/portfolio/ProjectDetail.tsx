@@ -50,7 +50,7 @@ interface ProjectDetailProps {
  * - Lightbox for full-screen image viewing
  */
 export function ProjectDetail({ 
-  portfolio, 
+  portfolio: _portfolio, 
   category, 
   project
 }: ProjectDetailProps) {
@@ -59,14 +59,13 @@ export function ProjectDetail({
   
   return (
     <div className="container" data-testid="project-detail">
-      {/* Breadcrumb navigation */}
+      {/* Back-link to parent category */}
       <Breadcrumb 
         items={[
           { 
             label: category.name, 
             href: `/${category.slug}` 
           },
-          { label: project.title }
         ]} 
       />
       

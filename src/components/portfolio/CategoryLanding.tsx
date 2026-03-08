@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Breadcrumb } from './Breadcrumb'
+
 import { ProjectCard } from './ProjectCard'
 import { EmptyState } from './EmptyState'
 import { AdaptiveGrid } from '@/components/layout/AdaptiveGrid'
@@ -80,7 +80,7 @@ interface CategoryLandingProps {
 export function CategoryLanding({ 
   portfolio: _portfolio, 
   category, 
-  parentCategory,
+  parentCategory: _parentCategory,
   projects,
   subcategories,
   portfolioSlug = ''
@@ -90,14 +90,7 @@ export function CategoryLanding({
   return (
     <>
       <div className="container">
-        {/* Page header with breadcrumb */}
         <header className="category-header">
-          <Breadcrumb 
-            items={[
-              ...(parentCategory ? [{ label: parentCategory.name, href: `/${parentCategory.slug}` }] : []),
-              { label: category.name }
-            ]} 
-          />
           <h1 className="category-title">{category.name}</h1>
         </header>
         
