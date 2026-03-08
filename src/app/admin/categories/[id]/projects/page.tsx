@@ -14,9 +14,23 @@ import type { ProjectFormData } from '@/components/admin/ProjectForm'
 // Types
 // ============================================================================
 
+interface Subcategory {
+  id: string
+  name: string
+  slug: string
+  featuredImage: {
+    id: string
+    url: string
+    thumbnailUrl: string
+    altText: string | null
+  } | null
+  _count: { projects: number }
+}
+
 interface Category {
   id: string
   name: string
+  children?: Subcategory[]
 }
 
 // ============================================================================
@@ -198,6 +212,7 @@ export default function ProjectsPage() {
         setCategory({
           id: result.data.id,
           name: result.data.name,
+          children: result.data.children || [],
         })
         setPortfolioId(result.data.portfolioId)
       } catch (err) {
@@ -454,6 +469,38 @@ export default function ProjectsPage() {
 
       {/* Main Content */}
       <main className="page-content">
+        {/* Subcategories section for parent categories */}
+        {category?.children && category.children.length > 0 && (
+          <div className="subcategories-section">
+            <h3 className="subcategories-heading">Subcategories</h3>
+            <div className="subcategories-grid">
+              {category.children.map(sub => (
+                <Link
+                  key={sub.id}
+                  href={`/admin/categories/${sub.id}/projects`}
+                  className="subcategory-card"
+                >
+                  {sub.featuredImage && (
+                    <div className="subcategory-card-image">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={sub.featuredImage.thumbnailUrl || sub.featuredImage.url}
+                        alt={sub.featuredImage.altText || sub.name}
+                      />
+                    </div>
+                  )}
+                  <div className="subcategory-card-info">
+                    <span className="subcategory-card-name">{sub.name}</span>
+                    <span className="subcategory-card-count">
+                      {sub._count.projects} {sub._count.projects === 1 ? 'project' : 'projects'}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
         <ProjectList
           projects={projects}
           onCreateClick={() => setShowCreateModal(true)}
@@ -563,6 +610,80 @@ export default function ProjectsPage() {
 
         .success-toast span {
           flex: 1;
+        }
+
+        /* Subcategories Section */
+        .subcategories-section {
+          max-width: 1200px;
+          margin: 0 auto 24px;
+          padding: 0 24px;
+        }
+
+        .subcategories-heading {
+          margin: 0 0 16px;
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--admin-text, #111827);
+        }
+
+        .subcategories-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+          gap: 16px;
+        }
+
+        .subcategories-section :global(.subcategory-card) {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px;
+          background: var(--color-surface, #f9fafb);
+          border: 1px solid var(--admin-border, #e5e7eb);
+          border-radius: 10px;
+          text-decoration: none;
+          color: inherit;
+          transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .subcategories-section :global(.subcategory-card:hover) {
+          border-color: var(--color-accent, #3b82f6);
+          box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .subcategory-card-image {
+          width: 48px;
+          height: 48px;
+          border-radius: 8px;
+          overflow: hidden;
+          flex-shrink: 0;
+          background: var(--admin-border, #e5e7eb);
+        }
+
+        .subcategory-card-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .subcategory-card-info {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          min-width: 0;
+        }
+
+        .subcategory-card-name {
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--admin-text, #111827);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .subcategory-card-count {
+          font-size: 12px;
+          color: var(--admin-text-muted, #6b7280);
         }
 
         /* Main Content */
