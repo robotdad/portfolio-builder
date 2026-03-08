@@ -324,7 +324,7 @@ function renderPortfolioPage(
 
   // Note: Navigation and footer are provided by the layout
   return (
-    <div className="container">
+    <div className="container" data-page={currentPage.slug}>
       {sections.length > 0 ? (
         <SectionRenderer sections={sections} portfolioSlug="" />
       ) : (

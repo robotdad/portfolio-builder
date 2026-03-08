@@ -5732,6 +5732,11 @@ textarea:focus-visible {
   content: none;
 }
 
+/* About page — accent color on job title */
+[data-page="about"] .hero-title {
+  color: var(--color-accent);
+}
+
 .project-content {
   display: flex;
   flex-direction: column;
