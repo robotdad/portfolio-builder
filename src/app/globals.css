@@ -4427,6 +4427,9 @@ textarea:focus-visible {
 
 .portfolio-nav-link--active {
   font-weight: var(--font-weight-semibold);
+  /* Base active indicator — themes override with their own personality.
+     Using a bottom border as the universal active signal because it's
+     visible, accessible, and doesn't shift layout (padding already exists). */
 }
 
 /* Progressive spacing enhancement for larger viewports */
@@ -4735,6 +4738,8 @@ textarea:focus-visible {
 .portfolio-nav--modern-minimal .portfolio-nav-link--active {
   color: var(--modern-text);
   background: rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid var(--color-accent, hsl(220, 90%, 56%));
+  border-radius: 0;
 }
 
 .portfolio-nav--modern-minimal .portfolio-nav-hamburger {
@@ -4843,6 +4848,8 @@ textarea:focus-visible {
 
 .portfolio-nav--bold-editorial .portfolio-nav-link--active {
   color: var(--bold-accent);
+  border-bottom: 2px solid var(--bold-accent);
+  border-radius: 0;
 }
 
 .portfolio-nav--bold-editorial .portfolio-nav-hamburger {
@@ -5819,8 +5826,11 @@ textarea:focus-visible {
 
 @media (min-width: 640px) {
   .carousel-viewport {
-    /* Desktop: 16:9 aspect ratio */
+    /* Desktop: 16:9 aspect ratio, capped so content is visible below the fold.
+       At 1400px wide, 16:9 = 788px tall which consumes the entire viewport.
+       70vh ensures ~30% of the viewport shows content below the carousel. */
     aspect-ratio: 16 / 9;
+    max-height: 70vh;
   }
 }
 

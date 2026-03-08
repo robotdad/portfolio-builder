@@ -186,7 +186,7 @@ cp .env.example .env
 - [Architecture](docs/ARCHITECTURE.md) — System design overview
 - [API Reference](docs/API.md) — REST API documentation
 - [Testing Guide](docs/TESTING.md) — Test infrastructure and patterns
-- [Deployment Guide](docs/DEPLOYMENT.md) — Production deployment options *(coming soon)*
+- [Deployment Guide](docs/DEPLOYMENT.md) — Azure Container Apps deployment
 
 ## Test Data
 
@@ -200,16 +200,19 @@ See `test-assets/README.md` for available test personas and their content.
 
 ## Deployment
 
-This application is designed for single-user deployment on Azure using .NET Aspire.
+This application is designed for single-user deployment on Azure Container Apps.
 
-**Quick overview:**
-- Azure Container Apps with Docker
-- PostgreSQL database (Azure Database for PostgreSQL)
-- Azure Blob Storage for images (optional)
+**Architecture:**
+- Azure Container Apps (container hosting, managed TLS)
+- Azure Container Registry (private image storage)
+- Azure Database for PostgreSQL Flexible Server (VNet-private)
+- Azure Blob Storage for images
 - Google OAuth for authentication
-- .NET Aspire for orchestration and observability
+- GitHub Actions CI/CD with OIDC (no stored secrets)
 
-See the [Migration Plan](ai_working/2026-02-01/ASPIRE-MIGRATION-PLAN.md) for the Aspire deployment strategy.
+**Estimated cost:** ~$18-25/month.
+
+See the [Deployment Guide](docs/DEPLOYMENT.md) for full instructions.
 
 ## Contributing
 

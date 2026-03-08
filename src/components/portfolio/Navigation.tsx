@@ -168,20 +168,32 @@ export function Navigation({
         return
       }
 
-      // Not all fit — find how many fit alongside a "More" button
+      // Not all fit — find how many fit alongside a "More" button.
+      // IMPORTANT: Don't fold a single category under "More" — if only 1
+      // would overflow, show all inline instead. A "More" dropdown containing
+      // exactly one item is confusing UX. This rule has regressed multiple
+      // times (see git history for c9f92e2) — do NOT remove this check.
+      let bestFitCount = 0
       for (let fitCount = categories.length - 1; fitCount >= 0; fitCount--) {
         const visibleCatWidth = catWidths.slice(0, fitCount).reduce((s, w) => s + w, 0)
         const numItems = fitCount + 1 + numNonCat
         const total = visibleCatWidth + moreWidth + nonCatTotalWidth + Math.max(0, numItems - 1) * gap
 
         if (total <= containerWidth) {
-          setOverflowIndex(fitCount)
-          return
+          bestFitCount = fitCount
+          break
         }
       }
 
-      // Nothing fits inline — all go in "More"
-      setOverflowIndex(0)
+      // Don't fold a single item under "More" — show all inline instead.
+      // A dropdown with 1 item is worse UX than a slightly tight nav.
+      const overflowedCount = categories.length - bestFitCount
+      if (overflowedCount === 1) {
+        setOverflowIndex(categories.length) // show all inline
+        return
+      }
+
+      setOverflowIndex(bestFitCount)
     }
 
     const observer = new ResizeObserver(calculate)

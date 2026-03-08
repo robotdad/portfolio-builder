@@ -8,7 +8,7 @@ This document describes the architecture and design patterns of the Portfolio Bu
 |-------|------------|
 | Framework | Next.js 16 (App Router) |
 | React | React 19 |
-| Database | SQLite via Prisma |
+| Database | PostgreSQL via Prisma |
 | Styling | Tailwind CSS v4 + CSS Custom Properties |
 | Rich Text | TipTap |
 | Image Processing | Sharp |
@@ -296,7 +296,14 @@ Three themes applied via `data-theme` attribute:
 
 ### Asset Storage
 
-Images stored in `public/uploads/{assetId}/`:
+The app uses a dual-mode storage adapter:
+
+- **Local development**: Images stored in `public/uploads/{assetId}/`
+- **Production (Azure)**: Images stored in Azure Blob Storage (`portfoliodevstore2026.blob.core.windows.net/portfolio-images/`)
+
+The storage mode is determined by the presence of `AZURE_STORAGE_CONNECTION_STRING` in the environment. When unset, local filesystem is used.
+
+Each asset generates:
 - `display.webp` — Full size
 - `thumbnail.webp` — 400px thumbnail
 - `placeholder.webp` — 20px blur
@@ -428,6 +435,6 @@ import { Button } from '@/components/ui'
 │                    API Layer (Route Handlers)                    │
 │  Zod validation → Prisma queries → Standardized responses       │
 ├─────────────────────────────────────────────────────────────────┤
-│                    Database (SQLite + Prisma)                    │
+│                    Database (PostgreSQL + Prisma)                 │
 └─────────────────────────────────────────────────────────────────┘
 ```

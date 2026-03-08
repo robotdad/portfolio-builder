@@ -2046,31 +2046,55 @@ function sashaProjectPage(project, galleryImages, context) {
 /** Sasha multi-section project page (e.g., Idomeneo, Wild Party, The Rover, Twelfth Night) */
 function sashaMultiSectionPage(project, galleryImages, context) {
   const sections = [];
-  const { remaining } = createImageConsumer(galleryImages);
+  const { getNext, getNextN, remaining } = createImageConsumer(galleryImages);
 
-  // 1. Top-level description (all text at top, before any images)
+  // 1. Hero image (featured image at galleryImages[0])
+  const hero = getNext();
+  if (hero) {
+    sections.push(imageFromGallery(hero));
+  }
+
+  // 2. Top-level description
   if (project.description) {
     sections.push(
       buildTextSection({ body: formatAsHtml(project.description) })
     );
   }
 
-  // 3. Each sub-section: heading + text + images
-  // Section images are tracked separately via sectionImageMap on the project
+  // 3. Each sub-section: heading + text, then that section's images
+  // The populate script places photos sequentially by section.
+  // We use each section's photos.length to consume the right count,
+  // adjusting for the featured image that was already consumed above.
   for (const subSection of project.sections) {
-    // Section heading
-    if (subSection.title) {
+    // Section heading + description
+    if (subSection.title || subSection.description) {
       sections.push(
-        buildTextSection({ body: `<h2>${subSection.title}</h2>\n${formatAsHtml(subSection.description || '')}` })
+        buildTextSection({ body: `<h2>${subSection.title || ''}</h2>\n${formatAsHtml(subSection.description || '')}` })
       );
     }
-    // Section images come from the gallery in order
-    // (The populate script will have placed them sequentially)
-    // We don't know exact counts here, so the remaining gallery
-    // images flow naturally into the final gallery below.
+
+    // Determine how many gallery images belong to this section.
+    // The featured image was removed from the gallery queue above,
+    // so the section that contained it has one fewer image to consume.
+    const sectionPhotos = subSection.photos || [];
+    const hasFeatured = sectionPhotos.some(p => p.isFeatured);
+    const imageCount = hasFeatured ? sectionPhotos.length - 1 : sectionPhotos.length;
+
+    if (imageCount > 0) {
+      const sectionImages = getNextN(imageCount);
+      if (sectionImages.length > 0) {
+        sections.push(
+          buildGallerySection({
+            heading: '',
+            images: galleryImagesPayload(sectionImages),
+            columns: Math.max(2, Math.min(4, sectionImages.length)),
+          })
+        );
+      }
+    }
   }
 
-  // 4. All remaining images in a gallery (2-column minimum)
+  // 4. Any remaining images (overflow / top-level project photos)
   const restImgs = remaining();
   if (restImgs.length > 0) {
     sections.push(
