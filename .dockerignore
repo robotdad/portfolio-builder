@@ -5,3 +5,10 @@ ai_working
 test-assets
 *.md
 .git
+photos
+plans
+public/uploads
+src/public/uploads
+playwright-report
+.ruff_cache
+.amplifier
