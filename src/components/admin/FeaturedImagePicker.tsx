@@ -190,9 +190,10 @@ export function FeaturedImagePicker({
                 src={currentImage.thumbnailUrl || currentImage.url}
                 alt={currentImage.altText || 'Featured image preview'}
                 className={styles.imagePreview}
-                fill
+                width={0}
+                height={0}
+                sizes="100%"
                 unoptimized
-                style={{ objectFit: 'cover' }}
               />
               {uploading && (
                 <div className={styles.uploadOverlay} aria-live="polite">
