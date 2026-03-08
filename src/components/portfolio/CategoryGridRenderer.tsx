@@ -80,7 +80,7 @@ export function CategoryGridRenderer({
         <AdaptiveGrid
           items={filteredCategories}
           minCardWidth={320}
-          idealCardWidth={450}
+          idealCardWidth={350}
           maxCardWidth={600}
         >
           {filteredCategories.map(category => {

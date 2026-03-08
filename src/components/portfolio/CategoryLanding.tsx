@@ -106,7 +106,7 @@ export function CategoryLanding({
           <AdaptiveGrid
             items={subcategories}
             minCardWidth={320}
-            idealCardWidth={450}
+            idealCardWidth={350}
             maxCardWidth={600}
           >
             {subcategories.map(sub => (
@@ -121,6 +121,7 @@ export function CategoryLanding({
                     src={sub.featuredImage?.url || undefined}
                     alt={sub.featuredImage?.altText || sub.name}
                     aspectRatio="4/3"
+                    objectFit="contain"
                     className="subcategory-card__image"
                   />
                   <CardBody className="subcategory-card__info">
@@ -138,7 +139,7 @@ export function CategoryLanding({
           <AdaptiveGrid
             items={projects}
             minCardWidth={320}
-            idealCardWidth={450}
+            idealCardWidth={350}
             maxCardWidth={600}
           >
             {projects.map(project => (

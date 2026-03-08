@@ -138,6 +138,8 @@ export interface CardImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>
   src?: string | Blob
   /** Aspect ratio preset. Defaults to '16/9'. Use getOrientationAwareRatio() to select based on image dimensions. */
   aspectRatio?: '16/9' | '3/2' | '4/3' | '1/1' | '4/5' | '3/4' | '2/3'
+  /** How the image fits within its container. Defaults to 'cover'. Use 'contain' to avoid cropping subjects. */
+  objectFit?: 'cover' | 'contain' | 'scale-down'
   /** Show overlay on hover */
   hoverOverlay?: ReactNode
 }
@@ -149,6 +151,7 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
   (
     {
       aspectRatio = '16/9',
+      objectFit = 'cover',
       hoverOverlay,
       src,
       alt = '',
@@ -177,9 +180,9 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
               // Use regular <img> for Blob sources (optimistic previews), Next.js Image for URLs
               src instanceof Blob ? (
                 // eslint-disable-next-line @next/next/no-img-element -- Blob URLs not supported by next/image
-                <img src={URL.createObjectURL(src)} alt={alt} className="card-image__img" style={{ objectFit: 'cover' }} />
+                <img src={URL.createObjectURL(src)} alt={alt} className="card-image__img" style={{ objectFit }} />
               ) : (
-                <Image src={src} alt={alt} className="card-image__img" fill unoptimized style={{ objectFit: 'cover' }} />
+                <Image src={src} alt={alt} className="card-image__img" fill unoptimized style={{ objectFit }} />
               )
             ) : (
               <div className="card-image__placeholder">
@@ -448,7 +451,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
             font-size: var(--font-size-lg, 1.125rem);
             font-weight: 600;
             line-height: 1.3;
-            color: var(--color-text, hsl(0, 0%, 13%));
+            color: var(--color-text-primary, hsl(0, 0%, 13%));
           }
         `}</style>
       </>
