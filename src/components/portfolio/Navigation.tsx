@@ -77,6 +77,7 @@ export interface NavCategory {
   id: string
   name: string
   slug: string
+  children?: { id: string; slug: string }[]
 }
 
 interface NavigationProps {
@@ -296,9 +297,12 @@ export function Navigation({
     return pathSegments[pageSegmentIndex] === page.slug
   }
 
-  // Check if category is active
+  // Check if category is active — matches the category's own slug OR any
+  // of its children's slugs. This is how /bethany-joy highlights "Theatre Work"
+  // in the nav (bethany-joy is a child of theatre-work).
   const isCategoryActive = (category: NavCategory) => {
-    return currentCategorySlug === category.slug
+    return currentCategorySlug === category.slug ||
+      (category.children?.some(child => child.slug === currentCategorySlug) ?? false)
   }
 
   return (

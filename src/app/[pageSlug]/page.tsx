@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { stripHtml } from '@/lib/sanitize'
 import { SectionRenderer } from '@/components/portfolio/SectionRenderer'
 import { CategoryLanding } from '@/components/portfolio/CategoryLanding'
+import { Breadcrumb } from '@/components/portfolio/Breadcrumb'
 
 import { deserializeSections } from '@/lib/serialization'
 import { isHeroSection, isGallerySection } from '@/lib/content-schema'
@@ -137,6 +138,9 @@ async function renderCategoryPage(
       portfolioId: portfolio.id,
     },
     include: {
+      parent: {
+        select: { id: true, name: true, slug: true },
+      },
       featuredImage: {
         select: {
           id: true,
@@ -200,12 +204,26 @@ async function renderCategoryPage(
 
   if (!hasChildren && sections.length > 0) {
     return (
-      <SectionRenderer
-        sections={sections}
-        portfolioSlug=""
-        categorySlug={fullCategory.slug}
-        projects={fullCategory.projects}
-      />
+      <>
+        {fullCategory.parent && (
+          <div className="container">
+            <div style={{ paddingTop: 'var(--space-6, 24px)' }}>
+              <Breadcrumb
+                items={[
+                  { label: fullCategory.parent.name, href: `/${fullCategory.parent.slug}` },
+                  { label: fullCategory.name },
+                ]}
+              />
+            </div>
+          </div>
+        )}
+        <SectionRenderer
+          sections={sections}
+          portfolioSlug=""
+          categorySlug={fullCategory.slug}
+          projects={fullCategory.projects}
+        />
+      </>
     )
   }
 
@@ -259,6 +277,10 @@ async function renderCategoryPage(
         slug: fullCategory.slug,
         description: fullCategory.description,
       }}
+      parentCategory={fullCategory.parent ? {
+        name: fullCategory.parent.name,
+        slug: fullCategory.parent.slug,
+      } : undefined}
       projects={projectsWithImages}
       subcategories={fullCategory.children.map(child => ({
         id: child.id,

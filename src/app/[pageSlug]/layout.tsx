@@ -44,6 +44,9 @@ async function getPortfolioForLayout() {
           id: true,
           name: true,
           slug: true,
+          children: {
+            select: { id: true, slug: true },
+          },
         },
       },
     },
@@ -74,10 +77,11 @@ export default async function PublicPortfolioLayout({
     showInNav: p.showInNav,
   }))
 
-  const navCategories: NavCategory[] = portfolio.categories.map((c: { id: string; name: string; slug: string }) => ({
+  const navCategories: NavCategory[] = portfolio.categories.map((c: { id: string; name: string; slug: string; children?: { id: string; slug: string }[] }) => ({
     id: c.id,
     name: c.name,
     slug: c.slug,
+    children: c.children,
   }))
 
   const theme = (portfolio.publishedTheme || 'modern-minimal') as PortfolioTheme

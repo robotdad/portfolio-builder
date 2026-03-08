@@ -47,6 +47,10 @@ interface CategoryLandingProps {
     publishedTheme: string
   }
   category: Category
+  parentCategory?: {
+    name: string
+    slug: string
+  }
   projects: CategoryProject[]
   subcategories?: SubCategory[]
   /** Empty string for published site, "preview" for preview mode */
@@ -76,6 +80,7 @@ interface CategoryLandingProps {
 export function CategoryLanding({ 
   portfolio: _portfolio, 
   category, 
+  parentCategory,
   projects,
   subcategories,
   portfolioSlug = ''
@@ -89,6 +94,7 @@ export function CategoryLanding({
         <header className="category-header">
           <Breadcrumb 
             items={[
+              ...(parentCategory ? [{ label: parentCategory.name, href: `/${parentCategory.slug}` }] : []),
               { label: category.name }
             ]} 
           />
