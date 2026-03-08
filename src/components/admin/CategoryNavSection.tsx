@@ -77,8 +77,10 @@ export interface Project {
 export interface CategoryWithProjects {
   id: string
   name: string
+  parentId: string | null
   _count: { projects: number }
   projects?: Project[]
+  children?: CategoryWithProjects[]
 }
 
 export interface CategoryNavSectionProps {
@@ -141,11 +143,13 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
           </Link>
         </div>
         
-        {/* Category list with expandable projects */}
+        {/* Category list with expandable projects and subcategory nesting */}
         <div className="categories-list" role="list">
           {categories.map(category => {
             const categoryExpanded = expandedCategories.has(category.id)
             const hasProjects = category._count.projects > 0
+            const hasChildren = (category.children?.length ?? 0) > 0
+            const isExpandable = hasProjects || hasChildren
             const active = isCategoryActive(category.id)
             
             return (
@@ -153,16 +157,16 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
                 <div className="category-row">
                   {/* Chevron button - separate click target */}
                   <button
-                    className={`chevron-button ${!hasProjects ? 'chevron-button--disabled' : ''}`}
-                    onClick={() => hasProjects && handleCategoryToggle(category.id)}
-                    disabled={!hasProjects}
-                    aria-expanded={hasProjects ? categoryExpanded : undefined}
-                    aria-label={hasProjects ? `${categoryExpanded ? 'Collapse' : 'Expand'} ${category.name}` : undefined}
-                    aria-controls={hasProjects ? `projects-${category.id}` : undefined}
-                    tabIndex={hasProjects ? 0 : -1}
+                    className={`chevron-button ${!isExpandable ? 'chevron-button--disabled' : ''}`}
+                    onClick={() => isExpandable && handleCategoryToggle(category.id)}
+                    disabled={!isExpandable}
+                    aria-expanded={isExpandable ? categoryExpanded : undefined}
+                    aria-label={isExpandable ? `${categoryExpanded ? 'Collapse' : 'Expand'} ${category.name}` : undefined}
+                    aria-controls={isExpandable ? `children-${category.id}` : undefined}
+                    tabIndex={isExpandable ? 0 : -1}
                   >
                     <span className={`chevron ${categoryExpanded ? 'chevron--expanded' : ''}`} aria-hidden="true">
-                      {hasProjects ? '▸' : ''}
+                      {isExpandable ? '▸' : ''}
                     </span>
                   </button>
                   
@@ -178,14 +182,79 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
                   </Link>
                 </div>
                 
-                {/* Projects list - expandable */}
-                {hasProjects && category.projects && (
+                {/* Expandable children: subcategories and/or projects */}
+                {isExpandable && (
                   <div
-                    id={`projects-${category.id}`}
+                    id={`children-${category.id}`}
                     className={`projects-list ${categoryExpanded ? 'projects-list--expanded' : ''}`}
                   >
                     <div className="projects-list-inner">
-                      {category.projects.map(project => {
+                      {/* Subcategories nested under parent */}
+                      {hasChildren && category.children!.map(sub => {
+                        const subExpanded = expandedCategories.has(sub.id)
+                        const subHasProjects = sub._count.projects > 0
+                        const subActive = isCategoryActive(sub.id)
+                        
+                        return (
+                          <div key={sub.id} className="subcategory-item">
+                            <div className="subcategory-row">
+                              <button
+                                className={`chevron-button subcategory-chevron ${!subHasProjects ? 'chevron-button--disabled' : ''}`}
+                                onClick={() => subHasProjects && handleCategoryToggle(sub.id)}
+                                disabled={!subHasProjects}
+                                aria-expanded={subHasProjects ? subExpanded : undefined}
+                                aria-label={subHasProjects ? `${subExpanded ? 'Collapse' : 'Expand'} ${sub.name}` : undefined}
+                                aria-controls={subHasProjects ? `projects-${sub.id}` : undefined}
+                                tabIndex={subHasProjects ? 0 : -1}
+                              >
+                                <span className={`chevron ${subExpanded ? 'chevron--expanded' : ''}`} aria-hidden="true">
+                                  {subHasProjects ? '▸' : ''}
+                                </span>
+                              </button>
+                              
+                              <Link
+                                href={`/admin/categories/${sub.id}/projects`}
+                                className={`category-link subcategory-link ${subActive ? 'category-link--active' : ''}`}
+                                aria-current={subActive ? 'page' : undefined}
+                                onClick={handleLinkClick}
+                              >
+                                <span className="category-name">{sub.name}</span>
+                                <span className="project-count">({sub._count.projects})</span>
+                              </Link>
+                            </div>
+                            
+                            {/* Subcategory projects */}
+                            {subHasProjects && sub.projects && (
+                              <div
+                                id={`projects-${sub.id}`}
+                                className={`projects-list ${subExpanded ? 'projects-list--expanded' : ''}`}
+                              >
+                                <div className="projects-list-inner">
+                                  {sub.projects.map(project => {
+                                    const projectActive = isProjectActive(project.id)
+                                    return (
+                                      <div key={project.id} className="project-item subcategory-project-item">
+                                        <Link
+                                          href={`/admin/projects/${project.id}`}
+                                          className={`project-link subcategory-project-link ${projectActive ? 'project-link--active' : ''}`}
+                                          aria-current={projectActive ? 'page' : undefined}
+                                          onClick={handleLinkClick}
+                                        >
+                                          <span className="project-bullet" aria-hidden="true">•</span>
+                                          <span className="project-nav-label">{project.title}</span>
+                                        </Link>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )
+                      })}
+                      
+                      {/* Direct projects (for categories without subcategories) */}
+                      {hasProjects && category.projects && category.projects.map(project => {
                         const projectActive = isProjectActive(project.id)
                         return (
                           <div key={project.id} className="project-item">
@@ -408,9 +477,33 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
           overflow: hidden;
         }
         
+        .subcategory-item {
+          margin: 0;
+          padding: 0;
+        }
+        
+        .subcategory-row {
+          display: flex;
+          align-items: center;
+          min-height: 44px;
+        }
+        
+        .category-nav-section :global(.subcategory-chevron) {
+          margin-left: calc(var(--space-4) + 16px);
+        }
+        
+        .category-nav-section :global(.subcategory-link) {
+          padding-left: 0;
+          font-size: var(--font-size-xs);
+        }
+        
         .project-item {
           margin: 0;
           padding: 0;
+        }
+        
+        .category-nav-section :global(.subcategory-project-link) {
+          padding-left: calc(var(--space-4) + 80px);
         }
         
         .category-nav-section :global(.project-link) {

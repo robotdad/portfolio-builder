@@ -33,8 +33,10 @@ export interface CategoryWithProjects {
   id: string
   name: string
   slug: string
+  parentId: string | null
   _count: { projects: number }
   projects?: Project[]
+  children?: CategoryWithProjects[]
 }
 
 /**
@@ -130,8 +132,8 @@ export function useNavigationData(): NavigationData {
         const categoriesData: CategoryWithProjects[] = categoriesResult.data
 
         // Fetch projects for categories that have them
-        const categoriesWithProjects = await Promise.all(
-          categoriesData.map(async (category) => {
+        const categoriesWithProjects: CategoryWithProjects[] = await Promise.all(
+          categoriesData.map(async (category: CategoryWithProjects) => {
             if (category._count.projects > 0) {
               try {
                 const projectsResponse = await fetch(
@@ -160,7 +162,22 @@ export function useNavigationData(): NavigationData {
 
         if (!isMountedRef.current) return
 
-        setCategories(categoriesWithProjects)
+        // Build tree: nest child categories under their parents
+        const categoryMap = new Map<string, CategoryWithProjects>()
+        for (const cat of categoriesWithProjects) {
+          categoryMap.set(cat.id, { ...cat, children: [] })
+        }
+
+        const rootCategories: CategoryWithProjects[] = []
+        for (const cat of categoryMap.values()) {
+          if (cat.parentId && categoryMap.has(cat.parentId)) {
+            categoryMap.get(cat.parentId)!.children!.push(cat)
+          } else {
+            rootCategories.push(cat)
+          }
+        }
+
+        setCategories(rootCategories)
       } catch (err) {
         if (!isMountedRef.current) return
         const message = err instanceof Error ? err.message : 'Failed to fetch navigation data'
