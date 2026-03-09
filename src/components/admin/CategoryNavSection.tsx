@@ -177,7 +177,7 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
                     aria-current={active ? 'page' : undefined}
                     onClick={handleLinkClick}
                   >
-                    <span className="category-name">{category.name}</span>
+                    <span className="category-name" title={category.name}>{category.name}</span>
                     <span className="project-count">({category._count.projects})</span>
                   </Link>
                 </div>
@@ -218,7 +218,7 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
                                 aria-current={subActive ? 'page' : undefined}
                                 onClick={handleLinkClick}
                               >
-                                <span className="category-name">{sub.name}</span>
+                                <span className="category-name" title={sub.name}>{sub.name}</span>
                                 <span className="project-count">({sub._count.projects})</span>
                               </Link>
                             </div>
@@ -241,7 +241,7 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
                                           onClick={handleLinkClick}
                                         >
                                           <span className="project-bullet" aria-hidden="true">•</span>
-                                          <span className="project-nav-label">{project.title}</span>
+                                          <span className="project-nav-label" title={project.title}>{project.title}</span>
                                         </Link>
                                       </div>
                                     )
@@ -265,7 +265,7 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
                               onClick={handleLinkClick}
                             >
                               <span className="project-bullet" aria-hidden="true">•</span>
-                              <span className="project-nav-label">{project.title}</span>
+                              <span className="project-nav-label" title={project.title}>{project.title}</span>
                             </Link>
                           </div>
                         )

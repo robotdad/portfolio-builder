@@ -85,7 +85,7 @@ export function PageNavSection({ pages, currentPath, onNavigate }: PageNavSectio
                   aria-current={active ? 'page' : undefined}
                   onClick={handleLinkClick}
                 >
-                  <span className="page-title">{page.title}</span>
+                  <span className="page-title" title={page.title}>{page.title}</span>
                   {page.isHomepage && (
                     <HomeBadge compact />
                   )}
