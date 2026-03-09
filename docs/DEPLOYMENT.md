@@ -277,16 +277,18 @@ DATABASE_URL="$AZURE_DB_URL" npx tsx src/prisma/seed-admin.ts your-email@gmail.c
 
 ### Step 6: Build and Deploy the App
 
+Pick an image tag for this deployment. Use sequential (`v1`, `v2`), date-based (`2026-03-08`), or descriptive tags (`initial-deploy`). You must choose a new tag for each build — reusing a tag won't update the container.
+
 ```bash
-# Build image in ACR
-az acr build --registry portfolioacr2026 --image portfolio-app:v1 .
+# Build image in ACR — replace <tag> with your chosen tag (e.g., v1)
+az acr build --registry portfolioacr2026 --image portfolio-app:<tag> .
 
 # Create the container app with all env vars
 az containerapp create \
   --name portfolio-app \
   --resource-group portfolio-rg \
   --environment portfolio-env \
-  --image portfolioacr2026.azurecr.io/portfolio-app:v1 \
+  --image portfolioacr2026.azurecr.io/portfolio-app:<tag> \
   --target-port 3000 \
   --ingress external \
   --min-replicas 0 \
@@ -436,15 +438,7 @@ jobs:
       - name: ACR Login
         run: az acr login --name ${{ vars.ACR_NAME }}
 
-      - name: Build and Push Image
-        run: |
-          docker build \
-            -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ github.sha }} \
-            -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:latest \
-            .
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }} --all-tags
-
-      - name: Setup Node (for Prisma CLI)
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -455,6 +449,14 @@ jobs:
           npx prisma migrate deploy
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Build and Push Image
+        run: |
+          docker build \
+            -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ github.sha }} \
+            -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:latest \
+            .
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }} --all-tags
 
       - name: Deploy to Container Apps
         run: |
