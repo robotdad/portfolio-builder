@@ -231,10 +231,10 @@ export default function PageEditorPage() {
   const isHomepage = page.slug === 'home' || page.isHomepage
   const draftUrl = isHomepage 
     ? '/preview' 
-    : `/preview/pages/${page.slug}`
+    : `/preview/${page.slug}`
   const liveUrl = isHomepage 
     ? '/' 
-    : `/pages/${page.slug}`
+    : `/${page.slug}`
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--admin-bg-secondary)' }}>

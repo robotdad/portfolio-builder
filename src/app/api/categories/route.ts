@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
           orderBy: { order: 'asc' },
         },
         _count: {
-          select: { projects: true },
+          select: { projects: true, children: true },
         },
         ...(includeProjects && {
           projects: {

@@ -29,6 +29,7 @@ export interface Category {
   featuredImage: FeaturedImage | null
   _count: {
     projects: number
+    children: number
   }
 }
 

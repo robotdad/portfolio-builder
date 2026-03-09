@@ -29,6 +29,7 @@ interface Category {
   featuredImage: FeaturedImage | null
   _count: {
     projects: number
+    children: number
   }
 }
 
@@ -370,9 +371,13 @@ export function CategoryCard({
   }, [])
 
   // Format project count text
-  const projectCountText = category._count.projects === 1 
-    ? '1 project' 
-    : `${category._count.projects} projects`
+  const subcategoryCount = category._count.children ?? 0
+  const projectCountText = [
+    category._count.projects === 1 ? '1 project' : `${category._count.projects} projects`,
+    ...(subcategoryCount > 0
+      ? [subcategoryCount === 1 ? '1 subcategory' : `${subcategoryCount} subcategories`]
+      : []),
+  ].join(' · ')
 
   // Get image URL (prefer thumbnail for card display)
   const imageUrl = category.featuredImage?.thumbnailUrl || category.featuredImage?.url

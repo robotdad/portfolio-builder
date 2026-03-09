@@ -27,6 +27,7 @@ interface Category {
   featuredImage: FeaturedImage | null
   _count: {
     projects: number
+    children: number
   }
 }
 
@@ -120,9 +121,13 @@ export function CategoryListItem({
     }
   }, [handleNavigate])
 
-  const projectCountText = category._count.projects === 1
-    ? '1 project'
-    : `${category._count.projects} projects`
+  const subcategoryCount = category._count.children ?? 0
+  const projectCountText = [
+    category._count.projects === 1 ? '1 project' : `${category._count.projects} projects`,
+    ...(subcategoryCount > 0
+      ? [subcategoryCount === 1 ? '1 subcategory' : `${subcategoryCount} subcategories`]
+      : []),
+  ].join(' · ')
 
   const imageUrl = category.featuredImage?.thumbnailUrl || category.featuredImage?.url
 
