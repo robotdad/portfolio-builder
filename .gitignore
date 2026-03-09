@@ -126,3 +126,6 @@ ai_working/**/screenshots*/
 ai_working/**/*.b64
 ai_working/**/*.b64.txt
 ai_working/**/*_uri.txt
+
+# Instance-specific deployment info
+deployment/
