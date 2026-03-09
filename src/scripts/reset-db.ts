@@ -35,15 +35,17 @@ async function resetDatabase() {
     const cleanedCount = await storage.deleteAllFiles()
     console.log(`  Cleaned ${cleanedCount} file(s) from storage`)
 
-    // Truncate all tables in the correct order (respecting foreign keys)
+    // Truncate content tables in the correct order (respecting foreign keys)
+    // AllowedEmail is intentionally preserved — wiping it locks out all admins
     const tables = [
       'ProjectGalleryImage',
+      'ProjectTag',
+      'Tag',
       'Project',
       'Category',
       'Asset',
       'Page',
       'Portfolio',
-      'AllowedEmail',
     ]
 
     for (const table of tables) {
