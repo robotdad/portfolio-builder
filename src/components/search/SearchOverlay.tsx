@@ -132,6 +132,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
       {/* Backdrop */}
       <div
         className="search-overlay-backdrop"
+        data-theme={theme}
         onClick={handleClose}
         aria-hidden="true"
       />
@@ -140,6 +141,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
       <div
         ref={overlayRef}
         className={`search-overlay search-overlay--${theme}`}
+        data-theme={theme}
         role="dialog"
         aria-modal="true"
         aria-label="Search"
@@ -173,8 +175,8 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
           {/* Loading */}
           {loading && (
             <div className="search-overlay-loading">
-              <Loader2 className="w-8 h-8 text-gray-400 animate-spin" />
-              <span className="ml-3 text-gray-600">Searching...</span>
+              <Loader2 className="w-8 h-8 text-[var(--color-text-muted)] animate-spin" />
+              <span className="ml-3 text-[var(--color-text-secondary)]">Searching...</span>
             </div>
           )}
 
@@ -195,11 +197,11 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
           {/* Zero-query state */}
           {!loading && !query && (
             <div className="search-overlay-zero-state">
-              <Search className="w-16 h-16 text-gray-300 mx-auto mb-6" />
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+              <Search className="w-16 h-16 text-[var(--color-text-muted)] mx-auto mb-6" />
+              <h2 className="text-2xl font-semibold text-[var(--color-text-primary)] mb-4">
                 What are you looking for?
               </h2>
-              <p className="text-gray-600">
+              <p className="text-[var(--color-text-secondary)]">
                 Start typing to search projects, images, and pages
               </p>
             </div>
@@ -210,7 +212,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
             <div className="search-overlay-results-content">
               {/* Results header */}
               <div className="mb-6">
-                <p className="text-gray-600">
+                <p className="text-[var(--color-text-secondary)]">
                   Found <span className="font-semibold">{totalResults}</span>{' '}
                   {totalResults === 1 ? 'result' : 'results'}
                 </p>
@@ -219,7 +221,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
               {/* IMAGES from Projects - Image-First Display */}
               {groupedResults?.projects && groupedResults.projects.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">
+                  <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide mb-4">
                     IMAGES ({totalImageResults})
                   </h3>
                   <div className="space-y-6">
@@ -233,7 +235,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
               {/* IMAGES Section - Standalone images (no project context) */}
               {groupedResults?.standaloneImages && groupedResults.standaloneImages.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">
+                  <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide mb-4">
                     STANDALONE IMAGES ({groupedResults.standaloneImages.length})
                   </h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -252,7 +254,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
               {/* PROJECTS Section - Projects that matched but have no matching images */}
               {groupedResults?.projectsWithoutImages && groupedResults.projectsWithoutImages.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                  <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide mb-3">
                     PROJECTS ({groupedResults.projectsWithoutImages.length})
                   </h3>
                   <div className="space-y-2">
@@ -271,7 +273,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
               {/* Pages */}
               {groupedResults?.pages && groupedResults.pages.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                  <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide mb-3">
                     PAGES ({groupedResults.pages.length})
                   </h3>
                   <div className="space-y-3">
@@ -289,7 +291,7 @@ export function SearchOverlay({ isOpen, onClose, theme }: SearchOverlayProps) {
               {/* Categories */}
               {groupedResults?.categories && groupedResults.categories.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                  <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide mb-3">
                     CATEGORIES ({groupedResults.categories.length})
                   </h3>
                   <div className="space-y-3">

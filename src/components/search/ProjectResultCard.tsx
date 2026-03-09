@@ -36,11 +36,11 @@ export function ProjectResultCard({
     <Link
       href={projectUrl}
       onClick={onClick}
-      className="flex items-center gap-2 px-2.5 py-1 bg-white border border-gray-200 rounded hover:bg-gray-50 hover:border-gray-300 transition-colors duration-150"
+      className="flex items-center gap-2 px-2.5 py-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border-strong)] transition-colors duration-150"
     >
       {/* Compact thumbnail */}
       {featuredImageUrl && (
-        <div className="flex-shrink-0 w-6 h-6 bg-gray-100 rounded overflow-hidden">
+        <div className="flex-shrink-0 w-6 h-6 bg-[var(--color-surface)] rounded overflow-hidden">
           <Image
             src={featuredImageUrl}
             alt={title}
@@ -54,9 +54,9 @@ export function ProjectResultCard({
       
       {/* Content - single line with inline metadata */}
       <div className="flex-1 min-w-0 flex items-center">
-        <span className="text-sm text-gray-900 truncate leading-none">
+        <span className="text-sm text-[var(--color-text-primary)] truncate leading-none">
           <span className="font-medium"><SearchHighlight text={title} query={query} /></span>{' '}
-          <span className="text-xs text-gray-500 ml-2">
+          <span className="text-xs text-[var(--color-text-secondary)] ml-2">
             <SearchHighlight text={categoryName} query={query} />
             {year && <> • {year}</>}
           </span>

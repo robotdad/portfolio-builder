@@ -30,7 +30,7 @@ export function NestedImageCard({ image, query, projectUrl }: NestedImageCardPro
       data-matched={isMatched}
     >
       {/* Image Thumbnail - 80-100px responsive */}
-      <div className="search-nested-image relative overflow-hidden rounded bg-gray-100 hover:ring-2 hover:ring-blue-500 transition-all">
+      <div className="search-nested-image relative overflow-hidden rounded bg-[var(--color-surface)] hover:ring-2 hover:ring-[var(--color-accent)] transition-all">
         <Image
           src={image.thumbnailUrl || image.imageUrl || image.url}
           alt={image.altText || image.caption || 'Gallery image'}
@@ -41,14 +41,14 @@ export function NestedImageCard({ image, query, projectUrl }: NestedImageCardPro
         
         {/* Match indicator badge */}
         {isMatched && (
-          <div className="absolute top-1 right-1 w-5 h-5 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
+          <div className="absolute top-1 right-1 w-5 h-5 bg-[var(--color-accent)] text-[var(--color-accent-contrast,white)] rounded-full flex items-center justify-center text-xs font-bold">
             ✓
           </div>
         )}
       </div>
       
       {/* Image Caption */}
-      <p className="text-xs text-gray-600 mt-1 truncate group-hover:text-blue-600 transition-colors">
+      <p className="text-xs text-[var(--color-text-secondary)] mt-1 truncate group-hover:text-[var(--color-accent)] transition-colors">
         <SearchHighlight text={image.caption || image.altText || 'Image'} query={query} />
       </p>
     </Link>

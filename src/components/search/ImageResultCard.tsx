@@ -29,10 +29,10 @@ export function ImageResultCard({
   return (
     <Link
       href={projectUrl}
-      className="flex items-center gap-2 px-2.5 py-1 bg-white border border-gray-200 rounded-md hover:bg-gray-50 hover:border-gray-300 transition-colors duration-150"
+      className="flex items-center gap-2 px-2.5 py-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border-strong)] transition-colors duration-150"
     >
       {/* Compact thumbnail */}
-      <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded overflow-hidden">
+      <div className="flex-shrink-0 w-8 h-8 bg-[var(--color-surface)] rounded overflow-hidden">
         <Image
           src={imageUrl}
           alt={altText || caption || 'Gallery image'}
@@ -45,9 +45,9 @@ export function ImageResultCard({
       
       {/* Content - single line with inline metadata */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm text-gray-900 truncate leading-snug">
+        <p className="text-sm text-[var(--color-text-primary)] truncate leading-snug">
           <span className="font-medium">{caption || altText || 'Gallery Image'}</span>{' '}
-          <span className="text-xs text-gray-500 ml-2">
+          <span className="text-xs text-[var(--color-text-secondary)] ml-2">
             from <SearchHighlight text={projectTitle} query={query} />
           </span>
         </p>

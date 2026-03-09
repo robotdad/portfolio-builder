@@ -58,7 +58,7 @@ export function SearchHighlight({ text, query, className = '' }: SearchHighlight
         part.highlight ? (
           <mark
             key={i}
-            className="bg-yellow-100 text-yellow-900 font-semibold px-0.5 rounded"
+            className="search-highlight-mark"
           >
             {part.text}
           </mark>

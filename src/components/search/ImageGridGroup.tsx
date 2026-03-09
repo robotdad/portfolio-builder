@@ -27,7 +27,7 @@ export function ImageGridGroup({ project, query }: ImageGridGroupProps) {
         className="search-image-group-header search-project-header"
       >
         <span className="search-image-group-title">{project.title}</span>
-        <span style={{ color: 'rgb(156, 163, 175)' }}>•</span>
+        <span style={{ color: 'var(--color-text-muted)' }}>•</span>
         <span className="search-image-group-meta">
           {project.categoryName} • {project.year}
           {showingAllImages && (
@@ -36,7 +36,7 @@ export function ImageGridGroup({ project, query }: ImageGridGroupProps) {
             </span>
           )}
         </span>
-        <span style={{ color: 'rgb(156, 163, 175)' }}>→</span>
+        <span style={{ color: 'var(--color-text-muted)' }}>→</span>
       </Link>
       
       {/* Image grid - always visible, no expand/collapse */}
