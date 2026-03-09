@@ -34,7 +34,7 @@ export interface CategoryWithProjects {
   name: string
   slug: string
   parentId: string | null
-  _count: { projects: number }
+  _count: { projects: number; children: number }
   projects?: Project[]
   children?: CategoryWithProjects[]
 }

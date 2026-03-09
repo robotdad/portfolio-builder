@@ -78,7 +78,7 @@ export interface CategoryWithProjects {
   id: string
   name: string
   parentId: string | null
-  _count: { projects: number }
+  _count: { projects: number; children: number }
   projects?: Project[]
   children?: CategoryWithProjects[]
 }
@@ -178,7 +178,7 @@ export function CategoryNavSection({ categories, currentPath, onNavigate }: Cate
                     onClick={handleLinkClick}
                   >
                     <span className="category-name" title={category.name}>{category.name}</span>
-                    <span className="project-count">({category._count.projects})</span>
+                    <span className="project-count">({hasChildren ? category._count.children : category._count.projects})</span>
                   </Link>
                 </div>
                 
