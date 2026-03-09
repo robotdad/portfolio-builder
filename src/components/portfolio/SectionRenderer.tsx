@@ -308,17 +308,43 @@ function FeaturedGridView({ section }: { section: FeaturedGridSection }) {
 const IMAGES_PER_PAGE = 20
 
 function GallerySectionView({ section }: { section: GallerySection }) {
-  const [displayCount, setDisplayCount] = useState(IMAGES_PER_PAGE)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const sentinelRef = useRef<HTMLDivElement>(null)
   
   // Filter and map to ensure imageUrl is definitely a string for Lightbox
   const validImages = section.images
     .filter((img): img is GalleryImage & { imageUrl: string } => Boolean(img.imageUrl))
+
+  const [displayCount, setDisplayCount] = useState(IMAGES_PER_PAGE)
   
   const loadMore = useCallback(() => {
     setDisplayCount(prev => Math.min(prev + IMAGES_PER_PAGE, validImages.length))
   }, [validImages.length])
+
+  // Deep-link: handle #image-{id} hash on mount to open lightbox at specific image.
+  // Uses queueMicrotask to batch pagination expansion + lightbox open into the next
+  // microtask, avoiding the "synchronous setState in effect" lint warning.
+  const deepLinkHandled = useRef(false)
+  useEffect(() => {
+    if (deepLinkHandled.current) return
+    const hash = window.location.hash
+    if (!hash.startsWith('#image-')) return
+
+    const imageId = hash.replace('#image-', '')
+    const index = validImages.findIndex(img => img.imageId === imageId)
+    if (index === -1) return
+
+    deepLinkHandled.current = true
+    // Expand pagination if needed, then open lightbox on next microtask
+    // so the DOM renders with the target image visible first.
+    queueMicrotask(() => {
+      if (index >= displayCount) {
+        setDisplayCount(index + IMAGES_PER_PAGE)
+      }
+      // Wait one more frame for pagination expansion to render
+      requestAnimationFrame(() => setLightboxIndex(index))
+    })
+  }, [validImages, displayCount])
 
   // Scroll-to-load: IntersectionObserver watches a sentinel element
   // and loads more images before the user reaches the bottom
@@ -388,7 +414,7 @@ function GallerySectionView({ section }: { section: GallerySection }) {
             ? 'Gallery image'
             : (image.altText || 'Gallery image')
           return (
-          <figure key={image.id} className="gallery-item">
+          <figure key={image.id} id={image.imageId ? `image-${image.imageId}` : undefined} className="gallery-item">
             <button
               type="button"
               onClick={() => handleImageClick(index)}

@@ -241,10 +241,10 @@ export async function GET(request: NextRequest) {
           );
           
           allProjectImages.forEach((image: any) => {
-            if (!existingImageIds.has(image.id)) {
+            if (!existingImageIds.has(image.assetId)) {
               results.push({
                 type: 'image',
-                id: image.id,
+                id: image.assetId,
                 imageUrl: image.asset.url,
                 url: image.asset.url, // Alias for compatibility
                 caption: image.caption || '',
@@ -297,11 +297,11 @@ export async function GET(request: NextRequest) {
       
       if (score > 0) {
         // Check if image already exists in results (prevent duplicates from project title matches)
-        const existingImage = results.find(r => r.type === 'image' && r.id === image.id);
+        const existingImage = results.find(r => r.type === 'image' && r.id === image.assetId);
         if (!existingImage) {
           results.push({
             type: 'image',
-            id: image.id,
+            id: image.assetId,
             imageUrl: image.asset.url,
             url: image.asset.url, // Alias for compatibility
             caption: image.caption || '',
