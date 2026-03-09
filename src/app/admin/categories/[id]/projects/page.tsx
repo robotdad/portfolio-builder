@@ -3,6 +3,7 @@
 import { useParams } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useProjects, type Project } from '@/hooks/useProjects'
 import { ProjectList } from '@/components/admin/ProjectList'
 import { ProjectFormModal } from '@/components/admin/ProjectFormModal'
@@ -482,10 +483,11 @@ export default function ProjectsPage() {
                 >
                   {sub.featuredImage && (
                     <div className="subcategory-card-image">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={sub.featuredImage.thumbnailUrl || sub.featuredImage.url}
                         alt={sub.featuredImage.altText || sub.name}
+                        width={48}
+                        height={48}
                       />
                     </div>
                   )}

@@ -113,8 +113,8 @@ export default function SettingsPage() {
     if (isSaving) return 'saving'
     if (saveSuccess) return 'saved'
     if (saveError) return 'error'
-    return hasUnpublishedChanges ? 'draft' : 'published'
-  }, [isSaving, saveSuccess, saveError, hasUnpublishedChanges])
+    return (hasUnpublishedChanges || hasUnsavedChanges) ? 'draft' : 'published'
+  }, [isSaving, saveSuccess, saveError, hasUnpublishedChanges, hasUnsavedChanges])
 
   // Save portfolio settings (draft)
   const saveSettings = useCallback(async (): Promise<Portfolio | null> => {
@@ -412,7 +412,6 @@ export default function SettingsPage() {
       {previewTemplate && portfolio && (
         <TemplatePreviewModal
           templateId={previewTemplate}
-          portfolioSlug=""
           onClose={() => setPreviewTemplate(null)}
           onSelect={() => {
             handleTemplateChange(previewTemplate)

@@ -123,16 +123,6 @@ export function PublishQueueCard({ pages, projects, onPublishSuccess }: PublishQ
       </div>
 
       <div className="card-body">
-        {totalCount === 0 ? (
-          <div className="empty-state">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-              <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-            <p>All content is published</p>
-          </div>
-        ) : (
-          <>
             <PublishQueueList pages={pages} projects={projects} />
             
             <button
@@ -142,8 +132,6 @@ export function PublishQueueCard({ pages, projects, onPublishSuccess }: PublishQ
             >
               {isPublishing ? 'Publishing...' : `Publish All ${totalCount} ${totalCount === 1 ? 'Item' : 'Items'}`}
             </button>
-          </>
-        )}
 
         {error && (
           <div className="error-message">
@@ -212,26 +200,6 @@ export function PublishQueueCard({ pages, projects, onPublishSuccess }: PublishQ
 
         .card-body {
           padding: var(--space-6, 24px);
-        }
-
-        .empty-state {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: var(--space-3, 12px);
-          padding: var(--space-8, 32px);
-          color: var(--text-secondary, #6b7280);
-          text-align: center;
-        }
-
-        .empty-state svg {
-          color: var(--color-success, #10b981);
-        }
-
-        .empty-state p {
-          margin: 0;
-          font-size: var(--text-base, 16px);
         }
 
         .publish-button {
