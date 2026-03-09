@@ -97,7 +97,7 @@ export function ProjectMetadataSidebar({
               type="text"
               value={metadata.year}
               onChange={(e) => handleTextChange('year', e.target.value)}
-              placeholder="e.g., 2024"
+              placeholder=""
               className={styles.fieldInput}
               data-testid="project-metadata-year-input"
             />
@@ -114,7 +114,7 @@ export function ProjectMetadataSidebar({
               type="text"
               value={metadata.venue}
               onChange={(e) => handleTextChange('venue', e.target.value)}
-              placeholder="e.g., National Theatre, The Pit"
+              placeholder=""
               className={styles.fieldInput}
               data-testid="project-metadata-venue-input"
             />
@@ -131,7 +131,7 @@ export function ProjectMetadataSidebar({
               type="text"
               value={metadata.organization}
               onChange={(e) => handleTextChange('organization', e.target.value)}
-              placeholder="e.g., UNCSA, Bethany Joy Costumes"
+              placeholder=""
               className={styles.fieldInput}
               data-testid="project-metadata-organization-input"
             />
@@ -148,7 +148,7 @@ export function ProjectMetadataSidebar({
               type="text"
               value={metadata.location}
               onChange={(e) => handleTextChange('location', e.target.value)}
-              placeholder="e.g., New York, NY"
+              placeholder=""
               className={styles.fieldInput}
               data-testid="project-metadata-location-input"
             />
@@ -165,7 +165,7 @@ export function ProjectMetadataSidebar({
               type="text"
               value={metadata.role}
               onChange={(e) => handleTextChange('role', e.target.value)}
-              placeholder="e.g., Lead Designer"
+              placeholder=""
               className={styles.fieldInput}
               data-testid="project-metadata-role-input"
             />

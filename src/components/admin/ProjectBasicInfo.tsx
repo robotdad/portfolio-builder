@@ -163,7 +163,7 @@ export function ProjectBasicInfo({
         onBlur={handleTitleBlur}
         error={errors.title}
         touched={touched.title ?? false}
-        placeholder="Enter project title"
+        placeholder=""
         maxLength={MAX_TITLE_LENGTH}
         showCharCount
         required
@@ -180,7 +180,7 @@ export function ProjectBasicInfo({
             onBlur={handleYearBlur}
             error={errors.year}
             touched={touched.year ?? false}
-            placeholder="e.g., 2024"
+            placeholder=""
             maxLength={MAX_YEAR_LENGTH}
             inputProps={{ 'data-testid': 'project-form-year-input' }}
           />
@@ -193,7 +193,7 @@ export function ProjectBasicInfo({
             onBlur={handleVenueBlur}
             error={errors.venue}
             touched={touched.venue ?? false}
-            placeholder="e.g., National Theatre"
+            placeholder=""
             maxLength={MAX_VENUE_LENGTH}
             inputProps={{ 'data-testid': 'project-form-venue-input' }}
           />
@@ -206,7 +206,7 @@ export function ProjectBasicInfo({
             onBlur={handleOrganizationBlur}
             error={errors.organization}
             touched={touched.organization ?? false}
-            placeholder="e.g., UNCSA, Bethany Joy Costumes"
+            placeholder=""
             maxLength={MAX_ORGANIZATION_LENGTH}
             inputProps={{ 'data-testid': 'project-form-organization-input' }}
           />
@@ -219,7 +219,7 @@ export function ProjectBasicInfo({
             onBlur={handleLocationBlur}
             error={errors.location}
             touched={touched.location ?? false}
-            placeholder="e.g., New York, NY"
+            placeholder=""
             maxLength={MAX_LOCATION_LENGTH}
             inputProps={{ 'data-testid': 'project-form-location-input' }}
           />
@@ -232,7 +232,7 @@ export function ProjectBasicInfo({
             onBlur={handleRoleBlur}
             error={errors.role}
             touched={touched.role ?? false}
-            placeholder="e.g., Director, Lead Designer"
+            placeholder=""
             maxLength={MAX_ROLE_LENGTH}
             inputProps={{ 'data-testid': 'project-form-role-input' }}
           />
