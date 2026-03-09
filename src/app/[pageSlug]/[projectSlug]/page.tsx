@@ -117,6 +117,8 @@ export default async function ProjectPage({ params }: PageProps) {
         slug: project.slug,
         title: project.title,
         venue: project.venue,
+        organization: project.organization,
+        location: project.location,
         year: project.year,
         role: project.role,
         publishedContent: contentForRenderer,

@@ -8,6 +8,8 @@ import {
   ChevronUpIcon,
   CalendarIcon,
   MapPinIcon,
+  BuildingIcon,
+  GlobeIcon,
   UserIcon,
   StarIcon,
   FolderIcon,
@@ -21,6 +23,8 @@ interface ProjectMetadataSidebarProps {
   metadata: {
     year: string
     venue: string
+    organization: string
+    location: string
     role: string
     isFeatured: boolean
   }
@@ -41,7 +45,7 @@ export function ProjectMetadataSidebar({
 }: ProjectMetadataSidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true)
 
-  const handleTextChange = (field: 'year' | 'venue' | 'role', value: string) => {
+  const handleTextChange = (field: 'year' | 'venue' | 'organization' | 'location' | 'role', value: string) => {
     onChange({ [field]: value })
   }
 
@@ -110,9 +114,43 @@ export function ProjectMetadataSidebar({
               type="text"
               value={metadata.venue}
               onChange={(e) => handleTextChange('venue', e.target.value)}
-              placeholder="e.g., Gallery Name"
+              placeholder="e.g., National Theatre, The Pit"
               className={styles.fieldInput}
               data-testid="project-metadata-venue-input"
+            />
+          </div>
+
+          {/* Organization */}
+          <div className={styles.fieldGroup}>
+            <label htmlFor="metadata-organization" className={styles.fieldLabel}>
+              <BuildingIcon />
+              <span>Organization</span>
+            </label>
+            <input
+              id="metadata-organization"
+              type="text"
+              value={metadata.organization}
+              onChange={(e) => handleTextChange('organization', e.target.value)}
+              placeholder="e.g., UNCSA, Bethany Joy Costumes"
+              className={styles.fieldInput}
+              data-testid="project-metadata-organization-input"
+            />
+          </div>
+
+          {/* Location */}
+          <div className={styles.fieldGroup}>
+            <label htmlFor="metadata-location" className={styles.fieldLabel}>
+              <GlobeIcon />
+              <span>Location</span>
+            </label>
+            <input
+              id="metadata-location"
+              type="text"
+              value={metadata.location}
+              onChange={(e) => handleTextChange('location', e.target.value)}
+              placeholder="e.g., New York, NY"
+              className={styles.fieldInput}
+              data-testid="project-metadata-location-input"
             />
           </div>
 

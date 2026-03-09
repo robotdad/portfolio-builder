@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { categoryId, title, year, venue, role, isFeatured, featuredImageId } = validation.data
+    const { categoryId, title, year, venue, organization, location, role, isFeatured, featuredImageId } = validation.data
 
     // Verify category exists
     const category = await prisma.category.findUnique({
@@ -58,6 +58,8 @@ export async function POST(request: NextRequest) {
         slug,
         year,
         venue,
+        organization,
+        location,
         role,
         isFeatured: isFeatured ?? false,
         featuredImageId,

@@ -18,6 +18,8 @@ interface Project {
   slug: string
   title: string
   venue: string | null
+  organization: string | null
+  location: string | null
   year: string | null
   role: string | null
   publishedContent: string | null
@@ -76,6 +78,12 @@ export function ProjectDetail({
         <div className="project-meta">
           {project.venue && (
             <p className="project-venue" data-testid="project-detail-venue">{project.venue}</p>
+          )}
+          {project.organization && (
+            <p className="project-organization" data-testid="project-detail-organization">{project.organization}</p>
+          )}
+          {project.location && (
+            <p className="project-location" data-testid="project-detail-location">{project.location}</p>
           )}
           {project.year && (
             <p className="project-year" data-testid="project-detail-year">{project.year}</p>

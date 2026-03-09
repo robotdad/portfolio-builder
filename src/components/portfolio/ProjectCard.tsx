@@ -9,6 +9,7 @@ interface ProjectCardProps {
     slug: string
     title: string
     venue?: string | null
+    organization?: string | null
     year?: string | null
     featuredImageUrl?: string | null
     featuredImageAlt?: string
@@ -63,6 +64,9 @@ export function ProjectCard({
       {project.venue && (
         <p className="project-overlay__venue">{project.venue}</p>
       )}
+      {project.organization && (
+        <p className="project-overlay__organization">{project.organization}</p>
+      )}
       {project.year && (
         <p className="project-overlay__year">{project.year}</p>
       )}
@@ -90,6 +94,9 @@ export function ProjectCard({
             <CardTitle>{project.title}</CardTitle>
             {project.venue && (
               <CardDescription>{project.venue}</CardDescription>
+            )}
+            {project.organization && (
+              <CardDescription>{project.organization}</CardDescription>
             )}
           </CardBody>
         </Card>
@@ -127,6 +134,7 @@ export function ProjectCard({
         }
         
         .project-overlay__venue,
+        .project-overlay__organization,
         .project-overlay__year {
           margin: var(--space-1, 4px) 0 0;
           font-size: var(--font-size-sm, 0.875rem);

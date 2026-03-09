@@ -34,6 +34,8 @@ interface Project {
   lastPublishedAt: string | null
   year: string | null
   venue: string | null
+  organization: string | null
+  location: string | null
   role: string | null
   isFeatured: boolean
 }
@@ -41,6 +43,8 @@ interface Project {
 interface ProjectMetadata {
   year: string
   venue: string
+  organization: string
+  location: string
   role: string
   isFeatured: boolean
   featuredImageId: string | null
@@ -64,6 +68,8 @@ export default function ProjectEditorPage() {
   const [metadata, setMetadata] = useState<ProjectMetadata>({
     year: '',
     venue: '',
+    organization: '',
+    location: '',
     role: '',
     isFeatured: false,
     featuredImageId: null,
@@ -71,6 +77,8 @@ export default function ProjectEditorPage() {
   const [initialMetadata, setInitialMetadata] = useState<ProjectMetadata>({
     year: '',
     venue: '',
+    organization: '',
+    location: '',
     role: '',
     isFeatured: false,
     featuredImageId: null,
@@ -78,6 +86,8 @@ export default function ProjectEditorPage() {
   const [publishedMetadata, setPublishedMetadata] = useState<ProjectMetadata>({
     year: '',
     venue: '',
+    organization: '',
+    location: '',
     role: '',
     isFeatured: false,
     featuredImageId: null,
@@ -107,6 +117,8 @@ export default function ProjectEditorPage() {
         setPublishedMetadata({
           year: project.year || '',
           venue: project.venue || '',
+          organization: project.organization || '',
+          location: project.location || '',
           role: project.role || '',
           isFeatured: project.isFeatured,
           featuredImageId: project.featuredImage?.id || null,
@@ -116,6 +128,8 @@ export default function ProjectEditorPage() {
         const meta: ProjectMetadata = {
           year: project.year || '',
           venue: project.venue || '',
+          organization: project.organization || '',
+          location: project.location || '',
           role: project.role || '',
           isFeatured: project.isFeatured || false,
           featuredImageId: project.featuredImage?.id || null,
@@ -162,6 +176,8 @@ export default function ProjectEditorPage() {
           draftContent: serializeSections(sections),
           year: metadata.year || null,
           venue: metadata.venue || null,
+          organization: metadata.organization || null,
+          location: metadata.location || null,
           role: metadata.role || null,
           isFeatured: metadata.isFeatured,
           featuredImageId: metadata.featuredImageId,

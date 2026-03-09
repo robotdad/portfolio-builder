@@ -139,6 +139,8 @@ model Project {
   // Metadata (in sidebar, not sections)
   year String?
   venue String?
+  organization String?
+  location String?
   role String?
   order Int @default(0)
   isFeatured Boolean @default(false)

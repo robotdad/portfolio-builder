@@ -10,6 +10,8 @@ import { FormField } from '@/components/shared/FormField'
 export const MAX_TITLE_LENGTH = 200
 const MAX_YEAR_LENGTH = 20
 const MAX_VENUE_LENGTH = 200
+const MAX_ORGANIZATION_LENGTH = 200
+const MAX_LOCATION_LENGTH = 200
 const MAX_ROLE_LENGTH = 200
 
 // ============================================================================
@@ -40,6 +42,20 @@ export function validateVenue(value: string): string | undefined {
   return undefined
 }
 
+export function validateOrganization(value: string): string | undefined {
+  if (value.length > MAX_ORGANIZATION_LENGTH) {
+    return `Organization must be ${MAX_ORGANIZATION_LENGTH} characters or less`
+  }
+  return undefined
+}
+
+export function validateLocation(value: string): string | undefined {
+  if (value.length > MAX_LOCATION_LENGTH) {
+    return `Location must be ${MAX_LOCATION_LENGTH} characters or less`
+  }
+  return undefined
+}
+
 export function validateRole(value: string): string | undefined {
   if (value.length > MAX_ROLE_LENGTH) {
     return `Role must be ${MAX_ROLE_LENGTH} characters or less`
@@ -55,6 +71,8 @@ export interface BasicInfoValues {
   title: string
   year: string
   venue: string
+  organization: string
+  location: string
   role: string
 }
 
@@ -62,6 +80,8 @@ export interface BasicInfoErrors {
   title?: string
   year?: string
   venue?: string
+  organization?: string
+  location?: string
   role?: string
 }
 
@@ -69,6 +89,8 @@ export interface BasicInfoTouched {
   title?: boolean
   year?: boolean
   venue?: boolean
+  organization?: boolean
+  location?: boolean
   role?: boolean
 }
 
@@ -112,6 +134,18 @@ export function ProjectBasicInfo({
     [onChange]
   )
   const handleVenueBlur = useCallback(() => onBlur('venue'), [onBlur])
+
+  const handleOrganizationChange = useCallback(
+    (value: string) => onChange('organization', value),
+    [onChange]
+  )
+  const handleOrganizationBlur = useCallback(() => onBlur('organization'), [onBlur])
+
+  const handleLocationChange = useCallback(
+    (value: string) => onChange('location', value),
+    [onChange]
+  )
+  const handleLocationBlur = useCallback(() => onBlur('location'), [onBlur])
 
   const handleRoleChange = useCallback(
     (value: string) => onChange('role', value),
@@ -162,6 +196,32 @@ export function ProjectBasicInfo({
             placeholder="e.g., National Theatre"
             maxLength={MAX_VENUE_LENGTH}
             inputProps={{ 'data-testid': 'project-form-venue-input' }}
+          />
+
+          <FormField
+            type="text"
+            label="Organization"
+            value={values.organization}
+            onChange={handleOrganizationChange}
+            onBlur={handleOrganizationBlur}
+            error={errors.organization}
+            touched={touched.organization ?? false}
+            placeholder="e.g., UNCSA, Bethany Joy Costumes"
+            maxLength={MAX_ORGANIZATION_LENGTH}
+            inputProps={{ 'data-testid': 'project-form-organization-input' }}
+          />
+
+          <FormField
+            type="text"
+            label="Location"
+            value={values.location}
+            onChange={handleLocationChange}
+            onBlur={handleLocationBlur}
+            error={errors.location}
+            touched={touched.location ?? false}
+            placeholder="e.g., New York, NY"
+            maxLength={MAX_LOCATION_LENGTH}
+            inputProps={{ 'data-testid': 'project-form-location-input' }}
           />
 
           <FormField

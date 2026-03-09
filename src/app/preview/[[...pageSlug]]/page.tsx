@@ -235,6 +235,8 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
                 slug: project.slug,
                 title: project.title,
                 venue: project.venue,
+                organization: project.organization,
+                location: project.location,
                 year: project.year,
                 role: project.role,
                 publishedContent: contentForRenderer,

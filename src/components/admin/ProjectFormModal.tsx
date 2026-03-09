@@ -17,6 +17,8 @@ interface ProjectFormModalProps {
     title: string
     year: string | null
     venue: string | null
+    organization: string | null
+    location: string | null
     role: string | null
     description: string | null
     isFeatured: boolean

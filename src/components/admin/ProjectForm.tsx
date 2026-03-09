@@ -11,6 +11,8 @@ import {
   validateTitle, 
   validateYear, 
   validateVenue, 
+  validateOrganization,
+  validateLocation,
   validateRole,
   type BasicInfoValues,
 } from './ProjectBasicInfo'
@@ -29,6 +31,8 @@ export interface ProjectFormData {
   title: string
   year?: string
   venue?: string
+  organization?: string
+  location?: string
   role?: string
   description?: string
   isFeatured?: boolean
@@ -48,6 +52,8 @@ export interface ProjectFormProps {
     title: string
     year: string | null
     venue: string | null
+    organization: string | null
+    location: string | null
     role: string | null
     description: string | null
     isFeatured: boolean
@@ -131,6 +137,8 @@ export function ProjectForm({
   const [title, setTitle] = useState(() => project?.title ?? '')
   const [year, setYear] = useState(() => project?.year ?? '')
   const [venue, setVenue] = useState(() => project?.venue ?? '')
+  const [organization, setOrganization] = useState(() => project?.organization ?? '')
+  const [location, setLocation] = useState(() => project?.location ?? '')
   const [role, setRole] = useState(() => project?.role ?? '')
   const [description, setDescription] = useState(() => project?.description ?? '')
   const [isFeatured, setIsFeatured] = useState(() => project?.isFeatured ?? false)
@@ -143,6 +151,8 @@ export function ProjectForm({
     title?: string
     year?: string
     venue?: string
+    organization?: string
+    location?: string
     role?: string
     description?: string
     featuredImage?: string
@@ -151,6 +161,8 @@ export function ProjectForm({
     title?: boolean
     year?: boolean
     venue?: boolean
+    organization?: boolean
+    location?: boolean
     role?: boolean
     description?: boolean
     featuredImage?: boolean
@@ -182,6 +194,18 @@ export function ProjectForm({
             setErrors((prev) => ({ ...prev, venue: validateVenue(value) }))
           }
           break
+        case 'organization':
+          setOrganization(value)
+          if (touched.organization) {
+            setErrors((prev) => ({ ...prev, organization: validateOrganization(value) }))
+          }
+          break
+        case 'location':
+          setLocation(value)
+          if (touched.location) {
+            setErrors((prev) => ({ ...prev, location: validateLocation(value) }))
+          }
+          break
         case 'role':
           setRole(value)
           if (touched.role) {
@@ -206,12 +230,18 @@ export function ProjectForm({
         case 'venue':
           setErrors((prev) => ({ ...prev, venue: validateVenue(venue) }))
           break
+        case 'organization':
+          setErrors((prev) => ({ ...prev, organization: validateOrganization(organization) }))
+          break
+        case 'location':
+          setErrors((prev) => ({ ...prev, location: validateLocation(location) }))
+          break
         case 'role':
           setErrors((prev) => ({ ...prev, role: validateRole(role) }))
           break
       }
     },
-    [title, year, venue, role]
+    [title, year, venue, organization, location, role]
   )
 
   const handleDescriptionChange = useCallback((value: string) => {
@@ -309,6 +339,8 @@ export function ProjectForm({
     const titleError = validateTitle(title)
     const yearError = validateYear(year)
     const venueError = validateVenue(venue)
+    const organizationError = validateOrganization(organization)
+    const locationError = validateLocation(location)
     const roleError = validateRole(role)
     const descriptionError = validateDescription(description)
     
@@ -322,6 +354,8 @@ export function ProjectForm({
       title: titleError,
       year: yearError,
       venue: venueError,
+      organization: organizationError,
+      location: locationError,
       role: roleError,
       description: descriptionError,
       featuredImage: featuredImageError,
@@ -330,13 +364,15 @@ export function ProjectForm({
       title: true,
       year: true,
       venue: true,
+      organization: true,
+      location: true,
       role: true,
       description: true,
       featuredImage: true,
     })
 
     // Stop if there are errors
-    if (titleError || yearError || venueError || roleError || descriptionError || featuredImageError) {
+    if (titleError || yearError || venueError || organizationError || locationError || roleError || descriptionError || featuredImageError) {
       return
     }
 
@@ -345,6 +381,8 @@ export function ProjectForm({
       title: title.trim(),
       year: year.trim() || undefined,
       venue: venue.trim() || undefined,
+      organization: organization.trim() || undefined,
+      location: location.trim() || undefined,
       role: role.trim() || undefined,
       description: description.trim() || undefined,
       isFeatured,
@@ -364,7 +402,7 @@ export function ProjectForm({
       <form onSubmit={handleSubmit} className="project-form" noValidate data-testid="project-form">
         {/* Title field - always visible */}
         <ProjectBasicInfo
-          values={{ title, year, venue, role }}
+          values={{ title, year, venue, organization, location, role }}
           errors={errors}
           touched={touched}
           onChange={handleBasicInfoChange}

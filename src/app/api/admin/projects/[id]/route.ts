@@ -33,7 +33,7 @@ export async function PUT(
       )
     }
 
-    const { categoryId, title, year, venue, role, draftContent, publishedContent, isFeatured, order, featuredImageId } = validation.data
+    const { categoryId, title, year, venue, organization, location, role, draftContent, publishedContent, isFeatured, order, featuredImageId } = validation.data
     const updateData: Record<string, unknown> = {}
 
     // Handle category change (moving project)
@@ -85,6 +85,8 @@ export async function PUT(
     if (title !== undefined) updateData.title = title
     if (year !== undefined) updateData.year = year
     if (venue !== undefined) updateData.venue = venue
+    if (organization !== undefined) updateData.organization = organization
+    if (location !== undefined) updateData.location = location
     if (role !== undefined) updateData.role = role
     if (draftContent !== undefined) updateData.draftContent = draftContent
     if (publishedContent !== undefined) {
