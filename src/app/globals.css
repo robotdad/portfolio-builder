@@ -4763,10 +4763,9 @@ textarea:focus-visible {
   color: var(--modern-text);
 }
 
-.portfolio-nav--modern-minimal .portfolio-nav-menu {
-  background: white;
-  box-shadow: var(--shadow-xl);
-}
+/* NOTE: .portfolio-nav--modern-minimal .portfolio-nav-menu is intentionally
+   NOT defined here. The menu is portalled to document.body and is never a
+   DOM child of .portfolio-nav--*. See standalone portal classes below. */
 
 .portfolio-nav--modern-minimal .portfolio-nav-menu-link {
   color: var(--modern-text-muted);
@@ -4789,7 +4788,8 @@ textarea:focus-visible {
   --classic-text: var(--color-text-primary);
   --classic-text-muted: var(--color-text-secondary);
   --classic-font-display: var(--font-family-display, 'Playfair Display', Georgia, serif);
-  --classic-bg: var(--color-bg);
+  /* --classic-bg removed: was var(--color-bg) which doesn't exist (token is --color-background).
+     The mobile menu portal uses hardcoded values instead. See standalone portal classes. */
   background: rgba(250, 249, 247, 0.95);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(139, 115, 85, 0.1);
@@ -4823,10 +4823,9 @@ textarea:focus-visible {
   color: var(--classic-text);
 }
 
-.portfolio-nav--classic-elegant .portfolio-nav-menu {
-  background: var(--classic-bg);
-  box-shadow: var(--shadow-xl);
-}
+/* NOTE: .portfolio-nav--classic-elegant .portfolio-nav-menu is intentionally
+   NOT defined here. The menu is portalled to document.body. See standalone
+   portal classes below. */
 
 .portfolio-nav--classic-elegant .portfolio-nav-menu-link {
   color: var(--classic-text-muted);
@@ -4848,7 +4847,8 @@ textarea:focus-visible {
   --bold-accent: var(--color-accent);
   --bold-text: var(--color-text-primary);
   --bold-font-display: var(--font-family-display, 'Sora', 'DM Sans', sans-serif);
-  --bold-bg: var(--color-bg);
+  /* --bold-bg removed: was var(--color-bg) which doesn't exist (token is --color-background).
+     The mobile menu portal uses hardcoded values instead. See standalone portal classes. */
   background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -4884,10 +4884,9 @@ textarea:focus-visible {
   color: var(--bold-text);
 }
 
-.portfolio-nav--bold-editorial .portfolio-nav-menu {
-  background: var(--bold-bg);
-  box-shadow: var(--shadow-xl);
-}
+/* NOTE: .portfolio-nav--bold-editorial .portfolio-nav-menu is intentionally
+   NOT defined here. The menu is portalled to document.body. See standalone
+   portal classes below. */
 
 .portfolio-nav--bold-editorial .portfolio-nav-menu-link {
   color: rgba(255, 255, 255, 0.7);
@@ -4904,39 +4903,56 @@ textarea:focus-visible {
   color: var(--bold-accent);
 }
 
-/* Standalone menu theme classes (for portal rendering) */
+/* Standalone menu theme classes (for portal rendering)
+   ─────────────────────────────────────────────────────
+   The mobile menu panel is rendered via createPortal() to document.body,
+   which means it lives OUTSIDE the [data-theme] wrapper and the
+   .portfolio-nav--{theme} ancestor. CSS custom properties defined inside
+   those scoped selectors (--classic-bg, --bold-bg, --classic-accent, etc.)
+   do NOT inherit to the portal. Every value here MUST be hardcoded or use
+   only :root-level tokens. Using scoped variables here = transparent/broken.
+   This has broken before — do not reintroduce var(--classic-*) or var(--bold-*). */
+
 .portfolio-nav-menu--modern-minimal {
   background: white;
+  color: hsl(210, 10%, 23%);
 }
 .portfolio-nav-menu--modern-minimal .portfolio-nav-menu-link {
-  color: var(--modern-text-muted);
+  color: hsl(210, 10%, 40%);
 }
 .portfolio-nav-menu--modern-minimal .portfolio-nav-menu-link:hover {
   background: rgba(0, 0, 0, 0.03);
-  color: var(--modern-text);
+  color: hsl(210, 10%, 23%);
 }
 .portfolio-nav-menu--modern-minimal .portfolio-nav-menu-link--active {
-  color: var(--modern-text);
+  color: hsl(210, 10%, 23%);
   background: rgba(0, 0, 0, 0.05);
 }
 
 .portfolio-nav-menu--classic-elegant {
-  background: var(--classic-bg);
+  background: rgba(250, 249, 247, 0.98);
+  color: hsl(40, 10%, 15%);
+  box-shadow: -4px 0 24px rgba(139, 115, 85, 0.12);
 }
 .portfolio-nav-menu--classic-elegant .portfolio-nav-menu-link {
-  color: var(--classic-text-muted);
-  font-family: var(--classic-font-display);
+  color: hsl(40, 8%, 45%);
+  font-family: 'Playfair Display', Georgia, serif;
   letter-spacing: 0.02em;
 }
 .portfolio-nav-menu--classic-elegant .portfolio-nav-menu-link:hover {
-  color: var(--classic-accent);
+  color: hsl(25, 60%, 45%);
 }
 .portfolio-nav-menu--classic-elegant .portfolio-nav-menu-link--active {
-  color: var(--classic-accent);
+  color: hsl(25, 60%, 45%);
+}
+.portfolio-nav-menu--classic-elegant .portfolio-nav-menu-divider {
+  border-color: rgba(139, 115, 85, 0.15);
 }
 
 .portfolio-nav-menu--bold-editorial {
-  background: var(--bold-bg);
+  background: rgba(10, 10, 10, 0.98);
+  color: hsl(0, 0%, 92%);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.5);
 }
 .portfolio-nav-menu--bold-editorial .portfolio-nav-menu-link {
   color: rgba(255, 255, 255, 0.7);
@@ -4945,10 +4961,13 @@ textarea:focus-visible {
   letter-spacing: 0.05em;
 }
 .portfolio-nav-menu--bold-editorial .portfolio-nav-menu-link:hover {
-  color: var(--bold-accent);
+  color: hsl(340, 82%, 55%);
 }
 .portfolio-nav-menu--bold-editorial .portfolio-nav-menu-link--active {
-  color: var(--bold-accent);
+  color: hsl(340, 82%, 55%);
+}
+.portfolio-nav-menu--bold-editorial .portfolio-nav-menu-divider {
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ============================================
