@@ -110,7 +110,7 @@ export function MoveProjectModal({
   // synchronously in the effect body — to satisfy react-hooks/set-state-in-effect.
   useEffect(() => {
     if (isOpen && portfolioId) {
-      fetch(`/api/categories?portfolioId=${portfolioId}`)
+      fetch(`/api/categories?portfolioId=${portfolioId}&parentId=null`)
         .then((res) => {
           if (!res.ok) throw new Error('Failed to fetch categories')
           return res.json()

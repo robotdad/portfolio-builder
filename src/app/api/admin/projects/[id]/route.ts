@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { ENTITY_ERRORS } from '@/lib/messages'
 import { updateProjectSchema } from '@/lib/validations/project'
 import { generateSlug } from '@/lib/utils/slug'
+import { cascadeProjectLinkUpdate } from '@/lib/utils/cascade-content-links'
 
 // PUT /api/admin/projects/[id]
 export async function PUT(
@@ -100,6 +101,19 @@ export async function PUT(
     if (order !== undefined) updateData.order = order
     if (featuredImageId !== undefined) updateData.featuredImageId = featuredImageId
 
+    // Capture old path before the update so we can cascade link changes afterward.
+    // Only needed when the slug or category (which determines the URL) is changing.
+    let oldProjectPath: string | null = null
+    if (updateData.slug || updateData.categoryId) {
+      const oldCategory = await prisma.category.findUnique({
+        where: { id: existing.categoryId },
+        select: { slug: true, portfolioId: true },
+      })
+      if (oldCategory) {
+        oldProjectPath = `/${oldCategory.slug}/${existing.slug}`
+      }
+    }
+
     const project = await prisma.project.update({
       where: { id },
       data: updateData,
@@ -124,6 +138,17 @@ export async function PUT(
         },
       },
     })
+
+    // After a successful update, cascade any URL changes through stored content
+    // blobs. Fire-and-forget so the client response is not delayed.
+    if (oldProjectPath) {
+      const newPath = `/${project.category.slug}/${project.slug}`
+      if (oldProjectPath !== newPath) {
+        cascadeProjectLinkUpdate(project.category.portfolioId, oldProjectPath, newPath).catch(
+          (err) => console.error('Failed to cascade project link update:', err),
+        )
+      }
+    }
 
     return NextResponse.json({ data: project, success: true })
   } catch (error) {

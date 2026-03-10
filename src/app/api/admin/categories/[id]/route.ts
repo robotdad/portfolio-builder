@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { updateCategorySchema } from '@/lib/validations/category'
 import { generateSlug } from '@/lib/utils/slug'
+import { cascadeCategorySlugUpdate } from '@/lib/utils/cascade-content-links'
 
 // PUT /api/admin/categories/[id]
 export async function PUT(
@@ -136,6 +137,16 @@ export async function PUT(
         },
       },
     })
+
+    // After a successful update, cascade any URL changes through stored content
+    // blobs. Fire-and-forget so the client response is not delayed.
+    if (updateData.slug && updateData.slug !== existing.slug) {
+      cascadeCategorySlugUpdate(
+        existing.portfolioId,
+        existing.slug,
+        category.slug,
+      ).catch((err) => console.error('Failed to cascade category slug update:', err))
+    }
 
     return NextResponse.json({ data: category, success: true })
   } catch (error) {
