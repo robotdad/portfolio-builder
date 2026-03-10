@@ -29,6 +29,12 @@ export interface AdminPageHeaderProps {
   title?: string
   
   /**
+   * Optional action element rendered inline next to the page title.
+   * Useful for pencil-icon rename buttons, etc.
+   */
+  titleAction?: React.ReactNode
+  
+  /**
    * Action buttons for header right side
    * Compose your own - header provides the container
    */
@@ -89,6 +95,7 @@ export interface AdminPageHeaderProps {
 export function AdminPageHeader({
   navigation,
   title,
+  titleAction,
   actions,
   showMobileMenu = true,
   className = '',
@@ -117,7 +124,12 @@ export function AdminPageHeader({
             {navigation.type === 'breadcrumb' && (
               <div className="breadcrumb-wrapper">
                 <Breadcrumb items={navigation.items} />
-                {title && <h1 className="page-title">{title}</h1>}
+                {title && (
+                  <div className="page-title-row">
+                    <h1 className="page-title">{title}</h1>
+                    {titleAction}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -196,6 +208,12 @@ export function AdminPageHeader({
           flex-direction: column;
           gap: var(--space-2, 8px);
           min-width: 0; /* Allow breadcrumb to shrink */
+        }
+        
+        .page-title-row {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2, 8px);
         }
         
         .page-title {

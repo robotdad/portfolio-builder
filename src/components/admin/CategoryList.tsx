@@ -37,6 +37,8 @@ interface CategoryListProps {
   onCreateClick: () => void
   /** Callback fired when user clicks edit on a category */
   onEditClick: (category: Category) => void
+  /** Callback fired when user clicks the pencil icon to rename a category */
+  onRenameClick: (category: Category) => void
   /** Callback fired when user clicks delete on a category */
   onDeleteClick: (category: Category) => void
   /** Callback fired when user clicks to view projects within a category */
@@ -446,6 +448,7 @@ export function CategoryList({
   categories,
   onCreateClick,
   onEditClick,
+  onRenameClick,
   onDeleteClick,
   onViewProjects,
   onReorder,
@@ -667,6 +670,7 @@ export function CategoryList({
                   category={category}
                   onNavigate={() => onViewProjects(category)}
                   onEdit={() => onEditClick(category)}
+                  onRename={() => onRenameClick(category)}
                   onDelete={() => onDeleteClick(category)}
                 />
               </div>

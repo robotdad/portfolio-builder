@@ -8,6 +8,7 @@ import { useProjects, type Project } from '@/hooks/useProjects'
 import { ProjectList } from '@/components/admin/ProjectList'
 import { ProjectFormModal } from '@/components/admin/ProjectFormModal'
 import { DeleteProjectModal } from '@/components/admin/DeleteProjectModal'
+import { RenameModal } from '@/components/admin/RenameModal'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import type { ProjectFormData } from '@/components/admin/ProjectForm'
 
@@ -54,6 +55,25 @@ function AlertCircleIcon() {
       <circle cx="12" cy="12" r="10" />
       <line x1="12" x2="12" y1="8" y2="12" />
       <line x1="12" x2="12.01" y1="16" y2="16" />
+    </svg>
+  )
+}
+
+function PencilIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+      <path d="m15 5 4 4" />
     </svg>
   )
 }
@@ -179,6 +199,7 @@ export default function ProjectsPage() {
     isLoading: projectsLoading,
     error: projectsError,
     createProject,
+    updateProject,
     deleteProject,
     reorderProjects,
     refreshProjects,
@@ -187,6 +208,14 @@ export default function ProjectsPage() {
   // Modal states
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [deletingProject, setDeletingProject] = useState<Project | null>(null)
+
+  // Rename modal state — tracks what entity is being renamed
+  const [renameTarget, setRenameTarget] = useState<{
+    type: 'category' | 'subcategory' | 'project'
+    id: string
+    name: string
+  } | null>(null)
+  const [isRenaming, setIsRenaming] = useState(false)
 
   // Operation states
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -239,6 +268,60 @@ export default function ProjectsPage() {
     setSuccessMessage(message)
     setTimeout(() => setSuccessMessage(null), 3000)
   }, [])
+
+  // Handle rename (category, subcategory, or project)
+  const handleRenameClick = useCallback((type: 'category' | 'subcategory' | 'project', id: string, name: string) => {
+    setRenameTarget({ type, id, name })
+  }, [])
+
+  const handleRenameSave = useCallback(async (newName: string) => {
+    if (!renameTarget) return
+    setIsRenaming(true)
+    try {
+      if (renameTarget.type === 'project') {
+        await updateProject(renameTarget.id, { title: newName })
+      } else {
+        // Category or subcategory — call admin API directly
+        const res = await fetch(`/api/admin/categories/${renameTarget.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: newName }),
+        })
+        if (!res.ok) {
+          const result = await res.json()
+          throw new Error(result.error || 'Failed to rename')
+        }
+        // Update local category state
+        if (renameTarget.type === 'category') {
+          setCategory(prev => prev ? { ...prev, name: newName } : prev)
+        } else {
+          // Subcategory — update in children array
+          setCategory(prev => {
+            if (!prev?.children) return prev
+            return {
+              ...prev,
+              children: prev.children.map(sub =>
+                sub.id === renameTarget.id ? { ...sub, name: newName } : sub
+              ),
+            }
+          })
+        }
+      }
+      setRenameTarget(null)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to rename'
+      console.error('Rename error:', err)
+      showError(message)
+    } finally {
+      setIsRenaming(false)
+    }
+  }, [renameTarget, updateProject, showError])
+
+  const handleRenameClose = useCallback(() => {
+    if (!isRenaming) {
+      setRenameTarget(null)
+    }
+  }, [isRenaming])
 
   // Handle create project
   const handleCreate = async (data: ProjectFormData) => {
@@ -406,6 +489,19 @@ export default function ProjectsPage() {
             ]
           }}
           title={`${category?.name || 'Category'} Projects`}
+          titleAction={
+            category ? (
+              <button
+                type="button"
+                className="rename-title-btn"
+                onClick={() => handleRenameClick('category', category.id, category.name)}
+                aria-label={`Rename ${category.name}`}
+                data-testid="category-rename-btn"
+              >
+                <PencilIcon />
+              </button>
+            ) : undefined
+          }
           actions={
             <div style={{ display: 'flex', gap: '12px' }}>
               <Link href={`/admin/categories/${categoryId}/edit`} className="btn btn-secondary">
@@ -476,28 +572,38 @@ export default function ProjectsPage() {
             <h3 className="subcategories-heading">Subcategories</h3>
             <div className="subcategories-grid">
               {category.children.map(sub => (
-                <Link
-                  key={sub.id}
-                  href={`/admin/categories/${sub.id}/projects`}
-                  className="subcategory-card"
-                >
-                  {sub.featuredImage && (
-                    <div className="subcategory-card-image">
-                      <Image
-                        src={sub.featuredImage.thumbnailUrl || sub.featuredImage.url}
-                        alt={sub.featuredImage.altText || sub.name}
-                        width={48}
-                        height={48}
-                      />
+                <div key={sub.id} className="subcategory-card-wrapper">
+                  <Link
+                    href={`/admin/categories/${sub.id}/projects`}
+                    className="subcategory-card"
+                  >
+                    {sub.featuredImage && (
+                      <div className="subcategory-card-image">
+                        <Image
+                          src={sub.featuredImage.thumbnailUrl || sub.featuredImage.url}
+                          alt={sub.featuredImage.altText || sub.name}
+                          width={48}
+                          height={48}
+                        />
+                      </div>
+                    )}
+                    <div className="subcategory-card-info">
+                      <span className="subcategory-card-name">{sub.name}</span>
+                      <span className="subcategory-card-count">
+                        {sub._count.projects} {sub._count.projects === 1 ? 'project' : 'projects'}
+                      </span>
                     </div>
-                  )}
-                  <div className="subcategory-card-info">
-                    <span className="subcategory-card-name">{sub.name}</span>
-                    <span className="subcategory-card-count">
-                      {sub._count.projects} {sub._count.projects === 1 ? 'project' : 'projects'}
-                    </span>
-                  </div>
-                </Link>
+                  </Link>
+                  <button
+                    type="button"
+                    className="subcategory-rename-btn"
+                    onClick={() => handleRenameClick('subcategory', sub.id, sub.name)}
+                    aria-label={`Rename ${sub.name}`}
+                    data-testid={`subcategory-rename-btn-${sub.id}`}
+                  >
+                    <PencilIcon />
+                  </button>
+                </div>
               ))}
             </div>
           </div>
@@ -507,6 +613,7 @@ export default function ProjectsPage() {
           projects={projects}
           onCreateClick={() => setShowCreateModal(true)}
           onDeleteClick={(project) => setDeletingProject(project)}
+          onRenameClick={(project) => handleRenameClick('project', project.id, project.title)}
           onReorder={handleReorder}
           isLoading={isLoading}
           categoryName={category?.name || 'this category'}
@@ -521,6 +628,29 @@ export default function ProjectsPage() {
         onSubmit={handleCreate}
         onClose={handleCloseCreateModal}
         isSubmitting={isSubmitting}
+      />
+
+      {/* Rename Modal */}
+      <RenameModal
+        isOpen={renameTarget !== null}
+        title={
+          renameTarget?.type === 'project'
+            ? 'Rename Project'
+            : renameTarget?.type === 'subcategory'
+              ? 'Rename Subcategory'
+              : 'Rename Category'
+        }
+        label={
+          renameTarget?.type === 'project'
+            ? 'Project Title'
+            : renameTarget?.type === 'subcategory'
+              ? 'Subcategory Name'
+              : 'Category Name'
+        }
+        currentName={renameTarget?.name || ''}
+        onSave={handleRenameSave}
+        onClose={handleRenameClose}
+        isSubmitting={isRenaming}
       />
 
       {/* Delete Modal */}
@@ -614,6 +744,32 @@ export default function ProjectsPage() {
           flex: 1;
         }
 
+        /* Rename title button (next to page title in header) */
+        .projects-page :global(.rename-title-btn) {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 30px;
+          height: 30px;
+          padding: 0;
+          border: none;
+          border-radius: 6px;
+          background: transparent;
+          color: var(--admin-text-muted, #9ca3af);
+          cursor: pointer;
+          transition: background-color 0.15s, color 0.15s;
+        }
+
+        .projects-page :global(.rename-title-btn:hover) {
+          background: var(--admin-bg-secondary, #f3f4f6);
+          color: var(--admin-text, #111827);
+        }
+
+        .projects-page :global(.rename-title-btn:focus-visible) {
+          outline: 2px solid var(--admin-primary, #3b82f6);
+          outline-offset: 2px;
+        }
+
         /* Subcategories Section */
         .subcategories-section {
           max-width: 1200px;
@@ -634,11 +790,16 @@ export default function ProjectsPage() {
           gap: 16px;
         }
 
+        .subcategories-section :global(.subcategory-card-wrapper) {
+          position: relative;
+        }
+
         .subcategories-section :global(.subcategory-card) {
           display: flex;
           align-items: center;
           gap: 12px;
           padding: 12px;
+          padding-right: 36px;
           background: var(--color-surface, #f9fafb);
           border: 1px solid var(--admin-border, #e5e7eb);
           border-radius: 10px;
@@ -650,6 +811,41 @@ export default function ProjectsPage() {
         .subcategories-section :global(.subcategory-card:hover) {
           border-color: var(--color-accent, #3b82f6);
           box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .subcategories-section :global(.subcategory-rename-btn) {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 26px;
+          height: 26px;
+          padding: 0;
+          border: none;
+          border-radius: 4px;
+          background: transparent;
+          color: var(--admin-text-muted, #9ca3af);
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.15s, background-color 0.15s, color 0.15s;
+          z-index: 1;
+        }
+
+        .subcategories-section :global(.subcategory-rename-btn:hover) {
+          background: var(--admin-bg-secondary, #f3f4f6);
+          color: var(--admin-text, #111827);
+        }
+
+        .subcategories-section :global(.subcategory-rename-btn:focus-visible) {
+          opacity: 1;
+          outline: 2px solid var(--admin-primary, #3b82f6);
+          outline-offset: 2px;
+        }
+
+        .subcategories-section :global(.subcategory-card-wrapper:hover .subcategory-rename-btn) {
+          opacity: 1;
         }
 
         .subcategory-card-image {
@@ -693,6 +889,13 @@ export default function ProjectsPage() {
           max-width: 1200px;
           margin: 0 auto;
           padding: 24px;
+        }
+
+        /* Mobile: always show subcategory rename button */
+        @media (max-width: 639px) {
+          .subcategories-section :global(.subcategory-rename-btn) {
+            opacity: 1;
+          }
         }
 
         /* Mobile Styles */

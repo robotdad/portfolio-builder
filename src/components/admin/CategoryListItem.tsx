@@ -35,6 +35,7 @@ interface CategoryListItemProps {
   category: Category
   onNavigate: (categoryId: string) => void
   onEdit: (category: Category) => void
+  onRename: (category: Category) => void
   onDelete: (category: Category) => void
 }
 
@@ -46,6 +47,15 @@ function FolderIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+    </svg>
+  )
+}
+
+function PencilIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+      <path d="m15 5 4 4" />
     </svg>
   )
 }
@@ -84,6 +94,7 @@ export function CategoryListItem({
   category,
   onNavigate,
   onEdit,
+  onRename,
   onDelete,
 }: CategoryListItemProps) {
   const {
@@ -108,6 +119,11 @@ export function CategoryListItem({
     e.stopPropagation()
     onEdit(category)
   }, [category, onEdit])
+
+  const handleRename = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation()
+    onRename(category)
+  }, [category, onRename])
 
   const handleDelete = useCallback((e: React.MouseEvent) => {
     e.stopPropagation()
@@ -172,7 +188,18 @@ export function CategoryListItem({
 
       {/* Info */}
       <div className={styles.info}>
-        <h3 className={styles.name}>{category.name}</h3>
+        <div className={styles.nameRow}>
+          <h3 className={styles.name}>{category.name}</h3>
+          <button
+            className={styles.renameBtn}
+            onClick={handleRename}
+            aria-label={`Rename ${category.name}`}
+            type="button"
+            data-testid="category-item-rename-btn"
+          >
+            <PencilIcon />
+          </button>
+        </div>
         <span className={styles.count}>{projectCountText}</span>
       </div>
 

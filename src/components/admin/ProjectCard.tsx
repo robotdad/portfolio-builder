@@ -12,6 +12,7 @@ import { DragHandle } from '@/components/shared/DragHandle'
 interface ProjectCardProps {
   project: Project
   onDelete: () => void
+  onRename?: () => void
   isDragging?: boolean
   dragHandleProps?: any
 }
@@ -35,6 +36,25 @@ function CameraIcon() {
     >
       <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
       <circle cx="12" cy="13" r="3" />
+    </svg>
+  )
+}
+
+function PencilIcon() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+      <path d="m15 5 4 4" />
     </svg>
   )
 }
@@ -68,6 +88,7 @@ function TrashIcon() {
 export function ProjectCard({
   project,
   onDelete,
+  onRename,
   isDragging = false,
   dragHandleProps,
 }: ProjectCardProps) {
@@ -77,6 +98,12 @@ export function ProjectCard({
     e.preventDefault()
     e.stopPropagation()
     onDelete()
+  }
+
+  const handleRename = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    onRename?.()
   }
 
   return (
@@ -140,7 +167,20 @@ export function ProjectCard({
 
         {/* Content */}
         <CardBody>
-          <CardTitle>{project.title}</CardTitle>
+          <div className="card-title-row">
+            <CardTitle>{project.title}</CardTitle>
+            {onRename && (
+              <button
+                className="rename-btn"
+                onClick={handleRename}
+                aria-label={`Rename ${project.title}`}
+                type="button"
+                data-testid="project-card-rename-btn"
+              >
+                <PencilIcon />
+              </button>
+            )}
+          </div>
           {project.venue && <CardDescription>{project.venue}</CardDescription>}
         </CardBody>
       </Card>
@@ -163,6 +203,52 @@ export function ProjectCard({
           justify-content: center;
           background-color: var(--color-surface-dim, hsl(0, 0%, 96%));
           color: var(--color-text-muted, hsl(0, 0%, 60%));
+        }
+
+        .card-title-row {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+
+        .rename-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          width: 26px;
+          height: 26px;
+          padding: 0;
+          border: none;
+          border-radius: 4px;
+          background: transparent;
+          color: var(--color-text-muted, #9ca3af);
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 150ms ease, background-color 150ms ease, color 150ms ease;
+        }
+
+        .rename-btn:hover {
+          background: var(--color-surface-dim, #f3f4f6);
+          color: var(--color-text, #1f2937);
+        }
+
+        .rename-btn:focus-visible {
+          opacity: 1;
+          outline: 2px solid var(--color-accent, #3b82f6);
+          outline-offset: 2px;
+        }
+
+        .project-card-link:hover .rename-btn,
+        .project-card-link:focus-within .rename-btn {
+          opacity: 1;
+        }
+
+        /* Always show on mobile */
+        @media (max-width: 639px) {
+          .rename-btn {
+            opacity: 1;
+          }
         }
 
         .year-badge {

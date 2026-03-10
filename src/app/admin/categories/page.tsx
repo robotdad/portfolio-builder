@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { CategoryList } from '@/components/admin/CategoryList'
 import { CategoryFormModal } from '@/components/admin/CategoryFormModal'
 import { DeleteCategoryModal } from '@/components/admin/DeleteCategoryModal'
+import { RenameModal } from '@/components/admin/RenameModal'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { useCategories, type Category } from '@/hooks/useCategories'
 import type { CategoryFormData } from '@/components/admin/CategoryForm'
@@ -73,6 +74,11 @@ export default function CategoriesPage() {
   const [deletingCategory, setDeletingCategory] = useState<Category | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
 
+  // Rename modal state
+  const [isRenameModalOpen, setIsRenameModalOpen] = useState(false)
+  const [renamingCategory, setRenamingCategory] = useState<Category | null>(null)
+  const [isRenaming, setIsRenaming] = useState(false)
+
   // Reordering state
   const [isReordering, setIsReordering] = useState(false)
 
@@ -96,6 +102,37 @@ export default function CategoriesPage() {
     setEditingCategory(category)
     setIsFormModalOpen(true)
   }, [])
+
+  // Open rename modal
+  const handleRenameClick = useCallback((category: Category) => {
+    setRenamingCategory(category)
+    setIsRenameModalOpen(true)
+  }, [])
+
+  // Handle rename save
+  const handleRenameSave = useCallback(async (newName: string) => {
+    if (!renamingCategory) return
+    setIsRenaming(true)
+    try {
+      await updateCategory(renamingCategory.id, { name: newName })
+      setIsRenameModalOpen(false)
+      setRenamingCategory(null)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to rename category'
+      console.error('Rename category error:', err)
+      showError(message)
+    } finally {
+      setIsRenaming(false)
+    }
+  }, [renamingCategory, updateCategory, showError])
+
+  // Close rename modal
+  const handleRenameClose = useCallback(() => {
+    if (!isRenaming) {
+      setIsRenameModalOpen(false)
+      setRenamingCategory(null)
+    }
+  }, [isRenaming])
 
   // Open delete confirmation modal
   const handleDeleteClick = useCallback((category: Category) => {
@@ -249,6 +286,7 @@ export default function CategoriesPage() {
           categories={categories}
           onCreateClick={handleCreateClick}
           onEditClick={handleEditClick}
+          onRenameClick={handleRenameClick}
           onDeleteClick={handleDeleteClick}
           onViewProjects={handleViewProjects}
           onReorder={handleReorder}
@@ -270,6 +308,17 @@ export default function CategoriesPage() {
         onSubmit={handleFormSubmit}
         onClose={handleFormClose}
         isSubmitting={isSubmitting}
+      />
+
+      {/* Rename Modal */}
+      <RenameModal
+        isOpen={isRenameModalOpen}
+        title="Rename Category"
+        label="Category Name"
+        currentName={renamingCategory?.name || ''}
+        onSave={handleRenameSave}
+        onClose={handleRenameClose}
+        isSubmitting={isRenaming}
       />
 
       {/* Delete Confirmation Modal */}
