@@ -9,6 +9,7 @@ import { ProjectList } from '@/components/admin/ProjectList'
 import { ProjectFormModal } from '@/components/admin/ProjectFormModal'
 import { DeleteProjectModal } from '@/components/admin/DeleteProjectModal'
 import { RenameModal } from '@/components/admin/RenameModal'
+import { MoveProjectModal } from '@/components/admin/MoveProjectModal'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import type { ProjectFormData } from '@/components/admin/ProjectForm'
 
@@ -217,6 +218,10 @@ export default function ProjectsPage() {
   } | null>(null)
   const [isRenaming, setIsRenaming] = useState(false)
 
+  // Move modal state
+  const [moveTarget, setMoveTarget] = useState<Project | null>(null)
+  const [isMoving, setIsMoving] = useState(false)
+
   // Operation states
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -322,6 +327,31 @@ export default function ProjectsPage() {
       setRenameTarget(null)
     }
   }, [isRenaming])
+
+  // Handle move project
+  const handleMoveProject = useCallback(async (newCategoryId: string) => {
+    if (!moveTarget) return
+    setIsMoving(true)
+    try {
+      const res = await fetch(`/api/admin/projects/${moveTarget.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ categoryId: newCategoryId }),
+      })
+      if (!res.ok) {
+        const result = await res.json()
+        throw new Error(result.error || 'Failed to move project')
+      }
+      setMoveTarget(null)
+      refreshProjects()
+      showSuccess('Project moved successfully')
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to move project'
+      showError(message)
+    } finally {
+      setIsMoving(false)
+    }
+  }, [moveTarget, refreshProjects, showSuccess, showError])
 
   // Handle create project
   const handleCreate = async (data: ProjectFormData) => {
@@ -614,6 +644,7 @@ export default function ProjectsPage() {
           onCreateClick={() => setShowCreateModal(true)}
           onDeleteClick={(project) => setDeletingProject(project)}
           onRenameClick={(project) => handleRenameClick('project', project.id, project.title)}
+          onMoveClick={(project) => setMoveTarget(project)}
           onReorder={handleReorder}
           isLoading={isLoading}
           categoryName={category?.name || 'this category'}
@@ -628,6 +659,17 @@ export default function ProjectsPage() {
         onSubmit={handleCreate}
         onClose={handleCloseCreateModal}
         isSubmitting={isSubmitting}
+      />
+
+      {/* Move Project Modal */}
+      <MoveProjectModal
+        isOpen={moveTarget !== null}
+        projectTitle={moveTarget?.title || ''}
+        currentCategoryId={categoryId}
+        portfolioId={portfolioId || ''}
+        onMove={handleMoveProject}
+        onClose={() => { if (!isMoving) setMoveTarget(null) }}
+        isSubmitting={isMoving}
       />
 
       {/* Rename Modal */}

@@ -31,6 +31,8 @@ interface ProjectMetadataSidebarProps {
   onChange: (updates: Partial<ProjectMetadataSidebarProps['metadata']>) => void
   categoryId: string
   categoryName: string
+  /** When provided, renders the category as a clickable button instead of a link */
+  onMoveClick?: () => void
 }
 
 // ============================================================================
@@ -42,6 +44,7 @@ export function ProjectMetadataSidebar({
   onChange,
   categoryId,
   categoryName,
+  onMoveClick,
 }: ProjectMetadataSidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true)
 
@@ -72,18 +75,30 @@ export function ProjectMetadataSidebar({
       {/* Content */}
       {isExpanded && (
         <div id="metadata-content" className={styles.sidebarContent}>
-          {/* Category (display only) */}
+          {/* Category — link when read-only, button when move is available */}
           <div className={styles.fieldGroupFirst}>
             <label className={styles.fieldLabel}>
               <FolderIcon />
               <span>Category</span>
             </label>
-            <Link
-              href={`/admin/categories/${categoryId}/projects`}
-              className={styles.categoryLink}
-            >
-              {categoryName}
-            </Link>
+            {onMoveClick ? (
+              <button
+                type="button"
+                className={styles.categoryButton}
+                onClick={onMoveClick}
+                aria-label={`Move project — currently in ${categoryName}`}
+                data-testid="project-metadata-category-move-btn"
+              >
+                {categoryName}
+              </button>
+            ) : (
+              <Link
+                href={`/admin/categories/${categoryId}/projects`}
+                className={styles.categoryLink}
+              >
+                {categoryName}
+              </Link>
+            )}
           </div>
 
           {/* Year */}

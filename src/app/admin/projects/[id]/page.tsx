@@ -7,6 +7,7 @@ import { SectionList } from '@/components/editor/SectionList'
 import { AddSectionButton } from '@/components/editor/AddSectionButton'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { RenameModal } from '@/components/admin/RenameModal'
+import { MoveProjectModal } from '@/components/admin/MoveProjectModal'
 import { AdminEditorToolbar } from '@/components/admin/AdminEditorToolbar'
 import { type DraftStatus } from '@/components/admin/DraftIndicator'
 import { ProjectMetadataSidebar } from '@/components/admin/ProjectMetadataSidebar'
@@ -63,6 +64,10 @@ export default function ProjectEditorPage() {
   // Rename state
   const [isRenameOpen, setIsRenameOpen] = useState(false)
   const [isRenaming, setIsRenaming] = useState(false)
+
+  // Move state
+  const [isMoveOpen, setIsMoveOpen] = useState(false)
+  const [isMoving, setIsMoving] = useState(false)
 
   // Section state
   const [sections, setSections] = useState<Section[]>([])
@@ -251,6 +256,39 @@ export default function ProjectEditorPage() {
     }
   }, [project, projectId, saveDraft, sections, metadata])
 
+  // Move handler
+  const handleMoveProject = useCallback(async (newCategoryId: string) => {
+    if (!project) return
+    setIsMoving(true)
+    try {
+      const res = await fetch(`/api/admin/projects/${projectId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ categoryId: newCategoryId }),
+      })
+      if (!res.ok) {
+        const result = await res.json()
+        throw new Error(result.error || 'Failed to move project')
+      }
+      const { data: updated } = await res.json()
+      setProject(prev =>
+        prev
+          ? {
+              ...prev,
+              categoryId: updated.category.id,
+              slug: updated.slug,
+              category: updated.category,
+            }
+          : prev
+      )
+      setIsMoveOpen(false)
+    } catch (err) {
+      console.error('Move project error:', err)
+    } finally {
+      setIsMoving(false)
+    }
+  }, [project, projectId])
+
   // Rename handler
   const handleRenameSave = useCallback(async (newTitle: string) => {
     if (!project) return
@@ -392,6 +430,17 @@ export default function ProjectEditorPage() {
         isSubmitting={isRenaming}
       />
 
+      {/* Move Project Modal */}
+      <MoveProjectModal
+        isOpen={isMoveOpen}
+        projectTitle={project.title}
+        currentCategoryId={project.categoryId}
+        portfolioId={project.category.portfolioId}
+        onMove={handleMoveProject}
+        onClose={() => { if (!isMoving) setIsMoveOpen(false) }}
+        isSubmitting={isMoving}
+      />
+
       {/* Editor Toolbar - Dedicated editing controls */}
       <AdminEditorToolbar
         viewLinks={{
@@ -417,6 +466,7 @@ export default function ProjectEditorPage() {
                 onChange={handleMetadataChange}
                 categoryId={project.categoryId}
                 categoryName={project.category.name}
+                onMoveClick={() => setIsMoveOpen(true)}
               />
 
               {/* Featured Image */}

@@ -13,6 +13,7 @@ interface ProjectCardProps {
   project: Project
   onDelete: () => void
   onRename?: () => void
+  onMove?: () => void
   isDragging?: boolean
   dragHandleProps?: any
 }
@@ -36,6 +37,28 @@ function CameraIcon() {
     >
       <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
       <circle cx="12" cy="13" r="3" />
+    </svg>
+  )
+}
+
+function MoveIcon() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {/* Folder body */}
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+      {/* Arrow indicating move */}
+      <polyline points="12 12 16 12" />
+      <polyline points="14 10 16 12 14 14" />
     </svg>
   )
 }
@@ -89,6 +112,7 @@ export function ProjectCard({
   project,
   onDelete,
   onRename,
+  onMove,
   isDragging = false,
   dragHandleProps,
 }: ProjectCardProps) {
@@ -104,6 +128,12 @@ export function ProjectCard({
     e.preventDefault()
     e.stopPropagation()
     onRename?.()
+  }
+
+  const handleMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    onMove?.()
   }
 
   return (
@@ -180,6 +210,17 @@ export function ProjectCard({
                 <PencilIcon />
               </button>
             )}
+            {onMove && (
+              <button
+                className="move-btn"
+                onClick={handleMove}
+                aria-label={`Move ${project.title} to a different category`}
+                type="button"
+                data-testid="project-card-move-btn"
+              >
+                <MoveIcon />
+              </button>
+            )}
           </div>
           {project.venue && <CardDescription>{project.venue}</CardDescription>}
         </CardBody>
@@ -211,7 +252,8 @@ export function ProjectCard({
           gap: 4px;
         }
 
-        .rename-btn {
+        .rename-btn,
+        .move-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -228,25 +270,30 @@ export function ProjectCard({
           transition: opacity 150ms ease, background-color 150ms ease, color 150ms ease;
         }
 
-        .rename-btn:hover {
+        .rename-btn:hover,
+        .move-btn:hover {
           background: var(--color-surface-dim, #f3f4f6);
           color: var(--color-text, #1f2937);
         }
 
-        .rename-btn:focus-visible {
+        .rename-btn:focus-visible,
+        .move-btn:focus-visible {
           opacity: 1;
           outline: 2px solid var(--color-accent, #3b82f6);
           outline-offset: 2px;
         }
 
         .project-card-link:hover .rename-btn,
-        .project-card-link:focus-within .rename-btn {
+        .project-card-link:focus-within .rename-btn,
+        .project-card-link:hover .move-btn,
+        .project-card-link:focus-within .move-btn {
           opacity: 1;
         }
 
         /* Always show on mobile */
         @media (max-width: 639px) {
-          .rename-btn {
+          .rename-btn,
+          .move-btn {
             opacity: 1;
           }
         }

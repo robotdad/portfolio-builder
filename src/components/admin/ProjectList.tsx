@@ -33,6 +33,7 @@ interface ProjectListProps {
   onCreateClick: () => void
   onDeleteClick: (project: Project) => void
   onRenameClick?: (project: Project) => void
+  onMoveClick?: (project: Project) => void
   onReorder: (orderedIds: string[]) => void
   isLoading?: boolean
   categoryName: string
@@ -47,10 +48,11 @@ interface SortableItemProps {
   project: Project
   onDelete: () => void
   onRename?: () => void
+  onMove?: () => void
   disabled: boolean
 }
 
-function SortableItem({ id, project, onDelete, onRename, disabled }: SortableItemProps) {
+function SortableItem({ id, project, onDelete, onRename, onMove, disabled }: SortableItemProps) {
   const {
     attributes,
     listeners,
@@ -77,6 +79,7 @@ function SortableItem({ id, project, onDelete, onRename, disabled }: SortableIte
         project={project}
         onDelete={onDelete}
         onRename={onRename}
+        onMove={onMove}
         isDragging={isDragging}
         dragHandleProps={{ attributes, listeners } as any}
       />
@@ -328,6 +331,7 @@ export function ProjectList({
   onCreateClick,
   onDeleteClick,
   onRenameClick,
+  onMoveClick,
   onReorder,
   isLoading = false,
   categoryName,
@@ -484,6 +488,7 @@ export function ProjectList({
                   project={project}
                   onDelete={() => onDeleteClick(project)}
                   onRename={onRenameClick ? () => onRenameClick(project) : undefined}
+                  onMove={onMoveClick ? () => onMoveClick(project) : undefined}
                   disabled={false}
                 />
               </div>
