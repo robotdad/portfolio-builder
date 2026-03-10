@@ -81,14 +81,29 @@ function CarouselSlide({
     >
       <Link href={href} className="carousel-slide-link">
         {project.featuredImageUrl ? (
-          <Image
-            src={project.featuredImageUrl}
-            alt={project.featuredImageAlt || project.title}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
-            className={`carousel-slide-image${isPortrait ? ' carousel-slide-image--portrait' : ''}`}
-            priority={isActive}
-          />
+          <>
+            {/* Portrait images: blurred ambient background fills the letterbox
+                area so the full image can be shown without harsh bars */}
+            {isPortrait && (
+              <Image
+                src={project.featuredImageUrl}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+                className="carousel-slide-blur-bg"
+                aria-hidden="true"
+                priority={false}
+              />
+            )}
+            <Image
+              src={project.featuredImageUrl}
+              alt={project.featuredImageAlt || project.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+              className={`carousel-slide-image${isPortrait ? ' carousel-slide-image--portrait' : ''}`}
+              priority={isActive}
+            />
+          </>
         ) : (
           <div className="carousel-slide-placeholder" aria-hidden="true">
             <span>No Image</span>
@@ -126,7 +141,7 @@ function CarouselSlide({
  * - Crossfade transitions (800ms auto, 600ms manual)
  * - Pause/Play button (WCAG compliance)
  * - Reduced motion support
- * - Responsive: 16:9 desktop, 4:3 mobile
+ * - Responsive: 16:9 desktop, 4:3 mobile (portrait images shown in full with blurred ambient bg)
  */
 export function FeaturedCarousel({
   portfolioSlug,
