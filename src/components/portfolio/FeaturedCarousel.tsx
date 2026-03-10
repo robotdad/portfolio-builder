@@ -70,7 +70,7 @@ function CarouselSlide({
 
   return (
     <div
-      className={`carousel-slide ${stateClass}`}
+      className={`carousel-slide${isPortrait ? ' carousel-slide--portrait' : ''} ${stateClass}`}
       role="group"
       aria-roledescription="slide"
       aria-label={`${project.title}`}

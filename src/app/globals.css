@@ -6036,6 +6036,7 @@ textarea:focus-visible {
 .carousel-slide-overlay {
   position: absolute;
   inset: 0;
+  z-index: 3;
   display: flex;
   align-items: flex-end;
   background: linear-gradient(
@@ -6059,6 +6060,11 @@ textarea:focus-visible {
   color: white;
   margin: 0 0 var(--space-2) 0;
   line-height: var(--leading-tight);
+  /* Safety net: truncate extremely long titles gracefully */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .carousel-slide-meta {
@@ -6078,6 +6084,22 @@ textarea:focus-visible {
 
   .carousel-slide-meta {
     font-size: var(--font-size-base);
+  }
+
+  /* Portrait slides: move text to the left letterbox area beside the image.
+     The contain-fitted portrait image leaves ~27-31% margin on each side
+     in a 16:9 container. Place text there instead of behind the image. */
+  .carousel-slide--portrait .carousel-slide-overlay {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.25) 30%,
+      transparent 50%
+    );
+  }
+
+  .carousel-slide--portrait .carousel-slide-info {
+    max-width: 38%;
   }
 }
 
