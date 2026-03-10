@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { SectionList } from '@/components/editor/SectionList'
 import { AddSectionButton } from '@/components/editor/AddSectionButton'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { RenameModal } from '@/components/admin/RenameModal'
 import { AdminEditorToolbar } from '@/components/admin/AdminEditorToolbar'
 import { type DraftStatus } from '@/components/admin/DraftIndicator'
 import { ProjectMetadataSidebar } from '@/components/admin/ProjectMetadataSidebar'
@@ -58,6 +59,10 @@ export default function ProjectEditorPage() {
   const [project, setProject] = useState<Project | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  // Rename state
+  const [isRenameOpen, setIsRenameOpen] = useState(false)
+  const [isRenaming, setIsRenaming] = useState(false)
 
   // Section state
   const [sections, setSections] = useState<Section[]>([])
@@ -246,6 +251,30 @@ export default function ProjectEditorPage() {
     }
   }, [project, projectId, saveDraft, sections, metadata])
 
+  // Rename handler
+  const handleRenameSave = useCallback(async (newTitle: string) => {
+    if (!project) return
+    setIsRenaming(true)
+    try {
+      const res = await fetch(`/api/admin/projects/${projectId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: newTitle }),
+      })
+      if (!res.ok) {
+        const result = await res.json()
+        throw new Error(result.error || 'Failed to rename project')
+      }
+      const { data: updated } = await res.json()
+      setProject(prev => prev ? { ...prev, title: updated.title, slug: updated.slug } : prev)
+      setIsRenameOpen(false)
+    } catch (err) {
+      console.error('Rename project error:', err)
+    } finally {
+      setIsRenaming(false)
+    }
+  }, [project, projectId])
+
   // Section handlers
   const handleSectionsChange = useCallback((newSections: Section[]) => {
     setSections(newSections)
@@ -316,6 +345,51 @@ export default function ProjectEditorPage() {
           ]
         }}
         title={project.title}
+        titleAction={
+          <button
+            type="button"
+            onClick={() => setIsRenameOpen(true)}
+            aria-label={`Rename ${project.title}`}
+            data-testid="project-rename-btn"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 30,
+              height: 30,
+              padding: 0,
+              border: 'none',
+              borderRadius: 6,
+              background: 'transparent',
+              color: 'var(--admin-text-muted, #9ca3af)',
+              cursor: 'pointer',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--admin-bg-secondary, #f3f4f6)'
+              e.currentTarget.style.color = 'var(--admin-text, #111827)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = 'var(--admin-text-muted, #9ca3af)'
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+              <path d="m15 5 4 4" />
+            </svg>
+          </button>
+        }
+      />
+
+      {/* Rename Modal */}
+      <RenameModal
+        isOpen={isRenameOpen}
+        title="Rename Project"
+        label="Project Title"
+        currentName={project.title}
+        onSave={handleRenameSave}
+        onClose={() => { if (!isRenaming) setIsRenameOpen(false) }}
+        isSubmitting={isRenaming}
       />
 
       {/* Editor Toolbar - Dedicated editing controls */}
