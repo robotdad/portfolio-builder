@@ -1,3 +1,6 @@
+# Amplifier (personal project bundle)
+.amplifier/
+
 # Dependencies
 node_modules/
 /.pnp
