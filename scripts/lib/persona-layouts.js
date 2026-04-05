@@ -2042,10 +2042,29 @@ function sashaMultiSectionPage(project, galleryImages, context) {
     sections.push(imageFromGallery(hero));
   }
 
-  // 2. Top-level description
-  if (project.description) {
+  // 2. Commentary + credits, same pattern as single projects.
+  //    Project details metadata is NOT included — the app renders that in the header.
+  const pc = project.projectContent || {};
+  const sidebar = (pc.sidebar || '').trim();
+  const commentary = (pc.description || '').trim();
+
+  const sidebarHtml = sidebar
+    ? sidebar.split('\n').filter(l => l.trim()).map(l => `<p>${l.trim()}</p>`).join('\n')
+    : '';
+
+  if (sidebar || commentary) {
     sections.push(
-      buildTextSection({ body: formatAsHtml(project.description) })
+      buildTwoColumnLayout({
+        ratio: '50-50',
+        gap: 'default',
+        mobileStackOrder: 'left-first',
+        leftColumn: [
+          buildTextSection({ body: commentary ? formatAsHtml(commentary) : '' }),
+        ],
+        rightColumn: [
+          buildTextSection({ body: sidebarHtml }),
+        ],
+      })
     );
   }
 
@@ -2097,33 +2116,42 @@ function sashaMultiSectionPage(project, galleryImages, context) {
   return sections;
 }
 
-/** Sasha single project page — text at top, then all images */
+/** Sasha single project page — text at top, then all images.
+ *  Project metadata (role, year, production, etc.) is rendered by the app
+ *  in the project header — never duplicate it in the content sections.
+ *  projectContent.sidebar = left column (credits/contributors)
+ *  projectContent.description = right column (her commentary)
+ */
 function sashaSingleProjectPage(project, galleryImages, context) {
   const sections = [];
   const { remaining } = createImageConsumer(galleryImages);
 
-  // 1. All text at top — description + project details side by side (before any images)
-  const hasDescription = project.description;
-  const hasDetails = project.projectDetails && Object.keys(project.projectDetails).length > 0;
-  
-  if (hasDescription && hasDetails) {
+  // 1. Two-column text: commentary on left, credits on right.
+  //    Project details metadata is NOT included — the app renders that in the header.
+  const pc = project.projectContent || {};
+  const sidebar = (pc.sidebar || '').trim();
+  const commentary = (pc.description || '').trim();
+
+  // Sidebar lines are \n-separated credits — each line becomes its own <p>.
+  // formatAsHtml would mangle these since they don't end with sentence punctuation.
+  const sidebarHtml = sidebar
+    ? sidebar.split('\n').filter(l => l.trim()).map(l => `<p>${l.trim()}</p>`).join('\n')
+    : '';
+
+  if (sidebar || commentary) {
     sections.push(
       buildTwoColumnLayout({
         ratio: '50-50',
         gap: 'default',
         mobileStackOrder: 'left-first',
         leftColumn: [
-          buildTextSection({ body: formatAsHtml(project.description) }),
+          buildTextSection({ body: commentary ? formatAsHtml(commentary) : '' }),
         ],
         rightColumn: [
-          buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }),
+          buildTextSection({ body: sidebarHtml }),
         ],
       })
     );
-  } else if (hasDescription) {
-    sections.push(buildTextSection({ body: formatAsHtml(project.description) }));
-  } else if (hasDetails) {
-    sections.push(buildTextSection({ body: buildProjectDetailsHtml(project.projectDetails) }));
   }
 
   // 3. All remaining images — at least 2 columns, never single column

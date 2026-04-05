@@ -4,7 +4,7 @@
     "name": "Sarah Chen",
     "role": "Costume Designer",
     "location": "Portland, OR",
-    "bio": "I design costumes that become characters unto themselves\u2014fabric, silhouette, and color converging to tell stories that words alone cannot. From Portland's indie theater scene to Sundance premieres and streaming television, my work lives at the intersection of narrative and craft, finding the emotional truth of a character in every seam, every color choice, every deliberate thread.",
+    "bio": "I design costumes that become characters unto themselves—fabric, silhouette, and color converging to tell stories that words alone cannot. From Portland's indie theater scene to Sundance premieres and streaming television, my work lives at the intersection of narrative and craft, finding the emotional truth of a character in every seam, every color choice, every deliberate thread.",
     "yearsActive": "2016-present",
     "theme": "bold-editorial",
     "template": "clean-minimal",
@@ -51,561 +51,581 @@
   },
   "categories": [
     {
-      "id": "theater-production",
-      "name": "Theater Production",
-      "slug": "theater-production",
-      "description": "Costume design for contemporary and classical theater. From initial concept through opening night, creating visual narratives that support character arcs and directorial vision.",
+      "id": "stage-production",
+      "name": "Stage Production",
+      "slug": "stage-production",
+      "description": "Costume design for contemporary and classical theater, from bold original works to fresh reimaginings of the canon. Creating visual narratives that support character arcs and directorial vision from initial concept through opening night.",
       "order": 1,
       "featuredPhoto": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
       "categoryContent": {
         "headline": "Where Fabric Meets the Footlights",
-        "introduction": "There is nothing quite like designing for the stage\u2014where every costume must speak to the back row and whisper to the front. Theater is where I learned that clothing isn't decoration; it's dramaturgy. I design costumes that carry the weight of a character's journey, that shift and darken and transform as the story demands, becoming a visual language the audience reads without ever knowing they're reading it.",
-        "approach": "I start every project in conversation\u2014with the director, with the text, with the world of the play. I sketch obsessively, pin swatches to mood boards until the color story feels inevitable, and build each costume as though it were a character making its own entrance. My workshop becomes a laboratory where fabric choices are tested not just for look, but for how they move under light and in the actor's body."
+        "introduction": "There is nothing quite like designing for the stage—where every costume must speak to the back row and whisper to the front. Theater is where I learned that clothing isn't decoration; it's dramaturgy. I design costumes that carry the weight of a character's journey, that shift and darken and transform as the story demands, becoming a visual language the audience reads without ever knowing they're reading it.",
+        "approach": "I start every project in conversation—with the director, with the text, with the world of the play. I sketch obsessively, pin swatches to mood boards until the color story feels inevitable, and build each costume as though it were a character making its own entrance. My workshop becomes a laboratory where fabric choices are tested not just for look, but for how they move under light and in the actor's body."
       },
-      "projects": [
+      "subcategories": [
         {
-          "id": "the-obsidian-crown",
-          "title": "The Obsidian Crown",
-          "slug": "the-obsidian-crown",
-          "description": "What happens when a queen's soul darkens, and her wardrobe follows? For this original dark fantasy tragedy, I created a color language of moral descent\u2014rich burgundies and golds giving way to blood reds, then charcoal, then midnight black\u2014mapping each character's corruption onto their costumes. Twenty-eight principal costumes and fifty-plus ensemble pieces, each designed to deteriorate in lockstep with the story's psychological unraveling, so the audience could watch virtue drain from the stage one hem at a time.",
-          "headings": {
-            "challenge": "Clothing as Narrator",
-            "approach": "Mapping the Moral Spectrum",
-            "outcome": "What the Critics Saw"
-          },
-          "isFeatured": true,
+          "id": "original-works",
+          "name": "Original Works",
+          "slug": "original-works",
+          "description": "New plays and experimental productions where the costume design starts from a blank page — no source material to reference, just a director's vision and a story that's never been told.",
           "order": 1,
-          "projectDetails": {
-            "role": "Lead Costume Designer",
-            "production": "The Obsidian Crown - Original Work",
-            "venue": "Blackfriars Repertory Theatre, London",
-            "year": 2024,
-            "director": "Marcus Winters",
-            "timeline": "4 weeks design, 12 weeks build, 10 weeks performance",
-            "budget": "$45,000",
-            "scale": "28 principal costumes, 50+ ensemble"
-          },
-          "projectContent": {
-            "challenge": "Director Marcus Winters wanted the costumes to be active participants in the storytelling\u2014not background, but a visual narrator. Every character needed a mapped moral journey you could read through their clothes, which meant designing not just single costumes but entire costume transformations across five acts.",
-            "approach": "I developed what I call a 'moral spectrum'\u2014warm burgundies and golds for innocence, blood reds and deep purples for temptation, charcoal and midnight for corruption. Each principal had a charted color journey. My construction team and I developed layered distressing techniques that could be precisely repeated across costume phases, so the deterioration felt organic rather than designed.",
-            "outcome": "Nominated for Portland Area Theatre Alliance Best Costume Design, 2024. Eight of twelve reviews specifically mentioned the costume work as integral to the production's emotional impact. The progressive darkening technique has been requested by two other directors for upcoming productions."
-          },
-          "techniques": [
-            "Color theory as narrative device",
-            "Progressive fabric deterioration design",
-            "Symbolic embroidery and motif development",
-            "Multi-phase costume planning",
-            "Collaboration with lighting design for color impact"
-          ],
-          "recognition": [
-            "Portland Area Theatre Alliance Best Costume Design Nomination, 2024",
-            "Featured in Theatre Design Northwest magazine, Summer 2024"
-          ],
-          "photos": [
+          "featuredPhoto": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
+          "projects": [
             {
-              "file": "categories/theater-production/the-obsidian-crown/concept-sketches.jpg",
-              "imageType": "bts_phone",
-              "title": "Character Arc Sketches",
-              "description": "Initial concept sketches showing Queen Morwen's five costume phases",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of design sketchbook page showing five costume sketches for character arc, pencil and watercolor renderings progressing from burgundy to black, annotations about moral descent visible, designer's working sketches, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/color-progression-board.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "Color Progression Mood Board",
-              "description": "Mood board showing color journey from burgundy to black with fabric swatches",
-              "tags": [
-                "category_carousel"
-              ],
-              "prompt": "iPhone 14 Pro photo of mood board on studio wall, fabric swatches arranged in progression from rich burgundy through blood red to midnight black, color theory annotations, reference images pinned around swatches, visual progression chart for moral descent theme, design development documentation, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/fabric-swatches-laid-out.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "Fabric Selection for Queen's Gown",
-              "description": "Burgundy silk velvet and gold metallic thread swatches arranged on table",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with burgundy silk velvet fabric swatches, gold metallic embroidery thread spools, trim samples arranged for Queen's gown, fabric selection process, color and texture comparison, design development, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/embroidery-design-sketch.jpg",
-              "imageType": "bts_phone",
-              "title": "Curse Symbol Design",
-              "description": "Sketches of curse symbol embroidery motifs for Queen's costume",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of sketchbook page showing hand-drawn embroidery motif designs, decorative curse symbols sketched in detail, annotations about symbolism and placement, gold pen highlights, designer's working drawings, natural lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/workshop-construction.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "Workshop Construction in Progress",
-              "description": "Behind-the-scenes photo Sarah took of workshop during gown construction",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume workshop during construction, dress form with burgundy velvet gown in progress, draper working on bodice, fabric pieces on cutting table, active workshop environment, Sarah documenting her team's work, natural workshop lighting, atmospheric behind-the-scenes."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/embroidery-in-progress.jpg",
-              "imageType": "bts_phone",
-              "title": "Embroidery Work Session",
-              "description": "Sarah's photo of embroiderer working on gold curse symbols",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of embroiderer's hands working on burgundy velvet fabric in embroidery hoop, gold metallic thread being stitched to create curse symbol, active work session captured by Sarah, workshop atmosphere, natural lighting, behind-the-scenes of detailed craft work."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/queen-gown-fitting.jpg",
-              "imageType": "detail_portrait",
-              "title": "First Fitting - Queen's Gown",
-              "description": "Close-up of burgundy gown fit on actress during fitting",
-              "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of burgundy velvet gown bodice on actress during fitting session, focus on bodice fit and embroidery detail, actress's head cropped from top of frame, checking how design translates to body, static fitting documentation, natural workshop lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/gown-detail-fitting.jpg",
-              "imageType": "detail_portrait",
-              "title": "Embroidery Detail During Fitting",
-              "description": "Close-up of gold curse symbol embroidery during fitting check",
-              "tags": [],
-              "prompt": "Extreme close-up iPhone 14 Pro photo of gold embroidered curse symbols on burgundy velvet bodice during actress fitting, focus on embroidery detail and how it sits on body, checking design execution in wear, static fitting detail, natural lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/deterioration-costume-phases.jpg",
-              "imageType": "bts_phone",
-              "title": "Five Costume Phases Comparison",
-              "description": "Multiple dress forms showing Queen's costume progression from burgundy to black",
-              "tags": [
-                "category_carousel"
-              ],
-              "prompt": "iPhone 14 Pro photo of five dress forms in a row showing Queen's costume in five progressive phases of deterioration, burgundy velvet to darkened black, visual representation of character arc through costume, design progression documentation, workshop setting, natural lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/queen-gown-finished.jpg",
-              "imageType": "studio_portrait",
-              "title": "Queen's Gown - Phase One Complete",
-              "description": "Finished burgundy velvet gown on dress form before delivery",
-              "tags": [],
-              "prompt": "Professional documentation photo of completed burgundy silk velvet gown on professional dress form, elaborate gold embroidered curse symbols visible on bodice, perfect drape and fit, structured silhouette, dramatic period costume, soft studio lighting showing fabric texture and embroidery detail, neutral background, museum-quality presentation"
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
-              "imageType": "production_portrait",
-              "title": "Queen Morwen - Production Photo",
-              "description": "Professional production photograph of actress in Queen's burgundy gown",
-              "tags": [
-                "featured",
-                "home_carousel",
-                "category_carousel"
-              ],
-              "imageMetadata": {
-                "photographer": "Production photographer - James Chen",
-                "performance_date": "Opening Night - April 12, 2024",
-                "character": "Queen Morwen",
-                "scene": "Act II - Court Scene"
+              "id": "the-obsidian-crown",
+              "title": "The Obsidian Crown",
+              "slug": "the-obsidian-crown",
+              "description": "What happens when a queen's soul darkens, and her wardrobe follows? For this original dark fantasy tragedy, I created a color language of moral descent—rich burgundies and golds giving way to blood reds, then charcoal, then midnight black—mapping each character's corruption onto their costumes. Twenty-eight principal costumes and fifty-plus ensemble pieces, each designed to deteriorate in lockstep with the story's psychological unraveling, so the audience could watch virtue drain from the stage one hem at a time.",
+              "headings": {
+                "challenge": "Clothing as Narrator",
+                "approach": "Mapping the Moral Spectrum",
+                "outcome": "What the Critics Saw"
               },
-              "prompt": "Professional theatrical production photography, actress in elaborate burgundy velvet gown with gold embroidered curse symbols, dramatic stage lighting from above and sides, rich fabric texture visible under lights, period theatrical costume, captured during performance, high-quality production photography, theatrical atmosphere"
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/officer-costume-sketch.jpg",
-              "imageType": "bts_phone",
-              "title": "Officer's Coat Design Sketch",
-              "description": "Design rendering for Captain Aldric's navy military coat",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor and ink rendering of navy military coat for male character, period military styling with brass buttons, annotations about fabric and construction notes, designer's working sketch with color notes, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/military-fabric-selection.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "Military Coat Fabric Selection",
-              "description": "Navy wool swatches and brass button samples for Officer's coat",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with navy wool fabric swatches, brass military button samples arranged, trim and braid options, fabric selection for military coat design, material comparison, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/construction-workshop-atmosphere.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "Workshop Build Session",
-              "description": "Sarah's photo of workshop during Officer's coat construction",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume workshop during active construction session, tailor working at sewing machine on navy wool coat, cutting table with pattern pieces in background, busy workshop atmosphere captured by Sarah, natural workshop lighting, behind-the-scenes of build process."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/officer-coat-fitting.jpg",
-              "imageType": "detail_portrait",
-              "title": "Officer's Coat Fitting",
-              "description": "Close-up of navy military coat fit on actor during fitting",
-              "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of navy wool military coat on actor during fitting session, focus on coat shoulder and upper back fit, actor's head cropped from top of frame, checking design execution and silhouette, static fitting documentation, natural workshop lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/officer-production.jpg",
-              "imageType": "production_portrait",
-              "title": "Captain Aldric - Production Photo",
-              "description": "Professional production photo of actor in Officer's coat during performance",
-              "tags": [
-                "category_carousel"
-              ],
-              "imageMetadata": {
-                "photographer": "Production photographer - James Chen",
-                "character": "Captain Aldric",
-                "scene": "Act III - Confrontation"
+              "isFeatured": true,
+              "order": 1,
+              "projectDetails": {
+                "role": "Lead Costume Designer",
+                "production": "The Obsidian Crown - Original Work",
+                "venue": "Blackfriars Repertory Theatre, London",
+                "year": 2024,
+                "director": "Marcus Winters",
+                "timeline": "4 weeks design, 12 weeks build, 10 weeks performance",
+                "budget": "$45,000",
+                "scale": "28 principal costumes, 50+ ensemble"
               },
-              "prompt": "Professional theatrical production photography, actor in navy wool military coat with brass buttons, dramatic stage lighting, period military costume in performance, captured during live show, theatrical atmosphere, high-quality production photography"
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/tech-rehearsal-notes.jpg",
-              "imageType": "candid_identity",
-              "title": "Tech Rehearsal - Taking Notes",
-              "description": "Sarah backstage during tech rehearsal reviewing costume under lights",
-              "tags": [],
-              "prompt": "Candid iPhone 14 Pro photo backstage during tech rehearsal, Korean-American woman with shoulder-length black hair reviewing costume on actor under stage lights, taking notes on clipboard, working backstage environment, tech week atmosphere, shot by stage manager, behind-the-scenes documentation",
-              "isIdentity": true
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/ensemble-costume-rack.jpg",
-              "imageType": "bts_phone",
-              "title": "Ensemble Costumes Ready",
-              "description": "Costume rack with completed ensemble pieces showing color progression",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume rack backstage with multiple ensemble costumes hanging, showing color range from burgundy to dark charcoal, deterioration progression visible across garments, ready for performance, backstage documentation, natural lighting."
-            },
-            {
-              "file": "categories/theater-production/the-obsidian-crown/full-cast-production.jpg",
-              "imageType": "production_wide",
-              "title": "Full Cast - Production Photo",
-              "description": "Professional ensemble cast photo showing complete design range",
-              "tags": [
-                "category_carousel"
-              ],
-              "imageMetadata": {
-                "photographer": "Production photographer - James Chen",
-                "scene": "Act V - Final Scene",
-                "note": "Full costume design progression visible"
+              "projectContent": {
+                "challenge": "Director Marcus Winters wanted the costumes to be active participants in the storytelling—not background, but a visual narrator. Every character needed a mapped moral journey you could read through their clothes, which meant designing not just single costumes but entire costume transformations across five acts.",
+                "approach": "I developed what I call a 'moral spectrum'—warm burgundies and golds for innocence, blood reds and deep purples for temptation, charcoal and midnight for corruption. Each principal had a charted color journey. My construction team and I developed layered distressing techniques that could be precisely repeated across costume phases, so the deterioration felt organic rather than designed.",
+                "outcome": "Nominated for Portland Area Theatre Alliance Best Costume Design, 2024. Eight of twelve reviews specifically mentioned the costume work as integral to the production's emotional impact. The progressive darkening technique has been requested by two other directors for upcoming productions."
               },
-              "prompt": "Professional theatrical production photography, ensemble cast in elaborate period costumes showing designed color progression from pristine burgundy and gold to darkened distressed garments, dramatic stage lighting, full cast arranged in theatrical tableau, high-quality production photography showing complete costume design vision"
+              "techniques": [
+                "Color theory as narrative device",
+                "Progressive fabric deterioration design",
+                "Symbolic embroidery and motif development",
+                "Multi-phase costume planning",
+                "Collaboration with lighting design for color impact"
+              ],
+              "recognition": [
+                "Portland Area Theatre Alliance Best Costume Design Nomination, 2024",
+                "Featured in Theatre Design Northwest magazine, Summer 2024"
+              ],
+              "photos": [
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/concept-sketches.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Character Arc Sketches",
+                  "description": "Initial concept sketches showing Queen Morwen's five costume phases",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of design sketchbook page showing five costume sketches for character arc, pencil and watercolor renderings progressing from burgundy to black, annotations about moral descent visible, designer's working sketches, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/color-progression-board.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "Color Progression Mood Board",
+                  "description": "Mood board showing color journey from burgundy to black with fabric swatches",
+                  "tags": [
+                    "category_carousel"
+                  ],
+                  "prompt": "iPhone 14 Pro photo of mood board on studio wall, fabric swatches arranged in progression from rich burgundy through blood red to midnight black, color theory annotations, reference images pinned around swatches, visual progression chart for moral descent theme, design development documentation, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/fabric-swatches-laid-out.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "Fabric Selection for Queen's Gown",
+                  "description": "Burgundy silk velvet and gold metallic thread swatches arranged on table",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo from above of design table with burgundy silk velvet fabric swatches, gold metallic embroidery thread spools, trim samples arranged for Queen's gown, fabric selection process, color and texture comparison, design development, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/embroidery-design-sketch.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Curse Symbol Design",
+                  "description": "Sketches of curse symbol embroidery motifs for Queen's costume",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of sketchbook page showing hand-drawn embroidery motif designs, decorative curse symbols sketched in detail, annotations about symbolism and placement, gold pen highlights, designer's working drawings, natural lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/workshop-construction.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "Workshop Construction in Progress",
+                  "description": "Behind-the-scenes photo Sarah took of workshop during gown construction",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of costume workshop during construction, dress form with burgundy velvet gown in progress, draper working on bodice, fabric pieces on cutting table, active workshop environment, Sarah documenting her team's work, natural workshop lighting, atmospheric behind-the-scenes."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/embroidery-in-progress.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Embroidery Work Session",
+                  "description": "Sarah's photo of embroiderer working on gold curse symbols",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of embroiderer's hands working on burgundy velvet fabric in embroidery hoop, gold metallic thread being stitched to create curse symbol, active work session captured by Sarah, workshop atmosphere, natural lighting, behind-the-scenes of detailed craft work."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/queen-gown-fitting.jpg",
+                  "imageType": "detail_portrait",
+                  "title": "First Fitting - Queen's Gown",
+                  "description": "Close-up of burgundy gown fit on actress during fitting",
+                  "tags": [],
+                  "prompt": "Close-up iPhone 14 Pro photo of burgundy velvet gown bodice on actress during fitting session, focus on bodice fit and embroidery detail, actress's head cropped from top of frame, checking how design translates to body, static fitting documentation, natural workshop lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/gown-detail-fitting.jpg",
+                  "imageType": "detail_portrait",
+                  "title": "Embroidery Detail During Fitting",
+                  "description": "Close-up of gold curse symbol embroidery during fitting check",
+                  "tags": [],
+                  "prompt": "Extreme close-up iPhone 14 Pro photo of gold embroidered curse symbols on burgundy velvet bodice during actress fitting, focus on embroidery detail and how it sits on body, checking design execution in wear, static fitting detail, natural lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/deterioration-costume-phases.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Five Costume Phases Comparison",
+                  "description": "Multiple dress forms showing Queen's costume progression from burgundy to black",
+                  "tags": [
+                    "category_carousel"
+                  ],
+                  "prompt": "iPhone 14 Pro photo of five dress forms in a row showing Queen's costume in five progressive phases of deterioration, burgundy velvet to darkened black, visual representation of character arc through costume, design progression documentation, workshop setting, natural lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/queen-gown-finished.jpg",
+                  "imageType": "studio_portrait",
+                  "title": "Queen's Gown - Phase One Complete",
+                  "description": "Finished burgundy velvet gown on dress form before delivery",
+                  "tags": [],
+                  "prompt": "Professional documentation photo of completed burgundy silk velvet gown on professional dress form, elaborate gold embroidered curse symbols visible on bodice, perfect drape and fit, structured silhouette, dramatic period costume, soft studio lighting showing fabric texture and embroidery detail, neutral background, museum-quality presentation"
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/queen-gown-production.jpg",
+                  "imageType": "production_portrait",
+                  "title": "Queen Morwen - Production Photo",
+                  "description": "Professional production photograph of actress in Queen's burgundy gown",
+                  "tags": [
+                    "featured",
+                    "home_carousel",
+                    "category_carousel"
+                  ],
+                  "imageMetadata": {
+                    "photographer": "Production photographer - James Chen",
+                    "performance_date": "Opening Night - April 12, 2024",
+                    "character": "Queen Morwen",
+                    "scene": "Act II - Court Scene"
+                  },
+                  "prompt": "Professional theatrical production photography, actress in elaborate burgundy velvet gown with gold embroidered curse symbols, dramatic stage lighting from above and sides, rich fabric texture visible under lights, period theatrical costume, captured during performance, high-quality production photography, theatrical atmosphere"
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/officer-costume-sketch.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Officer's Coat Design Sketch",
+                  "description": "Design rendering for Captain Aldric's navy military coat",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor and ink rendering of navy military coat for male character, period military styling with brass buttons, annotations about fabric and construction notes, designer's working sketch with color notes, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/military-fabric-selection.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "Military Coat Fabric Selection",
+                  "description": "Navy wool swatches and brass button samples for Officer's coat",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo from above of design table with navy wool fabric swatches, brass military button samples arranged, trim and braid options, fabric selection for military coat design, material comparison, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/construction-workshop-atmosphere.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "Workshop Build Session",
+                  "description": "Sarah's photo of workshop during Officer's coat construction",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of costume workshop during active construction session, tailor working at sewing machine on navy wool coat, cutting table with pattern pieces in background, busy workshop atmosphere captured by Sarah, natural workshop lighting, behind-the-scenes of build process."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/officer-coat-fitting.jpg",
+                  "imageType": "detail_portrait",
+                  "title": "Officer's Coat Fitting",
+                  "description": "Close-up of navy military coat fit on actor during fitting",
+                  "tags": [],
+                  "prompt": "Close-up iPhone 14 Pro photo of navy wool military coat on actor during fitting session, focus on coat shoulder and upper back fit, actor's head cropped from top of frame, checking design execution and silhouette, static fitting documentation, natural workshop lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/officer-production.jpg",
+                  "imageType": "production_portrait",
+                  "title": "Captain Aldric - Production Photo",
+                  "description": "Professional production photo of actor in Officer's coat during performance",
+                  "tags": [
+                    "category_carousel"
+                  ],
+                  "imageMetadata": {
+                    "photographer": "Production photographer - James Chen",
+                    "character": "Captain Aldric",
+                    "scene": "Act III - Confrontation"
+                  },
+                  "prompt": "Professional theatrical production photography, actor in navy wool military coat with brass buttons, dramatic stage lighting, period military costume in performance, captured during live show, theatrical atmosphere, high-quality production photography"
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/tech-rehearsal-notes.jpg",
+                  "imageType": "candid_identity",
+                  "title": "Tech Rehearsal - Taking Notes",
+                  "description": "Sarah backstage during tech rehearsal reviewing costume under lights",
+                  "tags": [],
+                  "prompt": "Candid iPhone 14 Pro photo backstage during tech rehearsal, Korean-American woman with shoulder-length black hair reviewing costume on actor under stage lights, taking notes on clipboard, working backstage environment, tech week atmosphere, shot by stage manager, behind-the-scenes documentation",
+                  "isIdentity": true
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/ensemble-costume-rack.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Ensemble Costumes Ready",
+                  "description": "Costume rack with completed ensemble pieces showing color progression",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of costume rack backstage with multiple ensemble costumes hanging, showing color range from burgundy to dark charcoal, deterioration progression visible across garments, ready for performance, backstage documentation, natural lighting."
+                },
+                {
+                  "file": "categories/theater-production/the-obsidian-crown/full-cast-production.jpg",
+                  "imageType": "production_wide",
+                  "title": "Full Cast - Production Photo",
+                  "description": "Professional ensemble cast photo showing complete design range",
+                  "tags": [
+                    "category_carousel"
+                  ],
+                  "imageMetadata": {
+                    "photographer": "Production photographer - James Chen",
+                    "scene": "Act V - Final Scene",
+                    "note": "Full costume design progression visible"
+                  },
+                  "prompt": "Professional theatrical production photography, ensemble cast in elaborate period costumes showing designed color progression from pristine burgundy and gold to darkened distressed garments, dramatic stage lighting, full cast arranged in theatrical tableau, high-quality production photography showing complete costume design vision"
+                }
+              ]
+            },
+            {
+              "id": "neon-babel",
+              "title": "Neon Babel",
+              "slug": "neon-babel",
+              "description": "A love letter to the underground—this experimental piece dropped six characters into a near-future club where language fractures and identity is fluid. I designed costumes that lived and breathed with the lighting: LED-embedded garments, reflective surfaces, and modular streetwear pieces that the actors reconfigured throughout the ninety-minute performance. The costumes didn't just exist in the light—they became it.",
+              "headings": {
+                "challenge": "Light That Breathes",
+                "approach": "Wiring the Underground",
+                "outcome": "Pulsing with the Rhythm"
+              },
+              "isFeatured": true,
+              "order": 2,
+              "projectDetails": {
+                "role": "Costume Designer",
+                "production": "Neon Babel - New Work",
+                "venue": "The Pit - Black Box Theater, Portland",
+                "year": 2024,
+                "director": "Yuki Tanaka",
+                "timeline": "6 weeks design and build with ongoing rehearsal collaboration",
+                "budget": "$18,000",
+                "scale": "6 principal costumes with transformation elements"
+              },
+              "projectContent": {
+                "challenge": "The vision was costumes that would glow, pulse, and react under UV and LED stage lighting while still feeling like something you'd actually see in an underground club. Every fabric had to be tested under multiple lighting conditions, and the LED integration needed to be safe, battery-powered, and actor-proof for quick costume changes.",
+                "approach": "I raided the worlds of sportswear and safety gear for reflective and UV-reactive materials, then deconstructed them into fashion-forward silhouettes. I collaborated with an electronics artist to safely embed LED strips into seam lines. Every costume was modular—layers that actors could add, subtract, and recombine to transform their characters in real time.",
+                "outcome": "The costumes became a character in the production—critics noted they 'pulsed with the rhythm of the underground'. The LED integration technique has been adopted by the theater for future experimental work."
+              },
+              "techniques": [
+                "UV-reactive and reflective material sourcing",
+                "Safe LED integration in costumes",
+                "Modular streetwear design",
+                "Collaboration with lighting design",
+                "Cyberpunk aesthetic in theatrical context"
+              ],
+              "photos": [
+                {
+                  "file": "categories/theater-production/neon-babel/cyberpunk-concept-board.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "Cyberpunk Concept Board",
+                  "description": "Mood board with cyberpunk references, fabric samples, and LED component ideas",
+                  "tags": [
+                    "category_carousel"
+                  ],
+                  "prompt": "iPhone 14 Pro photo of large mood board on studio wall, cyberpunk aesthetic references with neon colors, reflective fabric swatches, LED component samples, streetwear inspiration images, design concept development, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/reflective-fabrics.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "Reflective Material Testing",
+                  "description": "Collection of reflective and UV-reactive fabrics being tested",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of work table with multiple reflective fabric swatches laid out, silver reflective mesh, UV-reactive materials, neon accent fabrics, material testing for costume design, fabric exploration, natural lighting."
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/led-integration-test.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "LED Component Testing",
+                  "description": "LED strips and battery packs being tested for costume integration",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of work table with LED strip lights, small battery packs, and flexible LED components arranged for testing, electronics integration planning for costumes, design development for light-up garments, workshop setting."
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/jacket-sketch-led-placement.jpg",
+                  "imageType": "bts_phone",
+                  "title": "LED Placement Design",
+                  "description": "Costume sketch with annotations showing LED strip placement",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of costume design sketch showing cyberpunk jacket with LED strip placement marked, technical annotations about wiring and battery placement, designer's working technical drawing, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/jacket-construction-wip.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Jacket with LED Integration",
+                  "description": "Black jacket on form showing LED strips integrated into design",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of black streetwear-style jacket on dress form with LED strips integrated along seams, reflective details visible, cyberpunk costume construction in progress on form, work-in-progress documentation, workshop setting."
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/modular-pieces-array.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "Modular Costume Pieces",
+                  "description": "Array of modular garment pieces that reconfigure throughout show",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of multiple modular costume pieces laid out on table, black base layers, reflective vests, LED-embedded panels, neon accent pieces, showing how pieces can be combined in different configurations, design system documentation, natural lighting."
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/fitting-base-layer.jpg",
+                  "imageType": "detail_portrait",
+                  "title": "Base Layer Fitting",
+                  "description": "Close-up of black base layer garment fit during fitting",
+                  "tags": [],
+                  "prompt": "Close-up iPhone 14 Pro photo of black base layer garment on actor during fitting, focus on fit and how it will layer with other pieces, actor's head cropped from frame, modular costume system fitting check, natural workshop lighting."
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/uv-reactive-test.jpg",
+                  "imageType": "bts_phone",
+                  "title": "UV Reactive Material Test",
+                  "description": "Testing UV-reactive fabrics under different lighting",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of UV-reactive fabric samples under testing light showing how materials glow, different fabric responses to UV visible, material testing for lighting collaboration, workshop experiment, dim lighting showing UV glow."
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/tech-rehearsal-lighting.jpg",
+                  "imageType": "candid_identity",
+                  "title": "Tech Rehearsal - Lighting Test",
+                  "description": "Sarah watching costume under stage lighting during tech rehearsal",
+                  "tags": [],
+                  "prompt": "Candid iPhone 14 Pro photo during tech rehearsal in black box theater, Korean-American woman with shoulder-length black hair watching actor in LED-embedded costume under experimental lighting, reviewing how design works under lights, shot by stage manager, tech rehearsal atmosphere, dim theater lighting",
+                  "isIdentity": true
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/costume-transformation-rehearsal.jpg",
+                  "imageType": "candid_identity",
+                  "title": "Transformation Rehearsal",
+                  "description": "Sarah working with actor on costume transformation sequence",
+                  "tags": [],
+                  "prompt": "Candid iPhone 14 Pro photo during rehearsal, Korean-American woman with shoulder-length black hair helping actor with costume transformation technique, modular pieces being added/removed, black box theater space, experimental theater rehearsal, shot by assistant director, behind-the-scenes collaboration",
+                  "isIdentity": true
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/led-costume-complete.jpg",
+                  "imageType": "studio_portrait",
+                  "title": "LED Jacket Complete",
+                  "description": "Finished cyberpunk jacket on form showing LED integration",
+                  "tags": [],
+                  "prompt": "Professional documentation photo of completed black cyberpunk jacket on dress form with LED strips integrated into seams, reflective panels, neon accent details, contemporary experimental costume, soft studio lighting, neutral background"
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/production-uv-lighting.jpg",
+                  "imageType": "production_portrait",
+                  "title": "Production - UV Lighting Moment",
+                  "description": "Professional production photo showing costume under UV lighting",
+                  "tags": [
+                    "category_carousel"
+                  ],
+                  "imageMetadata": {
+                    "photographer": "Production photographer - Theater Staff",
+                    "scene": "Club scene under UV",
+                    "note": "UV-reactive materials glowing"
+                  },
+                  "prompt": "Professional theatrical production photography in black box theater, actor in cyberpunk costume with UV-reactive materials glowing under ultraviolet stage lighting, LED strips illuminated, experimental theater aesthetic, dark background with neon glow, high-quality production photography"
+                },
+                {
+                  "file": "categories/theater-production/neon-babel/production-led-moment.jpg",
+                  "imageType": "production_portrait",
+                  "title": "Production - LED Costume Active",
+                  "description": "Professional production photo of LED-embedded costume illuminated",
+                  "tags": [
+                    "featured",
+                    "category_carousel"
+                  ],
+                  "imageMetadata": {
+                    "photographer": "Production photographer - Theater Staff",
+                    "scene": "Transformation sequence",
+                    "note": "LED integration in performance"
+                  },
+                  "prompt": "Professional theatrical production photography in black box theater, actor in black streetwear-style costume with LED strips glowing along seams, cyberpunk aesthetic, minimal lighting emphasizing LED glow, experimental theater moment, high-quality production photography capturing light-up costume in performance"
+                }
+              ]
             }
           ]
         },
         {
-          "id": "neon-babel",
-          "title": "Neon Babel",
-          "slug": "neon-babel",
-          "description": "A love letter to the underground\u2014this experimental piece dropped six characters into a near-future club where language fractures and identity is fluid. I designed costumes that lived and breathed with the lighting: LED-embedded garments, reflective surfaces, and modular streetwear pieces that the actors reconfigured throughout the ninety-minute performance. The costumes didn't just exist in the light\u2014they became it.",
-          "headings": {
-            "challenge": "Light That Breathes",
-            "approach": "Wiring the Underground",
-            "outcome": "Pulsing with the Rhythm"
-          },
-          "isFeatured": true,
+          "id": "classic-adaptations",
+          "name": "Classic Adaptations",
+          "slug": "classic-adaptations",
+          "description": "Reimagined classics where the design challenge is making something familiar feel entirely new — honoring the text while reframing it for contemporary audiences.",
           "order": 2,
-          "projectDetails": {
-            "role": "Costume Designer",
-            "production": "Neon Babel - New Work",
-            "venue": "The Pit - Black Box Theater, Portland",
-            "year": 2024,
-            "director": "Yuki Tanaka",
-            "timeline": "6 weeks design and build with ongoing rehearsal collaboration",
-            "budget": "$18,000",
-            "scale": "6 principal costumes with transformation elements"
-          },
-          "projectContent": {
-            "challenge": "The vision was costumes that would glow, pulse, and react under UV and LED stage lighting while still feeling like something you'd actually see in an underground club. Every fabric had to be tested under multiple lighting conditions, and the LED integration needed to be safe, battery-powered, and actor-proof for quick costume changes.",
-            "approach": "I raided the worlds of sportswear and safety gear for reflective and UV-reactive materials, then deconstructed them into fashion-forward silhouettes. I collaborated with an electronics artist to safely embed LED strips into seam lines. Every costume was modular\u2014layers that actors could add, subtract, and recombine to transform their characters in real time.",
-            "outcome": "The costumes became a character in the production\u2014critics noted they 'pulsed with the rhythm of the underground'. The LED integration technique has been adopted by the theater for future experimental work."
-          },
-          "techniques": [
-            "UV-reactive and reflective material sourcing",
-            "Safe LED integration in costumes",
-            "Modular streetwear design",
-            "Collaboration with lighting design",
-            "Cyberpunk aesthetic in theatrical context"
-          ],
-          "photos": [
+          "featuredPhoto": "categories/theater-production/a-dolls-house-reimagined/nora-arc-sketches.jpg",
+          "projects": [
             {
-              "file": "categories/theater-production/neon-babel/cyberpunk-concept-board.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "Cyberpunk Concept Board",
-              "description": "Mood board with cyberpunk references, fabric samples, and LED component ideas",
-              "tags": [
-                "category_carousel"
-              ],
-              "prompt": "iPhone 14 Pro photo of large mood board on studio wall, cyberpunk aesthetic references with neon colors, reflective fabric swatches, LED component samples, streetwear inspiration images, design concept development, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/neon-babel/reflective-fabrics.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "Reflective Material Testing",
-              "description": "Collection of reflective and UV-reactive fabrics being tested",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of work table with multiple reflective fabric swatches laid out, silver reflective mesh, UV-reactive materials, neon accent fabrics, material testing for costume design, fabric exploration, natural lighting."
-            },
-            {
-              "file": "categories/theater-production/neon-babel/led-integration-test.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "LED Component Testing",
-              "description": "LED strips and battery packs being tested for costume integration",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of work table with LED strip lights, small battery packs, and flexible LED components arranged for testing, electronics integration planning for costumes, design development for light-up garments, workshop setting."
-            },
-            {
-              "file": "categories/theater-production/neon-babel/jacket-sketch-led-placement.jpg",
-              "imageType": "bts_phone",
-              "title": "LED Placement Design",
-              "description": "Costume sketch with annotations showing LED strip placement",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch showing cyberpunk jacket with LED strip placement marked, technical annotations about wiring and battery placement, designer's working technical drawing, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/neon-babel/jacket-construction-wip.jpg",
-              "imageType": "bts_phone",
-              "title": "Jacket with LED Integration",
-              "description": "Black jacket on form showing LED strips integrated into design",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of black streetwear-style jacket on dress form with LED strips integrated along seams, reflective details visible, cyberpunk costume construction in progress on form, work-in-progress documentation, workshop setting."
-            },
-            {
-              "file": "categories/theater-production/neon-babel/modular-pieces-array.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "Modular Costume Pieces",
-              "description": "Array of modular garment pieces that reconfigure throughout show",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of multiple modular costume pieces laid out on table, black base layers, reflective vests, LED-embedded panels, neon accent pieces, showing how pieces can be combined in different configurations, design system documentation, natural lighting."
-            },
-            {
-              "file": "categories/theater-production/neon-babel/fitting-base-layer.jpg",
-              "imageType": "detail_portrait",
-              "title": "Base Layer Fitting",
-              "description": "Close-up of black base layer garment fit during fitting",
-              "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of black base layer garment on actor during fitting, focus on fit and how it will layer with other pieces, actor's head cropped from frame, modular costume system fitting check, natural workshop lighting."
-            },
-            {
-              "file": "categories/theater-production/neon-babel/uv-reactive-test.jpg",
-              "imageType": "bts_phone",
-              "title": "UV Reactive Material Test",
-              "description": "Testing UV-reactive fabrics under different lighting",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of UV-reactive fabric samples under testing light showing how materials glow, different fabric responses to UV visible, material testing for lighting collaboration, workshop experiment, dim lighting showing UV glow."
-            },
-            {
-              "file": "categories/theater-production/neon-babel/tech-rehearsal-lighting.jpg",
-              "imageType": "candid_identity",
-              "title": "Tech Rehearsal - Lighting Test",
-              "description": "Sarah watching costume under stage lighting during tech rehearsal",
-              "tags": [],
-              "prompt": "Candid iPhone 14 Pro photo during tech rehearsal in black box theater, Korean-American woman with shoulder-length black hair watching actor in LED-embedded costume under experimental lighting, reviewing how design works under lights, shot by stage manager, tech rehearsal atmosphere, dim theater lighting",
-              "isIdentity": true
-            },
-            {
-              "file": "categories/theater-production/neon-babel/costume-transformation-rehearsal.jpg",
-              "imageType": "candid_identity",
-              "title": "Transformation Rehearsal",
-              "description": "Sarah working with actor on costume transformation sequence",
-              "tags": [],
-              "prompt": "Candid iPhone 14 Pro photo during rehearsal, Korean-American woman with shoulder-length black hair helping actor with costume transformation technique, modular pieces being added/removed, black box theater space, experimental theater rehearsal, shot by assistant director, behind-the-scenes collaboration",
-              "isIdentity": true
-            },
-            {
-              "file": "categories/theater-production/neon-babel/led-costume-complete.jpg",
-              "imageType": "studio_portrait",
-              "title": "LED Jacket Complete",
-              "description": "Finished cyberpunk jacket on form showing LED integration",
-              "tags": [],
-              "prompt": "Professional documentation photo of completed black cyberpunk jacket on dress form with LED strips integrated into seams, reflective panels, neon accent details, contemporary experimental costume, soft studio lighting, neutral background"
-            },
-            {
-              "file": "categories/theater-production/neon-babel/production-uv-lighting.jpg",
-              "imageType": "production_portrait",
-              "title": "Production - UV Lighting Moment",
-              "description": "Professional production photo showing costume under UV lighting",
-              "tags": [
-                "category_carousel"
-              ],
-              "imageMetadata": {
-                "photographer": "Production photographer - Theater Staff",
-                "scene": "Club scene under UV",
-                "note": "UV-reactive materials glowing"
+              "id": "a-dolls-house-reimagined",
+              "title": "A Doll's House: Reimagined",
+              "slug": "a-dolls-house-reimagined",
+              "description": "Ibsen's Nora, reborn in the glass towers of corporate America. The question was deceptively simple: how do you make a woman's liberation visible? I answered it through fashion—tracing Nora's arc from the suffocating perfection of grey corporate suiting through the first brave sparks of jewel tones to the flowing, vibrant coral of a woman who has finally chosen herself. Five distinct looks for one character's revolution.",
+              "headings": {
+                "challenge": "The Art of Subtlety",
+                "approach": "From Grey to Coral",
+                "outcome": "A Revolution You Could See"
               },
-              "prompt": "Professional theatrical production photography in black box theater, actor in cyberpunk costume with UV-reactive materials glowing under ultraviolet stage lighting, LED strips illuminated, experimental theater aesthetic, dark background with neon glow, high-quality production photography"
-            },
-            {
-              "file": "categories/theater-production/neon-babel/production-led-moment.jpg",
-              "imageType": "production_portrait",
-              "title": "Production - LED Costume Active",
-              "description": "Professional production photo of LED-embedded costume illuminated",
-              "tags": [
-                "featured",
-                "category_carousel"
-              ],
-              "imageMetadata": {
-                "photographer": "Production photographer - Theater Staff",
-                "scene": "Transformation sequence",
-                "note": "LED integration in performance"
+              "isFeatured": false,
+              "order": 3,
+              "projectDetails": {
+                "role": "Costume Designer",
+                "production": "A Doll's House: Reimagined",
+                "venue": "Portland Civic Theater",
+                "year": 2023,
+                "director": "Lisa Morrison",
+                "timeline": "5 weeks design, 7 weeks build",
+                "budget": "$22,000",
+                "scale": "8 principal costumes, 12 ensemble"
               },
-              "prompt": "Professional theatrical production photography in black box theater, actor in black streetwear-style costume with LED strips glowing along seams, cyberpunk aesthetic, minimal lighting emphasizing LED glow, experimental theater moment, high-quality production photography capturing light-up costume in performance"
-            }
-          ]
-        },
-        {
-          "id": "a-dolls-house-reimagined",
-          "title": "A Doll's House: Reimagined",
-          "slug": "a-dolls-house-reimagined",
-          "description": "Ibsen's Nora, reborn in the glass towers of corporate America. The question was deceptively simple: how do you make a woman's liberation visible? I answered it through fashion\u2014tracing Nora's arc from the suffocating perfection of grey corporate suiting through the first brave sparks of jewel tones to the flowing, vibrant coral of a woman who has finally chosen herself. Five distinct looks for one character's revolution.",
-          "headings": {
-            "challenge": "The Art of Subtlety",
-            "approach": "From Grey to Coral",
-            "outcome": "A Revolution You Could See"
-          },
-          "isFeatured": false,
-          "order": 3,
-          "projectDetails": {
-            "role": "Costume Designer",
-            "production": "A Doll's House: Reimagined",
-            "venue": "Portland Civic Theater",
-            "year": 2023,
-            "director": "Lisa Morrison",
-            "timeline": "5 weeks design, 7 weeks build",
-            "budget": "$22,000",
-            "scale": "8 principal costumes, 12 ensemble"
-          },
-          "projectContent": {
-            "challenge": "The challenge was subtlety. Nora's journey from doll-wife to independent woman needed to be legible in her clothing without ever feeling like a costume trick. The audience should feel the shift before they could name it.",
-            "approach": "I designed Nora's arc as a fashion story: restrictive corporate tailoring in greys and beiges for the woman the world expects, jewel tones breaking through as she begins to wake, and finally a flowing coral dress with an entirely different silhouette for the woman she becomes. Each costume was a chapter in her psychological development.",
-            "outcome": "The audience reported being able to track Nora's journey through costume alone. Reviews praised the 'visual poetry' of the costume progression. The design approach has been requested as a case study for a university theater design program."
-          },
-          "techniques": [
-            "Contemporary fashion as character development",
-            "Color psychology in design",
-            "Silhouette progression as narrative",
-            "Modern tailoring for corporate costumes",
-            "Collaboration with actors on character wardrobe"
-          ],
-          "photos": [
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/nora-arc-sketches.jpg",
-              "imageType": "bts_phone",
-              "title": "Nora's Costume Arc - Sketches",
-              "description": "Five costume sketches showing Nora's visual journey from constraint to freedom",
-              "tags": [
-                "category_carousel"
-              ],
-              "prompt": "iPhone 14 Pro photo of design board with five costume sketches for character arc, fashion illustrations progressing from grey corporate suit to vibrant flowing dress, color progression from muted to bold, annotations about character psychology, designer's concept development, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/corporate-suit-sketch.jpg",
-              "imageType": "bts_phone",
-              "title": "Nora's Corporate Suit Design",
-              "description": "Design rendering for Nora's restrictive opening costume",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor and ink rendering of grey corporate blazer and pencil skirt, restrictive silhouette, annotations about constraint and conformity, designer's working sketch, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/grey-suiting-fabric.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "Corporate Costume Fabrics",
-              "description": "Grey and beige suiting fabrics selected for opening costumes",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo from above of design table with grey and beige wool suiting fabric swatches, muted professional fabrics for corporate costumes, fabric selection for constraint theme, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/jewel-tone-fabrics.jpg",
-              "imageType": "bts_phone_landscape",
-              "title": "Awakening - Jewel Tone Selection",
-              "description": "Emerald and sapphire fabric swatches for Nora's middle-act costumes",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of design table with rich jewel-tone fabric swatches, emerald green and sapphire blue silks, transition fabrics between constraint and freedom, color awakening in design progression, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/liberation-dress-sketch.jpg",
-              "imageType": "bts_phone",
-              "title": "Final Liberation Dress Design",
-              "description": "Design sketch for Nora's final costume - flowing and vibrant",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of flowing dress in vibrant coral-red, loose silhouette representing freedom, annotations about liberation and self-expression, designer's concept sketch for final costume, natural studio lighting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/construction-blazer.jpg",
-              "imageType": "bts_phone",
-              "title": "Corporate Blazer Construction",
-              "description": "Grey blazer on form during construction for opening costume",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of grey wool blazer on dress form in construction, restrictive corporate silhouette taking shape, contemporary tailoring, work-in-progress on form, workshop setting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/nora-suit-fitting.jpg",
-              "imageType": "detail_portrait",
-              "title": "Corporate Suit Fitting",
-              "description": "Close-up of grey suit fit on actress during fitting",
-              "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of grey corporate suit on actress during fitting, focus on blazer fit and restrictive silhouette, actress's head cropped from frame, checking design execution for constraint theme, static fitting documentation, natural lighting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/emerald-dress-construction.jpg",
-              "imageType": "bts_phone",
-              "title": "Emerald Dress on Form",
-              "description": "Emerald green dress on form during construction - middle act costume",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of emerald green silk dress on dress form in construction, jewel-tone costume for character's awakening phase, work-in-progress on form, workshop setting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/fitting-emerald-dress.jpg",
-              "imageType": "detail_portrait",
-              "title": "Emerald Dress Fitting",
-              "description": "Close-up of emerald dress fit during fitting session",
-              "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of emerald green silk dress on actress during fitting, focus on dress bodice and color against skin, actress's head cropped from frame, checking mid-transformation costume, static fitting documentation, natural lighting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/coral-dress-construction.jpg",
-              "imageType": "bts_phone",
-              "title": "Liberation Dress Construction",
-              "description": "Vibrant coral flowing dress on form - final costume",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of vibrant coral-red flowing dress on dress form in construction, loose liberation silhouette, final transformation costume, work-in-progress on form, workshop setting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/final-dress-fitting.jpg",
-              "imageType": "detail_portrait",
-              "title": "Final Costume Fitting",
-              "description": "Close-up of coral liberation dress fit during fitting",
-              "tags": [],
-              "prompt": "Close-up iPhone 14 Pro photo of vibrant coral flowing dress on actress during fitting, focus on how loose liberated silhouette contrasts with earlier costumes, actress's head cropped from frame, checking final transformation design, static fitting documentation, natural lighting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/costume-progression-rack.jpg",
-              "imageType": "bts_phone",
-              "title": "Nora's Complete Arc on Rack",
-              "description": "All five of Nora's costumes hanging in sequence showing progression",
-              "tags": [],
-              "prompt": "iPhone 14 Pro photo of costume rack with Nora's five costumes hanging in order, visual progression from grey corporate suit to vibrant coral dress, complete character arc visible in costume sequence, design documentation, backstage setting, natural lighting."
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/nora-corporate-production.jpg",
-              "imageType": "production_portrait",
-              "title": "Nora - Act I Corporate Costume",
-              "description": "Professional production photo of actress in grey suit during opening scene",
-              "tags": [],
-              "imageMetadata": {
-                "photographer": "Production photographer - Theater Staff",
-                "character": "Nora",
-                "scene": "Act I - Corporate conformity"
+              "projectContent": {
+                "challenge": "The challenge was subtlety. Nora's journey from doll-wife to independent woman needed to be legible in her clothing without ever feeling like a costume trick. The audience should feel the shift before they could name it.",
+                "approach": "I designed Nora's arc as a fashion story: restrictive corporate tailoring in greys and beiges for the woman the world expects, jewel tones breaking through as she begins to wake, and finally a flowing coral dress with an entirely different silhouette for the woman she becomes. Each costume was a chapter in her psychological development.",
+                "outcome": "The audience reported being able to track Nora's journey through costume alone. Reviews praised the 'visual poetry' of the costume progression. The design approach has been requested as a case study for a university theater design program."
               },
-              "prompt": "Professional theatrical production photography, actress in grey corporate suit costume, restrictive professional styling, stage lighting, contemporary setting, captured during performance, high-quality production photography"
-            },
-            {
-              "file": "categories/theater-production/a-dolls-house-reimagined/nora-liberation-production.jpg",
-              "imageType": "production_portrait",
-              "title": "Nora - Final Scene Liberation",
-              "description": "Professional production photo of actress in coral dress during final scene",
-              "tags": [
-                "featured",
-                "category_carousel"
+              "techniques": [
+                "Contemporary fashion as character development",
+                "Color psychology in design",
+                "Silhouette progression as narrative",
+                "Modern tailoring for corporate costumes",
+                "Collaboration with actors on character wardrobe"
               ],
-              "imageMetadata": {
-                "photographer": "Production photographer - Theater Staff",
-                "character": "Nora",
-                "scene": "Final scene - Door slam"
-              },
-              "prompt": "Professional theatrical production photography, actress in vibrant coral flowing dress costume, liberated styling and movement, dramatic stage lighting, contemporary setting, captured during powerful final scene, high-quality production photography showing costume design transformation complete"
+              "photos": [
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/nora-arc-sketches.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Nora's Costume Arc - Sketches",
+                  "description": "Five costume sketches showing Nora's visual journey from constraint to freedom",
+                  "tags": [
+                    "category_carousel"
+                  ],
+                  "prompt": "iPhone 14 Pro photo of design board with five costume sketches for character arc, fashion illustrations progressing from grey corporate suit to vibrant flowing dress, color progression from muted to bold, annotations about character psychology, designer's concept development, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/corporate-suit-sketch.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Nora's Corporate Suit Design",
+                  "description": "Design rendering for Nora's restrictive opening costume",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor and ink rendering of grey corporate blazer and pencil skirt, restrictive silhouette, annotations about constraint and conformity, designer's working sketch, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/grey-suiting-fabric.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "Corporate Costume Fabrics",
+                  "description": "Grey and beige suiting fabrics selected for opening costumes",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo from above of design table with grey and beige wool suiting fabric swatches, muted professional fabrics for corporate costumes, fabric selection for constraint theme, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/jewel-tone-fabrics.jpg",
+                  "imageType": "bts_phone_landscape",
+                  "title": "Awakening - Jewel Tone Selection",
+                  "description": "Emerald and sapphire fabric swatches for Nora's middle-act costumes",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of design table with rich jewel-tone fabric swatches, emerald green and sapphire blue silks, transition fabrics between constraint and freedom, color awakening in design progression, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/liberation-dress-sketch.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Final Liberation Dress Design",
+                  "description": "Design sketch for Nora's final costume - flowing and vibrant",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of costume design sketch, watercolor rendering of flowing dress in vibrant coral-red, loose silhouette representing freedom, annotations about liberation and self-expression, designer's concept sketch for final costume, natural studio lighting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/construction-blazer.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Corporate Blazer Construction",
+                  "description": "Grey blazer on form during construction for opening costume",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of grey wool blazer on dress form in construction, restrictive corporate silhouette taking shape, contemporary tailoring, work-in-progress on form, workshop setting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/nora-suit-fitting.jpg",
+                  "imageType": "detail_portrait",
+                  "title": "Corporate Suit Fitting",
+                  "description": "Close-up of grey suit fit on actress during fitting",
+                  "tags": [],
+                  "prompt": "Close-up iPhone 14 Pro photo of grey corporate suit on actress during fitting, focus on blazer fit and restrictive silhouette, actress's head cropped from frame, checking design execution for constraint theme, static fitting documentation, natural lighting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/emerald-dress-construction.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Emerald Dress on Form",
+                  "description": "Emerald green dress on form during construction - middle act costume",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of emerald green silk dress on dress form in construction, jewel-tone costume for character's awakening phase, work-in-progress on form, workshop setting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/fitting-emerald-dress.jpg",
+                  "imageType": "detail_portrait",
+                  "title": "Emerald Dress Fitting",
+                  "description": "Close-up of emerald dress fit during fitting session",
+                  "tags": [],
+                  "prompt": "Close-up iPhone 14 Pro photo of emerald green silk dress on actress during fitting, focus on dress bodice and color against skin, actress's head cropped from frame, checking mid-transformation costume, static fitting documentation, natural lighting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/coral-dress-construction.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Liberation Dress Construction",
+                  "description": "Vibrant coral flowing dress on form - final costume",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of vibrant coral-red flowing dress on dress form in construction, loose liberation silhouette, final transformation costume, work-in-progress on form, workshop setting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/final-dress-fitting.jpg",
+                  "imageType": "detail_portrait",
+                  "title": "Final Costume Fitting",
+                  "description": "Close-up of coral liberation dress fit during fitting",
+                  "tags": [],
+                  "prompt": "Close-up iPhone 14 Pro photo of vibrant coral flowing dress on actress during fitting, focus on how loose liberated silhouette contrasts with earlier costumes, actress's head cropped from frame, checking final transformation design, static fitting documentation, natural lighting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/costume-progression-rack.jpg",
+                  "imageType": "bts_phone",
+                  "title": "Nora's Complete Arc on Rack",
+                  "description": "All five of Nora's costumes hanging in sequence showing progression",
+                  "tags": [],
+                  "prompt": "iPhone 14 Pro photo of costume rack with Nora's five costumes hanging in order, visual progression from grey corporate suit to vibrant coral dress, complete character arc visible in costume sequence, design documentation, backstage setting, natural lighting."
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/nora-corporate-production.jpg",
+                  "imageType": "production_portrait",
+                  "title": "Nora - Act I Corporate Costume",
+                  "description": "Professional production photo of actress in grey suit during opening scene",
+                  "tags": [],
+                  "imageMetadata": {
+                    "photographer": "Production photographer - Theater Staff",
+                    "character": "Nora",
+                    "scene": "Act I - Corporate conformity"
+                  },
+                  "prompt": "Professional theatrical production photography, actress in grey corporate suit costume, restrictive professional styling, stage lighting, contemporary setting, captured during performance, high-quality production photography"
+                },
+                {
+                  "file": "categories/theater-production/a-dolls-house-reimagined/nora-liberation-production.jpg",
+                  "imageType": "production_portrait",
+                  "title": "Nora - Final Scene Liberation",
+                  "description": "Professional production photo of actress in coral dress during final scene",
+                  "tags": [
+                    "featured",
+                    "category_carousel"
+                  ],
+                  "imageMetadata": {
+                    "photographer": "Production photographer - Theater Staff",
+                    "character": "Nora",
+                    "scene": "Final scene - Door slam"
+                  },
+                  "prompt": "Professional theatrical production photography, actress in vibrant coral flowing dress costume, liberated styling and movement, dramatic stage lighting, contemporary setting, captured during powerful final scene, high-quality production photography showing costume design transformation complete"
+                }
+              ]
             }
           ]
         }
@@ -620,15 +640,15 @@
       "featuredPhoto": "categories/film-production/the-last-correspondence/period-gown-production.jpg",
       "categoryContent": {
         "headline": "Dressing the Frame",
-        "introduction": "Film asks something different of a costume\u2014it demands intimacy. The camera sees every fiber, every button, every wrinkle that tells a story. I design for the close-up and the wide shot simultaneously, building wardrobes that hold up under the unforgiving scrutiny of the lens while carrying the emotional architecture of a character's inner life.",
-        "approach": "I embed myself in pre-production, sitting with the director and cinematographer until I understand not just the story, but the light\u2014how color will shift under their palette, how texture will read in their shadows. My designs become maps of a character's psychology, where a single undone button or a shift from cool greys to warm amber can say more than a page of dialogue."
+        "introduction": "Film asks something different of a costume—it demands intimacy. The camera sees every fiber, every button, every wrinkle that tells a story. I design for the close-up and the wide shot simultaneously, building wardrobes that hold up under the unforgiving scrutiny of the lens while carrying the emotional architecture of a character's inner life.",
+        "approach": "I embed myself in pre-production, sitting with the director and cinematographer until I understand not just the story, but the light—how color will shift under their palette, how texture will read in their shadows. My designs become maps of a character's psychology, where a single undone button or a shift from cool greys to warm amber can say more than a page of dialogue."
       },
       "projects": [
         {
           "id": "the-last-correspondence",
           "title": "The Last Correspondence",
           "slug": "the-last-correspondence",
-          "description": "Two women in 1920s England, a forbidden love told through discovered letters\u2014and through the clothes that concealed and revealed them. I designed two distinct visual vocabularies that gradually, almost imperceptibly, converged: the aristocrat's structured pastels meeting the artist's earthy bohemian layers in a shared palette of warm amber and rose as their intimacy deepened. The costume design became the film's secret love language.",
+          "description": "Two women in 1920s England, a forbidden love told through discovered letters—and through the clothes that concealed and revealed them. I designed two distinct visual vocabularies that gradually, almost imperceptibly, converged: the aristocrat's structured pastels meeting the artist's earthy bohemian layers in a shared palette of warm amber and rose as their intimacy deepened. The costume design became the film's secret love language.",
           "headings": {
             "challenge": "Dressing the Forbidden",
             "approach": "Two Worlds Converging",
@@ -647,8 +667,8 @@
             "scale": "12 principal costumes, 30+ supporting and background"
           },
           "projectContent": {
-            "challenge": "How do you dress a forbidden love in an era of repression? The costumes needed to maintain both women's public facades while hinting at the emotional lives they couldn't show. Color became my most powerful tool\u2014cold blues and greys for the world's gaze, warm amber and rose for stolen private moments.",
-            "approach": "I built two distinct design worlds and slowly collapsed the distance between them. The aristocrat: structured, pastel, controlled. The artist: layered, earth-toned, free. As their relationship deepened, warm shared colors began appearing in both wardrobes\u2014a visual intimacy the audience could sense before they understood why.",
+            "challenge": "How do you dress a forbidden love in an era of repression? The costumes needed to maintain both women's public facades while hinting at the emotional lives they couldn't show. Color became my most powerful tool—cold blues and greys for the world's gaze, warm amber and rose for stolen private moments.",
+            "approach": "I built two distinct design worlds and slowly collapsed the distance between them. The aristocrat: structured, pastel, controlled. The artist: layered, earth-toned, free. As their relationship deepened, warm shared colors began appearing in both wardrobes—a visual intimacy the audience could sense before they understood why.",
             "outcome": "Film premiered at Sundance 2024 to critical acclaim. Costume design specifically noted in Variety review as 'speaking volumes through silhouette and color'. The color progression technique is now used in film school curricula as an example of visual storytelling through costume."
           },
           "techniques": [
@@ -849,7 +869,7 @@
           "id": "velvet-and-ash",
           "title": "Velvet and Ash",
           "slug": "velvet-and-ash",
-          "description": "A gallery owner's mind unravels, and her wardrobe tells the story. This noir psychological thriller, shot in a stark high-contrast style, challenged me to design a descent you could measure in wrinkles, in unbuttoned collars, in the slow destruction of once-perfect minimalism. The same black velvet and white silk that signaled control in act one read as devastation by act three\u2014all through styling alone.",
+          "description": "A gallery owner's mind unravels, and her wardrobe tells the story. This noir psychological thriller, shot in a stark high-contrast style, challenged me to design a descent you could measure in wrinkles, in unbuttoned collars, in the slow destruction of once-perfect minimalism. The same black velvet and white silk that signaled control in act one read as devastation by act three—all through styling alone.",
           "headings": {
             "challenge": "Fabric Under Scrutiny",
             "approach": "The Slow Undoing",
@@ -868,8 +888,8 @@
             "scale": "10 principal costumes, 40+ supporting and extras"
           },
           "projectContent": {
-            "challenge": "Every fabric choice had to work in the cinematographer's high-contrast, near-black-and-white lighting while supporting a character whose psychological descent needed to be visible through progressive costume dishevelment. The clothes themselves didn't change\u2014the way she wore them did.",
-            "approach": "I started pristine: minimalist monochrome, clean lines, luxurious fabrics, not a thread out of place. Then, costume by costume, I introduced subtle chaos\u2014an unbuttoned collar, a missing earring, rumpled silk where once there was a knife-edge crease. By the final act, the same expensive pieces read as ruins.",
+            "challenge": "Every fabric choice had to work in the cinematographer's high-contrast, near-black-and-white lighting while supporting a character whose psychological descent needed to be visible through progressive costume dishevelment. The clothes themselves didn't change—the way she wore them did.",
+            "approach": "I started pristine: minimalist monochrome, clean lines, luxurious fabrics, not a thread out of place. Then, costume by costume, I introduced subtle chaos—an unbuttoned collar, a missing earring, rumpled silk where once there was a knife-edge crease. By the final act, the same expensive pieces read as ruins.",
             "outcome": "Selected for Toronto International Film Festival 2023. Cinematographer credited costume design as integral to the film's visual strategy. The 'progressive dishevelment' technique generated significant discussion in film design communities."
           },
           "techniques": [
@@ -1041,7 +1061,7 @@
           "id": "paper-tigers",
           "title": "Paper Tigers",
           "slug": "paper-tigers",
-          "description": "Silicon Valley is a costume drama\u2014people just don't realize it. For this corporate espionage thriller, I designed two warring fashion tribes: the Old Guard in sharp power suiting and the New Tech in elevated, deliberately casual streetwear. Each side's clothing was armor and allegiance badge all at once. At the center, a CEO whose pristine white power suit slowly devolved into paranoid disarray as her empire crumbled around her.",
+          "description": "Silicon Valley is a costume drama—people just don't realize it. For this corporate espionage thriller, I designed two warring fashion tribes: the Old Guard in sharp power suiting and the New Tech in elevated, deliberately casual streetwear. Each side's clothing was armor and allegiance badge all at once. At the center, a CEO whose pristine white power suit slowly devolved into paranoid disarray as her empire crumbled around her.",
           "headings": {
             "challenge": "Fashion as Warfare",
             "approach": "Coding the Tribes",
@@ -1061,7 +1081,7 @@
           },
           "projectContent": {
             "challenge": "The trick was making contemporary corporate and tech fashion visually distinct enough to function as tribal signifiers. Power suits versus expensive hoodies needed to feel like opposing uniforms, each carrying its own authority and menace.",
-            "approach": "I created two complete fashion vocabularies: Old Guard\u2014structured suiting, traditional luxury, power-dressing precision\u2014versus New Tech\u2014calculated casualness, normcore with absurdly expensive details, hoodies that cost more than blazers. Then I color-coded by allegiance and mapped the CEO's wardrobe from immaculate control to paranoid chaos.",
+            "approach": "I created two complete fashion vocabularies: Old Guard—structured suiting, traditional luxury, power-dressing precision—versus New Tech—calculated casualness, normcore with absurdly expensive details, hoodies that cost more than blazers. Then I color-coded by allegiance and mapped the CEO's wardrobe from immaculate control to paranoid chaos.",
             "outcome": "Tech press praised the 'accurate portrayal of Silicon Valley fashion politics'. The costume-coded allegiances helped audiences track complex corporate maneuvering. Film screened at SXSW 2024."
           },
           "techniques": [
@@ -1210,15 +1230,15 @@
       "featuredPhoto": "categories/television-production/the-architects-daughter/finale-gown-production.jpg",
       "categoryContent": {
         "headline": "The Long Arc of a Wardrobe",
-        "introduction": "Television is a marathon, not a sprint. Characters live in their clothes for weeks, months, entire seasons\u2014and audiences develop an intimate, almost subconscious relationship with what they wear. I design wardrobes that breathe and evolve, where a blazer worn buttoned-up in the pilot and thrown open over a band tee by episode six tells a story of transformation no exposition could match.",
-        "approach": "I build wardrobe bibles\u2014living documents that map every character's color palette, silhouette vocabulary, and signature pieces against their emotional arc across the season. Then I design capsule systems: core pieces that can be mixed, restyled, and layered to create dozens of distinct looks that feel both fresh and deeply familiar, tracking growth the audience feels before they consciously see it."
+        "introduction": "Television is a marathon, not a sprint. Characters live in their clothes for weeks, months, entire seasons—and audiences develop an intimate, almost subconscious relationship with what they wear. I design wardrobes that breathe and evolve, where a blazer worn buttoned-up in the pilot and thrown open over a band tee by episode six tells a story of transformation no exposition could match.",
+        "approach": "I build wardrobe bibles—living documents that map every character's color palette, silhouette vocabulary, and signature pieces against their emotional arc across the season. Then I design capsule systems: core pieces that can be mixed, restyled, and layered to create dozens of distinct looks that feel both fresh and deeply familiar, tracking growth the audience feels before they consciously see it."
       },
       "projects": [
         {
           "id": "the-architects-daughter",
           "title": "The Architect's Daughter",
           "slug": "the-architects-daughter",
-          "description": "How does a young woman shed her father's shadow and find her own voice? Over eight episodes, I answered that question through her closet. Starting with a rigid capsule wardrobe of corporate black, white, and navy\u2014the uniform of someone performing professionalism\u2014I gradually introduced pieces in rust, forest green, and warm neutrals that felt unmistakably hers. The same navy blazer, buttoned to the throat in episode one, hung open over a band tee by episode six. Forty-five costume combinations tracking one woman's quiet revolution.",
+          "description": "How does a young woman shed her father's shadow and find her own voice? Over eight episodes, I answered that question through her closet. Starting with a rigid capsule wardrobe of corporate black, white, and navy—the uniform of someone performing professionalism—I gradually introduced pieces in rust, forest green, and warm neutrals that felt unmistakably hers. The same navy blazer, buttoned to the throat in episode one, hung open over a band tee by episode six. Forty-five costume combinations tracking one woman's quiet revolution.",
           "headings": {
             "challenge": "A Closet with an Arc",
             "approach": "Fifteen Pieces, Eight Episodes",
@@ -1236,8 +1256,8 @@
             "scale": "Principal character wardrobe (45+ pieces), 6 supporting character wardrobes, 200+ background"
           },
           "projectContent": {
-            "challenge": "The wardrobe needed to feel like a real person's closet\u2014mixable, repeatable across eight episodes\u2014while carrying a clear visual evolution from rigid corporate armor to relaxed personal confidence. Every combination had to work for camera and support her emotional arc without ever feeling like a costume.",
-            "approach": "I built a capsule wardrobe system: fifteen core pieces in corporate neutrals for the early episodes, then gradually introduced personal pieces in warmer, bolder tones. The magic was in the restyling\u2014the same blazer, the same trousers, worn differently as she grew. I mapped every combination against her emotional arc episode by episode, so the visual loosening tracked her inner transformation.",
+            "challenge": "The wardrobe needed to feel like a real person's closet—mixable, repeatable across eight episodes—while carrying a clear visual evolution from rigid corporate armor to relaxed personal confidence. Every combination had to work for camera and support her emotional arc without ever feeling like a costume.",
+            "approach": "I built a capsule wardrobe system: fifteen core pieces in corporate neutrals for the early episodes, then gradually introduced personal pieces in warmer, bolder tones. The magic was in the restyling—the same blazer, the same trousers, worn differently as she grew. I mapped every combination against her emotional arc episode by episode, so the visual loosening tracked her inner transformation.",
             "outcome": "Audience engagement analytics showed viewers specifically commenting on 'watching her style evolve' as part of character development. Fashion press coverage. The wardrobe bible approach has been requested by two other streaming shows."
           },
           "techniques": [
@@ -1437,7 +1457,7 @@
           "id": "beneath-the-surface",
           "title": "Beneath the Surface",
           "slug": "beneath-the-surface",
-          "description": "A marine biologist arrives at a coastal research station in bright blues and cheerful whites. Six episodes later, she's wrapped in dark layers, a woman transformed by what she's uncovered. For this psychological mystery, I designed two overlapping wardrobes for the same character\u2014the optimistic scientist and the paranoid investigator\u2014and tracked their collision across the season, as the sunshine palette was steadily consumed by shadow.",
+          "description": "A marine biologist arrives at a coastal research station in bright blues and cheerful whites. Six episodes later, she's wrapped in dark layers, a woman transformed by what she's uncovered. For this psychological mystery, I designed two overlapping wardrobes for the same character—the optimistic scientist and the paranoid investigator—and tracked their collision across the season, as the sunshine palette was steadily consumed by shadow.",
           "headings": {
             "challenge": "Two Lives, One Closet",
             "approach": "Sunshine Into Shadow",
@@ -1455,8 +1475,8 @@
             "scale": "Lead character wardrobe (40+ pieces), 5 supporting wardrobes, 150+ background"
           },
           "projectContent": {
-            "challenge": "One character, two lives, one wardrobe. I needed to create a dual costume vocabulary\u2014professional scientist by day, obsessive investigator by night\u2014that could believably exist in the same closet while shifting the entire visual temperature of the series from bright coastal optimism to dark paranoid thriller.",
-            "approach": "I built two overlapping systems: the Scientist wardrobe in bright blues, whites, and aqua technical gear, and the Investigator wardrobe in navy, black, and layered protective clothing. In the early episodes, we only saw the bright version. Gradually, the darker pieces crept in\u2014first only at night, then into the daytime scenes\u2014until by the finale, even the lab coat couldn't keep the shadows out.",
+            "challenge": "One character, two lives, one wardrobe. I needed to create a dual costume vocabulary—professional scientist by day, obsessive investigator by night—that could believably exist in the same closet while shifting the entire visual temperature of the series from bright coastal optimism to dark paranoid thriller.",
+            "approach": "I built two overlapping systems: the Scientist wardrobe in bright blues, whites, and aqua technical gear, and the Investigator wardrobe in navy, black, and layered protective clothing. In the early episodes, we only saw the bright version. Gradually, the darker pieces crept in—first only at night, then into the daytime scenes—until by the finale, even the lab coat couldn't keep the shadows out.",
             "outcome": "Series became sleeper hit with strong audience engagement. Viewers specifically noted 'watching her wardrobe darken' as part of the psychological tension. Cinematographer praised costume design for supporting the visual shift from bright coastal thriller to dark paranoid mystery."
           },
           "techniques": [
@@ -1628,15 +1648,15 @@
       "featuredPhoto": "categories/fashion-design/urban-armor/collection-hero-shot.jpg",
       "categoryContent": {
         "headline": "Design Unbound",
-        "introduction": "Fashion is where I go to think out loud. Freed from script and story, these collections are pure creative exploration\u2014ideas about protection, transformation, and identity given form in fabric and structure. This is my laboratory, the place where I push material boundaries and chase silhouettes that often find their way back into my narrative work, transformed.",
-        "approach": "Each collection begins with an obsession\u2014a concept that won't let go. I build it outward from there: researching, sketching, draping fabric on forms until the idea finds its shape. I pair materials that shouldn't work together\u2014military canvas against silk charmeuse, heavy brass hardware against gossamer lining\u2014because the tension between opposites is where the most interesting design lives."
+        "introduction": "Fashion is where I go to think out loud. Freed from script and story, these collections are pure creative exploration—ideas about protection, transformation, and identity given form in fabric and structure. This is my laboratory, the place where I push material boundaries and chase silhouettes that often find their way back into my narrative work, transformed.",
+        "approach": "Each collection begins with an obsession—a concept that won't let go. I build it outward from there: researching, sketching, draping fabric on forms until the idea finds its shape. I pair materials that shouldn't work together—military canvas against silk charmeuse, heavy brass hardware against gossamer lining—because the tension between opposites is where the most interesting design lives."
       },
       "projects": [
         {
           "id": "urban-armor",
           "title": "Urban Armor",
           "slug": "urban-armor",
-          "description": "We all wear armor\u2014mine just happens to have sculptural shoulders and silk linings. This six-piece capsule collection explored the tension between the hard shells we present to the world and the softness we hide underneath. Deconstructed military details reimagined as urban streetwear, with every piece carrying a secret: beneath the heavy canvas and brass hardware, silk charmeuse and delicate embroidery that only the wearer would know. Showcased at Portland Fashion Week 2024.",
+          "description": "We all wear armor—mine just happens to have sculptural shoulders and silk linings. This six-piece capsule collection explored the tension between the hard shells we present to the world and the softness we hide underneath. Deconstructed military details reimagined as urban streetwear, with every piece carrying a secret: beneath the heavy canvas and brass hardware, silk charmeuse and delicate embroidery that only the wearer would know. Showcased at Portland Fashion Week 2024.",
           "headings": {
             "challenge": "Armor Without Costume",
             "approach": "Deconstructing the Shield",
@@ -1652,8 +1672,8 @@
             "scale": "6-piece capsule collection"
           },
           "projectContent": {
-            "challenge": "How do you translate 'armor' into fashion without it reading as costume? The concept needed to feel wearable and contemporary\u2014something you'd actually put on your body\u2014while carrying genuine emotional weight about protection and vulnerability.",
-            "approach": "I deconstructed military tailoring and rebuilt it for the street. Epaulettes became sculptural shoulders. Utility pockets became design features. Heavy brass hardware sat next to hidden silk linings. Every piece worked as everyday wear while carrying its conceptual secret\u2014the contrast between the face we show the world and what we keep close to the skin.",
+            "challenge": "How do you translate 'armor' into fashion without it reading as costume? The concept needed to feel wearable and contemporary—something you'd actually put on your body—while carrying genuine emotional weight about protection and vulnerability.",
+            "approach": "I deconstructed military tailoring and rebuilt it for the street. Epaulettes became sculptural shoulders. Utility pockets became design features. Heavy brass hardware sat next to hidden silk linings. Every piece worked as everyday wear while carrying its conceptual secret—the contrast between the face we show the world and what we keep close to the skin.",
             "outcome": "Collection showed at Portland Fashion Week to positive reception. Three pieces were commissioned for private purchase. The 'hard shell/soft interior' concept has influenced my theatrical work on characters presenting protective facades."
           },
           "techniques": [
