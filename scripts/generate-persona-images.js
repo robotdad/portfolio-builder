@@ -15,6 +15,7 @@
  *   node scripts/generate-persona-images.js sarah-chen --profile-only               # Profile images only
  *   node scripts/generate-persona-images.js sarah-chen --category=theater-production # One category
  *   node scripts/generate-persona-images.js sarah-chen --project=the-obsidian-crown  # One project
+ *   node scripts/generate-persona-images.js sarah-chen --pro                        # Use gemini-3-pro-image-preview
  */
 
 import { GoogleGenAI } from '@google/genai';
@@ -89,6 +90,15 @@ const IMAGE_TYPE_DEFAULTS = {
 };
 
 const FALLBACK_ASPECT_RATIO = '3:4';
+
+// ---------------------------------------------------------------------------
+// Model selection
+// ---------------------------------------------------------------------------
+
+const MODELS = {
+  default: 'gemini-3.1-flash-image-preview',
+  pro:     'gemini-3-pro-image-preview',
+};
 
 const VALID_ASPECT_RATIOS = [
   '1:1', '2:3', '3:2', '3:4', '4:3', '4:5', '5:4', '9:16', '16:9', '21:9'
@@ -398,12 +408,14 @@ async function loadApiKey() {
  * @param {string|null} options.referenceImageB64 - Base64 identity reference image
  * @param {string} options.aspectRatio - Gemini aspect ratio string (e.g. "3:4")
  * @param {string|null} options.imageType - Image type for prompt wrapping
+ * @param {string} options.model - Gemini model ID to use
  */
 async function generateImage(ai, prompt, {
   isAnchorGeneration = false,
   referenceImageB64 = null,
   aspectRatio = FALLBACK_ASPECT_RATIO,
-  imageType = null
+  imageType = null,
+  model = MODELS.default
 } = {}) {
   // Validate aspect ratio
   const ratio = VALID_ASPECT_RATIOS.includes(aspectRatio) ? aspectRatio : FALLBACK_ASPECT_RATIO;
@@ -455,7 +467,7 @@ STYLE: 85mm lens, sharp focus, professional studio lighting, realistic textures,
   }
 
   const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash-image',
+    model,
     contents: contents,
     config: {
       responseModalities: ['IMAGE'],
@@ -497,9 +509,10 @@ async function generatePersona(ai, personaId, options = {}) {
 
   console.log(`   Name: ${personaData.persona.name}`);
   console.log(`   Role: ${personaData.persona.role}`);
+  console.log(`   Model: ${options.model || MODELS.default}`);
   
   // Parse filter options
-  const { profileOnly, categoryFilter, projectFilter } = options;
+  const { profileOnly, categoryFilter, projectFilter, model } = options;
   
   if (profileOnly) {
     console.log(`   Filter: Profile images only`);
@@ -558,7 +571,8 @@ async function generatePersona(ai, personaId, options = {}) {
           console.log(`   ** Generating master headshot (anchor)...`);
           imageBase64 = await generateImage(ai, image.prompt, {
             isAnchorGeneration: true,
-            aspectRatio: image.aspectRatio || '3:4'
+            aspectRatio: image.aspectRatio || '3:4',
+            model
           });
           headshotBase64 = imageBase64;
         } else if (needsIdentity && headshotBase64) {
@@ -566,13 +580,15 @@ async function generatePersona(ai, personaId, options = {}) {
           imageBase64 = await generateImage(ai, image.prompt, {
             referenceImageB64: headshotBase64,
             aspectRatio,
-            imageType
+            imageType,
+            model
           });
         } else {
           console.log(`   >> Generating scene image...`);
           imageBase64 = await generateImage(ai, image.prompt, {
             aspectRatio,
-            imageType
+            imageType,
+            model
           });
         }
 
@@ -669,13 +685,15 @@ async function generatePersona(ai, personaId, options = {}) {
             imageBase64 = await generateImage(ai, image.prompt, {
               referenceImageB64: headshotBase64,
               aspectRatio,
-              imageType
+              imageType,
+              model
             });
           } else {
             console.log(`     >> Generating image...`);
             imageBase64 = await generateImage(ai, image.prompt, {
               aspectRatio,
-              imageType
+              imageType,
+              model
             });
           }
 
@@ -719,11 +737,13 @@ async function main() {
   
   // Parse filter options
   const profileOnly = args.includes('--profile-only');
+  const usePro = args.includes('--pro');
   const categoryArg = args.find(arg => arg.startsWith('--category='));
   const projectArg = args.find(arg => arg.startsWith('--project='));
   
   const categoryFilter = categoryArg ? categoryArg.split('=')[1] : null;
   const projectFilter = projectArg ? projectArg.split('=')[1] : null;
+  const model = usePro ? MODELS.pro : MODELS.default;
 
   let personaIds = [];
   if (personaArg === 'all') {
@@ -736,12 +756,14 @@ async function main() {
     personaIds = [personaArg];
   }
 
-  console.log(`Generating for: ${personaIds.join(', ')}\n`);
+  console.log(`Generating for: ${personaIds.join(', ')}`);
+  console.log(`Model: ${model}\n`);
 
   const options = {
     profileOnly,
     categoryFilter,
-    projectFilter
+    projectFilter,
+    model
   };
 
   for (const personaId of personaIds) {
