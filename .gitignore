@@ -107,13 +107,6 @@ skills/
 # Photos
 photos/
 
-# Test asset images
-test-assets/**/*.png
-test-assets/**/*.jpg
-test-assets/**/*.jpeg
-test-assets/**/*.gif
-test-assets/**/*.webp
-test-assets/**/*.svg
 
 # AI working area - ignore images, screenshots, and binary artifacts
 ai_working/**/*.png
