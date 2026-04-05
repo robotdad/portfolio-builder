@@ -330,7 +330,7 @@ az postgres flexible-server update \
 | `GOOGLE_CLIENT_ID` | Google OAuth client ID |
 | `GOOGLE_CLIENT_SECRET` | Google OAuth client secret |
 | `AUTH_SECRET` | Session encryption key (generate with `openssl rand -base64 32`) |
-| `NEXTAUTH_URL` | Full URL of your site (`https://portfolio.sashagoodner.com`) |
+| `NEXTAUTH_URL` | Full URL of your site (`https://portfolio.yourdomain.com`) |
 | `AZURE_STORAGE_CONNECTION_STRING` | Azure Blob Storage connection string |
 | `AZURE_STORAGE_CONTAINER_NAME` | Blob container name (`portfolio-images`) |
 | `NODE_ENV` | `production` |
@@ -342,7 +342,7 @@ az postgres flexible-server update \
 | `NODE_ENV` | `development` | `production` |
 | Database | `localhost:5432` | `portfolio-db.postgres.database.azure.com` |
 | Image storage | Files in `public/uploads/` | Blobs at `portfoliodevstore2026.blob.core.windows.net` |
-| URL | `http://localhost:3000` | `https://portfolio.sashagoodner.com` |
+| URL | `http://localhost:3000` | `https://portfolio.yourdomain.com` |
 
 ---
 
@@ -405,7 +405,7 @@ az ad app federated-credential create --id <appId> --parameters '{
 | `IMAGE_NAME` | `portfolio-app` |
 | `ACA_ENVIRONMENT` | `portfolio-env` |
 | `STORAGE_CONTAINER` | `portfolio-images` |
-| `SITE_URL` | `https://portfolio.sashagoodner.com` |
+| `SITE_URL` | `https://portfolio.yourdomain.com` |
 
 ### Workflow
 
@@ -479,13 +479,13 @@ Quick summary:
 az containerapp hostname add \
   --name portfolio-app \
   --resource-group portfolio-rg \
-  --hostname portfolio.sashagoodner.com
+  --hostname portfolio.yourdomain.com
 
 # Bind managed certificate (free, auto-renewing)
 az containerapp hostname bind \
   --name portfolio-app \
   --resource-group portfolio-rg \
-  --hostname portfolio.sashagoodner.com \
+  --hostname portfolio.yourdomain.com \
   --environment portfolio-env \
   --validation-method CNAME
 ```
@@ -524,7 +524,7 @@ CNAME  portfolio  →  <aca-default-fqdn>.azurecontainerapps.io
 Some scripts require authentication against the production site:
 
 ```bash
-APP_BASE=https://portfolio.sashagoodner.com npm run auth:login
+APP_BASE=https://portfolio.yourdomain.com npm run auth:login
 npm run auth:status
 npm run auth:logout
 ```

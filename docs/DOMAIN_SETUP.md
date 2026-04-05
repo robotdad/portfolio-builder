@@ -48,10 +48,10 @@ Note this URL -- you'll need it for the DNS configuration.
 
 5. Click the checkmark to save
 
-> **Example**: If your domain is `sashagoodner.com` and your ACA app FQDN is `portfolio-app.lemoncoast-abc123.westus2.azurecontainerapps.io`, you'd set:
+> **Example**: If your domain is `yourdomain.com` and your ACA app FQDN is `portfolio-app.lemoncoast-abc123.westus2.azurecontainerapps.io`, you'd set:
 > - Host: `portfolio`
 > - Value: `portfolio-app.lemoncoast-abc123.westus2.azurecontainerapps.io`
-> - Result: `portfolio.sashagoodner.com` → Azure Container Apps
+> - Result: `portfolio.yourdomain.com` → Azure Container Apps
 
 ## Step 3: Add Custom Domain in Azure
 
