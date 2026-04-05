@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Standalone output for Azure deployment (~50MB instead of 370MB)
-  output: 'standalone',
+  // Output mode: set NEXT_OUTPUT_MODE=standalone for Azure deployment (~50MB instead of 370MB)
+  output: process.env.NEXT_OUTPUT_MODE as NextConfig['output'],
   
   // Exclude user-uploaded files from standalone output file tracing.
   // These are runtime data, not build dependencies.

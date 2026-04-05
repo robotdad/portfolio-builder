@@ -72,7 +72,13 @@ async function apiCall(method, endpoint, data = null) {
     opts.body = JSON.stringify(data);
   }
   
-  const response = await fetch(`${API_BASE}${endpoint}`, opts);
+  let response;
+  try {
+    response = await fetch(`${API_BASE}${endpoint}`, opts);
+  } catch {
+    console.error(`\n✗ Cannot reach ${API_BASE} — is the dev server running?\n  Start it with: npm run dev\n`);
+    process.exit(1);
+  }
   
   const contentType = response.headers.get('content-type');
   if (!contentType || !contentType.includes('application/json')) {
@@ -1181,7 +1187,9 @@ async function populatePersonaEnhanced(personaId = 'sarah-chen', skipReset = fal
     enhanced: true
   };
   
-  const summaryPath = path.join(PROJECT_ROOT, 'ai_working', `${personaId}-enhanced-summary.json`);
+  const summaryDir = path.join(PROJECT_ROOT, 'ai_working');
+  fs.mkdirSync(summaryDir, { recursive: true });
+  const summaryPath = path.join(summaryDir, `${personaId}-enhanced-summary.json`);
   fs.writeFileSync(summaryPath, JSON.stringify(summary, null, 2));
   
   console.log(`\n✅ All done! View at: http://localhost:3000/`);

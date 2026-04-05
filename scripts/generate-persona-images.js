@@ -13,7 +13,7 @@
  *   node scripts/generate-persona-images.js sarah-chen                              # One persona
  *   node scripts/generate-persona-images.js all                                     # All personas
  *   node scripts/generate-persona-images.js sarah-chen --profile-only               # Profile images only
- *   node scripts/generate-persona-images.js sarah-chen --category=theater-production # One category
+ *   node scripts/generate-persona-images.js sarah-chen --category=stage-production   # One category (supports subcategories)
  *   node scripts/generate-persona-images.js sarah-chen --project=the-obsidian-crown  # One project
  *   node scripts/generate-persona-images.js sarah-chen --pro                        # Use gemini-3-pro-image-preview
  */
@@ -643,8 +643,20 @@ async function generatePersona(ai, personaId, options = {}) {
     
     console.log(`\n>> ${category.name}`);
     console.log('-'.repeat(60));
-    
+
+    // Collect all projects: direct projects + projects nested in subcategories
+    const projectsToProcess = [];
     for (const project of category.projects || []) {
+      projectsToProcess.push(project);
+    }
+    for (const sub of category.subcategories || []) {
+      console.log(`\n  Subcategory: ${sub.name}`);
+      for (const project of sub.projects || []) {
+        projectsToProcess.push(project);
+      }
+    }
+
+    for (const project of projectsToProcess) {
       // Skip if project filter specified and doesn't match
       if (projectFilter && project.slug !== projectFilter) {
         continue;
