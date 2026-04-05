@@ -1,0 +1,34 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Variant A1: Accent Tabs + Crisp Frames
+       Header: Higher-contrast tabs with cyan underline on active tab
+       Edges: Visible strokes on both cards, differentiated colors -->
+
+  <!-- Inner background -->
+  <path d="M61.2547 2.7453H2.7453V61.2547H61.2547V2.7453Z" fill="#10131C"/>
+
+  <!-- Frame with header divider -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M61.941 0C63.0781 0 64 0.921837 64 2.05898V61.941C64 63.0781 63.0781 64 61.941 64H2.05898C0.921839 64 0 63.0781 0 61.941V2.05898C0 0.921837 0.921837 0 2.05898 0H61.941ZM2.74531 18.1877V61.2547H61.2547V18.1877H2.74531ZM2.74531 15.7855H61.2547V2.74531H2.74531V15.7855Z" fill="white"/>
+
+  <!-- Header: tabs with higher contrast + cyan underline accent -->
+  <rect x="6.5" y="5.5" width="15" height="5.5" rx="1.5" fill="#2A3040"/>
+  <rect x="6.5" y="10" width="15" height="1.2" rx="0.6" fill="#00D9F5"/>
+  <rect x="23.5" y="5.5" width="10" height="5.5" rx="1.5" fill="#1E2430"/>
+
+  <!-- === Photo Stack: Bold Angles with Crisp Frames === -->
+
+  <!-- Back card — lighter fill, visible medium-gray border -->
+  <g transform="rotate(-9 25 33)">
+    <rect x="10" y="22" width="28" height="22" rx="2" fill="#2A3040" stroke="#4A5060" stroke-width="1"/>
+  </g>
+
+  <!-- Front card — visible white-ish border, cyan top accent thicker -->
+  <g transform="rotate(7 37 35)">
+    <rect x="22" y="24" width="28" height="22" rx="2" fill="#222433" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+    <rect x="22" y="24" width="28" height="3" rx="2 2 0 0" fill="#00D9F5"/>
+  </g>
+
+  <!-- Pagination dots -->
+  <circle cx="27" cy="54" r="1.4" fill="#2A3040"/>
+  <circle cx="32" cy="54" r="2" fill="#00D9F5"/>
+  <circle cx="37" cy="54" r="1.4" fill="#2A3040"/>
+</svg>

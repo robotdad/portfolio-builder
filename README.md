@@ -2,6 +2,10 @@
 
 A portfolio website builder designed for costume designers and creative professionals. Build and manage a beautiful portfolio with an intuitive admin interface.
 
+![Portfolio Builder](assets/branding/icons/icon-256.png)
+
+---
+
 ## Overview
 
 This is a single-user portfolio application built with Next.js. It provides:
