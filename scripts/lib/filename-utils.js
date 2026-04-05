@@ -4,7 +4,7 @@
  * When importing photos from a real client (not AI-generated), camera filenames
  * like "IMG_3481.jpg" or "250325_193119.jpg" need to be converted to readable
  * titles. This module provides the cleaning logic extracted from the original
- * Sasha Goodner import script.
+ * a one-time real-photo client import script.
  *
  * For AI-generated personas this is unnecessary — their persona.json entries
  * have explicit titles. Use this when building a "generate persona from real

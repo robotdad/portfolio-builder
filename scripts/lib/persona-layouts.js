@@ -8,7 +8,7 @@
  *   Sarah Chen   – "Editorial Precision"  → sidebar-forward, narrow gaps
  *   Julian Vane  – "Structured Craftsman" → three-column mastery, default/wide gaps
  *   Emma Rodriguez – "Cinematic Scope"    → extreme ratios, wide gaps
- *   Sasha Goodner  – "Process Gallery"    → gallery-forward, balanced gaps
+ *   Gallery        – "Process Gallery"    → gallery-forward, balanced gaps
  */
 
 import {
@@ -262,7 +262,7 @@ const GENRE_MAP = {
     'contemporary-drama': GENRE_INTIMATE,
     'international-location': GENRE_SPECTACLE,
   },
-  sasha: {
+  gallery: {
     'theatre-work': GENRE_SPECTACLE,
     'bethany-joy': GENRE_SPECTACLE,
     'uncsa-productions': GENRE_RESEARCH,
@@ -1909,15 +1909,15 @@ function emmaTemplateB(project, getNext, getNextN, remaining, context, genre) {
 }
 
 // ============================================
-// SASHA GOODNER — "Process Gallery"
+// GALLERY — "Process Gallery"
 // Gallery-forward, balanced gaps, image-heavy
-// Adapts to Sasha's data shape: rich descriptions
+// Adapts to a data shape with rich descriptions
 // and abundant photos, but no projectContent
 // (challenge/approach/outcome), techniques, or
 // recognition fields.
 // ============================================
 
-function sashaHomepage(context) {
+function galleryHomepage(context) {
   const { persona, profileAssetId, profileAssetUrl } = context;
   const sections = [];
 
@@ -1971,7 +1971,7 @@ function sashaHomepage(context) {
   return sections;
 }
 
-function sashaAboutPage(context) {
+function galleryAboutPage(context) {
   const { persona, profileAssetId, profileAssetUrl } = context;
   const sections = [];
 
@@ -1993,7 +1993,7 @@ function sashaAboutPage(context) {
   return sections;
 }
 
-function sashaCategoryPage(category, categoryIndex, context) {
+function galleryCategoryPage(category, categoryIndex, context) {
   const sections = [];
 
   // Category description — factual, from persona.json only. No editorialising.
@@ -2021,18 +2021,18 @@ function sashaCategoryPage(category, categoryIndex, context) {
   return sections;
 }
 
-function sashaProjectPage(project, galleryImages, context) {
+function galleryProjectPage(project, galleryImages, context) {
   // Multi-section projects get a special layout
   if (project.sections && project.sections.length > 0) {
-    return sashaMultiSectionPage(project, galleryImages, context);
+    return galleryMultiSectionPage(project, galleryImages, context);
   }
   
   // Single-section projects use the standard gallery-forward layout
-  return sashaSingleProjectPage(project, galleryImages, context);
+  return gallerySingleProjectPage(project, galleryImages, context);
 }
 
-/** Sasha multi-section project page (e.g., Idomeneo, Wild Party, The Rover, Twelfth Night) */
-function sashaMultiSectionPage(project, galleryImages, context) {
+/** Gallery multi-section project page — projects with a sections[] array */
+function galleryMultiSectionPage(project, galleryImages, context) {
   const sections = [];
   const { getNext, getNextN, remaining } = createImageConsumer(galleryImages);
 
@@ -2116,13 +2116,13 @@ function sashaMultiSectionPage(project, galleryImages, context) {
   return sections;
 }
 
-/** Sasha single project page — text at top, then all images.
+/** Gallery single project page — text at top, then all images.
  *  Project metadata (role, year, production, etc.) is rendered by the app
  *  in the project header — never duplicate it in the content sections.
  *  projectContent.sidebar = left column (credits/contributors)
  *  projectContent.description = right column (her commentary)
  */
-function sashaSingleProjectPage(project, galleryImages, context) {
+function gallerySingleProjectPage(project, galleryImages, context) {
   const sections = [];
   const { remaining } = createImageConsumer(galleryImages);
 
@@ -2191,8 +2191,8 @@ export function buildPersonaProjectPage(personaId, project, galleryImages, conte
   if (personaId.includes('emma')) {
     return emmaProjectPage(project, galleryImages, context);
   }
-  if (personaId.includes('sasha')) {
-    return sashaProjectPage(project, galleryImages, context);
+  if (personaId.includes('gallery')) {
+    return galleryProjectPage(project, galleryImages, context);
   }
   // Default to Sarah's layout
   return sarahProjectPage(project, galleryImages, context);
@@ -2212,8 +2212,8 @@ export function buildPersonaHomepage(personaId, context) {
   if (personaId.includes('emma')) {
     return emmaHomepage(context);
   }
-  if (personaId.includes('sasha')) {
-    return sashaHomepage(context);
+  if (personaId.includes('gallery')) {
+    return galleryHomepage(context);
   }
   return sarahHomepage(context);
 }
@@ -2232,8 +2232,8 @@ export function buildPersonaAboutPage(personaId, context) {
   if (personaId.includes('emma')) {
     return emmaAboutPage(context);
   }
-  if (personaId.includes('sasha')) {
-    return sashaAboutPage(context);
+  if (personaId.includes('gallery')) {
+    return galleryAboutPage(context);
   }
   return sarahAboutPage(context);
 }
@@ -2254,8 +2254,8 @@ export function buildPersonaCategoryPage(personaId, category, categoryIndex, con
   if (personaId.includes('emma')) {
     return emmaCategoryPage(category, categoryIndex, context);
   }
-  if (personaId.includes('sasha')) {
-    return sashaCategoryPage(category, categoryIndex, context);
+  if (personaId.includes('gallery')) {
+    return galleryCategoryPage(category, categoryIndex, context);
   }
   return sarahCategoryPage(category, categoryIndex, context);
 }
