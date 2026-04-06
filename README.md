@@ -1,8 +1,16 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/branding/icons/icon-256.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/branding/icons/icon-256.png">
+    <img alt="Portfolio Builder" src="assets/branding/icons/icon-256.png" width="128">
+  </picture>
+</p>
+
 # Portfolio Builder
 
 A portfolio website builder designed for costume designers and creative professionals. Build and manage a beautiful portfolio with an intuitive admin interface.
 
-![Portfolio Builder](assets/branding/icons/icon-256.png)
+![Portfolio Builder](docs/images/hero-screenshot.png)
 
 ---
 
@@ -187,6 +195,7 @@ cp .env.example .env
 
 ## Documentation
 
+- [User Guide](docs/USER_GUIDE.md) — How to use the admin interface and manage your portfolio
 - [Architecture](docs/ARCHITECTURE.md) — System design overview
 - [API Reference](docs/API.md) — REST API documentation
 - [Testing Guide](docs/TESTING.md) — Test infrastructure and patterns
