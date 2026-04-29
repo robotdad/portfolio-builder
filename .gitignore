@@ -125,3 +125,6 @@ deployment/
 
 # Agent tooling — session-local workspace memory (not for version control)
 .amplifier/workspace-memory/
+
+# Deployment runbook (secrets, instance-specific details — never check in)
+.amplifier/runbook/
