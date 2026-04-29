@@ -122,3 +122,6 @@ ai_working/**/*_uri.txt
 
 # Instance-specific deployment info
 deployment/
+
+# Agent tooling — session-local workspace memory (not for version control)
+.amplifier/workspace-memory/

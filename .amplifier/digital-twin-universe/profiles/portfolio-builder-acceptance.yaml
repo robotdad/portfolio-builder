@@ -1,0 +1,155 @@
+# Acceptance validation environment for portfolio-builder
+#
+# Stack: Next.js 16, React 19, TypeScript, Prisma 7, PostgreSQL 16
+# Platform: Ubuntu 24.04 (arm64 / Raspberry Pi 5)
+#
+# ── PREREQUISITES ───────────────────────────────────────────────────────────
+# test-assets/personas/ images are stored in Git LFS. Pull them before launch:
+#
+#   sudo apt-get install -y git-lfs   # (one-time, if not installed)
+#   git lfs install                    # (one-time per user)
+#   git lfs pull                       # (run in repo root)
+#
+# If LFS is not pulled, the container receives 131-byte pointer files instead
+# of real JPEGs, and the populate script will fail with "unsupported image
+# format" when Sharp tries to process them.
+#
+# ── WHAT THIS PROFILE DOES ──────────────────────────────────────────────────
+#   1. Installs Node.js 22 + PostgreSQL 16 in-container
+#   2. Copies repo source (no node_modules) and runs npm ci
+#   3. Runs Prisma migrations against the in-container Postgres
+#   4. Starts the Next.js dev server with AUTH_DISABLED=true
+#
+# ── ACCESS ──────────────────────────────────────────────────────────────────
+# Port forwarding is disabled (user-1000 Incus project restricts proxy devices).
+# Access the app via the container bridge IP (10.191.237.x):
+#   incus list                          # find container IP
+#   curl http://<container-ip>:3000/    # verify app
+#   open http://<container-ip>:3000/    # browser access
+#
+# ── POPULATE AFTER LAUNCH ───────────────────────────────────────────────────
+#   amplifier-digital-twin exec <id> -- bash -lc \
+#     'cd /app && AUTH_DISABLED=true node scripts/populate-persona-api.js sarah-chen'
+#
+# Sarah Chen persona: 4 top-level categories (6 total incl. subcategories),
+# 9 projects, ~136 images (each processed into 6 WebP variants by Sharp).
+# Population takes ~3 minutes on Raspberry Pi 5.
+
+name: portfolio-builder-acceptance
+description: >
+  Acceptance validation environment for the portfolio-builder Next.js app.
+  Ubuntu 24.04 (arm64), Node.js 22, PostgreSQL 16 in-container.
+  AUTH_DISABLED=true bypasses Google OAuth for dev use.
+  Populate with Sarah Chen persona for realistic acceptance testing.
+
+base:
+  image: ubuntu:24.04
+
+# NOTE: access.ports is intentionally omitted.
+# The user-1000 Incus project restricts proxy devices (port forwarding).
+#
+# ── HOST ACCESS (for browser use) ────────────────────────────────────────────
+# The container IP (10.191.237.x) lives on the incusbr-1000 bridge — a private
+# network with scope=link, reachable ONLY from the host machine's kernel
+# namespace. A browser on any other device (laptop, phone) cannot reach it.
+#
+# Next.js DOES bind to *:3000 (all interfaces) — that is not the problem.
+# The problem is pure routing: the bridge subnet is not advertised externally.
+#
+# OPTION A — iptables DNAT (makes app accessible on the host's LAN IPs):
+#   CONTAINER_IP=$(incus exec portfolio-builder-acceptance -- hostname -I | awk '{print $1}')
+#   sudo iptables -t nat -A PREROUTING -i eth0       -p tcp --dport 3000 -j DNAT --to-destination ${CONTAINER_IP}:3000
+#   sudo iptables -t nat -A PREROUTING -i wlan0      -p tcp --dport 3000 -j DNAT --to-destination ${CONTAINER_IP}:3000
+#   sudo iptables -t nat -A PREROUTING -i tailscale0 -p tcp --dport 3000 -j DNAT --to-destination ${CONTAINER_IP}:3000
+#   sudo iptables -I FORWARD 1 -i eth0       -o incusbr-1000 -p tcp --dport 3000 -j ACCEPT
+#   sudo iptables -I FORWARD 2 -i wlan0      -o incusbr-1000 -p tcp --dport 3000 -j ACCEPT
+#   sudo iptables -I FORWARD 3 -i tailscale0 -o incusbr-1000 -p tcp --dport 3000 -j ACCEPT
+#   sudo iptables -t nat -A POSTROUTING -o incusbr-1000 -p tcp -d ${CONTAINER_IP} -j MASQUERADE
+#   Browser: http://192.168.1.203:3000/ (eth0 LAN) or http://100.102.163.34:3000/ (Tailscale)
+#   IMPORTANT: Rules are ephemeral — lost on reboot. Re-apply after each host restart.
+#
+# OPTION B — SSH tunnel from user's machine (zero server changes):
+#   CONTAINER_IP=$(incus exec portfolio-builder-acceptance -- hostname -I | awk '{print $1}')
+#   ssh -L 3000:${CONTAINER_IP}:3000 robotdad@192.168.1.203
+#   Browser: http://localhost:3000/
+#
+# For scripted validation (curl from host), the bridge IP works directly:
+#   CONTAINER_IP=$(incus exec portfolio-builder-acceptance -- hostname -I | awk '{print $1}')
+#   curl http://${CONTAINER_IP}:3000/api/portfolio
+
+provision:
+  files:
+    # Directories: dest is the PARENT (/app) so each dir lands at /app/<dirname>.
+    # Setting dest to /app/src would nest src/ inside -> /app/src/src/ (wrong).
+    - src: ../../../src
+      dest: /app
+      recursive: true
+    - src: ../../../scripts
+      dest: /app
+      recursive: true
+    - src: ../../../test-assets
+      dest: /app
+      recursive: true
+    # Root-level files copied directly to /app/
+    - src: ../../../package.json
+      dest: /app/package.json
+    - src: ../../../package-lock.json
+      dest: /app/package-lock.json
+    - src: ../../../next.config.ts
+      dest: /app/next.config.ts
+    - src: ../../../prisma.config.ts
+      dest: /app/prisma.config.ts
+    - src: ../../../tsconfig.json
+      dest: /app/tsconfig.json
+    - src: ../../../eslint.config.mjs
+      dest: /app/eslint.config.mjs
+
+  setup_cmds:
+    # ── System packages ─────────────────────────────────────────────────────
+    - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y curl git postgresql postgresql-contrib
+
+    # ── PostgreSQL setup ─────────────────────────────────────────────────────
+    # Ubuntu 24.04 ships PostgreSQL 16; the cluster is created but not started.
+    - service postgresql start
+    - su postgres -c "psql -c \"ALTER USER postgres WITH PASSWORD 'postgres';\""
+    - su postgres -c "createdb portfolio"
+
+    # ── Node.js 22 via NodeSource ────────────────────────────────────────────
+    - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+    - DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+
+    # ── App environment config ───────────────────────────────────────────────
+    # AUTH_DISABLED=true bypasses Google OAuth in the middleware (proxy.ts).
+    # Dummy Google credentials prevent NextAuth from erroring at init time.
+    # AUTH_SECRET must be >= 32 chars for NextAuth to accept it.
+    - |
+      cat > /app/.env.local << 'ENVEOF'
+      DATABASE_URL="postgresql://postgres:postgres@localhost:5432/portfolio"
+      AUTH_DISABLED=true
+      AUTH_SECRET="dtu-validation-secret-not-for-production-32chars"
+      NEXTAUTH_URL="http://localhost:3000"
+      GOOGLE_CLIENT_ID="dtu-dummy.apps.googleusercontent.com"
+      GOOGLE_CLIENT_SECRET="dtu-dummy-not-used"
+      ENVEOF
+
+    # ── Dependencies ─────────────────────────────────────────────────────────
+    # postinstall runs: prisma generate (needs src/prisma/schema.prisma)
+    - cd /app && npm ci
+
+    # ── Prisma migrations ────────────────────────────────────────────────────
+    - cd /app && npm run db:setup
+
+    # ── Runtime directories ──────────────────────────────────────────────────
+    - mkdir -p /app/public/uploads
+
+    # ── Start Next.js dev server ─────────────────────────────────────────────
+    # Logs to /var/log/portfolio-builder.log for diagnostic use.
+    - |
+      cd /app && nohup npm run dev > /var/log/portfolio-builder.log 2>&1 &
+      echo "Dev server started (PID $!). Waiting for initial compile..."
+      sleep 3
+
+readiness:
+  - name: nextjs-dev-server
+    http:
+      url: http://localhost:3000/api/portfolio

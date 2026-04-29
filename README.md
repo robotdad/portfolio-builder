@@ -131,7 +131,8 @@ portfolio/
 │   └── prisma/            # Database schema and migrations
 ├── scripts/               # Utility scripts
 ├── test-assets/           # Test data and personas
-└── docs/                  # Documentation (WIP)
+├── docs/                  # Documentation
+└── .amplifier/            # Agent tooling (DTU profiles, workspace memory)
 ```
 
 ## Scripts
@@ -198,7 +199,7 @@ cp .env.example .env
 - [User Guide](docs/USER_GUIDE.md) — How to use the admin interface and manage your portfolio
 - [Architecture](docs/ARCHITECTURE.md) — System design overview
 - [API Reference](docs/API.md) — REST API documentation
-- [Testing Guide](docs/TESTING.md) — Test infrastructure and patterns
+- [Testing Guide](docs/TESTING.md) — Test infrastructure, patterns, and DTU acceptance environment
 - [Deployment Guide](docs/DEPLOYMENT.md) — Azure Container Apps deployment
 
 ## Test Data

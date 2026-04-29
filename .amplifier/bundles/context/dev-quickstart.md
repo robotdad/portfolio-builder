@@ -67,6 +67,7 @@ npm run test:e2e:ui       # Playwright UI mode
 - Selectors centralized in `src/tests/e2e/fixtures.ts`
 - Use API population for setup, Playwright for UI verification
 - Never commit screenshots -- use `ai_working/screenshots/` (gitignored)
+- **DTU acceptance environment:** `.amplifier/digital-twin-universe/profiles/portfolio-builder-acceptance.yaml` — isolated Incus container (Ubuntu 24.04, Node 22, Postgres in-container, `AUTH_DISABLED=true`) populated with the Sarah Chen persona. See `docs/TESTING.md#acceptance-testing-with-dtu` for full launch and access instructions.
 
 ## AI Working Directory
 

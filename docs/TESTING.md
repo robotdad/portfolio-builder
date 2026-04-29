@@ -122,6 +122,96 @@ The populated portfolio has:
 - Profile photo and bio
 - Theme and template settings applied
 
+## Acceptance Testing with DTU
+
+The DTU (Digital Twin Universe) acceptance environment provides an isolated, fully-populated instance for validating changes before they reach production.
+
+**Profile:** `.amplifier/digital-twin-universe/profiles/portfolio-builder-acceptance.yaml`
+
+### Prerequisites
+
+- `amplifier-digital-twin` CLI installed
+- Incus running on the host
+- Git LFS: images in `test-assets/` are LFS-tracked — pull them before launch or Sharp will receive pointer files instead of real JPEGs and fail during population:
+
+```bash
+sudo apt-get install -y git-lfs   # one-time, if not installed
+git lfs install                    # one-time per user
+git lfs pull                       # run in repo root
+```
+
+### Launch
+
+```bash
+amplifier-digital-twin launch \
+  .amplifier/digital-twin-universe/profiles/portfolio-builder-acceptance.yaml \
+  --name portfolio-builder-acceptance
+```
+
+Provision takes a few minutes on first run (Node.js install, `npm ci`, Prisma migrations). The profile starts the Next.js dev server with `AUTH_DISABLED=true` — no Google OAuth required.
+
+### Populate
+
+After the readiness probe passes (`GET /api/portfolio` returns 200), populate with the Sarah Chen persona:
+
+```bash
+amplifier-digital-twin exec portfolio-builder-acceptance -- bash -lc \
+  'cd /app && AUTH_DISABLED=true node scripts/populate-persona-api.js sarah-chen'
+```
+
+Population takes ~3 minutes on Raspberry Pi 5. Expected baseline when complete:
+
+| Item | Count |
+|------|-------|
+| Portfolio rows | 1 (`Sarah Chen`) |
+| Categories | 6 |
+| Projects | 9 |
+| Assets / images | 136 (each processed into 6 WebP variants) |
+
+### Access
+
+**From the host machine** (container bridge — always works from host):
+
+```bash
+incus list                                      # find container IP, e.g. 10.191.237.x
+curl http://<container-ip>:3000/api/portfolio   # verify API
+```
+
+**From other LAN devices** (requires iptables NAT — see profile header for exact commands):
+
+```text
+http://192.168.1.203:3000/    # host LAN IP
+```
+
+**Via SSH tunnel** (no server changes needed):
+
+```bash
+ssh -L 3000:<container-ip>:3000 <user>@<host>
+# then browse http://localhost:3000/
+```
+
+> **Note:** The Incus `user-1000` project forbids proxy devices, so standard port forwarding (`access.ports`) is not available. The container bridge IP (`10.191.237.x`) is only routable from the host machine itself. Use iptables NAT or SSH tunneling for browser access from other devices. iptables rules are ephemeral — reapply after each host reboot.
+
+### Validation Guidance
+
+Run non-destructive operations only:
+
+- `GET` requests against any API or public route
+- Browser smoke tests (public site, admin dashboard, image rendering)
+- Log inspection: `amplifier-digital-twin exec portfolio-builder-acceptance -- bash -lc 'tail -50 /var/log/portfolio-builder.log'`
+
+> **Warning:** Do not send `POST /api/admin/portfolio` with arbitrary or test payloads. This endpoint creates a portfolio row unconditionally and has no name validation. If multiple portfolio rows exist, the admin UI and public site resolve "the portfolio" through different queries (admin picks newest; public picks first-inserted), causing the admin panel to appear empty while the public site still shows data. The only safe portfolio creation flows are the standard onboarding wizard or the `populate-persona-api.js` script.
+
+### Cleanup
+
+```bash
+amplifier-digital-twin destroy portfolio-builder-acceptance
+```
+
+Also remove any ephemeral iptables rules added for LAN access (see profile header comments for the exact rule set).
+
+---
+
 ## AI-Assisted Testing
 
 The `data-testid` attributes enable AI assistants (like Claude with Playwright MCP) to:
