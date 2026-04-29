@@ -16,8 +16,11 @@ const DRY_RUN = process.argv.includes('--dry-run')
 
 async function main() {
   // Dynamic import so script works whether run from app root or container
-  const { PrismaClient } = require('@prisma/client')
-  const prisma = new PrismaClient()
+  const { PrismaClient } = await import('@prisma/client')
+  const { PrismaPg } = await import('@prisma/adapter-pg')
+  const connectionString = process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@localhost:5432/portfolio'
+  const adapter = new PrismaPg({ connectionString })
+  const prisma = new PrismaClient({ adapter })
 
   try {
     console.log(DRY_RUN ? '=== DRY RUN ===' : '=== LIVE RUN ===')
