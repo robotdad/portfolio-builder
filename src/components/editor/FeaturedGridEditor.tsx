@@ -155,6 +155,8 @@ function FeaturedItemEditor({
         ...item,
         imageId: asset.id,
         imageUrl: asset.url,
+        width: asset.width,
+        height: asset.height,
       })
       setOptimisticImageUrl(null)
       onSaveRequest?.()

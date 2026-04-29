@@ -68,6 +68,8 @@ export function FeaturedCarouselEditor({
         imageId: image.id,
         imageUrl: image.url,
         title: image.meta.alt || image.filename.replace(/\.[^/.]+$/, ''),
+        width: image.meta.width,
+        height: image.meta.height,
       }
     })
     
@@ -251,6 +253,8 @@ function CarouselItemEditor({
         ...item,
         imageId: asset.id,
         imageUrl: asset.url,
+        width: asset.width,
+        height: asset.height,
       })
       setOptimisticImageUrl(null)
       onSaveRequest?.()
@@ -343,6 +347,8 @@ function CarouselItemEditor({
       ...item,
       imageId: image.id,
       imageUrl: image.url,
+      width: image.meta.width,
+      height: image.meta.height,
     })
     setShowGalleryPicker(false)
   }, [item, onChange])

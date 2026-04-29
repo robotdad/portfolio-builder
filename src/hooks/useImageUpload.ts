@@ -19,7 +19,7 @@ interface UseImageUploadOptions {
   /** Called when upload starts - receives local preview URL */
   onOptimisticUpdate: (previewUrl: string) => void
   /** Called when upload completes successfully - receives server asset */
-  onSuccess: (asset: { id: string; url: string }) => void
+  onSuccess: (asset: { id: string; url: string; width?: number; height?: number }) => void
   /** Called when user clicks undo - receives previous image URL */
   onUndo: (previousUrl: string | undefined) => void
   /** Called on error */
