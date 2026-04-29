@@ -11,6 +11,7 @@ RUN npx prisma generate
 # Stage 2: Build the application
 FROM node:22-alpine AS builder
 WORKDIR /app
+ENV NEXT_OUTPUT_MODE=standalone
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
