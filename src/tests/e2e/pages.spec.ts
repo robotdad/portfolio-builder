@@ -36,4 +36,23 @@ test.describe('Pages — naming and management', () => {
     // Slug should be derived from title, NOT a "new-page-{timestamp}" placeholder
     expect(created.slug).toBe('my-custom-page-title')
   })
+
+  test('Cancel on the create modal does not create a page', async ({ page, api }) => {
+    const pages = new PagesPage(page)
+    await pages.goto()
+
+    const portfolio = await api.getPortfolio()
+    const portfolioId = portfolio.data.id
+    const before = await api.getPages(portfolioId)
+
+    await pages.openCreateModal()
+    await pages.cancelRename()
+
+    // URL should still be /admin/pages (no navigation)
+    await expect(page).toHaveURL(/\/admin\/pages\/?$/)
+
+    // No page created
+    const after = await api.getPages(portfolioId)
+    expect(after.length).toBe(before.length)
+  })
 })
