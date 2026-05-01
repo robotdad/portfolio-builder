@@ -87,4 +87,27 @@ test.describe('Pages — naming and management', () => {
     const updated = after.find((p: { id: string }) => p.id === pageId)
     expect(updated.title).toBe('Renamed Title')
   })
+
+  test('Homepage delete button is disabled and does not open the delete modal', async ({ page, api }) => {
+    const portfolio = await api.getPortfolio()
+    const portfolioId = portfolio.data.id
+
+    // The seeded persona always has a homepage. Find it.
+    const allPages = await api.getPages(portfolioId)
+    const homepage = allPages.find((p: { isHomepage: boolean }) => p.isHomepage)
+    expect(homepage, 'expected a homepage in seeded data').toBeDefined()
+
+    const pages = new PagesPage(page)
+    await pages.goto()
+
+    const homepageItem = pages.pageItem(homepage.id)
+    await expect(homepageItem).toBeVisible()
+
+    const deleteBtn = homepageItem.getByTestId(selectors.pageItemDeleteBtn)
+    await expect(deleteBtn).toBeDisabled()
+
+    // Clicking a disabled button must not open the delete modal
+    await deleteBtn.click({ force: true }).catch(() => {})
+    await expect(page.getByTestId(selectors.deletePageModal)).not.toBeVisible()
+  })
 })
