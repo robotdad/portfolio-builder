@@ -88,6 +88,37 @@ test.describe('Pages — naming and management', () => {
     expect(updated.title).toBe('Renamed Title')
   })
 
+  test('Rename pencil in the page editor persists the new title', async ({ page, api }) => {
+    const portfolio = await api.getPortfolio()
+    const portfolioId = portfolio.data.id
+
+    const created = await api.createPage({
+      portfolioId,
+      title: 'Editor Rename Original',
+      showInNav: true,
+    })
+    const pageId = created.id as string
+
+    await page.goto(`/admin/pages/${pageId}`)
+    await page.waitForLoadState('networkidle')
+
+    await expect(page.getByText('Editor Rename Original').first()).toBeVisible()
+
+    await page.getByTestId(selectors.pageEditorRenameBtn).click()
+    await expect(page.getByTestId(selectors.renameModal)).toBeVisible()
+
+    const input = page.getByTestId(selectors.renameModalInput)
+    await input.fill('Editor Rename Updated')
+    await page.getByTestId(selectors.renameModalSaveBtn).click()
+    await expect(page.getByTestId(selectors.renameModal)).not.toBeVisible({ timeout: 10000 })
+
+    await expect(page.getByText('Editor Rename Updated').first()).toBeVisible()
+
+    const after = await api.getPages(portfolioId)
+    const updated = after.find((p: { id: string }) => p.id === pageId)
+    expect(updated.title).toBe('Editor Rename Updated')
+  })
+
   test('Homepage delete button is disabled and does not open the delete modal', async ({ page, api }) => {
     const portfolio = await api.getPortfolio()
     const portfolioId = portfolio.data.id
