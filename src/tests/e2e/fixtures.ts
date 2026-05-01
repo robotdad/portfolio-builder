@@ -92,6 +92,36 @@ export class PortfolioAPI {
   async deleteProject(id: string) {
     return this.fetch(`/api/admin/projects/${id}`, { method: 'DELETE' })
   }
+
+  async getPages(portfolioId: string) {
+    const res = await this.fetch(`/api/pages?portfolioId=${portfolioId}`)
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status} ${await res.text()}`)
+    }
+    return res.json()
+  }
+
+  async createPage(data: {
+    portfolioId: string
+    title: string
+    slug?: string
+    showInNav?: boolean
+    draftContent?: string
+  }) {
+    const res = await this.fetch('/api/admin/pages', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status} ${await res.text()}`)
+    }
+    const body = await res.json()
+    return body.data ?? body
+  }
+
+  async deletePage(id: string) {
+    return this.fetch(`/api/admin/pages/${id}`, { method: 'DELETE' })
+  }
 }
 
 // Extended test with API fixture
@@ -198,4 +228,28 @@ export const selectors = {
   projectDetailYear: 'project-detail-year',
   projectDetailRole: 'project-detail-role',
   featuredWork: 'featured-work',
+
+  // Pages
+  pageList: 'page-list',
+  pageListEmpty: 'page-list-empty',
+  pageListEmptyCreateBtn: 'page-list-empty-create-btn',
+  pageCreateBtn: 'page-list-create-btn',
+  pageItem: (id: string) => `page-item-${id}`,
+  pageItemDragHandle: 'page-item-drag-handle',
+  pageItemEditBtn: 'page-item-edit-btn',
+  pageItemRenameBtn: 'page-item-rename-btn',
+  pageItemDeleteBtn: 'page-item-delete-btn',
+
+  // Page create/rename Modal (RenameModal — generic)
+  renameModal: 'rename-modal',
+  renameModalOverlay: 'rename-modal-overlay',
+  renameModalInput: 'rename-modal-input',
+  renameModalSaveBtn: 'rename-modal-save-btn',
+  renameModalCancelBtn: 'rename-modal-cancel-btn',
+  renameModalCloseBtn: 'rename-modal-close-btn',
+
+  // Delete Page Modal
+  deletePageModal: 'delete-page-modal',
+  deletePageModalConfirmBtn: 'delete-page-modal-confirm-btn',
+  deletePageModalCancelBtn: 'delete-page-modal-cancel-btn',
 }
