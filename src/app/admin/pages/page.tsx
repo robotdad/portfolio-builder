@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { PageList } from '@/components/admin/PageList'
 import { DeletePageModal } from '@/components/admin/DeletePageModal'
+import { RenameModal } from '@/components/admin/RenameModal'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { usePages, type Page } from '@/hooks/usePages'
 
@@ -51,6 +52,7 @@ export default function PagesPage() {
     isLoading: pagesLoading,
     error: pagesError,
     createPage,
+    updatePage,
     deletePage,
     reorderPages,
   } = usePages(portfolioId || '')
@@ -58,6 +60,15 @@ export default function PagesPage() {
   // Combined loading and error states
   const isLoading = portfolioLoading || (portfolioId ? pagesLoading : false)
   const error = portfolioError || pagesError
+
+  // Create modal state (uses RenameModal with empty currentName)
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [isCreating, setIsCreating] = useState(false)
+
+  // Rename modal state
+  const [isRenameModalOpen, setIsRenameModalOpen] = useState(false)
+  const [renamingPage, setRenamingPage] = useState<Page | null>(null)
+  const [isRenaming, setIsRenaming] = useState(false)
 
   // Delete modal state
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -79,32 +90,74 @@ export default function PagesPage() {
   // Router for navigation
   const router = useRouter()
 
-  // Open create page (navigate to a new page creation flow)
-  const handleCreateClick = useCallback(async () => {
+  // Open the naming modal — DO NOT create the page until the user provides a name
+  const handleCreateClick = useCallback(() => {
     if (!portfolioId) return
+    setIsCreateModalOpen(true)
+  }, [portfolioId])
 
+  // Submit handler for the create modal
+  const handleCreateSave = useCallback(async (name: string) => {
+    if (!portfolioId) return
+    setIsCreating(true)
     try {
-      // Create a new blank page
+      // Note: we do NOT pass slug — the API auto-derives it from title
+      // (see src/app/api/admin/pages/route.ts:21).
       const newPage = await createPage({
-        title: 'New Page',
-        slug: `new-page-${Date.now()}`,
+        title: name,
         showInNav: true,
         draftContent: JSON.stringify([]),
       })
-
-      // Navigate to the editor
+      setIsCreateModalOpen(false)
       router.push(`/admin/pages/${newPage.id}`)
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to create page'
       console.error('Create page error:', err)
       showError(message)
+    } finally {
+      setIsCreating(false)
     }
   }, [portfolioId, createPage, router, showError])
+
+  const handleCreateClose = useCallback(() => {
+    if (!isCreating) {
+      setIsCreateModalOpen(false)
+    }
+  }, [isCreating])
 
   // Open page editor (navigate to edit)
   const handleEditClick = useCallback((page: Page) => {
     router.push(`/admin/pages/${page.id}`)
   }, [router])
+
+  // Open rename modal
+  const handleRenameClick = useCallback((page: Page) => {
+    setRenamingPage(page)
+    setIsRenameModalOpen(true)
+  }, [])
+
+  const handleRenameSave = useCallback(async (newName: string) => {
+    if (!renamingPage) return
+    setIsRenaming(true)
+    try {
+      await updatePage(renamingPage.id, { title: newName })
+      setIsRenameModalOpen(false)
+      setRenamingPage(null)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to rename page'
+      console.error('Rename page error:', err)
+      showError(message)
+    } finally {
+      setIsRenaming(false)
+    }
+  }, [renamingPage, updatePage, showError])
+
+  const handleRenameClose = useCallback(() => {
+    if (!isRenaming) {
+      setIsRenameModalOpen(false)
+      setRenamingPage(null)
+    }
+  }, [isRenaming])
 
   // Open delete confirmation modal
   const handleDeleteClick = useCallback((page: Page) => {
@@ -204,12 +257,35 @@ export default function PagesPage() {
           pages={pages}
           onCreateClick={handleCreateClick}
           onEditClick={handleEditClick}
+          onRenameClick={handleRenameClick}
           onDeleteClick={handleDeleteClick}
           onReorder={handleReorder}
           isReordering={isReordering}
           isLoading={isLoading}
         />
       </main>
+
+      {/* Create Page Modal — RenameModal with empty currentName */}
+      <RenameModal
+        isOpen={isCreateModalOpen}
+        title="Create Page"
+        label="Page Title"
+        currentName=""
+        onSave={handleCreateSave}
+        onClose={handleCreateClose}
+        isSubmitting={isCreating}
+      />
+
+      {/* Rename Page Modal */}
+      <RenameModal
+        isOpen={isRenameModalOpen}
+        title="Rename Page"
+        label="Page Title"
+        currentName={renamingPage?.title || ''}
+        onSave={handleRenameSave}
+        onClose={handleRenameClose}
+        isSubmitting={isRenaming}
+      />
 
       {/* Delete Confirmation Modal */}
       <DeletePageModal
