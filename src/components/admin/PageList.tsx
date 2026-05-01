@@ -36,6 +36,8 @@ interface PageListProps {
   onCreateClick: () => void
   /** Callback fired when user clicks edit on a page */
   onEditClick: (page: Page) => void
+  /** Callback fired when user clicks the inline rename pencil on a page */
+  onRenameClick: (page: Page) => void
   /** Callback fired when user clicks delete on a page */
   onDeleteClick: (page: Page) => void
   /** Callback fired when pages are reordered via drag-and-drop */
@@ -385,6 +387,7 @@ export function PageList({
   pages,
   onCreateClick,
   onEditClick,
+  onRenameClick,
   onDeleteClick,
   onReorder,
   isReordering = false,
@@ -605,6 +608,7 @@ export function PageList({
                   page={page}
                   onNavigate={() => onEditClick(page)}
                   onEdit={() => onEditClick(page)}
+                  onRename={() => onRenameClick(page)}
                   onDelete={() => onDeleteClick(page)}
                 />
               </div>
