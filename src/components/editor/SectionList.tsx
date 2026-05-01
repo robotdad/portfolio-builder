@@ -34,6 +34,7 @@ import { ProjectListEditor } from './ProjectListEditor'
 import { LayoutTwoColumnEditor } from './layouts/LayoutTwoColumnEditor'
 import { LayoutThreeColumnEditor } from './layouts/LayoutThreeColumnEditor'
 import { LayoutSidebarEditor } from './layouts/LayoutSidebarEditor'
+import { DeleteSectionModal } from '@/components/admin/DeleteSectionModal'
 import type { 
   Section,
   ContentSection,
@@ -63,6 +64,7 @@ interface SectionListProps {
 
 export function SectionList({ sections, portfolioId, categoryId, projectId, onChange, onSaveRequest }: SectionListProps) {
   const [activeId, setActiveId] = useState<string | null>(null)
+  const [pendingDeleteIndex, setPendingDeleteIndex] = useState<number | null>(null)
   
   // Detect if a hero section already exists (only one allowed)
   const hasHeroSection = sections.some(s => s.type === 'hero')
@@ -115,9 +117,23 @@ export function SectionList({ sections, portfolioId, categoryId, projectId, onCh
     onChange(newSections)
   }
 
+  // User clicked delete on a section — open a confirmation modal
+  // instead of removing it immediately.
   const handleSectionDelete = (index: number) => {
-    const newSections = sections.filter((_, i) => i !== index)
+    setPendingDeleteIndex(index)
+  }
+
+  // User confirmed in the modal — actually remove the section.
+  const handleConfirmDelete = () => {
+    if (pendingDeleteIndex === null) return
+    const newSections = sections.filter((_, i) => i !== pendingDeleteIndex)
     onChange(newSections)
+    setPendingDeleteIndex(null)
+  }
+
+  // User cancelled — keep the section.
+  const handleCancelDelete = () => {
+    setPendingDeleteIndex(null)
   }
 
   const handleInsertSection = (index: number, section: Section) => {
@@ -139,13 +155,14 @@ export function SectionList({ sections, portfolioId, categoryId, projectId, onCh
     : null
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      onDragCancel={handleDragCancel}
-    >
+    <>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        onDragCancel={handleDragCancel}
+      >
       <SortableContext
         items={sections.map((s) => s.id)}
         strategy={verticalListSortingStrategy}
@@ -203,7 +220,13 @@ export function SectionList({ sections, portfolioId, categoryId, projectId, onCh
           </div>
         ) : null}
       </DragOverlay>
-    </DndContext>
+      </DndContext>
+      <DeleteSectionModal
+        isOpen={pendingDeleteIndex !== null}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+      />
+    </>
   )
 }
 
