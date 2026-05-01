@@ -119,6 +119,57 @@ test.describe('Pages — naming and management', () => {
     expect(updated.title).toBe('Editor Rename Updated')
   })
 
+  test('Section delete shows confirmation; cancel preserves; confirm removes', async ({ page, api }) => {
+    const portfolio = await api.getPortfolio()
+    const portfolioId = portfolio.data.id
+
+    // Pre-seed a page with one text section so we have something to delete.
+    const draftContent = JSON.stringify([
+      {
+        id: 'sec-test-1',
+        type: 'text',
+        content: '<p>This is a section we will try to delete.</p>',
+      },
+    ])
+
+    const created = await api.createPage({
+      portfolioId,
+      title: `Section Delete Test Page ${Date.now()}`,
+      showInNav: true,
+      draftContent,
+    })
+    const pageId = created.id as string
+
+    await page.goto(`/admin/pages/${pageId}`)
+    await page.waitForLoadState('networkidle')
+
+    // Wait for section content to confirm sections loaded from draftContent
+    await expect(page.getByText('This is a section we will try to delete.')).toBeVisible({ timeout: 10000 })
+
+    // The text section's editor exposes a delete button labelled "Delete section".
+    const deleteSectionBtn = page.getByRole('button', { name: 'Delete section' }).first()
+    await expect(deleteSectionBtn).toBeVisible()
+    await deleteSectionBtn.click()
+
+    // Confirmation modal should appear and the section should still be present
+    await expect(page.getByTestId(selectors.deleteSectionModal)).toBeVisible()
+    await expect(page.getByText('This is a section we will try to delete.')).toBeVisible()
+
+    // Cancel — the section must remain
+    await page.getByTestId(selectors.deleteSectionModalCancelBtn).click()
+    await expect(page.getByTestId(selectors.deleteSectionModal)).not.toBeVisible({ timeout: 5000 })
+    await expect(page.getByText('This is a section we will try to delete.')).toBeVisible()
+
+    // Click delete again, this time confirm
+    await deleteSectionBtn.click()
+    await expect(page.getByTestId(selectors.deleteSectionModal)).toBeVisible()
+    await page.getByTestId(selectors.deleteSectionModalConfirmBtn).click()
+    await expect(page.getByTestId(selectors.deleteSectionModal)).not.toBeVisible({ timeout: 5000 })
+
+    // The section should now be gone from the editor view
+    await expect(page.getByText('This is a section we will try to delete.')).not.toBeVisible()
+  })
+
   test('Homepage delete button is disabled and does not open the delete modal', async ({ page, api }) => {
     const portfolio = await api.getPortfolio()
     const portfolioId = portfolio.data.id
