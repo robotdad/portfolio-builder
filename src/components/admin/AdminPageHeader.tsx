@@ -24,9 +24,10 @@ export interface AdminPageHeaderProps {
     | { type: 'breadcrumb'; items: BreadcrumbItem[] }
   
   /**
-   * Page title - shown below breadcrumb on mobile, optional on desktop
+   * Page title - shown below breadcrumb on mobile, optional on desktop.
+   * Accepts React.ReactNode so callers can embed action elements (e.g. rename pencil).
    */
-  title?: string
+  title?: React.ReactNode
   
   /**
    * Optional action element rendered inline next to the page title.
