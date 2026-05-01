@@ -55,4 +55,36 @@ test.describe('Pages — naming and management', () => {
     const after = await api.getPages(portfolioId)
     expect(after.length).toBe(before.length)
   })
+
+  test('Rename pencil opens RenameModal and persists the new title', async ({ page, api }) => {
+    const portfolio = await api.getPortfolio()
+    const portfolioId = portfolio.data.id
+
+    // Create a fixture page directly via API (bypass UI for setup speed)
+    const created = await api.createPage({
+      portfolioId,
+      title: 'Original Title',
+      showInNav: true,
+    })
+    const pageId = created.id as string
+
+    const pages = new PagesPage(page)
+    await pages.goto()
+
+    // Sanity: the item appears with the original title
+    await expect(pages.pageItem(pageId)).toContainText('Original Title')
+
+    // Click rename pencil and submit a new name
+    await pages.clickRenameButton(pageId)
+    await expect(page.getByTestId(selectors.renameModal)).toBeVisible()
+    await pages.submitRename('Renamed Title')
+
+    // UI should reflect the new title
+    await expect(pages.pageItem(pageId)).toContainText('Renamed Title')
+
+    // Backend should agree
+    const after = await api.getPages(portfolioId)
+    const updated = after.find((p: { id: string }) => p.id === pageId)
+    expect(updated.title).toBe('Renamed Title')
+  })
 })
