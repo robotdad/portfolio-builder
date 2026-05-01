@@ -239,6 +239,7 @@ export const selectors = {
   pageItemEditBtn: 'page-item-edit-btn',
   pageItemRenameBtn: 'page-item-rename-btn',
   pageItemDeleteBtn: 'page-item-delete-btn',
+  pageEditorRenameBtn: 'page-editor-rename-btn',
 
   // Page create/rename Modal (RenameModal — generic)
   renameModal: 'rename-modal',
@@ -252,4 +253,9 @@ export const selectors = {
   deletePageModal: 'delete-page-modal',
   deletePageModalConfirmBtn: 'delete-page-modal-confirm-btn',
   deletePageModalCancelBtn: 'delete-page-modal-cancel-btn',
+
+  // Delete Section Modal (in page editor)
+  deleteSectionModal: 'delete-section-modal',
+  deleteSectionModalConfirmBtn: 'delete-section-modal-confirm-btn',
+  deleteSectionModalCancelBtn: 'delete-section-modal-cancel-btn',
 }
