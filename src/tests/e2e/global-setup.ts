@@ -6,10 +6,22 @@
  */
 import { execSync } from 'child_process'
 import path from 'path'
+import { fileURLToPath } from 'url'
+
+// ESM-compatible __dirname (package.json has "type": "module")
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export default async function globalSetup() {
   const projectRoot = path.resolve(__dirname, '../../..')
-  
+
+  // In development (reuseExistingServer), DATABASE_URL may not be available in this
+  // subprocess — skip destructive reset to protect the running server's database.
+  if (!process.env.DATABASE_URL) {
+    console.log('⚠️  DATABASE_URL not set — skipping database reset (reusing existing server state)')
+    return
+  }
+
   console.log('🗑️  Resetting test database...')
   try {
     // Reset database to clean state
