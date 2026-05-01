@@ -14,6 +14,7 @@ interface PageListItemProps {
   page: Page
   onNavigate: (pageId: string) => void
   onEdit: (page: Page) => void
+  onRename: (page: Page) => void
   onDelete: (page: Page) => void
 }
 
@@ -85,6 +86,7 @@ export function PageListItem({
   page,
   onNavigate,
   onEdit,
+  onRename,
   onDelete,
 }: PageListItemProps) {
   const {
@@ -110,8 +112,14 @@ export function PageListItem({
     onEdit(page)
   }, [page, onEdit])
 
+  const handleRename = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation()
+    onRename(page)
+  }, [page, onRename])
+
   const handleDelete = useCallback((e: React.MouseEvent) => {
     e.stopPropagation()
+    if (page.isHomepage) return
     onDelete(page)
   }, [page, onDelete])
 
@@ -158,7 +166,18 @@ export function PageListItem({
 
       {/* Info */}
       <div className={styles.info}>
-        <h3 className={styles.title}>{page.title}</h3>
+        <div className={styles.nameRow}>
+          <h3 className={styles.title}>{page.title}</h3>
+          <button
+            className={styles.renameBtn}
+            onClick={handleRename}
+            aria-label={`Rename ${page.title}`}
+            type="button"
+            data-testid="page-item-rename-btn"
+          >
+            <PencilIcon />
+          </button>
+        </div>
         <span className={styles.slug}>{displaySlug}</span>
         <div className={styles.badges}>
           {/* Status Badge */}
@@ -210,9 +229,16 @@ export function PageListItem({
         </button>
 
         <button
-          className={`${styles.actionDanger} icon-btn destructive`}
+          className={`${page.isHomepage ? styles.actionDisabled : styles.actionDanger} icon-btn ${page.isHomepage ? '' : 'destructive'}`}
           onClick={handleDelete}
-          aria-label={`Delete ${page.title}`}
+          aria-label={
+            page.isHomepage
+              ? `Cannot delete ${page.title} — this is the homepage`
+              : `Delete ${page.title}`
+          }
+          title={page.isHomepage ? 'Homepage cannot be deleted' : undefined}
+          disabled={page.isHomepage}
+          aria-disabled={page.isHomepage}
           type="button"
           data-testid="page-item-delete-btn"
         >

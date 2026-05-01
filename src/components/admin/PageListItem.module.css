@@ -204,3 +204,59 @@
     display: inline;
   }
 }
+
+/* Name row with inline rename button (mirrors CategoryListItem) */
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.renameBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  background: transparent;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition-fast),
+              background-color var(--transition-fast),
+              color var(--transition-fast);
+}
+
+.pageListItem:hover .renameBtn,
+.pageListItem:focus-within .renameBtn {
+  opacity: 1;
+}
+
+.renameBtn:hover {
+  background: var(--admin-bg-secondary);
+  color: var(--admin-text);
+}
+
+.renameBtn:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--admin-primary);
+  outline-offset: 2px;
+}
+
+/* Disabled delete button (e.g. for homepage protection) */
+.actionDisabled {
+  composes: action;
+  opacity: 0.4;
+  cursor: not-allowed;
+  color: var(--admin-text-muted);
+}
+
+.actionDisabled:hover {
+  background: transparent;
+  border-color: var(--admin-border);
+}
