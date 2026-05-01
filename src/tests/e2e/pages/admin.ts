@@ -172,3 +172,76 @@ export class ProjectPage extends AdminPage {
     await this.page.waitForURL(/\/admin\/projects\//, { timeout: 10000 })
   }
 }
+
+/**
+ * Page management (/admin/pages)
+ *
+ * Mirrors CategoryPage but uses the generic RenameModal for both create
+ * and rename flows.
+ */
+export class PagesPage extends AdminPage {
+  async goto() {
+    await super.goto('/pages')
+    await this.waitForListOrEmpty()
+  }
+
+  async waitForListOrEmpty() {
+    await expect(
+      this.page.getByTestId(selectors.pageList).or(this.page.getByTestId(selectors.pageListEmpty))
+    ).toBeVisible({ timeout: 10000 })
+  }
+
+  get list(): Locator {
+    return this.page.getByTestId(selectors.pageList)
+  }
+
+  /** Create button (works for both list and empty state). */
+  get createButton(): Locator {
+    return this.page.getByTestId(selectors.pageCreateBtn)
+      .or(this.page.getByTestId(selectors.pageListEmptyCreateBtn))
+  }
+
+  pageItem(id: string): Locator {
+    return this.page.getByTestId(selectors.pageItem(id))
+  }
+
+  /** Open the create-page naming modal. */
+  async openCreateModal() {
+    await this.createButton.first().click()
+    await expect(this.page.getByTestId(selectors.renameModal)).toBeVisible()
+  }
+
+  /** Type a name and submit the rename modal (used for create AND rename). */
+  async submitRename(name: string) {
+    const input = this.page.getByTestId(selectors.renameModalInput)
+    await input.fill(name)
+    await this.page.getByTestId(selectors.renameModalSaveBtn).click()
+    await expect(this.page.getByTestId(selectors.renameModal)).not.toBeVisible({ timeout: 10000 })
+  }
+
+  /** Click cancel on the rename modal. */
+  async cancelRename() {
+    await this.page.getByTestId(selectors.renameModalCancelBtn).click()
+    await expect(this.page.getByTestId(selectors.renameModal)).not.toBeVisible({ timeout: 10000 })
+  }
+
+  /** Click the rename pencil on a page item. */
+  async clickRenameButton(pageId: string) {
+    const item = this.pageItem(pageId)
+    await item.hover()
+    await item.getByTestId(selectors.pageItemRenameBtn).click()
+  }
+
+  /** Click the delete trash on a page item. */
+  async clickDeleteButton(pageId: string) {
+    const item = this.pageItem(pageId)
+    await item.hover()
+    await item.getByTestId(selectors.pageItemDeleteBtn).click()
+  }
+
+  async confirmDelete() {
+    await expect(this.page.getByTestId(selectors.deletePageModal)).toBeVisible()
+    await this.page.getByTestId(selectors.deletePageModalConfirmBtn).click()
+    await expect(this.page.getByTestId(selectors.deletePageModal)).not.toBeVisible({ timeout: 10000 })
+  }
+}
