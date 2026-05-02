@@ -12,6 +12,8 @@ import { test as base, expect } from '@playwright/test'
 // API client for test setup/teardown
 export class PortfolioAPI {
   private baseUrl: string
+  /** Pages created during this test — cleaned up automatically by the fixture. */
+  readonly createdPageIds: string[] = []
 
   constructor(baseUrl = 'http://localhost:3000') {
     this.baseUrl = baseUrl
@@ -116,7 +118,9 @@ export class PortfolioAPI {
       throw new Error(`API error: ${res.status} ${await res.text()}`)
     }
     const body = await res.json()
-    return body.data ?? body
+    const result = body.data ?? body
+    if (result.id) this.createdPageIds.push(result.id)
+    return result
   }
 
   async deletePage(id: string) {
@@ -124,11 +128,15 @@ export class PortfolioAPI {
   }
 }
 
-// Extended test with API fixture
+// Extended test with API fixture — auto-cleans pages created during the test
 export const test = base.extend<{ api: PortfolioAPI }>({
   api: async ({}, use) => {
     const api = new PortfolioAPI()
     await use(api)
+    // Teardown: delete any pages created during this test
+    for (const id of api.createdPageIds) {
+      await api.deletePage(id).catch(() => {})
+    }
   },
 })
 

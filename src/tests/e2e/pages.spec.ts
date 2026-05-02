@@ -35,6 +35,9 @@ test.describe('Pages — naming and management', () => {
     expect(created.title).toBe('My Custom Page Title')
     // Slug should be derived from title, NOT a "new-page-{timestamp}" placeholder
     expect(created.slug).toBe('my-custom-page-title')
+
+    // Track for fixture teardown (page was created via UI, not api.createPage)
+    api.createdPageIds.push(created.id)
   })
 
   test('Cancel on the create modal does not create a page', async ({ page, api }) => {
